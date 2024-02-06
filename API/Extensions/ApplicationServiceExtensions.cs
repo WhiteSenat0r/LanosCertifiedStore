@@ -1,4 +1,6 @@
-﻿namespace API.Extensions;
+﻿using Application.Vehicles.ListVehicles;
+
+namespace API.Extensions;
 
 internal static class ApplicationServiceExtensions
 {
@@ -8,6 +10,7 @@ internal static class ApplicationServiceExtensions
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ListVehiclesQueryHandler).Assembly));
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         services.AddCors(opt =>
