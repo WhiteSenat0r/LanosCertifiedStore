@@ -1,4 +1,6 @@
 ﻿using Application.Vehicles.ListVehicles;
+using Domain.Contracts.RepositoryRelated;
+using Persistence;
 
 namespace API.Extensions;
 
@@ -10,6 +12,8 @@ internal static class ApplicationServiceExtensions
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ListVehiclesQueryHandler).Assembly));
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

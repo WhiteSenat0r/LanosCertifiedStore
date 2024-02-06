@@ -4,7 +4,10 @@ using API.Responses;
 
 namespace API.Middleware;
 
-public sealed class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger, IHostEnvironment env)
+internal sealed class ExceptionMiddleware(
+    RequestDelegate next,
+    ILogger<ExceptionMiddleware> logger,
+    IHostEnvironment env)
 {
     public async Task InvokeAsync(HttpContext context)
     {
