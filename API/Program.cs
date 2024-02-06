@@ -1,5 +1,7 @@
 using API.Extensions;
 using API.Middleware;
+using Microsoft.EntityFrameworkCore;
+using Persistence.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
+
+builder.Services.AddDbContext<ApplicationDatabaseContext>(option =>
+{
+    option.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection"),
+        o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
+});
 
 var app = builder.Build();
 
