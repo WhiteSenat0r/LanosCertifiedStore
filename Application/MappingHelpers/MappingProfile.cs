@@ -1,5 +1,6 @@
 ﻿using Application.Dtos;
 using Application.Dtos.BrandDtos;
+using Application.Dtos.ModelDtos;
 using AutoMapper;
 using Domain.Entities.VehicleRelated.Classes;
 
