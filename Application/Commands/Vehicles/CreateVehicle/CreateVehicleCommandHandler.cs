@@ -3,7 +3,7 @@ using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
 
-namespace Application.Vehicles.CreateVehicle;
+namespace Application.Commands.Vehicles.CreateVehicle;
 
 internal sealed class CreateVehicleCommandHandler(IRepository<Vehicle> vehicleRepository, IUnitOfWork unitOfWork)
     : IRequestHandler<CreateVehicleCommand, Result<Unit>>

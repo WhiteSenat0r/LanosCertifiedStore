@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.Vehicles.ListVehicles;
+namespace Application.Queries.Vehicles.ListVehicles;
 
 internal sealed class ListVehiclesQueryHandler() : IRequestHandler<ListVehiclesQuery>
 {

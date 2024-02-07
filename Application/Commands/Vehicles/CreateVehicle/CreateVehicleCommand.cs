@@ -2,6 +2,6 @@
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
 
-namespace Application.Vehicles.CreateVehicle;
+namespace Application.Commands.Vehicles.CreateVehicle;
 
 public record CreateVehicleCommand(Vehicle Vehicle) : IRequest<Result<Unit>>;

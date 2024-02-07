@@ -1,4 +1,7 @@
-﻿namespace API.Extensions;
+﻿using Domain.Contracts.RepositoryRelated;
+using Persistence;
+
+namespace API.Extensions;
 
 internal static class ApiServiceExtensions
 {
@@ -8,7 +11,6 @@ internal static class ApiServiceExtensions
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
      
-        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         services.AddCors(opt =>
         {
