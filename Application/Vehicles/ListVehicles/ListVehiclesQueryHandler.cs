@@ -1,11 +1,13 @@
-﻿using MediatR;
+﻿using Domain.Contracts.RepositoryRelated;
+using Domain.Entities.VehicleRelated.Classes;
+using MediatR;
 
 namespace Application.Vehicles.ListVehicles;
 
-public sealed class ListVehiclesQueryHandler : IRequestHandler<ListVehiclesQuery>
+internal sealed class ListVehiclesQueryHandler() : IRequestHandler<ListVehiclesQuery>
 {
-    public Task Handle(ListVehiclesQuery request, CancellationToken cancellationToken)
+    public async Task Handle(ListVehiclesQuery request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        // var vehicles = await vehicleRepository.GetAllEntitiesAsync();
     }
 }
