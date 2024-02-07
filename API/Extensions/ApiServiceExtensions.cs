@@ -1,7 +1,4 @@
-﻿using Domain.Contracts.RepositoryRelated;
-using Persistence;
-
-namespace API.Extensions;
+﻿namespace API.Extensions;
 
 internal static class ApiServiceExtensions
 {

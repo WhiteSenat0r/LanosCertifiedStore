@@ -14,6 +14,8 @@ internal sealed class UpdateBrandCommandHandler(IRepository<VehicleBrand> brandR
         var brand = await brandRepository.GetSingleEntityBySpecificationAsync(
             new BrandQuerySpecification(request.UpdateBrandDto.BrandName));
 
+        if (brand is null) return null;
+
         brand.Name = request.UpdateBrandDto.UpdatedBrandName;
 
         brandRepository.UpdateExistingEntity(brand);
