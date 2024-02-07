@@ -1,5 +1,4 @@
 ﻿using Domain.Contracts.RepositoryRelated;
-using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 
 namespace Persistence;
