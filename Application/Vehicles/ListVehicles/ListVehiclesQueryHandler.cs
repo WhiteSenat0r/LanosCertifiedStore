@@ -1,6 +1,4 @@
-﻿using Domain.Contracts.RepositoryRelated;
-using Domain.Entities.VehicleRelated.Classes;
-using MediatR;
+﻿using MediatR;
 
 namespace Application.Vehicles.ListVehicles;
 
