@@ -1,7 +1,5 @@
-﻿namespace Application.Dtos.ModelDtos;
+﻿using Application.Dtos.Common;
 
-public sealed class UpdateModelDto
-{
-    public string CurrentName { get; set; }
-    public string UpdatedName { get; set; }
-}
+namespace Application.Dtos.ModelDtos;
+
+public sealed class UpdateModelDto : UpdateVehicleAspectDto;
