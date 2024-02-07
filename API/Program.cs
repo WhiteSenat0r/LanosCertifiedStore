@@ -1,20 +1,17 @@
 using API.Extensions;
 using API.Middleware;
+using Application.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
+using Persistence.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-builder.Services.AddApplicationServices(builder.Configuration);
-
-builder.Services.AddDbContext<ApplicationDatabaseContext>(option =>
-{
-    option.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection"),
-        o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
-});
+builder.Services.AddApiServices(builder.Configuration);
+builder.Services.AddApplicationServices();
+builder.Services.AddPersistenceServices(builder.Configuration);
 
 var app = builder.Build();
 

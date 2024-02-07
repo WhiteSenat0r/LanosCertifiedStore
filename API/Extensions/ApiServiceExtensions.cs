@@ -4,17 +4,14 @@ using Persistence;
 
 namespace API.Extensions;
 
-internal static class ApplicationServiceExtensions
+internal static class ApiServiceExtensions
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration config)
     {
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
-        
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ListVehiclesQueryHandler).Assembly));
+     
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         services.AddCors(opt =>
