@@ -11,5 +11,4 @@ public static class ApplicationServiceExtensions
 
         return services;
     }
-    
 }
