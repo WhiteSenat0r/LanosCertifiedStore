@@ -1,5 +1,5 @@
 ﻿using MediatR;
 
-namespace Application.Vehicles.ListVehicles;
+namespace Application.Queries.Vehicles.ListVehicles;
 
 public sealed record ListVehiclesQuery() : IRequest;

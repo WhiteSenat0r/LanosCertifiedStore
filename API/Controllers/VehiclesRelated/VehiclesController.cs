@@ -1,5 +1,5 @@
 ﻿using API.Controllers.Common;
-using Application.Vehicles.CreateVehicle;
+using Application.Commands.Vehicles.CreateVehicle;
 using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.AspNetCore.Mvc;
 

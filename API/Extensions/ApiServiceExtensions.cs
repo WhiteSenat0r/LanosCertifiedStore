@@ -1,5 +1,4 @@
-﻿using Application.Vehicles.ListVehicles;
-using Domain.Contracts.RepositoryRelated;
+﻿using Domain.Contracts.RepositoryRelated;
 using Persistence;
 
 namespace API.Extensions;
@@ -12,7 +11,6 @@ internal static class ApiServiceExtensions
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
      
-        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         services.AddCors(opt =>
         {
