@@ -1,6 +1,5 @@
 ﻿using Application.Core;
 using Application.Dtos.VehicleDtos;
-using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
 
 namespace Application.Commands.Vehicles.CreateVehicle;

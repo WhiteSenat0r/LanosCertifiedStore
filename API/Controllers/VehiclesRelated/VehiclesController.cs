@@ -3,7 +3,6 @@ using Application.Commands.Vehicles.CreateVehicle;
 using Application.Dtos.VehicleDtos;
 using Application.Queries.Vehicles.ListVehicles;
 using Application.Queries.Vehicles.VehicleDetails;
-using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.VehiclesRelated;
