@@ -17,13 +17,13 @@ public sealed class BrandsController : BaseEntityRelatedApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateBrand(string name)
+    public async Task<IActionResult> CreateBrand([FromQuery] string name)
     {
         return HandleResult(await Mediator.Send(new CreateBrandCommand(name)));
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateBrand(UpdateBrandDto updateBrandDto)
+    public async Task<IActionResult> UpdateBrand([FromBody] UpdateBrandDto updateBrandDto)
     {
         return HandleResult(await Mediator.Send(new UpdateBrandCommand(updateBrandDto)));
     }

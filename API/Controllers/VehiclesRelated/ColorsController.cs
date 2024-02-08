@@ -17,20 +17,20 @@ public sealed class ColorsController : BaseEntityRelatedApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateColor(string colorName)
+    public async Task<IActionResult> CreateColor([FromQuery] string name)
     {
-        return HandleResult(await Mediator.Send(new CreateColorCommand(colorName)));
+        return HandleResult(await Mediator.Send(new CreateColorCommand(name)));
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateColor(UpdateColorDto updateColorDto)
+    public async Task<IActionResult> UpdateColor([FromBody] UpdateColorDto updateColorDto)
     {
         return HandleResult(await Mediator.Send(new UpdateColorCommand(updateColorDto)));
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> DeleteColor(string colorName)
+    [HttpDelete("{name}")]
+    public async Task<IActionResult> DeleteColor(string name)
     {
-        return HandleResult(await Mediator.Send(new DeleteColorCommand(colorName)));
+        return HandleResult(await Mediator.Send(new DeleteColorCommand(name)));
     }
 }
