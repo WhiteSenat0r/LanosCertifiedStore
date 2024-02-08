@@ -1,8 +1,10 @@
 ﻿using Domain.Contracts.RepositoryRelated;
+using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Contexts;
+using Persistence.Repositories;
 
 namespace Persistence.Extensions;
 
@@ -17,7 +19,20 @@ public static class PersistenceServiceExtensions
         });
         
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        
+
+        AddRepositories(services);
+
         return services;
+    }
+
+    private static void AddRepositories(IServiceCollection services)
+    {
+        services.AddScoped<IRepository<Vehicle>, VehicleRepository>();
+        services.AddScoped<IRepository<VehicleBrand>, VehicleBrandRepository>();
+        services.AddScoped<IRepository<VehicleType>, VehicleTypeRepository>();
+        services.AddScoped<IRepository<VehicleColor>, VehicleColorRepository>();
+        services.AddScoped<IRepository<VehicleDisplacement>, VehicleDisplacementRepository>();
+        services.AddScoped<IRepository<VehicleModel>, VehicleModelRepository>();
+        services.AddScoped<IRepository<VehiclePrice>, VehiclePriceRepository>();
     }
 }
