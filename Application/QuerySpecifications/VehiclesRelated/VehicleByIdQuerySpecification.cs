@@ -12,6 +12,6 @@ public class VehicleByIdQuerySpecification : QuerySpecification<Vehicle>
         AddInclude(v => v.Model);
         AddInclude(v => v.Displacement);
         AddInclude(v => v.Color);
-        AddInclude(v => v.Price);
+        AddInclude(v => v.Prices);
     }
 }

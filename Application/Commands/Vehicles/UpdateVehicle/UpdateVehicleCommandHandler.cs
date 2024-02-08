@@ -19,7 +19,7 @@ internal sealed class UpdateVehicleCommandHandler(
         ApplyChangedDataOnUpdatedVehicle(request, updatedVehicle);
         
         if (IsAlteredPriceValue(request, updatedVehicle))
-            updatedVehicle.Price.Add(new VehiclePrice(updatedVehicle.Id, request.ActionVehicleDto.Price));
+            updatedVehicle.Prices.Add(new VehiclePrice(updatedVehicle.Id, request.ActionVehicleDto.Price));
         
         vehicleRepository.UpdateExistingEntity(updatedVehicle);
 
@@ -32,5 +32,5 @@ internal sealed class UpdateVehicleCommandHandler(
         mapper.Map(request.ActionVehicleDto, updatedVehicle);
 
     private bool IsAlteredPriceValue(UpdateVehicleCommand request, Vehicle updatedVehicle) => 
-        !updatedVehicle.Price.MaxBy(p => p.IssueDate).Value.Equals(request.ActionVehicleDto.Price);
+        !updatedVehicle.Prices.MaxBy(p => p.IssueDate).Value.Equals(request.ActionVehicleDto.Price);
 }
