@@ -1,5 +1,5 @@
 ﻿using Application.Core;
-using Application.Dtos.DislpacementDtos;
+using Application.Dtos.DisplacementDtos;
 using MediatR;
 
 namespace Application.Queries.Displacements;

@@ -1,5 +1,5 @@
 ﻿using Application.Core;
-using Application.Dtos.DislpacementDtos;
+using Application.Dtos.DisplacementDtos;
 using Application.QuerySpecifications.DisplacementRelated;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
