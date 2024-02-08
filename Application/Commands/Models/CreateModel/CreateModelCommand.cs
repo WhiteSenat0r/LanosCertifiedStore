@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Application.Commands.Models.CreateModel;
 
-public sealed record CreateModelCommand(string Name) : IRequest<Result<Unit>>;
+public sealed record CreateModelCommand(Guid BrandId, string Name) : IRequest<Result<Unit>>;
