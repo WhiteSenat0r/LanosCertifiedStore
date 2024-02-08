@@ -20,7 +20,6 @@
       <Folder Include="Queries\Displacements\" />
       <Folder Include="Queries\Types\" />
       <Folder Include="Queries\Vehicles\" />
-      <Folder Include="Vehicles\" />
     </ItemGroup>
 
 </Project>

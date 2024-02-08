@@ -10,7 +10,15 @@ internal sealed class CreateVehicleCommandHandler(IRepository<Vehicle> vehicleRe
 {
     public async Task<Result<Unit>> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
     {
-        await vehicleRepository.AddNewEntityAsync(request.Vehicle);
+        var vehicle = new Vehicle(
+            brandId: request.Vehicle.BrandId,
+            modelId: request.Vehicle.ModelId,
+            typeId: request.Vehicle.TypeId,
+            colorId: request.Vehicle.ColorId,
+            displacementId: request.Vehicle.DisplacementId,
+            description: request.Vehicle.Description);
+
+        await vehicleRepository.AddNewEntityAsync(vehicle);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

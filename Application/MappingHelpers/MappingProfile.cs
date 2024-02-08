@@ -3,6 +3,8 @@ using Application.Dtos.ModelDtos;
 using Application.Dtos.ColorDtos;
 using Application.Dtos.TypeDtos;
 using Application.Dtos.DisplacementDtos;
+using Application.Dtos.PriceDtos;
+using Application.Dtos.VehicleDtos;
 using AutoMapper;
 using Domain.Entities.VehicleRelated.Classes;
 
@@ -17,5 +19,14 @@ internal sealed class MappingProfile : Profile
         CreateMap<VehicleDisplacement, DisplacementDto>();
         CreateMap<VehicleModel, ModelDto>();
         CreateMap<VehicleType, TypeDto>();
+
+        CreateMap<Vehicle, VehicleDto>()
+            .ForMember(d => d.Brand, o => o.MapFrom(s => s.Brand.Name))
+            .ForMember(d => d.Type, o => o.MapFrom(s => s.Type.Name))
+            .ForMember(d => d.Color, o => o.MapFrom(s => s.Color.Name))
+            .ForMember(d => d.Model, o => o.MapFrom(s => s.Model.Name))
+            .ForMember(d => d.Displacement, o => o.MapFrom(s => s.Displacement.Value));
+
+        CreateMap<VehiclePrice, PriceDto>();
     }
 }
