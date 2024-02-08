@@ -4,4 +4,4 @@ using MediatR;
 
 namespace Application.Queries.Models;
 
-public sealed record ListModelsQuery() : IRequest<Result<IReadOnlyList<ModelDto>>>;
+public sealed record ListModelsQuery : IRequest<Result<IReadOnlyList<ModelDto>>>;

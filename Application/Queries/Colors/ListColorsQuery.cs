@@ -4,4 +4,4 @@ using MediatR;
 
 namespace Application.Queries.Colors;
 
-public sealed record ListColorsQuery() : IRequest<Result<IReadOnlyList<ColorDto>>>;
+public sealed record ListColorsQuery : IRequest<Result<IReadOnlyList<ColorDto>>>;

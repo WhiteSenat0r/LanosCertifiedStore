@@ -4,4 +4,4 @@ using MediatR;
 
 namespace Application.Queries.Brands;
 
-public sealed record ListBrandsQuery() : IRequest<Result<IReadOnlyList<BrandDto>>>;
+public sealed record ListBrandsQuery : IRequest<Result<IReadOnlyList<BrandDto>>>;

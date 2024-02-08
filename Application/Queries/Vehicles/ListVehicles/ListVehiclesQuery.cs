@@ -2,4 +2,4 @@
 
 namespace Application.Queries.Vehicles.ListVehicles;
 
-public sealed record ListVehiclesQuery() : IRequest;
+public sealed record ListVehiclesQuery : IRequest;
