@@ -11,8 +11,8 @@ internal sealed class DeleteBrandCommandHandler(IRepository<VehicleBrand> brandR
 {
     public async Task<Result<Unit>> Handle(DeleteBrandCommand request, CancellationToken cancellationToken)
     {
-        var brand =
-            await brandRepository.GetSingleEntityBySpecificationAsync(new BrandQuerySpecification(request.Name));
+        var brand = await brandRepository.GetSingleEntityBySpecificationAsync(
+                new BrandByNameQuerySpecification(request.Name));
 
         if (brand is null)
             return Result<Unit>.Failure("Such brand doesn't exist!");

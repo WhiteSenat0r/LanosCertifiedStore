@@ -3,4 +3,5 @@ using Domain.Entities.VehicleRelated.Classes;
 
 namespace Application.QuerySpecifications.BrandRelated;
 
-public sealed class BrandQuerySpecification : QuerySpecification<VehicleBrand>;
+public sealed class BrandByNameQuerySpecification(string name)
+    : QuerySpecification<VehicleBrand>(b => b.Name.Equals(name));

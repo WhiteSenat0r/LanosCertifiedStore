@@ -11,25 +11,25 @@ namespace API.Controllers.VehiclesRelated;
 public sealed class ModelsController : BaseEntityRelatedApiController
 {
     [HttpGet]
-    public async Task<IActionResult> GetBrands()
+    public async Task<IActionResult> GetModels()
     {
         return HandleResult(await Mediator.Send(new ListModelsQuery()));
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateBrand([FromQuery] string name)
+    public async Task<IActionResult> CreateModel([FromQuery] string name)
     {
         return HandleResult(await Mediator.Send(new CreateModelCommand(name)));
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateBrand([FromBody] UpdateModelDto updateBrandDto)
+    public async Task<IActionResult> UpdateModel([FromBody] UpdateModelDto updateBrandDto)
     {
         return HandleResult(await Mediator.Send(new UpdateModelCommand(updateBrandDto)));
     }
 
     [HttpDelete("{name}")]
-    public async Task<IActionResult> DeleteBrand(string name)
+    public async Task<IActionResult> DeleteModel(string name)
     {
         return HandleResult(await Mediator.Send(new DeleteModelCommand(name)));
     }
