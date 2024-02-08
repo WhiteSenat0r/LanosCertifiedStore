@@ -5,4 +5,4 @@ using Persistence.Repositories.Common.Classes;
 namespace Persistence.Repositories;
 
 internal class VehiclePriceRepository(ApplicationDatabaseContext dbContext)
-    : GenericRepository<Vehicle>(dbContext);
+    : GenericRepository<VehiclePrice>(dbContext);
