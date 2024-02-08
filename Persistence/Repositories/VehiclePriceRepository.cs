@@ -1,8 +1,9 @@
-﻿using Domain.Entities.VehicleRelated.Classes;
+﻿using Domain.Contracts.RepositoryRelated;
+using Domain.Entities.VehicleRelated.Classes;
 using Persistence.Contexts;
 using Persistence.Repositories.Common.Classes;
 
 namespace Persistence.Repositories;
 
 internal class VehiclePriceRepository(ApplicationDatabaseContext dbContext)
-    : GenericRepository<Vehicle>(dbContext);
+    : GenericRepository<VehiclePrice>(dbContext);
