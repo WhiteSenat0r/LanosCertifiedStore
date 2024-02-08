@@ -16,7 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Commands\Vehicles\" />
       <Folder Include="Queries\Displacements\" />
       <Folder Include="Queries\Types\" />
     </ItemGroup>
