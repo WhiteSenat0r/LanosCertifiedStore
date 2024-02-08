@@ -11,8 +11,8 @@ internal sealed class CreateBrandCommandHandler(IRepository<VehicleBrand> brandR
 {
     public async Task<Result<Unit>> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
     {
-        var existingBrand =
-            await brandRepository.GetSingleEntityBySpecificationAsync(new BrandQuerySpecification(request.Name));
+        var existingBrand = await brandRepository.GetSingleEntityBySpecificationAsync(
+                new BrandByNameQuerySpecification(request.Name));
 
         if (existingBrand is not null)
             return Result<Unit>.Failure("Model with such name already exists!");

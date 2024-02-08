@@ -12,7 +12,7 @@ internal sealed class UpdateBrandCommandHandler(IRepository<VehicleBrand> brandR
     public async Task<Result<Unit>> Handle(UpdateBrandCommand request, CancellationToken cancellationToken)
     {
         var brand = await brandRepository.GetSingleEntityBySpecificationAsync(
-            new BrandQuerySpecification(request.UpdateBrandDto.CurrentName));
+            new BrandByNameQuerySpecification(request.UpdateBrandDto.CurrentName));
 
         if (brand is null) return null;
 
