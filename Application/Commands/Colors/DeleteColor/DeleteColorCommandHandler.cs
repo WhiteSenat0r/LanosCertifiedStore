@@ -11,8 +11,8 @@ internal sealed class DeleteColorCommandHandler(IRepository<VehicleColor> colorR
 {
     public async Task<Result<Unit>> Handle(DeleteColorCommand request, CancellationToken cancellationToken)
     {
-        var color =
-            await colorRepository.GetSingleEntityBySpecificationAsync(new ColorQuerySpecification(request.ColorName));
+        var color = await colorRepository.GetSingleEntityBySpecificationAsync(
+            new ColorByNameQuerySpecification(request.ColorName));
 
         if (color is null)
             return Result<Unit>.Failure("Such brand doesn't exist!");

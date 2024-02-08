@@ -11,9 +11,8 @@ internal sealed class UpdateColorCommandHandler(IRepository<VehicleColor> colorR
 {
     public async Task<Result<Unit>> Handle(UpdateColorCommand request, CancellationToken cancellationToken)
     {
-        var existingColor =
-            await colorRepository.GetSingleEntityBySpecificationAsync(
-                new ColorQuerySpecification(request.UpdateColorDto.CurrentName));
+        var existingColor = await colorRepository.GetSingleEntityBySpecificationAsync(
+                new ColorByNameQuerySpecification(request.UpdateColorDto.CurrentName));
 
         if (existingColor is null) return null;
 

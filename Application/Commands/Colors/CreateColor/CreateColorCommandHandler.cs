@@ -11,8 +11,8 @@ internal sealed class CreateColorCommandHandler(IRepository<VehicleColor> colorR
 {
     public async Task<Result<Unit>> Handle(CreateColorCommand request, CancellationToken cancellationToken)
     {
-        var existingColor =
-            await colorRepository.GetSingleEntityBySpecificationAsync(new ColorQuerySpecification(request.ColorName));
+        var existingColor = await colorRepository.GetSingleEntityBySpecificationAsync(
+            new ColorByNameQuerySpecification(request.ColorName));
 
         if (existingColor is not null) return Result<Unit>.Failure("Such color already exists!");
 
