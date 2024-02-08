@@ -2,6 +2,7 @@
 using Application.Dtos.BrandDtos;
 using Application.Dtos.ModelDtos;
 using Application.Dtos.ColorDtos;
+using Application.Dtos.DisplacementDtos;
 using AutoMapper;
 using Domain.Entities.VehicleRelated.Classes;
 
