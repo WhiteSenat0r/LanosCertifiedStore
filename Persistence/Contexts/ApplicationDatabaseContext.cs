@@ -13,4 +13,13 @@ public sealed class ApplicationDatabaseContext(
     public DbSet<VehicleModel> VehicleModels { get; set; }
     public DbSet<VehiclePrice> VehiclePrices { get; set; }
     public DbSet<VehicleType> VehicleTypes { get; set; }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<VehicleModel>()
+            .HasOne(vm => vm.VehicleBrand)
+            .WithMany(b => b.Models)
+            .HasForeignKey(vm => vm.VehicleBrandId)
+            .OnDelete(DeleteBehavior.Restrict);
+    }
 }
