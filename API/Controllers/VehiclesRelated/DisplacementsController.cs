@@ -5,6 +5,7 @@ using Application.Commands.Displacements.DeleteDisplacement;
 using Application.Commands.Displacements.UpdateDisplacement;
 using Application.Core;
 using Application.Dtos.DisplacementDtos;
+using Application.Queries.Displacements;
 using Application.Queries.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ public sealed class DisplacementsController : BaseEntityRelatedApiController
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetDisplacements()
     {
-        return HandleResult(await Mediator.Send(new ListModelsQuery()));
+        return HandleResult(await Mediator.Send(new ListDisplacementsQuery()));
     }
 
     [HttpPost]

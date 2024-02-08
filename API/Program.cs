@@ -4,6 +4,7 @@ using Application.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 using Persistence.Extensions;
+using Persistence.SeedingData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,7 @@ try
 {
     var context = services.GetRequiredService<ApplicationDatabaseContext>();
     await context.Database.MigrateAsync();
+    await SeedData.Seed(context);
 }
 
 catch (Exception ex)
