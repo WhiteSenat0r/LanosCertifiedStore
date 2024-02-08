@@ -4,7 +4,7 @@ namespace Domain.Entities.VehicleRelated.Classes;
 
 public sealed class VehicleDisplacement : IEntity<Guid>
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     public double Value { get; set; }
     public ICollection<Vehicle> Vehicles { get; set; } = new List<Vehicle>();
     

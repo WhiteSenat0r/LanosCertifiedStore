@@ -5,7 +5,7 @@ namespace Domain.Entities.VehicleRelated.Classes;
 
 public sealed class Vehicle : IEntity<Guid>
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
     [MaxLength(2048)] public string Description { get; set; }
     public Guid BrandId { get; set; }
     public VehicleBrand Brand { get; set; }
@@ -17,7 +17,7 @@ public sealed class Vehicle : IEntity<Guid>
     public VehicleType Type { get; set; }
     public Guid DisplacementId { get; set; }
     public VehicleDisplacement Displacement { get; set; }
-    public ICollection<VehiclePrice> Price { get; set; } = new List<VehiclePrice>();
+    public ICollection<VehiclePrice> Prices { get; set; } = new List<VehiclePrice>();
 
     public Vehicle() { }
     
