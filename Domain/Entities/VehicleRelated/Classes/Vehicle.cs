@@ -27,6 +27,7 @@ public sealed class Vehicle : IEntity<Guid>
         Guid typeId,
         Guid colorId,
         Guid displacementId,
+        decimal price,
         string description)
     {
         BrandId = brandId;
@@ -34,6 +35,7 @@ public sealed class Vehicle : IEntity<Guid>
         TypeId = typeId;
         ColorId = colorId;
         DisplacementId = displacementId;
+        Prices.Add(new VehiclePrice(Id, price));
         Description = description;
     }
 }

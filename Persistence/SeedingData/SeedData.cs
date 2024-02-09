@@ -27,10 +27,15 @@ public static class SeedData
             await context.SaveChangesAsync();
 
         var models = SeedModels.GetModels(brands);
-        if (!await context.VehicleModels.AnyAsync())
-        {
+        if (!await context.VehicleModels.AnyAsync()) 
             await context.VehicleModels.AddRangeAsync(models);
-        }
+        
+        if (context.ChangeTracker.HasChanges())
+            await context.SaveChangesAsync();
+
+        var vehicles = SeedVehicles.GetVehicles(types, colors, brands, models, displacements);
+        if (!await context.Vehicles.AnyAsync())
+            await context.Vehicles.AddRangeAsync(vehicles);
 
         if (context.ChangeTracker.HasChanges())
             await context.SaveChangesAsync();

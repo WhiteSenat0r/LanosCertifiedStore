@@ -16,6 +16,7 @@ internal sealed class CreateVehicleCommandHandler(IRepository<Vehicle> vehicleRe
             typeId: request.Vehicle.TypeId,
             colorId: request.Vehicle.ColorId,
             displacementId: request.Vehicle.DisplacementId,
+            price: request.Vehicle.Price,
             description: request.Vehicle.Description);
 
         await vehicleRepository.AddNewEntityAsync(vehicle);

@@ -4,7 +4,7 @@ namespace Persistence.SeedingData;
 
 internal static class SeedTypes
 {
-    public static IEnumerable<VehicleType> GetTypes() =>
+    public static List<VehicleType> GetTypes() =>
     [
         new VehicleType("Седан"),
         new VehicleType("Хетчбек"),
