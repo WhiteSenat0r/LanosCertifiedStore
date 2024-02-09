@@ -15,7 +15,7 @@ internal sealed class CreateBrandCommandHandler(IRepository<VehicleBrand> brandR
                 new BrandByNameQuerySpecification(request.Name));
 
         if (existingBrand is not null)
-            return Result<Unit>.Failure("Model with such name already exists!");
+            return Result<Unit>.Failure("Brand with such name already exists!");
 
         var brand = new VehicleBrand(request.Name);
         await brandRepository.AddNewEntityAsync(brand);
