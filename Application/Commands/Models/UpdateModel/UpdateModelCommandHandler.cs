@@ -15,6 +15,12 @@ internal sealed class UpdateModelCommandHandler(IRepository<VehicleModel> modelR
                 new ModelByNameQuerySpecification(request.UpdateModelDto.CurrentName));
 
         if (existingModel is null) return null;
+        
+        var updatedValueModel = await modelRepository.GetSingleEntityBySpecificationAsync(
+            new ModelByNameQuerySpecification(request.UpdateModelDto.UpdatedName));
+
+        if (updatedValueModel is not null)
+            return Result<Unit>.Failure("Model with such name already exists!");
 
         existingModel.Name = request.UpdateModelDto.UpdatedName;
         
