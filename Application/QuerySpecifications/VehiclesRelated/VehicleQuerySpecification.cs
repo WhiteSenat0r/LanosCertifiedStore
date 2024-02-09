@@ -63,6 +63,9 @@ public sealed class VehicleQuerySpecification : BaseQuerySpecification<Vehicle>
             case "brand-asc":
                 AddOrderByAscending(v => v.Brand.Name);
                 break;
+            default:
+                AddOrderByAscending(v => v.Brand.Name);
+                break;
         }
     }
 }
