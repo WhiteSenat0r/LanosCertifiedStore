@@ -6,7 +6,6 @@ using Application.Commands.Displacements.UpdateDisplacement;
 using Application.Core;
 using Application.Dtos.DisplacementDtos;
 using Application.Queries.Displacements;
-using Application.Queries.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

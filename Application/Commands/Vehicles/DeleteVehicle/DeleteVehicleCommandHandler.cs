@@ -1,5 +1,4 @@
-﻿using Application.Commands.Vehicles.UpdateVehicle;
-using Application.Core;
+﻿using Application.Core;
 using Application.QuerySpecifications.VehiclesRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
