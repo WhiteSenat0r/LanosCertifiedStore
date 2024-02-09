@@ -7,6 +7,7 @@ using Application.Core;
 using Application.Dtos.VehicleDtos;
 using Application.Queries.Vehicles.ListVehicles;
 using Application.Queries.Vehicles.VehicleDetails;
+using Application.RequestParams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,12 +16,12 @@ namespace API.Controllers.VehiclesRelated;
 public sealed class VehiclesController : BaseEntityRelatedApiController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(Result<IReadOnlyList<VehicleDto>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Result<PaginationResult<VehicleDto>>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetVehicles()
+    public async Task<IActionResult> GetVehicles([FromQuery] VehicleRequestParameters requestParameters)
     {
-        return HandleResult(await Mediator.Send(new ListVehiclesQuery()));
+        return HandleResult(await Mediator.Send(new ListVehiclesQuery(requestParameters)));
     }
 
     [HttpGet("{id:guid}")]
