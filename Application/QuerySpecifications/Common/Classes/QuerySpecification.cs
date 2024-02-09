@@ -4,15 +4,14 @@ using Domain.Contracts.RepositoryRelated;
 
 namespace Application.QuerySpecifications.Common.Classes;
 
-public abstract class QuerySpecification<TEntity> : IQuerySpecification<TEntity>
+public abstract class QuerySpecification<TEntity>(Expression<Func<TEntity, bool>> mainCriteria,
+    bool isNotTracked = false) : IQuerySpecification<TEntity>
     where TEntity : class, IEntity<Guid>
 {
-    protected QuerySpecification() { }
-    
-    protected QuerySpecification(Expression<Func<TEntity, bool>> mainCriteria) => Criteria = mainCriteria;
+    protected QuerySpecification(bool isNotTracked = false) : this(null, isNotTracked) { }
 
-    public Expression<Func<TEntity, bool>> Criteria { get; protected init; }
-    
+    public Expression<Func<TEntity, bool>> Criteria { get; protected init; } = mainCriteria;
+
     public List<Expression<Func<TEntity, object>>> Includes { get; } = [];
 
     public Expression<Func<TEntity, object>> OrderByAscendingExpression { get; private set; }
@@ -25,8 +24,8 @@ public abstract class QuerySpecification<TEntity> : IQuerySpecification<TEntity>
     
     public bool IsPagingEnabled { get; set; }
     
-    public bool IsNotTracked { get; set; }
-    
+    public bool IsNotTracked { get; set; } = isNotTracked;
+
     protected void AddPaging(int takenItemsQuantity, int skippedItemsQuantity)
     {
         TakenItemsQuantity = takenItemsQuantity;
