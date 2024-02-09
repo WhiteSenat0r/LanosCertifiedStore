@@ -3,5 +3,12 @@ using Domain.Entities.VehicleRelated.Classes;
 
 namespace Application.QuerySpecifications.ModelRelated;
 
-public sealed class ModelByNameQuerySpecification(string name)
-    : QuerySpecification<VehicleModel>(m => m.Name.Equals(name));
+public sealed class ModelByNameQuerySpecification : QuerySpecification<VehicleModel>
+{
+    public ModelByNameQuerySpecification(string name, bool isNotTracked = false) 
+        : base(m => m.Name.Equals(name))
+    {
+        IsNotTracked = isNotTracked;
+        AddInclude(m => m.VehicleBrand);
+    }
+}
