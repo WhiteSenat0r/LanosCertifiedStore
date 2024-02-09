@@ -9,15 +9,19 @@ using MediatR;
 namespace Application.Queries.Vehicles.ListVehicles;
 
 internal sealed class ListVehiclesQueryHandler(IRepository<Vehicle> vehicleRepository, IMapper mapper)
-    : IRequestHandler<ListVehiclesQuery, Result<IReadOnlyList<VehicleDto>>>
+    : IRequestHandler<ListVehiclesQuery, Result<PaginationResult<VehicleDto>>>
 {
-    public async Task<Result<IReadOnlyList<VehicleDto>>> Handle(ListVehiclesQuery request,
+    public async Task<Result<PaginationResult<VehicleDto>>> Handle(ListVehiclesQuery request,
         CancellationToken cancellationToken)
     {
-        var vehicles = await vehicleRepository.GetAllEntitiesAsync(new VehicleQuerySpecification());
+        var vehicles = await vehicleRepository.GetAllEntitiesAsync(
+            new VehicleQuerySpecification(request.RequestParameters));
 
-        var vehiclesToReturn = mapper.Map<IReadOnlyList<Vehicle>, IReadOnlyList<VehicleDto>>(vehicles);
+        var mappedVehicles = mapper.Map<IReadOnlyList<Vehicle>, IReadOnlyList<VehicleDto>>(vehicles);
 
-        return Result<IReadOnlyList<VehicleDto>>.Success(vehiclesToReturn);
+        var returnedResult = new PaginationResult<VehicleDto>(
+            mappedVehicles, request.RequestParameters, mappedVehicles.Count);
+
+        return Result<PaginationResult<VehicleDto>>.Success(returnedResult);
     }
 }
