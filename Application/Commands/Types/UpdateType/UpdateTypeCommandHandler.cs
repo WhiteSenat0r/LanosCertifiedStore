@@ -15,6 +15,12 @@ internal sealed class UpdateTypeCommandHandler(IRepository<VehicleType> typeRepo
                 new TypeByNameQuerySpecification(request.UpdateTypeDto.CurrentName));
 
         if (existingType is null) return null;
+        
+        var updatedValueType = await typeRepository.GetSingleEntityBySpecificationAsync(
+            new TypeByNameQuerySpecification(request.UpdateTypeDto.UpdatedName));
+
+        if (updatedValueType is not null)
+            return Result<Unit>.Failure("Type with such name already exists!");
 
         existingType.Name = request.UpdateTypeDto.UpdatedName;
         
