@@ -15,6 +15,8 @@ internal sealed class DeleteVehicleCommandHandler(
         var deleteVehicle = await vehicleRepository.GetSingleEntityBySpecificationAsync(
                 new VehicleByIdQuerySpecification(request.Id));
         
+        if (deleteVehicle is null) return null;
+        
         vehicleRepository.RemoveExistingEntity(deleteVehicle);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;

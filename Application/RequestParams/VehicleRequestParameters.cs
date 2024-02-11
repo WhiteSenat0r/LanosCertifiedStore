@@ -10,7 +10,7 @@ public sealed class VehicleRequestParameters : RequestParameters
     
     public string Color { get; set; }
     
-    public decimal? Displacement { get; set; }
+    public double? Displacement { get; set; }
     
     public decimal? LowerPriceLimit { get; set; }
     
