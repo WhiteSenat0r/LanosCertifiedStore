@@ -15,7 +15,7 @@ internal sealed class DeleteColorCommandHandler(IRepository<VehicleColor> colorR
             new ColorByNameQuerySpecification(request.ColorName));
 
         if (color is null)
-            return Result<Unit>.Failure("Such brand doesn't exist!");
+            return Result<Unit>.Failure("Such color doesn't exists!");
 
         colorRepository.RemoveExistingEntity(color);
 
