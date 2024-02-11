@@ -37,7 +37,7 @@ public sealed class DisplacementsController : BaseEntityRelatedApiController
         return HandleResult(await Mediator.Send(new UpdateDisplacementCommand(updateDisplacementDto)));
     }
 
-    [HttpDelete("{value}")]
+    [HttpDelete("{value:double}")]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeleteDisplacement(double value)
