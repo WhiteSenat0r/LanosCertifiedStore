@@ -17,7 +17,7 @@ public sealed class VehicleQuerySpecification : BaseQuerySpecification<Vehicle>
 
     private Expression<Func<Vehicle, bool>> GetVehicleFilteringCriteria(
         VehicleRequestParameters requestParameters) =>
-        vehicle => 
+        vehicle =>
             (string.IsNullOrEmpty(requestParameters.Brand) ||
              vehicle.Brand.Name.Equals(requestParameters.Brand)) &&
             (string.IsNullOrEmpty(requestParameters.Type) ||
@@ -26,14 +26,16 @@ public sealed class VehicleQuerySpecification : BaseQuerySpecification<Vehicle>
              vehicle.Color.Name.Equals(requestParameters.Color)) &&
             (!requestParameters.Displacement.HasValue ||
              vehicle.Displacement.Value.Equals(requestParameters.Displacement)) &&
-            (!requestParameters.LowerPriceLimit.HasValue || 
-             vehicle.Prices.MaxBy(p => p.IssueDate).Value >= requestParameters.LowerPriceLimit 
-             && vehicle.Prices.MaxBy(
-                 p => p.IssueDate).IssueDate.Date >= requestParameters.MinimalPriceDate.Value) &&
-            (!requestParameters.LowerPriceLimit.HasValue || 
-             vehicle.Prices.MaxBy(p => p.IssueDate).Value <= requestParameters.UpperPriceLimit
-             && vehicle.Prices.MaxBy(
-                 p => p.IssueDate).IssueDate.Date >= requestParameters.MinimalPriceDate.Value);
+            (!requestParameters.LowerPriceLimit.HasValue ||
+             (vehicle.Prices.OrderByDescending(p => p.IssueDate)
+                  .FirstOrDefault().Value >= requestParameters.LowerPriceLimit.Value &&
+              vehicle.Prices.OrderByDescending(p => p.IssueDate)
+                  .FirstOrDefault().IssueDate >= requestParameters.MinimalPriceDate)) &&
+            (!requestParameters.UpperPriceLimit.HasValue ||
+             (vehicle.Prices.OrderByDescending(p => p.IssueDate)
+                  .FirstOrDefault().Value <= requestParameters.UpperPriceLimit.Value &&
+              vehicle.Prices.OrderByDescending(p => p.IssueDate)
+                  .FirstOrDefault().IssueDate >= requestParameters.MinimalPriceDate));
 
     private void AddIncludes()
     {
