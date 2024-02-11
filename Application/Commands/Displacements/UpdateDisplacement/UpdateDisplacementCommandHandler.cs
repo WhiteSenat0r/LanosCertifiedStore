@@ -15,7 +15,8 @@ internal sealed class UpdateDisplacementCommandHandler(
         var existingDisplacement = await displacementRepository.GetSingleEntityBySpecificationAsync(
                 new DisplacementByValueQuerySpecification(request.UpdateDisplacementDto.CurrentValue));
 
-        if (existingDisplacement is null) return null;
+        if (existingDisplacement is null) 
+            return Result<Unit>.Failure("Such displacement doesn't exists!");
         
         var updatedValueDisplacement = await displacementRepository.GetSingleEntityBySpecificationAsync(
             new DisplacementByValueQuerySpecification(request.UpdateDisplacementDto.UpdatedValue));

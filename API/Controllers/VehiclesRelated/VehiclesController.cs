@@ -17,7 +17,6 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
 {
     [HttpGet]
     [ProducesResponseType(typeof(Result<PaginationResult<VehicleDto>>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetVehicles([FromQuery] VehicleRequestParameters requestParameters)
     {
@@ -35,7 +34,6 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
     
     [HttpPost]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateVehicle([FromBody] ActionVehicleDto vehicle)
     {
@@ -44,7 +42,6 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
     
     [HttpPut]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpdateVehicle([FromBody] ActionVehicleDto vehicle)
     {
@@ -53,7 +50,6 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
     
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeleteVehicle(Guid id)
     {

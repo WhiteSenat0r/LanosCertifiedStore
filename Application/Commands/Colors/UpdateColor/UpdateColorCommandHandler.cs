@@ -14,7 +14,8 @@ internal sealed class UpdateColorCommandHandler(IRepository<VehicleColor> colorR
         var existingColor = await colorRepository.GetSingleEntityBySpecificationAsync(
                 new ColorByNameQuerySpecification(request.UpdateColorDto.CurrentName));
 
-        if (existingColor is null) return null;
+        if (existingColor is null) 
+            return Result<Unit>.Failure("Such color doesn't exists!");
         
         var updatedValueColor = await colorRepository.GetSingleEntityBySpecificationAsync(
             new ColorByNameQuerySpecification(request.UpdateColorDto.UpdatedName));
