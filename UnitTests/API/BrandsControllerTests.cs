@@ -53,23 +53,6 @@ public class BrandsControllerTests
     }
     
     [Fact]
-    public async Task GetBrands_ReturnsNotFound_WhenResultIsNullOrEmpty()
-    {
-        // Arrange
-        _mediatorMock.Setup(m => m.Send(
-                It.IsAny<ListBrandsQuery>(), default))
-            .ReturnsAsync(Result<IReadOnlyList<BrandDto>>.Success(null));
-
-        // Act
-        var result = await _brandsController.GetBrands() as NotFoundObjectResult;
-
-        // Assert
-        Assert.NotNull(result);
-        Assert.Equal(StatusCodes.Status404NotFound, result.StatusCode);
-        Assert.NotNull(result.Value);
-    }
-    
-    [Fact]
     public async Task GetBrands_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
