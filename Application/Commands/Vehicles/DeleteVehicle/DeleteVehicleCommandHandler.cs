@@ -15,7 +15,8 @@ internal sealed class DeleteVehicleCommandHandler(
         var deleteVehicle = await vehicleRepository.GetSingleEntityBySpecificationAsync(
                 new VehicleByIdQuerySpecification(request.Id));
         
-        if (deleteVehicle is null) return null;
+        if (deleteVehicle is null) 
+            return Result<Unit>.Failure("Such vehicle doesn't exists!");
         
         vehicleRepository.RemoveExistingEntity(deleteVehicle);
 

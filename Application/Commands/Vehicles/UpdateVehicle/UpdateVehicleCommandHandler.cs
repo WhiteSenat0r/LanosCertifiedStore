@@ -18,8 +18,11 @@ internal sealed class UpdateVehicleCommandHandler(
     {
         var updatedVehicle = await vehicleRepository.GetSingleEntityBySpecificationAsync(
                 new VehicleByIdQuerySpecification(request.ActionVehicleDto.Id));
+        
+        if (updatedVehicle is null)
+            return Result<Unit>.Failure("Such vehicle doesn't exists!");
 
-        ApplyChangedDataOnUpdatedVehicle(request, updatedVehicle);
+        ApplyChangesDataOnUpdatedVehicle(request, updatedVehicle);
         
         if (IsAlteredPriceValue(request, updatedVehicle)) 
             await InitializeNewPriceAsync(request, updatedVehicle);
@@ -40,7 +43,7 @@ internal sealed class UpdateVehicleCommandHandler(
         updatedVehicle.Prices.Add(newPrice);
     }
 
-    private void ApplyChangedDataOnUpdatedVehicle(UpdateVehicleCommand request, Vehicle updatedVehicle) => 
+    private void ApplyChangesDataOnUpdatedVehicle(UpdateVehicleCommand request, Vehicle updatedVehicle) => 
         mapper.Map(request.ActionVehicleDto, updatedVehicle);
 
     private bool IsAlteredPriceValue(UpdateVehicleCommand request, Vehicle updatedVehicle) => 
