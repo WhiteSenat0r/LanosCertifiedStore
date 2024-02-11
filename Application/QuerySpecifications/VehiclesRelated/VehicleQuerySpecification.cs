@@ -54,7 +54,7 @@ public sealed class VehicleQuerySpecification : BaseQuerySpecification<Vehicle>
                 break;
             case "price-asc":
                 AddOrderByAscending(v =>
-                    v.Prices.OrderByDescending(p => p.IssueDate).LastOrDefault().Value);
+                    v.Prices.OrderByDescending(p => p.IssueDate).FirstOrDefault().Value);
                 break;
             case "price-desc":
                 AddOrderByDescending(v =>
