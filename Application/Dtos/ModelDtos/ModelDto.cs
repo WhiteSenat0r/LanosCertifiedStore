@@ -2,4 +2,7 @@
 
 namespace Application.Dtos.ModelDtos;
 
-public sealed class ModelDto : VehicleAspectDto;
+public sealed class ModelDto : VehicleAspectDto
+{
+    public string VehicleBrand { get; set; }
+}
