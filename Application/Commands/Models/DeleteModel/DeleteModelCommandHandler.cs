@@ -15,7 +15,7 @@ internal sealed class DeleteModelCommandHandler(IRepository<VehicleModel> modelR
                 new ModelByNameQuerySpecification(request.Name));
 
         if (deletedModel is null)
-            return Result<Unit>.Failure("Such model doesn't exist!");
+            return Result<Unit>.Failure("Such model doesn't exists!");
         
         modelRepository.RemoveExistingEntity(deletedModel);
 
