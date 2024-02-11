@@ -15,7 +15,6 @@ public sealed class DisplacementsController : BaseEntityRelatedApiController
 {
     [HttpGet]
     [ProducesResponseType(typeof(Result<IReadOnlyList<DisplacementDto>>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetDisplacements()
     {
@@ -24,7 +23,6 @@ public sealed class DisplacementsController : BaseEntityRelatedApiController
 
     [HttpPost]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateDisplacement([FromQuery] double value)
     {
@@ -33,7 +31,6 @@ public sealed class DisplacementsController : BaseEntityRelatedApiController
 
     [HttpPut]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpdateDisplacement([FromBody] UpdateDisplacementDto updateDisplacementDto)
     {
@@ -42,7 +39,6 @@ public sealed class DisplacementsController : BaseEntityRelatedApiController
 
     [HttpDelete("{value}")]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeleteDisplacement(double value)
     {

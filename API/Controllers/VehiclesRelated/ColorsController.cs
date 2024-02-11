@@ -15,7 +15,6 @@ public sealed class ColorsController : BaseEntityRelatedApiController
 {
     [HttpGet]
     [ProducesResponseType(typeof(Result<IReadOnlyList<ColorDto>>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetColors()
     {
@@ -24,7 +23,6 @@ public sealed class ColorsController : BaseEntityRelatedApiController
 
     [HttpPost]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateColor([FromQuery] string name)
     {
@@ -33,7 +31,6 @@ public sealed class ColorsController : BaseEntityRelatedApiController
 
     [HttpPut]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpdateColor([FromBody] UpdateColorDto updateColorDto)
     {
@@ -42,7 +39,6 @@ public sealed class ColorsController : BaseEntityRelatedApiController
 
     [HttpDelete("{name}")]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeleteColor(string name)
     {
