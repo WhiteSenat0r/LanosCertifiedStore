@@ -15,7 +15,6 @@ public sealed class BrandsController : BaseEntityRelatedApiController
 {
     [HttpGet]
     [ProducesResponseType(typeof(Result<IReadOnlyList<BrandDto>>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> GetBrands()
     {
@@ -24,7 +23,6 @@ public sealed class BrandsController : BaseEntityRelatedApiController
 
     [HttpPost]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateBrand([FromQuery] string name)
     {
@@ -33,7 +31,6 @@ public sealed class BrandsController : BaseEntityRelatedApiController
 
     [HttpPut]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpdateBrand([FromBody] UpdateBrandDto updateBrandDto)
     {
@@ -42,7 +39,6 @@ public sealed class BrandsController : BaseEntityRelatedApiController
 
     [HttpDelete("{name}")]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> DeleteBrand(string name)
     {

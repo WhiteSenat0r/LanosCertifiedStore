@@ -15,7 +15,7 @@ internal sealed class DeleteTypeCommandHandler(IRepository<VehicleType> tyeRepos
                 new TypeByNameQuerySpecification(request.Name));
 
         if (deletedType is null)
-            return Result<Unit>.Failure("Such type doesn't exist!");
+            return Result<Unit>.Failure("Such type doesn't exists!");
         
         tyeRepository.RemoveExistingEntity(deletedType);
 

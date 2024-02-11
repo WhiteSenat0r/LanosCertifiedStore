@@ -15,7 +15,7 @@ internal sealed class DeleteBrandCommandHandler(IRepository<VehicleBrand> brandR
                 new BrandByNameQuerySpecification(request.Name));
 
         if (brand is null)
-            return Result<Unit>.Failure("Such brand doesn't exist!");
+            return Result<Unit>.Failure("Such brand doesn't exists!");
 
         brandRepository.RemoveExistingEntity(brand);
 
