@@ -16,7 +16,7 @@ internal sealed class DeleteDisplacementCommandHandler(
                 new DisplacementByValueQuerySpecification(request.Value));
 
         if (deletedDisplacement is null)
-            return Result<Unit>.Failure("Such displacement doesn't exist!");
+            return Result<Unit>.Failure("Such displacement doesn't exists!");
         
         displacementRepository.RemoveExistingEntity(deletedDisplacement);
 
