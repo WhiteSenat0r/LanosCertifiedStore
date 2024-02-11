@@ -8,7 +8,10 @@ using MediatR;
 namespace Application.Commands.Vehicles.UpdateVehicle;
 
 internal sealed class UpdateVehicleCommandHandler(
-    IRepository<Vehicle> vehicleRepository, IMapper mapper, IUnitOfWork unitOfWork)
+    IRepository<Vehicle> vehicleRepository,
+    IRepository<VehiclePrice> vehiclePriceRepository,
+    IMapper mapper,
+    IUnitOfWork unitOfWork)
     : IRequestHandler<UpdateVehicleCommand, Result<Unit>>
 {
     public async Task<Result<Unit>> Handle(UpdateVehicleCommand request, CancellationToken cancellationToken)
@@ -18,14 +21,23 @@ internal sealed class UpdateVehicleCommandHandler(
 
         ApplyChangedDataOnUpdatedVehicle(request, updatedVehicle);
         
-        if (IsAlteredPriceValue(request, updatedVehicle))
-            updatedVehicle.Prices.Add(new VehiclePrice(updatedVehicle.Id, request.ActionVehicleDto.Price));
+        if (IsAlteredPriceValue(request, updatedVehicle)) 
+            await InitializeNewPriceAsync(request, updatedVehicle);
         
         vehicleRepository.UpdateExistingEntity(updatedVehicle);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 
         return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Failed to update a vehicle!");
+    }
+
+    private async Task InitializeNewPriceAsync(UpdateVehicleCommand request, Vehicle updatedVehicle)
+    {
+        var newPrice = new VehiclePrice(updatedVehicle.Id, request.ActionVehicleDto.Price);
+            
+        await vehiclePriceRepository.AddNewEntityAsync(newPrice);
+            
+        updatedVehicle.Prices.Add(newPrice);
     }
 
     private void ApplyChangedDataOnUpdatedVehicle(UpdateVehicleCommand request, Vehicle updatedVehicle) => 
