@@ -1,5 +1,4 @@
-﻿using Application.Commands.Vehicles.CreateVehicle;
-using Application.Commands.Vehicles.DeleteVehicle;
+﻿using Application.Commands.Vehicles.DeleteVehicle;
 using Application.Core;
 using Application.QuerySpecifications.VehiclesRelated;
 using Domain.Contracts.RepositoryRelated;
