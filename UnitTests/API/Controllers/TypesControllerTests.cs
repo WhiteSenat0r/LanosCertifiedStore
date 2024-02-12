@@ -1,27 +1,27 @@
 ﻿using API.Controllers.VehiclesRelated;
-using Application.Commands.Models.CreateModel;
-using Application.Commands.Models.DeleteModel;
-using Application.Commands.Models.UpdateModel;
+using Application.Commands.Types.CreateType;
+using Application.Commands.Types.DeleteType;
+using Application.Commands.Types.UpdateType;
 using Application.Core;
-using Application.Dtos.ModelDtos;
-using Application.Queries.Models;
+using Application.Dtos.TypeDtos;
+using Application.Queries.Types;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
-namespace UnitTests.API;
+namespace UnitTests.API.Controllers;
 
-public class ModelsControllerTests
+public class TypesControllerTests
 {
     private readonly Mock<IMediator> _mediatorMock;
-    private readonly ModelsController _modelsController;
+    private readonly TypesController _typesController;
 
-    public ModelsControllerTests()
+    public TypesControllerTests()
     {
         _mediatorMock = new Mock<IMediator>();
-        _modelsController = new ModelsController
+        _typesController = new TypesController
         {
             ControllerContext = new ControllerContext
             {
@@ -35,33 +35,33 @@ public class ModelsControllerTests
     }
 
     [Fact]
-    public async Task GetModels_ReturnsOk_WhenSuccessful()
+    public async Task GetTypes_ReturnsOk_WhenSuccessful()
     {
         // Arrange
-        var Models = new List<ModelDto>();
+        var types = new List<TypeDto>();
         _mediatorMock.Setup(m => m.Send(
-            It.IsAny<ListModelsQuery>(), default))
-            .ReturnsAsync(Result<IReadOnlyList<ModelDto>>.Success(Models));
+            It.IsAny<ListTypesQuery>(), default))
+            .ReturnsAsync(Result<IReadOnlyList<TypeDto>>.Success(types));
 
         // Act
-        var result = await _modelsController.GetModels() as OkObjectResult;
+        var result = await _typesController.GetTypes() as OkObjectResult;
 
         // Assert
         Assert.NotNull(result);
         Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
-        Assert.Equal(Models, result.Value);
+        Assert.Equal(types, result.Value);
     }
     
     [Fact]
-    public async Task GetModels_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task GetTypes_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<ListModelsQuery>(), default))
-            .ReturnsAsync(Result<IReadOnlyList<ModelDto>>.Failure(null));
+                It.IsAny<ListTypesQuery>(), default))
+            .ReturnsAsync(Result<IReadOnlyList<TypeDto>>.Failure(null));
 
         // Act
-        var result = await _modelsController.GetModels() as BadRequestObjectResult;
+        var result = await _typesController.GetTypes() as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -70,15 +70,15 @@ public class ModelsControllerTests
     }
     
     [Fact]
-    public async Task CreateModel_ReturnsOk_WhenSuccessful()
+    public async Task CreateType_ReturnsOk_WhenSuccessful()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<CreateModelCommand>(), default))
+                It.IsAny<CreateTypeCommand>(), default))
             .ReturnsAsync(Result<Unit>.Success(new Unit()));
 
         // Act
-        var result = await _modelsController.CreateModel(Guid.Empty, "TestModel") as OkObjectResult;
+        var result = await _typesController.CreateType("TestType") as OkObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -86,15 +86,15 @@ public class ModelsControllerTests
     }
     
     [Fact]
-    public async Task CreateModel_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task CreateType_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<CreateModelCommand>(), default))
+                It.IsAny<CreateTypeCommand>(), default))
             .ReturnsAsync(Result<Unit>.Failure(null));
 
         // Act
-        var result = await _modelsController.CreateModel(Guid.Empty, "TestModel") as BadRequestObjectResult;
+        var result = await _typesController.CreateType(null) as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -102,16 +102,16 @@ public class ModelsControllerTests
     }
     
     [Fact]
-    public async Task UpdateModel_ReturnsOk_WhenSuccessful()
+    public async Task UpdateType_ReturnsOk_WhenSuccessful()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<UpdateModelCommand>(), default))
+                It.IsAny<UpdateTypeCommand>(), default))
             .ReturnsAsync(Result<Unit>.Success(new Unit()));
 
         // Act
-        var result = await _modelsController.UpdateModel(
-            new UpdateModelDto
+        var result = await _typesController.UpdateType(
+            new UpdateTypeDto
         {
             CurrentName = "Test",
             UpdatedName = "TestUpdated"
@@ -123,15 +123,15 @@ public class ModelsControllerTests
     }
     
     [Fact]
-    public async Task UpdateModel_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task UpdateType_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<UpdateModelCommand>(), default))
+                It.IsAny<UpdateTypeCommand>(), default))
             .ReturnsAsync(Result<Unit>.Failure(null));
 
         // Act
-        var result = await _modelsController.UpdateModel(null) as BadRequestObjectResult;
+        var result = await _typesController.UpdateType(null) as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -140,15 +140,15 @@ public class ModelsControllerTests
     }
     
     [Fact]
-    public async Task DeleteModel_ReturnsOk_WhenSuccessful()
+    public async Task DeleteType_ReturnsOk_WhenSuccessful()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<DeleteModelCommand>(), default))
+                It.IsAny<DeleteTypeCommand>(), default))
             .ReturnsAsync(Result<Unit>.Success(new Unit()));
 
         // Act
-        var result = await _modelsController.DeleteModel("Test") as OkObjectResult;
+        var result = await _typesController.DeleteType("Test") as OkObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -156,15 +156,15 @@ public class ModelsControllerTests
     }
     
     [Fact]
-    public async Task DeleteModel_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task DeleteType_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<DeleteModelCommand>(), default))
+                It.IsAny<DeleteTypeCommand>(), default))
             .ReturnsAsync(Result<Unit>.Failure(null));
 
         // Act
-        var result = await _modelsController.DeleteModel("Test") as BadRequestObjectResult;
+        var result = await _typesController.DeleteType("Test") as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);

@@ -1,27 +1,27 @@
 ﻿using API.Controllers.VehiclesRelated;
-using Application.Commands.Brands.CreateBrand;
-using Application.Commands.Brands.DeleteBrand;
-using Application.Commands.Brands.UpdateBrand;
+using Application.Commands.Displacements.CreateDisplacement;
+using Application.Commands.Displacements.DeleteDisplacement;
+using Application.Commands.Displacements.UpdateDisplacement;
 using Application.Core;
-using Application.Dtos.BrandDtos;
-using Application.Queries.Brands;
+using Application.Dtos.DisplacementDtos;
+using Application.Queries.Displacements;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
-namespace UnitTests.API;
+namespace UnitTests.API.Controllers;
 
-public class BrandsControllerTests
+public class DisplacementsControllerTests
 {
     private readonly Mock<IMediator> _mediatorMock;
-    private readonly BrandsController _brandsController;
+    private readonly DisplacementsController _displacementsController;
 
-    public BrandsControllerTests()
+    public DisplacementsControllerTests()
     {
         _mediatorMock = new Mock<IMediator>();
-        _brandsController = new BrandsController
+        _displacementsController = new DisplacementsController
         {
             ControllerContext = new ControllerContext
             {
@@ -35,33 +35,33 @@ public class BrandsControllerTests
     }
 
     [Fact]
-    public async Task GetBrands_ReturnsOk_WhenSuccessful()
+    public async Task GetDisplacements_ReturnsOk_WhenSuccessful()
     {
         // Arrange
-        var brands = new List<BrandDto>();
+        var Displacements = new List<DisplacementDto>();
         _mediatorMock.Setup(m => m.Send(
-            It.IsAny<ListBrandsQuery>(), default))
-            .ReturnsAsync(Result<IReadOnlyList<BrandDto>>.Success(brands));
+            It.IsAny<ListDisplacementsQuery>(), default))
+            .ReturnsAsync(Result<IReadOnlyList<DisplacementDto>>.Success(Displacements));
 
         // Act
-        var result = await _brandsController.GetBrands() as OkObjectResult;
+        var result = await _displacementsController.GetDisplacements() as OkObjectResult;
 
         // Assert
         Assert.NotNull(result);
         Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
-        Assert.Equal(brands, result.Value);
+        Assert.Equal(Displacements, result.Value);
     }
     
     [Fact]
-    public async Task GetBrands_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task GetDisplacements_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<ListBrandsQuery>(), default))
-            .ReturnsAsync(Result<IReadOnlyList<BrandDto>>.Failure(null));
+                It.IsAny<ListDisplacementsQuery>(), default))
+            .ReturnsAsync(Result<IReadOnlyList<DisplacementDto>>.Failure(null));
 
         // Act
-        var result = await _brandsController.GetBrands() as BadRequestObjectResult;
+        var result = await _displacementsController.GetDisplacements() as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -70,15 +70,15 @@ public class BrandsControllerTests
     }
     
     [Fact]
-    public async Task CreateBrand_ReturnsOk_WhenSuccessful()
+    public async Task CreateDisplacement_ReturnsOk_WhenSuccessful()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<CreateBrandCommand>(), default))
+                It.IsAny<CreateDisplacementCommand>(), default))
             .ReturnsAsync(Result<Unit>.Success(new Unit()));
 
         // Act
-        var result = await _brandsController.CreateBrand("TestBrand") as OkObjectResult;
+        var result = await _displacementsController.CreateDisplacement(1d) as OkObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -86,15 +86,15 @@ public class BrandsControllerTests
     }
     
     [Fact]
-    public async Task CreateBrand_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task CreateDisplacement_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<CreateBrandCommand>(), default))
+                It.IsAny<CreateDisplacementCommand>(), default))
             .ReturnsAsync(Result<Unit>.Failure(null));
 
         // Act
-        var result = await _brandsController.CreateBrand(null) as BadRequestObjectResult;
+        var result = await _displacementsController.CreateDisplacement(1d) as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -102,19 +102,19 @@ public class BrandsControllerTests
     }
     
     [Fact]
-    public async Task UpdateBrand_ReturnsOk_WhenSuccessful()
+    public async Task UpdateDisplacement_ReturnsOk_WhenSuccessful()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<UpdateBrandCommand>(), default))
+                It.IsAny<UpdateDisplacementCommand>(), default))
             .ReturnsAsync(Result<Unit>.Success(new Unit()));
 
         // Act
-        var result = await _brandsController.UpdateBrand(
-            new UpdateBrandDto
+        var result = await _displacementsController.UpdateDisplacement(
+            new UpdateDisplacementDto
         {
-            CurrentName = "Test",
-            UpdatedName = "TestUpdated"
+            CurrentValue = 1d,
+            UpdatedValue = 2d
         }) as OkObjectResult;
 
         // Assert
@@ -123,15 +123,15 @@ public class BrandsControllerTests
     }
     
     [Fact]
-    public async Task UpdateBrand_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task UpdateDisplacement_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<UpdateBrandCommand>(), default))
+                It.IsAny<UpdateDisplacementCommand>(), default))
             .ReturnsAsync(Result<Unit>.Failure(null));
 
         // Act
-        var result = await _brandsController.UpdateBrand(null) as BadRequestObjectResult;
+        var result = await _displacementsController.UpdateDisplacement(null) as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -140,15 +140,15 @@ public class BrandsControllerTests
     }
     
     [Fact]
-    public async Task DeleteBrand_ReturnsOk_WhenSuccessful()
+    public async Task DeleteDisplacement_ReturnsOk_WhenSuccessful()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<DeleteBrandCommand>(), default))
+                It.IsAny<DeleteDisplacementCommand>(), default))
             .ReturnsAsync(Result<Unit>.Success(new Unit()));
 
         // Act
-        var result = await _brandsController.DeleteBrand("Test") as OkObjectResult;
+        var result = await _displacementsController.DeleteDisplacement(1d) as OkObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -156,15 +156,15 @@ public class BrandsControllerTests
     }
     
     [Fact]
-    public async Task DeleteBrand_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task DeleteDisplacement_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<DeleteBrandCommand>(), default))
+                It.IsAny<DeleteDisplacementCommand>(), default))
             .ReturnsAsync(Result<Unit>.Failure(null));
 
         // Act
-        var result = await _brandsController.DeleteBrand("Test") as BadRequestObjectResult;
+        var result = await _displacementsController.DeleteDisplacement(1d) as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);

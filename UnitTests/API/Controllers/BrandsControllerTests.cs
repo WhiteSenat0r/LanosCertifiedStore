@@ -1,27 +1,27 @@
 ﻿using API.Controllers.VehiclesRelated;
-using Application.Commands.Colors.CreateColor;
-using Application.Commands.Colors.DeleteColor;
-using Application.Commands.Colors.UpdateColor;
+using Application.Commands.Brands.CreateBrand;
+using Application.Commands.Brands.DeleteBrand;
+using Application.Commands.Brands.UpdateBrand;
 using Application.Core;
-using Application.Dtos.ColorDtos;
-using Application.Queries.Colors;
+using Application.Dtos.BrandDtos;
+using Application.Queries.Brands;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
-namespace UnitTests.API;
+namespace UnitTests.API.Controllers;
 
-public class ColorsControllerTests
+public class BrandsControllerTests
 {
     private readonly Mock<IMediator> _mediatorMock;
-    private readonly ColorsController _colorsController;
+    private readonly BrandsController _brandsController;
 
-    public ColorsControllerTests()
+    public BrandsControllerTests()
     {
         _mediatorMock = new Mock<IMediator>();
-        _colorsController = new ColorsController
+        _brandsController = new BrandsController
         {
             ControllerContext = new ControllerContext
             {
@@ -35,33 +35,33 @@ public class ColorsControllerTests
     }
 
     [Fact]
-    public async Task GetColors_ReturnsOk_WhenSuccessful()
+    public async Task GetBrands_ReturnsOk_WhenSuccessful()
     {
         // Arrange
-        var colors = new List<ColorDto>();
+        var brands = new List<BrandDto>();
         _mediatorMock.Setup(m => m.Send(
-            It.IsAny<ListColorsQuery>(), default))
-            .ReturnsAsync(Result<IReadOnlyList<ColorDto>>.Success(colors));
+            It.IsAny<ListBrandsQuery>(), default))
+            .ReturnsAsync(Result<IReadOnlyList<BrandDto>>.Success(brands));
 
         // Act
-        var result = await _colorsController.GetColors() as OkObjectResult;
+        var result = await _brandsController.GetBrands() as OkObjectResult;
 
         // Assert
         Assert.NotNull(result);
         Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
-        Assert.Equal(colors, result.Value);
+        Assert.Equal(brands, result.Value);
     }
     
     [Fact]
-    public async Task GetColors_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task GetBrands_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<ListColorsQuery>(), default))
-            .ReturnsAsync(Result<IReadOnlyList<ColorDto>>.Failure(null));
+                It.IsAny<ListBrandsQuery>(), default))
+            .ReturnsAsync(Result<IReadOnlyList<BrandDto>>.Failure(null));
 
         // Act
-        var result = await _colorsController.GetColors() as BadRequestObjectResult;
+        var result = await _brandsController.GetBrands() as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -70,15 +70,15 @@ public class ColorsControllerTests
     }
     
     [Fact]
-    public async Task CreateColor_ReturnsOk_WhenSuccessful()
+    public async Task CreateBrand_ReturnsOk_WhenSuccessful()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<CreateColorCommand>(), default))
+                It.IsAny<CreateBrandCommand>(), default))
             .ReturnsAsync(Result<Unit>.Success(new Unit()));
 
         // Act
-        var result = await _colorsController.CreateColor("TestColor") as OkObjectResult;
+        var result = await _brandsController.CreateBrand("TestBrand") as OkObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -86,15 +86,15 @@ public class ColorsControllerTests
     }
     
     [Fact]
-    public async Task CreateColor_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task CreateBrand_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<CreateColorCommand>(), default))
+                It.IsAny<CreateBrandCommand>(), default))
             .ReturnsAsync(Result<Unit>.Failure(null));
 
         // Act
-        var result = await _colorsController.CreateColor(null) as BadRequestObjectResult;
+        var result = await _brandsController.CreateBrand(null) as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -102,16 +102,16 @@ public class ColorsControllerTests
     }
     
     [Fact]
-    public async Task UpdateColor_ReturnsOk_WhenSuccessful()
+    public async Task UpdateBrand_ReturnsOk_WhenSuccessful()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<UpdateColorCommand>(), default))
+                It.IsAny<UpdateBrandCommand>(), default))
             .ReturnsAsync(Result<Unit>.Success(new Unit()));
 
         // Act
-        var result = await _colorsController.UpdateColor(
-            new UpdateColorDto
+        var result = await _brandsController.UpdateBrand(
+            new UpdateBrandDto
         {
             CurrentName = "Test",
             UpdatedName = "TestUpdated"
@@ -123,15 +123,15 @@ public class ColorsControllerTests
     }
     
     [Fact]
-    public async Task UpdateColor_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task UpdateBrand_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<UpdateColorCommand>(), default))
+                It.IsAny<UpdateBrandCommand>(), default))
             .ReturnsAsync(Result<Unit>.Failure(null));
 
         // Act
-        var result = await _colorsController.UpdateColor(null) as BadRequestObjectResult;
+        var result = await _brandsController.UpdateBrand(null) as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -140,15 +140,15 @@ public class ColorsControllerTests
     }
     
     [Fact]
-    public async Task DeleteColor_ReturnsOk_WhenSuccessful()
+    public async Task DeleteBrand_ReturnsOk_WhenSuccessful()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<DeleteColorCommand>(), default))
+                It.IsAny<DeleteBrandCommand>(), default))
             .ReturnsAsync(Result<Unit>.Success(new Unit()));
 
         // Act
-        var result = await _colorsController.DeleteColor("Test") as OkObjectResult;
+        var result = await _brandsController.DeleteBrand("Test") as OkObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -156,15 +156,15 @@ public class ColorsControllerTests
     }
     
     [Fact]
-    public async Task DeleteColor_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task DeleteBrand_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<DeleteColorCommand>(), default))
+                It.IsAny<DeleteBrandCommand>(), default))
             .ReturnsAsync(Result<Unit>.Failure(null));
 
         // Act
-        var result = await _colorsController.DeleteColor("Test") as BadRequestObjectResult;
+        var result = await _brandsController.DeleteBrand("Test") as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);

@@ -1,27 +1,27 @@
 ﻿using API.Controllers.VehiclesRelated;
-using Application.Commands.Displacements.CreateDisplacement;
-using Application.Commands.Displacements.DeleteDisplacement;
-using Application.Commands.Displacements.UpdateDisplacement;
+using Application.Commands.Colors.CreateColor;
+using Application.Commands.Colors.DeleteColor;
+using Application.Commands.Colors.UpdateColor;
 using Application.Core;
-using Application.Dtos.DisplacementDtos;
-using Application.Queries.Displacements;
+using Application.Dtos.ColorDtos;
+using Application.Queries.Colors;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
-namespace UnitTests.API;
+namespace UnitTests.API.Controllers;
 
-public class DisplacementsControllerTests
+public class ColorsControllerTests
 {
     private readonly Mock<IMediator> _mediatorMock;
-    private readonly DisplacementsController _displacementsController;
+    private readonly ColorsController _colorsController;
 
-    public DisplacementsControllerTests()
+    public ColorsControllerTests()
     {
         _mediatorMock = new Mock<IMediator>();
-        _displacementsController = new DisplacementsController
+        _colorsController = new ColorsController
         {
             ControllerContext = new ControllerContext
             {
@@ -35,33 +35,33 @@ public class DisplacementsControllerTests
     }
 
     [Fact]
-    public async Task GetDisplacements_ReturnsOk_WhenSuccessful()
+    public async Task GetColors_ReturnsOk_WhenSuccessful()
     {
         // Arrange
-        var Displacements = new List<DisplacementDto>();
+        var colors = new List<ColorDto>();
         _mediatorMock.Setup(m => m.Send(
-            It.IsAny<ListDisplacementsQuery>(), default))
-            .ReturnsAsync(Result<IReadOnlyList<DisplacementDto>>.Success(Displacements));
+            It.IsAny<ListColorsQuery>(), default))
+            .ReturnsAsync(Result<IReadOnlyList<ColorDto>>.Success(colors));
 
         // Act
-        var result = await _displacementsController.GetDisplacements() as OkObjectResult;
+        var result = await _colorsController.GetColors() as OkObjectResult;
 
         // Assert
         Assert.NotNull(result);
         Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
-        Assert.Equal(Displacements, result.Value);
+        Assert.Equal(colors, result.Value);
     }
     
     [Fact]
-    public async Task GetDisplacements_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task GetColors_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<ListDisplacementsQuery>(), default))
-            .ReturnsAsync(Result<IReadOnlyList<DisplacementDto>>.Failure(null));
+                It.IsAny<ListColorsQuery>(), default))
+            .ReturnsAsync(Result<IReadOnlyList<ColorDto>>.Failure(null));
 
         // Act
-        var result = await _displacementsController.GetDisplacements() as BadRequestObjectResult;
+        var result = await _colorsController.GetColors() as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -70,15 +70,15 @@ public class DisplacementsControllerTests
     }
     
     [Fact]
-    public async Task CreateDisplacement_ReturnsOk_WhenSuccessful()
+    public async Task CreateColor_ReturnsOk_WhenSuccessful()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<CreateDisplacementCommand>(), default))
+                It.IsAny<CreateColorCommand>(), default))
             .ReturnsAsync(Result<Unit>.Success(new Unit()));
 
         // Act
-        var result = await _displacementsController.CreateDisplacement(1d) as OkObjectResult;
+        var result = await _colorsController.CreateColor("TestColor") as OkObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -86,15 +86,15 @@ public class DisplacementsControllerTests
     }
     
     [Fact]
-    public async Task CreateDisplacement_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task CreateColor_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<CreateDisplacementCommand>(), default))
+                It.IsAny<CreateColorCommand>(), default))
             .ReturnsAsync(Result<Unit>.Failure(null));
 
         // Act
-        var result = await _displacementsController.CreateDisplacement(1d) as BadRequestObjectResult;
+        var result = await _colorsController.CreateColor(null) as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -102,19 +102,19 @@ public class DisplacementsControllerTests
     }
     
     [Fact]
-    public async Task UpdateDisplacement_ReturnsOk_WhenSuccessful()
+    public async Task UpdateColor_ReturnsOk_WhenSuccessful()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<UpdateDisplacementCommand>(), default))
+                It.IsAny<UpdateColorCommand>(), default))
             .ReturnsAsync(Result<Unit>.Success(new Unit()));
 
         // Act
-        var result = await _displacementsController.UpdateDisplacement(
-            new UpdateDisplacementDto
+        var result = await _colorsController.UpdateColor(
+            new UpdateColorDto
         {
-            CurrentValue = 1d,
-            UpdatedValue = 2d
+            CurrentName = "Test",
+            UpdatedName = "TestUpdated"
         }) as OkObjectResult;
 
         // Assert
@@ -123,15 +123,15 @@ public class DisplacementsControllerTests
     }
     
     [Fact]
-    public async Task UpdateDisplacement_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task UpdateColor_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<UpdateDisplacementCommand>(), default))
+                It.IsAny<UpdateColorCommand>(), default))
             .ReturnsAsync(Result<Unit>.Failure(null));
 
         // Act
-        var result = await _displacementsController.UpdateDisplacement(null) as BadRequestObjectResult;
+        var result = await _colorsController.UpdateColor(null) as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -140,15 +140,15 @@ public class DisplacementsControllerTests
     }
     
     [Fact]
-    public async Task DeleteDisplacement_ReturnsOk_WhenSuccessful()
+    public async Task DeleteColor_ReturnsOk_WhenSuccessful()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<DeleteDisplacementCommand>(), default))
+                It.IsAny<DeleteColorCommand>(), default))
             .ReturnsAsync(Result<Unit>.Success(new Unit()));
 
         // Act
-        var result = await _displacementsController.DeleteDisplacement(1d) as OkObjectResult;
+        var result = await _colorsController.DeleteColor("Test") as OkObjectResult;
 
         // Assert
         Assert.NotNull(result);
@@ -156,15 +156,15 @@ public class DisplacementsControllerTests
     }
     
     [Fact]
-    public async Task DeleteDisplacement_ReturnsBadRequest_WhenResultIsFailure()
+    public async Task DeleteColor_ReturnsBadRequest_WhenResultIsFailure()
     {
         // Arrange
         _mediatorMock.Setup(m => m.Send(
-                It.IsAny<DeleteDisplacementCommand>(), default))
+                It.IsAny<DeleteColorCommand>(), default))
             .ReturnsAsync(Result<Unit>.Failure(null));
 
         // Act
-        var result = await _displacementsController.DeleteDisplacement(1d) as BadRequestObjectResult;
+        var result = await _colorsController.DeleteColor("Test") as BadRequestObjectResult;
 
         // Assert
         Assert.NotNull(result);

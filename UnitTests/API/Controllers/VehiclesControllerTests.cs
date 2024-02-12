@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
-namespace UnitTests.API;
+namespace UnitTests.API.Controllers;
 
 public class VehiclesControllerTests
 {
