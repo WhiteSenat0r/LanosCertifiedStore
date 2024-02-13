@@ -1,41 +1,60 @@
 ﻿using AutoMapper;
 using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Contexts;
 using Persistence.DataModels;
 using Persistence.Repositories.Common.Classes;
 
 namespace Persistence.Repositories;
 
-internal class VehicleDisplacementRepository(IMapper mapper, DbContext dbContext)
+internal class VehicleDisplacementRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
     : GenericRepository<VehicleDisplacement, VehicleDisplacementDataModel>(mapper, dbContext)
 {
-    public override async Task<List<VehicleDisplacement>> GetAllEntitiesAsync()
+    public override async Task<IReadOnlyList<VehicleDisplacement>> GetAllEntitiesAsync()
     {
-        throw new NotImplementedException();
+        var displacementModels = await dbContext.VehicleDisplacements
+            .AsNoTracking()
+            .ToListAsync();
+
+        return mapper.Map<IReadOnlyList<VehicleDisplacementDataModel>, IReadOnlyList<VehicleDisplacement>>(
+            displacementModels);
     }
 
     public override async Task<VehicleDisplacement?> GetEntityByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var displacementModel = await dbContext.VehicleDisplacements
+            .AsNoTracking()
+            .SingleOrDefaultAsync(x => x.Id == id);
+
+        return displacementModel is null
+            ? null
+            : mapper.Map<VehicleDisplacementDataModel, VehicleDisplacement>(displacementModel);
     }
 
     public override async Task AddNewEntityAsync(VehicleDisplacement entity)
     {
-        throw new NotImplementedException();
+        var displacementModel = mapper.Map<VehicleDisplacement, VehicleDisplacementDataModel>(entity);
+
+        await dbContext.VehicleDisplacements.AddAsync(displacementModel);
     }
 
     public override void UpdateExistingEntity(VehicleDisplacement updatedEntity)
     {
-        throw new NotImplementedException();
+        var displacementModel = mapper.Map<VehicleDisplacement, VehicleDisplacementDataModel>(updatedEntity);
+
+        dbContext.VehicleDisplacements.Update(displacementModel);
+
     }
 
-    public override void RemoveExistingEntity(VehicleDisplacement removedEntity)
+    public override void RemoveExistingEntity(VehicleDisplacement removedEntity) // TODO idk about id anymore
     {
-        throw new NotImplementedException();
+        var displacementModel = mapper.Map<VehicleDisplacement, VehicleDisplacementDataModel>(removedEntity);
+
+        dbContext.VehicleDisplacements.Remove(displacementModel); 
     }
 
     public override async Task<int> CountAsync()
     {
-        throw new NotImplementedException();
+        return await dbContext.VehicleDisplacements.CountAsync();
     }
 }
