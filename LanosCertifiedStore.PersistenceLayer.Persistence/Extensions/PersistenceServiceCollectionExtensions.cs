@@ -8,7 +8,7 @@ using Persistence.Repositories;
 
 namespace Persistence.Extensions;
 
-public static class PersistenceServiceExtensions
+public static class PersistenceServiceCollectionExtensions
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration config)
     {
