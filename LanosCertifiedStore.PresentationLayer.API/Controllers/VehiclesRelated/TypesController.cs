@@ -37,11 +37,11 @@ public sealed class TypesController : BaseEntityRelatedApiController
         return HandleResult(await Mediator.Send(new UpdateTypeCommand(updateTypeDto)));
     }
 
-    [HttpDelete("{name}")]
+    [HttpDelete("{id:guid}")]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeleteType(string name)
+    public async Task<IActionResult> DeleteType(Guid id)
     {
-        return HandleResult(await Mediator.Send(new DeleteTypeCommand(name)));
+        return HandleResult(await Mediator.Send(new DeleteTypeCommand(id)));
     }
 }

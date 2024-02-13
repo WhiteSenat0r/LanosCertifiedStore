@@ -37,11 +37,11 @@ public sealed class ColorsController : BaseEntityRelatedApiController
         return HandleResult(await Mediator.Send(new UpdateColorCommand(updateColorDto)));
     }
 
-    [HttpDelete("{name}")]
+    [HttpDelete("{id:guid}")]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeleteColor(string name)
+    public async Task<IActionResult> DeleteColor(Guid id)
     {
-        return HandleResult(await Mediator.Send(new DeleteColorCommand(name)));
+        return HandleResult(await Mediator.Send(new DeleteColorCommand(id)));
     }
 }
