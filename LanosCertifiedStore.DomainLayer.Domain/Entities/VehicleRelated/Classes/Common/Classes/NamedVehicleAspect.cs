@@ -1,10 +1,8 @@
-﻿using Domain.Contracts.Common;
+﻿namespace Domain.Entities.VehicleRelated.Classes.Common.Classes;
 
-namespace Domain.Entities.VehicleRelated.Classes.Common.Classes;
-
-public abstract class NamedVehicleAspect : IEntity<Guid>
+public abstract class NamedVehicleAspect
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
+    public Guid Id { get; init; } = Guid.NewGuid();
     public string Name { get; set; }
 
     protected NamedVehicleAspect() { }
