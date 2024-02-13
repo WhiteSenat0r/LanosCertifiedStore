@@ -1,26 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Domain.Contracts.Common;
+﻿using Domain.Contracts.Common;
 
 namespace Domain.Entities.VehicleRelated.Classes;
 
 public sealed class Vehicle : IEntity<Guid>
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    [MaxLength(2048)] public string Description { get; set; }
-    public Guid BrandId { get; set; }
-    public VehicleBrand Brand { get; set; }
-    public Guid ModelId { get; set; }
-    public VehicleModel Model { get; set; }
-    public Guid ColorId { get; set; }
-    public VehicleColor Color { get; set; }
-    public Guid TypeId { get; set; }
-    public VehicleType Type { get; set; }
-    public Guid DisplacementId { get; set; }
-    public VehicleDisplacement Displacement { get; set; }
-    public ICollection<VehiclePrice> Prices { get; set; } = new List<VehiclePrice>();
+    public string Description { get; init; } = null!;
+    public Guid BrandId { get; init; }
+    public VehicleBrand Brand { get; init; } = null!;
+    public Guid ModelId { get; init; }
+    public VehicleModel Model { get; init; } = null!;
+    public Guid ColorId { get; init; }
+    public VehicleColor Color { get; init; } = null!;
+    public Guid TypeId { get; init; }
+    public VehicleType Type { get; init; } = null!;
+    public Guid DisplacementId { get; init; }
+    public VehicleDisplacement Displacement { get; init; } = null!;
+    public ICollection<VehiclePrice> Prices { get; init; } = new List<VehiclePrice>();
 
     public Vehicle() { }
-    
     public Vehicle(
         Guid brandId,
         Guid modelId,
