@@ -1,18 +1,18 @@
-﻿using Domain.Entities.VehicleRelated.Classes;
+﻿using Persistence.DataModels;
 
 namespace Persistence.SeedingData;
 
 internal static class SeedVehicles
 {
-    public static List<Vehicle> GetVehicles(
-        List<VehicleType> types,
-        List<VehicleColor> colors,
-        List<VehicleBrand> brands,
-        List<VehicleModel> models,
-        List<VehicleDisplacement> displacements) =>
+    public static List<VehicleDataModel> GetVehicles(
+        List<VehicleTypeDataModel> types,
+        List<VehicleColorDataModel> colors,
+        List<VehicleBrandDataModel> brands,
+        List<VehicleModelDataModel> models,
+        List<VehicleDisplacementDataModel> displacements) =>
 
     [
-        new Vehicle(
+        new VehicleDataModel(
             brandId: brands[0].Id,
             modelId: models.Where(x => x.VehicleBrandId == brands[0].Id).ToList()[0].Id,
             typeId: types.First(x => x.Name.Equals("Седан")).Id,
@@ -49,7 +49,7 @@ internal static class SeedVehicles
                          "Ємність багажника: Приблизно 15.1 кубічних футів\n" +
                          "Вартість (за орієнтованою конфігурацією): Від $25,000 до $35,000 (в залежності від обраної комплектації та додаткових опцій)\n"
         ),
-        new Vehicle(
+        new VehicleDataModel(
             brandId: brands[1].Id,
             modelId: models.Where(x => x.VehicleBrandId == brands[1].Id).ToList()[0].Id,
             typeId: types.First(x => x.Name.Equals("Пікап")).Id,
@@ -84,7 +84,7 @@ internal static class SeedVehicles
                          "Ємність багажника: Залежить від кузова та конфігурації\n" +
                          "Вартість (за орієнтованою конфігурацією): Від $30,000 до $70,000 (в залежності від обраної комплектації та додаткових опцій)\n"
         ),
-        new Vehicle(
+        new VehicleDataModel(
             brandId: brands[2].Id,
             modelId: models.Where(x => x.VehicleBrandId == brands[2].Id).ToList()[0].Id,
             typeId: types.First(x => x.Name.Equals("Купе")).Id,
@@ -119,7 +119,7 @@ internal static class SeedVehicles
                          "Ємність багажника: Залежить від кузова та конфігурації\n" +
                          "Вартість (за орієнтованою конфігурацією): Від $20,000 до $28,000 (в залежності від обраної комплектації та додаткових опцій)\n"
         ),
-        new Vehicle(
+        new VehicleDataModel(
             brandId: brands[3].Id,
             modelId: models.Where(x => x.VehicleBrandId == brands[3].Id).ToList()[0].Id,
             typeId: types.First(x => x.Name.Equals("Пікап")).Id,
@@ -154,7 +154,7 @@ internal static class SeedVehicles
                          "Ємність багажника: Залежить від кузова та конфігурації\n" +
                          "Вартість (за орієнтованою конфігурацією): Від $30,000 до $60,000 (в залежності від обраної комплектації та додаткових опцій)\n"
         ),
-        new Vehicle(
+        new VehicleDataModel(
             brandId: brands[4].Id,
             modelId: models.Where(x => x.VehicleBrandId == brands[4].Id).ToList()[1].Id,
             typeId: types.First(x => x.Name.Equals("Універсал")).Id,
@@ -189,7 +189,7 @@ internal static class SeedVehicles
                          "Ємність багажника: Залежить від кузова та конфігурації\n" +
                          "Вартість (за орієнтованою конфігурацією): Від $25,000 до $40,000 (в залежності від обраної комплектації та додаткових опцій)\n"
         ),
-        new Vehicle(
+        new VehicleDataModel(
             brandId: brands[5].Id,
             modelId: models.Where(x => x.VehicleBrandId == brands[5].Id).ToList()[0].Id,
             typeId: types.First(x => x.Name.Equals("Седан")).Id,
@@ -224,7 +224,7 @@ internal static class SeedVehicles
                          "Ємність багажника: Залежить від кузова та конфігурації\n" +
                          "Вартість (за орієнтованою конфігурацією): Від $24,000 до $35,000 (в залежності від обраної комплектації та додаткових опцій)\n"
         ),
-        new Vehicle(
+        new VehicleDataModel(
             brandId: brands[6].Id,
             modelId: models.Where(x => x.VehicleBrandId == brands[6].Id).ToList()[7].Id,
             typeId: types.First(x => x.Name.Equals("Седан")).Id,
@@ -262,7 +262,7 @@ internal static class SeedVehicles
                          "   - Приблизно 250 км/год (електронно обмежена)\n" +
                          "Вартість (за орієнтованою конфігурацією): Від $70,000 до $80,000 (в залежності від обраної комплектації та додаткових опцій)\n"
         ),
-        new Vehicle(
+        new VehicleDataModel(
             brandId: brands[7].Id,
             modelId: models.Where(x => x.VehicleBrandId == brands[7].Id).ToList()[0].Id,
             typeId: types.First(x => x.Name.Equals("Седан")).Id,
@@ -297,7 +297,7 @@ internal static class SeedVehicles
                          "Ємність багажника: Залежить від кузова та конфігурації\n" +
                          "Вартість (за орієнтованою конфігурацією): Від $42,000 до $80,000 (в залежності від обраної комплектації та додаткових опцій)\n"
         ),
-        new Vehicle(
+        new VehicleDataModel(
             brandId: brands[8].Id,
             modelId: models.Where(x => x.VehicleBrandId == brands[8].Id).ToList()[2].Id,
             typeId: types.First(x => x.Name.Equals("Універсал")).Id,
@@ -332,7 +332,7 @@ internal static class SeedVehicles
                          "Ємність багажника: Залежить від кузова та конфігурації\n" +
                          "Вартість (за орієнтованою конфігурацією): Від $55,000 до $75,000 (в залежності від обраної комплектації та додаткових опцій)\n"
         ),
-        new Vehicle(
+        new VehicleDataModel(
             brandId: brands[9].Id,
             modelId: models.Where(x => x.VehicleBrandId == brands[9].Id).ToList()[1].Id,
             typeId: types.First(x => x.Name.Equals("Седан")).Id,
