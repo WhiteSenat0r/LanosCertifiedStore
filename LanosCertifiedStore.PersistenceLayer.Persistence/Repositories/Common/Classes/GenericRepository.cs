@@ -14,9 +14,9 @@ internal abstract class GenericRepository<TEntity, TDataModel>(
         dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     
     private protected IMapper Mapper { get; init; } = 
-        mapper ?? throw new ArgumentNullException(nameof(mapper));
+        mapper ?? throw new ArgumentNullException(nameof(mapper)); // TODO resolve why tf do we need this (Context as well)
 
-    public abstract Task<List<TEntity>> GetAllEntitiesAsync();
+    public abstract Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync();
 
     public abstract Task<TEntity?> GetEntityByIdAsync(Guid id);
 
