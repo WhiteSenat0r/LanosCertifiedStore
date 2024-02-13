@@ -25,9 +25,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\API\API.csproj" />
-      <ProjectReference Include="..\Application\Application.csproj" />
-      <ProjectReference Include="..\Domain\Domain.csproj" />
+      <ProjectReference Include="..\LanosCertifiedStore.PresentationLayer.API\LanosCertifiedStore.PresentationLayer.API.csproj" />
+      <ProjectReference Include="..\LanosCertifiedStore.ApplicationLayer.Application\LanosCertifiedStore.ApplicationLayer.Application.csproj" />
+      <ProjectReference Include="..\LanosCertifiedStore.DomainLayer.Domain\LanosCertifiedStore.DomainLayer.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
