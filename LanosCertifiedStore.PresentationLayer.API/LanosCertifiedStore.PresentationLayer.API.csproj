@@ -5,6 +5,7 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>false</InvariantGlobalization>
+    <RootNamespace>API</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj" />
-    <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\Persistence\Persistence.csproj" />
+    <ProjectReference Include="..\LanosCertifiedStore.ApplicationLayer.Application\LanosCertifiedStore.ApplicationLayer.Application.csproj" />
+    <ProjectReference Include="..\LanosCertifiedStore.DomainLayer.Domain\LanosCertifiedStore.DomainLayer.Domain.csproj" />
+    <ProjectReference Include="..\LanosCertifiedStore.PersistenceLayer.Persistence\LanosCertifiedStore.PersistenceLayer.Persistence.csproj" />
   </ItemGroup>
   
   <ItemGroup>

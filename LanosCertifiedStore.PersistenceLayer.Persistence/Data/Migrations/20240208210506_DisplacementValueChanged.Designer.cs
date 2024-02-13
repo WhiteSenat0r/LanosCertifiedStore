@@ -12,8 +12,8 @@ using Persistence.Contexts;
 namespace Persistence.Data.Migrations
 {
     [DbContext(typeof(ApplicationDatabaseContext))]
-    [Migration("20240208200339_UpdatedVehicleRelatedConnections")]
-    partial class UpdatedVehicleRelatedConnections
+    [Migration("20240208210506_DisplacementValueChanged")]
+    partial class DisplacementValueChanged
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Persistence.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Entities.VehicleRelated.Classes.Vehicle", b =>
+            modelBuilder.Entity("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.Vehicle", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,7 +65,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("Vehicles");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VehicleRelated.Classes.VehicleBrand", b =>
+            modelBuilder.Entity("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleBrand", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -80,7 +80,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehiclesBrands");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VehicleRelated.Classes.VehicleColor", b =>
+            modelBuilder.Entity("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleColor", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -95,21 +95,21 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehiclesColors");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VehicleRelated.Classes.VehicleDisplacement", b =>
+            modelBuilder.Entity("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleDisplacement", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("Value")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(6, 1)");
 
                     b.HasKey("Id");
 
                     b.ToTable("VehicleDisplacements");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VehicleRelated.Classes.VehicleModel", b =>
+            modelBuilder.Entity("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -129,7 +129,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleModels");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VehicleRelated.Classes.VehiclePrice", b =>
+            modelBuilder.Entity("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehiclePrice", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -151,7 +151,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehiclePrices");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VehicleRelated.Classes.VehicleType", b =>
+            modelBuilder.Entity("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -166,33 +166,33 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleTypes");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VehicleRelated.Classes.Vehicle", b =>
+            modelBuilder.Entity("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.Vehicle", b =>
                 {
-                    b.HasOne("Domain.Entities.VehicleRelated.Classes.VehicleBrand", "Brand")
+                    b.HasOne("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleBrand", "Brand")
                         .WithMany()
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.VehicleRelated.Classes.VehicleColor", "Color")
+                    b.HasOne("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleColor", "Color")
                         .WithMany("Vehicles")
                         .HasForeignKey("ColorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.VehicleRelated.Classes.VehicleDisplacement", "Displacement")
+                    b.HasOne("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleDisplacement", "Displacement")
                         .WithMany("Vehicles")
                         .HasForeignKey("DisplacementId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.VehicleRelated.Classes.VehicleModel", "Model")
+                    b.HasOne("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleModel", "Model")
                         .WithMany()
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.VehicleRelated.Classes.VehicleType", "Type")
+                    b.HasOne("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleType", "Type")
                         .WithMany("Vehicles")
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -209,9 +209,9 @@ namespace Persistence.Data.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VehicleRelated.Classes.VehicleModel", b =>
+            modelBuilder.Entity("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleModel", b =>
                 {
-                    b.HasOne("Domain.Entities.VehicleRelated.Classes.VehicleBrand", "VehicleBrand")
+                    b.HasOne("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleBrand", "VehicleBrand")
                         .WithMany("Models")
                         .HasForeignKey("VehicleBrandId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -220,9 +220,9 @@ namespace Persistence.Data.Migrations
                     b.Navigation("VehicleBrand");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VehicleRelated.Classes.VehiclePrice", b =>
+            modelBuilder.Entity("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehiclePrice", b =>
                 {
-                    b.HasOne("Domain.Entities.VehicleRelated.Classes.Vehicle", "Vehicle")
+                    b.HasOne("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.Vehicle", "Vehicle")
                         .WithMany("Prices")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -231,27 +231,27 @@ namespace Persistence.Data.Migrations
                     b.Navigation("Vehicle");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VehicleRelated.Classes.Vehicle", b =>
+            modelBuilder.Entity("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.Vehicle", b =>
                 {
                     b.Navigation("Prices");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VehicleRelated.Classes.VehicleBrand", b =>
+            modelBuilder.Entity("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleBrand", b =>
                 {
                     b.Navigation("Models");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VehicleRelated.Classes.VehicleColor", b =>
+            modelBuilder.Entity("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleColor", b =>
                 {
                     b.Navigation("Vehicles");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VehicleRelated.Classes.VehicleDisplacement", b =>
+            modelBuilder.Entity("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleDisplacement", b =>
                 {
                     b.Navigation("Vehicles");
                 });
 
-            modelBuilder.Entity("Domain.Entities.VehicleRelated.Classes.VehicleType", b =>
+            modelBuilder.Entity("LanosCertifiedStore.DomainLayer.Domain.Entities.VehicleRelated.Classes.VehicleType", b =>
                 {
                     b.Navigation("Vehicles");
                 });
