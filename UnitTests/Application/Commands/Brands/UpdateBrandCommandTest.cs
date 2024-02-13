@@ -1,7 +1,6 @@
 ﻿using Application.Commands.Brands.UpdateBrand;
 using Application.Core;
 using Application.Dtos.BrandDtos;
-using Application.QuerySpecifications.BrandRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -27,7 +26,7 @@ public class UpdateBrandCommandTest
         var command = new UpdateBrandCommand(updateBrandDto);
 
         brandRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<BrandByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<BrandByNameQuerySpecification>()))
             .ReturnsAsync((VehicleBrand)null!);
 
         var handler = new UpdateBrandCommandHandler(brandRepositoryMock.Object, unitOfWorkMock.Object);
@@ -47,7 +46,7 @@ public class UpdateBrandCommandTest
         var command = new UpdateBrandCommand(updateBrandDto);
 
         brandRepositoryMock.SetupSequence(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<BrandByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<BrandByNameQuerySpecification>()))
             .ReturnsAsync(new VehicleBrand(updateBrandDto.CurrentName))
             .ReturnsAsync(new VehicleBrand(updateBrandDto.UpdatedName));
 
@@ -68,7 +67,7 @@ public class UpdateBrandCommandTest
         var command = new UpdateBrandCommand(updateBrandDto);
 
         brandRepositoryMock.SetupSequence(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<BrandByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<BrandByNameQuerySpecification>()))
             .ReturnsAsync(new VehicleBrand(updateBrandDto.CurrentName))
             .ReturnsAsync((VehicleBrand)null!);
         

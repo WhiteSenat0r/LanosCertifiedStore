@@ -1,5 +1,4 @@
 ﻿using Application.Core;
-using Application.QuerySpecifications.DisplacementRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -12,8 +11,7 @@ internal sealed class DeleteDisplacementCommandHandler(
 {
     public async Task<Result<Unit>> Handle(DeleteDisplacementCommand request, CancellationToken cancellationToken)
     {
-        var deletedDisplacement = await displacementRepository.GetSingleEntityBySpecificationAsync(
-                new DisplacementByValueQuerySpecification(request.Value));
+        var deletedDisplacement = await displacementRepository.GetEntityByIdAsync(request.Id);
 
         if (deletedDisplacement is null)
             return Result<Unit>.Failure("Such displacement doesn't exists!");

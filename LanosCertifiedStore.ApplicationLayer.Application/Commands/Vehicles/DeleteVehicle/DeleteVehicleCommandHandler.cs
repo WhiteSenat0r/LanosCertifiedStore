@@ -1,5 +1,4 @@
 ﻿using Application.Core;
-using Application.QuerySpecifications.VehiclesRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -12,8 +11,7 @@ internal sealed class DeleteVehicleCommandHandler(
 {
     public async Task<Result<Unit>> Handle(DeleteVehicleCommand request, CancellationToken cancellationToken)
     {
-        var deleteVehicle = await vehicleRepository.GetSingleEntityBySpecificationAsync(
-                new VehicleByIdQuerySpecification(request.Id));
+        var deleteVehicle = await vehicleRepository.GetEntityByIdAsync(request.Id);
         
         if (deleteVehicle is null) 
             return Result<Unit>.Failure("Such vehicle doesn't exists!");

@@ -1,6 +1,5 @@
 ﻿using Application.Commands.Colors.CreateColor;
 using Application.Core;
-using Application.QuerySpecifications.ColorRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -23,7 +22,7 @@ public class CreateColorCommandTest
         var command = new CreateColorCommand(ColorName);
         
         colorRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<ColorByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<ColorByNameQuerySpecification>()))
             .ReturnsAsync(new VehicleColor(ColorName));
 
         var handler = new CreateColorCommandHandler(colorRepositoryMock.Object, unitOfWorkMock.Object);
@@ -43,7 +42,7 @@ public class CreateColorCommandTest
         var command = new CreateColorCommand(ColorName);
 
         colorRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<ColorByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<ColorByNameQuerySpecification>()))
             .ReturnsAsync((VehicleColor)null!);
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(1);

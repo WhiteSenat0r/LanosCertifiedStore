@@ -1,6 +1,5 @@
 ﻿using Application.Commands.Vehicles.CreateVehicle;
 using Application.Core;
-using Application.QuerySpecifications.VehiclesRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -21,7 +20,7 @@ public class CreateVehicleCommandTest
         var command = new CreateVehicleCommand(actionVehicleDto);
 
         vehicleRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<VehicleByIdQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<VehicleByIdQuerySpecification>()))
             .ReturnsAsync(VehicleService.GetVehicle(actionVehicleDto));
 
         var handler = new CreateVehicleCommandHandler(vehicleRepositoryMock.Object, unitOfWorkMock.Object);
@@ -41,7 +40,7 @@ public class CreateVehicleCommandTest
         var command = new CreateVehicleCommand(VehicleService.GetActionVehicleDto());
 
         vehicleRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<VehicleByIdQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<VehicleByIdQuerySpecification>()))
             .ReturnsAsync((Vehicle)null!);
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(1);

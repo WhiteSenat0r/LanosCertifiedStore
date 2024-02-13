@@ -1,6 +1,5 @@
 ﻿using Application.Commands.Displacements.CreateDisplacement;
 using Application.Core;
-using Application.QuerySpecifications.DisplacementRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -23,7 +22,7 @@ public class CreateDisplacementCommandTest
         var command = new CreateDisplacementCommand(DisplacementValue);
         
         displacementRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<DisplacementByValueQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<DisplacementByValueQuerySpecification>()))
             .ReturnsAsync(new VehicleDisplacement(DisplacementValue));
 
         var handler = new CreateDisplacementCommandHandler(displacementRepositoryMock.Object, unitOfWorkMock.Object);
@@ -43,7 +42,7 @@ public class CreateDisplacementCommandTest
         var command = new CreateDisplacementCommand(DisplacementValue);
 
         displacementRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<DisplacementByValueQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<DisplacementByValueQuerySpecification>()))
             .ReturnsAsync((VehicleDisplacement)null!);
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(1);

@@ -1,6 +1,5 @@
 ﻿using Application.Commands.Vehicles.UpdateVehicle;
 using Application.Core;
-using Application.QuerySpecifications.VehiclesRelated;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -23,7 +22,7 @@ public class UpdateVehicleCommandTest
         var command = new UpdateVehicleCommand(VehicleService.GetActionVehicleDto());
 
         vehicleRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<VehicleByIdQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<VehicleByIdQuerySpecification>()))
             .ReturnsAsync((Vehicle)null!);
 
         var handler = new UpdateVehicleCommandHandler(
@@ -47,7 +46,7 @@ public class UpdateVehicleCommandTest
         var command = new UpdateVehicleCommand(VehicleService.GetActionVehicleDto());
 
         vehicleRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<VehicleByIdQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<VehicleByIdQuerySpecification>()))
             .ReturnsAsync(VehicleService.GetVehicle(VehicleService.GetActionVehicleDto()));
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default))
@@ -80,7 +79,7 @@ public class UpdateVehicleCommandTest
 
 
         vehicleRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<VehicleByIdQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<VehicleByIdQuerySpecification>()))
             .ReturnsAsync(vehicle);
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default))

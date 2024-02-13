@@ -1,6 +1,5 @@
 ﻿using Application.Commands.Types.CreateType;
 using Application.Core;
-using Application.QuerySpecifications.TypeRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -23,7 +22,7 @@ public class CreateTypeCommandTest
         var command = new CreateTypeCommand(TypeName);
         
         typeRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<TypeByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<TypeByNameQuerySpecification>()))
             .ReturnsAsync(new VehicleType(TypeName));
 
         var handler = new CreateTypeCommandHandler(typeRepositoryMock.Object, unitOfWorkMock.Object);
@@ -43,7 +42,7 @@ public class CreateTypeCommandTest
         var command = new CreateTypeCommand(TypeName);
 
         typeRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<TypeByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<TypeByNameQuerySpecification>()))
             .ReturnsAsync((VehicleType)null!);
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(1);

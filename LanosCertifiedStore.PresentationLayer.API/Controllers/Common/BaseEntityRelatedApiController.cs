@@ -6,7 +6,7 @@ namespace API.Controllers.Common;
 
 public abstract class BaseEntityRelatedApiController : BaseApiController
 {
-    protected override ActionResult HandleResult<T>(Result<T> result)
+    protected override ActionResult HandleResult<T>(Result<T>? result)
     {
         if (result is null)
             return NotFound(new ApiResponse(NotFound().StatusCode));

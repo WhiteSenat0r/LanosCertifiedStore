@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Application.Commands.Models.DeleteModel;
 
-public sealed record DeleteModelCommand(string Name) : IRequest<Result<Unit>>;
+public sealed record DeleteModelCommand(Guid Id) : IRequest<Result<Unit>>;

@@ -1,5 +1,4 @@
 ﻿using Application.Core;
-using Application.QuerySpecifications.BrandRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -11,12 +10,6 @@ internal sealed class CreateBrandCommandHandler(IRepository<VehicleBrand> brandR
 {
     public async Task<Result<Unit>> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
     {
-        var existingBrand = await brandRepository.GetSingleEntityBySpecificationAsync(
-                new BrandByNameQuerySpecification(request.Name));
-
-        if (existingBrand is not null)
-            return Result<Unit>.Failure("Brand with such name already exists!");
-
         var brand = new VehicleBrand(request.Name);
         await brandRepository.AddNewEntityAsync(brand);
 

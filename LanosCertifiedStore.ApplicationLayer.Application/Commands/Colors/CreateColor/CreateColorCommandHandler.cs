@@ -1,5 +1,4 @@
 ﻿using Application.Core;
-using Application.QuerySpecifications.ColorRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -11,11 +10,6 @@ internal sealed class CreateColorCommandHandler(IRepository<VehicleColor> colorR
 {
     public async Task<Result<Unit>> Handle(CreateColorCommand request, CancellationToken cancellationToken)
     {
-        var existingColor = await colorRepository.GetSingleEntityBySpecificationAsync(
-            new ColorByNameQuerySpecification(request.ColorName));
-
-        if (existingColor is not null) return Result<Unit>.Failure("Such color already exists!");
-
         var color = new VehicleColor(request.ColorName);
 
         await colorRepository.AddNewEntityAsync(color);

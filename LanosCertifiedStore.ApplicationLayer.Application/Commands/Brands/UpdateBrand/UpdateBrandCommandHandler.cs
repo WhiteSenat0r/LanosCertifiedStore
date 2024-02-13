@@ -1,5 +1,4 @@
 ﻿using Application.Core;
-using Application.QuerySpecifications.BrandRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -11,17 +10,10 @@ internal sealed class UpdateBrandCommandHandler(IRepository<VehicleBrand> brandR
 {
     public async Task<Result<Unit>> Handle(UpdateBrandCommand request, CancellationToken cancellationToken)
     {
-        var brand = await brandRepository.GetSingleEntityBySpecificationAsync(
-            new BrandByNameQuerySpecification(request.UpdateBrandDto.CurrentName));
+        var brand = await brandRepository.GetEntityByIdAsync(request.UpdateBrandDto.Id);
 
         if (brand is null) 
             return Result<Unit>.Failure("Such brand doesn't exists!");
-        
-        var updatedValueBrand = await brandRepository.GetSingleEntityBySpecificationAsync(
-            new BrandByNameQuerySpecification(request.UpdateBrandDto.UpdatedName));
-
-        if (updatedValueBrand is not null)
-            return Result<Unit>.Failure("Brand with such name already exists!");
 
         brand.Name = request.UpdateBrandDto.UpdatedName;
 

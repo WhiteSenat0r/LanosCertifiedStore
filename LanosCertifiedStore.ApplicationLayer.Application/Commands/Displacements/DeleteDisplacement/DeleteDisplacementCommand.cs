@@ -3,4 +3,4 @@ using MediatR;
 
 namespace Application.Commands.Displacements.DeleteDisplacement;
 
-public sealed record DeleteDisplacementCommand(double Value) : IRequest<Result<Unit>>;
+public sealed record DeleteDisplacementCommand(Guid Id) : IRequest<Result<Unit>>;

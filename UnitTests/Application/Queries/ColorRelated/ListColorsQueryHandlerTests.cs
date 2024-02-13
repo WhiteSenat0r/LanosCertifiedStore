@@ -1,6 +1,5 @@
 ﻿using Application.Dtos.ColorDtos;
 using Application.Queries.Colors;
-using Application.QuerySpecifications.ColorRelated;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;

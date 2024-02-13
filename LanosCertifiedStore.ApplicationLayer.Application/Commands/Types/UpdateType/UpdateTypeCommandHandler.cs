@@ -1,5 +1,4 @@
 ﻿using Application.Core;
-using Application.QuerySpecifications.TypeRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -11,18 +10,11 @@ internal sealed class UpdateTypeCommandHandler(IRepository<VehicleType> typeRepo
 {
     public async Task<Result<Unit>> Handle(UpdateTypeCommand request, CancellationToken cancellationToken)
     {
-        var existingType = await typeRepository.GetSingleEntityBySpecificationAsync(
-                new TypeByNameQuerySpecification(request.UpdateTypeDto.CurrentName));
+        var existingType = await typeRepository.GetEntityByIdAsync(request.UpdateTypeDto.Id);
 
         if (existingType is null) 
             return Result<Unit>.Failure("Such type doesn't exists!");
         
-        var updatedValueType = await typeRepository.GetSingleEntityBySpecificationAsync(
-            new TypeByNameQuerySpecification(request.UpdateTypeDto.UpdatedName));
-
-        if (updatedValueType is not null)
-            return Result<Unit>.Failure("Type with such name already exists!");
-
         existingType.Name = request.UpdateTypeDto.UpdatedName;
         
         typeRepository.UpdateExistingEntity(existingType);

@@ -1,6 +1,5 @@
 ﻿using Application.Core;
 using Application.Dtos.VehicleDtos;
-using Application.QuerySpecifications.VehiclesRelated;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -14,8 +13,7 @@ internal sealed class ListVehiclesQueryHandler(IRepository<Vehicle> vehicleRepos
     public async Task<Result<PaginationResult<VehicleDto>>> Handle(ListVehiclesQuery request,
         CancellationToken cancellationToken)
     {
-        var vehicles = await vehicleRepository.GetAllEntitiesAsync(
-            new VehicleQuerySpecification(request.RequestParameters));
+        var vehicles = await vehicleRepository.GetAllEntitiesAsync();
 
         var mappedVehicles = mapper.Map<IReadOnlyList<Vehicle>, IReadOnlyList<VehicleDto>>(vehicles);
 

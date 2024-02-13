@@ -1,7 +1,6 @@
 ﻿using Application.Commands.Colors.UpdateColor;
 using Application.Core;
 using Application.Dtos.ColorDtos;
-using Application.QuerySpecifications.ColorRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -27,7 +26,7 @@ public class UpdateColorCommandTest
         var command = new UpdateColorCommand(updateColorDto);
 
         colorRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<ColorByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<ColorByNameQuerySpecification>()))
             .ReturnsAsync((VehicleColor)null!);
 
         var handler = new UpdateColorCommandHandler(colorRepositoryMock.Object, unitOfWorkMock.Object);
@@ -47,7 +46,7 @@ public class UpdateColorCommandTest
         var command = new UpdateColorCommand(updateColorDto);
 
         colorRepositoryMock.SetupSequence(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<ColorByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<ColorByNameQuerySpecification>()))
             .ReturnsAsync(new VehicleColor(updateColorDto.CurrentName))
             .ReturnsAsync(new VehicleColor(updateColorDto.UpdatedName));
 
@@ -68,7 +67,7 @@ public class UpdateColorCommandTest
         var command = new UpdateColorCommand(updateColorDto);
 
         colorRepositoryMock.SetupSequence(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<ColorByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<ColorByNameQuerySpecification>()))
             .ReturnsAsync(new VehicleColor(updateColorDto.CurrentName))
             .ReturnsAsync((VehicleColor)null!);
         

@@ -1,6 +1,5 @@
 ﻿using Application.Dtos.VehicleDtos;
 using Application.Queries.Vehicles.VehicleDetails;
-using Application.QuerySpecifications.VehiclesRelated;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -20,7 +19,7 @@ public class VehicleDetailsQueryHandlerTests
         var vehicles = GetVehicleList();
         
         _repository.Setup(r =>
-                r.GetSingleEntityBySpecificationAsync(It.IsAny<VehicleByIdQuerySpecification>()))
+                r.GetEntityByIdAsync(It.IsAny<VehicleByIdQuerySpecification>()))
             .ReturnsAsync(vehicles.First());
         
         _mapper.Setup(m => m.Map<Vehicle, VehicleDto>(It.IsAny<Vehicle>()))
