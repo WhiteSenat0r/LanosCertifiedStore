@@ -1,6 +1,5 @@
 ﻿using Application.Commands.Brands.DeleteBrand;
 using Application.Core;
-using Application.QuerySpecifications.BrandRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -22,7 +21,7 @@ public class DeleteBrandCommandTest
         var command = new DeleteBrandCommand(BrandName);
 
         brandRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<BrandByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<BrandByNameQuerySpecification>()))
             .ReturnsAsync((VehicleBrand)null!);
 
         var handler = new DeleteBrandCommandHandler(brandRepositoryMock.Object, unitOfWorkMock.Object);
@@ -42,7 +41,7 @@ public class DeleteBrandCommandTest
         var command = new DeleteBrandCommand(BrandName);
 
         brandRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<BrandByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<BrandByNameQuerySpecification>()))
             .ReturnsAsync(new VehicleBrand(BrandName));
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default))

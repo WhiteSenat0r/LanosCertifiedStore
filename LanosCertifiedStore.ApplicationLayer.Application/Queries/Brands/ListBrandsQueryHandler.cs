@@ -1,6 +1,5 @@
 ﻿using Application.Core;
 using Application.Dtos.BrandDtos;
-using Application.QuerySpecifications.BrandRelated;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -14,7 +13,7 @@ internal sealed class ListBrandsQueryHandler(IRepository<VehicleBrand> brandRepo
     public async Task<Result<IReadOnlyList<BrandDto>>> Handle(ListBrandsQuery request,
         CancellationToken cancellationToken)
     {
-        var brands = await brandRepository.GetAllEntitiesAsync(new BrandQuerySpecification());
+        var brands = await brandRepository.GetAllEntitiesAsync();
 
         var brandsToReturn = mapper.Map<IReadOnlyList<VehicleBrand>, IReadOnlyList<BrandDto>>(brands);
 

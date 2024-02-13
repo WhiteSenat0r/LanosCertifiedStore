@@ -1,5 +1,4 @@
 ﻿using Application.Core;
-using Application.QuerySpecifications.ColorRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -11,8 +10,7 @@ internal sealed class DeleteColorCommandHandler(IRepository<VehicleColor> colorR
 {
     public async Task<Result<Unit>> Handle(DeleteColorCommand request, CancellationToken cancellationToken)
     {
-        var color = await colorRepository.GetSingleEntityBySpecificationAsync(
-            new ColorByNameQuerySpecification(request.ColorName));
+        var color = await colorRepository.GetEntityByIdAsync(request.Id);
 
         if (color is null)
             return Result<Unit>.Failure("Such color doesn't exists!");

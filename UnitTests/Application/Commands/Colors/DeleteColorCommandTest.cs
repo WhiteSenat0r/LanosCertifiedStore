@@ -1,6 +1,5 @@
 ﻿using Application.Commands.Colors.DeleteColor;
 using Application.Core;
-using Application.QuerySpecifications.ColorRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -22,7 +21,7 @@ public class DeleteColorCommandTest
         var command = new DeleteColorCommand(ColorName);
 
         colorRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<ColorByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<ColorByNameQuerySpecification>()))
             .ReturnsAsync((VehicleColor)null!);
 
         var handler = new DeleteColorCommandHandler(colorRepositoryMock.Object, unitOfWorkMock.Object);
@@ -42,7 +41,7 @@ public class DeleteColorCommandTest
         var command = new DeleteColorCommand(ColorName);
 
         colorRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<ColorByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<ColorByNameQuerySpecification>()))
             .ReturnsAsync(new VehicleColor(ColorName));
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default))

@@ -1,6 +1,5 @@
 ﻿using Application.Commands.Models.DeleteModel;
 using Application.Core;
-using Application.QuerySpecifications.ModelRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -25,7 +24,7 @@ public class DeleteModelCommandTest
         var command = new DeleteModelCommand(ModelName);
 
         modelRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<ModelByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<ModelByNameQuerySpecification>()))
             .ReturnsAsync((VehicleModel)null!);
 
         var handler = new DeleteModelCommandHandler(modelRepositoryMock.Object, unitOfWorkMock.Object);
@@ -45,7 +44,7 @@ public class DeleteModelCommandTest
         var command = new DeleteModelCommand(ModelName);
 
         modelRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<ModelByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<ModelByNameQuerySpecification>()))
             .ReturnsAsync(new VehicleModel(VehicleBrand.Id, ModelName));
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default))

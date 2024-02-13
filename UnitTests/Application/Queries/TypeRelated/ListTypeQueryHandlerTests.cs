@@ -1,6 +1,5 @@
 ﻿using Application.Dtos.TypeDtos;
 using Application.Queries.Types;
-using Application.QuerySpecifications.TypeRelated;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;

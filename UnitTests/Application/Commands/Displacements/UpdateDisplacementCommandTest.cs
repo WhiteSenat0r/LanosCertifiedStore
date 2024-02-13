@@ -1,7 +1,6 @@
 ﻿using Application.Commands.Displacements.UpdateDisplacement;
 using Application.Core;
 using Application.Dtos.DisplacementDtos;
-using Application.QuerySpecifications.DisplacementRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -27,7 +26,7 @@ public class UpdateDisplacementCommandTest
         var command = new UpdateDisplacementCommand(updateDisplacementDto);
 
         displacementRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<DisplacementByValueQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<DisplacementByValueQuerySpecification>()))
             .ReturnsAsync((VehicleDisplacement)null!);
 
         var handler = new UpdateDisplacementCommandHandler(displacementRepositoryMock.Object, unitOfWorkMock.Object);
@@ -47,7 +46,7 @@ public class UpdateDisplacementCommandTest
         var command = new UpdateDisplacementCommand(updateDisplacementDto);
 
         displacementRepositoryMock.SetupSequence(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<DisplacementByValueQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<DisplacementByValueQuerySpecification>()))
             .ReturnsAsync(new VehicleDisplacement(updateDisplacementDto.CurrentValue))
             .ReturnsAsync(new VehicleDisplacement(updateDisplacementDto.UpdatedValue));
 
@@ -68,7 +67,7 @@ public class UpdateDisplacementCommandTest
         var command = new UpdateDisplacementCommand(updateDisplacementDto);
 
         displacementRepositoryMock.SetupSequence(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<DisplacementByValueQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<DisplacementByValueQuerySpecification>()))
             .ReturnsAsync(new VehicleDisplacement(updateDisplacementDto.CurrentValue))
             .ReturnsAsync((VehicleDisplacement)null!);
         

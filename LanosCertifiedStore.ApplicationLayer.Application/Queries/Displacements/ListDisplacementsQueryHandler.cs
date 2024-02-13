@@ -1,6 +1,5 @@
 ﻿using Application.Core;
 using Application.Dtos.DisplacementDtos;
-using Application.QuerySpecifications.DisplacementRelated;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -15,8 +14,7 @@ internal sealed class ListDisplacementsQueryHandler(
     public async Task<Result<IReadOnlyList<DisplacementDto>>> Handle(ListDisplacementsQuery request,
         CancellationToken cancellationToken)
     {
-        var displacements = await displacementRepository.GetAllEntitiesAsync(
-            new DisplacementQuerySpecification());
+        var displacements = await displacementRepository.GetAllEntitiesAsync();
 
         var displacementsToReturn = mapper.Map
             <IReadOnlyList<VehicleDisplacement>, IReadOnlyList<DisplacementDto>>(displacements);

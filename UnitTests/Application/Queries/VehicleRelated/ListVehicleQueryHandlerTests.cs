@@ -1,6 +1,5 @@
 ﻿using Application.Dtos.VehicleDtos;
 using Application.Queries.Vehicles.ListVehicles;
-using Application.QuerySpecifications.VehiclesRelated;
 using Application.RequestParams;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
