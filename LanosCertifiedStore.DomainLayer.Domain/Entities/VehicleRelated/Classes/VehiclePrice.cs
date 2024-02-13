@@ -1,6 +1,8 @@
-﻿namespace Domain.Entities.VehicleRelated.Classes;
+﻿using Domain.Contracts.Common;
 
-public sealed class VehiclePrice
+namespace Domain.Entities.VehicleRelated.Classes;
+
+public sealed class VehiclePrice : IEntity<Guid>
 {
     public Guid Id { get; init; } = Guid.NewGuid();
     public decimal Value { get; set; }

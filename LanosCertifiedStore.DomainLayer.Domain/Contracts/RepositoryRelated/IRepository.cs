@@ -2,8 +2,8 @@
 
 namespace Domain.Contracts.RepositoryRelated;
 
-public interface IRepository<TEntity>
-    where TEntity : class, IEntity<Guid>
+public interface IRepository<TEntity> 
+    where TEntity : IEntity<Guid>
 {
     Task<List<TEntity>> GetAllEntitiesAsync();
 
@@ -11,15 +11,9 @@ public interface IRepository<TEntity>
 
     Task AddNewEntityAsync(TEntity entity);
 
-    Task AddNewRangeOfEntitiesAsync(IEnumerable<TEntity> entities);
-
     void UpdateExistingEntity(TEntity updatedEntity);
-
-    void UpdateRangeOfExistingEntities(IEnumerable<TEntity> updatedEntities);
 
     void RemoveExistingEntity(TEntity removedEntity);
 
-    void RemoveRangeOfExistingEntities(IEnumerable<TEntity> removedEntities);
-
-    Task<int> CountAsync(IQuerySpecification<TEntity> querySpecification);
+    Task<int> CountAsync();
 }
