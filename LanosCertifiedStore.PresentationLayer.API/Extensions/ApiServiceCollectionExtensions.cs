@@ -1,6 +1,6 @@
 ﻿namespace API.Extensions;
 
-internal static class ApiServiceExtensions
+internal static class ApiServiceCollectionExtensions
 {
     public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration config)
     {

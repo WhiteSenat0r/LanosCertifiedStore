@@ -1,23 +1,23 @@
-﻿using Domain.Entities.VehicleRelated.Classes;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Persistence.DataModels;
 
 namespace Persistence.Contexts;
 
 public sealed class ApplicationDatabaseContext(
     DbContextOptions<ApplicationDatabaseContext> options) : DbContext(options)
 {
-    public DbSet<Vehicle> Vehicles { get; set; }
-    public DbSet<VehicleBrand> VehiclesBrands { get; set; }
-    public DbSet<VehicleColor> VehiclesColors { get; set; }
-    public DbSet<VehicleDisplacement> VehicleDisplacements { get; set; }
-    public DbSet<VehicleModel> VehicleModels { get; set; }
-    public DbSet<VehiclePrice> VehiclePrices { get; set; }
-    public DbSet<VehicleType> VehicleTypes { get; set; }
-    
+    internal DbSet<VehicleDataModel> Vehicles { get; set; } = null!;
+    internal DbSet<VehicleBrandDataModel> VehiclesBrands { get; set; } = null!;
+    internal DbSet<VehicleColorDataModel> VehiclesColors { get; set; } = null!;
+    internal DbSet<VehicleDisplacementDataModel> VehicleDisplacements { get; set; } = null!;
+    internal DbSet<VehicleModelDataModel> VehicleModels { get; set; } = null!;
+    internal DbSet<VehiclePriceDataModel> VehiclePrices { get; set; } = null!;
+    internal DbSet<VehicleTypeDataModel> VehicleTypes { get; set; } = null!;
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<VehicleModel>()
-            .HasOne(vm => vm.VehicleBrand)
+        modelBuilder.Entity<VehicleModelDataModel>()
+            .HasOne(vm => vm.VehicleBrandDataModel)
             .WithMany(b => b.Models)
             .HasForeignKey(vm => vm.VehicleBrandId)
             .OnDelete(DeleteBehavior.Restrict);
