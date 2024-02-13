@@ -1,41 +1,58 @@
 ﻿using AutoMapper;
 using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Contexts;
 using Persistence.DataModels;
 using Persistence.Repositories.Common.Classes;
 
 namespace Persistence.Repositories;
 
-internal class VehicleBrandRepository(IMapper mapper, DbContext dbContext)
+internal class VehicleBrandRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
     : GenericRepository<VehicleBrand, VehicleBrandDataModel>(mapper, dbContext)
 {
-    public override async Task<List<VehicleBrand>> GetAllEntitiesAsync()
+    public override async Task<IReadOnlyList<VehicleBrand>> GetAllEntitiesAsync()
     {
-        throw new NotImplementedException();
+        var brandModels = await dbContext.VehiclesBrands
+            .Include(x => x.Models)
+            .AsNoTracking()
+            .ToListAsync();
+
+        return mapper.Map<IReadOnlyList<VehicleBrandDataModel>, IReadOnlyList<VehicleBrand>>(brandModels);
     }
 
     public override async Task<VehicleBrand?> GetEntityByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var brandModel = await dbContext.VehiclesBrands
+            .Include(x => x.Models)
+            .AsNoTracking()
+            .SingleOrDefaultAsync(x => x.Id == id);
+
+        return brandModel is null ? null : mapper.Map<VehicleBrandDataModel, VehicleBrand>(brandModel);
     }
 
     public override async Task AddNewEntityAsync(VehicleBrand entity)
     {
-        throw new NotImplementedException();
+        var brandModel = mapper.Map<VehicleBrand, VehicleBrandDataModel>(entity);
+
+        await dbContext.VehiclesBrands.AddAsync(brandModel);
     }
 
     public override void UpdateExistingEntity(VehicleBrand updatedEntity)
     {
-        throw new NotImplementedException();
+        var brandModel = mapper.Map<VehicleBrand, VehicleBrandDataModel>(updatedEntity);
+
+        dbContext.Update(brandModel);
     }
 
-    public override void RemoveExistingEntity(VehicleBrand removedEntity)
+    public override void RemoveExistingEntity(VehicleBrand removedEntity) // TODO maybe pass id here???
     {
-        throw new NotImplementedException();
+        var brandModel = mapper.Map<VehicleBrand, VehicleBrandDataModel>(removedEntity);
+
+        dbContext.VehiclesBrands.Remove(brandModel);
     }
 
     public override async Task<int> CountAsync()
     {
-        throw new NotImplementedException();
+        return await dbContext.VehiclesBrands.CountAsync();
     }
 }
