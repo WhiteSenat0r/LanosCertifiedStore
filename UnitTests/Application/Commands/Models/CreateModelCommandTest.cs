@@ -1,6 +1,5 @@
 ﻿using Application.Commands.Models.CreateModel;
 using Application.Core;
-using Application.QuerySpecifications.ModelRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -24,7 +23,7 @@ public class CreateModelCommandTest
         var command = new CreateModelCommand(VehicleBrand.Id, ModelName);
         
         modelRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<ModelByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<ModelByNameQuerySpecification>()))
             .ReturnsAsync(new VehicleModel(VehicleBrand.Id, ModelName));
 
         var handler = new CreateModelCommandHandler(modelRepositoryMock.Object, unitOfWorkMock.Object);
@@ -44,7 +43,7 @@ public class CreateModelCommandTest
         var command = new CreateModelCommand(VehicleBrand.Id, ModelName);
 
         modelRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<ModelQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<ModelQuerySpecification>()))
             .ReturnsAsync((VehicleModel)null!);
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(1);

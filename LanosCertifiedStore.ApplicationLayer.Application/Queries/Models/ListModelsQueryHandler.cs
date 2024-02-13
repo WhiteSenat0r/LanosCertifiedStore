@@ -1,6 +1,5 @@
 ﻿using Application.Core;
 using Application.Dtos.ModelDtos;
-using Application.QuerySpecifications.ModelRelated;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -14,7 +13,7 @@ internal sealed class ListModelsQueryHandler(IRepository<VehicleModel> modelRepo
     public async Task<Result<IReadOnlyList<ModelDto>>> Handle(ListModelsQuery request,
         CancellationToken cancellationToken)
     {
-        var models = await modelRepository.GetAllEntitiesAsync(new ModelQuerySpecification());
+        var models = await modelRepository.GetAllEntitiesAsync();
 
         var modelsToReturn = mapper.Map<IReadOnlyList<VehicleModel>, IReadOnlyList<ModelDto>>(models);
 

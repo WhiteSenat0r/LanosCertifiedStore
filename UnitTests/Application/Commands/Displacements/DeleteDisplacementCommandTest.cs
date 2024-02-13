@@ -1,6 +1,5 @@
 ﻿using Application.Commands.Displacements.DeleteDisplacement;
 using Application.Core;
-using Application.QuerySpecifications.DisplacementRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -22,7 +21,7 @@ public class DeleteDisplacementCommandTest
         var command = new DeleteDisplacementCommand(DisplacementValue);
 
         displacementRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<DisplacementByValueQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<DisplacementByValueQuerySpecification>()))
             .ReturnsAsync((VehicleDisplacement)null!);
 
         var handler = new DeleteDisplacementCommandHandler(displacementRepositoryMock.Object, unitOfWorkMock.Object);
@@ -42,7 +41,7 @@ public class DeleteDisplacementCommandTest
         var command = new DeleteDisplacementCommand(DisplacementValue);
 
         displacementRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<DisplacementByValueQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<DisplacementByValueQuerySpecification>()))
             .ReturnsAsync(new VehicleDisplacement(DisplacementValue));
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default))

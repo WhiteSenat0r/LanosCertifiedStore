@@ -1,5 +1,4 @@
 ﻿using Application.Core;
-using Application.QuerySpecifications.BrandRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -11,8 +10,7 @@ internal sealed class DeleteBrandCommandHandler(IRepository<VehicleBrand> brandR
 {
     public async Task<Result<Unit>> Handle(DeleteBrandCommand request, CancellationToken cancellationToken)
     {
-        var brand = await brandRepository.GetSingleEntityBySpecificationAsync(
-                new BrandByNameQuerySpecification(request.Name));
+        var brand = await brandRepository.GetEntityByIdAsync(request.Id);
 
         if (brand is null)
             return Result<Unit>.Failure("Such brand doesn't exists!");

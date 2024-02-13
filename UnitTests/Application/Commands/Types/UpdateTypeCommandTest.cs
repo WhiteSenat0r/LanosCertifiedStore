@@ -1,7 +1,6 @@
 ﻿using Application.Commands.Types.UpdateType;
 using Application.Core;
 using Application.Dtos.TypeDtos;
-using Application.QuerySpecifications.TypeRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -27,7 +26,7 @@ public class UpdateTypeCommandTest
         var command = new UpdateTypeCommand(updateTypeDto);
 
         brandRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<TypeByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<TypeByNameQuerySpecification>()))
             .ReturnsAsync((VehicleType)null!);
 
         var handler = new UpdateTypeCommandHandler(brandRepositoryMock.Object, unitOfWorkMock.Object);
@@ -47,7 +46,7 @@ public class UpdateTypeCommandTest
         var command = new UpdateTypeCommand(updateTypeDto);
 
         brandRepositoryMock.SetupSequence(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<TypeByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<TypeByNameQuerySpecification>()))
             .ReturnsAsync(new VehicleType(updateTypeDto.CurrentName))
             .ReturnsAsync(new VehicleType(updateTypeDto.UpdatedName));
 
@@ -68,7 +67,7 @@ public class UpdateTypeCommandTest
         var command = new UpdateTypeCommand(updateTypeDto);
 
         brandRepositoryMock.SetupSequence(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<TypeByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<TypeByNameQuerySpecification>()))
             .ReturnsAsync(new VehicleType(updateTypeDto.CurrentName))
             .ReturnsAsync((VehicleType)null!);
         

@@ -1,6 +1,5 @@
 ﻿using Application.Core;
 using Application.Dtos.VehicleDtos;
-using Application.QuerySpecifications.VehiclesRelated;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -13,9 +12,10 @@ internal sealed class VehicleDetailsQueryHandler(IRepository<Vehicle> vehicleRep
 {
     public async Task<Result<VehicleDto>> Handle(VehicleDetailsQuery request, CancellationToken cancellationToken)
     {
-        var vehicle = await vehicleRepository
-            .GetSingleEntityBySpecificationAsync(new VehicleByIdQuerySpecification(request.Id));
+        var vehicle = await vehicleRepository.GetEntityByIdAsync(request.Id);
 
+        if (vehicle is null) return null!;
+        
         var vehicleToReturn = mapper.Map<Vehicle, VehicleDto>(vehicle);
 
         return Result<VehicleDto>.Success(vehicleToReturn);

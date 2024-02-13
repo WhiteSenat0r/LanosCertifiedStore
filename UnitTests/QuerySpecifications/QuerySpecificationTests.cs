@@ -1,10 +1,4 @@
-﻿using Application.QuerySpecifications.BrandRelated;
-using Application.QuerySpecifications.ColorRelated;
-using Application.QuerySpecifications.DisplacementRelated;
-using Application.QuerySpecifications.ModelRelated;
-using Application.QuerySpecifications.TypeRelated;
-using Application.QuerySpecifications.VehiclesRelated;
-using Application.RequestParams;
+﻿using Application.RequestParams;
 
 namespace UnitTests.QuerySpecifications;
 

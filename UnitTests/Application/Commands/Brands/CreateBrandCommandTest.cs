@@ -1,6 +1,5 @@
 ﻿using Application.Commands.Brands.CreateBrand;
 using Application.Core;
-using Application.QuerySpecifications.BrandRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -24,7 +23,7 @@ public class CreateBrandCommandTest
         var command = new CreateBrandCommand(BrandName);
         
         brandRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<BrandByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<BrandByNameQuerySpecification>()))
             .ReturnsAsync(new VehicleBrand(BrandName));
 
         var handler = new CreateBrandCommandHandler(brandRepositoryMock.Object, unitOfWorkMock.Object);
@@ -44,7 +43,7 @@ public class CreateBrandCommandTest
         var command = new CreateBrandCommand(BrandName);
 
         brandRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<BrandByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<BrandByNameQuerySpecification>()))
             .ReturnsAsync((VehicleBrand)null!);
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(1);

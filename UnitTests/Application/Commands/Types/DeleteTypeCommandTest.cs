@@ -1,6 +1,5 @@
 ﻿using Application.Commands.Types.DeleteType;
 using Application.Core;
-using Application.QuerySpecifications.TypeRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -22,7 +21,7 @@ public class DeleteTypeCommandTest
         var command = new DeleteTypeCommand(TypeName);
 
         brandRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<TypeByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<TypeByNameQuerySpecification>()))
             .ReturnsAsync((VehicleType)null!);
 
         var handler = new DeleteTypeCommandHandler(brandRepositoryMock.Object, unitOfWorkMock.Object);
@@ -42,7 +41,7 @@ public class DeleteTypeCommandTest
         var command = new DeleteTypeCommand(TypeName);
 
         brandRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<TypeByNameQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<TypeByNameQuerySpecification>()))
             .ReturnsAsync(new VehicleType(TypeName));
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default))

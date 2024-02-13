@@ -1,6 +1,5 @@
 ﻿using Application.Dtos.BrandDtos;
 using Application.Queries.Brands;
-using Application.QuerySpecifications.BrandRelated;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;

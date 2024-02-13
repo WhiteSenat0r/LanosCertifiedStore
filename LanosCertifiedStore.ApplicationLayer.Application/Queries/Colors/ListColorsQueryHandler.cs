@@ -1,6 +1,5 @@
 ﻿using Application.Core;
 using Application.Dtos.ColorDtos;
-using Application.QuerySpecifications.ColorRelated;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -14,7 +13,7 @@ internal sealed class ListColorsQueryHandler(IRepository<VehicleColor> colorRepo
     public async Task<Result<IReadOnlyList<ColorDto>>> Handle(ListColorsQuery request,
         CancellationToken cancellationToken)
     {
-        var colors = await colorRepository.GetAllEntitiesAsync(new ColorQuerySpecification());
+        var colors = await colorRepository.GetAllEntitiesAsync();
 
         var colorsToReturn = mapper.Map<IReadOnlyList<VehicleColor>, IReadOnlyList<ColorDto>>(colors);
 

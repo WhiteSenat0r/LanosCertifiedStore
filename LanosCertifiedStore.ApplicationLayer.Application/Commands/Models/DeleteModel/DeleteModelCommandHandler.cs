@@ -1,5 +1,4 @@
 ﻿using Application.Core;
-using Application.QuerySpecifications.ModelRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -11,8 +10,7 @@ internal sealed class DeleteModelCommandHandler(IRepository<VehicleModel> modelR
 {
     public async Task<Result<Unit>> Handle(DeleteModelCommand request, CancellationToken cancellationToken)
     {
-        var deletedModel = await modelRepository.GetSingleEntityBySpecificationAsync(
-                new ModelByNameQuerySpecification(request.Name));
+        var deletedModel = await modelRepository.GetEntityByIdAsync(request.Id);
 
         if (deletedModel is null)
             return Result<Unit>.Failure("Such model doesn't exists!");

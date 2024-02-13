@@ -1,6 +1,5 @@
 ﻿using Application.Commands.Vehicles.DeleteVehicle;
 using Application.Core;
-using Application.QuerySpecifications.VehiclesRelated;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using MediatR;
@@ -20,7 +19,7 @@ public class DeleteVehicleCommandTest
         var command = new DeleteVehicleCommand(Guid.NewGuid());
 
         vehicleRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<VehicleByIdQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<VehicleByIdQuerySpecification>()))
             .ReturnsAsync((Vehicle)null!);
 
         var handler = new DeleteVehicleCommandHandler(vehicleRepositoryMock.Object, unitOfWorkMock.Object);
@@ -40,7 +39,7 @@ public class DeleteVehicleCommandTest
         var command = new DeleteVehicleCommand(Guid.NewGuid());
 
         vehicleRepositoryMock.Setup(x =>
-                x.GetSingleEntityBySpecificationAsync(It.IsAny<VehicleByIdQuerySpecification>()))
+                x.GetEntityByIdAsync(It.IsAny<VehicleByIdQuerySpecification>()))
             .ReturnsAsync(VehicleService.GetVehicle(VehicleService.GetActionVehicleDto()));
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default))

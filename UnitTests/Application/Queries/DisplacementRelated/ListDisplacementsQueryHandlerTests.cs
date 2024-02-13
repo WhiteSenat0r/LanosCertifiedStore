@@ -1,6 +1,5 @@
 ﻿using Application.Dtos.DisplacementDtos;
 using Application.Queries.Displacements;
-using Application.QuerySpecifications.DisplacementRelated;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
