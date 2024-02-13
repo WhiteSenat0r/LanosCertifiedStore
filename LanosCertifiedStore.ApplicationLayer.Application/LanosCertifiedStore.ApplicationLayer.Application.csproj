@@ -4,10 +4,11 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
+        <RootNamespace>Application</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Domain\Domain.csproj" />
+      <ProjectReference Include="..\LanosCertifiedStore.DomainLayer.Domain\LanosCertifiedStore.DomainLayer.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
