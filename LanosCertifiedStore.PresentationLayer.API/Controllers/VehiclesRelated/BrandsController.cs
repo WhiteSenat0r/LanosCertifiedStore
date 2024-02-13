@@ -37,11 +37,11 @@ public sealed class BrandsController : BaseEntityRelatedApiController
         return HandleResult(await Mediator.Send(new UpdateBrandCommand(updateBrandDto)));
     }
 
-    [HttpDelete("{name}")]
+    [HttpDelete("{id:guid}")]
     [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeleteBrand(string name)
+    public async Task<IActionResult> DeleteBrand(Guid id)
     {
-        return HandleResult(await Mediator.Send(new DeleteBrandCommand(name)));
+        return HandleResult(await Mediator.Send(new DeleteBrandCommand(id)));
     }
 }
