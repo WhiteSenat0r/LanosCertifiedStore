@@ -8,7 +8,13 @@ internal sealed class VehicleColorMappingProfile : Profile
 {
     public VehicleColorMappingProfile()
     {
-        CreateMap<VehicleColorDataModel, VehicleColor>();
-        CreateMap<VehicleColor, VehicleColorDataModel>();
+        AddMappingProfileFromEntityToModel();
+        AddMappingProfileFromModelToEntity();
     }
+    
+    private void AddMappingProfileFromModelToEntity() =>
+        CreateMap<VehicleColorDataModel, VehicleColor>();
+    
+    private void AddMappingProfileFromEntityToModel() =>
+        CreateMap<VehicleColor, VehicleColorDataModel>();
 }

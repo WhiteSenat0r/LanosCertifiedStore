@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Persistence.DataModels;
@@ -9,7 +10,8 @@ namespace Persistence.Repositories;
 internal class VehicleTypeRepository(IMapper mapper, DbContext dbContext)
     : GenericRepository<VehicleType, VehicleTypeDataModel>(mapper, dbContext)
 {
-    public override async Task<IReadOnlyList<VehicleType>> GetAllEntitiesAsync()
+    public override async Task<IReadOnlyList<VehicleType>> GetAllEntitiesAsync(
+        IFilteringRequestParameters<VehicleType> filteringRequestParameters = null!)
     {
         var typeModels = await Context.Set<VehicleTypeDataModel>()
             .Include(model => model.Vehicles)
@@ -30,28 +32,10 @@ internal class VehicleTypeRepository(IMapper mapper, DbContext dbContext)
             ? null
             : Mapper.Map<VehicleTypeDataModel, VehicleType>(typeModel);
     }
-
-    public override async Task AddNewEntityAsync(VehicleType entity)
-    {
-        var mappedTypeEntity = Mapper.Map<VehicleType, VehicleTypeDataModel>(entity);
-
-        await Context.Set<VehicleTypeDataModel>().AddAsync(mappedTypeEntity);
-    }
-
-    public override void UpdateExistingEntity(VehicleType updatedEntity)
-    {
-        var mappedTypeEntity = Mapper.Map<VehicleType, VehicleTypeDataModel>(updatedEntity);
-
-        Context.Set<VehicleTypeDataModel>().Update(mappedTypeEntity);
-    }
-
-    public override void RemoveExistingEntity(VehicleType removedEntity)
+    
+    private protected override async Task<IQueryable<VehicleTypeDataModel>> HandleQueryFiltering(
+        DbSet<VehicleTypeDataModel> dbSet, IFilteringRequestParameters<VehicleType> filteringRequestParameters)
     {
         throw new NotImplementedException();
-    }
-
-    public override async Task<int> CountAsync()
-    {
-        return await Context.Set<VehicleTypeDataModel>().CountAsync();
     }
 }
