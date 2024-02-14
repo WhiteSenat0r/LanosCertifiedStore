@@ -24,7 +24,7 @@ public class DeleteTypeCommandTest
                 x.GetEntityByIdAsync(It.IsAny<TypeByNameQuerySpecification>()))
             .ReturnsAsync((VehicleType)null!);
 
-        var handler = new DeleteTypeCommandHandler(brandRepositoryMock.Object, unitOfWorkMock.Object);
+        var handler = new DeleteTypeCommandHandler(unitOfWorkMock.Object);
 
         // Act
         var result = await handler.Handle(command, default);
@@ -47,7 +47,7 @@ public class DeleteTypeCommandTest
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default))
             .ReturnsAsync(1);
 
-        var handler = new DeleteTypeCommandHandler(brandRepositoryMock.Object, unitOfWorkMock.Object);
+        var handler = new DeleteTypeCommandHandler(unitOfWorkMock.Object);
 
         // Act
         var result = await handler.Handle(command, default);

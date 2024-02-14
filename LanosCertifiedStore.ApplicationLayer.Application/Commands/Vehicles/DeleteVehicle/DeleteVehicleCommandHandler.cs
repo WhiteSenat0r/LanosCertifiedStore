@@ -5,18 +5,12 @@ using MediatR;
 
 namespace Application.Commands.Vehicles.DeleteVehicle;
 
-internal sealed class DeleteVehicleCommandHandler(
-    IRepository<Vehicle> vehicleRepository, IUnitOfWork unitOfWork)
+internal sealed class DeleteVehicleCommandHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<DeleteVehicleCommand, Result<Unit>>
 {
     public async Task<Result<Unit>> Handle(DeleteVehicleCommand request, CancellationToken cancellationToken)
     {
-        var deleteVehicle = await vehicleRepository.GetEntityByIdAsync(request.Id);
-        
-        if (deleteVehicle is null) 
-            return Result<Unit>.Failure("Such vehicle doesn't exists!");
-        
-        vehicleRepository.RemoveExistingEntity(deleteVehicle);
+        await unitOfWork.RetrieveRepository<Vehicle>().RemoveExistingEntity(request.Id);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

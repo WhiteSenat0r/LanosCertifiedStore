@@ -3,7 +3,7 @@ using Domain.Contracts.RepositoryRelated;
 
 namespace Application.RequestParams.Common.Classes;
 
-public abstract class BaseFilteringRequestParameters<TEntity>(int maxItemsPerPageQuantity) 
+public abstract class BaseFilteringRequestParameters<TEntity>(int maxItemsPerPageQuantity = 24) 
     : IFilteringRequestParameters<TEntity> 
     where TEntity : IEntity<Guid>
 {
@@ -17,5 +17,5 @@ public abstract class BaseFilteringRequestParameters<TEntity>(int maxItemsPerPag
 
     public int MaxQuantityPerRequest { get; private set; } = maxItemsPerPageQuantity;
 
-    public string SortingType { get; set; } = null!;
+    public string? SortingType { get; set; }
 }

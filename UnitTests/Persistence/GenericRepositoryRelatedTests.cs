@@ -1,7 +1,6 @@
 ﻿using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Persistence;
 using Persistence.Contexts;
 using Persistence.Repositories;
 

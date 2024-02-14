@@ -5,19 +5,19 @@ using MediatR;
 
 namespace Application.Commands.Types.UpdateType;
 
-internal sealed class UpdateTypeCommandHandler(IRepository<VehicleType> typeRepository, IUnitOfWork unitOfWork)
+internal sealed class UpdateTypeCommandHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<UpdateTypeCommand, Result<Unit>>
 {
     public async Task<Result<Unit>> Handle(UpdateTypeCommand request, CancellationToken cancellationToken)
     {
-        var existingType = await typeRepository.GetEntityByIdAsync(request.UpdateTypeDto.Id);
+        var existingType = await unitOfWork.RetrieveRepository<VehicleType>().GetEntityByIdAsync(request.UpdateTypeDto.Id);
 
         if (existingType is null) 
             return Result<Unit>.Failure("Such type doesn't exists!");
         
         existingType.Name = request.UpdateTypeDto.UpdatedName;
         
-        typeRepository.UpdateExistingEntity(existingType);
+        unitOfWork.RetrieveRepository<VehicleType>().UpdateExistingEntity(existingType);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

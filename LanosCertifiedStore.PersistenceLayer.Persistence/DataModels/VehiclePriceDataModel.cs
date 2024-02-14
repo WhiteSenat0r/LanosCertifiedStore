@@ -9,7 +9,7 @@ internal sealed class VehiclePriceDataModel : IEntity<Guid>
     [Column(TypeName = "decimal(10, 2)")] public decimal Value { get; set; }
     public DateTime IssueDate { get; set; } = DateTime.UtcNow;
     public Guid VehicleId { get; set; }
-    public VehicleDataModel VehicleDataModel { get; set; } = null!;
+    public VehicleDataModel Vehicle { get; set; } = null!;
 
     public VehiclePriceDataModel() { }
     public VehiclePriceDataModel(Guid vehicleId, decimal value)

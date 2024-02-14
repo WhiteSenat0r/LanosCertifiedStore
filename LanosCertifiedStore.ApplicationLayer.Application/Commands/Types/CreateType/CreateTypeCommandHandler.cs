@@ -5,14 +5,14 @@ using MediatR;
 
 namespace Application.Commands.Types.CreateType;
 
-internal sealed class CreateTypeCommandHandler(IRepository<VehicleType> typeRepository, IUnitOfWork unitOfWork)
+internal sealed class CreateTypeCommandHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<CreateTypeCommand, Result<Unit>>
 {
     public async Task<Result<Unit>> Handle(CreateTypeCommand request, CancellationToken cancellationToken)
     {
         var vehicleType = new VehicleType(request.Name);
      
-        await typeRepository.AddNewEntityAsync(vehicleType);
+        await unitOfWork.RetrieveRepository<VehicleType>().AddNewEntityAsync(vehicleType);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

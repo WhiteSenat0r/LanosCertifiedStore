@@ -5,19 +5,20 @@ using MediatR;
 
 namespace Application.Commands.Colors.UpdateColor;
 
-internal sealed class UpdateColorCommandHandler(IRepository<VehicleColor> colorRepository, IUnitOfWork unitOfWork)
+internal sealed class UpdateColorCommandHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<UpdateColorCommand, Result<Unit>>
 {
     public async Task<Result<Unit>> Handle(UpdateColorCommand request, CancellationToken cancellationToken)
     {
-        var existingColor = await colorRepository.GetEntityByIdAsync(request.UpdateColorDto.Id);
+        var existingColor = await unitOfWork.RetrieveRepository<VehicleColor>()
+            .GetEntityByIdAsync(request.UpdateColorDto.Id);
 
-        if (existingColor is null) 
+        if (existingColor is null)
             return Result<Unit>.Failure("Such color doesn't exists!");
-        
+
         existingColor.Name = request.UpdateColorDto.UpdatedName;
 
-        colorRepository.UpdateExistingEntity(existingColor);
+        unitOfWork.RetrieveRepository<VehicleColor>().UpdateExistingEntity(existingColor);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

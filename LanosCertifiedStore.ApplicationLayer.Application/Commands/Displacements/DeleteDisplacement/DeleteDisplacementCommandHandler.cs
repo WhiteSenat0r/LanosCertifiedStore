@@ -5,18 +5,13 @@ using MediatR;
 
 namespace Application.Commands.Displacements.DeleteDisplacement;
 
-internal sealed class DeleteDisplacementCommandHandler(
-    IRepository<VehicleDisplacement> displacementRepository, IUnitOfWork unitOfWork)
+internal sealed class DeleteDisplacementCommandHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<DeleteDisplacementCommand, Result<Unit>>
 {
     public async Task<Result<Unit>> Handle(DeleteDisplacementCommand request, CancellationToken cancellationToken)
     {
-        var deletedDisplacement = await displacementRepository.GetEntityByIdAsync(request.Id);
 
-        if (deletedDisplacement is null)
-            return Result<Unit>.Failure("Such displacement doesn't exists!");
-        
-        displacementRepository.RemoveExistingEntity(deletedDisplacement);
+        await unitOfWork.RetrieveRepository<VehicleDisplacement>().RemoveExistingEntity(request.Id);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

@@ -5,15 +5,14 @@ using MediatR;
 
 namespace Application.Commands.Displacements.CreateDisplacement;
 
-internal sealed class CreateDisplacementCommandHandler(
-    IRepository<VehicleDisplacement> displacementRepository, IUnitOfWork unitOfWork)
+internal sealed class CreateDisplacementCommandHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<CreateDisplacementCommand, Result<Unit>>
 {
     public async Task<Result<Unit>> Handle(CreateDisplacementCommand request, CancellationToken cancellationToken)
     {
         var vehicleDisplacement = new VehicleDisplacement(request.Value);
         
-        await displacementRepository.AddNewEntityAsync(vehicleDisplacement);
+        await unitOfWork.RetrieveRepository<VehicleDisplacement>().AddNewEntityAsync(vehicleDisplacement);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

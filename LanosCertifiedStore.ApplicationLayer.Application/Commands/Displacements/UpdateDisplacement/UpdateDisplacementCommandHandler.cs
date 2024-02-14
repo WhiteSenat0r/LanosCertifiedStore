@@ -5,20 +5,20 @@ using MediatR;
 
 namespace Application.Commands.Displacements.UpdateDisplacement;
 
-internal sealed class UpdateDisplacementCommandHandler(
-    IRepository<VehicleDisplacement> displacementRepository, IUnitOfWork unitOfWork)
+internal sealed class UpdateDisplacementCommandHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<UpdateDisplacementCommand, Result<Unit>>
 {
     public async Task<Result<Unit>> Handle(UpdateDisplacementCommand request, CancellationToken cancellationToken)
     {
-        var existingDisplacement = await displacementRepository.GetEntityByIdAsync(request.UpdateDisplacementDto.Id);
+        var existingDisplacement = await unitOfWork.RetrieveRepository<VehicleDisplacement>()
+            .GetEntityByIdAsync(request.UpdateDisplacementDto.Id);
 
-        if (existingDisplacement is null) 
+        if (existingDisplacement is null)
             return Result<Unit>.Failure("Such displacement doesn't exists!");
 
         existingDisplacement.Value = request.UpdateDisplacementDto.UpdatedValue;
-        
-        displacementRepository.UpdateExistingEntity(existingDisplacement);
+
+        unitOfWork.RetrieveRepository<VehicleDisplacement>().UpdateExistingEntity(existingDisplacement);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

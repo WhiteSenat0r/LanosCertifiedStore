@@ -16,5 +16,5 @@ internal sealed class VehicleTypeMappingProfile : Profile
         CreateMap<VehicleType, VehicleTypeDataModel>();
 
     private void AddMappingProfileFromModelToEntity() => 
-        CreateMap<VehicleBrandDataModel, VehicleBrand>();
+        CreateMap<VehicleTypeDataModel, VehicleType>();
 }

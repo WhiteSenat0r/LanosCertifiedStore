@@ -2,12 +2,13 @@
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Contexts;
 using Persistence.DataModels;
 using Persistence.Repositories.Common.Classes;
 
 namespace Persistence.Repositories;
 
-internal class VehiclePriceRepository(IMapper mapper, DbContext dbContext)
+internal class VehiclePriceRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
     : GenericRepository<VehiclePrice, VehiclePriceDataModel>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehiclePrice>> GetAllEntitiesAsync(

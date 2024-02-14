@@ -5,17 +5,12 @@ using MediatR;
 
 namespace Application.Commands.Types.DeleteType;
 
-internal sealed class DeleteTypeCommandHandler(IRepository<VehicleType> typeRepository, IUnitOfWork unitOfWork)
+internal sealed class DeleteTypeCommandHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<DeleteTypeCommand, Result<Unit>>
 {
     public async Task<Result<Unit>> Handle(DeleteTypeCommand request, CancellationToken cancellationToken)
     {
-        var deletedType = await typeRepository.GetEntityByIdAsync(request.Id);
-
-        if (deletedType is null)
-            return Result<Unit>.Failure("Such type doesn't exists!");
-        
-        typeRepository.RemoveExistingEntity(deletedType);
+        await unitOfWork.RetrieveRepository<VehicleType>().RemoveExistingEntity(request.Id);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

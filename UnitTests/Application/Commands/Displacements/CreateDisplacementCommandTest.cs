@@ -25,7 +25,7 @@ public class CreateDisplacementCommandTest
                 x.GetEntityByIdAsync(It.IsAny<DisplacementByValueQuerySpecification>()))
             .ReturnsAsync(new VehicleDisplacement(DisplacementValue));
 
-        var handler = new CreateDisplacementCommandHandler(displacementRepositoryMock.Object, unitOfWorkMock.Object);
+        var handler = new CreateDisplacementCommandHandler(unitOfWorkMock.Object);
 
         // Act
         var result = await handler.Handle(command, default);
@@ -47,7 +47,7 @@ public class CreateDisplacementCommandTest
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(1);
 
-        var handler = new CreateDisplacementCommandHandler(displacementRepositoryMock.Object, unitOfWorkMock.Object);
+        var handler = new CreateDisplacementCommandHandler(unitOfWorkMock.Object);
 
         // Act
         var result = await handler.Handle(command, default);
