@@ -8,7 +8,13 @@ internal sealed class VehicleDisplacementMappingProfile : Profile
 {
     public VehicleDisplacementMappingProfile()
     {
-        CreateMap<VehicleDisplacementDataModel, VehicleDisplacement>();
-        CreateMap<VehicleDisplacement, VehicleDisplacementDataModel>();
+        AddMappingProfileFromEntityToModel();
+        AddMappingProfileFromModelToEntity();
     }
+    
+    private void AddMappingProfileFromModelToEntity() =>
+        CreateMap<VehicleDisplacementDataModel, VehicleDisplacement>();
+    
+    private void AddMappingProfileFromEntityToModel() =>
+        CreateMap<VehicleDisplacement, VehicleDisplacementDataModel>();
 }

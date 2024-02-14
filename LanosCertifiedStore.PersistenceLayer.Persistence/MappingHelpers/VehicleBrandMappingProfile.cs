@@ -8,7 +8,13 @@ internal sealed class VehicleBrandMappingProfile : Profile
 {
     public VehicleBrandMappingProfile()
     {
-        CreateMap<VehicleBrand, VehicleBrandDataModel>();
-        CreateMap<VehicleBrandDataModel, VehicleBrand>();
+        AddMappingProfileFromEntityToModel();
+        AddMappingProfileFromModelToEntity();
     }
+
+    private void AddMappingProfileFromModelToEntity() =>
+        CreateMap<VehicleBrandDataModel, VehicleBrand>();
+
+    private void AddMappingProfileFromEntityToModel() =>
+        CreateMap<VehicleBrand, VehicleBrandDataModel>();
 }
