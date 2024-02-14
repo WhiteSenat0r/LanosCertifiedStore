@@ -1,58 +1,39 @@
 ﻿using AutoMapper;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Contexts;
 using Persistence.DataModels;
 using Persistence.Repositories.Common.Classes;
 
 namespace Persistence.Repositories;
 
-internal class VehicleBrandRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
+internal class VehicleBrandRepository(IMapper mapper, DbContext dbContext)
     : GenericRepository<VehicleBrand, VehicleBrandDataModel>(mapper, dbContext)
 {
-    public override async Task<IReadOnlyList<VehicleBrand>> GetAllEntitiesAsync()
+    public override async Task<IReadOnlyList<VehicleBrand>> GetAllEntitiesAsync(
+        IFilteringRequestParameters<VehicleBrand> filteringRequestParameters = null!)
     {
-        var brandModels = await dbContext.VehiclesBrands
+        var brandModels = await Context.Set<VehicleBrandDataModel>()
             .Include(x => x.Models)
             .AsNoTracking()
             .ToListAsync();
 
-        return mapper.Map<IReadOnlyList<VehicleBrandDataModel>, IReadOnlyList<VehicleBrand>>(brandModels);
+        return Mapper.Map<IReadOnlyList<VehicleBrandDataModel>, IReadOnlyList<VehicleBrand>>(brandModels);
     }
 
     public override async Task<VehicleBrand?> GetEntityByIdAsync(Guid id)
     {
-        var brandModel = await dbContext.VehiclesBrands
+        var brandModel = await Context.Set<VehicleBrandDataModel>()
             .Include(x => x.Models)
             .AsNoTracking()
             .SingleOrDefaultAsync(x => x.Id == id);
 
-        return brandModel is null ? null : mapper.Map<VehicleBrandDataModel, VehicleBrand>(brandModel);
+        return brandModel is null ? null : Mapper.Map<VehicleBrandDataModel, VehicleBrand>(brandModel);
     }
 
-    public override async Task AddNewEntityAsync(VehicleBrand entity)
+    private protected override async Task<IQueryable<VehicleBrandDataModel>> HandleQueryFiltering(
+        DbSet<VehicleBrandDataModel> dbSet, IFilteringRequestParameters<VehicleBrand> filteringRequestParameters)
     {
-        var brandModel = mapper.Map<VehicleBrand, VehicleBrandDataModel>(entity);
-
-        await dbContext.VehiclesBrands.AddAsync(brandModel);
-    }
-
-    public override void UpdateExistingEntity(VehicleBrand updatedEntity)
-    {
-        var brandModel = mapper.Map<VehicleBrand, VehicleBrandDataModel>(updatedEntity);
-
-        dbContext.Update(brandModel);
-    }
-
-    public override void RemoveExistingEntity(VehicleBrand removedEntity) // TODO maybe pass id here???
-    {
-        var brandModel = mapper.Map<VehicleBrand, VehicleBrandDataModel>(removedEntity);
-
-        dbContext.VehiclesBrands.Remove(brandModel);
-    }
-
-    public override async Task<int> CountAsync()
-    {
-        return await dbContext.VehiclesBrands.CountAsync();
+        throw new NotImplementedException();
     }
 }

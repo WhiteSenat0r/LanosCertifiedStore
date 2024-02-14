@@ -5,7 +5,8 @@ namespace Domain.Contracts.RepositoryRelated;
 public interface IRepository<TEntity> 
     where TEntity : IEntity<Guid>
 {
-    Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(IFilteringRequestParameters<TEntity> filteringRequestParameters = null!);
+    Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(
+        IFilteringRequestParameters<TEntity> filteringRequestParameters = null!);
 
     Task<TEntity?> GetEntityByIdAsync(Guid id);
 
