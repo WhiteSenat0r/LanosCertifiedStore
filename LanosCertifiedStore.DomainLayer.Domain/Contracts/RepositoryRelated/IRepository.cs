@@ -5,9 +5,7 @@ namespace Domain.Contracts.RepositoryRelated;
 public interface IRepository<TEntity> 
     where TEntity : IEntity<Guid>
 {
-    Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync();
-    
-    Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(IFilteringRequestParameters<TEntity> filteringRequestParameters);
+    Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(IFilteringRequestParameters<TEntity> filteringRequestParameters = null!);
 
     Task<TEntity?> GetEntityByIdAsync(Guid id);
 
@@ -15,7 +13,7 @@ public interface IRepository<TEntity>
 
     void UpdateExistingEntity(TEntity updatedEntity);
 
-    void RemoveExistingEntity(TEntity removedEntity);
+    Task RemoveExistingEntity(Guid id);
 
     Task<int> CountAsync();
 }
