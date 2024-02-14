@@ -5,7 +5,7 @@ namespace Domain.Entities.VehicleRelated.Classes.Common.Classes;
 public abstract class NamedVehicleAspect : IEntity<Guid>
 {
     public Guid Id { get; init; } = Guid.NewGuid();
-    public string Name { get; set; }
+    public string Name { get; set; } = null!;
 
     protected NamedVehicleAspect() { }
     protected NamedVehicleAspect(string name) => Name = name;

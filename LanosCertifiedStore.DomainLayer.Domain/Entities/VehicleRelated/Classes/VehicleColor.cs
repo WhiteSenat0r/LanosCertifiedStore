@@ -4,7 +4,8 @@ namespace Domain.Entities.VehicleRelated.Classes;
 
 public sealed class VehicleColor : NamedVehicleAspect
 {
-    // TODO Add vehicles collection property 
+    public ICollection<Vehicle> Vehicles { get; set; } = new List<Vehicle>();
+    
     public VehicleColor() { }
     public VehicleColor(string name) : base(name) {}
 }
