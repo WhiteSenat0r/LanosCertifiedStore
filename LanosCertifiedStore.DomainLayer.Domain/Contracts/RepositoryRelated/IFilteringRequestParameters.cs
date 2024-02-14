@@ -11,5 +11,5 @@ public interface IFilteringRequestParameters<TEntity>
     
     int MaxQuantityPerRequest { get; }
     
-    string SortingType { get; set; }
+    string? SortingType { get; set; }
 }

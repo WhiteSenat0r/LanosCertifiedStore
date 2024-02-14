@@ -1,5 +1,4 @@
 ﻿using Application.Queries.Vehicles.ListVehicles;
-using Application.RequestParams;
 
 namespace UnitTests.Application.Queries.VehicleRelated;
 

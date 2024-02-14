@@ -7,13 +7,13 @@ using MediatR;
 
 namespace Application.Queries.Types;
 
-internal sealed class ListTypesQueryHandler(IRepository<VehicleType> typeRepository, IMapper mapper)
+internal sealed class ListTypesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
     : IRequestHandler<ListTypesQuery, Result<IReadOnlyList<TypeDto>>>
 {
     public async Task<Result<IReadOnlyList<TypeDto>>> Handle(ListTypesQuery request,
         CancellationToken cancellationToken)
     {
-        var types = await typeRepository.GetAllEntitiesAsync();
+        var types = await unitOfWork.RetrieveRepository<VehicleType>().GetAllEntitiesAsync();
 
         var typesToReturn = mapper.Map<IReadOnlyList<VehicleType>, IReadOnlyList<TypeDto>>(types);
 

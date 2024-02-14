@@ -5,14 +5,14 @@ using MediatR;
 
 namespace Application.Commands.Colors.CreateColor;
 
-internal sealed class CreateColorCommandHandler(IRepository<VehicleColor> colorRepository, IUnitOfWork unitOfWork)
+internal sealed class CreateColorCommandHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<CreateColorCommand, Result<Unit>>
 {
     public async Task<Result<Unit>> Handle(CreateColorCommand request, CancellationToken cancellationToken)
     {
         var color = new VehicleColor(request.ColorName);
 
-        await colorRepository.AddNewEntityAsync(color);
+        await unitOfWork.RetrieveRepository<VehicleColor>().AddNewEntityAsync(color);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

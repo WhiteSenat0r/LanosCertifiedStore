@@ -2,24 +2,16 @@ using System.Collections;
 using AutoMapper;
 using Domain.Contracts.Common;
 using Domain.Contracts.RepositoryRelated;
-using Microsoft.EntityFrameworkCore;
+using Persistence.Contexts;
 using Persistence.UnitOfWorkRelated.Common.Classes;
 
 namespace Persistence.UnitOfWorkRelated;
 
-internal sealed class UnitOfWork : IUnitOfWork
+internal sealed class UnitOfWork(ApplicationDatabaseContext context, IMapper mapper) : IUnitOfWork
 {
-    private readonly DbContext _context;
-    private readonly IMapper _mapper;
     private readonly Hashtable _repositoryInstancesHashTable = new();
     private readonly Dictionary<Type, Type> _repositoryTypeMap =
         RepositoryMappings.VehicleRelatedRepositoryMappings;
-    
-    internal UnitOfWork(DbContext context, IMapper mapper)
-    {
-        _context = context;
-        _mapper = mapper;
-    }
 
     public IRepository<TEntity> RetrieveRepository<TEntity>()
         where TEntity : IEntity<Guid>
@@ -35,7 +27,7 @@ internal sealed class UnitOfWork : IUnitOfWork
             repositoryAbstractionType);
 
         var repositoryInstance = Activator.CreateInstance(
-            repositoryInstanceType, _context, _mapper);
+            repositoryInstanceType, mapper, context);
             
         _repositoryInstancesHashTable.Add(repositoryTypeKey, repositoryInstance);
 
@@ -49,5 +41,5 @@ internal sealed class UnitOfWork : IUnitOfWork
                 "Such repository abstraction type is not mapped and can't be used!");
 
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => 
-        _context.SaveChangesAsync(cancellationToken);
+        context.SaveChangesAsync(cancellationToken);
 } 

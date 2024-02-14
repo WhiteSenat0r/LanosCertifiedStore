@@ -1,6 +1,4 @@
-﻿using Application.RequestParams;
-
-namespace UnitTests.QuerySpecifications;
+﻿namespace UnitTests.QuerySpecifications;
 
 public class QuerySpecificationTests
 {

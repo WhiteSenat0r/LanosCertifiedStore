@@ -8,7 +8,6 @@ using Application.Dtos.VehicleDtos;
 using Application.Queries.Vehicles.ListVehicles;
 using Application.Queries.Vehicles.VehicleDetails;
 using Application.RequestParams;
-using Domain.Contracts.RequestParametersRelated;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

@@ -5,13 +5,13 @@ using MediatR;
 
 namespace Application.Commands.Brands.CreateBrand;
 
-internal sealed class CreateBrandCommandHandler(IRepository<VehicleBrand> brandRepository, IUnitOfWork unitOfWork)
+internal sealed class CreateBrandCommandHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<CreateBrandCommand, Result<Unit>>
 {
     public async Task<Result<Unit>> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
     {
         var brand = new VehicleBrand(request.Name);
-        await brandRepository.AddNewEntityAsync(brand);
+        await unitOfWork.RetrieveRepository<VehicleBrand>().AddNewEntityAsync(brand);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

@@ -15,9 +15,10 @@ internal abstract class GenericRepository<TEntity, TDataModel> : IRepository<TEn
     private protected GenericRepository(IMapper mapper, DbContext dbContext)
     {
         Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        Context = IsValidContext(dbContext)
-            ? dbContext
-            : throw new ArgumentException("DbContext doesn't have relevant to the given data model DbSet!");
+        // Context = IsValidContext(dbContext)
+        //     ? dbContext
+        //     : throw new ArgumentException("DbContext doesn't have relevant to the given data model DbSet!");
+        Context = dbContext;
     }
     
     public abstract Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(

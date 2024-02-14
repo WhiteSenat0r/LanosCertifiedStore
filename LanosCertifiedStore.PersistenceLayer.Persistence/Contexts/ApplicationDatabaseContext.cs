@@ -17,7 +17,7 @@ public sealed class ApplicationDatabaseContext(
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<VehicleModelDataModel>()
-            .HasOne(vm => vm.VehicleBrandDataModel)
+            .HasOne(vm => vm.VehicleBrand)
             .WithMany(b => b.Models)
             .HasForeignKey(vm => vm.VehicleBrandId)
             .OnDelete(DeleteBehavior.Restrict);

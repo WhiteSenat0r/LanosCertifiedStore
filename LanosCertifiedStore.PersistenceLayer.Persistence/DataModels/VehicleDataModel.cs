@@ -5,18 +5,18 @@ namespace Persistence.DataModels;
 
 internal sealed class VehicleDataModel : IEntity<Guid>
 {
-    public Guid Id { get; init; } = Guid.NewGuid();
+    public Guid Id { get; set; } = Guid.NewGuid();
     [MaxLength(2048)] public string Description { get; set; } = null!;
     public Guid BrandId { get; set; }
-    public VehicleBrandDataModel BrandDataModel { get; set; } = null!;
+    public VehicleBrandDataModel Brand { get; set; } = null!;
     public Guid ModelId { get; set; }
-    public VehicleModelDataModel ModelDataModel { get; set; } = null!;
+    public VehicleModelDataModel Model { get; set; } = null!;
     public Guid ColorId { get; set; }
-    public VehicleColorDataModel ColorDataModel { get; set; } = null!;
+    public VehicleColorDataModel Color { get; set; } = null!;
     public Guid TypeId { get; set; }
-    public VehicleTypeDataModel TypeDataModel { get; set; } = null!;
+    public VehicleTypeDataModel Type { get; set; } = null!;
     public Guid DisplacementId { get; set; }
-    public VehicleDisplacementDataModel DisplacementDataModel { get; set; } = null!;
+    public VehicleDisplacementDataModel Displacement { get; set; } = null!;
     public ICollection<VehiclePriceDataModel> Prices { get; set; } = new List<VehiclePriceDataModel>();
 
     public VehicleDataModel() { }

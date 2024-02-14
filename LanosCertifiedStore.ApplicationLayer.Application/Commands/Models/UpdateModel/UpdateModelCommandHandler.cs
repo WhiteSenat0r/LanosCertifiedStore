@@ -5,19 +5,20 @@ using MediatR;
 
 namespace Application.Commands.Models.UpdateModel;
 
-internal sealed class UpdateModelCommandHandler(IRepository<VehicleModel> modelRepository, IUnitOfWork unitOfWork)
+internal sealed class UpdateModelCommandHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<UpdateModelCommand, Result<Unit>>
 {
     public async Task<Result<Unit>> Handle(UpdateModelCommand request, CancellationToken cancellationToken)
     {
-        var existingModel = await modelRepository.GetEntityByIdAsync(request.UpdateModelDto.Id);
+        var existingModel = await unitOfWork.RetrieveRepository<VehicleModel>()
+            .GetEntityByIdAsync(request.UpdateModelDto.Id);
 
         if (existingModel is null)
             return Result<Unit>.Failure("Model with such name already exists!");
 
         existingModel.Name = request.UpdateModelDto.UpdatedName;
 
-        modelRepository.UpdateExistingEntity(existingModel);
+        unitOfWork.RetrieveRepository<VehicleModel>().UpdateExistingEntity(existingModel);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

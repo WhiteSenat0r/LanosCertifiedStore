@@ -7,13 +7,13 @@ using MediatR;
 
 namespace Application.Queries.Brands;
 
-internal sealed class ListBrandsQueryHandler(IRepository<VehicleBrand> brandRepository, IMapper mapper)
+internal sealed class ListBrandsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
     : IRequestHandler<ListBrandsQuery, Result<IReadOnlyList<BrandDto>>>
 {
     public async Task<Result<IReadOnlyList<BrandDto>>> Handle(ListBrandsQuery request,
         CancellationToken cancellationToken)
     {
-        var brands = await brandRepository.GetAllEntitiesAsync();
+        var brands = await unitOfWork.RetrieveRepository<VehicleBrand>().GetAllEntitiesAsync();
 
         var brandsToReturn = mapper.Map<IReadOnlyList<VehicleBrand>, IReadOnlyList<BrandDto>>(brands);
 

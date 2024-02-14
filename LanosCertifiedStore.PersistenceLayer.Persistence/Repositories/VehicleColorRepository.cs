@@ -2,12 +2,13 @@
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Contexts;
 using Persistence.DataModels;
 using Persistence.Repositories.Common.Classes;
 
 namespace Persistence.Repositories;
 
-internal class VehicleColorRepository(IMapper mapper, DbContext dbContext)
+internal class VehicleColorRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
     : GenericRepository<VehicleColor, VehicleColorDataModel>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleColor>> GetAllEntitiesAsync(
