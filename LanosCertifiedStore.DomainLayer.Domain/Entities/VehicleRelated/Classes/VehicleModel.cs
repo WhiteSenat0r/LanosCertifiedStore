@@ -4,7 +4,8 @@ namespace Domain.Entities.VehicleRelated.Classes;
 
 public sealed class VehicleModel : NamedVehicleAspect
 {
-    // TODO Add brand property 
+    public VehicleBrand Brand { get; set; } = null!;
+
     public VehicleModel() {}
     public VehicleModel(string name) : base(name) { }
 }
