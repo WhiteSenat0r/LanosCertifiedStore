@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Persistence.DataModels;
@@ -9,7 +10,8 @@ namespace Persistence.Repositories;
 internal class VehicleRepository(IMapper mapper, DbContext dbContext)
     : GenericRepository<Vehicle, VehicleDataModel>(mapper, dbContext)
 {
-    public override async Task<IReadOnlyList<Vehicle>> GetAllEntitiesAsync()
+    public override async Task<IReadOnlyList<Vehicle>> GetAllEntitiesAsync(
+        IFilteringRequestParameters<Vehicle> filteringRequestParameters = null!)
     {
         throw new NotImplementedException();
     }
@@ -19,22 +21,8 @@ internal class VehicleRepository(IMapper mapper, DbContext dbContext)
         throw new NotImplementedException();
     }
 
-    public override async Task AddNewEntityAsync(Vehicle entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override void UpdateExistingEntity(Vehicle updatedEntity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override void RemoveExistingEntity(Vehicle removedEntity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override async Task<int> CountAsync()
+    private protected override async Task<IQueryable<VehicleDataModel>> HandleQueryFiltering(
+        DbSet<VehicleDataModel> dbSet, IFilteringRequestParameters<Vehicle> filteringRequestParameters)
     {
         throw new NotImplementedException();
     }
