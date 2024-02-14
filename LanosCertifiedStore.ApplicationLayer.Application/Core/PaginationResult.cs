@@ -3,23 +3,23 @@ using Domain.Contracts.RepositoryRelated;
 
 namespace Application.Core;
 
-public sealed class PaginationResult<T> 
+public sealed class PaginationResult<T>
     where T : IEntity<Guid>
 {
     public PaginationResult(
-        IEnumerable<T> items, IFilteringRequestParameters<T> filteringRequestParameters, int totalItemsQuantity)
+        IEnumerable<T> items, int pageIndex, int totalItemsQuantity)
     {
         Items = items;
         CurrentPageItemsQuantity = Items.Count();
-        PageIndex = filteringRequestParameters.PageIndex;
+        PageIndex = pageIndex;
         TotalItemsQuantity = totalItemsQuantity;
     }
-    
+
     public IEnumerable<T> Items { get; }
-    
+
     public int TotalItemsQuantity { get; }
-    
+
     public int CurrentPageItemsQuantity { get; }
-    
+
     public int PageIndex { get; }
 }

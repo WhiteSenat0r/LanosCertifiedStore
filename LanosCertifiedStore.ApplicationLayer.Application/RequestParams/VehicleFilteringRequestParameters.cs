@@ -4,7 +4,7 @@ using Domain.Entities.VehicleRelated.Classes;
 
 namespace Application.RequestParams;
 
-internal sealed class VehicleFilteringRequestParameters(int maxItemsQuantity) 
+public sealed class VehicleFilteringRequestParameters(int maxItemsQuantity) 
     : BaseFilteringRequestParameters<Vehicle>(maxItemsQuantity), IVehicleFilteringRequestParameters
 {
     public string Brand { get; set; } = null!;
