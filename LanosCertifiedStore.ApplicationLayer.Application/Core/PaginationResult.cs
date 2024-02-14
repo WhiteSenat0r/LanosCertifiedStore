@@ -1,15 +1,17 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Domain.Contracts.Common;
+using Domain.Contracts.RepositoryRelated;
 
 namespace Application.Core;
 
-public sealed class PaginationResult<T>
+public sealed class PaginationResult<T> 
+    where T : IEntity<Guid>
 {
     public PaginationResult(
-        IEnumerable<T> items, IRequestParameters requestParameters, int totalItemsQuantity)
+        IEnumerable<T> items, IFilteringRequestParameters<T> filteringRequestParameters, int totalItemsQuantity)
     {
         Items = items;
         CurrentPageItemsQuantity = Items.Count();
-        PageIndex = requestParameters.PageIndex;
+        PageIndex = filteringRequestParameters.PageIndex;
         TotalItemsQuantity = totalItemsQuantity;
     }
     
