@@ -9,7 +9,7 @@ namespace Persistence.Repositories;
 internal class VehicleRepository(IMapper mapper, DbContext dbContext)
     : GenericRepository<Vehicle, VehicleDataModel>(mapper, dbContext)
 {
-    public override async Task<List<Vehicle>> GetAllEntitiesAsync()
+    public override async Task<IReadOnlyList<Vehicle>> GetAllEntitiesAsync()
     {
         throw new NotImplementedException();
     }
