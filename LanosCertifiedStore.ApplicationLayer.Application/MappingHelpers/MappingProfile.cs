@@ -14,6 +14,7 @@ internal sealed class MappingProfile : Profile
 {
     public MappingProfile()
     {
+        CreateMap<Vehicle, Vehicle>();
         CreateMap<VehicleBrand, BrandDto>();
         CreateMap<VehicleColor, ColorDto>();
         CreateMap<VehicleDisplacement, DisplacementDto>();
@@ -21,7 +22,7 @@ internal sealed class MappingProfile : Profile
         CreateMap<VehiclePrice, PriceDto>();
         
         CreateMap<VehicleModel, ModelDto>()
-            .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.VehicleBrand.Name));
+            .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.Brand.Name));
 
         CreateMap<Vehicle, VehicleDto>()
             .ForMember(d => d.Brand, o => o.MapFrom(s => s.Brand.Name))
@@ -29,12 +30,6 @@ internal sealed class MappingProfile : Profile
             .ForMember(d => d.Color, o => o.MapFrom(s => s.Color.Name))
             .ForMember(d => d.Model, o => o.MapFrom(s => s.Model.Name))
             .ForMember(d => d.Displacement, o => o.MapFrom(s => s.Displacement.Value));
-
-        CreateMap<ActionVehicleDto, Vehicle>()
-            .ForMember(d => d.BrandId, o => o.MapFrom(s => s.BrandId))
-            .ForMember(d => d.TypeId, o => o.MapFrom(s => s.TypeId))
-            .ForMember(d => d.ColorId, o => o.MapFrom(s => s.ColorId))
-            .ForMember(d => d.ModelId, o => o.MapFrom(s => s.ModelId))
-            .ForMember(d => d.DisplacementId, o => o.MapFrom(s => s.DisplacementId));
+        
     }
 }
