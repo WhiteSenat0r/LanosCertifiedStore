@@ -23,7 +23,7 @@ public sealed class Vehicle : IEntity<Guid>
         decimal price,
         string description)
     {
-        Prices.Add(new VehiclePrice(price));
+        Prices.Add(new VehiclePrice(this, price));
         Brand = brand;
         Model = model;
         Color = color;

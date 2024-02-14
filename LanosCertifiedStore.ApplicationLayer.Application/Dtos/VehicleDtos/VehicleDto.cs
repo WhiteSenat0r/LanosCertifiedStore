@@ -1,10 +1,11 @@
 ﻿using Application.Dtos.PriceDtos;
+using Domain.Contracts.Common;
 
 namespace Application.Dtos.VehicleDtos;
 
-public sealed class VehicleDto
+public sealed class VehicleDto : IEntity<Guid>
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; init; }
     public string Description { get; set; }
     public string Brand { get; set; }
     public string Model { get; set; }

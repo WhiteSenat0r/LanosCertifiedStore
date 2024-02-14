@@ -13,12 +13,12 @@ internal sealed class ListVehiclesQueryHandler(IRepository<Vehicle> vehicleRepos
     public async Task<Result<PaginationResult<VehicleDto>>> Handle(ListVehiclesQuery request,
         CancellationToken cancellationToken)
     {
-        var vehicles = await vehicleRepository.GetAllEntitiesAsync();
+        var vehicles = await vehicleRepository.GetAllEntitiesAsync(request.RequestParameters);
 
         var mappedVehicles = mapper.Map<IReadOnlyList<Vehicle>, IReadOnlyList<VehicleDto>>(vehicles);
 
         var returnedResult = new PaginationResult<VehicleDto>(
-            mappedVehicles, request.RequestParameters, mappedVehicles.Count);
+            mappedVehicles, request.RequestParameters.PageIndex, mappedVehicles.Count);
 
         return Result<PaginationResult<VehicleDto>>.Success(returnedResult);
     }
