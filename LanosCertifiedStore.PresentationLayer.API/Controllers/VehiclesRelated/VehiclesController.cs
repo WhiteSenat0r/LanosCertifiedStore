@@ -8,6 +8,7 @@ using Application.Dtos.VehicleDtos;
 using Application.Queries.Vehicles.ListVehicles;
 using Application.Queries.Vehicles.VehicleDetails;
 using Application.RequestParams;
+using Domain.Contracts.RequestParametersRelated;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,7 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
     [HttpGet]
     [ProducesResponseType(typeof(Result<PaginationResult<VehicleDto>>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetVehicles([FromQuery] VehicleRequestParameters requestParameters)
+    public async Task<IActionResult> GetVehicles([FromQuery] VehicleFilteringRequestParameters requestParameters)
     {
         return HandleResult(await Mediator.Send(new ListVehiclesQuery(requestParameters)));
     }
