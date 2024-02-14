@@ -11,22 +11,38 @@ internal class VehicleTypeRepository(IMapper mapper, DbContext dbContext)
 {
     public override async Task<IReadOnlyList<VehicleType>> GetAllEntitiesAsync()
     {
-        throw new NotImplementedException();
+        var typeModels = await Context.Set<VehicleTypeDataModel>()
+            .Include(model => model.Vehicles)
+            .AsNoTracking()
+            .ToListAsync();
+
+        return Mapper.Map<IReadOnlyList<VehicleTypeDataModel>, IReadOnlyList<VehicleType>>(typeModels);
     }
 
     public override async Task<VehicleType?> GetEntityByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var typeModel = await Context.Set<VehicleTypeDataModel>()
+            .Include(model => model.Vehicles)
+            .AsNoTracking()
+            .SingleOrDefaultAsync(model => model.Id.Equals(id));
+
+        return typeModel is null 
+            ? null
+            : Mapper.Map<VehicleTypeDataModel, VehicleType>(typeModel);
     }
 
     public override async Task AddNewEntityAsync(VehicleType entity)
     {
-        throw new NotImplementedException();
+        var mappedTypeEntity = Mapper.Map<VehicleType, VehicleTypeDataModel>(entity);
+
+        await Context.Set<VehicleTypeDataModel>().AddAsync(mappedTypeEntity);
     }
 
     public override void UpdateExistingEntity(VehicleType updatedEntity)
     {
-        throw new NotImplementedException();
+        var mappedTypeEntity = Mapper.Map<VehicleType, VehicleTypeDataModel>(updatedEntity);
+
+        Context.Set<VehicleTypeDataModel>().Update(mappedTypeEntity);
     }
 
     public override void RemoveExistingEntity(VehicleType removedEntity)
@@ -36,6 +52,6 @@ internal class VehicleTypeRepository(IMapper mapper, DbContext dbContext)
 
     public override async Task<int> CountAsync()
     {
-        throw new NotImplementedException();
+        return await Context.Set<VehicleTypeDataModel>().CountAsync();
     }
 }
