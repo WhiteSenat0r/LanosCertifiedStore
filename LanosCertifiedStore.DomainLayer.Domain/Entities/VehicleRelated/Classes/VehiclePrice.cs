@@ -4,6 +4,7 @@ namespace Domain.Entities.VehicleRelated.Classes;
 
 public sealed class VehiclePrice : IEntity<Guid>
 {
+    // TODO Add vehicle collection property 
     public Guid Id { get; init; } = Guid.NewGuid();
     public decimal Value { get; set; }
     public DateTime IssueDate { get; set; } = DateTime.UtcNow;
