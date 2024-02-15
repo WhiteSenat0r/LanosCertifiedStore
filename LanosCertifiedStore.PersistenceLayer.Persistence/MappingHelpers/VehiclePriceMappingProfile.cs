@@ -4,17 +4,17 @@ using Persistence.DataModels;
 
 namespace Persistence.MappingHelpers;
 
-internal sealed class VehicleMappingProfile : Profile
+internal sealed class VehiclePriceMappingProfile : Profile
 {
-    public VehicleMappingProfile()
+    public VehiclePriceMappingProfile()
     {
         AddMappingProfileFromEntityToModel();
         AddMappingProfileFromModelToEntity();
     }
     
     private void AddMappingProfileFromModelToEntity() =>
-        CreateMap<VehicleDataModel, Vehicle>();
+        CreateMap<VehiclePriceDataModel, VehiclePrice>();
     
     private void AddMappingProfileFromEntityToModel() =>
-        CreateMap<Vehicle, VehicleDataModel>();
+        CreateMap<VehiclePrice, VehiclePriceDataModel>();
 }

@@ -15,10 +15,7 @@ internal abstract class GenericRepository<TEntity, TDataModel> : IRepository<TEn
     private protected GenericRepository(IMapper mapper, DbContext dbContext)
     {
         Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        // Context = IsValidContext(dbContext)
-        //     ? dbContext
-        //     : throw new ArgumentException("DbContext doesn't have relevant to the given data model DbSet!");
-        Context = dbContext;
+        Context = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
     
     public abstract Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(
@@ -53,8 +50,4 @@ internal abstract class GenericRepository<TEntity, TDataModel> : IRepository<TEn
 
     private protected abstract Task<IQueryable<TDataModel>> HandleQueryFiltering(
         DbSet<TDataModel> dbSet, IFilteringRequestParameters<TEntity> filteringRequestParameters);
-
-    private bool IsValidContext(IAsyncDisposable context) =>
-        context.GetType().GetProperties().FirstOrDefault(p =>
-            p.PropertyType == typeof(DbSet<TDataModel>)) is not null;
 }
