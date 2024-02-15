@@ -12,7 +12,7 @@ internal class VehicleTypeRepository(IMapper mapper, ApplicationDatabaseContext 
     : GenericRepository<VehicleType, VehicleTypeDataModel>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleType>> GetAllEntitiesAsync(
-        IFilteringRequestParameters<VehicleType> filteringRequestParameters = null!)
+        IFilteringRequestParameters<VehicleType>? filteringRequestParameters = null!)
     {
         var typeModels = await Context.Set<VehicleTypeDataModel>()
             .Include(model => model.Vehicles)
@@ -34,8 +34,8 @@ internal class VehicleTypeRepository(IMapper mapper, ApplicationDatabaseContext 
             : Mapper.Map<VehicleTypeDataModel, VehicleType>(typeModel);
     }
     
-    private protected override async Task<IQueryable<VehicleTypeDataModel>> HandleQueryFiltering(
-        DbSet<VehicleTypeDataModel> dbSet, IFilteringRequestParameters<VehicleType> filteringRequestParameters)
+    private protected override IQueryable<VehicleTypeDataModel> GetRelevantQueryable(
+        IFilteringRequestParameters<VehicleType> filteringRequestParameters)
     {
         throw new NotImplementedException();
     }

@@ -12,7 +12,7 @@ internal class VehicleBrandRepository(IMapper mapper, ApplicationDatabaseContext
     : GenericRepository<VehicleBrand, VehicleBrandDataModel>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleBrand>> GetAllEntitiesAsync(
-        IFilteringRequestParameters<VehicleBrand> filteringRequestParameters = null!)
+        IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters = null!)
     {
         var brandModels = await Context.Set<VehicleBrandDataModel>()
             .Include(x => x.Models)
@@ -32,8 +32,8 @@ internal class VehicleBrandRepository(IMapper mapper, ApplicationDatabaseContext
         return brandModel is null ? null : Mapper.Map<VehicleBrandDataModel, VehicleBrand>(brandModel);
     }
 
-    private protected override async Task<IQueryable<VehicleBrandDataModel>> HandleQueryFiltering(
-        DbSet<VehicleBrandDataModel> dbSet, IFilteringRequestParameters<VehicleBrand> filteringRequestParameters)
+    private protected override IQueryable<VehicleBrandDataModel> GetRelevantQueryable(
+        IFilteringRequestParameters<VehicleBrand> filteringRequestParameters)
     {
         throw new NotImplementedException();
     }

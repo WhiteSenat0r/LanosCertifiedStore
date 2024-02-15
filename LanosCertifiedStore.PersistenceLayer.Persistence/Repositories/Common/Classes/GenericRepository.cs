@@ -19,7 +19,7 @@ internal abstract class GenericRepository<TEntity, TDataModel> : IRepository<TEn
     }
     
     public abstract Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(
-        IFilteringRequestParameters<TEntity> filteringRequestParameters = null!);
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters = null!);
 
     public abstract Task<TEntity?> GetEntityByIdAsync(Guid id);
 
@@ -48,6 +48,6 @@ internal abstract class GenericRepository<TEntity, TDataModel> : IRepository<TEn
 
     public Task<int> CountAsync() => Context.Set<TDataModel>().CountAsync();
 
-    private protected abstract Task<IQueryable<TDataModel>> HandleQueryFiltering(
-        DbSet<TDataModel> dbSet, IFilteringRequestParameters<TEntity> filteringRequestParameters);
+    private protected abstract IQueryable<TDataModel> GetRelevantQueryable(
+        IFilteringRequestParameters<TEntity> filteringRequestParameters);
 }

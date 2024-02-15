@@ -12,7 +12,7 @@ internal class VehicleDisplacementRepository(IMapper mapper, ApplicationDatabase
     : GenericRepository<VehicleDisplacement, VehicleDisplacementDataModel>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleDisplacement>> GetAllEntitiesAsync(
-        IFilteringRequestParameters<VehicleDisplacement> filteringRequestParameters = null!)
+        IFilteringRequestParameters<VehicleDisplacement>? filteringRequestParameters = null!)
     {
         var displacementModels = await Context.Set<VehicleDisplacementDataModel>()
             .AsNoTracking()
@@ -33,8 +33,7 @@ internal class VehicleDisplacementRepository(IMapper mapper, ApplicationDatabase
             : Mapper.Map<VehicleDisplacementDataModel, VehicleDisplacement>(displacementModel);
     }
 
-    private protected override async Task<IQueryable<VehicleDisplacementDataModel>> HandleQueryFiltering(
-        DbSet<VehicleDisplacementDataModel> dbSet, 
+    private protected override IQueryable<VehicleDisplacementDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleDisplacement> filteringRequestParameters)
     {
         throw new NotImplementedException();

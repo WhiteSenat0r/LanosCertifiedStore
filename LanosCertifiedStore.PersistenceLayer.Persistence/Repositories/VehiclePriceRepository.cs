@@ -12,7 +12,7 @@ internal class VehiclePriceRepository(IMapper mapper, ApplicationDatabaseContext
     : GenericRepository<VehiclePrice, VehiclePriceDataModel>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehiclePrice>> GetAllEntitiesAsync(
-        IFilteringRequestParameters<VehiclePrice> filteringRequestParameters = null!)
+        IFilteringRequestParameters<VehiclePrice>? filteringRequestParameters = null!)
     {
         var priceModels = await Context.Set<VehiclePriceDataModel>()
             .Include(p => p.Vehicle)
@@ -31,8 +31,8 @@ internal class VehiclePriceRepository(IMapper mapper, ApplicationDatabaseContext
         return priceModel is null ? null : Mapper.Map<VehiclePriceDataModel, VehiclePrice>(priceModel);
     }
 
-    private protected override async Task<IQueryable<VehiclePriceDataModel>> HandleQueryFiltering(
-        DbSet<VehiclePriceDataModel> dbSet, IFilteringRequestParameters<VehiclePrice> filteringRequestParameters)
+    private protected override IQueryable<VehiclePriceDataModel> GetRelevantQueryable(
+        IFilteringRequestParameters<VehiclePrice> filteringRequestParameters)
     {
         throw new NotImplementedException();
     }
