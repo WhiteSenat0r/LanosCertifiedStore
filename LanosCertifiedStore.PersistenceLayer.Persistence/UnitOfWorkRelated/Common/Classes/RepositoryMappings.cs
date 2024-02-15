@@ -1,6 +1,7 @@
 ﻿using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Persistence.Repositories;
+using Persistence.Repositories.VehicleRelated;
 
 namespace Persistence.UnitOfWorkRelated.Common.Classes;
 

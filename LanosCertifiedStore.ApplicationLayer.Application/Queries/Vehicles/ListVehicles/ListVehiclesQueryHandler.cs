@@ -17,8 +17,10 @@ internal sealed class ListVehiclesQueryHandler(IUnitOfWork unitOfWork, IMapper m
 
         var mappedVehicles = mapper.Map<IReadOnlyList<Vehicle>, IReadOnlyList<VehicleDto>>(vehicles);
 
+        var vehiclesCount = await unitOfWork.RetrieveRepository<Vehicle>().CountAsync();
+        
         var returnedResult = new PaginationResult<VehicleDto>(
-            mappedVehicles, request.RequestParameters.PageIndex, mappedVehicles.Count);
+            mappedVehicles, request.RequestParameters.PageIndex, vehiclesCount);
 
         return Result<PaginationResult<VehicleDto>>.Success(returnedResult);
     }

@@ -12,7 +12,7 @@ internal class VehicleColorRepository(IMapper mapper, ApplicationDatabaseContext
     : GenericRepository<VehicleColor, VehicleColorDataModel>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleColor>> GetAllEntitiesAsync(
-        IFilteringRequestParameters<VehicleColor> filteringRequestParameters = null!)
+        IFilteringRequestParameters<VehicleColor>? filteringRequestParameters = null!)
     {
         var colorModels = await Context.Set<VehicleColorDataModel>()
             .AsNoTracking()
@@ -30,8 +30,8 @@ internal class VehicleColorRepository(IMapper mapper, ApplicationDatabaseContext
         return colorModel is null ? null : Mapper.Map<VehicleColorDataModel, VehicleColor>(colorModel);
     }
 
-    private protected override async Task<IQueryable<VehicleColorDataModel>> HandleQueryFiltering(
-        DbSet<VehicleColorDataModel> dbSet, IFilteringRequestParameters<VehicleColor> filteringRequestParameters)
+    private protected override IQueryable<VehicleColorDataModel> GetRelevantQueryable(
+        IFilteringRequestParameters<VehicleColor> filteringRequestParameters)
     {
         throw new NotImplementedException();
     }
