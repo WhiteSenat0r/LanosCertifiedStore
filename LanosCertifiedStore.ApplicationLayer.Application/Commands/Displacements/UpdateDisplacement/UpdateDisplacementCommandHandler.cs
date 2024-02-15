@@ -1,6 +1,7 @@
 ﻿using Application.Core;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Displacements.UpdateDisplacement;
@@ -14,7 +15,7 @@ internal sealed class UpdateDisplacementCommandHandler(IUnitOfWork unitOfWork)
             .GetEntityByIdAsync(request.UpdateDisplacementDto.Id);
 
         if (existingDisplacement is null)
-            return Result<Unit>.Failure("Such displacement doesn't exists!");
+            return Result<Unit>.Failure(Error.NotFound);
 
         existingDisplacement.Value = request.UpdateDisplacementDto.UpdatedValue;
 
@@ -22,6 +23,8 @@ internal sealed class UpdateDisplacementCommandHandler(IUnitOfWork unitOfWork)
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 
-        return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Failed to update displacement!");
+        return result
+            ? Result<Unit>.Success(Unit.Value)
+            : Result<Unit>.Failure(new Error("DeleteError", "Failed to update displacement!"));
     }
 }

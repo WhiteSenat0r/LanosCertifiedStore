@@ -5,6 +5,7 @@ using Application.Commands.Types.UpdateType;
 using Application.Core;
 using Application.Dtos.TypeDtos;
 using Application.Queries.Types;
+using Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

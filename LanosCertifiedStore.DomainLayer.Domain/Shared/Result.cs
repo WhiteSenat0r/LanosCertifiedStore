@@ -1,10 +1,10 @@
-﻿namespace Application.Core;
+﻿namespace Domain.Shared;
 
 public sealed class Result<T>
 {
-    public bool IsSuccess { get; set; }
-    public T Value { get; set; }
-    public string Error { get; set; }
+    public bool IsSuccess { get; init; }
+    public T? Value { get; private init; }
+    public Error? Error { get; private init; }
 
     public static Result<T> Success(T value)
     {
@@ -15,7 +15,7 @@ public sealed class Result<T>
         };
     }
 
-    public static Result<T> Failure(string error)
+    public static Result<T> Failure(Error error)
     {
         return new Result<T>
         {

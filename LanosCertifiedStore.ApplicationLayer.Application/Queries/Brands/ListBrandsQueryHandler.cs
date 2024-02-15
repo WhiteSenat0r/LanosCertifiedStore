@@ -3,6 +3,7 @@ using Application.Dtos.BrandDtos;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Shared;
 using MediatR;
 
 namespace Application.Queries.Brands;

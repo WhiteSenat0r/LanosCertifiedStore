@@ -1,6 +1,7 @@
 ﻿using Application.Core;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Colors.CreateColor;
@@ -16,6 +17,6 @@ internal sealed class CreateColorCommandHandler(IUnitOfWork unitOfWork)
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 
-        return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Failed to create color!");
+        return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure(new Error("CreateError", "Failed to create color!"));
     }
 }

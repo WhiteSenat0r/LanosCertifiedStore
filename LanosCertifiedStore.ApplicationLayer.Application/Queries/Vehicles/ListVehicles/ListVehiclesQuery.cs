@@ -1,6 +1,7 @@
 ﻿using Application.Core;
 using Application.Dtos.VehicleDtos;
 using Application.RequestParams;
+using Domain.Shared;
 using MediatR;
 
 namespace Application.Queries.Vehicles.ListVehicles;

@@ -3,6 +3,7 @@ using Application.Dtos.ModelDtos;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Shared;
 using MediatR;
 
 namespace Application.Queries.Models;

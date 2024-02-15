@@ -1,4 +1,5 @@
 ﻿using Application.Core;
+using Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

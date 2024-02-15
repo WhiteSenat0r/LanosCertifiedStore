@@ -1,5 +1,6 @@
 ﻿using API.Responses;
 using Application.Core;
+using Domain.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.Common;
@@ -15,7 +16,7 @@ public abstract class BaseEntityRelatedApiController : BaseApiController
         {
             true when result.Value is not null => Ok(result.Value),
             true when result.Value is null => NotFound(new ApiResponse(NotFound().StatusCode)),
-            _ => BadRequest(new ApiResponse(BadRequest().StatusCode, result.Error))
+            _ => BadRequest(new ApiResponse(BadRequest().StatusCode, result.Error!.Message))
         };
     }
 }

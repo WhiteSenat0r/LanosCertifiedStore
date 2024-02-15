@@ -1,6 +1,7 @@
 ﻿using Application.Core;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Colors.UpdateColor;
@@ -14,7 +15,7 @@ internal sealed class UpdateColorCommandHandler(IUnitOfWork unitOfWork)
             .GetEntityByIdAsync(request.UpdateColorDto.Id);
 
         if (existingColor is null)
-            return Result<Unit>.Failure("Such color doesn't exists!");
+            return Result<Unit>.Failure(Error.NotFound);
 
         existingColor.Name = request.UpdateColorDto.UpdatedName;
 
@@ -22,6 +23,8 @@ internal sealed class UpdateColorCommandHandler(IUnitOfWork unitOfWork)
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 
-        return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Failed to update color");
+        return result
+            ? Result<Unit>.Success(Unit.Value)
+            : Result<Unit>.Failure(new Error("UpdateError", "Failed to update color"));
     }
 }
