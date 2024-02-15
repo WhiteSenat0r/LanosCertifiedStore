@@ -14,33 +14,33 @@ namespace API.Controllers.VehiclesRelated;
 public sealed class TypesController : BaseEntityRelatedApiController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(Result<IReadOnlyList<TypeDto>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyList<TypeDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetTypes()
+    public async Task<ActionResult<IReadOnlyList<TypeDto>>> GetTypes()
     {
         return HandleResult(await Mediator.Send(new ListTypesQuery()));
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateType([FromQuery] string name)
+    public async Task<ActionResult> CreateType([FromQuery] string name)
     {
         return HandleResult(await Mediator.Send(new CreateTypeCommand(name)));
     }
 
     [HttpPut]
-    [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> UpdateType([FromBody] UpdateTypeDto updateTypeDto)
+    public async Task<ActionResult> UpdateType([FromBody] UpdateTypeDto updateTypeDto)
     {
         return HandleResult(await Mediator.Send(new UpdateTypeCommand(updateTypeDto)));
     }
 
     [HttpDelete("{id:guid}")]
-    [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeleteType(Guid id)
+    public async Task<ActionResult> DeleteType(Guid id)
     {
         return HandleResult(await Mediator.Send(new DeleteTypeCommand(id)));
     }

@@ -1,9 +1,9 @@
-﻿using API.Controllers.Common;
+﻿using System.ComponentModel.DataAnnotations;
+using API.Controllers.Common;
 using API.Responses;
 using Application.Commands.Brands.CreateBrand;
 using Application.Commands.Brands.DeleteBrand;
 using Application.Commands.Brands.UpdateBrand;
-using Application.Core;
 using Application.Dtos.BrandDtos;
 using Application.Queries.Brands;
 using MediatR;
@@ -14,33 +14,36 @@ namespace API.Controllers.VehiclesRelated;
 public sealed class BrandsController : BaseEntityRelatedApiController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(Result<IReadOnlyList<BrandDto>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IReadOnlyList<BrandDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetBrands()
+    public async Task<ActionResult<IReadOnlyList<BrandDto>>> GetBrands()
     {
         return HandleResult(await Mediator.Send(new ListBrandsQuery()));
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateBrand([FromQuery] string name)
+    [ProducesResponseType(typeof(ValidationResult), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> CreateBrand([FromQuery] string name)
     {
         return HandleResult(await Mediator.Send(new CreateBrandCommand(name)));
     }
 
     [HttpPut]
-    [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> UpdateBrand([FromBody] UpdateBrandDto updateBrandDto)
+    [ProducesResponseType(typeof(ValidationResult), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> UpdateBrand([FromBody] UpdateBrandDto updateBrandDto)
     {
         return HandleResult(await Mediator.Send(new UpdateBrandCommand(updateBrandDto)));
     }
 
     [HttpDelete("{id:guid}")]
-    [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeleteBrand(Guid id)
+    [ProducesResponseType(typeof(ValidationResult), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> DeleteBrand(Guid id)
     {
         return HandleResult(await Mediator.Send(new DeleteBrandCommand(id)));
     }
