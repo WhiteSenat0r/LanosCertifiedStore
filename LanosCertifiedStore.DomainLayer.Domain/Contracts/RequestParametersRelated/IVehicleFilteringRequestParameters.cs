@@ -11,11 +11,11 @@ public interface IVehicleFilteringRequestParameters : IFilteringRequestParameter
     
     string? Color { get; set; }
     
-    double Displacement { get; set; }
+    double? Displacement { get; set; }
     
-    decimal LowerPriceLimit { get; set; }
+    decimal? LowerPriceLimit { get; set; }
     
-    decimal UpperPriceLimit { get; set; }
+    decimal? UpperPriceLimit { get; set; }
     
-    DateTime MinimalPriceDate { get; set; }
+    DateTime? MinimalPriceDate { get; set; }
 }
