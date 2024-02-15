@@ -8,11 +8,18 @@ internal sealed class UpdateBrandCommandValidator : AbstractValidator<UpdateBran
 {
     public UpdateBrandCommandValidator(IUnitOfWork unitOfWork)
     {
-        RuleFor(x => x.UpdateBrandDto.UpdatedName).NotEmpty().MinimumLength(2).MaximumLength(64);
-        RuleFor(x => x.UpdateBrandDto.UpdatedName).MustAsync(async (updatedName, _) =>
-        {
-            var brands = await unitOfWork.RetrieveRepository<VehicleBrand>().GetAllEntitiesAsync();
-            return brands.All(x => x.Name != updatedName);
-        }).WithMessage("Brand name must be unique!");
+        RuleFor(x => x.UpdateBrandDto.UpdatedName)
+            .NotEmpty()
+            .MinimumLength(2)
+            .MaximumLength(64);
+
+        RuleFor(x => x.UpdateBrandDto.UpdatedName)
+            .MustAsync(async (updatedName, _) =>
+            {
+                var brands = await unitOfWork.RetrieveRepository<VehicleBrand>().GetAllEntitiesAsync();
+                return brands.All(x => x.Name != updatedName);
+            })
+            .WithMessage("Brand with such name already exists! Brand name must be unique");
+
     }
 }

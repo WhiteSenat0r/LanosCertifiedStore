@@ -8,11 +8,17 @@ internal sealed class CreateBrandCommandValidator : AbstractValidator<CreateBran
 {
     public CreateBrandCommandValidator(IUnitOfWork unitOfWork)
     {
-        RuleFor(x => x.Name).NotEmpty().MaximumLength(64).MinimumLength(2);
-        RuleFor(x => x.Name).MustAsync(async (name, _) =>
-        {
-            var brands = await unitOfWork.RetrieveRepository<VehicleBrand>().GetAllEntitiesAsync();
-            return brands.All(x => x.Name != name);
-        }).WithMessage("Brand name must be unique!");
+        RuleFor(x => x.Name)
+            .NotEmpty()
+            .MaximumLength(64)
+            .MinimumLength(2);
+
+        RuleFor(x => x.Name)
+            .MustAsync(async (name, _) =>
+            {
+                var brands = await unitOfWork.RetrieveRepository<VehicleBrand>().GetAllEntitiesAsync();
+                return brands.All(x => x.Name != name);
+            })
+            .WithMessage("Brand with such name already exists! Brand name must be unique");
     }
 }

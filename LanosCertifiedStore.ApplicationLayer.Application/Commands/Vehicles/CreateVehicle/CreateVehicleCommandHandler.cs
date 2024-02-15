@@ -28,31 +28,31 @@ internal sealed class CreateVehicleCommandHandler(IUnitOfWork unitOfWork)
     private async Task<Result<Vehicle>> CreateVehicle(CreateVehicleCommand request)
     {
         var vehicleModel =
-            await unitOfWork.RetrieveRepository<VehicleModel>().GetEntityByIdAsync(request.Vehicle.ModelId);
+            await unitOfWork.RetrieveRepository<VehicleModel>().GetEntityByIdAsync(request.ActionVehicleDto.ModelId);
 
         if (vehicleModel is null)
             return Result<Vehicle>.Failure(new Error("NotFound", "Such model doesn't exists!"));
 
         var vehicleBrand =
-            await unitOfWork.RetrieveRepository<VehicleBrand>().GetEntityByIdAsync(request.Vehicle.BrandId);
+            await unitOfWork.RetrieveRepository<VehicleBrand>().GetEntityByIdAsync(request.ActionVehicleDto.BrandId);
 
         if (vehicleBrand is null)
             return Result<Vehicle>.Failure(new Error("NotFound", "Such brand doesn't exists!"));
 
         var vehicleColor =
-            await unitOfWork.RetrieveRepository<VehicleColor>().GetEntityByIdAsync(request.Vehicle.ColorId);
+            await unitOfWork.RetrieveRepository<VehicleColor>().GetEntityByIdAsync(request.ActionVehicleDto.ColorId);
 
         if (vehicleColor is null)
             return Result<Vehicle>.Failure(new Error("NotFound", "Such color doesn't exists!"));
 
-        var vehicleType = await unitOfWork.RetrieveRepository<VehicleType>().GetEntityByIdAsync(request.Vehicle.TypeId);
+        var vehicleType = await unitOfWork.RetrieveRepository<VehicleType>().GetEntityByIdAsync(request.ActionVehicleDto.TypeId);
 
         if (vehicleType is null)
             return Result<Vehicle>.Failure(new Error("NotFound", "Such type doesn't exists!"));
 
         var vehicleDisplacement =
             await unitOfWork.RetrieveRepository<VehicleDisplacement>()
-                .GetEntityByIdAsync(request.Vehicle.DisplacementId);
+                .GetEntityByIdAsync(request.ActionVehicleDto.DisplacementId);
 
         if (vehicleDisplacement is null)
             return Result<Vehicle>.Failure(new Error("NotFound", "Such displacement doesn't exists!"));
@@ -63,8 +63,8 @@ internal sealed class CreateVehicleCommandHandler(IUnitOfWork unitOfWork)
             color: vehicleColor,
             type: vehicleType,
             displacement: vehicleDisplacement,
-            price: request.Vehicle.Price,
-            description: request.Vehicle.Description);
+            price: request.ActionVehicleDto.Price,
+            description: request.ActionVehicleDto.Description);
 
         return Result<Vehicle>.Success(vehicle);
     }

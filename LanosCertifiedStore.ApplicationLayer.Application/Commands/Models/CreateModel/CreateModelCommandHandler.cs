@@ -14,10 +14,7 @@ internal sealed class CreateModelCommandHandler(
     {
         var vehicleBrand = await unitOfWork.RetrieveRepository<VehicleBrand>().GetEntityByIdAsync(request.BrandId);
 
-        if (vehicleBrand is null)
-            return Result<Unit>.Failure(Error.NotFound);
-
-        var vehicleModel = new VehicleModel(vehicleBrand, request.Name);
+        var vehicleModel = new VehicleModel(vehicleBrand!, request.Name);
 
         await unitOfWork.RetrieveRepository<VehicleModel>().AddNewEntityAsync(vehicleModel);
 
