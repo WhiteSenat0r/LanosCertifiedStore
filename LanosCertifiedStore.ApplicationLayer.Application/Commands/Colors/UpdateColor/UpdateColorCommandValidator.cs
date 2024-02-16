@@ -1,5 +1,4 @@
-﻿using Application.Commands.Brands.UpdateBrand;
-using Domain.Contracts.RepositoryRelated;
+﻿using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using FluentValidation;
 

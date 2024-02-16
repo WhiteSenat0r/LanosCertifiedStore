@@ -4,6 +4,7 @@ using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 using Persistence.DataModels;
+using Persistence.QueryEvaluation;
 using Persistence.Repositories.Common.Classes;
 
 namespace Persistence.Repositories;
@@ -32,6 +33,12 @@ internal class VehicleColorRepository(IMapper mapper, ApplicationDatabaseContext
 
     private protected override IQueryable<VehicleColorDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleColor> filteringRequestParameters)
+    {
+        throw new NotImplementedException();
+    }
+
+    private protected override BaseQueryEvaluator<VehicleColor, VehicleColorDataModel> GetVehicleQueryEvaluator(
+        IFilteringRequestParameters<VehicleColor>? filteringRequestParameters)
     {
         throw new NotImplementedException();
     }

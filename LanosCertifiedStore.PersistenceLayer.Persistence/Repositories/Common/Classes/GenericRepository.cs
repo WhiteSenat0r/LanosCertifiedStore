@@ -2,6 +2,7 @@
 using Domain.Contracts.Common;
 using Domain.Contracts.RepositoryRelated;
 using Microsoft.EntityFrameworkCore;
+using Persistence.QueryEvaluation;
 
 namespace Persistence.Repositories.Common.Classes;
 
@@ -50,4 +51,7 @@ internal abstract class GenericRepository<TEntity, TDataModel> : IRepository<TEn
 
     private protected abstract IQueryable<TDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<TEntity> filteringRequestParameters);
+
+    private protected abstract BaseQueryEvaluator<TEntity, TDataModel> GetVehicleQueryEvaluator(
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters);
 }

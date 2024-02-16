@@ -1,5 +1,4 @@
 ﻿using API.Responses;
-using Application.Core;
 using Domain.Contracts.ValidationRelated;
 using Domain.Shared;
 using Microsoft.AspNetCore.Mvc;

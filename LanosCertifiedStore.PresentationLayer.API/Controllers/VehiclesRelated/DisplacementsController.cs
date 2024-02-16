@@ -4,7 +4,6 @@ using API.Responses;
 using Application.Commands.Displacements.CreateDisplacement;
 using Application.Commands.Displacements.DeleteDisplacement;
 using Application.Commands.Displacements.UpdateDisplacement;
-using Application.Core;
 using Application.Dtos.DisplacementDtos;
 using Application.Queries.Displacements;
 using Domain.Shared;

@@ -1,5 +1,4 @@
-﻿using Application.Core;
-using AutoMapper;
+﻿using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;

@@ -1,5 +1,4 @@
-﻿using Application.Core;
-using Domain.Shared;
+﻿using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Brands.CreateBrand;

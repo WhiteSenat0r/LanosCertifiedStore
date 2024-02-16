@@ -6,7 +6,6 @@ using Application.Commands.Colors.DeleteColor;
 using Application.Commands.Colors.UpdateColor;
 using Application.Dtos.ColorDtos;
 using Application.Queries.Colors;
-using Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
