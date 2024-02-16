@@ -4,6 +4,7 @@ using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 using Persistence.DataModels;
+using Persistence.QueryEvaluation;
 using Persistence.Repositories.Common.Classes;
 using Persistence.Repositories.VehicleRelated.QueryEvaluationRelated;
 using Persistence.Repositories.VehicleRelated.QueryEvaluationRelated.Common.Classes;
@@ -44,9 +45,9 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
         return vehicleQueryEvaluator.GetAllEntitiesQueryable();
     }
     
-    private VehicleQueryEvaluator GetVehicleQueryEvaluator(
+    private protected override BaseQueryEvaluator<Vehicle, VehicleDataModel> GetVehicleQueryEvaluator(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters) =>
-        new(
+        new VehicleQueryEvaluator(
             includedAspects: VehicleIncludedAspects.IncludedAspects,
             filteringRequestParameters: filteringRequestParameters,
             dataModels: Context.Set<VehicleDataModel>(),

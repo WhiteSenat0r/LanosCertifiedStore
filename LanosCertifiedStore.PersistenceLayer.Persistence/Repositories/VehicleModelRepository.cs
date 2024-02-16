@@ -3,6 +3,7 @@ using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Persistence.Contexts;
 using Persistence.DataModels;
+using Persistence.QueryEvaluation;
 using Persistence.Repositories.Common.Classes;
 
 namespace Persistence.Repositories;
@@ -23,6 +24,12 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
 
     private protected override IQueryable<VehicleModelDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleModel> filteringRequestParameters)
+    {
+        throw new NotImplementedException();
+    }
+
+    private protected override BaseQueryEvaluator<VehicleModel, VehicleModelDataModel> GetVehicleQueryEvaluator(
+        IFilteringRequestParameters<VehicleModel>? filteringRequestParameters)
     {
         throw new NotImplementedException();
     }

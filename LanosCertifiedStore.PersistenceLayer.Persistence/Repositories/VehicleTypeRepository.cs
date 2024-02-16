@@ -4,6 +4,7 @@ using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 using Persistence.DataModels;
+using Persistence.QueryEvaluation;
 using Persistence.Repositories.Common.Classes;
 
 namespace Persistence.Repositories;
@@ -36,6 +37,12 @@ internal class VehicleTypeRepository(IMapper mapper, ApplicationDatabaseContext 
     
     private protected override IQueryable<VehicleTypeDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleType> filteringRequestParameters)
+    {
+        throw new NotImplementedException();
+    }
+
+    private protected override BaseQueryEvaluator<VehicleType, VehicleTypeDataModel> GetVehicleQueryEvaluator(
+        IFilteringRequestParameters<VehicleType>? filteringRequestParameters)
     {
         throw new NotImplementedException();
     }
