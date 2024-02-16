@@ -5,8 +5,7 @@ using Application.Commands.Brands.CreateBrand;
 using Application.Commands.Brands.DeleteBrand;
 using Application.Commands.Brands.UpdateBrand;
 using Application.Dtos.BrandDtos;
-using Application.Queries.Brands.BrandDetails;
-using Application.Queries.Brands.ListBrands;
+using Application.Queries.Brands;
 using Application.RequestParams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -22,15 +21,6 @@ public sealed class BrandsController : BaseEntityRelatedApiController
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
     {
         return HandleResult(await Mediator.Send(new ListBrandsQuery(requestParameters)));
-    }
-    
-    [HttpGet("{id:guid}")]
-    [ProducesResponseType(typeof(BrandDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<BrandDto>> GetVehicle(Guid id)
-    {
-        return HandleResult(await Mediator.Send(new BrandDetailsQuery(id)));
     }
 
     [HttpPost]
