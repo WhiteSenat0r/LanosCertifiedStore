@@ -18,7 +18,7 @@ public class ValidationPipelineBehavior<TRequest, TResponse>(IEnumerable<IValida
             return await next();
 
         var errors = (await Task.WhenAll(validators
-                .Select(validator => validator.ValidateAsync(request, default))))
+                .Select(validator => validator.ValidateAsync(request, cancellationToken))))
             .SelectMany(validationResult => validationResult.Errors)
             .Where(validationFailure => validationFailure is not null)
             .Select(failure => new Error(

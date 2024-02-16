@@ -1,11 +1,10 @@
-﻿using Domain.Contracts.RepositoryRelated;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Application.Commands.Vehicles.UpdateVehicle;
 
 internal sealed class UpdateVehicleCommandValidator : AbstractValidator<UpdateVehicleCommand>
 {
-    public UpdateVehicleCommandValidator(IUnitOfWork unitOfWork)
+    public UpdateVehicleCommandValidator()
     {
         RuleFor(x => x.ActionVehicleDto.Description)
             .NotEmpty()
