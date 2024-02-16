@@ -2,6 +2,7 @@
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Vehicles.UpdateVehicle;
@@ -13,18 +14,19 @@ internal sealed class UpdateVehicleCommandHandler(
 {
     public async Task<Result<Unit>> Handle(UpdateVehicleCommand request, CancellationToken cancellationToken)
     {
-        var vehicleToUpdate = await unitOfWork.RetrieveRepository<Vehicle>().GetEntityByIdAsync(request.ActionVehicleDto.Id);
+        var vehicleToUpdate =
+            await unitOfWork.RetrieveRepository<Vehicle>().GetEntityByIdAsync(request.ActionVehicleDto.Id);
 
         if (vehicleToUpdate is null)
-            return Result<Unit>.Failure("Such vehicle doesn't exists!");
+            return Result<Unit>.Failure(Error.NotFound);
 
         var createRequestVehicleResult = await CreateVehicle(request);
 
         if (!createRequestVehicleResult.IsSuccess)
-            return Result<Unit>.Failure(createRequestVehicleResult.Error);
+            return Result<Unit>.Failure(createRequestVehicleResult.Error!);
 
 
-        ApplyChangesDataOnUpdatedVehicle(createRequestVehicleResult.Value, vehicleToUpdate);
+        ApplyChangesDataOnUpdatedVehicle(createRequestVehicleResult.Value!, vehicleToUpdate);
 
         if (IsAlteredPriceValue(request, vehicleToUpdate))
             await InitializeNewPriceAsync(request, vehicleToUpdate);
@@ -33,7 +35,9 @@ internal sealed class UpdateVehicleCommandHandler(
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 
-        return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Failed to update a vehicle!");
+        return result
+            ? Result<Unit>.Success(Unit.Value)
+            : Result<Unit>.Failure(new Error("UpdateError", "Failed to update a vehicle!"));
     }
 
     private async Task InitializeNewPriceAsync(UpdateVehicleCommand request, Vehicle updatedVehicle)
@@ -55,31 +59,36 @@ internal sealed class UpdateVehicleCommandHandler(
 
     private async Task<Result<Vehicle>> CreateVehicle(UpdateVehicleCommand request)
     {
-        var vehicleModel = await unitOfWork.RetrieveRepository<VehicleModel>().GetEntityByIdAsync(request.ActionVehicleDto.ModelId);
+        var vehicleModel =
+            await unitOfWork.RetrieveRepository<VehicleModel>().GetEntityByIdAsync(request.ActionVehicleDto.ModelId);
 
         if (vehicleModel is null)
-            return Result<Vehicle>.Failure("Such model doesn't exists!");
+            return Result<Vehicle>.Failure(new Error("NotFound", "Such model doesn't exists!"));
 
-        var vehicleBrand = await unitOfWork.RetrieveRepository<VehicleBrand>().GetEntityByIdAsync(request.ActionVehicleDto.BrandId);
+        var vehicleBrand =
+            await unitOfWork.RetrieveRepository<VehicleBrand>().GetEntityByIdAsync(request.ActionVehicleDto.BrandId);
 
         if (vehicleBrand is null)
-            return Result<Vehicle>.Failure("Such brand doesn't exists!");
+            return Result<Vehicle>.Failure(new Error("NotFound", "Such brand doesn't exists!"));
 
-        var vehicleColor = await unitOfWork.RetrieveRepository<VehicleColor>().GetEntityByIdAsync(request.ActionVehicleDto.ColorId);
+        var vehicleColor =
+            await unitOfWork.RetrieveRepository<VehicleColor>().GetEntityByIdAsync(request.ActionVehicleDto.ColorId);
 
         if (vehicleColor is null)
-            return Result<Vehicle>.Failure("Such color doesn't exists!");
+            return Result<Vehicle>.Failure(new Error("NotFound", "Such color doesn't exists!"));
 
-        var vehicleType = await unitOfWork.RetrieveRepository<VehicleType>().GetEntityByIdAsync(request.ActionVehicleDto.TypeId);
+        var vehicleType = await unitOfWork.RetrieveRepository<VehicleType>()
+            .GetEntityByIdAsync(request.ActionVehicleDto.TypeId);
 
         if (vehicleType is null)
-            return Result<Vehicle>.Failure("Such type doesn't exists!");
+            return Result<Vehicle>.Failure(new Error("NotFound", "Such type doesn't exists!"));
 
         var vehicleDisplacement =
-            await unitOfWork.RetrieveRepository<VehicleDisplacement>().GetEntityByIdAsync(request.ActionVehicleDto.DisplacementId);
+            await unitOfWork.RetrieveRepository<VehicleDisplacement>()
+                .GetEntityByIdAsync(request.ActionVehicleDto.DisplacementId);
 
         if (vehicleDisplacement is null)
-            return Result<Vehicle>.Failure("Such displacement doesn't exists!");
+            return Result<Vehicle>.Failure(new Error("NotFound", "Such displacement doesn't exists!"));
 
         var vehicle = new Vehicle(
             brand: vehicleBrand,

@@ -1,5 +1,6 @@
 ﻿using Application.Core;
 using Application.Dtos.DisplacementDtos;
+using Domain.Shared;
 using MediatR;
 
 namespace Application.Queries.Displacements;

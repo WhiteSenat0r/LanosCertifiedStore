@@ -6,6 +6,7 @@ using Application.Commands.Brands.DeleteBrand;
 using Application.Commands.Brands.UpdateBrand;
 using Application.Dtos.BrandDtos;
 using Application.Queries.Brands;
+using Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

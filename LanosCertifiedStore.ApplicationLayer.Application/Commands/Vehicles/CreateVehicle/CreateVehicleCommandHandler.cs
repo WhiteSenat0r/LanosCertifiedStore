@@ -1,6 +1,7 @@
 ﻿using Application.Core;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Vehicles.CreateVehicle;
@@ -13,46 +14,48 @@ internal sealed class CreateVehicleCommandHandler(IUnitOfWork unitOfWork)
         var vehicleCreateResult = await CreateVehicle(request);
 
         if (!vehicleCreateResult.IsSuccess)
-            return Result<Unit>.Failure(vehicleCreateResult.Error);
+            return Result<Unit>.Failure(vehicleCreateResult.Error!);
 
-        await unitOfWork.RetrieveRepository<Vehicle>().AddNewEntityAsync(vehicleCreateResult.Value);
+        await unitOfWork.RetrieveRepository<Vehicle>().AddNewEntityAsync(vehicleCreateResult.Value!);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 
-        return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Failed to create a vehicle!");
+        return result
+            ? Result<Unit>.Success(Unit.Value)
+            : Result<Unit>.Failure(new Error("CreateError", "Failed to create a vehicle!"));
     }
 
     private async Task<Result<Vehicle>> CreateVehicle(CreateVehicleCommand request)
     {
         var vehicleModel =
-            await unitOfWork.RetrieveRepository<VehicleModel>().GetEntityByIdAsync(request.Vehicle.ModelId);
+            await unitOfWork.RetrieveRepository<VehicleModel>().GetEntityByIdAsync(request.ActionVehicleDto.ModelId);
 
         if (vehicleModel is null)
-            return Result<Vehicle>.Failure("Such model doesn't exists!");
+            return Result<Vehicle>.Failure(new Error("NotFound", "Such model doesn't exists!"));
 
         var vehicleBrand =
-            await unitOfWork.RetrieveRepository<VehicleBrand>().GetEntityByIdAsync(request.Vehicle.BrandId);
+            await unitOfWork.RetrieveRepository<VehicleBrand>().GetEntityByIdAsync(request.ActionVehicleDto.BrandId);
 
         if (vehicleBrand is null)
-            return Result<Vehicle>.Failure("Such brand doesn't exists!");
+            return Result<Vehicle>.Failure(new Error("NotFound", "Such brand doesn't exists!"));
 
         var vehicleColor =
-            await unitOfWork.RetrieveRepository<VehicleColor>().GetEntityByIdAsync(request.Vehicle.ColorId);
+            await unitOfWork.RetrieveRepository<VehicleColor>().GetEntityByIdAsync(request.ActionVehicleDto.ColorId);
 
         if (vehicleColor is null)
-            return Result<Vehicle>.Failure("Such color doesn't exists!");
+            return Result<Vehicle>.Failure(new Error("NotFound", "Such color doesn't exists!"));
 
-        var vehicleType = await unitOfWork.RetrieveRepository<VehicleType>().GetEntityByIdAsync(request.Vehicle.TypeId);
+        var vehicleType = await unitOfWork.RetrieveRepository<VehicleType>().GetEntityByIdAsync(request.ActionVehicleDto.TypeId);
 
         if (vehicleType is null)
-            return Result<Vehicle>.Failure("Such type doesn't exists!");
+            return Result<Vehicle>.Failure(new Error("NotFound", "Such type doesn't exists!"));
 
         var vehicleDisplacement =
             await unitOfWork.RetrieveRepository<VehicleDisplacement>()
-                .GetEntityByIdAsync(request.Vehicle.DisplacementId);
+                .GetEntityByIdAsync(request.ActionVehicleDto.DisplacementId);
 
         if (vehicleDisplacement is null)
-            return Result<Vehicle>.Failure("Such displacement doesn't exists!");
+            return Result<Vehicle>.Failure(new Error("NotFound", "Such displacement doesn't exists!"));
 
         var vehicle = new Vehicle(
             brand: vehicleBrand,
@@ -60,8 +63,8 @@ internal sealed class CreateVehicleCommandHandler(IUnitOfWork unitOfWork)
             color: vehicleColor,
             type: vehicleType,
             displacement: vehicleDisplacement,
-            price: request.Vehicle.Price,
-            description: request.Vehicle.Description);
+            price: request.ActionVehicleDto.Price,
+            description: request.ActionVehicleDto.Description);
 
         return Result<Vehicle>.Success(vehicle);
     }

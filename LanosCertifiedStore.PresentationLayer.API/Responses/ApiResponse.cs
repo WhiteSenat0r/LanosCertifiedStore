@@ -1,9 +1,9 @@
 ﻿namespace API.Responses;
 
-internal class ApiResponse(int statusCode, string message = null)
+internal class ApiResponse(int statusCode, string message = null!)
 {
-    public int StatusCode { get; set; } = statusCode;
-    public string Message { get; set; } = message ?? GetDefaultMessageForStatusCode(statusCode);
+    public int StatusCode { get; init; } = statusCode;
+    public string Message { get; init; } = message ?? GetDefaultMessageForStatusCode(statusCode);
 
     private static string GetDefaultMessageForStatusCode(int statusCode)
     {
@@ -13,7 +13,7 @@ internal class ApiResponse(int statusCode, string message = null)
             401 => "You are not authorised",
             404 => "Resource was not found",
             500 => "Internal server error has occurred",
-            _ => null
+            _ => null!
         };
     }
 }

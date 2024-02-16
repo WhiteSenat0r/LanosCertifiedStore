@@ -1,6 +1,7 @@
 ﻿using Application.Core;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Types.DeleteType;
@@ -14,6 +15,8 @@ internal sealed class DeleteTypeCommandHandler(IUnitOfWork unitOfWork)
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 
-        return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Failed to delete type!");
+        return result
+            ? Result<Unit>.Success(Unit.Value)
+            : Result<Unit>.Failure(new Error("DeleteError", "Failed to delete type!"));
     }
 }

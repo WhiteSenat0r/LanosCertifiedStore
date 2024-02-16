@@ -3,6 +3,7 @@ using Application.Core;
 using Application.Dtos.ColorDtos;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Shared;
 using MediatR;
 using Moq;
 

@@ -5,6 +5,7 @@ using Application.Commands.Brands.UpdateBrand;
 using Application.Core;
 using Application.Dtos.BrandDtos;
 using Application.Queries.Brands;
+using Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

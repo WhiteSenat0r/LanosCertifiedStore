@@ -1,5 +1,6 @@
 ﻿using Application.Core;
 using Application.Dtos.ColorDtos;
+using Domain.Shared;
 using MediatR;
 
 namespace Application.Queries.Colors;

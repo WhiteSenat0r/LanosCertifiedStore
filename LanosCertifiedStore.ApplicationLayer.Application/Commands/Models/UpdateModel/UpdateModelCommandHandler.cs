@@ -1,6 +1,7 @@
 ﻿using Application.Core;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Models.UpdateModel;
@@ -14,7 +15,7 @@ internal sealed class UpdateModelCommandHandler(IUnitOfWork unitOfWork)
             .GetEntityByIdAsync(request.UpdateModelDto.Id);
 
         if (existingModel is null)
-            return Result<Unit>.Failure("Model with such name already exists!");
+            return Result<Unit>.Failure(Error.NotFound);
 
         existingModel.Name = request.UpdateModelDto.UpdatedName;
 
@@ -22,6 +23,8 @@ internal sealed class UpdateModelCommandHandler(IUnitOfWork unitOfWork)
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 
-        return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure("Failed to update model!");
+        return result
+            ? Result<Unit>.Success(Unit.Value)
+            : Result<Unit>.Failure(new Error("UpdateError", "Failed to update model!"));
     }
 }

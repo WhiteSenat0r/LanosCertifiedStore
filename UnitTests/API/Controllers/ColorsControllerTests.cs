@@ -5,6 +5,7 @@ using Application.Commands.Colors.UpdateColor;
 using Application.Core;
 using Application.Dtos.ColorDtos;
 using Application.Queries.Colors;
+using Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
