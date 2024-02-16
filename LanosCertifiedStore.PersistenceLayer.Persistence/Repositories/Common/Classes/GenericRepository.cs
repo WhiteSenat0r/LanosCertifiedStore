@@ -46,7 +46,7 @@ internal abstract class GenericRepository<TEntity, TDataModel> : IRepository<TEn
             Context.Set<TDataModel>().Remove(removedEntity);
     }
 
-    public Task<int> CountAsync() => Context.Set<TDataModel>().CountAsync();
+    public abstract Task<int> CountAsync(IFilteringRequestParameters<TEntity>? filteringRequestParameters = null!);
 
     private protected abstract IQueryable<TDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<TEntity> filteringRequestParameters);
