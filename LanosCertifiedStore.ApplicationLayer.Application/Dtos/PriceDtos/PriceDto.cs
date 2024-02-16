@@ -2,7 +2,7 @@
 
 public sealed class PriceDto
 {
-    public Guid Id { get; set; }
-    public DateTime IssueDate { get; set; }
-    public decimal Value { get; set; }
+    public Guid Id { get; init; }
+    public DateTime IssueDate { get; init; }
+    public decimal Value { get; init; }
 }

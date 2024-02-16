@@ -2,4 +2,4 @@
 
 namespace Application.Dtos.ColorDtos;
 
-public sealed class ColorDto : VehicleAspectDto;
+public sealed record ColorDto : VehicleAspectDto;

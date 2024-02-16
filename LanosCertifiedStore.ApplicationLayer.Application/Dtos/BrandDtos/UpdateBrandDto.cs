@@ -2,4 +2,4 @@
 
 namespace Application.Dtos.BrandDtos;
 
-public sealed class UpdateBrandDto : UpdateVehicleAspectDto;
+public sealed record UpdateBrandDto : UpdateVehicleAspectDto;

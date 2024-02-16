@@ -1,7 +1,7 @@
 ﻿namespace Application.Dtos.Common;
 
-public abstract class VehicleAspectDto
+public abstract record VehicleAspectDto
 {
-    public Guid Id { get; set; }
-    public string Name { get; set; }
+    public Guid Id { get; init; }
+    public string? Name { get; init; }
 }

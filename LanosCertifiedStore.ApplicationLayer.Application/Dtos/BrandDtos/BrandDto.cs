@@ -3,7 +3,7 @@ using Application.Dtos.ModelDtos;
 
 namespace Application.Dtos.BrandDtos;
 
-public sealed class BrandDto : VehicleAspectDto
+public sealed record BrandDto : VehicleAspectDto
 {
-    public IEnumerable<ModelDto> Models { get; set; }
+    public IEnumerable<ModelDto>? Models { get; init; }
 }
