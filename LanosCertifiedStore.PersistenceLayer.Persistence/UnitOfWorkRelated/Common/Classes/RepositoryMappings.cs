@@ -5,6 +5,7 @@ using Persistence.Repositories.VehicleBrandRelated;
 using Persistence.Repositories.VehicleColorRelated;
 using Persistence.Repositories.VehicleModelRelated;
 using Persistence.Repositories.VehicleRelated;
+using Persistence.Repositories.VehicleTypeRelated;
 
 namespace Persistence.UnitOfWorkRelated.Common.Classes;
 
