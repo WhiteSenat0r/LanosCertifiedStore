@@ -3,10 +3,8 @@ using API.Responses;
 using Application.Commands.Types.CreateType;
 using Application.Commands.Types.DeleteType;
 using Application.Commands.Types.UpdateType;
-using Application.Core;
 using Application.Dtos.TypeDtos;
 using Application.Queries.Types;
-using Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,5 +1,4 @@
-﻿using Application.Core;
-using Application.Dtos.ModelDtos;
+﻿using Application.Dtos.ModelDtos;
 using Domain.Shared;
 using MediatR;
 

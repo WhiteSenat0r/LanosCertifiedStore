@@ -1,5 +1,4 @@
-﻿using Application.Core;
-using Application.Dtos.TypeDtos;
+﻿using Application.Dtos.TypeDtos;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;

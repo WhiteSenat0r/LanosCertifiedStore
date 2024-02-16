@@ -1,5 +1,4 @@
-﻿using Application.Core;
-using Application.Dtos.BrandDtos;
+﻿using Application.Dtos.BrandDtos;
 using Domain.Shared;
 using MediatR;
 

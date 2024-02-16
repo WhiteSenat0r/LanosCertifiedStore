@@ -1,5 +1,4 @@
-﻿using Application.Core;
-using Application.Dtos.DisplacementDtos;
+﻿using Application.Dtos.DisplacementDtos;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;

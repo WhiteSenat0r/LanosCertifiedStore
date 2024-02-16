@@ -1,5 +1,4 @@
-﻿using Application.Core;
-using Application.Dtos.ColorDtos;
+﻿using Application.Dtos.ColorDtos;
 using Domain.Shared;
 using MediatR;
 
