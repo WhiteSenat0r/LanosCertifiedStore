@@ -37,6 +37,15 @@ internal class VehicleBrandRepository(IMapper mapper, ApplicationDatabaseContext
             : null;
     }
 
+    public override Task<int> CountAsync(IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters = null)
+    {
+        var vehicleBrandQueryEvaluator = GetVehicleQueryEvaluator(filteringRequestParameters);
+        
+        var countedQueryable = vehicleBrandQueryEvaluator.GetRelevantCountQueryable();
+
+        return countedQueryable.CountAsync();
+    }
+
     private protected override IQueryable<VehicleBrandDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters)
     {
