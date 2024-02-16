@@ -2,6 +2,6 @@
 
 public sealed class DisplacementDto
 {
-    public Guid Id { get; set; }
-    public double Value { get; set; }
+    public Guid Id { get; init; }
+    public double Value { get; init; }
 }

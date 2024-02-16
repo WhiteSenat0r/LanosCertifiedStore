@@ -2,4 +2,4 @@
 
 namespace Application.Dtos.ColorDtos;
 
-public sealed class UpdateColorDto : UpdateVehicleAspectDto;
+public sealed record UpdateColorDto : UpdateVehicleAspectDto;

@@ -2,4 +2,4 @@
 
 namespace Application.Dtos.TypeDtos;
 
-public class UpdateTypeDto : UpdateVehicleAspectDto;
+public sealed record UpdateTypeDto : UpdateVehicleAspectDto;
