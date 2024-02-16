@@ -26,7 +26,7 @@ internal class VehicleColorRepository(IMapper mapper, ApplicationDatabaseContext
 
     public override async Task<VehicleColor?> GetEntityByIdAsync(Guid id)
     {
-        var vehicleColorQueryEvaluator = GetVehicleQueryEvaluator(null);
+        var vehicleColorQueryEvaluator = GetQueryEvaluator(null);
 
         var vehicleColorQuery = vehicleColorQueryEvaluator.GetSingleEntityQueryable(id);
 
@@ -40,7 +40,7 @@ internal class VehicleColorRepository(IMapper mapper, ApplicationDatabaseContext
     public override Task<int> CountAsync(
         IFilteringRequestParameters<VehicleColor>? filteringRequestParameters = null)
     {
-        var vehicleColorQueryEvaluator = GetVehicleQueryEvaluator(filteringRequestParameters);
+        var vehicleColorQueryEvaluator = GetQueryEvaluator(filteringRequestParameters);
         
         var countedQueryable = vehicleColorQueryEvaluator.GetRelevantCountQueryable();
 
@@ -50,12 +50,12 @@ internal class VehicleColorRepository(IMapper mapper, ApplicationDatabaseContext
     private protected override IQueryable<VehicleColorDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleColor>? filteringRequestParameters)
     {
-        var vehicleColorQueryEvaluator = GetVehicleQueryEvaluator(filteringRequestParameters);
+        var vehicleColorQueryEvaluator = GetQueryEvaluator(filteringRequestParameters);
 
         return vehicleColorQueryEvaluator.GetAllEntitiesQueryable();
     }
 
-    private protected override BaseQueryEvaluator<VehicleColor, VehicleColorDataModel> GetVehicleQueryEvaluator(
+    private protected override BaseQueryEvaluator<VehicleColor, VehicleColorDataModel> GetQueryEvaluator(
         IFilteringRequestParameters<VehicleColor>? filteringRequestParameters) =>
         new VehicleColorQueryEvaluator(
             includedAspects: VehicleColorIncludedAspects.IncludedAspects,

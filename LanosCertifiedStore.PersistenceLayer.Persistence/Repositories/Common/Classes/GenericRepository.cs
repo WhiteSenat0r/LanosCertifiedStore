@@ -52,6 +52,6 @@ internal abstract class GenericRepository<TEntity, TDataModel> : IRepository<TEn
     private protected abstract IQueryable<TDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<TEntity> filteringRequestParameters);
 
-    private protected abstract BaseQueryEvaluator<TEntity, TDataModel> GetVehicleQueryEvaluator(
+    private protected abstract BaseQueryEvaluator<TEntity, TDataModel> GetQueryEvaluator(
         IFilteringRequestParameters<TEntity>? filteringRequestParameters);
 }

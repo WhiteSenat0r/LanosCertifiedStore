@@ -26,7 +26,7 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
 
     public override async Task<Vehicle?> GetEntityByIdAsync(Guid id)
     {
-        var vehicleQueryEvaluator = GetVehicleQueryEvaluator(null);
+        var vehicleQueryEvaluator = GetQueryEvaluator(null);
 
         var vehicleModelQuery = vehicleQueryEvaluator.GetSingleEntityQueryable(id);
 
@@ -40,7 +40,7 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
     public override Task<int> CountAsync(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters = null)
     {
-        var vehicleQueryEvaluator = GetVehicleQueryEvaluator(filteringRequestParameters);
+        var vehicleQueryEvaluator = GetQueryEvaluator(filteringRequestParameters);
 
         var countedQueryable = vehicleQueryEvaluator.GetRelevantCountQueryable();
 
@@ -50,12 +50,12 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
     private protected override IQueryable<VehicleDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters)
     {
-        var vehicleQueryEvaluator = GetVehicleQueryEvaluator(filteringRequestParameters);
+        var vehicleQueryEvaluator = GetQueryEvaluator(filteringRequestParameters);
 
         return vehicleQueryEvaluator.GetAllEntitiesQueryable();
     }
     
-    private protected override BaseQueryEvaluator<Vehicle, VehicleDataModel> GetVehicleQueryEvaluator(
+    private protected override BaseQueryEvaluator<Vehicle, VehicleDataModel> GetQueryEvaluator(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters) =>
         new VehicleQueryEvaluator(
             includedAspects: VehicleIncludedAspects.IncludedAspects,
