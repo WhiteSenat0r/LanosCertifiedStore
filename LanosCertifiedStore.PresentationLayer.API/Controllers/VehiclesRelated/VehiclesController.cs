@@ -16,42 +16,43 @@ namespace API.Controllers.VehiclesRelated;
 public sealed class VehiclesController : BaseEntityRelatedApiController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(Result<PaginationResult<VehicleDto>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PaginationResult<VehicleDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetVehicles([FromQuery] VehicleFilteringRequestParameters requestParameters)
+    public async Task<ActionResult<PaginationResult<VehicleDto>>> GetVehicles(
+        [FromQuery] VehicleFilteringRequestParameters requestParameters)
     {
         return HandleResult(await Mediator.Send(new ListVehiclesQuery(requestParameters)));
     }
 
     [HttpGet("{id:guid}")]
-    [ProducesResponseType(typeof(Result<VehicleDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(VehicleDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetVehicle(Guid id)
+    public async Task<ActionResult<VehicleDto>> GetVehicle(Guid id)
     {
         return HandleResult(await Mediator.Send(new VehicleDetailsQuery(id)));
     }
-    
+
     [HttpPost]
-    [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateVehicle([FromBody] ActionVehicleDto vehicle)
+    public async Task<ActionResult> CreateVehicle([FromBody] ActionVehicleDto vehicle)
     {
         return HandleResult(await Mediator.Send(new CreateVehicleCommand(vehicle)));
     }
-    
+
     [HttpPut]
-    [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> UpdateVehicle([FromBody] ActionVehicleDto vehicle)
+    public async Task<ActionResult> UpdateVehicle([FromBody] ActionVehicleDto vehicle)
     {
         return HandleResult(await Mediator.Send(new UpdateVehicleCommand(vehicle)));
     }
-    
+
     [HttpDelete("{id:guid}")]
-    [ProducesResponseType(typeof(Result<Unit>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> DeleteVehicle(Guid id)
+    public async Task<ActionResult> DeleteVehicle(Guid id)
     {
         return HandleResult(await Mediator.Send(new DeleteVehicleCommand(id)));
     }
