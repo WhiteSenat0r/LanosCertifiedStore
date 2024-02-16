@@ -9,22 +9,17 @@ public abstract class BaseEntityRelatedApiController : BaseApiController
 {
     protected override ActionResult HandleResult<T>(Result<T>? result)
     {
-        if (result is null)
-            return NotFound(new ApiResponse(NotFound().StatusCode));
-
-        if (result is IValidationResult validationResult)
-            return BadRequest(CreateProblemDetails(
-                "Validation Error",
-                BadRequest().StatusCode,
-                result.Error!,
-                validationResult.Errors
-            ));
-
-        return result.IsSuccess switch
+        return result switch
         {
-            true when result.Value is not null => Ok(result.Value),
-            true when result.Value is null => NotFound(new ApiResponse(NotFound().StatusCode)),
-            _ => BadRequest(new ApiResponse(BadRequest().StatusCode, result.Error!.Message))
+            null => NotFound(new ApiResponse(NotFound().StatusCode, null)),
+            IValidationResult validationResult => BadRequest(CreateProblemDetails("Validation Error",
+                BadRequest().StatusCode, result.Error!, validationResult.Errors)),
+            _ => result.IsSuccess switch
+            {
+                true when result.Value is not null => Ok(result.Value),
+                true when result.Value is null => NotFound(new ApiResponse(NotFound().StatusCode, null)),
+                _ => BadRequest(new ApiResponse(BadRequest().StatusCode, result.Error!.Message))
+            }
         };
     }
 

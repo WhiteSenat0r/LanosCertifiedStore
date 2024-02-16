@@ -22,7 +22,7 @@ internal sealed class ExceptionMiddleware(
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             var response = env.IsDevelopment()
-                ? new ApiException((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace)
+                ? new ApiException((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace!)
                 : new ApiException((int)HttpStatusCode.InternalServerError);
 
             var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };

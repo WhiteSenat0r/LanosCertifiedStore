@@ -1,6 +1,6 @@
 ﻿namespace API.Responses;
 
-internal class ApiResponse(int statusCode, string message = null!)
+internal class ApiResponse(int statusCode, string? message)
 {
     public int StatusCode { get; init; } = statusCode;
     public string Message { get; init; } = message ?? GetDefaultMessageForStatusCode(statusCode);
