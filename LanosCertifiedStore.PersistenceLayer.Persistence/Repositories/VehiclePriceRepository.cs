@@ -44,7 +44,7 @@ internal class VehiclePriceRepository(IMapper mapper, ApplicationDatabaseContext
         throw new NotImplementedException();
     }
 
-    private protected override BaseQueryEvaluator<VehiclePrice, VehiclePriceDataModel> GetVehicleQueryEvaluator(
+    private protected override BaseQueryEvaluator<VehiclePrice, VehiclePriceDataModel> GetQueryEvaluator(
         IFilteringRequestParameters<VehiclePrice>? filteringRequestParameters)
     {
         throw new NotImplementedException();

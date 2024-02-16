@@ -46,7 +46,7 @@ internal class VehicleDisplacementRepository(IMapper mapper, ApplicationDatabase
         throw new NotImplementedException();
     }
 
-    private protected override BaseQueryEvaluator<VehicleDisplacement, VehicleDisplacementDataModel> GetVehicleQueryEvaluator(
+    private protected override BaseQueryEvaluator<VehicleDisplacement, VehicleDisplacementDataModel> GetQueryEvaluator(
         IFilteringRequestParameters<VehicleDisplacement>? filteringRequestParameters)
     {
         throw new NotImplementedException();
