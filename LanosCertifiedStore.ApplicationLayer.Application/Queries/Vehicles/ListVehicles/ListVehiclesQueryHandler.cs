@@ -14,14 +14,18 @@ internal sealed class ListVehiclesQueryHandler(IUnitOfWork unitOfWork, IMapper m
     public async Task<Result<PaginationResult<VehicleDto>>> Handle(ListVehiclesQuery request,
         CancellationToken cancellationToken)
     {
-        var vehicles = await unitOfWork.RetrieveRepository<Vehicle>().GetAllEntitiesAsync(request.RequestParameters);
+        var vehicles = await unitOfWork.RetrieveRepository<Vehicle>().GetAllEntitiesAsync(
+            request.RequestParameters);
 
         var mappedVehicles = mapper.Map<IReadOnlyList<Vehicle>, IReadOnlyList<VehicleDto>>(vehicles);
 
         var vehiclesCount = await unitOfWork.RetrieveRepository<Vehicle>().CountAsync();
         
         var returnedResult = new PaginationResult<VehicleDto>(
-            mappedVehicles, request.RequestParameters.PageIndex, vehiclesCount);
+            mappedVehicles,
+            request.RequestParameters.PageIndex,
+            vehiclesCount,
+            await unitOfWork.RetrieveRepository<Vehicle>().CountAsync(request.RequestParameters));
 
         return Result<PaginationResult<VehicleDto>>.Success(returnedResult);
     }
