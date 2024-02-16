@@ -2,6 +2,7 @@
 using Domain.Entities.VehicleRelated.Classes;
 using Persistence.Repositories;
 using Persistence.Repositories.VehicleBrandRelated;
+using Persistence.Repositories.VehicleColorRelated;
 using Persistence.Repositories.VehicleModelRelated;
 using Persistence.Repositories.VehicleRelated;
 
