@@ -31,6 +31,12 @@ internal class VehiclePriceRepository(IMapper mapper, ApplicationDatabaseContext
         return priceModel is null ? null : Mapper.Map<VehiclePriceDataModel, VehiclePrice>(priceModel);
     }
 
+    public override async Task<int> CountAsync(
+        IFilteringRequestParameters<VehiclePrice>? filteringRequestParameters = null)
+    {
+        throw new NotImplementedException();
+    }
+
     private protected override IQueryable<VehiclePriceDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehiclePrice> filteringRequestParameters)
     {

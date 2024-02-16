@@ -21,6 +21,12 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
         throw new NotImplementedException();
     }
 
+    public override async Task<int> CountAsync(
+        IFilteringRequestParameters<VehicleModel>? filteringRequestParameters = null)
+    {
+        throw new NotImplementedException();
+    }
+
     private protected override IQueryable<VehicleModelDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleModel> filteringRequestParameters)
     {

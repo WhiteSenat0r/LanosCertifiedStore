@@ -30,6 +30,12 @@ internal class VehicleColorRepository(IMapper mapper, ApplicationDatabaseContext
         return colorModel is null ? null : Mapper.Map<VehicleColorDataModel, VehicleColor>(colorModel);
     }
 
+    public override async Task<int> CountAsync(
+        IFilteringRequestParameters<VehicleColor>? filteringRequestParameters = null)
+    {
+        throw new NotImplementedException();
+    }
+
     private protected override IQueryable<VehicleColorDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleColor> filteringRequestParameters)
     {

@@ -32,6 +32,12 @@ internal class VehicleBrandRepository(IMapper mapper, ApplicationDatabaseContext
         return brandModel is null ? null : Mapper.Map<VehicleBrandDataModel, VehicleBrand>(brandModel);
     }
 
+    public override async Task<int> CountAsync(
+        IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters = null)
+    {
+        throw new NotImplementedException();
+    }
+
     private protected override IQueryable<VehicleBrandDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleBrand> filteringRequestParameters)
     {
