@@ -4,6 +4,7 @@ using Persistence.Repositories;
 using Persistence.Repositories.VehicleBrandRelated;
 using Persistence.Repositories.VehicleColorRelated;
 using Persistence.Repositories.VehicleModelRelated;
+using Persistence.Repositories.VehiclePriceRelated;
 using Persistence.Repositories.VehicleRelated;
 using Persistence.Repositories.VehicleTypeRelated;
 
