@@ -17,11 +17,11 @@ internal class VehicleBrandRepository(IMapper mapper, ApplicationDatabaseContext
     public override async Task<IReadOnlyList<VehicleBrand>> GetAllEntitiesAsync(
         IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters = null!)
     {
-        var vehicleModelsQuery = GetRelevantQueryable(filteringRequestParameters);
+        var vehicleBrandsQuery = GetRelevantQueryable(filteringRequestParameters);
 
-        var vehicleModels = await vehicleModelsQuery.AsNoTracking().ToListAsync();
+        var vehicleBrands = await vehicleBrandsQuery.AsNoTracking().ToListAsync();
         
-        return Mapper.Map<IReadOnlyList<VehicleBrandDataModel>, IReadOnlyList<VehicleBrand>>(vehicleModels);
+        return Mapper.Map<IReadOnlyList<VehicleBrandDataModel>, IReadOnlyList<VehicleBrand>>(vehicleBrands);
     }
 
     public override async Task<VehicleBrand?> GetEntityByIdAsync(Guid id)

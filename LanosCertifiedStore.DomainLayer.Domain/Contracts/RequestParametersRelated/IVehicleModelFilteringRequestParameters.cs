@@ -3,8 +3,8 @@ using Domain.Entities.VehicleRelated.Classes;
 
 namespace Domain.Contracts.RequestParametersRelated;
 
-public interface IVehicleBrandFilteringRequestParameters : IFilteringRequestParameters<VehicleBrand>
+public interface IVehicleModelFilteringRequestParameters : IFilteringRequestParameters<VehicleModel>
 {
     string? Name { get; set; }
-    string? ContainedModelName { get; set; }
+    string? ContainedBrandName { get; set; }
 }
