@@ -13,8 +13,11 @@ internal sealed class VehicleModelMappingProfile : Profile
     }
     
     private void AddMappingProfileFromModelToEntity() =>
-        CreateMap<VehicleModelDataModel, VehicleModel>();
+        CreateMap<VehicleModel, VehicleModelDataModel>()
+            .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.Brand.Name));
     
     private void AddMappingProfileFromEntityToModel() =>
-        CreateMap<VehicleModel, VehicleModelDataModel>();
+        CreateMap<VehicleModelDataModel, VehicleModel>()
+            .ForMember(d => d.Brand, o => o.MapFrom(s => s.VehicleBrand));
+
 }
