@@ -36,7 +36,17 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
             ? Mapper.Map<VehicleDataModel, Vehicle>(vehicleModel) 
             : null;
     }
-    
+
+    public override Task<int> CountAsync(
+        IFilteringRequestParameters<Vehicle>? filteringRequestParameters = null)
+    {
+        var vehicleQueryEvaluator = GetVehicleQueryEvaluator(filteringRequestParameters);
+
+        var countedQueryable = vehicleQueryEvaluator.GetRelevantCountQueryable();
+
+        return countedQueryable.CountAsync();
+    }
+
     private protected override IQueryable<VehicleDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters)
     {

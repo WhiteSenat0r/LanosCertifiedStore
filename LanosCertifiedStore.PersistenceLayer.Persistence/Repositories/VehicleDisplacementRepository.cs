@@ -34,6 +34,12 @@ internal class VehicleDisplacementRepository(IMapper mapper, ApplicationDatabase
             : Mapper.Map<VehicleDisplacementDataModel, VehicleDisplacement>(displacementModel);
     }
 
+    public override async Task<int> CountAsync(
+        IFilteringRequestParameters<VehicleDisplacement>? filteringRequestParameters = null)
+    {
+        throw new NotImplementedException();
+    }
+
     private protected override IQueryable<VehicleDisplacementDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleDisplacement> filteringRequestParameters)
     {

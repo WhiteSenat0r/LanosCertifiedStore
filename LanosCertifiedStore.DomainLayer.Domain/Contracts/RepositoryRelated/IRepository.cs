@@ -16,5 +16,5 @@ public interface IRepository<TEntity>
 
     Task RemoveExistingEntity(Guid id);
 
-    Task<int> CountAsync();
+    Task<int> CountAsync(IFilteringRequestParameters<TEntity>? filteringRequestParameters = null!);
 }

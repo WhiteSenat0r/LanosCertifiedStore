@@ -6,17 +6,23 @@ public sealed class PaginationResult<T>
     where T : IEntity<Guid>
 {
     public PaginationResult(
-        IEnumerable<T> items, int pageIndex, int totalItemsQuantity)
+        IEnumerable<T> items, 
+        int pageIndex, 
+        int totalItemsQuantity, 
+        int totalFilteredItemsQuantity)
     {
         Items = items;
         CurrentPageItemsQuantity = Items.Count();
         PageIndex = pageIndex;
         TotalItemsQuantity = totalItemsQuantity;
+        TotalFilteredItemsQuantity = totalFilteredItemsQuantity;
     }
 
     public IEnumerable<T> Items { get; }
 
     public int TotalItemsQuantity { get; }
+    
+    public int TotalFilteredItemsQuantity { get; }
 
     public int CurrentPageItemsQuantity { get; }
 

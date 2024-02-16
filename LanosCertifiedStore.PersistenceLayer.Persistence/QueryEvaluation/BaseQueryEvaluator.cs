@@ -19,6 +19,20 @@ internal abstract class BaseQueryEvaluator<TEntity, TDataModel>(
     
     public IQueryable<TDataModel> GetSingleEntityQueryable(Guid id) => GetRegularQueryable(id);
     
+    public IQueryable<TDataModel> GetRelevantCountQueryable() => 
+        filteringRequestParameters is null ? GetRegularCountQueryable() : GetFilterCountQueryable();
+
+    private IQueryable<TDataModel> GetRegularCountQueryable() => dataModels.AsQueryable();
+
+    private IQueryable<TDataModel> GetFilterCountQueryable()
+    {
+        var returnedQuery = dataModels.AsQueryable();
+
+        returnedQuery = GetQueryWithAppliedFilters(returnedQuery);
+
+        return returnedQuery;
+    }
+
     private protected abstract BaseSortingSettings<TDataModel> GetQuerySortingSettings();
     
     private IQueryable<TDataModel> GetQueryWithAppliedFilters(

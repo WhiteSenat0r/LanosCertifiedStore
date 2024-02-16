@@ -34,7 +34,13 @@ internal class VehicleTypeRepository(IMapper mapper, ApplicationDatabaseContext 
             ? null
             : Mapper.Map<VehicleTypeDataModel, VehicleType>(typeModel);
     }
-    
+
+    public override async Task<int> CountAsync(
+        IFilteringRequestParameters<VehicleType>? filteringRequestParameters = null)
+    {
+        throw new NotImplementedException();
+    }
+
     private protected override IQueryable<VehicleTypeDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleType> filteringRequestParameters)
     {
