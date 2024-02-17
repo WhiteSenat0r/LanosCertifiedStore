@@ -4,7 +4,6 @@ using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Persistence.DataModels;
 using Persistence.QueryEvaluation;
-using Persistence.Repositories.VehicleModelRelated.QueryEvaluationRelated.Common.Classes;
 using Persistence.Repositories.VehiclePriceRelated.QueryEvaluationRelated.Common.Classes;
 
 namespace Persistence.Repositories.VehiclePriceRelated.QueryEvaluationRelated;
