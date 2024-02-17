@@ -3,6 +3,7 @@ using API.Middleware;
 using Application.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
+using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.Extensions;
 using Persistence.SeedingData;
 

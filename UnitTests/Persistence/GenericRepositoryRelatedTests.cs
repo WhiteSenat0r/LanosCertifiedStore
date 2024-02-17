@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Persistence.Contexts;
+using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.Repositories;
 
 namespace UnitTests.Persistence;
