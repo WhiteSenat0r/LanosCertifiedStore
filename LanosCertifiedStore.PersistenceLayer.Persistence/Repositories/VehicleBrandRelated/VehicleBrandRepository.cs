@@ -2,7 +2,7 @@
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Contexts;
+using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels;
 using Persistence.QueryEvaluation;
 using Persistence.Repositories.Common.Classes;
@@ -28,9 +28,9 @@ internal class VehicleBrandRepository(IMapper mapper, ApplicationDatabaseContext
     {
         var vehicleBrandQueryEvaluator = GetQueryEvaluator(null);
 
-        var vehicleModelQuery = vehicleBrandQueryEvaluator.GetSingleEntityQueryable(id);
+        var vehicleBrandQuery = vehicleBrandQueryEvaluator.GetSingleEntityQueryable(id);
 
-        var vehicleBrandModel = await vehicleModelQuery.AsNoTracking().SingleOrDefaultAsync();
+        var vehicleBrandModel = await vehicleBrandQuery.AsNoTracking().SingleOrDefaultAsync();
         
         return vehicleBrandModel is not null 
             ? Mapper.Map<VehicleBrandDataModel, VehicleBrand>(vehicleBrandModel) 
@@ -44,6 +44,21 @@ internal class VehicleBrandRepository(IMapper mapper, ApplicationDatabaseContext
         var countedQueryable = vehicleBrandQueryEvaluator.GetRelevantCountQueryable();
 
         return countedQueryable.CountAsync();
+    }
+
+    public override async Task RemoveExistingEntity(Guid id)
+    {
+        var vehicleBrandQueryEvaluator = GetQueryEvaluator(null);
+
+        var vehicleBrandQuery = vehicleBrandQueryEvaluator.GetSingleEntityQueryable(id);
+
+        var removedEntity = await vehicleBrandQuery.AsNoTracking().SingleOrDefaultAsync();
+
+        if (removedEntity is not null)
+        {
+            Context.Set<VehicleModelDataModel>().RemoveRange(removedEntity.Models);
+            Context.Set<VehicleBrandDataModel>().Remove(removedEntity);
+        }
     }
 
     private protected override IQueryable<VehicleBrandDataModel> GetRelevantQueryable(
