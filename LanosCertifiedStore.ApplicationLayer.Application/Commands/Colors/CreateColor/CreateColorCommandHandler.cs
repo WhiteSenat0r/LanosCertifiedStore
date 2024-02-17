@@ -1,4 +1,5 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Application.Dtos.ColorDtos;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
@@ -10,12 +11,14 @@ internal sealed class CreateColorCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<Result<Unit>> Handle(CreateColorCommand request, CancellationToken cancellationToken)
     {
-        var color = new VehicleColor(request.ColorName);
+        var color = new VehicleColor(request.CreateColorDto.ColorName, request.CreateColorDto.HexValue);
 
         await unitOfWork.RetrieveRepository<VehicleColor>().AddNewEntityAsync(color);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 
-        return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure(new Error("CreateError", "Failed to create color!"));
+        return result
+            ? Result<Unit>.Success(Unit.Value)
+            : Result<Unit>.Failure(new Error("CreateError", "Failed to create color!"));
     }
 }

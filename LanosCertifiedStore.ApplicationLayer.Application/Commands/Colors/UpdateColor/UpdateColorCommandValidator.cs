@@ -13,6 +13,11 @@ internal sealed class UpdateColorCommandValidator : AbstractValidator<UpdateColo
             .NotEmpty()
             .MinimumLength(2)
             .MaximumLength(64);
+        
+        RuleFor(x => x.UpdateColorDto.HexValue)
+            .NotEmpty()
+            .MaximumLength(12)
+            .MinimumLength(2);
 
         RuleFor(x => x.UpdateColorDto.UpdatedName)
             .MustAsync(async (name, _) => await validationHelper.IsNameUniqueAsync(name))

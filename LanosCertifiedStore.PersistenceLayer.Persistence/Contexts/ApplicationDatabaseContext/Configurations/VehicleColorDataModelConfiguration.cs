@@ -11,6 +11,10 @@ internal sealed class VehicleColorDataModelConfiguration : IEntityTypeConfigurat
         builder.Property(p => p.Name)
             .IsRequired()
             .HasMaxLength(32);
+
+        builder.Property(p => p.HexValue)
+            .IsRequired()
+            .HasMaxLength(12);
         
         builder.HasMany(m => m.Vehicles)
             .WithOne(v => v.Color)
