@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using Persistence.DataModels;
 
-namespace Persistence.Contexts;
+namespace Persistence.Contexts.ApplicationDatabaseContext;
 
 public sealed class ApplicationDatabaseContext(
     DbContextOptions<ApplicationDatabaseContext> options) : DbContext(options)
@@ -16,10 +17,7 @@ public sealed class ApplicationDatabaseContext(
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<VehicleModelDataModel>()
-            .HasOne(vm => vm.VehicleBrand)
-            .WithMany(b => b.Models)
-            .HasForeignKey(vm => vm.VehicleBrandId)
-            .OnDelete(DeleteBehavior.Restrict);
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }
