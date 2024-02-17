@@ -2,7 +2,6 @@
 using Application.Commands.Colors.CreateColor;
 using Application.Commands.Colors.DeleteColor;
 using Application.Commands.Colors.UpdateColor;
-using Application.Core;
 using Application.Dtos.ColorDtos;
 using Application.Queries.Colors;
 using Domain.Shared;

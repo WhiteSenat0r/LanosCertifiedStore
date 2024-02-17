@@ -1,4 +1,5 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Application.Helpers;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using FluentValidation;
 
@@ -6,7 +7,7 @@ namespace Application.Commands.Types.UpdateType;
 
 internal sealed class UpdateTypeCommandValidator : AbstractValidator<UpdateTypeCommand>
 {
-    public UpdateTypeCommandValidator(IUnitOfWork unitOfWork)
+    public UpdateTypeCommandValidator(ValidationHelper<VehicleType> validationHelper)
     {
         RuleFor(x => x.UpdateTypeDto.UpdatedName)
             .NotEmpty()
@@ -14,11 +15,7 @@ internal sealed class UpdateTypeCommandValidator : AbstractValidator<UpdateTypeC
             .MinimumLength(2);
 
         RuleFor(x => x.UpdateTypeDto.UpdatedName)
-            .MustAsync(async (name, _) =>
-            {
-                var types = await unitOfWork.RetrieveRepository<VehicleType>().GetAllEntitiesAsync();
-                return types.All(x => x.Name != name);
-            })
+            .MustAsync(async (name, _) => await validationHelper.IsNameUniqueAsync(name))
             .WithMessage("Type with such name already exists! Type name must be unique");
     }
 }

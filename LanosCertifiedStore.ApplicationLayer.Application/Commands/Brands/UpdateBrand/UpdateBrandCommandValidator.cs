@@ -1,4 +1,5 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Application.Helpers;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using FluentValidation;
 
@@ -6,7 +7,7 @@ namespace Application.Commands.Brands.UpdateBrand;
 
 internal sealed class UpdateBrandCommandValidator : AbstractValidator<UpdateBrandCommand>
 {
-    public UpdateBrandCommandValidator(IUnitOfWork unitOfWork)
+    public UpdateBrandCommandValidator(ValidationHelper<VehicleBrand> validationHelper)
     {
         RuleFor(x => x.UpdateBrandDto.UpdatedName)
             .NotEmpty()
@@ -14,12 +15,7 @@ internal sealed class UpdateBrandCommandValidator : AbstractValidator<UpdateBran
             .MaximumLength(64);
 
         RuleFor(x => x.UpdateBrandDto.UpdatedName)
-            .MustAsync(async (updatedName, _) =>
-            {
-                var brands = await unitOfWork.RetrieveRepository<VehicleBrand>().GetAllEntitiesAsync();
-                return brands.All(x => x.Name != updatedName);
-            })
+            .MustAsync(async (name, _) => await validationHelper.IsNameUniqueAsync(name))
             .WithMessage("Brand with such name already exists! Brand name must be unique");
-
     }
 }

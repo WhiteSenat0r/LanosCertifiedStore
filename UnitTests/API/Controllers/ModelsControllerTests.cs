@@ -2,7 +2,6 @@
 using Application.Commands.Models.CreateModel;
 using Application.Commands.Models.DeleteModel;
 using Application.Commands.Models.UpdateModel;
-using Application.Core;
 using Application.Dtos.ModelDtos;
 using Application.Queries.Models;
 using Domain.Shared;

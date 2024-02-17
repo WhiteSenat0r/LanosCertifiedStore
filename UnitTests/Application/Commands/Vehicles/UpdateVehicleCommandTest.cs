@@ -1,5 +1,4 @@
 ﻿using Application.Commands.Vehicles.UpdateVehicle;
-using Application.Core;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;

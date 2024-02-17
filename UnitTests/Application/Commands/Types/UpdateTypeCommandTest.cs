@@ -1,5 +1,4 @@
 ﻿using Application.Commands.Types.UpdateType;
-using Application.Core;
 using Application.Dtos.TypeDtos;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;

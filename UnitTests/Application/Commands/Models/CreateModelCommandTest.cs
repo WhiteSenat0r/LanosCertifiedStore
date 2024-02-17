@@ -1,5 +1,4 @@
 ﻿using Application.Commands.Models.CreateModel;
-using Application.Core;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;

@@ -1,4 +1,5 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Application.Helpers;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using FluentValidation;
 
@@ -6,7 +7,7 @@ namespace Application.Commands.Models.UpdateModel;
 
 internal sealed class UpdateModelCommandValidator : AbstractValidator<UpdateModelCommand>
 {
-    public UpdateModelCommandValidator(IUnitOfWork unitOfWork)
+    public UpdateModelCommandValidator(ValidationHelper<VehicleModel> validationHelper)
     {
         RuleFor(x => x.UpdateModelDto.UpdatedName)
             .NotEmpty()
@@ -14,11 +15,7 @@ internal sealed class UpdateModelCommandValidator : AbstractValidator<UpdateMode
             .MinimumLength(2);
 
         RuleFor(x => x.UpdateModelDto.UpdatedName)
-            .MustAsync(async (name, _) =>
-            {
-                var vehicleModels = await unitOfWork.RetrieveRepository<VehicleModel>().GetAllEntitiesAsync();
-                return vehicleModels.All(x => x.Name != name);
-            })
+            .MustAsync(async (name, _) => await validationHelper.IsNameUniqueAsync(name))
             .WithMessage("Model with such name already exists! Model name must be unique");
     }
 }

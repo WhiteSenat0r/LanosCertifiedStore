@@ -1,14 +1,14 @@
 ﻿using Application.Dtos.BrandDtos;
-using Application.Dtos.ModelDtos;
 using Application.Dtos.ColorDtos;
-using Application.Dtos.TypeDtos;
 using Application.Dtos.DisplacementDtos;
+using Application.Dtos.ModelDtos;
 using Application.Dtos.PriceDtos;
+using Application.Dtos.TypeDtos;
 using Application.Dtos.VehicleDtos;
 using AutoMapper;
 using Domain.Entities.VehicleRelated.Classes;
 
-namespace Application.MappingHelpers;
+namespace Application.Helpers;
 
 internal sealed class MappingProfile : Profile
 {
