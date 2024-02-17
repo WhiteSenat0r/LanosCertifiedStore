@@ -19,6 +19,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Commands\Brands\CreateBrand\Common\" />
+      <Folder Include="Helpers\Validations\" />
       <Folder Include="Queries\Displacements\" />
       <Folder Include="Queries\Types\" />
     </ItemGroup>

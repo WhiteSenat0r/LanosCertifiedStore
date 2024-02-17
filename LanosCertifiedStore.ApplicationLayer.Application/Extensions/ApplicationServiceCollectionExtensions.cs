@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Application.Behaviors;
+using Application.Helpers;
 using Application.Queries.Vehicles.ListVehicles;
 using FluentValidation;
 using MediatR;
@@ -15,6 +16,7 @@ public static class ApplicationServiceCollectionExtensions
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+        services.AddScoped(typeof(ValidationHelper<>));
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), includeInternalTypes: true);
 
         return services;

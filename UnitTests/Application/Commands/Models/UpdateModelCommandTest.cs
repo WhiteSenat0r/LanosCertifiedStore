@@ -1,5 +1,4 @@
 ﻿using Application.Commands.Models.UpdateModel;
-using Application.Core;
 using Application.Dtos.ModelDtos;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;

@@ -2,7 +2,6 @@
 using Application.Commands.Brands.CreateBrand;
 using Application.Commands.Brands.DeleteBrand;
 using Application.Commands.Brands.UpdateBrand;
-using Application.Core;
 using Application.Dtos.BrandDtos;
 using Application.Queries.Brands;
 using Domain.Shared;
