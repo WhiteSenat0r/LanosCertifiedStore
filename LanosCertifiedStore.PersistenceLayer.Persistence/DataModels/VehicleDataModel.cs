@@ -6,7 +6,7 @@ namespace Persistence.DataModels;
 internal sealed class VehicleDataModel : IEntity<Guid>
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    [MaxLength(2048)] public string Description { get; set; } = null!;
+    public string Description { get; set; } = null!;
     public Guid BrandId { get; set; }
     public VehicleBrandDataModel Brand { get; set; } = null!;
     public Guid ModelId { get; set; }

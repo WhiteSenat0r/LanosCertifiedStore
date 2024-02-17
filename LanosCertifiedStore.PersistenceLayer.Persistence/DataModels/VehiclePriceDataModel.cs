@@ -6,7 +6,7 @@ namespace Persistence.DataModels;
 internal sealed class VehiclePriceDataModel : IEntity<Guid>
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    [Column(TypeName = "decimal(10, 2)")] public decimal Value { get; set; }
+    public decimal Value { get; set; }
     public DateTime IssueDate { get; set; } = DateTime.UtcNow;
     public Guid VehicleId { get; set; }
     public VehicleDataModel Vehicle { get; set; } = null!;
