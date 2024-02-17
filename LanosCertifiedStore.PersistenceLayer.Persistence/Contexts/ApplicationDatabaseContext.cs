@@ -9,10 +9,10 @@ public sealed class ApplicationDatabaseContext(
     internal DbSet<VehicleDataModel> Vehicles { get; set; } = null!;
     internal DbSet<VehicleBrandDataModel> VehiclesBrands { get; set; } = null!;
     internal DbSet<VehicleColorDataModel> VehiclesColors { get; set; } = null!;
-    internal DbSet<VehicleDisplacementDataModel> VehicleDisplacements { get; set; } = null!;
     internal DbSet<VehicleModelDataModel> VehicleModels { get; set; } = null!;
     internal DbSet<VehiclePriceDataModel> VehiclePrices { get; set; } = null!;
     internal DbSet<VehicleTypeDataModel> VehicleTypes { get; set; } = null!;
+    internal DbSet<VehicleImageDataModel> VehicleImages { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
