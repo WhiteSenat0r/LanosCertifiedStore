@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence.Contexts;
+using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.UnitOfWorkRelated;
 
 namespace Persistence.Extensions;

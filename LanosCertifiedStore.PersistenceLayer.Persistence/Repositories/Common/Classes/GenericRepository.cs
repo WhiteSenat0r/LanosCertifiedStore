@@ -38,7 +38,7 @@ internal abstract class GenericRepository<TEntity, TDataModel> : IRepository<TEn
         Context.Set<TDataModel>().Update(mappedEntityModel);
     }
 
-    public async Task RemoveExistingEntity(Guid id)
+    public virtual async Task RemoveExistingEntity(Guid id)
     {
         var removedEntity = await Context.Set<TDataModel>().SingleOrDefaultAsync(
             entity => entity.Id.Equals(id));

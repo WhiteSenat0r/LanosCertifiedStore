@@ -13,7 +13,6 @@ internal static class SeedColors
         new VehicleColorDataModel("Синій"),
         new VehicleColorDataModel("Сріблястий"),
         new VehicleColorDataModel("Зелений"),
-        new VehicleColorDataModel("Фіолетовий"),
         new VehicleColorDataModel("Помаранчевий"),
         new VehicleColorDataModel("Сірий"),
         new VehicleColorDataModel("Коричневий"),
@@ -36,6 +35,5 @@ internal static class SeedColors
         new VehicleColorDataModel("Кораловий"),
         new VehicleColorDataModel("Золотий"),
         new VehicleColorDataModel("Томатний"),
-        new VehicleColorDataModel("Хакі")
     ];
 }

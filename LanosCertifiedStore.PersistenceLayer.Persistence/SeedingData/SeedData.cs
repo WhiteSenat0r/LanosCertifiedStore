@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Persistence.Contexts;
+using Persistence.Contexts.ApplicationDatabaseContext;
 
 namespace Persistence.SeedingData;
 

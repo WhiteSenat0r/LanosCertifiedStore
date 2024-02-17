@@ -5,7 +5,7 @@
 namespace Persistence.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class ModelsMigration : Migration
+    public partial class ModelsConfigurationsAdded : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,8 +25,8 @@ namespace Persistence.Data.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
                 table: "VehiclesColors",
-                type: "nvarchar(64)",
-                maxLength: 64,
+                type: "nvarchar(32)",
+                maxLength: 32,
                 nullable: false,
                 defaultValue: "",
                 oldClrType: typeof(string),
@@ -69,11 +69,51 @@ namespace Persistence.Data.Migrations
                 oldType: "nvarchar(64)",
                 oldMaxLength: 64,
                 oldNullable: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleTypes_Name",
+                table: "VehicleTypes",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehiclesColors_Name",
+                table: "VehiclesColors",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehiclesBrands_Name",
+                table: "VehiclesBrands",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleModels_Name",
+                table: "VehicleModels",
+                column: "Name",
+                unique: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropIndex(
+                name: "IX_VehicleTypes_Name",
+                table: "VehicleTypes");
+
+            migrationBuilder.DropIndex(
+                name: "IX_VehiclesColors_Name",
+                table: "VehiclesColors");
+
+            migrationBuilder.DropIndex(
+                name: "IX_VehiclesBrands_Name",
+                table: "VehiclesBrands");
+
+            migrationBuilder.DropIndex(
+                name: "IX_VehicleModels_Name",
+                table: "VehicleModels");
+
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
                 table: "VehicleTypes",
@@ -91,8 +131,8 @@ namespace Persistence.Data.Migrations
                 maxLength: 64,
                 nullable: true,
                 oldClrType: typeof(string),
-                oldType: "nvarchar(64)",
-                oldMaxLength: 64);
+                oldType: "nvarchar(32)",
+                oldMaxLength: 32);
 
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
