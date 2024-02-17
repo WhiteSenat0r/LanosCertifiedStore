@@ -1,6 +1,6 @@
 ﻿using Domain.Contracts.Common;
 
-namespace Application.Core;
+namespace Application.Core.Results;
 
 public sealed class PaginationResult<T>
     where T : IEntity<Guid>
