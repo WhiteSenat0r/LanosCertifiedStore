@@ -2,4 +2,7 @@
 
 namespace Application.Dtos.ColorDtos;
 
-public sealed record ColorDto : VehicleAspectDto;
+public sealed record ColorDto : VehicleAspectDto
+{
+    public string? HexValue { get; set; }
+}
