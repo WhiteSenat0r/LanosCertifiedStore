@@ -25,9 +25,9 @@ public sealed class ColorsController : BaseEntityRelatedApiController
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ValidationResult), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> CreateColor([FromQuery] string name)
+    public async Task<ActionResult> CreateColor([FromBody] CreateColorDto createColorDto)
     {
-        return HandleResult(await Mediator.Send(new CreateColorCommand(name)));
+        return HandleResult(await Mediator.Send(new CreateColorCommand(createColorDto)));
     }
 
     [HttpPut]
