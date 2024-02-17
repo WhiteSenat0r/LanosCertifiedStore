@@ -6,10 +6,8 @@ public sealed class VehicleModel : NamedVehicleAspect
 {
     public VehicleBrand Brand { get; set; } = null!;
 
-    public VehicleModel()
-    {
-    }
-
+    public VehicleModel() { }
+    
     public VehicleModel(VehicleBrand brand, string name) : base(name)
     {
         Brand = brand;
