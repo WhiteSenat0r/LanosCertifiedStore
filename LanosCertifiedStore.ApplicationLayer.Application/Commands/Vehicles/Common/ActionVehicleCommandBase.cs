@@ -1,4 +1,4 @@
-﻿using Application.Dtos.VehicleDtos;
+﻿using Application.Dtos.VehicleDtos.Common;
 using Domain.Contracts.Common;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -39,15 +39,16 @@ internal abstract class ActionVehicleCommandBase
         VehicleType vehicleType,
         ActionVehicleDto vehicleData)
     {
-        return new Vehicle(
-            brand: vehicleBrand,
-            model: vehicleModel,
-            color: vehicleColor,
-            type: vehicleType,
-            displacement: vehicleData.Displacement,
-            price: vehicleData.Price,
-            description: vehicleData.Description,
-            imageUrls: vehicleData.ImageUrls);
+        throw new NotImplementedException();
+        // return new Vehicle(
+        //     brand: vehicleBrand,
+        //     model: vehicleModel,
+        //     color: vehicleColor,
+        //     type: vehicleType,
+        //     displacement: vehicleData.Displacement,
+        //     price: vehicleData.Price,
+        //     description: vehicleData.Description,
+        //     imageUrls: vehicleData.ImageData);
     }
 
     private ActionVehicleDto? GetActionVehicleDto<TCommand>(TCommand request)
@@ -56,21 +57,6 @@ internal abstract class ActionVehicleCommandBase
             p => p.PropertyType == typeof(ActionVehicleDto));
 
         return requestParamsProperty?.GetValue(request) as ActionVehicleDto;
-    }
-
-    private Vehicle CreateVehicleInstance(
-        VehicleBrand brand, VehicleModel model, VehicleColor color,
-        VehicleType type, ActionVehicleDto vehicleData)
-    {
-        return new Vehicle(
-            brand: brand,
-            model: model,
-            color: color,
-            type: type,
-            displacement: vehicleData.Displacement,
-            price: vehicleData.Price,
-            description: vehicleData.Description,
-            imageUrls: vehicleData.ImageUrls);
     }
     
     private Task<TAspect?> GetAspectDataAsync<TAspect>(IUnitOfWork unitOfWork, Guid id) 
