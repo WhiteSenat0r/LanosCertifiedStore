@@ -15,8 +15,7 @@ internal sealed class VehicleDataModel : IEntity<Guid>
     public VehicleColorDataModel Color { get; set; } = null!;
     public Guid TypeId { get; set; }
     public VehicleTypeDataModel Type { get; set; } = null!;
-    public Guid DisplacementId { get; set; }
-    public VehicleDisplacementDataModel Displacement { get; set; } = null!;
+    public ICollection<VehicleImageDataModel> Images { get; set; } = null!;
     public ICollection<VehiclePriceDataModel> Prices { get; set; } = new List<VehiclePriceDataModel>();
 
     public VehicleDataModel() { }
@@ -25,7 +24,6 @@ internal sealed class VehicleDataModel : IEntity<Guid>
         Guid modelId,
         Guid typeId,
         Guid colorId,
-        Guid displacementId,
         decimal price,
         string description)
     {
@@ -33,7 +31,6 @@ internal sealed class VehicleDataModel : IEntity<Guid>
         ModelId = modelId;
         TypeId = typeId;
         ColorId = colorId;
-        DisplacementId = displacementId;
         Prices.Add(new VehiclePriceDataModel(Id, price));
         Description = description;
     }
