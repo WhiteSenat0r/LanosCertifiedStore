@@ -13,8 +13,9 @@ internal sealed class VehicleImageDataModel : IEntity<Guid>
 
     public VehicleImageDataModel() { }
     
-    public VehicleImageDataModel(string cloudImageId, string imageUrl, bool isMainImage)
+    public VehicleImageDataModel(Guid vehicleId, string cloudImageId, string imageUrl, bool isMainImage)
     {
+        VehicleId = vehicleId;
         CloudImageId = cloudImageId;
         ImageUrl = imageUrl;
         IsMainImage = isMainImage;
