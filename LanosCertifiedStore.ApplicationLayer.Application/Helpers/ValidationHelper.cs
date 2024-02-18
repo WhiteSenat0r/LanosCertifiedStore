@@ -25,6 +25,6 @@ internal sealed class ValidationHelper<TEntity>(IUnitOfWork unitOfWork)
 
     internal async Task<bool> ExistsById(Guid id)
     {
-        return await unitOfWork.RetrieveRepository<TEntity>().GetEntityByIdAsync(id) is not null;
+        return await unitOfWork.RetrieveRepository<TEntity>().GetEntityByIdAsync(id) is null;
     }
 }
