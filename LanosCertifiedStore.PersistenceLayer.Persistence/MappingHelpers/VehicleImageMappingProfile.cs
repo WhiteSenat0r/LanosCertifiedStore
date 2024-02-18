@@ -4,19 +4,19 @@ using Persistence.DataModels;
 
 namespace Persistence.MappingHelpers;
 
-internal sealed class VehicleModelMappingProfile : Profile
+internal sealed class VehicleImageMappingProfile : Profile
 {
-    public VehicleModelMappingProfile()
+    public VehicleImageMappingProfile()
     {
         AddMappingProfileFromEntityToModel();
         AddMappingProfileFromModelToEntity();
     }
     
     private void AddMappingProfileFromModelToEntity() =>
-        CreateMap<VehicleModel, VehicleModelDataModel>()
-            .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.Brand.Name));
+        CreateMap<VehicleImage, VehicleImageDataModel>()
+            .ForMember(d => d.Vehicle, o => o.MapFrom(s => s.Vehicle));
     
     private void AddMappingProfileFromEntityToModel() =>
-        CreateMap<VehicleModelDataModel, VehicleModel>()
-            .ForMember(d => d.Brand, o => o.MapFrom(s => s.VehicleBrand));
+        CreateMap<VehicleImageDataModel, VehicleImage>()
+            .ForMember(d => d.Vehicle, o => o.MapFrom(s => s.Vehicle));
 }
