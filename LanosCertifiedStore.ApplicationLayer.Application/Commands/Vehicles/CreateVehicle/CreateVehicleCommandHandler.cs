@@ -1,70 +1,88 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Application.Commands.Vehicles.Common;
+using Application.Contracts.ServicesRelated.ImageService;
+using Application.Core.Results;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Application.Commands.Vehicles.CreateVehicle;
 
-internal sealed class CreateVehicleCommandHandler(IUnitOfWork unitOfWork)
-    : IRequestHandler<CreateVehicleCommand, Result<Unit>>
+internal sealed class CreateVehicleCommandHandler(IUnitOfWork unitOfWork, IImageService imageService)
+    : ActionVehicleCommandBase, IRequestHandler<CreateVehicleCommand, Result<Unit>>
 {
     public async Task<Result<Unit>> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
     {
-        var vehicleCreateResult = await CreateVehicle(request);
+        try
+        {
+            var vehicleInstantiationResult = await CreateVehicleBaseInstance(request, unitOfWork);
 
-        if (!vehicleCreateResult.IsSuccess)
-            return Result<Unit>.Failure(vehicleCreateResult.Error!);
+            if (!vehicleInstantiationResult.IsSuccess)
+                return Result<Unit>.Failure(vehicleInstantiationResult.Error!);
 
-        await unitOfWork.RetrieveRepository<Vehicle>().AddNewEntityAsync(vehicleCreateResult.Value!);
+            var imagesUploadResult = await TryAddImagesToStorage(imageService, request);
 
-        var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
+            if (!imagesUploadResult.IsSuccess)
+                return Result<Unit>.Failure(imagesUploadResult.Error!);
 
-        return result
-            ? Result<Unit>.Success(Unit.Value)
-            : Result<Unit>.Failure(new Error("CreateError", "Failed to create a vehicle!"));
+            (vehicleInstantiationResult.Value!.Images as List<VehicleImage>)!.AddRange(imagesUploadResult.Value!);
+            await unitOfWork.RetrieveRepository<Vehicle>().AddNewEntityAsync(vehicleInstantiationResult.Value!);
+            var saveResult = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
+
+            return saveResult 
+                ? Result<Unit>.Success(Unit.Value)
+                : throw new Exception("Saving changes has failed!");
+        }
+        catch (Exception e)
+        {
+            return Result<Unit>.Failure(new Error("CreateError", "Failed to create a vehicle!"));
+        }
+    }
+    
+    private async Task<Result<IEnumerable<VehicleImage>>> TryAddImagesToStorage(
+        IImageService imageService, CreateVehicleCommand request)
+    {
+        if (request.Images.Count.Equals(0))
+            return Result<IEnumerable<VehicleImage>>.Failure(new Error("CreateError",
+                "Image collection has no images to upload!"));
+    
+        var uploadSummary = await TryUploadImagesToCloudinary(
+            imageService, request.Images, request.MainImageName);
+
+        if (!uploadSummary.IsSuccess)
+            return Result<IEnumerable<VehicleImage>>.Failure(uploadSummary.Error!);
+        
+        var uploadedImages = uploadSummary.Value!.Select(summary =>
+            new VehicleImage(null!, summary.Key.ImageId!, summary.Key.ImageUrl!, summary.Value));
+
+        return Result<IEnumerable<VehicleImage>>.Success(uploadedImages);
     }
 
-    private async Task<Result<Vehicle>> CreateVehicle(CreateVehicleCommand request)
+    private async Task<Result<IDictionary<ImageResult, bool>>> TryUploadImagesToCloudinary(
+        IImageService service, IEnumerable<IFormFile> images, string mainImageName)
     {
-        var vehicleModel =
-            await unitOfWork.RetrieveRepository<VehicleModel>().GetEntityByIdAsync(request.ActionVehicleDto.ModelId);
+        var summary = new Dictionary<ImageResult, bool>();
+        
+        foreach (var image in images)
+        {
+            var uploadResult = await service.UploadImageAsync(image, PathTemplate);
 
-        if (vehicleModel is null)
-            return Result<Vehicle>.Failure(new Error("NotFound", "Such model doesn't exists!"));
-
-        var vehicleBrand =
-            await unitOfWork.RetrieveRepository<VehicleBrand>().GetEntityByIdAsync(request.ActionVehicleDto.BrandId);
-
-        if (vehicleBrand is null)
-            return Result<Vehicle>.Failure(new Error("NotFound", "Such brand doesn't exists!"));
-
-        var vehicleColor =
-            await unitOfWork.RetrieveRepository<VehicleColor>().GetEntityByIdAsync(request.ActionVehicleDto.ColorId);
-
-        if (vehicleColor is null)
-            return Result<Vehicle>.Failure(new Error("NotFound", "Such color doesn't exists!"));
-
-        var vehicleType = await unitOfWork.RetrieveRepository<VehicleType>().GetEntityByIdAsync(request.ActionVehicleDto.TypeId);
-
-        if (vehicleType is null)
-            return Result<Vehicle>.Failure(new Error("NotFound", "Such type doesn't exists!"));
-
-        var vehicleDisplacement =
-            await unitOfWork.RetrieveRepository<VehicleDisplacement>()
-                .GetEntityByIdAsync(request.ActionVehicleDto.DisplacementId);
-
-        if (vehicleDisplacement is null)
-            return Result<Vehicle>.Failure(new Error("NotFound", "Such displacement doesn't exists!"));
-
-        var vehicle = new Vehicle(
-            brand: vehicleBrand,
-            model: vehicleModel,
-            color: vehicleColor,
-            type: vehicleType,
-            displacement: vehicleDisplacement,
-            price: request.ActionVehicleDto.Price,
-            description: request.ActionVehicleDto.Description);
-
-        return Result<Vehicle>.Success(vehicle);
+            if (mainImageName.Equals(image.FileName))
+            {
+                summary.Add(uploadResult, true);
+                continue;
+            }
+            
+            summary.Add(uploadResult, false);
+        }
+    
+        if (summary.All(pair => pair.Key.IsUploadedSuccessfully)) 
+            return Result<IDictionary<ImageResult, bool>>.Success(summary);
+        
+        await imageService.TryRollbackImageUploadAsync();
+                
+        return Result<IDictionary<ImageResult, bool>>.Failure(
+            new Error("CreateError", "Service was not able to upload the image(s)!"));
     }
 }
