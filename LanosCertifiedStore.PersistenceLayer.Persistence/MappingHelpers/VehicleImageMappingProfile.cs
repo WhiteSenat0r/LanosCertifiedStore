@@ -11,12 +11,12 @@ internal sealed class VehicleImageMappingProfile : Profile
         AddMappingProfileFromEntityToModel();
         AddMappingProfileFromModelToEntity();
     }
-    
+
     private void AddMappingProfileFromModelToEntity() =>
         CreateMap<VehicleImage, VehicleImageDataModel>()
-            .ForMember(d => d.Vehicle, o => o.MapFrom(s => s.Vehicle));
-    
+            .ForMember(model => model.VehicleId, entity => entity.MapFrom(image => image.Vehicle.Id))
+            .ForMember(model => model.Vehicle, options => options.Ignore());
+
     private void AddMappingProfileFromEntityToModel() =>
-        CreateMap<VehicleImageDataModel, VehicleImage>()
-            .ForMember(d => d.Vehicle, o => o.MapFrom(s => s.Vehicle));
+        CreateMap<VehicleImageDataModel, VehicleImage>();
 }

@@ -16,5 +16,7 @@ internal sealed class VehiclePriceMappingProfile : Profile
         CreateMap<VehiclePriceDataModel, VehiclePrice>();
     
     private void AddMappingProfileFromEntityToModel() =>
-        CreateMap<VehiclePrice, VehiclePriceDataModel>();
+        CreateMap<VehiclePrice, VehiclePriceDataModel>()
+            .ForMember(model => model.VehicleId, entity => entity.MapFrom(price => price.Vehicle.Id))
+            .ForMember(model => model.Vehicle, options => options.Ignore());
 }
