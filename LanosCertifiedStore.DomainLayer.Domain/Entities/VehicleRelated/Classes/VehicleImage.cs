@@ -12,8 +12,9 @@ public sealed class VehicleImage : IEntity<Guid>
 
     public VehicleImage() { }
     
-    public VehicleImage(string cloudImageId, string imageUrl, bool isMainImage)
+    public VehicleImage(Vehicle vehicle, string cloudImageId, string imageUrl, bool isMainImage)
     {
+        Vehicle = vehicle;
         CloudImageId = cloudImageId;
         ImageUrl = imageUrl;
         IsMainImage = isMainImage;

@@ -11,10 +11,28 @@ public sealed class Vehicle : IEntity<Guid>
     public VehicleModel Model { get; init; } = null!;
     public VehicleColor Color { get; init; } = null!;
     public VehicleType Type { get; init; } = null!;
-    public ICollection<VehicleImage> Images { get; init; } = null!;
+    public ICollection<VehicleImage> Images { get; init; } = new List<VehicleImage>();
     public ICollection<VehiclePrice> Prices { get; init; } = new List<VehiclePrice>();
 
     public Vehicle() { }
+    
+    public Vehicle(
+        VehicleBrand brand,
+        VehicleModel model,
+        VehicleColor color,
+        VehicleType type,
+        decimal price,
+        double displacement,
+        string description)
+    {
+        Prices.Add(new VehiclePrice(this, price));
+        Brand = brand;
+        Model = model;
+        Color = color;
+        Type = type;
+        Displacement = displacement;
+        Description = description;
+    }
     
     public Vehicle(
         VehicleBrand brand,
