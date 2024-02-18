@@ -17,9 +17,9 @@ internal class ImageService : IImageService
         _cloudinarySource = InstantiateCloudinarySource(cloudinaryOptions);
 
     public async Task<ImageResult> UploadImageAsync(
-        IFormFile imageFile, string? desiredPath = null)
+        IFormFile imageFile, string desiredPath)
     {
-        if (IsEmptyFile(imageFile) || IsNotImageFile(imageFile))
+        if (IsEmptyFile(imageFile) || IsNotImageFile(imageFile) || IsInvalidPath(desiredPath))
             return new ImageResult
             {
                 IsUploadedSuccessfully = false
@@ -75,18 +75,12 @@ internal class ImageService : IImageService
 
     private ImageUploadParams GeImageUploadParameters(
         IFormFile imageFile, Stream fileStream, string? desiredPath) =>
-        string.IsNullOrEmpty(desiredPath) || string.IsNullOrWhiteSpace(desiredPath)
-            ? new ImageUploadParams
-            {
-                File = new FileDescription(imageFile.FileName, fileStream),
-                Transformation = new Transformation().Width(1920).Height(1080).Crop("fill")
-            }
-            : new ImageUploadParams
-            {
-                File = new FileDescription(imageFile.FileName, fileStream),
-                Folder = desiredPath,
-                Transformation = new Transformation().Width(1920).Height(1080).Crop("fill")
-            };
+        new()
+        {
+            File = new FileDescription(imageFile.FileName, fileStream),
+            Folder = desiredPath,
+            Transformation = new Transformation().Width(1920).Height(1080).Crop("fill")
+        };
 
     private ICloudinary InstantiateCloudinarySource(IOptions<CloudinarySettings> cloudinaryOptions)
     {
@@ -102,6 +96,9 @@ internal class ImageService : IImageService
     private bool IsEmptyFile(IFormFile imageFile) => 
         imageFile.Length.Equals(0);
 
+    private bool IsInvalidPath(string path) =>
+        string.IsNullOrEmpty(path) || string.IsNullOrWhiteSpace(path) || !path.Contains('/');
+    
     private bool IsNotImageFile(IFormFile imageFile) =>
         !string.Equals(imageFile.ContentType, "image/jpg", StringComparison.OrdinalIgnoreCase) &&
         !string.Equals(imageFile.ContentType, "image/jpeg", StringComparison.OrdinalIgnoreCase) &&
