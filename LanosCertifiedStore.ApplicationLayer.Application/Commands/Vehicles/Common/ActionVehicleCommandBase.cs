@@ -1,4 +1,4 @@
-﻿using Application.Dtos.VehicleDtos.Common;
+﻿using Application.Dtos.VehicleDtos;
 using Domain.Contracts.Common;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -9,7 +9,9 @@ namespace Application.Commands.Vehicles.Common;
 
 internal abstract class ActionVehicleCommandBase
 {
-    private protected async Task<Result<Vehicle>> CreateVehicle<TCommand>(
+    private protected const string PathTemplate = "LanosCertifiedStore/Vehicles";
+    
+    private protected async Task<Result<Vehicle>> CreateVehicleBaseInstance<TCommand>(
         TCommand request, IUnitOfWork unitOfWork) 
         where TCommand : IRequest<Result<Unit>>
     {
@@ -39,16 +41,15 @@ internal abstract class ActionVehicleCommandBase
         VehicleType vehicleType,
         ActionVehicleDto vehicleData)
     {
-        throw new NotImplementedException();
-        // return new Vehicle(
-        //     brand: vehicleBrand,
-        //     model: vehicleModel,
-        //     color: vehicleColor,
-        //     type: vehicleType,
-        //     displacement: vehicleData.Displacement,
-        //     price: vehicleData.Price,
-        //     description: vehicleData.Description,
-        //     imageUrls: vehicleData.ImageData);
+        return new Vehicle(
+            brand: vehicleBrand,
+            model: vehicleModel,
+            color: vehicleColor,
+            type: vehicleType,
+            price: vehicleData.Price, 
+            displacement: vehicleData.Displacement,
+            description: vehicleData.Description
+        );
     }
 
     private ActionVehicleDto? GetActionVehicleDto<TCommand>(TCommand request)
