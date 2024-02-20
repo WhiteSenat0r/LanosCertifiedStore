@@ -16,6 +16,7 @@ public static class InfrastructureServiceCollectionExtensions
 
         services.AddScoped<IImageService, ImageService>();
         services.AddScoped<IPasswordHasher, PasswordHasher>();
+        services.AddScoped<IAuthenticationService, AuthenticationService>();
         
         return services;
     }
