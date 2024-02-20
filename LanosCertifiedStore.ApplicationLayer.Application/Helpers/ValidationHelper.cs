@@ -4,7 +4,7 @@ using Domain.Contracts.RepositoryRelated;
 namespace Application.Helpers;
 
 internal sealed class ValidationHelper<TEntity>(IUnitOfWork unitOfWork)
-    where TEntity : IEntity<Guid>
+    where TEntity : IIdentifiable<Guid>
 {
     internal async Task<bool> IsNameUniqueAsync(string name)
     {
