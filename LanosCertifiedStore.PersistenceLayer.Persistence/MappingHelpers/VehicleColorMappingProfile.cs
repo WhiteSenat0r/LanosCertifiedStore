@@ -16,5 +16,6 @@ internal sealed class VehicleColorMappingProfile : Profile
         CreateMap<VehicleColorDataModel, VehicleColor>();
     
     private void AddMappingProfileFromEntityToModel() =>
-        CreateMap<VehicleColor, VehicleColorDataModel>();
+        CreateMap<VehicleColor, VehicleColorDataModel>()
+            .ForMember(model => model.Vehicles, options => options.Ignore());
 }
