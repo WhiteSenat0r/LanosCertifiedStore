@@ -14,12 +14,18 @@ internal sealed class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        CreateMap<Vehicle, Vehicle>();
+        CreateMap<Vehicle, Vehicle>()
+            .ForMember(d => d.Images, opts => opts.Ignore())
+            .ForMember(d => d.Prices, opts => opts.Ignore())
+            .ForMember(d => d.Id, opts => opts.Ignore());
+        
+        CreateMap<Vehicle, UpdateVehicleDto>();
         CreateMap<VehicleBrand, BrandDto>();
         CreateMap<VehicleColor, ColorDto>();
         CreateMap<VehicleType, TypeDto>();
         CreateMap<VehiclePrice, PriceDto>();
         CreateMap<VehicleImage, ImageDto>();
+        CreateMap<ImageDto, VehicleImage>();
         
         CreateMap<VehicleModel, ModelDto>()
             .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.Brand.Name));
