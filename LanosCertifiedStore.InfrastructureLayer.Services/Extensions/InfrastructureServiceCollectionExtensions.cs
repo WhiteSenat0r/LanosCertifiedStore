@@ -1,4 +1,6 @@
-﻿using Application.Contracts.ServicesRelated.ImageService;
+﻿using Application.Contracts.ServicesRelated.IdentityRelated;
+using Application.Contracts.ServicesRelated.ImageService;
+using LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated;
 using LanosCertifiedStore.InfrastructureLayer.Services.ImagesRelated;
 using LanosCertifiedStore.InfrastructureLayer.Services.ImagesRelated.Common;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +15,7 @@ public static class InfrastructureServiceCollectionExtensions
         AddCloudinaryConfiguration(services, config);
 
         services.AddScoped<IImageService, ImageService>();
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
         
         return services;
     }

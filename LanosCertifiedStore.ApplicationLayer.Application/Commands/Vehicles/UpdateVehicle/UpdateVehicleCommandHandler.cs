@@ -82,19 +82,12 @@ internal sealed class UpdateVehicleCommandHandler(
         if (vehicleType is null)
             return Result<Vehicle>.Failure(new Error("NotFound", "Such type doesn't exists!"));
 
-        var vehicleDisplacement =
-            await unitOfWork.RetrieveRepository<VehicleDisplacement>()
-                .GetEntityByIdAsync(request.ActionVehicleDto.DisplacementId);
-
-        if (vehicleDisplacement is null)
-            return Result<Vehicle>.Failure(new Error("NotFound", "Such displacement doesn't exists!"));
-
         var vehicle = new Vehicle(
             brand: vehicleBrand,
             model: vehicleModel,
             color: vehicleColor,
             type: vehicleType,
-            displacement: vehicleDisplacement,
+            displacement: request.ActionVehicleDto.Displacement,
             price: request.ActionVehicleDto.Price,
             description: request.ActionVehicleDto.Description);
 

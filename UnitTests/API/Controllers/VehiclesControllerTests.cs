@@ -2,7 +2,6 @@
 using Application.Commands.Vehicles.CreateVehicle;
 using Application.Commands.Vehicles.DeleteVehicle;
 using Application.Commands.Vehicles.UpdateVehicle;
-using Application.Core;
 using Application.Dtos.VehicleDtos;
 using Application.Queries.Vehicles.ListVehicles;
 using Application.Queries.Vehicles.VehicleDetails;

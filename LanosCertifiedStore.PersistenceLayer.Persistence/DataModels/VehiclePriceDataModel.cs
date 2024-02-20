@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Domain.Contracts.Common;
+﻿using Domain.Contracts.Common;
 
 namespace Persistence.DataModels;
 

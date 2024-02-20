@@ -1,6 +1,4 @@
-﻿using Application.Commands.Displacements.DeleteDisplacement;
-using Domain.Contracts.RepositoryRelated;
-using Domain.Entities.VehicleRelated.Classes;
+﻿using Domain.Contracts.RepositoryRelated;
 using Domain.Shared;
 using MediatR;
 using Moq;

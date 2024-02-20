@@ -1,6 +1,4 @@
-﻿using Application.Queries.Displacements;
-
-namespace UnitTests.Application.Queries.DisplacementRelated;
+﻿namespace UnitTests.Application.Queries.DisplacementRelated;
 
 public class ListDisplacementsQueryTests
 {

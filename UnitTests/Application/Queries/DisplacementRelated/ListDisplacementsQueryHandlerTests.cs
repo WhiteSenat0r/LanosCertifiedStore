@@ -1,8 +1,6 @@
 ﻿using Application.Dtos.DisplacementDtos;
-using Application.Queries.Displacements;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
-using Domain.Entities.VehicleRelated.Classes;
 using Moq;
 
 namespace UnitTests.Application.Queries.DisplacementRelated;
