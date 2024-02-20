@@ -3,7 +3,7 @@
 namespace Domain.Contracts.RepositoryRelated;
 
 public interface IRepository<TEntity> 
-    where TEntity : IEntity<Guid>
+    where TEntity : IIdentifiable<Guid>
 {
     Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(
         IFilteringRequestParameters<TEntity> filteringRequestParameters = null!);

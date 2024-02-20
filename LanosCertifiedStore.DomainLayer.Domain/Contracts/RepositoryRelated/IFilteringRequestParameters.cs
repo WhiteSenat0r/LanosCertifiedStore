@@ -3,7 +3,7 @@
 namespace Domain.Contracts.RepositoryRelated;
 
 public interface IFilteringRequestParameters<TEntity>
-    where TEntity : IEntity<Guid>
+    where TEntity : IIdentifiable<Guid>
 {
     int PageIndex { get; set; }
 

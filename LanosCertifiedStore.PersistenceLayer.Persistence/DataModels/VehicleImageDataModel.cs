@@ -2,7 +2,7 @@
 
 namespace Persistence.DataModels;
 
-internal sealed class VehicleImageDataModel : IEntity<Guid>
+internal sealed class VehicleImageDataModel : IIdentifiable<Guid>
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public string CloudImageId { get; set; } = null!;

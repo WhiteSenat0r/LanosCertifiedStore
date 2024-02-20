@@ -2,7 +2,7 @@
 
 namespace Application.Dtos.ImageDtos;
 
-public sealed record ImageDto : IEntity<Guid>
+public sealed record ImageDto : IIdentifiable<Guid>
 {
     public Guid Id { get; init; }
     public string? CloudImageId { get; init; }

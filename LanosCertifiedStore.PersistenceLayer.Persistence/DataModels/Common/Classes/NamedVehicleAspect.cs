@@ -3,7 +3,7 @@ using Domain.Contracts.Common;
 
 namespace Persistence.DataModels.Common.Classes;
 
-internal abstract class NamedVehicleAspect : IEntity<Guid>
+internal abstract class NamedVehicleAspect : IIdentifiable<Guid>
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     [MaxLength(64)] public string Name { get; set; } = null!;

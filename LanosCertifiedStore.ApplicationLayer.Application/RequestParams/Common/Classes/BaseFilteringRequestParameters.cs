@@ -5,7 +5,7 @@ namespace Application.RequestParams.Common.Classes;
 
 public abstract class BaseFilteringRequestParameters<TEntity>(int maxItemsPerPageQuantity = 100) 
     : IFilteringRequestParameters<TEntity> 
-    where TEntity : IEntity<Guid>
+    where TEntity : IIdentifiable<Guid>
 {
     public int PageIndex { get; set; } = 1;
 
