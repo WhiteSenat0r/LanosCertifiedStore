@@ -6,12 +6,12 @@ internal sealed class UpdateVehicleCommandValidator : AbstractValidator<UpdateVe
 {
     public UpdateVehicleCommandValidator()
     {
-        RuleFor(x => x.ActionVehicleDto.Description)
+        RuleFor(x => x.UpdateVehicleDto.Description)
             .NotEmpty()
             .MinimumLength(20)
             .MaximumLength(3000);
 
-        RuleFor(x => x.ActionVehicleDto.Price)
+        RuleFor(x => x.UpdateVehicleDto.Price)
             .NotEmpty()
             .GreaterThan(0);
     }

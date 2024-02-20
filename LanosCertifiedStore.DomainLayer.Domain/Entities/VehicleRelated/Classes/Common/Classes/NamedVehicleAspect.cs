@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.VehicleRelated.Classes.Common.Classes;
 
-public abstract class NamedVehicleAspect : IEntity<Guid>
+public abstract class NamedVehicleAspect : IIdentifiable<Guid>
 {
     public Guid Id { get; init; } = Guid.NewGuid();
     public string Name { get; set; } = null!;

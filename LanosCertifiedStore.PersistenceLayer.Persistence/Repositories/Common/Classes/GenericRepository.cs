@@ -7,8 +7,8 @@ using Persistence.QueryEvaluation;
 namespace Persistence.Repositories.Common.Classes;
 
 internal abstract class GenericRepository<TEntity, TDataModel> : IRepository<TEntity>
-    where TEntity : IEntity<Guid>
-    where TDataModel : class, IEntity<Guid>
+    where TEntity : IIdentifiable<Guid>
+    where TDataModel : class, IIdentifiable<Guid>
 {
     private protected DbContext Context { get; }
     private protected IMapper Mapper { get; }

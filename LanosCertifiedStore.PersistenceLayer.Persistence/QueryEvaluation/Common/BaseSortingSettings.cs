@@ -6,7 +6,7 @@ namespace Persistence.QueryEvaluation.Common;
 internal abstract class BaseSortingSettings<TDataModel>(
     Expression<Func<TDataModel, object>>? orderByAscendingExpression = null!,
     Expression<Func<TDataModel, object>>? orderByDescendingExpression = null!)
-    where TDataModel : class, IEntity<Guid>
+    where TDataModel : class, IIdentifiable<Guid>
 {
     public Expression<Func<TDataModel, object>>?
         OrderByAscendingExpression { get; set; } = orderByAscendingExpression;
