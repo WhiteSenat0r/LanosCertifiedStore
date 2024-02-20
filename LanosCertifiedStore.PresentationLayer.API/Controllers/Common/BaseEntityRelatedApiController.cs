@@ -23,13 +23,5 @@ public abstract class BaseEntityRelatedApiController : BaseApiController
         };
     }
 
-    private static ProblemDetails CreateProblemDetails(
-        string title, int status, Error error, Error[]? errors = null) => new()
-    {
-        Title = title,
-        Status = status,
-        Type = error.Code,
-        Detail = error.Message,
-        Extensions = { { nameof(errors), errors } }
-    };
+
 }
