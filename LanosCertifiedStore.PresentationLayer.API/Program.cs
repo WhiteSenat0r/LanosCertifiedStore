@@ -3,7 +3,6 @@ using API.Middleware;
 using Application.Extensions;
 using LanosCertifiedStore.InfrastructureLayer.Services.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Contexts;
 using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.Extensions;
 using Persistence.SeedingData;
@@ -30,6 +29,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("CorsPolicy");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
