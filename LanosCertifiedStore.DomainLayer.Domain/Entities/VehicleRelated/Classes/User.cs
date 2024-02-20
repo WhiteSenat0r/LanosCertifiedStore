@@ -8,6 +8,7 @@ public sealed class User : IEntity<Guid>
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;
     public string Email { get; set; } = default!;
+    public string PasswordHash { get; set; } = default!;
     public ICollection<string> Roles { get; set; } = default!;
 
     public User()
