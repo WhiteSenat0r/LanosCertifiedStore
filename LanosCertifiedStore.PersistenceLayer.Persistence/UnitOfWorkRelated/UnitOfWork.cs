@@ -10,6 +10,7 @@ namespace Persistence.UnitOfWorkRelated;
 internal sealed class UnitOfWork(ApplicationDatabaseContext context, IMapper mapper) : IUnitOfWork
 {
     private readonly Hashtable _repositoryInstancesHashTable = new();
+
     private readonly Dictionary<Type, Type> _repositoryTypeMap =
         RepositoryMappings.VehicleRelatedRepositoryMappings;
 
@@ -20,15 +21,15 @@ internal sealed class UnitOfWork(ApplicationDatabaseContext context, IMapper map
 
         if (_repositoryInstancesHashTable.ContainsKey(repositoryTypeKey))
             return (_repositoryInstancesHashTable[repositoryTypeKey] as IRepository<TEntity>)!;
-        
+
         var repositoryAbstractionType = typeof(IRepository<TEntity>);
-            
+
         var repositoryInstanceType = DeterminateRepositoryInstanceType(
             repositoryAbstractionType);
 
         var repositoryInstance = Activator.CreateInstance(
             repositoryInstanceType, mapper, context);
-            
+
         _repositoryInstancesHashTable.Add(repositoryTypeKey, repositoryInstance);
 
         return (_repositoryInstancesHashTable[repositoryTypeKey] as IRepository<TEntity>)!;
@@ -40,6 +41,6 @@ internal sealed class UnitOfWork(ApplicationDatabaseContext context, IMapper map
             : throw new ArgumentException(
                 "Such repository abstraction type is not mapped and can't be used!");
 
-    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => 
+    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
         context.SaveChangesAsync(cancellationToken);
-} 
+}

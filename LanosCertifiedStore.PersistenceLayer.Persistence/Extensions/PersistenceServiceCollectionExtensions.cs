@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Contexts.ApplicationDatabaseContext;
+using Persistence.Repositories.IdentityRelated;
 using Persistence.UnitOfWorkRelated;
 
 namespace Persistence.Extensions;
@@ -18,6 +19,7 @@ public static class PersistenceServiceCollectionExtensions
         });
         
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }
