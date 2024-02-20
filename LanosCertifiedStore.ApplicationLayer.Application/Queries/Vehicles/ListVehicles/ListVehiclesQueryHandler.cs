@@ -1,4 +1,4 @@
-﻿using Application.Core;
+﻿using Application.Core.Results;
 using Application.Dtos.VehicleDtos;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;

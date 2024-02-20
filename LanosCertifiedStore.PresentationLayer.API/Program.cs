@@ -1,6 +1,7 @@
 using API.Extensions;
 using API.Middleware;
 using Application.Extensions;
+using LanosCertifiedStore.InfrastructureLayer.Services.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 using Persistence.Contexts.ApplicationDatabaseContext;
@@ -14,6 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddApiServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddExternalServices(builder.Configuration);
 
 var app = builder.Build();
 

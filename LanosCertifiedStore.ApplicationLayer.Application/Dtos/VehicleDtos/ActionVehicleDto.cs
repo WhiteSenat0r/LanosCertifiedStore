@@ -8,6 +8,6 @@ public sealed record ActionVehicleDto
     public Guid ModelId { get; init; }
     public Guid ColorId { get; init; }
     public Guid TypeId { get; init; }
-    public Guid DisplacementId { get; init; }
+    public double Displacement { get; init; }
     public decimal Price { get; init; }
 }

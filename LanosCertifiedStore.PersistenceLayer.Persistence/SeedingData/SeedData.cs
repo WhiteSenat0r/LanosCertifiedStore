@@ -14,10 +14,6 @@ public static class SeedData
         var colors = SeedColors.GetColors();
         if (!await context.VehiclesColors.AnyAsync())
             await context.VehiclesColors.AddRangeAsync(colors);
-
-        var displacements = SeedDisplacements.GetDisplacements();
-        if (!await context.VehicleDisplacements.AnyAsync())
-            await context.VehicleDisplacements.AddRangeAsync(displacements);
         
         var brands = SeedBrands.GetBrands();
         if (!await context.VehiclesBrands.AnyAsync())
@@ -32,12 +28,14 @@ public static class SeedData
         
         if (context.ChangeTracker.HasChanges())
             await context.SaveChangesAsync();
-
-        var vehicles = SeedVehicles.GetVehicles(types, colors, brands, models, displacements);
-        if (!await context.Vehicles.AnyAsync())
-            await context.Vehicles.AddRangeAsync(vehicles);
-
-        if (context.ChangeTracker.HasChanges())
-            await context.SaveChangesAsync();
+        
+        // TODO Imlpement new seeding
+        //
+        // var vehicles = SeedVehicles.GetVehicles(types, colors, brands, models);
+        // if (!await context.Vehicles.AnyAsync())
+        //     await context.Vehicles.AddRangeAsync(vehicles);
+        //
+        // if (context.ChangeTracker.HasChanges())
+        //     await context.SaveChangesAsync();
     }
 }

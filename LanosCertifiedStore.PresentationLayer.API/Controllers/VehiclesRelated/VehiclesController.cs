@@ -1,9 +1,10 @@
-﻿using API.Controllers.Common;
+﻿using System.Text.Json;
+using API.Controllers.Common;
 using API.Responses;
 using Application.Commands.Vehicles.CreateVehicle;
 using Application.Commands.Vehicles.DeleteVehicle;
 using Application.Commands.Vehicles.UpdateVehicle;
-using Application.Core;
+using Application.Core.Results;
 using Application.Dtos.VehicleDtos;
 using Application.Queries.Vehicles.ListVehicles;
 using Application.Queries.Vehicles.VehicleDetails;
@@ -36,9 +37,13 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
     [HttpPost]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> CreateVehicle([FromBody] ActionVehicleDto vehicle)
+    public async Task<ActionResult> CreateVehicle([FromForm] string serializedVehicleData,
+        [FromForm] List<IFormFile> uploadedImages, [FromForm] string mainImageName)
     {
-        return HandleResult(await Mediator.Send(new CreateVehicleCommand(vehicle)));
+        return HandleResult(await Mediator.Send(
+                new CreateVehicleCommand(
+                    JsonSerializer.Deserialize<ActionVehicleDto>(serializedVehicleData)!,
+                    uploadedImages, mainImageName)));
     }
 
     [HttpPut]

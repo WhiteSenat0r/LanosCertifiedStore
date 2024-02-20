@@ -21,8 +21,6 @@ internal class VehicleFilteringCriteria : BaseFilteringCriteria<Vehicle, Vehicle
              || vehicle.Type.Name.Equals(vehicleFilteringParameters.Type)) &&
             (string.IsNullOrEmpty(vehicleFilteringParameters.Color)
              || vehicle.Color.Name.Equals(vehicleFilteringParameters.Color)) &&
-            (!vehicleFilteringParameters.Displacement.HasValue
-             || vehicle.Displacement.Value.Equals(vehicleFilteringParameters.Displacement)) &&
             (!vehicleFilteringParameters.LowerPriceLimit.HasValue ||
              (vehicle.Prices.OrderByDescending(p => p.IssueDate)
                .FirstOrDefault()!.Value >= vehicleFilteringParameters.LowerPriceLimit.Value &&

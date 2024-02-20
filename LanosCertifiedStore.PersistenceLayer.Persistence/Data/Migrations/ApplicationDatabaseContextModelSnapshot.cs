@@ -82,8 +82,8 @@ namespace Persistence.Data.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
 
-                    b.Property<Guid>("DisplacementId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<double>("Displacement")
+                        .HasColumnType("float");
 
                     b.Property<Guid>("ModelId")
                         .HasColumnType("uniqueidentifier");
@@ -97,8 +97,6 @@ namespace Persistence.Data.Migrations
 
                     b.HasIndex("ColorId");
 
-                    b.HasIndex("DisplacementId");
-
                     b.HasIndex("ModelId");
 
                     b.HasIndex("TypeId");
@@ -106,18 +104,31 @@ namespace Persistence.Data.Migrations
                     b.ToTable("Vehicles");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleDisplacementDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleImageDataModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(6, 1)");
+                    b.Property<string>("CloudImageId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsMainImage")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("VehicleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.ToTable("VehicleDisplacements");
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("VehicleImages");
                 });
 
             modelBuilder.Entity("Persistence.DataModels.VehicleModelDataModel", b =>
@@ -199,12 +210,6 @@ namespace Persistence.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleDisplacementDataModel", "Displacement")
-                        .WithMany("Vehicles")
-                        .HasForeignKey("DisplacementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Persistence.DataModels.VehicleModelDataModel", "Model")
                         .WithMany("Vehicles")
                         .HasForeignKey("ModelId")
@@ -221,11 +226,20 @@ namespace Persistence.Data.Migrations
 
                     b.Navigation("Color");
 
-                    b.Navigation("Displacement");
-
                     b.Navigation("Model");
 
                     b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("Persistence.DataModels.VehicleImageDataModel", b =>
+                {
+                    b.HasOne("Persistence.DataModels.VehicleDataModel", "Vehicle")
+                        .WithMany("Images")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("Persistence.DataModels.VehicleModelDataModel", b =>
@@ -264,12 +278,9 @@ namespace Persistence.Data.Migrations
 
             modelBuilder.Entity("Persistence.DataModels.VehicleDataModel", b =>
                 {
-                    b.Navigation("Prices");
-                });
+                    b.Navigation("Images");
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleDisplacementDataModel", b =>
-                {
-                    b.Navigation("Vehicles");
+                    b.Navigation("Prices");
                 });
 
             modelBuilder.Entity("Persistence.DataModels.VehicleModelDataModel", b =>

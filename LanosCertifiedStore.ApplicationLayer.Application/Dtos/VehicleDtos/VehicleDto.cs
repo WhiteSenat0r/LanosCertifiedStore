@@ -1,4 +1,5 @@
-﻿using Application.Dtos.PriceDtos;
+﻿using Application.Dtos.ImageDtos;
+using Application.Dtos.PriceDtos;
 using Domain.Contracts.Common;
 
 namespace Application.Dtos.VehicleDtos;
@@ -13,4 +14,5 @@ public sealed record VehicleDto : IEntity<Guid>
     public string? Type { get; init; }
     public double Displacement { get; init; }
     public IEnumerable<PriceDto>? Prices { get; init; }
+    public IEnumerable<ImageDto>? Images { get; init; }
 }

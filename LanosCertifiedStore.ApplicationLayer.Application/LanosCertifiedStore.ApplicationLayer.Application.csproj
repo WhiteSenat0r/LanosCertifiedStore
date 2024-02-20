@@ -16,12 +16,11 @@
       <PackageReference Include="FluentValidation" Version="11.9.0" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
       <PackageReference Include="MediatR" Version="12.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Commands\Brands\CreateBrand\Common\" />
-      <Folder Include="Helpers\Validations\" />
-      <Folder Include="Queries\Displacements\" />
+      <Folder Include="Contracts\" />
       <Folder Include="Queries\Types\" />
     </ItemGroup>
 

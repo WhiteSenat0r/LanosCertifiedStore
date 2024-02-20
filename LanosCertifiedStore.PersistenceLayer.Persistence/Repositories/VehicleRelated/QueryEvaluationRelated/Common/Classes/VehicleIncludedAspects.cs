@@ -10,8 +10,8 @@ internal abstract class VehicleIncludedAspects
         vehicle => vehicle.Brand,
         vehicle => vehicle.Model,
         vehicle => vehicle.Type,
-        vehicle => vehicle.Displacement,
         vehicle => vehicle.Color,
+        vehicle => vehicle.Images,
         vehicle => vehicle.Prices
     ];
 }

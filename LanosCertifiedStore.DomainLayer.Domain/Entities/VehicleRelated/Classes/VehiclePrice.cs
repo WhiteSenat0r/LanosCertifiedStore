@@ -10,6 +10,7 @@ public sealed class VehiclePrice : IEntity<Guid>
     public Vehicle Vehicle { get; private set; } = null!;
 
     public VehiclePrice() { }
+    
     public VehiclePrice(Vehicle vehicle, decimal value)
     {
         Vehicle = vehicle;
