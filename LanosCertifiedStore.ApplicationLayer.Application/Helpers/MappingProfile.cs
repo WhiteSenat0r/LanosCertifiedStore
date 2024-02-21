@@ -1,6 +1,7 @@
 ﻿using Application.Dtos.BrandDtos;
 using Application.Dtos.ColorDtos;
-using Application.Dtos.IdentityDtos;
+using Application.Dtos.IdentityDtos.AuthenticationDtos;
+using Application.Dtos.IdentityDtos.ProfileDtos;
 using Application.Dtos.ImageDtos;
 using Application.Dtos.ModelDtos;
 using Application.Dtos.PriceDtos;
@@ -32,5 +33,6 @@ internal sealed class MappingProfile : Profile
             .ForMember(d => d.Model, o => o.MapFrom(s => s.Model.Name));
 
         CreateMap<User, UserDto>();
+        CreateMap<User, ProfileDto>();
     }
 }
