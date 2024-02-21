@@ -4,105 +4,61 @@ using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels;
+using Persistence.QueryEvaluation;
+using Persistence.Repositories.Common.Classes;
+using Persistence.Repositories.IdentityRelated.QueryEvaluationRelated;
+using Persistence.Repositories.IdentityRelated.QueryEvaluationRelated.Common.Classes;
 
 namespace Persistence.Repositories.IdentityRelated;
 
-internal sealed class UserRepository(
-    ApplicationDatabaseContext dbContext,
-    IMapper mapper) : IUserRepository
+internal class UserRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
+    : GenericRepository<User, UserDataModel>(mapper, dbContext)
 {
-    public async Task CreateUserAsync(User user, string passwordHash)
+    public override async Task<IReadOnlyList<User>> GetAllEntitiesAsync(
+        IFilteringRequestParameters<User>? filteringRequestParameters = null)
     {
-        var userDataModel = mapper.Map<User, UserDataModel>(user);
+        var userQueryEvaluator = GetQueryEvaluator(filteringRequestParameters);
 
-        userDataModel.PasswordHash = passwordHash;
+        var userModels = await userQueryEvaluator.GetAllEntitiesQueryable().AsNoTracking().ToListAsync();
 
-        var defaultUserRole = await dbContext.Set<UserRoleDataModel>().FirstOrDefaultAsync(x => x.Name == "User");
-
-        userDataModel.Roles.Add(defaultUserRole!);
-
-        await dbContext.Set<UserDataModel>().AddAsync(userDataModel);
+        return Mapper.Map<IReadOnlyList<UserDataModel>, IReadOnlyList<User>>(userModels);
     }
 
-    public async Task<User?> GetUserByIdAsync(Guid id)
+    public override async Task<User?> GetEntityByIdAsync(Guid id)
     {
-        var userModel = await dbContext.Set<UserDataModel>().FindAsync(id);
+        var userQueryEvaluator = GetQueryEvaluator(null);
 
-        return userModel is null ? null : mapper.Map<UserDataModel, User>(userModel);
+        var userQuery = userQueryEvaluator.GetSingleEntityQueryable(id);
+
+        var userModel = await userQuery.AsNoTracking().SingleOrDefaultAsync();
+
+        return userModel is not null
+            ? Mapper.Map<UserDataModel, User>(userModel)
+            : null;
     }
 
-    public async Task<User?> GetUserByEmailAsync(string email)
+    public override async Task<int> CountAsync(IFilteringRequestParameters<User>? filteringRequestParameters = null)
     {
-        var userModel = await dbContext.Set<UserDataModel>().FirstOrDefaultAsync(x => x.Email.Equals(email));
+        var userQueryEvaluator = GetQueryEvaluator(filteringRequestParameters);
 
-        return userModel is null ? null : mapper.Map<UserDataModel, User>(userModel);
+        var counterQueryable = userQueryEvaluator.GetRelevantCountQueryable();
+
+        return await counterQueryable.CountAsync();
     }
 
-    public void UpdateUserAsync(User user)
+    private protected override IQueryable<UserDataModel> GetRelevantQueryable(
+        IFilteringRequestParameters<User> filteringRequestParameters)
     {
-        var userModel = mapper.Map<User, UserDataModel>(user);
+        var vehicleQueryEvaluator = GetQueryEvaluator(filteringRequestParameters);
 
-        dbContext.Set<UserDataModel>().Update(userModel);
+        return vehicleQueryEvaluator.GetAllEntitiesQueryable();
     }
 
-    public async Task DeleteUserAsync(Guid id)
-    {
-        var userToDelete = await dbContext.Set<UserDataModel>().FindAsync(id);
-
-        if (userToDelete is not null)
-            dbContext.Set<UserDataModel>().Remove(userToDelete);
-    }
-
-    public async Task<bool> CheckPasswordAsync(string email, string passwordHash)
-    {
-        var user = await dbContext.Set<UserDataModel>().FirstOrDefaultAsync(x => x.Email == email);
-
-        if (user is null) return false;
-
-        return user.PasswordHash == passwordHash;
-    }
-
-    public async Task<bool> AddUserToRole(Guid id, string role)
-    {
-        var user = await dbContext.Set<UserDataModel>()
-            .Include(x => x.Roles)
-            .FirstOrDefaultAsync(x => x.Id.Equals(id));
-
-        if (user is null)
-            return false;
-
-        var existingRole = await dbContext.Set<UserRoleDataModel>().SingleOrDefaultAsync(r => r.Name == role);
-
-        if (existingRole is null)
-            return false;
-
-        if (user.Roles.Any(x => x.Equals(existingRole)))
-            return false;
-
-        user.Roles.Add(existingRole);
-
-        return true;
-    }
-
-    public async Task<bool> RemoveUserFromRole(Guid id, string role)
-    {
-        var user = await dbContext.Set<UserDataModel>()
-            .Include(x => x.Roles)
-            .FirstOrDefaultAsync(x => x.Id.Equals(id));
-
-        if (user is null)
-            return false;
-
-        var existingRole = await dbContext.Set<UserRoleDataModel>().SingleOrDefaultAsync(r => r.Name == role);
-
-        if (existingRole is null)
-            return false;
-
-        if (!user.Roles.Any(x => x.Equals(existingRole)))
-            return false;
-
-        user.Roles.Remove(existingRole);
-
-        return true;
-    }
+    private protected override BaseQueryEvaluator<User, UserDataModel> GetQueryEvaluator(
+        IFilteringRequestParameters<User>? filteringRequestParameters) =>
+        new UserQueryEvaluator(
+            includedAspects: UserIncludedAspects.IncludedAspects,
+            filteringRequestParameters: filteringRequestParameters,
+            dataModels: Context.Set<UserDataModel>(),
+            userFilteringCriteria: new UserFilteringCriteria());
 }

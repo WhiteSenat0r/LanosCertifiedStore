@@ -15,11 +15,12 @@ public sealed class User : IEntity<Guid>
     {
     }
 
-    public User(string firstName, string lastName, string email)
+    public User(string firstName, string lastName, string email, string passwordHash)
     {
         FirstName = firstName;
         LastName = lastName;
         Email = email;
+        PasswordHash = passwordHash;
     }
 
     public User(string firstName, string lastName, string email, ICollection<string> roles)
