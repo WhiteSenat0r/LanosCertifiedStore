@@ -13,9 +13,12 @@ internal sealed class AuthenticationService(
     {
         var user = await userRepository.GetUserByEmailAsync(loginDto.Email);
 
-        passwordHasher.VerifyPassword(loginDto.Password, user.PasswordHash);
+        if (user is null)
+            return null;
         
-        return user;
+        var isPasswordCorrect = passwordHasher.VerifyPassword(loginDto.Password, user.PasswordHash);
+        
+        return isPasswordCorrect ? user : null;
     }
 
     public async Task<User?> RegisterAsync(RegisterDto registerDto)
