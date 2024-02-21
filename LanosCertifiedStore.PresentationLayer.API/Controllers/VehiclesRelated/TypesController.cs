@@ -22,6 +22,7 @@ public sealed class TypesController : BaseEntityRelatedApiController
 
     [HttpPost]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> CreateType([FromQuery] string name)
     {
@@ -30,6 +31,7 @@ public sealed class TypesController : BaseEntityRelatedApiController
 
     [HttpPut]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> UpdateType([FromBody] UpdateTypeDto updateTypeDto)
     {

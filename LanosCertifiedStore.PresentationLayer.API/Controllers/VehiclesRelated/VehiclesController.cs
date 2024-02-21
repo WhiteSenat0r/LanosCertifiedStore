@@ -36,6 +36,7 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
 
     [HttpPost]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> CreateVehicle([FromForm] string serializedVehicleData,
         [FromForm] List<IFormFile> uploadedImages, [FromForm] string mainImageName)
@@ -48,6 +49,7 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
 
     [HttpPut]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> UpdateVehicle([FromBody] ActionVehicleDto vehicle)
     {
