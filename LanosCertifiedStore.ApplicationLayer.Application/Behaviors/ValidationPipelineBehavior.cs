@@ -7,7 +7,7 @@ namespace Application.Behaviors;
 public class ValidationPipelineBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
-    where TResponse : Result<Unit>
+    where TResponse : Result
 {
     public async Task<TResponse> Handle(
         TRequest request,
@@ -35,8 +35,8 @@ public class ValidationPipelineBehavior<TRequest, TResponse>(IEnumerable<IValida
         return await next();
     }
 
-    public static TResult CreateValidationResult<TResult>(Error[] errors)
-        where TResult : Result<Unit>
+    private static TResult CreateValidationResult<TResult>(Error[] errors)
+        where TResult : Result
     {
         var validationResult = typeof(ValidationResult<>)
             .GetGenericTypeDefinition()
