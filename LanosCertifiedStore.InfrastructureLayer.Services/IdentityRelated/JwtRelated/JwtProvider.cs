@@ -23,7 +23,7 @@ internal sealed class JwtProvider(IConfiguration configuration) : IJwtProvider
         {
             Audience = configuration["Audience"]!,
             Issuer = configuration["Issuer"]!,
-            SecretKey = configuration["SecretKey"]!,
+            SecretKey = configuration["SecretKey"]!
         };
 
         claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role)));
