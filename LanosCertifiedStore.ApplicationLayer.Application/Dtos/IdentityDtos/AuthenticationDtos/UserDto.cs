@@ -1,6 +1,8 @@
-﻿namespace Application.Dtos.IdentityDtos.AuthenticationDtos;
+﻿using Domain.Contracts.Common;
 
-public sealed record UserDto
+namespace Application.Dtos.IdentityDtos.AuthenticationDtos;
+
+public sealed record UserDto : IEntity<Guid>
 {
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;
