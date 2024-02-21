@@ -1,4 +1,4 @@
-﻿using Application.Dtos.IdentityDtos;
+﻿using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using Domain.Entities.VehicleRelated.Classes;
 
 namespace Application.Contracts.ServicesRelated.IdentityRelated;

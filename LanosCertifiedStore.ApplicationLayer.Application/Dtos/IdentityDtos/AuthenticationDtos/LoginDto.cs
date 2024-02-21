@@ -1,4 +1,4 @@
-﻿namespace Application.Dtos.IdentityDtos;
+﻿namespace Application.Dtos.IdentityDtos.AuthenticationDtos;
 
 public record LoginDto
 {

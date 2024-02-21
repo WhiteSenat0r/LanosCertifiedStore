@@ -1,11 +1,11 @@
 ﻿using Application.Contracts.ServicesRelated.IdentityRelated;
-using Application.Dtos.IdentityDtos;
+using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using AutoMapper;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
 
-namespace Application.Commands.Identity.Login;
+namespace Application.Commands.Identity.Authentication.Login;
 
 internal sealed class LoginCommandHandler(IAuthenticationService authenticationService, IMapper mapper)
     : IRequestHandler<LoginCommand, Result<UserDto>>

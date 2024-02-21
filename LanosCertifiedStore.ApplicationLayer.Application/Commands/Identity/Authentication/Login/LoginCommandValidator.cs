@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Application.Commands.Identity.Login;
+namespace Application.Commands.Identity.Authentication.Login;
 
 internal sealed class LoginCommandValidator : AbstractValidator<LoginCommand>
 {

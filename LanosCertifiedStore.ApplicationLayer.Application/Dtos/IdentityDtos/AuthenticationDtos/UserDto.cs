@@ -1,9 +1,8 @@
-﻿namespace Application.Dtos.IdentityDtos;
+﻿namespace Application.Dtos.IdentityDtos.AuthenticationDtos;
 
-public sealed record RegisterDto
+public sealed record UserDto
 {
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;
     public string Email { get; set; } = default!;
-    public string Password { get; set; } = default!;
 }

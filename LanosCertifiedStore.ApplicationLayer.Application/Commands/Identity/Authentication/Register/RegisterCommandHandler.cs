@@ -1,12 +1,12 @@
 ﻿using Application.Contracts.ServicesRelated.IdentityRelated;
-using Application.Dtos.IdentityDtos;
+using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
 
-namespace Application.Commands.Identity.Register;
+namespace Application.Commands.Identity.Authentication.Register;
 
 internal sealed class RegisterCommandHandler(
     IAuthenticationService authenticationService,
