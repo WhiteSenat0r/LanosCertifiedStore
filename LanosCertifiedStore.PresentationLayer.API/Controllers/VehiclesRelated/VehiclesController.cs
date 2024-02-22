@@ -66,6 +66,7 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
         return HandleResult(await Mediator.Send(new DeleteVehicleCommand(id)));
     }
 
+    [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
     [HttpGet("count")]
     public async Task<ActionResult<ItemsCountDto>> GetVehiclesCount(
         [FromQuery] VehicleFilteringRequestParameters requestParameters)

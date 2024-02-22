@@ -2,10 +2,13 @@
 using API.Responses;
 using Application.Commands.Identity.UserManagement.DeleteUser;
 using Application.Core.Results;
+using Application.Dtos.Common;
 using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using Application.Dtos.IdentityDtos.ProfileDtos;
+using Application.Queries.Users.CountUsers;
 using Application.Queries.Users.ListUsers;
 using Application.Queries.Users.UserDetails;
+using Application.Queries.Vehicles.CountVehicles;
 using Application.RequestParams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +20,7 @@ public sealed class UsersController : BaseEntityRelatedApiController
     [HttpGet]
     [ProducesResponseType(typeof(PaginationResult<ProfileDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<IReadOnlyList<ProfileDto>>> GetUsers(
+    public async Task<ActionResult<PaginationResult<ProfileDto>>> GetUsers(
         [FromQuery] UserFilteringRequestParameters userFilteringRequestParameters)
     {
         return HandleResult(await Mediator.Send(new ListUsersQuery(userFilteringRequestParameters)));
@@ -38,5 +41,11 @@ public sealed class UsersController : BaseEntityRelatedApiController
     public async Task<ActionResult> DeleteUser(Guid id)
     {
         return HandleResult(await Mediator.Send(new DeleteUserCommand(id)));
+    }
+
+    [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
+    public async Task<ActionResult<ItemsCountDto>> GetUsersCount(UserFilteringRequestParameters requestParameters)
+    {
+        return HandleResult(await Mediator.Send(new CountUsersQuery(requestParameters)));
     }
 }

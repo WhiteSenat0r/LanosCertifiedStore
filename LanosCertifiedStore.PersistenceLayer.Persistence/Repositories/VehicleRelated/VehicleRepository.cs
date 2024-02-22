@@ -20,7 +20,7 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
         var vehicleModelsQuery = GetRelevantQueryable(filteringRequestParameters);
 
         var vehicleModels = await vehicleModelsQuery.AsNoTracking().ToListAsync();
-        
+
         return Mapper.Map<IReadOnlyList<VehicleDataModel>, IReadOnlyList<Vehicle>>(vehicleModels);
     }
 
@@ -31,9 +31,9 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
         var vehicleModelQuery = vehicleQueryEvaluator.GetSingleEntityQueryable(id);
 
         var vehicleModel = await vehicleModelQuery.AsNoTracking().SingleOrDefaultAsync();
-        
-        return vehicleModel is not null 
-            ? Mapper.Map<VehicleDataModel, Vehicle>(vehicleModel) 
+
+        return vehicleModel is not null
+            ? Mapper.Map<VehicleDataModel, Vehicle>(vehicleModel)
             : null;
     }
 
@@ -54,7 +54,7 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
 
         return vehicleQueryEvaluator.GetAllEntitiesQueryable();
     }
-    
+
     private protected override BaseQueryEvaluator<Vehicle, VehicleDataModel> GetQueryEvaluator(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters) =>
         new VehicleQueryEvaluator(
