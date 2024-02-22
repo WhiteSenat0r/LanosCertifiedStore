@@ -1,6 +1,6 @@
 ﻿using Domain.Contracts.Common;
 
-namespace Persistence.DataModels;
+namespace Persistence.DataModels.VehicleRelated;
 
 internal sealed class VehicleImageDataModel : IEntity<Guid>
 {
