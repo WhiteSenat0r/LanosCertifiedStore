@@ -1,5 +1,4 @@
-﻿using Persistence.DataModels;
-using Persistence.DataModels.VehicleRelated;
+﻿using Persistence.DataModels.VehicleRelated;
 
 namespace Persistence.SeedingData;
 
