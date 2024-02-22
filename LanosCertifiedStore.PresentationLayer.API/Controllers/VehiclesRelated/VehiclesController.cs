@@ -5,7 +5,9 @@ using Application.Commands.Vehicles.CreateVehicle;
 using Application.Commands.Vehicles.DeleteVehicle;
 using Application.Commands.Vehicles.UpdateVehicle;
 using Application.Core.Results;
+using Application.Dtos.Common;
 using Application.Dtos.VehicleDtos;
+using Application.Queries.Vehicles.CountVehicles;
 using Application.Queries.Vehicles.ListVehicles;
 using Application.Queries.Vehicles.VehicleDetails;
 using Application.RequestParams;
@@ -42,9 +44,9 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
         [FromForm] List<IFormFile> uploadedImages, [FromForm] string mainImageName)
     {
         return HandleResult(await Mediator.Send(
-                new CreateVehicleCommand(
-                    JsonSerializer.Deserialize<ActionVehicleDto>(serializedVehicleData)!,
-                    uploadedImages, mainImageName)));
+            new CreateVehicleCommand(
+                JsonSerializer.Deserialize<ActionVehicleDto>(serializedVehicleData)!,
+                uploadedImages, mainImageName)));
     }
 
     [HttpPut]
@@ -62,5 +64,12 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
     public async Task<ActionResult> DeleteVehicle(Guid id)
     {
         return HandleResult(await Mediator.Send(new DeleteVehicleCommand(id)));
+    }
+
+    [HttpGet("count")]
+    public async Task<ActionResult<ItemsCountDto>> GetVehiclesCount(
+        [FromQuery] VehicleFilteringRequestParameters requestParameters)
+    {
+        return HandleResult(await Mediator.Send(new CountVehiclesQuery(requestParameters)));
     }
 }
