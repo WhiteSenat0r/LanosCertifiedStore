@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Contracts.RequestParametersRelated;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Entities.UserRelated;
 using Persistence.DataModels.UserRelated;
 using Persistence.QueryEvaluation.Common;
 

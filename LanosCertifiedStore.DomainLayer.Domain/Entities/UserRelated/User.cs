@@ -1,6 +1,6 @@
 ﻿using Domain.Contracts.Common;
 
-namespace Domain.Entities.VehicleRelated.Classes;
+namespace Domain.Entities.UserRelated;
 
 public sealed class User : IEntity<Guid>
 {
@@ -11,9 +11,7 @@ public sealed class User : IEntity<Guid>
     public string PasswordHash { get; set; } = default!;
     public ICollection<string> Roles { get; set; } = default!;
 
-    public User()
-    {
-    }
+    public User() { }
 
     public User(string firstName, string lastName, string email, string passwordHash)
     {

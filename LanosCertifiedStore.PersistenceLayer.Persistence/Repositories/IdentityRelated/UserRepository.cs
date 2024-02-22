@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Entities.UserRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels.UserRelated;

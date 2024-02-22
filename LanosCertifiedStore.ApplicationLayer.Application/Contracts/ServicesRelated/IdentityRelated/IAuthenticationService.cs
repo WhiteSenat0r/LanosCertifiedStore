@@ -1,5 +1,5 @@
 ﻿using Application.Dtos.IdentityDtos.AuthenticationDtos;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Entities.UserRelated;
 
 namespace Application.Contracts.ServicesRelated.IdentityRelated;
 

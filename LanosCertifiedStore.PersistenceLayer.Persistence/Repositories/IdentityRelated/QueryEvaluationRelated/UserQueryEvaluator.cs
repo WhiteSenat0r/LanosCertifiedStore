@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Domain.Contracts.RepositoryRelated;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Entities.UserRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.DataModels.UserRelated;
 using Persistence.QueryEvaluation;

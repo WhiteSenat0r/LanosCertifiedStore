@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using Application.Contracts.ServicesRelated.IdentityRelated;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Entities.UserRelated;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 

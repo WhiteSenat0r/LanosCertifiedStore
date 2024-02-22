@@ -1,4 +1,5 @@
 ﻿using Domain.Contracts.RepositoryRelated;
+using Domain.Entities.UserRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Persistence.Repositories.IdentityRelated;
 using Persistence.Repositories.VehicleBrandRelated;
