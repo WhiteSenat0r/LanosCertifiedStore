@@ -2,7 +2,7 @@
 using Domain.Entities.VehicleRelated.Classes;
 using Persistence.DataModels.UserRelated;
 
-namespace Persistence.MappingHelpers;
+namespace Persistence.MappingHelpers.UserRelated;
 
 internal sealed class UserMappingProfile : Profile
 {
