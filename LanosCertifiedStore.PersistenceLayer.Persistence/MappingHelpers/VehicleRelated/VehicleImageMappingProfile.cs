@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Domain.Entities.VehicleRelated.Classes;
-using Persistence.DataModels;
+using Persistence.DataModels.VehicleRelated;
 
-namespace Persistence.MappingHelpers;
+namespace Persistence.MappingHelpers.VehicleRelated;
 
 internal sealed class VehicleImageMappingProfile : Profile
 {

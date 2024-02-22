@@ -1,6 +1,6 @@
 ﻿using Domain.Contracts.Common;
 
-namespace Persistence.DataModels;
+namespace Persistence.DataModels.VehicleRelated;
 
 internal sealed class VehiclePriceDataModel : IEntity<Guid>
 {
@@ -11,6 +11,7 @@ internal sealed class VehiclePriceDataModel : IEntity<Guid>
     public VehicleDataModel Vehicle { get; set; } = null!;
 
     public VehiclePriceDataModel() { }
+    
     public VehiclePriceDataModel(Guid vehicleId, decimal value)
     {
         VehicleId = vehicleId;

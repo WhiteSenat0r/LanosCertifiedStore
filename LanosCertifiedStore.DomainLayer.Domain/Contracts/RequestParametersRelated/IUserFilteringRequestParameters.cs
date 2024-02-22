@@ -1,5 +1,5 @@
 ﻿using Domain.Contracts.RepositoryRelated;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Entities.UserRelated;
 
 namespace Domain.Contracts.RequestParametersRelated;
 

@@ -2,7 +2,7 @@
 using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using Application.RequestParams;
 using Domain.Contracts.RepositoryRelated;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Entities.UserRelated;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated;
 

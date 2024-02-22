@@ -8,6 +8,7 @@ using Application.Dtos.PriceDtos;
 using Application.Dtos.TypeDtos;
 using Application.Dtos.VehicleDtos;
 using AutoMapper;
+using Domain.Entities.UserRelated;
 using Domain.Entities.VehicleRelated.Classes;
 
 namespace Application.Helpers;

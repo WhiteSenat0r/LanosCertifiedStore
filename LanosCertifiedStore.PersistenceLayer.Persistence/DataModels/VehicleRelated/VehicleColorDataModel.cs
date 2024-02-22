@@ -1,6 +1,6 @@
 ﻿using Persistence.DataModels.Common.Classes;
 
-namespace Persistence.DataModels;
+namespace Persistence.DataModels.VehicleRelated;
 
 internal sealed class VehicleColorDataModel : NamedVehicleAspect
 {

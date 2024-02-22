@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Persistence.DataModels;
+using Persistence.DataModels.UserRelated;
 
 namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations;
 

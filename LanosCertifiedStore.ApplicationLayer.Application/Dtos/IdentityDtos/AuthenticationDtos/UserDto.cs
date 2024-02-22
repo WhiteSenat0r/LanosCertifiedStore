@@ -1,6 +1,4 @@
-﻿using Domain.Contracts.Common;
-
-namespace Application.Dtos.IdentityDtos.AuthenticationDtos;
+﻿namespace Application.Dtos.IdentityDtos.AuthenticationDtos;
 
 public sealed record UserDto
 {

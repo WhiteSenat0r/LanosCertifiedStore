@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using Persistence.DataModels;
+using Persistence.DataModels.UserRelated;
 
 namespace Persistence.Repositories.IdentityRelated.QueryEvaluationRelated.Common.Classes;
 

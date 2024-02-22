@@ -2,7 +2,7 @@
 using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Entities.UserRelated;
 using Domain.Shared;
 using MediatR;
 

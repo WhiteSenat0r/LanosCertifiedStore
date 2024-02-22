@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Domain.Contracts.Common;
 
-namespace Persistence.DataModels;
+namespace Persistence.DataModels.VehicleRelated;
 
 internal sealed class VehicleDataModel : IEntity<Guid>
 {
@@ -20,6 +20,7 @@ internal sealed class VehicleDataModel : IEntity<Guid>
     public ICollection<VehiclePriceDataModel> Prices { get; set; } = new List<VehiclePriceDataModel>();
 
     public VehicleDataModel() { }
+    
     public VehicleDataModel(
         Guid brandId,
         Guid modelId,

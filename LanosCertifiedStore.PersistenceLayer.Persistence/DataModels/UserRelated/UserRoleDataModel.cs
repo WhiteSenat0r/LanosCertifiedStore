@@ -1,25 +1,16 @@
 ﻿using Domain.Contracts.Common;
 
-namespace Persistence.DataModels;
+namespace Persistence.DataModels.UserRelated;
 
 internal class UserRoleDataModel : IEntity<Guid>
 {
     public Guid Id { get; init; } = Guid.NewGuid();
     public string Name { get; set; } = default!;
     public ICollection<UserDataModel> Users { get; set; } = new List<UserDataModel>();
+    
+    public UserRoleDataModel() { }
 
+    public UserRoleDataModel(string name) => Name = name;
 
-    public UserRoleDataModel()
-    {
-    }
-
-    public UserRoleDataModel(string name)
-    {
-        Name = name;
-    }
-
-    public override string ToString()
-    {
-        return Name;
-    }
+    public override string ToString() => Name;
 }
