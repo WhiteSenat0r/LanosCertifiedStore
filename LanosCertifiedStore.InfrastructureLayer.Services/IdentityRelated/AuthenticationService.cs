@@ -3,16 +3,20 @@ using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using Application.RequestParams;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.UserRelated;
+using LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated.JwtTokenRelated;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated;
 
 internal sealed class AuthenticationService(
     IUnitOfWork unitOfWork,
-    IPasswordHasher passwordHasher) : IAuthenticationService
+    IPasswordHasher passwordHasher,
+    IOptions<JwtOptions> jwtOptions) : IAuthenticationService
 {
-    public async Task<User?> LoginAsync(LoginDto loginDto)
+    public async Task<User?> LoginAsync(LoginDto loginDto, HttpResponse httpResponse)
     {
-        var filteringParamsForGettingUserByEmail = new UserFilteringRequestParameters()
+        var filteringParamsForGettingUserByEmail = new UserFilteringRequestParameters
         {
             Email = loginDto.Email
         };
@@ -20,12 +24,15 @@ internal sealed class AuthenticationService(
         var user = (await unitOfWork.RetrieveRepository<User>()
             .GetAllEntitiesAsync(filteringParamsForGettingUserByEmail)).SingleOrDefault();
 
-        if (user is null)
-            return null;
+        if (user is null) return null;
 
         var isPasswordCorrect = passwordHasher.VerifyPassword(loginDto.Password, user.PasswordHash);
 
-        return isPasswordCorrect ? user : null;
+        if (!isPasswordCorrect) return null;
+        
+        AppendUserAccessTokenCookie(httpResponse, user);
+        
+        return user;
     }
 
     public async Task<User?> RegisterAsync(RegisterDto registerDto)
@@ -37,5 +44,21 @@ internal sealed class AuthenticationService(
         await unitOfWork.RetrieveRepository<User>().AddNewEntityAsync(user);
 
         return user;
+    }
+
+    private void AppendUserAccessTokenCookie(HttpResponse httpResponse, User user)
+    {
+        var accessToken = new JwtTokenProvider(jwtOptions.Value).Generate(user);
+
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.None,
+            Expires = DateTime.UtcNow.AddMinutes(5)
+        };
+        
+        httpResponse.Cookies.Append(
+            "UserAccessToken", accessToken, cookieOptions);
     }
 }
