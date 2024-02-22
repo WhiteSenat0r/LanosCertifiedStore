@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using Persistence.DataModels;
+using Persistence.DataModels.VehicleRelated;
 
 namespace Persistence.Repositories.VehicleBrandRelated.QueryEvaluationRelated.Common.Classes;
 

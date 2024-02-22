@@ -2,7 +2,6 @@
 using API.Responses;
 using Application.Commands.Identity.UserManagement.DeleteUser;
 using Application.Core.Results;
-using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using Application.Dtos.IdentityDtos.ProfileDtos;
 using Application.Queries.Users.ListUsers;
 using Application.Queries.Users.UserDetails;

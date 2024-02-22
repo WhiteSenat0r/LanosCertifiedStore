@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Persistence.DataModels;
+using Persistence.DataModels.VehicleRelated;
 
 namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations;
 

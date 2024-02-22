@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Entities.VehicleRelated.Classes;
-using Persistence.DataModels;
+using Persistence.DataModels.UserRelated;
 
 namespace Persistence.MappingHelpers;
 
