@@ -5,11 +5,11 @@ namespace Domain.Entities.UserRelated;
 public sealed class User : IEntity<Guid>
 {
     public Guid Id { get; init; } = Guid.NewGuid();
-    public string FirstName { get; set; } = default!;
-    public string LastName { get; set; } = default!;
-    public string Email { get; set; } = default!;
-    public string PasswordHash { get; set; } = default!;
-    public ICollection<string> Roles { get; set; } = default!;
+    public string FirstName { get; init; } = default!;
+    public string LastName { get; init; } = default!;
+    public string Email { get; init; } = default!;
+    public string PasswordHash { get; init; } = default!;
+    public ICollection<string> Roles { get; init; } = default!;
 
     public User() { }
 
