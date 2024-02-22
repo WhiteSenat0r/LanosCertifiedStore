@@ -12,7 +12,7 @@ internal sealed class LoginCommandHandler(IAuthenticationService authenticationS
 {
     public async Task<Result<UserDto>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var userLoginResult = await authenticationService.LoginAsync(request.LoginDto);
+        var userLoginResult = await authenticationService.LoginAsync(request.LoginDto, request.HttpResponse);
 
         if (userLoginResult is null)
             return Result<UserDto>.Failure(new Error("Unauthorized", "Failed to login with provided credentials"));

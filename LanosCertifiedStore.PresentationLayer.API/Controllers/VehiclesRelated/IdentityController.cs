@@ -16,7 +16,7 @@ public sealed class IdentityController : BaseIdentityRelatedController
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login([FromBody] LoginDto loginDto)
     {
-        return HandleResult(await Mediator.Send(new LoginCommand(loginDto)));
+        return HandleResult(await Mediator.Send(new LoginCommand(loginDto, Response)));
     }
 
     [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
