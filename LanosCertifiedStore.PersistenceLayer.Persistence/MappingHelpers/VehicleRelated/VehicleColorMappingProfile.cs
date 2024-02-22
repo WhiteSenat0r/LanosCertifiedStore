@@ -2,19 +2,19 @@
 using Domain.Entities.VehicleRelated.Classes;
 using Persistence.DataModels.VehicleRelated;
 
-namespace Persistence.MappingHelpers;
+namespace Persistence.MappingHelpers.VehicleRelated;
 
-internal sealed class VehicleBrandMappingProfile : Profile
+internal sealed class VehicleColorMappingProfile : Profile
 {
-    public VehicleBrandMappingProfile()
+    public VehicleColorMappingProfile()
     {
         AddMappingProfileFromEntityToModel();
         AddMappingProfileFromModelToEntity();
     }
-
+    
     private void AddMappingProfileFromModelToEntity() =>
-        CreateMap<VehicleBrandDataModel, VehicleBrand>();
-
+        CreateMap<VehicleColorDataModel, VehicleColor>();
+    
     private void AddMappingProfileFromEntityToModel() =>
-        CreateMap<VehicleBrand, VehicleBrandDataModel>();
+        CreateMap<VehicleColor, VehicleColorDataModel>();
 }
