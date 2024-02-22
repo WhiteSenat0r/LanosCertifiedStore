@@ -29,13 +29,15 @@ public static class SeedData
         if (context.ChangeTracker.HasChanges())
             await context.SaveChangesAsync();
         
-        // TODO Imlpement new seeding
-        //
-        // var vehicles = SeedVehicles.GetVehicles(types, colors, brands, models);
-        // if (!await context.Vehicles.AnyAsync())
-        //     await context.Vehicles.AddRangeAsync(vehicles);
-        //
-        // if (context.ChangeTracker.HasChanges())
-        //     await context.SaveChangesAsync();
+        var vehicles = SeedVehicles.GetVehicles(types, colors, brands, models);
+        if (!await context.Vehicles.AnyAsync())
+            await context.Vehicles.AddRangeAsync(vehicles);
+        
+        var images = SeedImages.GetImages(vehicles);
+        if (!await context.VehicleImages.AnyAsync())
+            await context.VehicleImages.AddRangeAsync(images);
+        
+        if (context.ChangeTracker.HasChanges())
+            await context.SaveChangesAsync();
     }
 }
