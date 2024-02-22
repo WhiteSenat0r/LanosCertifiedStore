@@ -32,8 +32,16 @@ internal sealed class MappingProfile : Profile
         
         CreateMap<VehicleModel, ModelDto>()
             .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.Brand.Name));
+        
+        CreateMap<Vehicle, ListVehicleDto>()
+            .ForMember(d => d.Brand, o => o.MapFrom(s => s.Brand.Name))
+            .ForMember(d => d.Type, o => o.MapFrom(s => s.Type.Name))
+            .ForMember(d => d.Color, o => o.MapFrom(s => s.Color.Name))
+            .ForMember(d => d.Model, o => o.MapFrom(s => s.Model.Name))
+            .ForMember(d => d.Price, o => o.MapFrom(s => s.Prices.MaxBy(p => p.IssueDate)))
+            .ForMember(d => d.Image, o => o.MapFrom(s => s.Images.First(i => i.IsMainImage)));
 
-        CreateMap<Vehicle, VehicleDto>()
+        CreateMap<Vehicle, DetailsVehicleDto>()
             .ForMember(d => d.Brand, o => o.MapFrom(s => s.Brand.Name))
             .ForMember(d => d.Type, o => o.MapFrom(s => s.Type.Name))
             .ForMember(d => d.Color, o => o.MapFrom(s => s.Color.Name))

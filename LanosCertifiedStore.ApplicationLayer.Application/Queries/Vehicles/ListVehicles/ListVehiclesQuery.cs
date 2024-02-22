@@ -7,4 +7,4 @@ using MediatR;
 namespace Application.Queries.Vehicles.ListVehicles;
 
 public sealed record ListVehiclesQuery(VehicleFilteringRequestParameters RequestParameters)
-    : IRequest<Result<PaginationResult<VehicleDto>>>;
+    : IRequest<Result<PaginationResult<ListVehicleDto>>>;
