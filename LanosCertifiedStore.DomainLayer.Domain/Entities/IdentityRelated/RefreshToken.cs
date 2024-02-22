@@ -3,7 +3,7 @@ using Domain.Entities.UserRelated;
 
 namespace Domain.Entities.IdentityRelated;
 
-public sealed class RefreshToken : IEntity<Guid>
+public sealed class RefreshToken : IIdentifiable<Guid>
 {
     public Guid Id { get; init; } = Guid.NewGuid();
     public User User { get; init; } = default!;

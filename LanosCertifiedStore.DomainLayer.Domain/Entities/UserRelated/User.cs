@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.UserRelated;
 
-public sealed class User : IEntity<Guid>
+public sealed class User : IIdentifiable<Guid>
 {
     public Guid Id { get; init; } = Guid.NewGuid();
     public string FirstName { get; init; } = default!;

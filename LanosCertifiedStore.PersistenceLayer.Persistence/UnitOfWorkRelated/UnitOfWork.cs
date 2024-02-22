@@ -46,7 +46,4 @@ internal sealed class UnitOfWork(ApplicationDatabaseContext context, IMapper map
             ? concreteType
             : throw new ArgumentException(
                 "Such repository abstraction type is not mapped and can't be used!");
-
-    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
-        context.SaveChangesAsync(cancellationToken);
 }

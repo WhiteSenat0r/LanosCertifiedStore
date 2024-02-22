@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
 using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels;
+using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation;
 using Persistence.Repositories.Common.Classes;
 using Persistence.Repositories.VehicleImageRelated.QueryEvaluationRelated;

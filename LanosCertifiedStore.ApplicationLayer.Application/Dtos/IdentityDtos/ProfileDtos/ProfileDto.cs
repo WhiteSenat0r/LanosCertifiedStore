@@ -2,7 +2,7 @@
 
 namespace Application.Dtos.IdentityDtos.ProfileDtos;
 
-public sealed record ProfileDto : IEntity<Guid>
+public sealed record ProfileDto : IIdentifiable<Guid>
 {
     public Guid Id { get; init; }
     public string FirstName { get; set; } = default!;

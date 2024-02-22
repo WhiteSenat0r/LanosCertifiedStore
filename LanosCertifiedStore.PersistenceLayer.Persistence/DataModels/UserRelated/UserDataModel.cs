@@ -4,7 +4,7 @@ using Persistence.DataModels.VehicleRelated;
 
 namespace Persistence.DataModels.UserRelated;
 
-internal sealed class UserDataModel : IEntity<Guid>
+internal sealed class UserDataModel : IIdentifiable<Guid>
 {
     public Guid Id { get; init; } = Guid.NewGuid();
     public string FirstName { get; set; } = default!;

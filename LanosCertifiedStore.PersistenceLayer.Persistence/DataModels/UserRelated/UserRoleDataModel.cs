@@ -2,7 +2,7 @@
 
 namespace Persistence.DataModels.UserRelated;
 
-internal class UserRoleDataModel : IEntity<Guid>
+internal class UserRoleDataModel : IIdentifiable<Guid>
 {
     public Guid Id { get; init; } = Guid.NewGuid();
     public string Name { get; set; } = default!;
