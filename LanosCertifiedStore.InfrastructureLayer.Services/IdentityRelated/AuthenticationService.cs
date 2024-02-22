@@ -12,7 +12,7 @@ namespace LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated;
 internal sealed class AuthenticationService(
     IUnitOfWork unitOfWork,
     IPasswordHasher passwordHasher,
-    IOptions<JwtOptions> jwtOptions) : IAuthenticationService
+    IOptions<JwtTokenOptions> jwtOptions) : IAuthenticationService
 {
     public async Task<User?> LoginAsync(LoginDto loginDto, HttpResponse httpResponse)
     {
