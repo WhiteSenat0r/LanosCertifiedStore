@@ -5,8 +5,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Persistence.Contexts;
-using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.Contexts.ApplicationDatabaseContext;
 
 #nullable disable
@@ -14,11 +12,11 @@ using Persistence.Contexts.ApplicationDatabaseContext;
 namespace Persistence.Data.Migrations
 {
     [DbContext(typeof(ApplicationDatabaseContext))]
-    [Migration("20240218191205_AddedDisplacementColumn")]
-    partial class AddedDisplacementColumn
+    [Migration("20240222161522_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
-        protected void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,7 +25,7 @@ namespace Persistence.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Persistence.DataModels.UserDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.UserRelated.UserDataModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,7 +58,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.UserRoleDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.UserRelated.UserRoleDataModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -81,17 +79,17 @@ namespace Persistence.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("547b5d60-93bb-4dd0-bde9-27aace764edf"),
+                            Id = new Guid("d12687d2-0d77-4ba1-983f-ee8847528469"),
                             Name = "User"
                         },
                         new
                         {
-                            Id = new Guid("b9fe9edc-28f7-4b88-b6f8-0c3c5786b574"),
+                            Id = new Guid("a05f8474-fc3c-46c5-9fee-a38e52240346"),
                             Name = "Administrator"
                         });
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleBrandDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleBrandDataModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -110,7 +108,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehiclesBrands");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleColorDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleColorDataModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -123,8 +121,8 @@ namespace Persistence.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
 
                     b.HasKey("Id");
 
@@ -134,7 +132,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehiclesColors");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleDataModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -178,7 +176,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("Vehicles");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleImageDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleImageDataModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -205,7 +203,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleImages");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleModelDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleModelDataModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -229,7 +227,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleModels");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehiclePriceDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehiclePriceDataModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -251,7 +249,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehiclePrices");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleTypeDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleTypeDataModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -285,33 +283,33 @@ namespace Persistence.Data.Migrations
                     b.ToTable("UserDataModelUserRoleDataModel");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleDataModel", b =>
                 {
-                    b.HasOne("Persistence.DataModels.VehicleBrandDataModel", "Brand")
+                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleBrandDataModel", "Brand")
                         .WithMany("Vehicles")
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleColorDataModel", "Color")
+                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleColorDataModel", "Color")
                         .WithMany("Vehicles")
                         .HasForeignKey("ColorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleModelDataModel", "Model")
+                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleModelDataModel", "Model")
                         .WithMany("Vehicles")
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleTypeDataModel", "Type")
+                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleTypeDataModel", "Type")
                         .WithMany("Vehicles")
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.UserDataModel", null)
+                    b.HasOne("Persistence.DataModels.UserRelated.UserDataModel", null)
                         .WithMany("Vehicles")
                         .HasForeignKey("UserDataModelId");
 
@@ -324,9 +322,9 @@ namespace Persistence.Data.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleImageDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleImageDataModel", b =>
                 {
-                    b.HasOne("Persistence.DataModels.VehicleDataModel", "Vehicle")
+                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleDataModel", "Vehicle")
                         .WithMany("Images")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -335,9 +333,9 @@ namespace Persistence.Data.Migrations
                     b.Navigation("Vehicle");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleModelDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleModelDataModel", b =>
                 {
-                    b.HasOne("Persistence.DataModels.VehicleBrandDataModel", "VehicleBrand")
+                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleBrandDataModel", "VehicleBrand")
                         .WithMany("Models")
                         .HasForeignKey("VehicleBrandId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -346,9 +344,9 @@ namespace Persistence.Data.Migrations
                     b.Navigation("VehicleBrand");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehiclePriceDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehiclePriceDataModel", b =>
                 {
-                    b.HasOne("Persistence.DataModels.VehicleDataModel", "Vehicle")
+                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleDataModel", "Vehicle")
                         .WithMany("Prices")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -359,49 +357,49 @@ namespace Persistence.Data.Migrations
 
             modelBuilder.Entity("UserDataModelUserRoleDataModel", b =>
                 {
-                    b.HasOne("Persistence.DataModels.UserRoleDataModel", null)
+                    b.HasOne("Persistence.DataModels.UserRelated.UserRoleDataModel", null)
                         .WithMany()
                         .HasForeignKey("RolesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.UserDataModel", null)
+                    b.HasOne("Persistence.DataModels.UserRelated.UserDataModel", null)
                         .WithMany()
                         .HasForeignKey("UsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.UserDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.UserRelated.UserDataModel", b =>
                 {
                     b.Navigation("Vehicles");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleBrandDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleBrandDataModel", b =>
                 {
                     b.Navigation("Models");
 
                     b.Navigation("Vehicles");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleColorDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleColorDataModel", b =>
                 {
                     b.Navigation("Vehicles");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleDataModel", b =>
                 {
                     b.Navigation("Images");
 
                     b.Navigation("Prices");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleModelDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleModelDataModel", b =>
                 {
                     b.Navigation("Vehicles");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleTypeDataModel", b =>
+            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleTypeDataModel", b =>
                 {
                     b.Navigation("Vehicles");
                 });

@@ -19,6 +19,7 @@
 
     <ItemGroup>
       <Folder Include="Data\" />
+      <Folder Include="Data\Migrations\" />
       <Folder Include="Repositories\VehicleRelated\QueryEvaluationRelated\Common\" />
     </ItemGroup>
 

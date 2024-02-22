@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Persistence.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class IniialMigration : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -213,8 +213,8 @@ namespace Persistence.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("547b5d60-93bb-4dd0-bde9-27aace764edf"), "User" },
-                    { new Guid("b9fe9edc-28f7-4b88-b6f8-0c3c5786b574"), "Administrator" }
+                    { new Guid("a05f8474-fc3c-46c5-9fee-a38e52240346"), "Administrator" },
+                    { new Guid("d12687d2-0d77-4ba1-983f-ee8847528469"), "User" }
                 });
 
             migrationBuilder.CreateIndex(
