@@ -10,11 +10,10 @@ namespace API.Controllers.VehiclesRelated;
 
 public sealed class IdentityController : BaseIdentityRelatedController
 {
-    [HttpGet]
+    [HttpPost("login")]
     [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status401Unauthorized)]
-    [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login([FromBody] LoginDto loginDto)
     {
         return HandleResult(await Mediator.Send(new LoginCommand(loginDto, Response)));
@@ -29,10 +28,10 @@ public sealed class IdentityController : BaseIdentityRelatedController
         return HandleResult(await Mediator.Send(new AuthenticationStatusCommand(Request)));
     }
 
+    [HttpPost("register")]
     [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status401Unauthorized)]
-    [HttpPost("register")]
     public async Task<ActionResult<UserDto>> Register([FromBody] RegisterDto registerDto)
     {
         return HandleResult(await Mediator.Send(new RegisterCommand(registerDto)));
