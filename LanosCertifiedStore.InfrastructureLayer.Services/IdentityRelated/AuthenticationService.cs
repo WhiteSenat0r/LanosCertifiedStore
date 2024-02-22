@@ -46,6 +46,13 @@ internal sealed class AuthenticationService(
         return user;
     }
 
+    public IDictionary<string, bool> GetAuthenticationStatus(HttpRequest httpRequest) =>
+        new Dictionary<string, bool>
+        {
+            { "isValidAccessToken", httpRequest.Cookies.ContainsKey("UserAccessToken") },
+            { "isValidRefreshToken", httpRequest.Cookies.ContainsKey("UserRefreshToken") }
+        };
+
     private void AppendUserAccessTokenCookie(HttpResponse httpResponse, User user)
     {
         var accessToken = new JwtTokenProvider(jwtOptions.Value).Generate(user);
