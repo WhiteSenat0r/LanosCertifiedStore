@@ -10,12 +10,11 @@ namespace Persistence.UnitOfWorkRelated;
 internal sealed class UnitOfWork(ApplicationDatabaseContext context, IMapper mapper) : IUnitOfWork
 {
     private readonly Hashtable _repositoryInstancesHashTable = new();
-
     private readonly Dictionary<Type, Type> _repositoryTypeMap =
         RepositoryMappings.VehicleRelatedRepositoryMappings;
 
     public IRepository<TEntity> RetrieveRepository<TEntity>()
-        where TEntity : IEntity<Guid>
+        where TEntity : IIdentifiable<Guid>
     {
         var repositoryTypeKey = typeof(TEntity).Name;
 
@@ -35,6 +34,13 @@ internal sealed class UnitOfWork(ApplicationDatabaseContext context, IMapper map
         return (_repositoryInstancesHashTable[repositoryTypeKey] as IRepository<TEntity>)!;
     }
 
+    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => 
+        context.SaveChangesAsync(cancellationToken);
+
+    public void ClearChangeTrackerData() => context.ChangeTracker.Clear();
+
+    public async Task DisposeAsync() => await context.DisposeAsync();
+    
     private Type DeterminateRepositoryInstanceType(Type repositoryAbstractionType) =>
         _repositoryTypeMap.TryGetValue(repositoryAbstractionType, out var concreteType)
             ? concreteType

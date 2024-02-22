@@ -1,6 +1,6 @@
-﻿namespace Application.Dtos.VehicleDtos;
+﻿namespace Application.Dtos.VehicleDtos.Common;
 
-public sealed record ActionVehicleDto
+public abstract record ActionVehicleDto
 {
     public Guid Id { get; init; }
     public string Description { get; init; } = null!;

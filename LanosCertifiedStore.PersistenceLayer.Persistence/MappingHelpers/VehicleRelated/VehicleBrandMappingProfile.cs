@@ -16,5 +16,6 @@ internal sealed class VehicleBrandMappingProfile : Profile
         CreateMap<VehicleBrandDataModel, VehicleBrand>();
 
     private void AddMappingProfileFromEntityToModel() =>
-        CreateMap<VehicleBrand, VehicleBrandDataModel>();
+        CreateMap<VehicleBrand, VehicleBrandDataModel>()
+            .ForMember(model => model.Models, options => options.Ignore());
 }

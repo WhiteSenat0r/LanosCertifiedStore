@@ -5,9 +5,7 @@ using Application.Commands.Vehicles.CreateVehicle;
 using Application.Commands.Vehicles.DeleteVehicle;
 using Application.Commands.Vehicles.UpdateVehicle;
 using Application.Core.Results;
-using Application.Dtos.Common;
 using Application.Dtos.VehicleDtos;
-using Application.Queries.Vehicles.CountVehicles;
 using Application.Queries.Vehicles.ListVehicles;
 using Application.Queries.Vehicles.VehicleDetails;
 using Application.RequestParams;
@@ -38,24 +36,29 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
 
     [HttpPost]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> CreateVehicle([FromForm] string serializedVehicleData,
-        [FromForm] List<IFormFile> uploadedImages, [FromForm] string mainImageName)
+        [FromForm] List<IFormFile> uploadedImages, 
+        [FromForm] string mainImageName)
     {
         return HandleResult(await Mediator.Send(
-            new CreateVehicleCommand(
-                JsonSerializer.Deserialize<ActionVehicleDto>(serializedVehicleData)!,
-                uploadedImages, mainImageName)));
+                new CreateVehicleCommand(
+                    JsonSerializer.Deserialize<CreateVehicleDto>(serializedVehicleData)!,
+                    uploadedImages, mainImageName)));
     }
 
     [HttpPut]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> UpdateVehicle([FromBody] ActionVehicleDto vehicle)
+    public async Task<ActionResult> UpdateVehicle([FromForm] string serializedVehicleData,
+        [FromForm] List<IFormFile>? uploadedImages,
+        [FromForm] string? mainImageName, 
+        [FromForm] Guid? mainImageId)
     {
-        return HandleResult(await Mediator.Send(new UpdateVehicleCommand(vehicle)));
+        return HandleResult(await Mediator.Send(
+            new UpdateVehicleCommand(
+                JsonSerializer.Deserialize<UpdateVehicleDto>(serializedVehicleData)!,
+                uploadedImages, mainImageName, mainImageId)));
     }
 
     [HttpDelete("{id:guid}")]
@@ -64,13 +67,5 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
     public async Task<ActionResult> DeleteVehicle(Guid id)
     {
         return HandleResult(await Mediator.Send(new DeleteVehicleCommand(id)));
-    }
-
-    [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
-    [HttpGet("count")]
-    public async Task<ActionResult<ItemsCountDto>> GetVehiclesCount(
-        [FromQuery] VehicleFilteringRequestParameters requestParameters)
-    {
-        return HandleResult(await Mediator.Send(new CountVehiclesQuery(requestParameters)));
     }
 }

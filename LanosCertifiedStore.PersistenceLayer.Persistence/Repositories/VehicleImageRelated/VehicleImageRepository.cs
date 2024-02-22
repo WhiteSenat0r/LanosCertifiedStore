@@ -2,8 +2,9 @@
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Contexts;
 using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.DataModels.VehicleRelated;
+using Persistence.DataModels;
 using Persistence.QueryEvaluation;
 using Persistence.Repositories.Common.Classes;
 using Persistence.Repositories.VehicleImageRelated.QueryEvaluationRelated;

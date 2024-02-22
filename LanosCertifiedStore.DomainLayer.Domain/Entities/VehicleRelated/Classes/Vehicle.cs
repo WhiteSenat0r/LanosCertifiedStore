@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.VehicleRelated.Classes;
 
-public sealed class Vehicle : IEntity<Guid>
+public sealed class Vehicle : IIdentifiable<Guid>
 {
     public Guid Id { get; init; } = Guid.NewGuid();
     public double Displacement { get; init; }

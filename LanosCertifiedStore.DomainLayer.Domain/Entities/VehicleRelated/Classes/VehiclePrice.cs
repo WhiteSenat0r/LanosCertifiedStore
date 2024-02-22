@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.VehicleRelated.Classes;
 
-public sealed class VehiclePrice : IEntity<Guid>
+public sealed class VehiclePrice : IIdentifiable<Guid>
 {
     public Guid Id { get; init; } = Guid.NewGuid();
     public decimal Value { get; set; }

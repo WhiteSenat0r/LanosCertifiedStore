@@ -11,8 +11,8 @@ internal abstract class BaseQueryEvaluator<TEntity, TDataModel>(
     IFilteringRequestParameters<TEntity>? filteringRequestParameters,
     DbSet<TDataModel> dataModels,
     BaseFilteringCriteria<TEntity, TDataModel> filteringCriteria)
-    where TEntity : IEntity<Guid>
-    where TDataModel : class, IEntity<Guid>
+    where TEntity : IIdentifiable<Guid>
+    where TDataModel : class, IIdentifiable<Guid>
 {
     public IQueryable<TDataModel> GetAllEntitiesQueryable() => 
         filteringRequestParameters is null ? GetRegularQueryable() : GetFilteredQueryable();

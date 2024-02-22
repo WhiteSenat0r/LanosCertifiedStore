@@ -2,7 +2,7 @@
 
 namespace Persistence.DataModels.VehicleRelated;
 
-internal sealed class VehiclePriceDataModel : IEntity<Guid>
+internal sealed class VehiclePriceDataModel : IIdentifiable<Guid>
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public decimal Value { get; set; }

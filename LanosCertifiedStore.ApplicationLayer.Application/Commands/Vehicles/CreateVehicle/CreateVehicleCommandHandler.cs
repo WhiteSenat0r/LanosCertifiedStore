@@ -1,34 +1,35 @@
 ﻿using Application.Commands.Vehicles.Common;
 using Application.Contracts.ServicesRelated.ImageService;
-using Application.Core.Results;
+using Application.Dtos.VehicleDtos;
+using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 
 namespace Application.Commands.Vehicles.CreateVehicle;
 
-internal sealed class CreateVehicleCommandHandler(IUnitOfWork unitOfWork, IImageService imageService)
-    : ActionVehicleCommandBase, IRequestHandler<CreateVehicleCommand, Result<Unit>>
+internal sealed class CreateVehicleCommandHandler(IMapper mapper, IUnitOfWork unitOfWork, IImageService imageService)
+    : ActionVehicleCommandHandlerBase, IRequestHandler<CreateVehicleCommand, Result<Unit>>
 {
     public async Task<Result<Unit>> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
     {
         try
         {
-            var vehicleInstantiationResult = await CreateVehicleBaseInstance(request, unitOfWork);
+            var vehicleInstantiationResult = 
+                await CreateVehicleBaseInstance<CreateVehicleCommand, CreateVehicleDto>(
+                    mapper, unitOfWork, request);
 
             if (!vehicleInstantiationResult.IsSuccess)
                 return Result<Unit>.Failure(vehicleInstantiationResult.Error!);
 
-            var imagesUploadResult = await TryAddImagesToStorage(imageService, request);
+            var imagesUploadResult = await TryAddImagesToCloudinary(imageService, request);
 
             if (!imagesUploadResult.IsSuccess)
                 return Result<Unit>.Failure(imagesUploadResult.Error!);
 
-            (vehicleInstantiationResult.Value!.Images as List<VehicleImage>)!.AddRange(imagesUploadResult.Value!);
-            await unitOfWork.RetrieveRepository<Vehicle>().AddNewEntityAsync(vehicleInstantiationResult.Value!);
-            var saveResult = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
+            var saveResult = await GetAddedVehicleSavingResult(
+                vehicleInstantiationResult, imagesUploadResult, cancellationToken);
 
             return saveResult 
                 ? Result<Unit>.Success(Unit.Value)
@@ -39,50 +40,18 @@ internal sealed class CreateVehicleCommandHandler(IUnitOfWork unitOfWork, IImage
             return Result<Unit>.Failure(new Error("CreateError", "Failed to create a vehicle!"));
         }
     }
-    
-    private async Task<Result<IEnumerable<VehicleImage>>> TryAddImagesToStorage(
-        IImageService imageService, CreateVehicleCommand request)
+
+    private async Task<bool> GetAddedVehicleSavingResult(
+        Result<Vehicle> vehicleInstantiationResult,
+        Result<IEnumerable<VehicleImage>> imagesUploadResult,
+        CancellationToken cancellationToken)
     {
-        if (request.Images.Count.Equals(0))
-            return Result<IEnumerable<VehicleImage>>.Failure(new Error("CreateError",
-                "Image collection has no images to upload!"));
-    
-        var uploadSummary = await TryUploadImagesToCloudinary(
-            imageService, request.Images, request.MainImageName);
-
-        if (!uploadSummary.IsSuccess)
-            return Result<IEnumerable<VehicleImage>>.Failure(uploadSummary.Error!);
+        (vehicleInstantiationResult.Value!.Images as List<VehicleImage>)!.AddRange(imagesUploadResult.Value!);
+        await unitOfWork.RetrieveRepository<Vehicle>().AddNewEntityAsync(vehicleInstantiationResult.Value!);
+        var saveResult = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
         
-        var uploadedImages = uploadSummary.Value!.Select(summary =>
-            new VehicleImage(null!, summary.Key.ImageId!, summary.Key.ImageUrl!, summary.Value));
-
-        return Result<IEnumerable<VehicleImage>>.Success(uploadedImages);
-    }
-
-    private async Task<Result<IDictionary<ImageResult, bool>>> TryUploadImagesToCloudinary(
-        IImageService service, IEnumerable<IFormFile> images, string mainImageName)
-    {
-        var summary = new Dictionary<ImageResult, bool>();
+        if (!saveResult) await imageService.TryRollbackImageUploadAsync();
         
-        foreach (var image in images)
-        {
-            var uploadResult = await service.UploadImageAsync(image, PathTemplate);
-
-            if (mainImageName.Equals(image.FileName))
-            {
-                summary.Add(uploadResult, true);
-                continue;
-            }
-            
-            summary.Add(uploadResult, false);
-        }
-    
-        if (summary.All(pair => pair.Key.IsUploadedSuccessfully)) 
-            return Result<IDictionary<ImageResult, bool>>.Success(summary);
-        
-        await imageService.TryRollbackImageUploadAsync();
-                
-        return Result<IDictionary<ImageResult, bool>>.Failure(
-            new Error("CreateError", "Service was not able to upload the image(s)!"));
+        return saveResult;
     }
 }
