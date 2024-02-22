@@ -1,8 +1,10 @@
-﻿namespace Application.Dtos.IdentityDtos.ProfileDtos;
+﻿using Domain.Contracts.Common;
 
-public sealed record ProfileDto
+namespace Application.Dtos.IdentityDtos.ProfileDtos;
+
+public sealed record ProfileDto : IEntity<Guid>
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; init; }
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;
     public string Email { get; set; } = default!;

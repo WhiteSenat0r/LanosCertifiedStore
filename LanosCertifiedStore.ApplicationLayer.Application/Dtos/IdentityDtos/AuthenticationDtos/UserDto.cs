@@ -2,7 +2,7 @@
 
 namespace Application.Dtos.IdentityDtos.AuthenticationDtos;
 
-public sealed record UserDto : IEntity<Guid>
+public sealed record UserDto
 {
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;

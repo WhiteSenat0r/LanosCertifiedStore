@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.VehiclesRelated;
 
-public sealed class IdentityController : BaseIdentityRelatedController 
+public sealed class IdentityController : BaseIdentityRelatedController
 {
     [HttpGet]
     [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]

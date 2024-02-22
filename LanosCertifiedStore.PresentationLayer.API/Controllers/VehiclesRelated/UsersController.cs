@@ -15,7 +15,7 @@ namespace API.Controllers.VehiclesRelated;
 public sealed class UsersController : BaseEntityRelatedApiController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(PaginationResult<UserDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PaginationResult<ProfileDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<IReadOnlyList<ProfileDto>>> GetUsers(
         [FromQuery] UserFilteringRequestParameters userFilteringRequestParameters)
@@ -23,7 +23,7 @@ public sealed class UsersController : BaseEntityRelatedApiController
         return HandleResult(await Mediator.Send(new ListUsersQuery(userFilteringRequestParameters)));
     }
 
-    [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProfileDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [HttpGet("{id:guid}")]
