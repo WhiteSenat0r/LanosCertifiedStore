@@ -2,7 +2,6 @@
 using Application.Commands.Vehicles.CreateVehicle;
 using Application.Commands.Vehicles.DeleteVehicle;
 using Application.Commands.Vehicles.UpdateVehicle;
-using Application.Core;
 using Application.Dtos.VehicleDtos;
 using Application.Queries.Vehicles.ListVehicles;
 using Application.Queries.Vehicles.VehicleDetails;
@@ -40,11 +39,11 @@ public class VehiclesControllerTests
     public async Task GetVehicles_ReturnsOk_WhenSuccessful()
     {
         // Arrange
-        var vehicles = new PaginationResult<VehicleDto>(
-            new List<VehicleDto>(), new VehicleRequestParameters(), 0);
+        var vehicles = new PaginationResult<DetailsVehicleDto>(
+            new List<DetailsVehicleDto>(), new VehicleRequestParameters(), 0);
         _mediatorMock.Setup(m => m.Send(
             It.IsAny<ListVehiclesQuery>(), default))
-            .ReturnsAsync(Result<PaginationResult<VehicleDto>>.Success(vehicles));
+            .ReturnsAsync(Result<PaginationResult<DetailsVehicleDto>>.Success(vehicles));
 
         // Act
         var result = await _vehiclesController.GetVehicles(new VehicleRequestParameters()) as OkObjectResult;
@@ -61,7 +60,7 @@ public class VehiclesControllerTests
         // Arrange
         _mediatorMock.Setup(m => m.Send(
                 It.IsAny<ListVehiclesQuery>(), default))
-            .ReturnsAsync(Result<PaginationResult<VehicleDto>>.Failure(null));
+            .ReturnsAsync(Result<PaginationResult<DetailsVehicleDto>>.Failure(null));
 
         // Act
         var result = await _vehiclesController.GetVehicles(new VehicleRequestParameters()) as BadRequestObjectResult;
@@ -78,7 +77,7 @@ public class VehiclesControllerTests
         // Arrange
         _mediatorMock.Setup(m => m.Send(
                 It.IsAny<VehicleDetailsQuery>(), default))
-            .ReturnsAsync(Result<VehicleDto>.Success(new VehicleDto()));
+            .ReturnsAsync(Result<DetailsVehicleDto>.Success(new DetailsVehicleDto()));
 
         // Act
         var result = await _vehiclesController.GetVehicle(Guid.Empty) as OkObjectResult;
@@ -94,7 +93,7 @@ public class VehiclesControllerTests
         // Arrange
         _mediatorMock.Setup(m => m.Send(
                 It.IsAny<VehicleDetailsQuery>(), default))
-            .ReturnsAsync(Result<VehicleDto>.Success(null));
+            .ReturnsAsync(Result<DetailsVehicleDto>.Success(null));
 
         // Act
         var result = await _vehiclesController.GetVehicle(Guid.Empty) as NotFoundObjectResult;
@@ -110,7 +109,7 @@ public class VehiclesControllerTests
         // Arrange
         _mediatorMock.Setup(m => m.Send(
                 It.IsAny<VehicleDetailsQuery>(), default))
-            .ReturnsAsync(Result<VehicleDto>.Failure(null));
+            .ReturnsAsync(Result<DetailsVehicleDto>.Failure(null));
 
         // Act
         var result = await _vehiclesController.GetVehicle(Guid.Empty) as BadRequestObjectResult;

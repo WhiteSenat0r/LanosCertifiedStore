@@ -2,7 +2,7 @@
 using Domain.Contracts.RepositoryRelated;
 using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
-using Persistence.DataModels;
+using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation.Common;
 
 namespace Persistence.Repositories.VehicleImageRelated.QueryEvaluationRelated.Common.Classes;

@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using Persistence.DataModels;
+using Persistence.DataModels.UserRelated;
+using Persistence.DataModels.VehicleRelated;
 
 namespace Persistence.Contexts.ApplicationDatabaseContext;
 
@@ -14,6 +15,8 @@ public sealed class ApplicationDatabaseContext(
     internal DbSet<VehiclePriceDataModel> VehiclePrices { get; set; } = null!;
     internal DbSet<VehicleTypeDataModel> VehicleTypes { get; set; } = null!;
     internal DbSet<VehicleImageDataModel> VehicleImages { get; set; } = null!;
+    internal DbSet<UserDataModel> Users { get; set; } = null!;
+    internal DbSet<UserRoleDataModel> Roles { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

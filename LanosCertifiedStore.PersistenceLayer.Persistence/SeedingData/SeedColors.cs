@@ -1,4 +1,4 @@
-﻿using Persistence.DataModels;
+﻿using Persistence.DataModels.VehicleRelated;
 
 namespace Persistence.SeedingData;
 
@@ -18,7 +18,6 @@ internal static class SeedColors
         new VehicleColorDataModel("Коричневий", "#A52A2A"),
         new VehicleColorDataModel("Рожевий", "#FFC0CB"),
         new VehicleColorDataModel("Блакитний", "#00FFFF"),
-        new VehicleColorDataModel("Пурпурний", "#800080"),
         new VehicleColorDataModel("Лаймовий", "#00FF00"),
         new VehicleColorDataModel("Бірюзовий", "#40E0D0"),
         new VehicleColorDataModel("Індиґо", "#4B0082"),
@@ -36,5 +35,4 @@ internal static class SeedColors
         new VehicleColorDataModel("Золотий", "#FFD700"),
         new VehicleColorDataModel("Томатний", "#FF6347")
     ];
-
 }

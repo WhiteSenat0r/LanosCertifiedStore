@@ -17,19 +17,19 @@ namespace API.Controllers.VehiclesRelated;
 public sealed class VehiclesController : BaseEntityRelatedApiController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(PaginationResult<VehicleDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PaginationResult<DetailsVehicleDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<PaginationResult<VehicleDto>>> GetVehicles(
+    public async Task<ActionResult<PaginationResult<DetailsVehicleDto>>> GetVehicles(
         [FromQuery] VehicleFilteringRequestParameters requestParameters)
     {
         return HandleResult(await Mediator.Send(new ListVehiclesQuery(requestParameters)));
     }
 
     [HttpGet("{id:guid}")]
-    [ProducesResponseType(typeof(VehicleDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(DetailsVehicleDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<VehicleDto>> GetVehicle(Guid id)
+    public async Task<ActionResult<DetailsVehicleDto>> GetVehicle(Guid id)
     {
         return HandleResult(await Mediator.Send(new VehicleDetailsQuery(id)));
     }

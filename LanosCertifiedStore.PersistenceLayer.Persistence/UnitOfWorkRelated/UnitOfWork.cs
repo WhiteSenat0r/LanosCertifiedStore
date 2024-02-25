@@ -20,15 +20,15 @@ internal sealed class UnitOfWork(ApplicationDatabaseContext context, IMapper map
 
         if (_repositoryInstancesHashTable.ContainsKey(repositoryTypeKey))
             return (_repositoryInstancesHashTable[repositoryTypeKey] as IRepository<TEntity>)!;
-        
+
         var repositoryAbstractionType = typeof(IRepository<TEntity>);
-            
+
         var repositoryInstanceType = DeterminateRepositoryInstanceType(
             repositoryAbstractionType);
 
         var repositoryInstance = Activator.CreateInstance(
             repositoryInstanceType, mapper, context);
-            
+
         _repositoryInstancesHashTable.Add(repositoryTypeKey, repositoryInstance);
 
         return (_repositoryInstancesHashTable[repositoryTypeKey] as IRepository<TEntity>)!;
@@ -46,4 +46,4 @@ internal sealed class UnitOfWork(ApplicationDatabaseContext context, IMapper map
             ? concreteType
             : throw new ArgumentException(
                 "Such repository abstraction type is not mapped and can't be used!");
-} 
+}

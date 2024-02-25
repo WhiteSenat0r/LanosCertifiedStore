@@ -9,24 +9,20 @@ using MediatR;
 namespace Application.Queries.Vehicles.ListVehicles;
 
 internal sealed class ListVehiclesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
-    : IRequestHandler<ListVehiclesQuery, Result<PaginationResult<VehicleDto>>>
+    : IRequestHandler<ListVehiclesQuery, Result<PaginationResult<ListVehicleDto>>>
 {
-    public async Task<Result<PaginationResult<VehicleDto>>> Handle(ListVehiclesQuery request,
+    public async Task<Result<PaginationResult<ListVehicleDto>>> Handle(ListVehiclesQuery request,
         CancellationToken cancellationToken)
     {
         var vehicles = await unitOfWork.RetrieveRepository<Vehicle>().GetAllEntitiesAsync(
             request.RequestParameters);
 
-        var mappedVehicles = mapper.Map<IReadOnlyList<Vehicle>, IReadOnlyList<VehicleDto>>(vehicles);
+        var mappedVehicles = mapper.Map<IReadOnlyList<Vehicle>, IReadOnlyList<ListVehicleDto>>(vehicles);
 
-        var vehiclesCount = await unitOfWork.RetrieveRepository<Vehicle>().CountAsync();
-        
-        var returnedResult = new PaginationResult<VehicleDto>(
-            mappedVehicles,
-            request.RequestParameters.PageIndex,
-            vehiclesCount,
-            await unitOfWork.RetrieveRepository<Vehicle>().CountAsync(request.RequestParameters));
+        var returnedResult = new PaginationResult<ListVehicleDto>(
+            items: mappedVehicles,
+            pageIndex: request.RequestParameters.PageIndex);
 
-        return Result<PaginationResult<VehicleDto>>.Success(returnedResult);
+        return Result<PaginationResult<ListVehicleDto>>.Success(returnedResult);
     }
 }

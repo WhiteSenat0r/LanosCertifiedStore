@@ -1,5 +1,4 @@
 ﻿using Application.Helpers;
-using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using FluentValidation;
 

@@ -11,7 +11,7 @@ internal class ApiResponse(int statusCode, string? message)
         {
             400 => "You have made a bad request",
             401 => "You are not authorised",
-            404 => "Resource was not found",
+            404 => "Resource with specified value was not found",
             500 => "Internal server error has occurred",
             _ => null!
         };

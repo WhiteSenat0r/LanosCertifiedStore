@@ -2,7 +2,7 @@
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
-using Persistence.DataModels;
+using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation;
 using Persistence.Repositories.VehicleColorRelated.QueryEvaluationRelated.Common.Classes;
 

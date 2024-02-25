@@ -3,7 +3,7 @@ using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.DataModels;
+using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation;
 using Persistence.Repositories.Common.Classes;
 using Persistence.Repositories.VehicleRelated.QueryEvaluationRelated;
@@ -19,8 +19,21 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
     {
         var vehicleModelsQuery = GetRelevantQueryable(filteringRequestParameters);
 
-        var vehicleModels = await vehicleModelsQuery.AsNoTracking().ToListAsync();
-        
+        var vehicleModels = await vehicleModelsQuery
+            .Select(v => new VehicleDataModel
+            {
+                Id = v.Id,
+                Displacement = v.Displacement,
+                Brand = v.Brand,
+                Model = v.Model,
+                Color = v.Color,
+                Type = v.Type,
+                Images = v.Images.Where(i => i.IsMainImage).ToList(),
+                Prices = new List<VehiclePriceDataModel> { v.Prices.OrderBy(x => x.IssueDate).First() }
+            })
+            .AsNoTracking()
+            .ToListAsync();
+
         return Mapper.Map<IReadOnlyList<VehicleDataModel>, IReadOnlyList<Vehicle>>(vehicleModels);
     }
 
@@ -31,9 +44,9 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
         var vehicleModelQuery = vehicleQueryEvaluator.GetSingleEntityQueryable(id);
 
         var vehicleModel = await vehicleModelQuery.AsNoTracking().SingleOrDefaultAsync();
-        
-        return vehicleModel is not null 
-            ? Mapper.Map<VehicleDataModel, Vehicle>(vehicleModel) 
+
+        return vehicleModel is not null
+            ? Mapper.Map<VehicleDataModel, Vehicle>(vehicleModel)
             : null;
     }
 
@@ -54,7 +67,7 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
 
         return vehicleQueryEvaluator.GetAllEntitiesQueryable();
     }
-    
+
     private protected override BaseQueryEvaluator<Vehicle, VehicleDataModel> GetQueryEvaluator(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters) =>
         new VehicleQueryEvaluator(

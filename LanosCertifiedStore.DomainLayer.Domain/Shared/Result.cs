@@ -1,17 +1,25 @@
 ﻿namespace Domain.Shared;
 
-public class Result<T>
+public class Result
 {
-    protected Result(T? value, bool isSuccess, Error? error)
+    public bool IsSuccess { get; init; }
+    public Error? Error { get; private init; }
+
+    protected Result(bool isSuccess, Error error)
     {
-        Value = value;
         Error = error;
         IsSuccess = isSuccess;
     }
+}
 
-    public bool IsSuccess { get; init; }
+public class Result<T> : Result
+{
+    protected Result(T? value, bool isSuccess, Error? error) : base(isSuccess, error)
+    {
+        Value = value;
+
+    }
     public T? Value { get; private init; }
-    public Error? Error { get; private init; }
 
     public static Result<T> Success(T value)
     {

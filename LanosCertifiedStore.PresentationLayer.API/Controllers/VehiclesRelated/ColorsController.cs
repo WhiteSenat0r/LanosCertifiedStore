@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using API.Controllers.Common;
+﻿using API.Controllers.Common;
 using API.Responses;
 using Application.Commands.Colors.CreateColor;
 using Application.Commands.Colors.DeleteColor;
@@ -24,7 +23,7 @@ public sealed class ColorsController : BaseEntityRelatedApiController
     [HttpPost]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ValidationResult), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> CreateColor([FromBody] CreateColorDto createColorDto)
     {
         return HandleResult(await Mediator.Send(new CreateColorCommand(createColorDto)));
@@ -33,7 +32,7 @@ public sealed class ColorsController : BaseEntityRelatedApiController
     [HttpPut]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ValidationResult), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
 
     public async Task<ActionResult> UpdateColor([FromBody] UpdateColorDto updateColorDto)
     {
@@ -43,7 +42,7 @@ public sealed class ColorsController : BaseEntityRelatedApiController
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(ValidationResult), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> DeleteColor(Guid id)
     {
         return HandleResult(await Mediator.Send(new DeleteColorCommand(id)));

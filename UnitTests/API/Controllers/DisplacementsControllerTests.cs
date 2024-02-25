@@ -1,9 +1,4 @@
-﻿using API.Controllers.VehiclesRelated;
-using Application.Commands.Displacements.CreateDisplacement;
-using Application.Commands.Displacements.DeleteDisplacement;
-using Application.Commands.Displacements.UpdateDisplacement;
-using Application.Dtos.DisplacementDtos;
-using Application.Queries.Displacements;
+﻿using Application.Dtos.DisplacementDtos;
 using Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Http;
