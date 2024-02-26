@@ -8,5 +8,6 @@ internal abstract class VehicleModelIncludedAspects
     public static readonly List<Expression<Func<VehicleModelDataModel, object>>> IncludedAspects =
     [
         vehicleModel => vehicleModel.VehicleBrand,
+        vehicleModel => vehicleModel.AvailableTypes
     ];
 }
