@@ -4,4 +4,4 @@ using MediatR;
 
 namespace Application.Queries.Vehicles.VehicleDetails;
 
-public sealed record VehicleDetailsQuery(Guid Id) : IRequest<Result<DetailsVehicleDto>>;
+public sealed record VehicleDetailsQuery(Guid Id) : IRequest<Result<VehicleDto>>;
