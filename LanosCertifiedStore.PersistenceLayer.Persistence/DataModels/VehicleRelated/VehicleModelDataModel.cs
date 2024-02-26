@@ -6,6 +6,7 @@ internal sealed class VehicleModelDataModel : NamedVehicleAspect
 {
     public Guid VehicleBrandId { get; set; }
     public VehicleBrandDataModel VehicleBrand { get; set; } = null!;
+    public ICollection<VehicleTypeDataModel> Types { get; set; } = new List<VehicleTypeDataModel>();
     public ICollection<VehicleDataModel> Vehicles { get; set; } = new List<VehicleDataModel>();
     
     public VehicleModelDataModel() { }

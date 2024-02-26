@@ -8,6 +8,6 @@ internal sealed class VehicleBrandDataModel : NamedVehicleAspect
     public ICollection<VehicleDataModel> Vehicles { get; set; } = new List<VehicleDataModel>();
     
     public VehicleBrandDataModel() { }
-    
-    public VehicleBrandDataModel(string name) : base(name) {}
+
+    public VehicleBrandDataModel(string name) : base(name) { }
 }

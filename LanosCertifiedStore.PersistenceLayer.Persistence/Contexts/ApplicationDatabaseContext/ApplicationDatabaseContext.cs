@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Persistence.DataModels.IdentityRelated;
 using Persistence.DataModels.UserRelated;
 using Persistence.DataModels.VehicleRelated;
 
@@ -17,6 +18,7 @@ public sealed class ApplicationDatabaseContext(
     internal DbSet<VehicleImageDataModel> VehicleImages { get; set; } = null!;
     internal DbSet<UserDataModel> Users { get; set; } = null!;
     internal DbSet<UserRoleDataModel> Roles { get; set; } = null!;
+    internal DbSet<RefreshTokenDataModel> RefreshTokens { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

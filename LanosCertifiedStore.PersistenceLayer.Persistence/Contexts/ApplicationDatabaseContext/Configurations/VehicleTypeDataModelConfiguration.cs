@@ -4,7 +4,7 @@ using Persistence.DataModels.VehicleRelated;
 
 namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations;
 
-internal sealed class VehicleTyperConfiguration : IEntityTypeConfiguration<VehicleTypeDataModel>
+internal sealed class VehicleTypeConfiguration : IEntityTypeConfiguration<VehicleTypeDataModel>
 {
     public void Configure(EntityTypeBuilder<VehicleTypeDataModel> builder)
     {
