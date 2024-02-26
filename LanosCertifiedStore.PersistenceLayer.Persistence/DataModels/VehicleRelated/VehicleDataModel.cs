@@ -6,7 +6,7 @@ namespace Persistence.DataModels.VehicleRelated;
 internal sealed class VehicleDataModel : IIdentifiable<Guid>
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    [MaxLength(2048)] public string Description { get; set; } = null!;
+    public string Description { get; set; } = null!;
     public double Displacement { get; set; }
     public Guid BrandId { get; set; }
     public VehicleBrandDataModel Brand { get; set; } = null!;
