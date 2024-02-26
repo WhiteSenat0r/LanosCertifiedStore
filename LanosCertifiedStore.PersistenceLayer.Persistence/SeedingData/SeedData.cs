@@ -22,7 +22,7 @@ public static class SeedData
         if (context.ChangeTracker.HasChanges())
             await context.SaveChangesAsync();
 
-        var models = SeedModels.GetModels(brands);
+        var models = SeedModels.GetModels(brands, types);
         if (!await context.VehicleModels.AnyAsync()) 
             await context.VehicleModels.AddRangeAsync(models);
         

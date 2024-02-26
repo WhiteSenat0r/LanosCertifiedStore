@@ -13,7 +13,7 @@ internal sealed class CreateModelCommandHandler(
     {
         var vehicleBrand = await unitOfWork.RetrieveRepository<VehicleBrand>().GetEntityByIdAsync(request.BrandId);
 
-        var vehicleModel = new VehicleModel(vehicleBrand!, request.Name);
+        var vehicleModel = new VehicleModel(vehicleBrand!, request.Name, null!); // TODO fix this handler and stuff 
 
         await unitOfWork.RetrieveRepository<VehicleModel>().AddNewEntityAsync(vehicleModel);
 

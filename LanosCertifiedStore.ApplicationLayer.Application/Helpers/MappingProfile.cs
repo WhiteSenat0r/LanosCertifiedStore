@@ -21,18 +21,20 @@ internal sealed class MappingProfile : Profile
             .ForMember(d => d.Images, opts => opts.Ignore())
             .ForMember(d => d.Prices, opts => opts.Ignore())
             .ForMember(d => d.Id, opts => opts.Ignore());
-        
+
         CreateMap<Vehicle, UpdateVehicleDto>();
         CreateMap<VehicleBrand, BrandDto>();
         CreateMap<VehicleColor, ColorDto>();
-        CreateMap<VehicleType, TypeDto>();
         CreateMap<VehiclePrice, PriceDto>();
         CreateMap<VehicleImage, ImageDto>();
         CreateMap<ImageDto, VehicleImage>();
         
+        CreateMap<VehicleType, TypeDto>();
+
         CreateMap<VehicleModel, ModelDto>()
-            .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.Brand.Name));
-        
+            .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.Brand.Name))
+            .ForMember(d => d.AvailableTypes, o => o.MapFrom(s => s.AvailableTypes));   
+
         CreateMap<Vehicle, ListVehicleDto>()
             .ForMember(d => d.Brand, o => o.MapFrom(s => s.Brand.Name))
             .ForMember(d => d.Type, o => o.MapFrom(s => s.Type.Name))
