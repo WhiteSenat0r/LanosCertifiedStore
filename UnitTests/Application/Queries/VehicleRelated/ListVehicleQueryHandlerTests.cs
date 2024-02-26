@@ -22,10 +22,10 @@ public class ListVehicleQueryHandlerTests
                 r.GetAllEntitiesAsync(It.IsAny<VehicleQuerySpecification>()))
             .ReturnsAsync(vehicles);
         
-        _mapper.Setup(m => m.Map<IReadOnlyList<Vehicle>, IReadOnlyList<VehicleDto>>(
+        _mapper.Setup(m => m.Map<IReadOnlyList<Vehicle>, IReadOnlyList<DetailsVehicleDto>>(
                     It.IsAny<IReadOnlyList<Vehicle>>()))
             .Returns((IReadOnlyList<Vehicle> source) =>
-                source.Select(v => new VehicleDto
+                source.Select(v => new DetailsVehicleDto
                 {
                     Brand = v.Brand.Name,
                     Model = v.Model.Name,

@@ -22,9 +22,9 @@ public class VehicleDetailsQueryHandlerTests
                 r.GetEntityByIdAsync(It.IsAny<VehicleByIdQuerySpecification>()))
             .ReturnsAsync(vehicles.First());
         
-        _mapper.Setup(m => m.Map<Vehicle, VehicleDto>(It.IsAny<Vehicle>()))
+        _mapper.Setup(m => m.Map<Vehicle, DetailsVehicleDto>(It.IsAny<Vehicle>()))
             .Returns((Vehicle source) =>
-                new VehicleDto
+                new DetailsVehicleDto
                 {
                     Brand = source.Brand.Name,
                     Model = source.Model.Name,
