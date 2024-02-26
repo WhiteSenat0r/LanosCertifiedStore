@@ -8,16 +8,17 @@ using MediatR;
 namespace Application.Queries.Vehicles.VehicleDetails;
 
 internal sealed class VehicleDetailsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
-    : IRequestHandler<VehicleDetailsQuery, Result<VehicleDto>>
+    : IRequestHandler<VehicleDetailsQuery, Result<DetailsVehicleDto>>
 {
-    public async Task<Result<VehicleDto>> Handle(VehicleDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<Result<DetailsVehicleDto>> Handle(
+        VehicleDetailsQuery request, CancellationToken cancellationToken)
     {
         var vehicle = await unitOfWork.RetrieveRepository<Vehicle>().GetEntityByIdAsync(request.Id);
 
         if (vehicle is null) return null!;
         
-        var vehicleToReturn = mapper.Map<Vehicle, VehicleDto>(vehicle);
+        var vehicleToReturn = mapper.Map<Vehicle, DetailsVehicleDto>(vehicle);
 
-        return Result<VehicleDto>.Success(vehicleToReturn);
+        return Result<DetailsVehicleDto>.Success(vehicleToReturn);
     }
 }
