@@ -7,13 +7,19 @@ public sealed class PaginationResult<T>
 {
     public PaginationResult(
         IEnumerable<T> items, 
-        int pageIndex)
+        int pageIndex,
+        int totalItemsCount,
+        int totalFilteredItemsCount)
     {
         Items = items;
         CurrentPageItemsQuantity = Items.Count();
         PageIndex = pageIndex;
+        TotalItemsCount = totalItemsCount;
+        TotalFilteredItemsCount = totalFilteredItemsCount;
     }
 
+    public int TotalItemsCount { get; }
+    public int TotalFilteredItemsCount { get; }
     public IEnumerable<T> Items { get; }
     public int CurrentPageItemsQuantity { get; }
     public int PageIndex { get; }
