@@ -13,7 +13,7 @@ internal sealed class ListModelsQueryHandler(IUnitOfWork unitOfWork, IMapper map
     public async Task<Result<IReadOnlyList<ModelDto>>> Handle(ListModelsQuery request,
         CancellationToken cancellationToken)
     {
-        var models = await unitOfWork.RetrieveRepository<VehicleModel>().GetAllEntitiesAsync();
+        var models = await unitOfWork.RetrieveRepository<VehicleModel>().GetAllEntitiesAsync(request.RequestParameters);
 
         var modelsToReturn = mapper.Map<IReadOnlyList<VehicleModel>, IReadOnlyList<ModelDto>>(models);
 

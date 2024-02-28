@@ -1,4 +1,5 @@
-﻿using Application.Dtos.BrandDtos;
+﻿using Application.Commands.Models.UpdateModel;
+using Application.Dtos.BrandDtos;
 using Application.Dtos.ColorDtos;
 using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using Application.Dtos.IdentityDtos.ProfileDtos;
@@ -33,8 +34,8 @@ internal sealed class MappingProfile : Profile
 
         CreateMap<VehicleModel, ModelDto>()
             .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.Brand.Name))
-            .ForMember(d => d.AvailableTypes, o => o.MapFrom(s => s.AvailableTypes));   
-
+            .ForMember(d => d.AvailableTypes, o => o.MapFrom(s => s.AvailableTypes));
+        
         CreateMap<Vehicle, ListVehicleDto>()
             .ForMember(d => d.Brand, o => o.MapFrom(s => s.Brand.Name))
             .ForMember(d => d.Type, o => o.MapFrom(s => s.Type.Name))

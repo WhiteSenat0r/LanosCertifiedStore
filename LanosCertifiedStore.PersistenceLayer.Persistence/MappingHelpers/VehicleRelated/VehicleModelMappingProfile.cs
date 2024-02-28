@@ -11,14 +11,19 @@ internal sealed class VehicleModelMappingProfile : Profile
         AddMappingProfileFromEntityToModel();
         AddMappingProfileFromModelToEntity();
     }
-    
+
     private void AddMappingProfileFromModelToEntity() =>
         CreateMap<VehicleModel, VehicleModelDataModel>()
-            .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.Brand.Name))
             .ForMember(d => d.VehicleBrandId, o => o.MapFrom(s => s.Brand.Id))
-            .ForMember(model => model.VehicleBrand, options => options.Ignore());
-    
+            .ForMember(model => model.VehicleBrand, options => options.Ignore())
+            .ForMember(d => d.AvailableTypes, o => o.MapFrom(s => MapAvailableTypes(s.AvailableTypes)));
+
     private void AddMappingProfileFromEntityToModel() =>
         CreateMap<VehicleModelDataModel, VehicleModel>()
             .ForMember(d => d.Brand, o => o.MapFrom(s => s.VehicleBrand));
+    
+    private List<VehicleTypeDataModel> MapAvailableTypes(ICollection<VehicleType> availableTypes)
+    {
+        return availableTypes.Select(t => new VehicleTypeDataModel { Id = t.Id }).ToList();
+    }
 }

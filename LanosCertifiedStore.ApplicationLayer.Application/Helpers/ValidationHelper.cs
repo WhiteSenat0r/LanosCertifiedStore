@@ -6,7 +6,7 @@ namespace Application.Helpers;
 internal sealed class ValidationHelper<TEntity>(IUnitOfWork unitOfWork)
     where TEntity : IIdentifiable<Guid>
 {
-    internal async Task<bool> IsNameUniqueAsync(string name)
+    public async Task<bool> IsNameUniqueAsync(string name)
     {
         var brands = await unitOfWork.RetrieveRepository<TEntity>().GetAllEntitiesAsync();
 
@@ -23,8 +23,9 @@ internal sealed class ValidationHelper<TEntity>(IUnitOfWork unitOfWork)
             !string.Equals((string?)nameProperty.GetValue(x), name, StringComparison.OrdinalIgnoreCase));
     }
 
-    internal async Task<bool> ExistsById(Guid id)
+    public async Task<bool> ExistsById(Guid id)
     {
-        return await unitOfWork.RetrieveRepository<TEntity>().GetEntityByIdAsync(id) is null;
+        var entity = await unitOfWork.RetrieveRepository<TEntity>().GetEntityByIdAsync(id);
+        return entity is not null;
     }
 }

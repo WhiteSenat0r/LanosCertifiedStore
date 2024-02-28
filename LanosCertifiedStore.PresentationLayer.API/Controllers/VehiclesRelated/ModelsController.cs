@@ -5,6 +5,7 @@ using Application.Commands.Models.DeleteModel;
 using Application.Commands.Models.UpdateModel;
 using Application.Dtos.ModelDtos;
 using Application.Queries.Models;
+using Application.RequestParams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,27 +16,28 @@ public sealed class ModelsController : BaseEntityRelatedApiController
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyList<ModelDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<IReadOnlyList<ModelDto>>> GetModels()
+    public async Task<ActionResult<IReadOnlyList<ModelDto>>> GetModels(
+        [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
     {
-        return HandleResult(await Mediator.Send(new ListModelsQuery()));
+        return HandleResult(await Mediator.Send(new ListModelsQuery(requestParameters)));
     }
 
     [HttpPost]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> CreateModel([FromQuery] Guid brandId, [FromQuery] string name)
+    public async Task<ActionResult> CreateModel([FromBody] CreateModelCommand createModelCommand)
     {
-        return HandleResult(await Mediator.Send(new CreateModelCommand(brandId, name)));
+        return HandleResult(await Mediator.Send(createModelCommand));
     }
 
     [HttpPut]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> UpdateModel([FromBody] UpdateModelDto updateBrandDto)
+    public async Task<ActionResult> UpdateModel([FromBody] UpdateModelCommand updateModelCommand)
     {
-        return HandleResult(await Mediator.Send(new UpdateModelCommand(updateBrandDto)));
+        return HandleResult(await Mediator.Send(updateModelCommand));
     }
 
     [HttpDelete("{id:guid}")]
