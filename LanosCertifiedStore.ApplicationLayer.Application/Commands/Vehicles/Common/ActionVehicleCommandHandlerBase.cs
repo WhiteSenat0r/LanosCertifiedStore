@@ -10,123 +10,120 @@ using Domain.Contracts.Common;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 
 namespace Application.Commands.Vehicles.Common;
 
 internal abstract class ActionVehicleCommandHandlerBase
 {
-    private const string PathTemplate = "LanosCertifiedStore/Vehicles";
+    // private const string PathTemplate = "LanosCertifiedStore/Vehicles";
     
-    private protected async Task<Result<Vehicle>> CreateVehicleBaseInstance<TCommand, TDtoType>(
+    private protected async Task<Result<Vehicle>> CreateVehicleBaseInstance<TDtoType>(
         IMapper mapper,
         IUnitOfWork unitOfWork,
-        TCommand request) 
-        where TCommand : IActionVehicleCommandBase
-        where TDtoType : ActionVehicleDto
+        IActionVehicleCommandBase request) 
     {
-        var vehicleData = GetActionVehicleDto<TCommand, TDtoType>(request);
-
-        var vehicleModel = await GetAspectDataAsync<VehicleModel>(unitOfWork, vehicleData!.ModelId);
+        var vehicleModel = await GetAspectDataAsync<VehicleModel>(unitOfWork, request.ModelId);
         if (vehicleModel is null) return GetFailureResult("Model");
 
-        var vehicleBrand = await GetAspectDataAsync<VehicleBrand>(unitOfWork, vehicleData.BrandId);
+        var vehicleBrand = await GetAspectDataAsync<VehicleBrand>(unitOfWork, vehicleModel.Brand.Id);
         if (vehicleBrand is null) return GetFailureResult("Brand");
 
-        var vehicleColor = await GetAspectDataAsync<VehicleColor>(unitOfWork, vehicleData.ColorId);
+        var vehicleColor = await GetAspectDataAsync<VehicleColor>(unitOfWork, request.ColorId);
         if (vehicleColor is null) return GetFailureResult("Color");
 
-        var vehicleType = await GetAspectDataAsync<VehicleType>(unitOfWork, vehicleData.TypeId);
+        var vehicleType = await GetAspectDataAsync<VehicleType>(unitOfWork, request.TypeId);
         if (vehicleType is null) return GetFailureResult("Type");
 
         var vehicle = InstantiateVehicleObject(
-            mapper, vehicleBrand, vehicleModel, vehicleColor, vehicleType, vehicleData);
+            mapper, vehicleBrand, vehicleModel, vehicleColor, vehicleType, request);
 
         return Result<Vehicle>.Success(vehicle);
     }
 
-    private protected async Task<Result<IEnumerable<VehicleImage>>> TryAddImagesToCloudinary<TCommand>(
-        IImageService imageService, TCommand request, Guid? vehicleId = null)
-        where TCommand : IActionVehicleCommandBase
-    {
-        if (request is CreateVehicleCommand { Images.Count: 0 })
-            return Result<IEnumerable<VehicleImage>>.Failure(new Error("CreateError",
-                "Image collection has no images to upload!"));
-        
-        if (request is UpdateVehicleCommand { Images.Count: 0 })
-            return Result<IEnumerable<VehicleImage>>.Failure(
-                new Error("EmptyUpdateUpload", "Nothing to upload!"));
+    // private protected async Task<Result<IEnumerable<VehicleImage>>> TryAddImagesToCloudinary<TCommand>(
+    //     IImageService imageService, TCommand request, Guid? vehicleId = null)
+    //     where TCommand : IActionVehicleCommandBase
+    // {
+    //     if (request is CreateVehicleCommand { Images.Count: 0 })
+    //         return Result<IEnumerable<VehicleImage>>.Failure(new Error("CreateError",
+    //             "Image collection has no images to upload!"));
+    //     
+    //     if (request is UpdateVehicleCommand { Images.Count: 0 })
+    //         return Result<IEnumerable<VehicleImage>>.Failure(
+    //             new Error("EmptyUpdateUpload", "Nothing to upload!"));
+    //
+    //     var uploadSummary = await TryUploadImagesToCloudinary(
+    //         imageService, request.Images!, request.MainImageName!);
+    //
+    //     if (!uploadSummary.IsSuccess)
+    //         return Result<IEnumerable<VehicleImage>>.Failure(uploadSummary.Error!);
+    //     
+    //     var uploadedImages = uploadSummary.Value!.Select(summary =>
+    //         vehicleId.HasValue
+    //             ? new VehicleImage(new Vehicle { Id = vehicleId.Value },
+    //                 summary.Key.ImageId!, summary.Key.ImageUrl!, summary.Value)
+    //             : new VehicleImage(null!, summary.Key.ImageId!, summary.Key.ImageUrl!, summary.Value));
+    //
+    //     return Result<IEnumerable<VehicleImage>>.Success(uploadedImages);
+    // }
+
+    // private async Task<Result<IDictionary<ImageResult, bool>>> TryUploadImagesToCloudinary(
+    //     IImageService service, IEnumerable<IFormFile> images, string mainImageName)
+    // {
+    //     var summary = new Dictionary<ImageResult, bool>();
+    //     
+    //     foreach (var image in images)
+    //     {
+    //         var uploadResult = await service.UploadImageAsync(image, PathTemplate);
+    //
+    //         if (!string.IsNullOrEmpty(mainImageName) && mainImageName.Equals(image.FileName))
+    //         {
+    //             summary.Add(uploadResult, true);
+    //             continue;
+    //         }
+    //         
+    //         summary.Add(uploadResult, false);
+    //     }
+    //
+    //     if (summary.All(pair => pair.Key.IsUploadedSuccessfully)) 
+    //         return Result<IDictionary<ImageResult, bool>>.Success(summary);
+    //     
+    //     await service.TryRollbackImageUploadAsync();
+    //             
+    //     return Result<IDictionary<ImageResult, bool>>.Failure(
+    //         new Error("CreateError", "Service was not able to upload the image(s)!"));
+    // }
     
-        var uploadSummary = await TryUploadImagesToCloudinary(
-            imageService, request.Images!, request.MainImageName!);
-
-        if (!uploadSummary.IsSuccess)
-            return Result<IEnumerable<VehicleImage>>.Failure(uploadSummary.Error!);
-        
-        var uploadedImages = uploadSummary.Value!.Select(summary =>
-            vehicleId.HasValue
-                ? new VehicleImage(new Vehicle { Id = vehicleId.Value },
-                    summary.Key.ImageId!, summary.Key.ImageUrl!, summary.Value)
-                : new VehicleImage(null!, summary.Key.ImageId!, summary.Key.ImageUrl!, summary.Value));
-
-        return Result<IEnumerable<VehicleImage>>.Success(uploadedImages);
-    }
-
-    private async Task<Result<IDictionary<ImageResult, bool>>> TryUploadImagesToCloudinary(
-        IImageService service, IEnumerable<IFormFile> images, string mainImageName)
-    {
-        var summary = new Dictionary<ImageResult, bool>();
-        
-        foreach (var image in images)
-        {
-            var uploadResult = await service.UploadImageAsync(image, PathTemplate);
-
-            if (!string.IsNullOrEmpty(mainImageName) && mainImageName.Equals(image.FileName))
-            {
-                summary.Add(uploadResult, true);
-                continue;
-            }
-            
-            summary.Add(uploadResult, false);
-        }
-    
-        if (summary.All(pair => pair.Key.IsUploadedSuccessfully)) 
-            return Result<IDictionary<ImageResult, bool>>.Success(summary);
-        
-        await service.TryRollbackImageUploadAsync();
-                
-        return Result<IDictionary<ImageResult, bool>>.Failure(
-            new Error("CreateError", "Service was not able to upload the image(s)!"));
-    }
-    
-    private Vehicle InstantiateVehicleObject<TDtoType>(
+    private Vehicle InstantiateVehicleObject(
         IMapper mapper,
         VehicleBrand vehicleBrand,
         VehicleModel vehicleModel,
         VehicleColor vehicleColor,
         VehicleType vehicleType,
-        TDtoType vehicleData)
+        IActionVehicleCommandBase vehicleData)
     {
-        if (vehicleData is CreateVehicleDto createVehicleDto)
+        if (vehicleData is CreateVehicleCommand createVehicleCommand)
             return new Vehicle(
-                brand: vehicleBrand, model: vehicleModel,
-                color: vehicleColor, type: vehicleType,
-                price: createVehicleDto.Price, 
-                displacement: createVehicleDto.Displacement,
-                description: createVehicleDto.Description
+                brand: vehicleBrand,
+                model: vehicleModel,
+                color: vehicleColor,
+                type: vehicleType,
+                price: createVehicleCommand.Price, 
+                displacement: createVehicleCommand.Displacement,
+                description: createVehicleCommand.Description
             );
 
         return new Vehicle(
-            brand: vehicleBrand, model: vehicleModel,
-            color: vehicleColor, type: vehicleType,
-            price: (vehicleData as UpdateVehicleDto)!.Price, 
-            displacement: (vehicleData as UpdateVehicleDto)!.Displacement,
-            description: (vehicleData as UpdateVehicleDto)!.Description
-        )
-        { 
-            Images = mapper.Map<ICollection<ImageDto>, ICollection<VehicleImage>>(
-                (vehicleData as UpdateVehicleDto)!.Images)
-        };
+            brand: vehicleBrand,
+            model: vehicleModel,
+            color: vehicleColor,
+            type: vehicleType,
+            price: vehicleData.Price,
+            displacement: vehicleData.Displacement,
+            description: vehicleData.Description
+        );
     }
 
     private TDtoType GetActionVehicleDto<TCommand, TDtoType>(TCommand request)
