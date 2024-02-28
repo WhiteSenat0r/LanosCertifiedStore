@@ -51,12 +51,9 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
     }
 
     private protected override IQueryable<VehicleModelDataModel> GetRelevantQueryable(
-        IFilteringRequestParameters<VehicleModel>? filteringRequestParameters)
-    {
-
-        return QueryEvaluator.GetAllEntitiesQueryable(
+        IFilteringRequestParameters<VehicleModel>? filteringRequestParameters) =>
+        QueryEvaluator.GetAllEntitiesQueryable(
             Context.Set<VehicleModelDataModel>(),filteringRequestParameters);
-    }
 
     private protected override BaseQueryEvaluator<VehicleModelSelectionProfile, VehicleModel, VehicleModelDataModel> 
         GetQueryEvaluator() =>
