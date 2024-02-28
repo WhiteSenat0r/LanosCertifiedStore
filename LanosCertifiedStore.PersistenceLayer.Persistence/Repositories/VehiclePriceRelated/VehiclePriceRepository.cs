@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using Application.RequestParams;
+using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Enums.RequestParametersRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels.VehicleRelated;
@@ -12,7 +14,7 @@ using Persistence.Repositories.VehiclePriceRelated.QueryEvaluationRelated.Common
 namespace Persistence.Repositories.VehiclePriceRelated;
 
 internal class VehiclePriceRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
-    : GenericRepository<VehiclePrice, VehiclePriceDataModel>(mapper, dbContext)
+    : GenericRepository<VehiclePriceSelectionProfile, VehiclePrice, VehiclePriceDataModel>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehiclePrice>> GetAllEntitiesAsync(
         IFilteringRequestParameters<VehiclePrice>? filteringRequestParameters = null!)
@@ -26,9 +28,11 @@ internal class VehiclePriceRepository(IMapper mapper, ApplicationDatabaseContext
 
     public override async Task<VehiclePrice?> GetEntityByIdAsync(Guid id)
     {
-        var vehiclePriceQueryEvaluator = GetQueryEvaluator(null);
-
-        var vehiclePriceQuery = vehiclePriceQueryEvaluator.GetSingleEntityQueryable(id);
+        var vehiclePriceQuery = QueryEvaluator.GetSingleEntityQueryable(
+            id, Context.Set<VehiclePriceDataModel>(), new VehiclePriceFilteringRequestParameters
+            {
+                SelectionProfile = VehiclePriceSelectionProfile.Full
+            });
 
         var vehiclePrice = await vehiclePriceQuery.AsNoTracking().SingleOrDefaultAsync();
         
@@ -40,26 +44,18 @@ internal class VehiclePriceRepository(IMapper mapper, ApplicationDatabaseContext
     public override Task<int> CountAsync(
         IFilteringRequestParameters<VehiclePrice>? filteringRequestParameters = null)
     {
-        var vehiclePriceQueryEvaluator = GetQueryEvaluator(filteringRequestParameters);
-        
-        var countedQueryable = vehiclePriceQueryEvaluator.GetRelevantCountQueryable();
+        var countedQueryable = QueryEvaluator.GetRelevantCountQueryable(
+            Context.Set<VehiclePriceDataModel>(), filteringRequestParameters);
 
         return countedQueryable.CountAsync();
     }
 
     private protected override IQueryable<VehiclePriceDataModel> GetRelevantQueryable(
-        IFilteringRequestParameters<VehiclePrice>? filteringRequestParameters)
-    {
-        var vehiclePriceQueryEvaluator = GetQueryEvaluator(filteringRequestParameters);
-
-        return vehiclePriceQueryEvaluator.GetAllEntitiesQueryable();
-    }
-
-    private protected override BaseQueryEvaluator<VehiclePrice, VehiclePriceDataModel> GetQueryEvaluator(
         IFilteringRequestParameters<VehiclePrice>? filteringRequestParameters) =>
-        new VehiclePriceQueryEvaluator(
-            includedAspects: VehiclePriceIncludedAspects.IncludedAspects,
-            filteringRequestParameters: filteringRequestParameters,
-            dataModels: Context.Set<VehiclePriceDataModel>(),
-            priceFilteringCriteria: new VehiclePriceFilteringCriteria());
+        QueryEvaluator.GetAllEntitiesQueryable(
+            Context.Set<VehiclePriceDataModel>(), filteringRequestParameters);
+
+    private protected override BaseQueryEvaluator<VehiclePriceSelectionProfile, VehiclePrice, VehiclePriceDataModel>
+        GetQueryEvaluator() =>
+        new VehiclePriceQueryEvaluator(new VehiclePriceSelectionProfiles(), new VehiclePriceFilteringCriteria());
 }
