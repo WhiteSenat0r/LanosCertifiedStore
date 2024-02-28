@@ -1,5 +1,4 @@
-﻿using Application.Commands.Models.UpdateModel;
-using Application.Dtos.BrandDtos;
+﻿using Application.Dtos.BrandDtos;
 using Application.Dtos.ColorDtos;
 using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using Application.Dtos.IdentityDtos.ProfileDtos;
