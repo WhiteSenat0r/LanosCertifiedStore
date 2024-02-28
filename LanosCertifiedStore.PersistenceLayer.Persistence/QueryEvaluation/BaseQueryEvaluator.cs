@@ -1,16 +1,16 @@
-﻿using System.Linq.Expressions;
-using Domain.Contracts.Common;
+﻿using Domain.Contracts.Common;
 using Domain.Contracts.RepositoryRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.QueryEvaluation.Common;
 
 namespace Persistence.QueryEvaluation;
 
-internal abstract class BaseQueryEvaluator<TEntity, TDataModel>(
-    IEnumerable<Expression<Func<TDataModel, object>>> includedAspects,
+internal abstract class BaseQueryEvaluator<TSelectionProfile, TEntity, TDataModel>(
+    BaseSelectionProfiles<TSelectionProfile, TEntity, TDataModel> selectionProfiles,
     IFilteringRequestParameters<TEntity>? filteringRequestParameters,
     DbSet<TDataModel> dataModels,
     BaseFilteringCriteria<TEntity, TDataModel> filteringCriteria)
+    where TSelectionProfile : struct, Enum
     where TEntity : IIdentifiable<Guid>
     where TDataModel : class, IIdentifiable<Guid>
 {
@@ -43,7 +43,7 @@ internal abstract class BaseQueryEvaluator<TEntity, TDataModel>(
     {
         var returnedQuery = dataModels.AsQueryable();
 
-        returnedQuery = GetQueryWithAddedIncludes(includedAspects, returnedQuery);
+        returnedQuery = GetQueryWithAddedSelects(returnedQuery);
 
         return returnedQuery;
     }
@@ -53,7 +53,7 @@ internal abstract class BaseQueryEvaluator<TEntity, TDataModel>(
         var returnedQuery = dataModels.AsQueryable();
 
         returnedQuery = returnedQuery.Where(model => model.Id.Equals(id));
-        returnedQuery = GetQueryWithAddedIncludes(includedAspects, returnedQuery);
+        returnedQuery = GetQueryWithAddedSelects(returnedQuery);
 
         return returnedQuery;
     }
@@ -63,7 +63,7 @@ internal abstract class BaseQueryEvaluator<TEntity, TDataModel>(
         var returnedQuery = dataModels.AsQueryable();
 
         returnedQuery = GetQueryWithAppliedFilters(returnedQuery);
-        returnedQuery = GetQueryWithAddedIncludes(includedAspects, returnedQuery);
+        returnedQuery = GetQueryWithAddedSelects(returnedQuery);
 
         var sortingSettings = GetQuerySortingSettings();
 
@@ -79,15 +79,10 @@ internal abstract class BaseQueryEvaluator<TEntity, TDataModel>(
         return returnedQuery;
     }
 
-    private IQueryable<TDataModel> GetQueryWithAddedIncludes(
-        IEnumerable<Expression<Func<TDataModel, object>>> includeExpressions,
-        IQueryable<TDataModel> returnedQuery)
-    {
-        return includeExpressions.Aggregate(
-            returnedQuery, (currentQueryElement, includedStatement) =>
-                currentQueryElement.Include(includedStatement));
-    }
-    
+    private IQueryable<TDataModel> GetQueryWithAddedSelects(IQueryable<TDataModel> returnedQuery) =>
+        (selectionProfiles.GetSuitableSelectionProfileQueryable(returnedQuery, filteringRequestParameters!)
+            as IQueryable<TDataModel>)!;
+
     private bool IsOrderedByDescending(BaseSortingSettings<TDataModel> sortingSettings) =>
         sortingSettings.OrderByDescendingExpression is not null 
         && sortingSettings.OrderByAscendingExpression is null;
