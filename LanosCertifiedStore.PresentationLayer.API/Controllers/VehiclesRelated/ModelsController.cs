@@ -5,6 +5,7 @@ using Application.Commands.Models.DeleteModel;
 using Application.Commands.Models.UpdateModel;
 using Application.Dtos.ModelDtos;
 using Application.Queries.Models;
+using Application.RequestParams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +16,10 @@ public sealed class ModelsController : BaseEntityRelatedApiController
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyList<ModelDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<IReadOnlyList<ModelDto>>> GetModels()
+    public async Task<ActionResult<IReadOnlyList<ModelDto>>> GetModels(
+        [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
     {
-        return HandleResult(await Mediator.Send(new ListModelsQuery()));
+        return HandleResult(await Mediator.Send(new ListModelsQuery(requestParameters)));
     }
 
     [HttpPost]
