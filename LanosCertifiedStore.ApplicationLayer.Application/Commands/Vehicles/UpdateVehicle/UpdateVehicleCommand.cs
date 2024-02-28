@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 namespace Application.Commands.Vehicles.UpdateVehicle;
 
 public record UpdateVehicleCommand(
+    Guid Id,
     Guid ModelId,
     Guid TypeId,
     Guid ColorId,
