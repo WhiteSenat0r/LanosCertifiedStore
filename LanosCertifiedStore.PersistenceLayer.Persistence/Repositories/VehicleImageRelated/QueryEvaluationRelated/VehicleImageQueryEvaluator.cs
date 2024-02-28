@@ -1,7 +1,6 @@
-﻿using System.Linq.Expressions;
-using Domain.Contracts.RepositoryRelated;
+﻿using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
-using Microsoft.EntityFrameworkCore;
+using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation;
 using Persistence.Repositories.VehicleImageRelated.QueryEvaluationRelated.Common.Classes;
@@ -9,17 +8,14 @@ using Persistence.Repositories.VehicleImageRelated.QueryEvaluationRelated.Common
 namespace Persistence.Repositories.VehicleImageRelated.QueryEvaluationRelated;
 
 internal class VehicleImageQueryEvaluator(
-    IEnumerable<Expression<Func<VehicleImageDataModel, object>>> includedAspects,
-    IFilteringRequestParameters<VehicleImage>? filteringRequestParameters,
-    DbSet<VehicleImageDataModel> dataModels,
+    VehicleImageSelectionProfiles imageSelectionProfile,
     VehicleImageFilteringCriteria imageFilteringCriteria)
-    : BaseQueryEvaluator<VehicleImage, VehicleImageDataModel>(
-        includedAspects,
-        filteringRequestParameters,
-        dataModels,
+    : BaseQueryEvaluator<VehicleImageSelectionProfile, VehicleImage, VehicleImageDataModel>(
+        imageSelectionProfile,
         imageFilteringCriteria)
 {
-    private protected override VehicleImageSortingSettings GetQuerySortingSettings() =>
+    private protected override VehicleImageSortingSettings GetQuerySortingSettings(
+        IFilteringRequestParameters<VehicleImage>? filteringRequestParameters) =>
         new()
         {
             OrderByAscendingExpression = VehicleImageSortingTypes.Options["default"]
