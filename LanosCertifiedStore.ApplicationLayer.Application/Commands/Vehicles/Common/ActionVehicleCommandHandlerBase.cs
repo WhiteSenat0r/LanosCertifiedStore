@@ -5,7 +5,6 @@ using Application.Core.Results;
 using Application.Dtos.ImageDtos;
 using Application.Dtos.VehicleDtos;
 using Application.Dtos.VehicleDtos.Common;
-using AutoMapper;
 using Domain.Contracts.Common;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -19,8 +18,7 @@ internal abstract class ActionVehicleCommandHandlerBase
 {
     // private const string PathTemplate = "LanosCertifiedStore/Vehicles";
     
-    private protected async Task<Result<Vehicle>> CreateVehicleBaseInstance<TDtoType>(
-        IMapper mapper,
+    private protected async Task<Result<Vehicle>> CreateVehicleBaseInstance(
         IUnitOfWork unitOfWork,
         IActionVehicleCommandBase request) 
     {
@@ -36,8 +34,7 @@ internal abstract class ActionVehicleCommandHandlerBase
         var vehicleType = await GetAspectDataAsync<VehicleType>(unitOfWork, request.TypeId);
         if (vehicleType is null) return GetFailureResult("Type");
 
-        var vehicle = InstantiateVehicleObject(
-            mapper, vehicleBrand, vehicleModel, vehicleColor, vehicleType, request);
+        var vehicle = InstantiateVehicleObject(vehicleBrand, vehicleModel, vehicleColor, vehicleType, request);
 
         return Result<Vehicle>.Success(vehicle);
     }
@@ -97,7 +94,6 @@ internal abstract class ActionVehicleCommandHandlerBase
     // }
     
     private Vehicle InstantiateVehicleObject(
-        IMapper mapper,
         VehicleBrand vehicleBrand,
         VehicleModel vehicleModel,
         VehicleColor vehicleColor,
@@ -126,14 +122,6 @@ internal abstract class ActionVehicleCommandHandlerBase
         );
     }
 
-    private TDtoType GetActionVehicleDto<TCommand, TDtoType>(TCommand request)
-    {
-        var requestParamsProperty = request!.GetType().GetProperties().FirstOrDefault(
-            p => p.PropertyType == typeof(TDtoType));
-        
-        return (TDtoType)requestParamsProperty?.GetValue(request)!;
-    }
-    
     private Task<TAspect?> GetAspectDataAsync<TAspect>(IUnitOfWork unitOfWork, Guid id) 
         where TAspect : IIdentifiable<Guid> => 
         unitOfWork.RetrieveRepository<TAspect>().GetEntityByIdAsync(id);

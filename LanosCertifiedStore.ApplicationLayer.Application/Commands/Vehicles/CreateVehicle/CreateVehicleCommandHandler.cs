@@ -1,5 +1,4 @@
 ﻿using Application.Commands.Vehicles.Common;
-using Application.Dtos.VehicleDtos;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -14,8 +13,7 @@ internal sealed class CreateVehicleCommandHandler(IMapper mapper, IUnitOfWork un
     public async Task<Result<Unit>> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
     {
         var vehicleInstantiationResult =
-            await CreateVehicleBaseInstance<CreateVehicleDto>(
-                mapper, unitOfWork, request);
+            await CreateVehicleBaseInstance(unitOfWork, request);
 
         if (!vehicleInstantiationResult.IsSuccess)
             return Result<Unit>.Failure(vehicleInstantiationResult.Error!);
