@@ -41,6 +41,7 @@ public sealed class UsersController : BaseEntityRelatedApiController
         return HandleResult(await Mediator.Send(new DeleteUserCommand(id)));
     }
 
+    [HttpGet("count")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
     public async Task<ActionResult<ItemsCountDto>> GetUsersCount(UserFilteringRequestParameters requestParameters)
     {

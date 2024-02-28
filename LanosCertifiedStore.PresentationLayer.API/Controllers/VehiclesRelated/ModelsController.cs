@@ -26,9 +26,9 @@ public sealed class ModelsController : BaseEntityRelatedApiController
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> CreateModel([FromQuery] Guid brandId, [FromQuery] string name)
+    public async Task<ActionResult> CreateModel([FromBody] CreateModelCommand createModelCommand)
     {
-        return HandleResult(await Mediator.Send(new CreateModelCommand(brandId, name)));
+        return HandleResult(await Mediator.Send(createModelCommand));
     }
 
     [HttpPut]
