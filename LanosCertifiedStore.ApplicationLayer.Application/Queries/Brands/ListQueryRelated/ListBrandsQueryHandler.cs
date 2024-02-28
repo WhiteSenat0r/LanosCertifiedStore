@@ -5,7 +5,7 @@ using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
 
-namespace Application.Queries.Brands;
+namespace Application.Queries.Brands.ListQueryRelated;
 
 internal sealed class ListBrandsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
     : IRequestHandler<ListBrandsQuery, Result<IReadOnlyList<BrandDto>>>
