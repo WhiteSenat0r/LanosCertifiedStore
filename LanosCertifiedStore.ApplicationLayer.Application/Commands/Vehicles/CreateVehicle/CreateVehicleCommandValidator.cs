@@ -6,12 +6,16 @@ internal sealed class CreateVehicleCommandValidator : AbstractValidator<CreateVe
 {
     public CreateVehicleCommandValidator()
     {
-        RuleFor(x => x.CreateVehicleDto.Description)
+        RuleFor(x => x.Description)
             .NotEmpty()
             .MinimumLength(20)
             .MaximumLength(3000);
 
-        RuleFor(x => x.CreateVehicleDto.Price)
+        RuleFor(x => x.Price)
+            .NotEmpty()
+            .GreaterThan(0);
+        
+        RuleFor(x => x.Displacement)
             .NotEmpty()
             .GreaterThan(0);
     }
