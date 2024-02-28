@@ -35,9 +35,9 @@ public sealed class ModelsController : BaseEntityRelatedApiController
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> UpdateModel([FromBody] UpdateModelDto updateBrandDto)
+    public async Task<ActionResult> UpdateModel([FromBody] UpdateModelCommand updateModelCommand)
     {
-        return HandleResult(await Mediator.Send(new UpdateModelCommand(updateBrandDto)));
+        return HandleResult(await Mediator.Send(updateModelCommand));
     }
 
     [HttpDelete("{id:guid}")]

@@ -24,7 +24,7 @@ internal abstract class GenericRepository<TEntity, TDataModel> : IRepository<TEn
 
     public abstract Task<TEntity?> GetEntityByIdAsync(Guid id);
 
-    public async Task AddNewEntityAsync(TEntity entity)
+    public virtual async Task AddNewEntityAsync(TEntity entity)
     {
         var mappedEntityModel = Mapper.Map<TEntity, TDataModel>(entity);
 
