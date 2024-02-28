@@ -37,14 +37,9 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
     [HttpPost]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> CreateVehicle([FromForm] string serializedVehicleData,
-        [FromForm] List<IFormFile> uploadedImages, 
-        [FromForm] string mainImageName)
+    public async Task<ActionResult> CreateVehicle([FromBody] CreateVehicleCommand createVehicleCommand)
     {
-        return HandleResult(await Mediator.Send(
-                new CreateVehicleCommand(
-                    JsonSerializer.Deserialize<CreateVehicleDto>(serializedVehicleData)!,
-                    uploadedImages, mainImageName)));
+        return HandleResult(await Mediator.Send(createVehicleCommand));
     }
 
     [HttpPut]
