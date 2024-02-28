@@ -1,7 +1,6 @@
-﻿using System.Linq.Expressions;
-using Domain.Contracts.RepositoryRelated;
+﻿using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
-using Microsoft.EntityFrameworkCore;
+using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation;
 using Persistence.Repositories.VehicleColorRelated.QueryEvaluationRelated.Common.Classes;
@@ -9,17 +8,14 @@ using Persistence.Repositories.VehicleColorRelated.QueryEvaluationRelated.Common
 namespace Persistence.Repositories.VehicleColorRelated.QueryEvaluationRelated;
 
 internal class VehicleColorQueryEvaluator(
-    IEnumerable<Expression<Func<VehicleColorDataModel, object>>> includedAspects,
-    IFilteringRequestParameters<VehicleColor>? filteringRequestParameters,
-    DbSet<VehicleColorDataModel> dataModels,
+    VehicleColorSelectionProfiles colorSelectionProfiles,
     VehicleColorFilteringCriteria colorFilteringCriteria)
-    : BaseQueryEvaluator<VehicleColor, VehicleColorDataModel>(
-        includedAspects,
-        filteringRequestParameters,
-        dataModels,
+    : BaseQueryEvaluator<VehicleColorSelectionProfile, VehicleColor, VehicleColorDataModel>(
+        colorSelectionProfiles,
         colorFilteringCriteria)
 {
-    private protected override VehicleColorSortingSettings GetQuerySortingSettings()
+    private protected override VehicleColorSortingSettings GetQuerySortingSettings(
+        IFilteringRequestParameters<VehicleColor>? filteringRequestParameters)
     {
         if (string.IsNullOrEmpty(filteringRequestParameters!.SortingType))
             return new VehicleColorSortingSettings
