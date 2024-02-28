@@ -1,6 +1,6 @@
-﻿using System.Linq.Expressions;
-using Domain.Contracts.RepositoryRelated;
+﻿using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Enums.RequestParametersRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation;
@@ -9,15 +9,15 @@ using Persistence.Repositories.VehicleBrandRelated.QueryEvaluationRelated.Common
 namespace Persistence.Repositories.VehicleBrandRelated.QueryEvaluationRelated;
 
 internal class VehicleBrandQueryEvaluator(
-    IEnumerable<Expression<Func<VehicleBrandDataModel, object>>> includedAspects,
+    VehicleBrandSelectionProfiles selectionProfiles,
     IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters,
     DbSet<VehicleBrandDataModel> dataModels,
-    VehicleBrandFilteringCriteria vehicleFilteringCriteria)
-    : BaseQueryEvaluator<VehicleBrand, VehicleBrandDataModel>(
-        includedAspects,
+    VehicleBrandFilteringCriteria brandFilteringCriteria)
+    : BaseQueryEvaluator<VehicleBrandSelectionProfile, VehicleBrand, VehicleBrandDataModel>(
+        selectionProfiles,
         filteringRequestParameters,
         dataModels,
-        vehicleFilteringCriteria)
+        brandFilteringCriteria)
 {
     private protected override VehicleBrandSortingSettings GetQuerySortingSettings()
     {

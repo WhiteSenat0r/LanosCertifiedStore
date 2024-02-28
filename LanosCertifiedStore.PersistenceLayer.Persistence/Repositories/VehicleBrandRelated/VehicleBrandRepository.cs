@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using Application.RequestParams;
+using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Enums.RequestParametersRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels.VehicleRelated;
@@ -12,7 +14,7 @@ using Persistence.Repositories.VehicleBrandRelated.QueryEvaluationRelated.Common
 namespace Persistence.Repositories.VehicleBrandRelated;
 
 internal class VehicleBrandRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
-    : GenericRepository<VehicleBrand, VehicleBrandDataModel>(mapper, dbContext)
+    : GenericRepository<VehicleBrandSelectionProfile, VehicleBrand, VehicleBrandDataModel>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleBrand>> GetAllEntitiesAsync(
         IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters = null!)
@@ -26,7 +28,10 @@ internal class VehicleBrandRepository(IMapper mapper, ApplicationDatabaseContext
 
     public override async Task<VehicleBrand?> GetEntityByIdAsync(Guid id)
     {
-        var vehicleBrandQueryEvaluator = GetQueryEvaluator(null);
+        var vehicleBrandQueryEvaluator = GetQueryEvaluator(new VehicleBrandFilteringRequestParameters
+        {
+            SelectionProfile = VehicleBrandSelectionProfile.Single
+        });
 
         var vehicleBrandQuery = vehicleBrandQueryEvaluator.GetSingleEntityQueryable(id);
 
@@ -69,11 +74,11 @@ internal class VehicleBrandRepository(IMapper mapper, ApplicationDatabaseContext
         return vehicleBrandQueryEvaluator.GetAllEntitiesQueryable();
     }
     
-    private protected override BaseQueryEvaluator<VehicleBrand, VehicleBrandDataModel> GetQueryEvaluator(
-        IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters) =>
+    private protected override BaseQueryEvaluator<VehicleBrandSelectionProfile, VehicleBrand, VehicleBrandDataModel>
+        GetQueryEvaluator(IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters) =>
         new VehicleBrandQueryEvaluator(
-            includedAspects: VehicleBrandIncludedAspects.IncludedAspects,
+            selectionProfiles: new VehicleBrandSelectionProfiles(),
             filteringRequestParameters: filteringRequestParameters,
             dataModels: Context.Set<VehicleBrandDataModel>(),
-            vehicleFilteringCriteria: new VehicleBrandFilteringCriteria());
+            brandFilteringCriteria: new VehicleBrandFilteringCriteria());
 }
