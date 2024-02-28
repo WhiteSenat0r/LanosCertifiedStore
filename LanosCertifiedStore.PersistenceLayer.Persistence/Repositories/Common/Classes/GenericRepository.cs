@@ -1,12 +1,15 @@
 ﻿using AutoMapper;
 using Domain.Contracts.Common;
 using Domain.Contracts.RepositoryRelated;
+using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
+using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation;
 
 namespace Persistence.Repositories.Common.Classes;
 
-internal abstract class GenericRepository<TEntity, TDataModel> : IRepository<TEntity>
+internal abstract class GenericRepository<TSelectionProfile, TEntity, TDataModel> : IRepository<TEntity>
+    where TSelectionProfile : struct, Enum
     where TEntity : IIdentifiable<Guid>
     where TDataModel : class, IIdentifiable<Guid>
 {
@@ -52,6 +55,6 @@ internal abstract class GenericRepository<TEntity, TDataModel> : IRepository<TEn
     private protected abstract IQueryable<TDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<TEntity> filteringRequestParameters);
 
-    private protected abstract BaseQueryEvaluator<TEntity, TDataModel> GetQueryEvaluator(
-        IFilteringRequestParameters<TEntity>? filteringRequestParameters);
+    private protected abstract BaseQueryEvaluator<TSelectionProfile, VehicleBrand, VehicleBrandDataModel>
+        GetQueryEvaluator(IFilteringRequestParameters<TEntity>? filteringRequestParameters);
 }
