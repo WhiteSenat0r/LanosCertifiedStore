@@ -7,65 +7,86 @@ namespace Persistence.QueryEvaluation;
 
 internal abstract class BaseQueryEvaluator<TSelectionProfile, TEntity, TDataModel>(
     BaseSelectionProfiles<TSelectionProfile, TEntity, TDataModel> selectionProfiles,
-    IFilteringRequestParameters<TEntity>? filteringRequestParameters,
-    DbSet<TDataModel> dataModels,
     BaseFilteringCriteria<TEntity, TDataModel> filteringCriteria)
     where TSelectionProfile : struct, Enum
     where TEntity : IIdentifiable<Guid>
     where TDataModel : class, IIdentifiable<Guid>
 {
-    public IQueryable<TDataModel> GetAllEntitiesQueryable() => 
-        filteringRequestParameters is null ? GetRegularQueryable() : GetFilteredQueryable();
+    public IQueryable<TDataModel> GetAllEntitiesQueryable(
+        DbSet<TDataModel> dataModels,
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters = null!) => 
+        filteringRequestParameters is null 
+            ? GetRegularQueryable(dataModels, filteringRequestParameters) 
+            : GetFilteredQueryable(dataModels, filteringRequestParameters);
     
-    public IQueryable<TDataModel> GetSingleEntityQueryable(Guid id) => GetRegularQueryable(id);
+    public IQueryable<TDataModel> GetSingleEntityQueryable(
+        Guid entityId,
+        DbSet<TDataModel> dataModels,
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters = null!) =>
+        GetRegularQueryable(entityId, dataModels, filteringRequestParameters);
     
-    public IQueryable<TDataModel> GetRelevantCountQueryable() => 
-        filteringRequestParameters is null ? GetRegularCountQueryable() : GetFilterCountQueryable();
+    public IQueryable<TDataModel> GetRelevantCountQueryable(
+        DbSet<TDataModel> dataModels,
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters = null!) => 
+        filteringRequestParameters is null 
+            ? GetRegularCountQueryable(dataModels) 
+            : GetFilterCountQueryable(dataModels, filteringRequestParameters);
 
-    private IQueryable<TDataModel> GetRegularCountQueryable() => dataModels.AsQueryable();
+    private IQueryable<TDataModel> GetRegularCountQueryable(DbSet<TDataModel> dataModels) =>
+        dataModels.AsQueryable();
 
-    private IQueryable<TDataModel> GetFilterCountQueryable()
+    private IQueryable<TDataModel> GetFilterCountQueryable(
+        DbSet<TDataModel> dataModels,
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters)
     {
         var returnedQuery = dataModels.AsQueryable();
 
-        returnedQuery = GetQueryWithAppliedFilters(returnedQuery);
+        returnedQuery = GetQueryWithAppliedFilters(filteringRequestParameters, returnedQuery);
 
         return returnedQuery;
     }
 
-    private protected abstract BaseSortingSettings<TDataModel> GetQuerySortingSettings();
+    private protected abstract BaseSortingSettings<TDataModel> GetQuerySortingSettings(
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters);
     
     private IQueryable<TDataModel> GetQueryWithAppliedFilters(
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters,
         IQueryable<TDataModel> returnedQuery) =>
         returnedQuery.Where(filteringCriteria.GetCriteria(filteringRequestParameters));
     
-    private IQueryable<TDataModel> GetRegularQueryable()
+    private IQueryable<TDataModel> GetRegularQueryable(
+        DbSet<TDataModel> dataModels,
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters)
     {
         var returnedQuery = dataModels.AsQueryable();
 
-        returnedQuery = GetQueryWithAddedSelects(returnedQuery);
+        returnedQuery = GetQueryWithAddedSelects(returnedQuery, filteringRequestParameters);
 
         return returnedQuery;
     }
     
-    private IQueryable<TDataModel> GetRegularQueryable(Guid id)
+    private IQueryable<TDataModel> GetRegularQueryable(Guid id,
+        DbSet<TDataModel> dataModels,
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters)
     {
         var returnedQuery = dataModels.AsQueryable();
 
         returnedQuery = returnedQuery.Where(model => model.Id.Equals(id));
-        returnedQuery = GetQueryWithAddedSelects(returnedQuery);
+        returnedQuery = GetQueryWithAddedSelects(returnedQuery, filteringRequestParameters);
 
         return returnedQuery;
     }
 
-    private IQueryable<TDataModel> GetFilteredQueryable()
+    private IQueryable<TDataModel> GetFilteredQueryable(
+        DbSet<TDataModel> dataModels,
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters)
     {
         var returnedQuery = dataModels.AsQueryable();
 
-        returnedQuery = GetQueryWithAppliedFilters(returnedQuery);
-        returnedQuery = GetQueryWithAddedSelects(returnedQuery);
+        returnedQuery = GetQueryWithAppliedFilters(filteringRequestParameters, returnedQuery);
+        returnedQuery = GetQueryWithAddedSelects(returnedQuery, filteringRequestParameters);
 
-        var sortingSettings = GetQuerySortingSettings();
+        var sortingSettings = GetQuerySortingSettings(filteringRequestParameters);
 
         if (IsOrderedByAscending(sortingSettings))
             returnedQuery = returnedQuery.OrderBy(sortingSettings.OrderByAscendingExpression!);
@@ -79,7 +100,8 @@ internal abstract class BaseQueryEvaluator<TSelectionProfile, TEntity, TDataMode
         return returnedQuery;
     }
 
-    private IQueryable<TDataModel> GetQueryWithAddedSelects(IQueryable<TDataModel> returnedQuery) =>
+    private IQueryable<TDataModel> GetQueryWithAddedSelects(IQueryable<TDataModel> returnedQuery,
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters) =>
         (selectionProfiles.GetSuitableSelectionProfileQueryable(returnedQuery, filteringRequestParameters!)
             as IQueryable<TDataModel>)!;
 
