@@ -26,22 +26,26 @@ internal sealed class MappingProfile : Profile
         CreateMap<VehicleBrand, BrandDto>();
         CreateMap<VehicleColor, ColorDto>();
         CreateMap<VehiclePrice, PriceDto>();
+
         CreateMap<VehicleImage, ImageDto>();
         CreateMap<ImageDto, VehicleImage>();
-        
+
         CreateMap<VehicleType, TypeDto>();
 
         CreateMap<VehicleModel, ModelDto>()
             .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.Brand.Name))
             .ForMember(d => d.AvailableTypes, o => o.MapFrom(s => s.AvailableTypes));
-        
+
         CreateMap<Vehicle, ListVehicleDto>()
             .ForMember(d => d.Brand, o => o.MapFrom(s => s.Brand.Name))
             .ForMember(d => d.Type, o => o.MapFrom(s => s.Type.Name))
             .ForMember(d => d.Color, o => o.MapFrom(s => s.Color.Name))
             .ForMember(d => d.Model, o => o.MapFrom(s => s.Model.Name))
             .ForMember(d => d.Price, o => o.MapFrom(s => s.Prices.MaxBy(p => p.IssueDate)))
-            .ForMember(d => d.Image, o => o.MapFrom(s => s.Images.First(i => i.IsMainImage)));
+            .ForMember(d => d.Image, o => o.MapFrom(s =>
+                s.Images.Count == 0
+                    ? null
+                    : s.Images.FirstOrDefault(i => i.IsMainImage)));
 
         CreateMap<Vehicle, DetailsVehicleDto>()
             .ForMember(d => d.Brand, o => o.MapFrom(s => s.Brand.Name))
