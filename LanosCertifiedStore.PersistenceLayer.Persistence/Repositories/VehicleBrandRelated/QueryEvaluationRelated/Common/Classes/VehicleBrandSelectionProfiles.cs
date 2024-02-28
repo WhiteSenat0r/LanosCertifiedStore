@@ -48,8 +48,7 @@ internal class VehicleBrandSelectionProfiles :
             Models = (vehicleBrand.Models.Select(vehicleModel => new VehicleModelDataModel
             {
                 Id = vehicleModel.Id,
-                Name = vehicleModel.Name,
-                AvailableTypes = vehicleModel.AvailableTypes
+                Name = vehicleModel.Name
             }) as ICollection<VehicleModelDataModel>)!
         });
 }
