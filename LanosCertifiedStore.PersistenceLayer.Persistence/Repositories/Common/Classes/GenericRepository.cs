@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Contracts.Common;
 using Domain.Contracts.RepositoryRelated;
-using Domain.Entities.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
-using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation;
 
 namespace Persistence.Repositories.Common.Classes;
@@ -13,13 +11,17 @@ internal abstract class GenericRepository<TSelectionProfile, TEntity, TDataModel
     where TEntity : IIdentifiable<Guid>
     where TDataModel : class, IIdentifiable<Guid>
 {
-    private protected DbContext Context { get; }
-    private protected IMapper Mapper { get; }
+    private protected readonly BaseQueryEvaluator<TSelectionProfile, TEntity, TDataModel> QueryEvaluator;
+    private protected readonly DbContext Context;
+    private protected readonly IMapper Mapper;
 
-    private protected GenericRepository(IMapper mapper, DbContext dbContext)
+    private protected GenericRepository(
+        IMapper mapper, 
+        DbContext dbContext)
     {
         Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         Context = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        QueryEvaluator = GetQueryEvaluator();
     }
     
     public abstract Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(
@@ -55,6 +57,5 @@ internal abstract class GenericRepository<TSelectionProfile, TEntity, TDataModel
     private protected abstract IQueryable<TDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<TEntity> filteringRequestParameters);
 
-    private protected abstract BaseQueryEvaluator<TSelectionProfile, VehicleBrand, VehicleBrandDataModel>
-        GetQueryEvaluator(IFilteringRequestParameters<TEntity>? filteringRequestParameters);
+    private protected abstract BaseQueryEvaluator<TSelectionProfile, TEntity, TDataModel> GetQueryEvaluator();
 }
