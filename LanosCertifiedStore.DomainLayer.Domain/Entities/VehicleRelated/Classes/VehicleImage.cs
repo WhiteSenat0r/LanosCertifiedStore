@@ -10,13 +10,16 @@ public sealed class VehicleImage : IIdentifiable<Guid>
     public bool IsMainImage { get; set; }
     public Vehicle Vehicle { get; init; } = null!;
 
-    public VehicleImage() { }
-    
-    public VehicleImage(Vehicle vehicle, string cloudImageId, string imageUrl, bool isMainImage)
+    public VehicleImage()
+    {
+    }
+
+    public VehicleImage(Vehicle? vehicle, string cloudImageId, string imageUrl)
     {
         Vehicle = vehicle;
         CloudImageId = cloudImageId;
         ImageUrl = imageUrl;
-        IsMainImage = isMainImage;
+        if (vehicle?.Images.Count == 0)
+            IsMainImage = true;
     }
 }
