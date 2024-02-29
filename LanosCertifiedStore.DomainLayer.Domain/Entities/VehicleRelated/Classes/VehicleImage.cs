@@ -8,7 +8,7 @@ public sealed class VehicleImage : IIdentifiable<Guid>
     public string CloudImageId { get; init; } = null!;
     public string ImageUrl { get; init; } = null!;
     public bool IsMainImage { get; set; }
-    public Vehicle Vehicle { get; init; } = null!;
+    public Vehicle Vehicle { get; set; } = null!;
 
     public VehicleImage()
     {

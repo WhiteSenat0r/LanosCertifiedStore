@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Commands.Vehicles.RemoveImageFromVehicle;
 
-internal sealed class RemoveImageFrmVehicleCommandHandler(
+internal sealed class RemoveImageFromVehicleCommandHandler(
     IUnitOfWork unitOfWork,
     IImageService imageService)
     : IRequestHandler<RemoveImageFromVehicleCommand, Result<Unit>>
