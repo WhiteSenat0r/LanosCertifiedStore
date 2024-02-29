@@ -17,7 +17,6 @@ internal class VehicleSelectionProfiles :
             { VehicleSelectionProfile.Default, GetDefaultProfileQueryable! },
             { VehicleSelectionProfile.Single, GetSingleProfileQueryable! },
             { VehicleSelectionProfile.Catalog, GetCatalogProfileQueryable! },
-            { VehicleSelectionProfile.Featured, GetFeaturedProfileQueryable! },
         };
 
     public override IQueryable<VehicleDataModel> GetSuitableSelectionProfileQueryable(
@@ -31,31 +30,6 @@ internal class VehicleSelectionProfiles :
 
         return _mappedProfiles[requestParams!.SelectionProfile](inputQueryable, requestParams);
     }
-
-    private static IQueryable<VehicleDataModel> GetDefaultProfileQueryable(
-        IQueryable<VehicleDataModel> queryable,
-        IVehicleFilteringRequestParameters vehicleFilteringRequestParameters) =>
-        queryable.Select(vehicle => new VehicleDataModel
-        {
-            Id = vehicle.Id,
-            Brand = new VehicleBrandDataModel
-            {
-                Name = vehicle.Brand.Name
-            },
-            Model = new VehicleModelDataModel
-            {
-                Name = vehicle.Model.Name
-            },
-            Displacement = vehicle.Displacement,
-            Color = new VehicleColorDataModel
-            {
-                Name = vehicle.Color.Name
-            },
-            Type = new VehicleTypeDataModel
-            {
-                Name = vehicle.Type.Name
-            }
-        });
     
     private static IQueryable<VehicleDataModel> GetCatalogProfileQueryable(
         IQueryable<VehicleDataModel> queryable,
@@ -151,7 +125,7 @@ internal class VehicleSelectionProfiles :
             }
         });
     
-    private static IQueryable<VehicleDataModel> GetFeaturedProfileQueryable(
+    private static IQueryable<VehicleDataModel> GetDefaultProfileQueryable(
         IQueryable<VehicleDataModel> queryable,
         IVehicleFilteringRequestParameters vehicleFilteringRequestParameters) =>
         queryable.Select(vehicle => new VehicleDataModel
