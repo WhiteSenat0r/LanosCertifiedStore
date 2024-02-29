@@ -13,20 +13,17 @@ internal class ImageService : IImageService
     private readonly ICloudinary _cloudinarySource;
     private readonly ICollection<string> _uploadedImagesIdBuffer = new List<string>();
 
-    public ImageService(IOptions<CloudinarySettings> cloudinaryOptions) => 
+    public ImageService(IOptions<CloudinarySettings> cloudinaryOptions) =>
         _cloudinarySource = InstantiateCloudinarySource(cloudinaryOptions);
 
     public async Task<ImageResult> UploadImageAsync(
         IFormFile imageFile, string desiredPath)
     {
-        if (IsEmptyFile(imageFile) || IsNotImageFile(imageFile) || IsInvalidPath(desiredPath))
-            return new ImageResult
-            {
-                IsUploadedSuccessfully = false
-            };
+        if (IsInvalidPath(desiredPath))
+            return new ImageResult("There is something wrong with your path!");
 
         await using var fileStream = imageFile.OpenReadStream();
-        
+
         var uploadResult = await _cloudinarySource.UploadAsync(
             GeImageUploadParameters(imageFile, fileStream, desiredPath));
 
@@ -36,7 +33,7 @@ internal class ImageService : IImageService
     public async Task<bool> TryDeletePhotoAsync(string imageId)
     {
         var deletionResult = await _cloudinarySource.DestroyAsync(new DeletionParams(imageId));
-        
+
         return await Task.FromResult(deletionResult.Result.Equals("ok"));
     }
 
@@ -50,7 +47,7 @@ internal class ImageService : IImageService
         }
 
         _uploadedImagesIdBuffer.Clear();
-        
+
         return true;
     }
 
@@ -58,20 +55,19 @@ internal class ImageService : IImageService
     {
         if (imageUploadResult.Error is not null)
             return InstantiateImageResult(imageUploadResult, false);
-        
+
         _uploadedImagesIdBuffer.Add(imageUploadResult.PublicId);
-        
+
         return InstantiateImageResult(imageUploadResult);
     }
 
     private ImageResult InstantiateImageResult(
-        UploadResult imageUploadResult, bool isSuccessful = true) =>
-        new()
-        {
-            ImageId = imageUploadResult.PublicId,
-            ImageUrl = imageUploadResult.SecureUrl.ToString(),
-            IsUploadedSuccessfully = isSuccessful
-        };
+        UploadResult imageUploadResult, bool isSuccessful = true)
+    {
+        return isSuccessful
+            ? new ImageResult(isSuccessful, imageUploadResult.PublicId, imageUploadResult.SecureUrl.ToString())
+            : new ImageResult(imageUploadResult.Error.Message);
+    }
 
     private ImageUploadParams GeImageUploadParameters(
         IFormFile imageFile, Stream fileStream, string? desiredPath) =>
@@ -92,15 +88,7 @@ internal class ImageService : IImageService
 
         return new Cloudinary(cloudinaryAccount);
     }
-    
-    private bool IsEmptyFile(IFormFile imageFile) => 
-        imageFile.Length.Equals(0);
 
     private bool IsInvalidPath(string path) =>
         string.IsNullOrEmpty(path) || string.IsNullOrWhiteSpace(path) || !path.Contains('/');
-    
-    private bool IsNotImageFile(IFormFile imageFile) =>
-        !string.Equals(imageFile.ContentType, "image/jpg", StringComparison.OrdinalIgnoreCase) &&
-        !string.Equals(imageFile.ContentType, "image/jpeg", StringComparison.OrdinalIgnoreCase) &&
-        !string.Equals(imageFile.ContentType, "image/png", StringComparison.OrdinalIgnoreCase);
 }

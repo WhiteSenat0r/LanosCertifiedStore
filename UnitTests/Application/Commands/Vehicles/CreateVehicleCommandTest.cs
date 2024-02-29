@@ -23,7 +23,7 @@ public class CreateVehicleCommandTest
                 x.GetEntityByIdAsync(It.IsAny<VehicleByIdQuerySpecification>()))
             .ReturnsAsync(VehicleService.GetVehicle(actionVehicleDto));
 
-        var handler = new CreateVehicleCommandHandler(vehicleRepositoryMock.Object, unitOfWorkMock.Object);
+        var handler = new CreateVehicleCommandHandler(unitOfWorkMock.Object);
 
         // Act
         var result = await handler.Handle(command, default);
@@ -45,7 +45,7 @@ public class CreateVehicleCommandTest
 
         unitOfWorkMock.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(1);
 
-        var handler = new CreateVehicleCommandHandler(vehicleRepositoryMock.Object, unitOfWorkMock.Object);
+        var handler = new CreateVehicleCommandHandler(unitOfWorkMock.Object);
 
         // Act
         var result = await handler.Handle(command, default);

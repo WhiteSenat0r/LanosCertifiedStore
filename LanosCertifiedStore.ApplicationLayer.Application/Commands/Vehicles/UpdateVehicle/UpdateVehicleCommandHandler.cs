@@ -15,10 +15,6 @@ internal sealed class UpdateVehicleCommandHandler(
 {
     public async Task<Result<Unit>> Handle(UpdateVehicleCommand request, CancellationToken cancellationToken)
     {
-        //     if (IsPresentMainImageFlagConflict(request))
-        //         return Result<Unit>.Failure(new Error(
-        //             "UpdateError", "Failed to update a vehicle due to the main image flag conflict!"));
-
         var updatedEntity = await unitOfWork.RetrieveRepository<Vehicle>().GetEntityByIdAsync(request.Id);
 
         if (updatedEntity is null)
@@ -44,43 +40,15 @@ internal sealed class UpdateVehicleCommandHandler(
         Vehicle requestVehicleResult,
         Vehicle updatedEntity)
     {
-        // await TryRemoveImagesAndUpdateIsMainFlags(request, requestVehicleResult);
-        // await TryUploadNewImages(request);
         await TryUpdatePrice(request, updatedEntity);
         mapper.Map(requestVehicleResult, updatedEntity!);
     }
-
-    // private async Task TryRemoveImagesAndUpdateIsMainFlags(
-    //     UpdateVehicleCommand request, Result<Vehicle> requestVehicleResult)
-    // {
-    //     var removedImages = GetRemovedImages(_updatedEntity!, requestVehicleResult);
-    //
-    //     await TryRemoveImagesFromVehicle(removedImages, _updatedEntity!);
-    //     TrySetUploadedImageAsMain(request, _updatedEntity!);
-    // }
-    //
-    // private async Task TryUploadNewImages(UpdateVehicleCommand request)
-    // {
-    //     var uploadedImagesResult = await TryAddImagesToCloudinary(imageService, request, _updatedEntity!.Id);
-    //
-    //     if (uploadedImagesResult.IsSuccess)
-    //     {
-    //         foreach (var image in uploadedImagesResult.Value!)
-    //             await unitOfWork.RetrieveRepository<VehicleImage>().AddNewEntityAsync(image);
-    //     }
-    // }
 
     private async Task TryUpdatePrice(UpdateVehicleCommand request, Vehicle vehicle)
     {
         if (IsAlteredPriceValue(request, vehicle!))
             await InitializeNewPrice(request, vehicle!);
     }
-
-    // private static bool IsPresentMainImageFlagConflict(UpdateVehicleCommand request)
-    // {
-    //     return request.MainImageId.HasValue &&
-    //            (!string.IsNullOrEmpty(request.MainImageName) || !string.IsNullOrWhiteSpace(request.MainImageName));
-    // }
 
     private async Task<bool> GetVehicleUpdateResult(
         Vehicle vehicleToUpdate, CancellationToken cancellationToken)
@@ -93,61 +61,6 @@ internal sealed class UpdateVehicleCommandHandler(
 
         return result;
     }
-
-    // private void TrySetUploadedImageAsMain(UpdateVehicleCommand request, Vehicle vehicleToUpdate)
-    // {
-    //     if (!request.MainImageId.HasValue) return;
-    //
-    //     foreach (var image in vehicleToUpdate.Images) image.IsMainImage = false;
-    //
-    //     var mainImage = vehicleToUpdate.Images.Single(image => image.Id.Equals(request.MainImageId.Value));
-    //
-    //     mainImage.IsMainImage = true;
-    //
-    //     foreach (var image in vehicleToUpdate.Images)
-    //         unitOfWork.RetrieveRepository<VehicleImage>().UpdateExistingEntity(image);
-    //
-    //     unitOfWork.ClearChangeTrackerData();
-    // }
-    //
-    // private async Task TryRemoveImagesFromVehicle(
-    //     IEnumerable<VehicleImage> removedImages,
-    //     Vehicle vehicleToUpdate)
-    // {
-    //     if (!removedImages.Any()) return;
-    //
-    //     var imageRepository = unitOfWork.RetrieveRepository<VehicleImage>();
-    //
-    //     foreach (var removedImage in removedImages)
-    //     {
-    //         var updatedVehicleRemovedImage = vehicleToUpdate.Images.Single(
-    //             image => image.Id.Equals(removedImage.Id));
-    //
-    //         vehicleToUpdate.Images.Remove(updatedVehicleRemovedImage);
-    //         await imageRepository.RemoveExistingEntity(updatedVehicleRemovedImage.Id);
-    //         await imageService.TryDeletePhotoAsync(removedImage.CloudImageId);
-    //     }
-    //
-    //     await unitOfWork.SaveChangesAsync();
-    //
-    //     unitOfWork.ClearChangeTrackerData();
-    // }
-    //
-    // private IEnumerable<VehicleImage> GetRemovedImages(
-    //     Vehicle vehicleToUpdate, Result<Vehicle> requestVehicleResult)
-    // {
-    //     var removedImages = new List<VehicleImage>();
-    //
-    //     foreach (var image in vehicleToUpdate.Images)
-    //     {
-    //         var requestVehicleImage = requestVehicleResult.Value!.Images.SingleOrDefault(
-    //             requestImage => requestImage.Id.Equals(image.Id));
-    //
-    //         if (requestVehicleImage is null) removedImages.Add(image);
-    //     }
-    //
-    //     return removedImages;
-    // }
 
     private async Task InitializeNewPrice(UpdateVehicleCommand request, Vehicle updatedVehicle)
     {

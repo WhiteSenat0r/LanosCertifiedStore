@@ -1,7 +1,10 @@
 ﻿using API.Controllers.Common;
 using API.Responses;
+using Application.Commands.Vehicles.AddImageToVehicle;
 using Application.Commands.Vehicles.CreateVehicle;
 using Application.Commands.Vehicles.DeleteVehicle;
+using Application.Commands.Vehicles.RemoveImageFromVehicle;
+using Application.Commands.Vehicles.SetVehicleMainImage;
 using Application.Commands.Vehicles.UpdateVehicle;
 using Application.Core.Results;
 using Application.Dtos.VehicleDtos;
@@ -36,6 +39,7 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
     [HttpPost]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> CreateVehicle([FromBody] CreateVehicleCommand createVehicleCommand)
     {
         return HandleResult(await Mediator.Send(createVehicleCommand));
@@ -44,6 +48,7 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
     [HttpPut]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> UpdateVehicle([FromBody] UpdateVehicleCommand updateVehicleCommand)
     {
         return HandleResult(await Mediator.Send(updateVehicleCommand));
@@ -55,5 +60,32 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
     public async Task<ActionResult> DeleteVehicle(Guid id)
     {
         return HandleResult(await Mediator.Send(new DeleteVehicleCommand(id)));
+    }
+
+    [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [HttpPost("addImage")]
+    public async Task<ActionResult> AddImageToVehicle([FromForm] AddImageToVehicleCommand addImageToVehicleCommand)
+    {
+        return HandleResult(await Mediator.Send(addImageToVehicleCommand));
+    }
+
+    [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [HttpDelete("deleteImage")]
+    public async Task<ActionResult> DeleteImageFromVehicle(
+        [FromBody] RemoveImageFromVehicleCommand removeImageFromVehicleCommand)
+    {
+        return HandleResult(await Mediator.Send(removeImageFromVehicleCommand));
+    }
+
+    [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [HttpPost("setMainImage")]
+    public async Task<ActionResult> SetVehicleMainImage(
+        [FromBody] SetVehicleMainImageCommand setVehicleMainImageCommand)
+    {
+        return HandleResult(await Mediator.Send(setVehicleMainImageCommand));
     }
 }
