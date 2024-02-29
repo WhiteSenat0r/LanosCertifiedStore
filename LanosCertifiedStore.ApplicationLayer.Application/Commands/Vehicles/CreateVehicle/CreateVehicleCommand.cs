@@ -1,6 +1,4 @@
 ﻿using Application.Commands.Vehicles.Common;
-using Domain.Shared;
-using MediatR;
 
 namespace Application.Commands.Vehicles.CreateVehicle;
 

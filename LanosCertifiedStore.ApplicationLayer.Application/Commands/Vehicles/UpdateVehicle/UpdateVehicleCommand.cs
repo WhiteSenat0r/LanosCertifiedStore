@@ -1,8 +1,4 @@
 ﻿using Application.Commands.Vehicles.Common;
-using Application.Dtos.VehicleDtos;
-using Domain.Shared;
-using MediatR;
-using Microsoft.AspNetCore.Http;
 
 namespace Application.Commands.Vehicles.UpdateVehicle;
 

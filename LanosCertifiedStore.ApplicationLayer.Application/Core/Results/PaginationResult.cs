@@ -1,6 +1,4 @@
-﻿using Domain.Contracts.Common;
-
-namespace Application.Core.Results;
+﻿namespace Application.Core.Results;
 
 public sealed class PaginationResult<T>
 {

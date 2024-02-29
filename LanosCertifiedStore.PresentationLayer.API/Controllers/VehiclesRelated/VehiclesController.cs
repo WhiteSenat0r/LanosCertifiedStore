@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using API.Controllers.Common;
+﻿using API.Controllers.Common;
 using API.Responses;
 using Application.Commands.Vehicles.CreateVehicle;
 using Application.Commands.Vehicles.DeleteVehicle;
