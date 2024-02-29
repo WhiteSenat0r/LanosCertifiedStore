@@ -1,5 +1,4 @@
 ﻿using Application.Commands.Vehicles.Common;
-using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
@@ -7,7 +6,7 @@ using MediatR;
 
 namespace Application.Commands.Vehicles.CreateVehicle;
 
-internal sealed class CreateVehicleCommandHandler(IMapper mapper, IUnitOfWork unitOfWork)
+internal sealed class CreateVehicleCommandHandler(IUnitOfWork unitOfWork)
     : ActionVehicleCommandHandlerBase, IRequestHandler<CreateVehicleCommand, Result<Unit>>
 {
     public async Task<Result<Unit>> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
@@ -17,11 +16,6 @@ internal sealed class CreateVehicleCommandHandler(IMapper mapper, IUnitOfWork un
 
         if (!vehicleInstantiationResult.IsSuccess)
             return Result<Unit>.Failure(vehicleInstantiationResult.Error!);
-
-        // var imagesUploadResult = await TryAddImagesToCloudinary(imageService, request);
-        //
-        // if (!imagesUploadResult.IsSuccess)
-        //     return Result<Unit>.Failure(imagesUploadResult.Error!);
 
         var saveResult = await GetAddedVehicleSavingResult(
             vehicleInstantiationResult, cancellationToken);
@@ -35,11 +29,8 @@ internal sealed class CreateVehicleCommandHandler(IMapper mapper, IUnitOfWork un
         Result<Vehicle> vehicleInstantiationResult,
         CancellationToken cancellationToken)
     {
-        // (vehicleInstantiationResult.Value!.Images as List<VehicleImage>)!.AddRange(imagesUploadResult.Value!);
         await unitOfWork.RetrieveRepository<Vehicle>().AddNewEntityAsync(vehicleInstantiationResult.Value!);
         var saveResult = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
-
-        // if (!saveResult) await imageService.TryRollbackImageUploadAsync();
 
         return saveResult;
     }
