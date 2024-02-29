@@ -17,14 +17,15 @@ public class TransactionPipelineBehavior<TRequest, TResponse>(
         await unitOfWork.BeginTransactionAsync();
 
         var response = await next();
-        
-        try
+
+        switch (response.IsSuccess)
         {
-            await unitOfWork.CommitTransactionAsync();
-        }
-        catch
-        {
-            await unitOfWork.RollbackTransactionAsync();
+            case true:
+                await unitOfWork.CommitTransactionAsync();
+                break;
+            case false:
+                await unitOfWork.RollbackTransactionAsync();
+                break;
         }
 
         return response;
