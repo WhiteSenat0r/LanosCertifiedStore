@@ -1,6 +1,7 @@
 ﻿using Application.RequestParams.Common.Classes;
 using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Enums.RequestParametersRelated;
 
 namespace Application.RequestParams;
 
@@ -14,4 +15,5 @@ public sealed class VehicleFilteringRequestParameters : BaseFilteringRequestPara
     public decimal? LowerPriceLimit { get; set; }
     public decimal? UpperPriceLimit { get; set; }
     public DateTime? MinimalPriceDate { get; set; }
+    public VehicleSelectionProfile SelectionProfile { get; set; } = VehicleSelectionProfile.Default;
 }

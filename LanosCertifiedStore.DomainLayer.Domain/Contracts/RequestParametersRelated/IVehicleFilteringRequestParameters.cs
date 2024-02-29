@@ -1,5 +1,6 @@
 ﻿using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Enums.RequestParametersRelated;
 
 namespace Domain.Contracts.RequestParametersRelated;
 
@@ -12,4 +13,5 @@ public interface IVehicleFilteringRequestParameters : IFilteringRequestParameter
     decimal? LowerPriceLimit { get; set; }
     decimal? UpperPriceLimit { get; set; }
     DateTime? MinimalPriceDate { get; set; }
+    VehicleSelectionProfile SelectionProfile { get; set; }
 }
