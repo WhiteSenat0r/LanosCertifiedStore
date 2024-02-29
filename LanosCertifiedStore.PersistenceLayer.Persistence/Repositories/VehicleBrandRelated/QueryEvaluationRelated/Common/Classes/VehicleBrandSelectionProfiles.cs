@@ -15,7 +15,6 @@ internal class VehicleBrandSelectionProfiles :
         _mappedProfiles = new()
         {
             { VehicleBrandSelectionProfile.Default, GetCatalogProfileQueryable },
-            { VehicleBrandSelectionProfile.Catalog, GetCatalogProfileQueryable },
             { VehicleBrandSelectionProfile.Single, GetSingleProfileQueryable },
         };
 
