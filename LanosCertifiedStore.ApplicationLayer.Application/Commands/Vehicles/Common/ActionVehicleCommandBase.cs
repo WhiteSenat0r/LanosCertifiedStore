@@ -1,6 +1,5 @@
 ﻿using Domain.Shared;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 
 namespace Application.Commands.Vehicles.Common;
 

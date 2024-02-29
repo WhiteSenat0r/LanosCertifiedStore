@@ -1,16 +1,8 @@
 ﻿using Application.Commands.Vehicles.CreateVehicle;
-using Application.Commands.Vehicles.UpdateVehicle;
-using Application.Contracts.ServicesRelated.ImageService;
-using Application.Core.Results;
-using Application.Dtos.ImageDtos;
-using Application.Dtos.VehicleDtos;
-using Application.Dtos.VehicleDtos.Common;
 using Domain.Contracts.Common;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
-using MediatR;
-using Microsoft.AspNetCore.Http;
 
 namespace Application.Commands.Vehicles.Common;
 
