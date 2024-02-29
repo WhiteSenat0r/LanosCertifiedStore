@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using Application.RequestParams;
+using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Enums.RequestParametersRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels.VehicleRelated;
@@ -12,7 +14,7 @@ using Persistence.Repositories.VehicleImageRelated.QueryEvaluationRelated.Common
 namespace Persistence.Repositories.VehicleImageRelated;
 
 internal class VehicleImageRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
-    : GenericRepository<VehicleImage, VehicleImageDataModel>(mapper, dbContext)
+    : GenericRepository<VehicleImageSelectionProfile, VehicleImage, VehicleImageDataModel>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleImage>> GetAllEntitiesAsync(
         IFilteringRequestParameters<VehicleImage>? filteringRequestParameters = null!)
@@ -26,9 +28,8 @@ internal class VehicleImageRepository(IMapper mapper, ApplicationDatabaseContext
 
     public override async Task<VehicleImage?> GetEntityByIdAsync(Guid id)
     {
-        var vehicleImagesQueryEvaluator = GetQueryEvaluator(null);
-
-        var vehicleImageQuery = vehicleImagesQueryEvaluator.GetSingleEntityQueryable(id);
+        var vehicleImageQuery = QueryEvaluator.GetSingleEntityQueryable(
+            id, Context.Set<VehicleImageDataModel>(), new VehicleImageFilteringRequestParameters());
 
         var vehicleImageModel = await vehicleImageQuery.AsNoTracking().SingleOrDefaultAsync();
         
@@ -40,26 +41,18 @@ internal class VehicleImageRepository(IMapper mapper, ApplicationDatabaseContext
     public override Task<int> CountAsync(
         IFilteringRequestParameters<VehicleImage>? filteringRequestParameters = null)
     {
-        var vehicleImagesQueryEvaluator = GetQueryEvaluator(filteringRequestParameters);
-        
-        var countedQueryable = vehicleImagesQueryEvaluator.GetRelevantCountQueryable();
+        var countedQueryable = QueryEvaluator.GetRelevantCountQueryable(
+            Context.Set<VehicleImageDataModel>(), filteringRequestParameters);
 
         return countedQueryable.CountAsync();
     }
 
     private protected override IQueryable<VehicleImageDataModel> GetRelevantQueryable(
-        IFilteringRequestParameters<VehicleImage>? filteringRequestParameters)
-    {
-        var vehicleImagesQueryEvaluator = GetQueryEvaluator(filteringRequestParameters);
-
-        return vehicleImagesQueryEvaluator.GetAllEntitiesQueryable();
-    }
-
-    private protected override BaseQueryEvaluator<VehicleImage, VehicleImageDataModel> GetQueryEvaluator(
         IFilteringRequestParameters<VehicleImage>? filteringRequestParameters) =>
-        new VehicleImageQueryEvaluator(
-            includedAspects: VehicleImageIncludedAspects.IncludedAspects,
-            filteringRequestParameters: filteringRequestParameters,
-            dataModels: Context.Set<VehicleImageDataModel>(),
-            imageFilteringCriteria: new VehicleImageFilteringCriteria());
+        QueryEvaluator.GetAllEntitiesQueryable(
+            Context.Set<VehicleImageDataModel>(), filteringRequestParameters);
+
+    private protected override BaseQueryEvaluator<VehicleImageSelectionProfile, VehicleImage, VehicleImageDataModel> 
+        GetQueryEvaluator() =>
+        new VehicleImageQueryEvaluator(new VehicleImageSelectionProfiles(), new VehicleImageFilteringCriteria());
 }

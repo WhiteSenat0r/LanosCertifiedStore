@@ -3,7 +3,6 @@
 namespace Application.Core.Results;
 
 public sealed class PaginationResult<T>
-    where T : IIdentifiable<Guid>
 {
     public PaginationResult(
         IEnumerable<T> items, 

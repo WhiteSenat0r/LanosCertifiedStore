@@ -1,10 +1,9 @@
 ﻿using Application.Dtos.ImageDtos;
 using Application.Dtos.PriceDtos;
-using Domain.Contracts.Common;
 
 namespace Application.Dtos.VehicleDtos;
 
-public record ListVehicleDto : IIdentifiable<Guid>
+public record ListVehicleDto
 {
     public Guid Id { get; init; }
     public string? Brand { get; init; }

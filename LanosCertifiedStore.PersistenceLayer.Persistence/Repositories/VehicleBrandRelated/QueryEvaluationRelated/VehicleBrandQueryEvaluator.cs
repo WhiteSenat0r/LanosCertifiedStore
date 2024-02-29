@@ -1,7 +1,6 @@
-﻿using System.Linq.Expressions;
-using Domain.Contracts.RepositoryRelated;
+﻿using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
-using Microsoft.EntityFrameworkCore;
+using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation;
 using Persistence.Repositories.VehicleBrandRelated.QueryEvaluationRelated.Common.Classes;
@@ -9,17 +8,14 @@ using Persistence.Repositories.VehicleBrandRelated.QueryEvaluationRelated.Common
 namespace Persistence.Repositories.VehicleBrandRelated.QueryEvaluationRelated;
 
 internal class VehicleBrandQueryEvaluator(
-    IEnumerable<Expression<Func<VehicleBrandDataModel, object>>> includedAspects,
-    IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters,
-    DbSet<VehicleBrandDataModel> dataModels,
-    VehicleBrandFilteringCriteria vehicleFilteringCriteria)
-    : BaseQueryEvaluator<VehicleBrand, VehicleBrandDataModel>(
-        includedAspects,
-        filteringRequestParameters,
-        dataModels,
-        vehicleFilteringCriteria)
+    VehicleBrandSelectionProfiles selectionProfiles,
+    VehicleBrandFilteringCriteria brandFilteringCriteria)
+    : BaseQueryEvaluator<VehicleBrandSelectionProfile, VehicleBrand, VehicleBrandDataModel>(
+        selectionProfiles,
+        brandFilteringCriteria)
 {
-    private protected override VehicleBrandSortingSettings GetQuerySortingSettings()
+    private protected override VehicleBrandSortingSettings GetQuerySortingSettings(
+        IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters)
     {
         if (string.IsNullOrEmpty(filteringRequestParameters!.SortingType))
             return new VehicleBrandSortingSettings

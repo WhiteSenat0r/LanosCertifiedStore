@@ -1,7 +1,5 @@
 ﻿using Domain.Contracts.RepositoryRelated;
-using Domain.Entities.UserRelated;
 using Domain.Entities.VehicleRelated.Classes;
-using Persistence.Repositories.IdentityRelated;
 using Persistence.Repositories.VehicleBrandRelated;
 using Persistence.Repositories.VehicleColorRelated;
 using Persistence.Repositories.VehicleImageRelated;
@@ -23,6 +21,6 @@ internal abstract class RepositoryMappings
         { typeof(IRepository<VehicleColor>), typeof(VehicleColorRepository) },
         { typeof(IRepository<VehiclePrice>), typeof(VehiclePriceRepository) },
         { typeof(IRepository<VehicleImage>), typeof(VehicleImageRepository) },
-        { typeof(IRepository<User>), typeof(UserRepository) }
+        // { typeof(IRepository<User>), typeof(UserRepository) }
     };
 }

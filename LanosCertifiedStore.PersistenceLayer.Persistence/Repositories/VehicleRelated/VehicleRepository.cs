@@ -1,6 +1,8 @@
-﻿using AutoMapper;
+﻿using Application.RequestParams;
+using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Enums.RequestParametersRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels.VehicleRelated;
@@ -12,36 +14,25 @@ using Persistence.Repositories.VehicleRelated.QueryEvaluationRelated.Common.Clas
 namespace Persistence.Repositories.VehicleRelated;
 
 internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
-    : GenericRepository<Vehicle, VehicleDataModel>(mapper, dbContext)
+    : GenericRepository<VehicleSelectionProfile, Vehicle, VehicleDataModel>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<Vehicle>> GetAllEntitiesAsync(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters = null!)
     {
         var vehicleModelsQuery = GetRelevantQueryable(filteringRequestParameters);
 
-        var vehicleModels = await vehicleModelsQuery
-            .Select(v => new VehicleDataModel
-            {
-                Id = v.Id,
-                Displacement = v.Displacement,
-                Brand = v.Brand,
-                Model = v.Model,
-                Color = v.Color,
-                Type = v.Type,
-                Images = v.Images.Where(i => i.IsMainImage).ToList(),
-                Prices = new List<VehiclePriceDataModel> { v.Prices.OrderBy(x => x.IssueDate).First() }
-            })
-            .AsNoTracking()
-            .ToListAsync();
+        var vehicleModels = await vehicleModelsQuery.AsNoTracking().ToListAsync();
 
         return Mapper.Map<IReadOnlyList<VehicleDataModel>, IReadOnlyList<Vehicle>>(vehicleModels);
     }
 
     public override async Task<Vehicle?> GetEntityByIdAsync(Guid id)
     {
-        var vehicleQueryEvaluator = GetQueryEvaluator(null);
-
-        var vehicleModelQuery = vehicleQueryEvaluator.GetSingleEntityQueryable(id);
+        var vehicleModelQuery = QueryEvaluator.GetSingleEntityQueryable(
+            id, Context.Set<VehicleDataModel>(), new VehicleFilteringRequestParameters
+            {
+                SelectionProfile = VehicleSelectionProfile.Single
+            });
 
         var vehicleModel = await vehicleModelQuery.AsNoTracking().SingleOrDefaultAsync();
 
@@ -53,26 +44,18 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
     public override Task<int> CountAsync(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters = null)
     {
-        var vehicleQueryEvaluator = GetQueryEvaluator(filteringRequestParameters);
-
-        var countedQueryable = vehicleQueryEvaluator.GetRelevantCountQueryable();
+        var countedQueryable = QueryEvaluator.GetRelevantCountQueryable(
+            Context.Set<VehicleDataModel>(), filteringRequestParameters);
 
         return countedQueryable.CountAsync();
     }
 
     private protected override IQueryable<VehicleDataModel> GetRelevantQueryable(
-        IFilteringRequestParameters<Vehicle>? filteringRequestParameters)
-    {
-        var vehicleQueryEvaluator = GetQueryEvaluator(filteringRequestParameters);
-
-        return vehicleQueryEvaluator.GetAllEntitiesQueryable();
-    }
-
-    private protected override BaseQueryEvaluator<Vehicle, VehicleDataModel> GetQueryEvaluator(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters) =>
-        new VehicleQueryEvaluator(
-            includedAspects: VehicleIncludedAspects.IncludedAspects,
-            filteringRequestParameters: filteringRequestParameters,
-            dataModels: Context.Set<VehicleDataModel>(),
-            vehicleFilteringCriteria: new VehicleFilteringCriteria());
+        QueryEvaluator.GetAllEntitiesQueryable(
+            Context.Set<VehicleDataModel>(), filteringRequestParameters);
+
+    private protected override BaseQueryEvaluator<VehicleSelectionProfile, Vehicle, VehicleDataModel>
+        GetQueryEvaluator() =>
+        new VehicleQueryEvaluator(new VehicleSelectionProfiles(), new VehicleFilteringCriteria());
 }
