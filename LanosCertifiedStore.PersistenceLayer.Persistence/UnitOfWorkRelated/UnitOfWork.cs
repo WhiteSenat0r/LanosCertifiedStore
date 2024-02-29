@@ -33,9 +33,15 @@ internal sealed class UnitOfWork(ApplicationDatabaseContext context, IMapper map
 
         return (_repositoryInstancesHashTable[repositoryTypeKey] as IRepository<TEntity>)!;
     }
-
+    
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => 
         context.SaveChangesAsync(cancellationToken);
+
+    public async Task BeginTransactionAsync() => await context.Database.BeginTransactionAsync();
+
+    public Task CommitTransactionAsync() => context.Database.CommitTransactionAsync();
+
+    public Task RollbackTransactionAsync() => context.Database.RollbackTransactionAsync();
 
     public void ClearChangeTrackerData() => context.ChangeTracker.Clear();
 
