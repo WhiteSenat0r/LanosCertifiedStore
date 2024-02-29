@@ -12,13 +12,25 @@ public static class ApplicationServiceCollectionExtensions
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ListVehiclesQueryHandler).Assembly));
+        services.AddMediatR(cfg => 
+            cfg.RegisterServicesFromAssembly(typeof(ListVehiclesQueryHandler).Assembly));
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
-        services.AddScoped(typeof(ValidationHelper<>));
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), includeInternalTypes: true);
+        AddTransactionRelatedServices(services);
+        AddValidationRelatedServices(services);
 
         return services;
+    }
+
+    private static void AddTransactionRelatedServices(IServiceCollection services) => 
+        services.AddScoped(
+            typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+
+    private static void AddValidationRelatedServices(IServiceCollection services)
+    {
+        services.AddScoped(
+            typeof(IPipelineBehavior<,>), typeof(TransactionPipelineBehavior<,>));
+        services.AddScoped(typeof(ValidationHelper<>));
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), includeInternalTypes: true);
     }
 }
