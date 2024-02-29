@@ -7,10 +7,10 @@ using MediatR;
 
 namespace Application.Queries.Models;
 
-internal sealed class ListModelsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
-    : IRequestHandler<ListModelsQuery, Result<IReadOnlyList<ModelDto>>>
+internal sealed class ModelsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    : IRequestHandler<ModelsQuery, Result<IReadOnlyList<ModelDto>>>
 {
-    public async Task<Result<IReadOnlyList<ModelDto>>> Handle(ListModelsQuery request,
+    public async Task<Result<IReadOnlyList<ModelDto>>> Handle(ModelsQuery request,
         CancellationToken cancellationToken)
     {
         var models = await unitOfWork.RetrieveRepository<VehicleModel>().GetAllEntitiesAsync(request.RequestParameters);
