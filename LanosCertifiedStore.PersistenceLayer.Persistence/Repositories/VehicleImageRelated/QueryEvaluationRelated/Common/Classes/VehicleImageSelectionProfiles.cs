@@ -26,7 +26,6 @@ internal class VehicleImageSelectionProfiles :
         queryable.Select(vehicleImage => new VehicleImageDataModel
         {
             Id = vehicleImage.Id,
-            CloudImageId = vehicleImage.CloudImageId,
             ImageUrl = vehicleImage.ImageUrl,
             IsMainImage = vehicleImage.IsMainImage
         });

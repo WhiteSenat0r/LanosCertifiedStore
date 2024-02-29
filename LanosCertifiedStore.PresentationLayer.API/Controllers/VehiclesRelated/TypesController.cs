@@ -5,6 +5,7 @@ using Application.Commands.Types.DeleteType;
 using Application.Commands.Types.UpdateType;
 using Application.Dtos.TypeDtos;
 using Application.Queries.Types;
+using Application.RequestParams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +16,10 @@ public sealed class TypesController : BaseEntityRelatedApiController
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyList<TypeDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<IReadOnlyList<TypeDto>>> GetTypes()
+    public async Task<ActionResult<IReadOnlyList<TypeDto>>> GetTypes(
+        [FromQuery] VehicleTypeFilteringRequestParameters requestParameters)
     {
-        return HandleResult(await Mediator.Send(new ListTypesQuery()));
+        return HandleResult(await Mediator.Send(new TypesQuery(requestParameters)));
     }
 
     [HttpPost]

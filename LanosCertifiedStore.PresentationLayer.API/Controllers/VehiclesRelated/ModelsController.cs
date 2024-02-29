@@ -19,7 +19,7 @@ public sealed class ModelsController : BaseEntityRelatedApiController
     public async Task<ActionResult<IReadOnlyList<ModelDto>>> GetModels(
         [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
     {
-        return HandleResult(await Mediator.Send(new ListModelsQuery(requestParameters)));
+        return HandleResult(await Mediator.Send(new ModelsQuery(requestParameters)));
     }
 
     [HttpPost]

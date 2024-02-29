@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Application.Behaviors;
 using Application.Helpers;
-using Application.Queries.Vehicles.ListVehicles;
+using Application.Queries.Vehicles.VehiclesQueryRelated;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +13,7 @@ public static class ApplicationServiceCollectionExtensions
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddMediatR(cfg => 
-            cfg.RegisterServicesFromAssembly(typeof(ListVehiclesQueryHandler).Assembly));
+            cfg.RegisterServicesFromAssembly(typeof(VehiclesQueryHandler).Assembly));
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         AddTransactionRelatedServices(services);

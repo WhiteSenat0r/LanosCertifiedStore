@@ -34,6 +34,7 @@ internal class VehiclePriceSelectionProfiles :
         IQueryable<VehiclePriceDataModel> queryable) =>
         queryable.Select(vehiclePrice => new VehiclePriceDataModel
         {
+            Id = vehiclePrice.Id,
             Value = vehiclePrice.Value
         });
     

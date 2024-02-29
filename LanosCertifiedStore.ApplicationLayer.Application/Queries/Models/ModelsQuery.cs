@@ -5,5 +5,5 @@ using MediatR;
 
 namespace Application.Queries.Models;
 
-public sealed record ListModelsQuery(IVehicleModelFilteringRequestParameters RequestParameters)
+public sealed record ModelsQuery(IVehicleModelFilteringRequestParameters RequestParameters)
     : IRequest<Result<IReadOnlyList<ModelDto>>>;

@@ -1,8 +1,6 @@
-﻿using Domain.Contracts.Common;
+﻿namespace Application.Dtos.IdentityDtos.ProfileDtos;
 
-namespace Application.Dtos.IdentityDtos.ProfileDtos;
-
-public sealed record ProfileDto : IIdentifiable<Guid>
+public sealed record ProfileDto
 {
     public Guid Id { get; init; }
     public string FirstName { get; set; } = default!;

@@ -5,6 +5,7 @@ using Application.Commands.Colors.DeleteColor;
 using Application.Commands.Colors.UpdateColor;
 using Application.Dtos.ColorDtos;
 using Application.Queries.Colors;
+using Application.RequestParams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +16,10 @@ public sealed class ColorsController : BaseEntityRelatedApiController
     [HttpGet]
     [ProducesResponseType(typeof(IReadOnlyList<ColorDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<IReadOnlyList<ColorDto>>> GetColors()
+    public async Task<ActionResult<IReadOnlyList<ColorDto>>> GetColors(
+        [FromQuery] VehicleColorFilteringRequestParameters requestParameters)
     {
-        return HandleResult(await Mediator.Send(new ListColorsQuery()));
+        return HandleResult(await Mediator.Send(new ColorsQuery(requestParameters)));
     }
 
     [HttpPost]

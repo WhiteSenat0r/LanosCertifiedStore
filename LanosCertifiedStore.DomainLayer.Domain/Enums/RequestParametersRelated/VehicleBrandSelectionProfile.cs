@@ -3,6 +3,5 @@
 public enum VehicleBrandSelectionProfile
 {
     Default,
-    Catalog,
     Single,
 }

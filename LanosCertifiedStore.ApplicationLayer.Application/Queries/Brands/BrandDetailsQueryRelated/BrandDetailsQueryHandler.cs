@@ -5,12 +5,12 @@ using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
 
-namespace Application.Queries.Brands.SingleQueryRelated;
+namespace Application.Queries.Brands.BrandDetailsQueryRelated;
 
-internal sealed class SingleBrandQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
-    : IRequestHandler<SingleBrandQuery, Result<BrandDto>>
+internal sealed class BrandDetailsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    : IRequestHandler<BrandDetailsQuery, Result<BrandDto>>
 {
-    public async Task<Result<BrandDto>> Handle(SingleBrandQuery request,
+    public async Task<Result<BrandDto>> Handle(BrandDetailsQuery request,
         CancellationToken cancellationToken)
     {
         var brand = await unitOfWork.RetrieveRepository<VehicleBrand>()

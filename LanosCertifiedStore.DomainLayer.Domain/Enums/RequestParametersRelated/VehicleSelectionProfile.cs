@@ -4,6 +4,5 @@ public enum VehicleSelectionProfile
 {
     Default,
     Catalog,
-    Single,
-    Featured
+    Single
 }

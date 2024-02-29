@@ -3,7 +3,7 @@ using Application.RequestParams;
 using Domain.Shared;
 using MediatR;
 
-namespace Application.Queries.Brands.ListQueryRelated;
+namespace Application.Queries.Brands.BrandQueryRelated;
 
 public sealed record ListBrandsQuery(VehicleBrandFilteringRequestParameters RequestParameters)
     : IRequest<Result<IReadOnlyList<BrandDto>>>;
