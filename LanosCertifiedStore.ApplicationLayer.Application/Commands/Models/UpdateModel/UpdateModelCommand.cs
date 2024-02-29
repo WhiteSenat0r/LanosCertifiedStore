@@ -1,5 +1,4 @@
-﻿using Application.Dtos.ModelDtos;
-using Domain.Shared;
+﻿using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Models.UpdateModel;

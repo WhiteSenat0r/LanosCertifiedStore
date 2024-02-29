@@ -1,10 +1,14 @@
 ﻿using Application.Commands.Vehicles.Common;
-using Application.Dtos.VehicleDtos;
-using Microsoft.AspNetCore.Http;
+using Domain.Shared;
+using MediatR;
 
 namespace Application.Commands.Vehicles.CreateVehicle;
 
 public record CreateVehicleCommand(
-    CreateVehicleDto CreateVehicleDto,
-    ICollection<IFormFile> Images,
-    string MainImageName) : IActionVehicleCommandBase;
+    Guid ModelId,
+    Guid TypeId,
+    Guid ColorId,
+    string Description,
+    double Displacement,
+    decimal Price)
+    : IActionVehicleCommandBase;

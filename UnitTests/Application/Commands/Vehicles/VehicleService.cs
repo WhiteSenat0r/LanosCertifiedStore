@@ -1,5 +1,4 @@
-﻿using Application.Dtos.VehicleDtos;
-using Domain.Entities.VehicleRelated.Classes;
+﻿using Domain.Entities.VehicleRelated.Classes;
 
 namespace UnitTests.Application.Commands.Vehicles;
 

@@ -1,11 +1,16 @@
 ﻿using Application.Commands.Vehicles.Common;
 using Application.Dtos.VehicleDtos;
+using Domain.Shared;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 
 namespace Application.Commands.Vehicles.UpdateVehicle;
 
 public record UpdateVehicleCommand(
-    UpdateVehicleDto UpdateVehicleDto,
-    ICollection<IFormFile>? Images,
-    string? MainImageName,
-    Guid? MainImageId) : IActionVehicleCommandBase;
+    Guid Id,
+    Guid ModelId,
+    Guid TypeId,
+    Guid ColorId,
+    string Description,
+    double Displacement,
+    decimal Price) : IActionVehicleCommandBase;
