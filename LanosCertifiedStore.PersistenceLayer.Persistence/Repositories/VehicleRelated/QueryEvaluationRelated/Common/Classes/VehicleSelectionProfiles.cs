@@ -96,14 +96,17 @@ internal class VehicleSelectionProfiles :
             Id = vehicle.Id,
             Brand = new VehicleBrandDataModel
             {
+                Id = vehicle.Brand.Id,
                 Name = vehicle.Brand.Name
             },
             Model = new VehicleModelDataModel
             {
+                Id = vehicle.Model.Id,
                 Name = vehicle.Model.Name
             },
             Prices = (vehicle.Prices!.Select(price => new VehiclePriceDataModel
             {
+                Id = price.Id,
                 Value = price.Value,
                 IssueDate = price.IssueDate
             }).OrderByDescending(price => price.IssueDate) as ICollection<VehiclePriceDataModel>)!,
@@ -111,16 +114,19 @@ internal class VehicleSelectionProfiles :
             Description = vehicle.Description,
             Color = new VehicleColorDataModel
             {
+                Id = vehicle.Color.Id,
                 Name = vehicle.Color.Name,
                 HexValue = vehicle.Color.HexValue
             },
             Images = (vehicle.Images!.Select(image => new VehicleImageDataModel
             {
+                Id = image.Id,
                 ImageUrl = image.ImageUrl,
                 IsMainImage = image.IsMainImage
             }).OrderByDescending(image => image.IsMainImage) as ICollection<VehicleImageDataModel>)!,
             Type = new VehicleTypeDataModel
             {
+                Id = vehicle.Type.Id,
                 Name = vehicle.Type.Name
             }
         });
