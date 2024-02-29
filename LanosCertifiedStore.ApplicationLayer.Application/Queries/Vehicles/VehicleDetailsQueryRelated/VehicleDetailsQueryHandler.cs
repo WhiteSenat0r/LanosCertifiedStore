@@ -5,19 +5,19 @@ using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
 
-namespace Application.Queries.Vehicles.VehicleDetails;
+namespace Application.Queries.Vehicles.VehicleDetailsQueryRelated;
 
 internal sealed class VehicleDetailsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
-    : IRequestHandler<VehicleDetailsQuery, Result<DetailsVehicleDto>>
+    : IRequestHandler<VehicleDetailsQuery, Result<SingleVehicleDto>>
 {
-    public async Task<Result<DetailsVehicleDto>> Handle(VehicleDetailsQuery request, CancellationToken cancellationToken)
+    public async Task<Result<SingleVehicleDto>> Handle(VehicleDetailsQuery request, CancellationToken cancellationToken)
     {
         var vehicle = await unitOfWork.RetrieveRepository<Vehicle>().GetEntityByIdAsync(request.Id);
 
         if (vehicle is null) return null!;
         
-        var vehicleToReturn = mapper.Map<Vehicle, DetailsVehicleDto>(vehicle);
+        var vehicleToReturn = mapper.Map<Vehicle, SingleVehicleDto>(vehicle);
 
-        return Result<DetailsVehicleDto>.Success(vehicleToReturn);
+        return Result<SingleVehicleDto>.Success(vehicleToReturn);
     }
 }

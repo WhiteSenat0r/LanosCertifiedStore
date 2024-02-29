@@ -4,7 +4,7 @@ using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
 
-namespace Application.Queries.Vehicles.CountVehicles;
+namespace Application.Queries.Vehicles.CountVehiclesQueryRelated;
 
 internal sealed class CountVehiclesQueryHandler(IUnitOfWork unitOfWork)
     : IRequestHandler<CountVehiclesQuery, Result<ItemsCountDto>>
