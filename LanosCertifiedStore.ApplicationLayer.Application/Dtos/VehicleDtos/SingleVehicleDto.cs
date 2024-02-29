@@ -4,7 +4,7 @@ using Domain.Contracts.Common;
 
 namespace Application.Dtos.VehicleDtos;
 
-public sealed record SingleVehicleDto : IIdentifiable<Guid>
+public sealed record SingleVehicleDto
 {
     public Guid Id { get; init; }
     public string? Description { get; init; }
