@@ -7,13 +7,14 @@ using MediatR;
 
 namespace Application.Queries.Colors;
 
-internal sealed class ListColorsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
-    : IRequestHandler<ListColorsQuery, Result<IReadOnlyList<ColorDto>>>
+internal sealed class ColorsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    : IRequestHandler<ColorsQuery, Result<IReadOnlyList<ColorDto>>>
 {
-    public async Task<Result<IReadOnlyList<ColorDto>>> Handle(ListColorsQuery request,
+    public async Task<Result<IReadOnlyList<ColorDto>>> Handle(ColorsQuery request,
         CancellationToken cancellationToken)
     {
-        var colors = await unitOfWork.RetrieveRepository<VehicleColor>().GetAllEntitiesAsync();
+        var colors = 
+            await unitOfWork.RetrieveRepository<VehicleColor>().GetAllEntitiesAsync(request.RequestParameters);
 
         var colorsToReturn = mapper.Map<IReadOnlyList<VehicleColor>, IReadOnlyList<ColorDto>>(colors);
 
