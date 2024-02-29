@@ -36,6 +36,11 @@ internal class VehicleModelSelectionProfiles :
         {
             Id = vehicleModel.Id,
             Name = vehicleModel.Name,
+            VehicleBrand = new VehicleBrandDataModel
+            {
+                Id = vehicleModel.VehicleBrand.Id,
+                Name = vehicleModel.VehicleBrand.Name
+            },
         });
     
     private static IQueryable<VehicleModelDataModel> GetSingleProfileQueryable(
@@ -51,8 +56,8 @@ internal class VehicleModelSelectionProfiles :
             },
             AvailableTypes = (vehicleModel.AvailableTypes.Select(type => new VehicleTypeDataModel
             {
-                Id = vehicleModel.Id,
-                Name = vehicleModel.Name
+                Id = type.Id,
+                Name = type.Name
             }) as ICollection<VehicleTypeDataModel>)!
         });
 }
