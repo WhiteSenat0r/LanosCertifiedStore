@@ -5,8 +5,8 @@ using Application.Commands.Vehicles.DeleteVehicle;
 using Application.Commands.Vehicles.UpdateVehicle;
 using Application.Core.Results;
 using Application.Dtos.VehicleDtos;
-using Application.Queries.Vehicles.ListVehicles;
-using Application.Queries.Vehicles.VehicleDetails;
+using Application.Queries.Vehicles.VehicleDetailsQueryRelated;
+using Application.Queries.Vehicles.VehiclesQueryRelated;
 using Application.RequestParams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,19 +16,19 @@ namespace API.Controllers.VehiclesRelated;
 public sealed class VehiclesController : BaseEntityRelatedApiController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(PaginationResult<DetailsVehicleDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PaginationResult<VehicleDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<PaginationResult<DetailsVehicleDto>>> GetVehicles(
+    public async Task<ActionResult<PaginationResult<VehicleDto>>> GetVehicles(
         [FromQuery] VehicleFilteringRequestParameters requestParameters)
     {
-        return HandleResult(await Mediator.Send(new ListVehiclesQuery(requestParameters)));
+        return HandleResult(await Mediator.Send(new VehiclesQuery(requestParameters)));
     }
 
     [HttpGet("{id:guid}")]
-    [ProducesResponseType(typeof(DetailsVehicleDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(SingleVehicleDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<DetailsVehicleDto>> GetVehicle(Guid id)
+    public async Task<ActionResult<SingleVehicleDto>> GetVehicle(Guid id)
     {
         return HandleResult(await Mediator.Send(new VehicleDetailsQuery(id)));
     }
