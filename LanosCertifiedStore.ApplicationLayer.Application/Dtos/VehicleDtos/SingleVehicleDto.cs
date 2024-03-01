@@ -1,6 +1,5 @@
 ﻿using Application.Dtos.ImageDtos;
 using Application.Dtos.PriceDtos;
-using Domain.Contracts.Common;
 
 namespace Application.Dtos.VehicleDtos;
 

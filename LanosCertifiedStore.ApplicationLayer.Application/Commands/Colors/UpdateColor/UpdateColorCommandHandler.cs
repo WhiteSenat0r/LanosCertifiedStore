@@ -1,29 +1,45 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Application.Commands.Common;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Colors.UpdateColor;
 
-internal sealed class UpdateColorCommandHandler(IUnitOfWork unitOfWork)
-    : IRequestHandler<UpdateColorCommand, Result<Unit>>
+internal sealed class UpdateColorCommandHandler 
+    : CommandHandlerBase<Unit>, IRequestHandler<UpdateColorCommand, Result<Unit>>
 {
+    private readonly IUnitOfWork _unitOfWork;
+
+    public UpdateColorCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+        PossibleErrors = new[]
+        {
+            new Error("UpdateColorError", "Saving an updated color was not successful!"),
+            new Error("UpdateColorError", "Error occured during the color update!")
+        };
+    }
+
     public async Task<Result<Unit>> Handle(UpdateColorCommand request, CancellationToken cancellationToken)
     {
-        var existingColor = await unitOfWork.RetrieveRepository<VehicleColor>()
-            .GetEntityByIdAsync(request.UpdateColorDto.Id);
+        var colorRepository = _unitOfWork.RetrieveRepository<VehicleColor>();
+        var updatedColor = await colorRepository.GetEntityByIdAsync(request.Id);
 
-        if (existingColor is null)
-            return Result<Unit>.Failure(Error.NotFound);
+        if (updatedColor is null) return Result<Unit>.Failure(Error.NotFound);
 
-        existingColor.Name = request.UpdateColorDto.UpdatedName;
+        UpdateColor(request, updatedColor, colorRepository);
 
-        unitOfWork.RetrieveRepository<VehicleColor>().UpdateExistingEntity(existingColor);
+        return await TrySaveChanges(cancellationToken);
+    }
 
-        var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
+    private void UpdateColor(UpdateColorCommand request,
+        VehicleColor updatedColor, IRepository<VehicleColor> colorRepository)
+    {
+        updatedColor.Name = request.UpdatedName;
 
-        return result
-            ? Result<Unit>.Success(Unit.Value)
-            : Result<Unit>.Failure(new Error("UpdateError", "Failed to update color"));
+        updatedColor.HexValue = request.UpdatedHexValue!;
+
+        colorRepository.UpdateExistingEntity(updatedColor);
     }
 }

@@ -36,7 +36,7 @@ internal abstract class GenericRepository<TSelectionProfile, TEntity, TDataModel
         await Context.Set<TDataModel>().AddAsync(mappedEntityModel);
     }
 
-    public void UpdateExistingEntity(TEntity updatedEntity)
+    public virtual void UpdateExistingEntity(TEntity updatedEntity)
     {
         var mappedEntityModel = Mapper.Map<TEntity, TDataModel>(updatedEntity);
 

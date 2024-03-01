@@ -1,22 +1,32 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Application.Commands.Common;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Brands.CreateBrand;
 
-internal sealed class CreateBrandCommandHandler(IUnitOfWork unitOfWork)
-    : IRequestHandler<CreateBrandCommand, Result<Unit>>
+internal sealed class CreateBrandCommandHandler : 
+    CommandHandlerBase<Unit>, IRequestHandler<CreateBrandCommand, Result<Unit>>
 {
+    private readonly IUnitOfWork _unitOfWork;
+
+    public CreateBrandCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+        PossibleErrors = new[]
+        {
+            new Error("CreateBrandError", "Saving a new brand was not successful!"),
+            new Error("CreateBrandError", "Error occured during a new brand creation!")
+        };
+    }
+
     public async Task<Result<Unit>> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
     {
-        var brand = new VehicleBrand(request.Name);
-        await unitOfWork.RetrieveRepository<VehicleBrand>().AddNewEntityAsync(brand);
+        var newBrand = new VehicleBrand(request.Name);
+        
+        await _unitOfWork.RetrieveRepository<VehicleBrand>().AddNewEntityAsync(newBrand);
 
-        var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
-
-        return result
-            ? Result<Unit>.Success(Unit.Value)
-            : Result<Unit>.Failure(new Error("CreateError","Failed to create brand!"));
+        return await TrySaveChanges(cancellationToken);
     }
 }

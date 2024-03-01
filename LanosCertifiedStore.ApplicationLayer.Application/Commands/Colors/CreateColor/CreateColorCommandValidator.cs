@@ -8,17 +8,17 @@ internal sealed class CreateColorCommandValidator : AbstractValidator<CreateColo
 {
     public CreateColorCommandValidator(ValidationHelper<VehicleColor> validationHelper)
     {
-        RuleFor(x => x.CreateColorDto.ColorName)
+        RuleFor(x => x.ColorName)
             .NotEmpty()
             .MaximumLength(64)
             .MinimumLength(2);
         
-        RuleFor(x => x.CreateColorDto.HexValue)
+        RuleFor(x => x.HexValue)
             .NotEmpty()
             .MaximumLength(12)
             .MinimumLength(2);
 
-        RuleFor(x => x.CreateColorDto.ColorName)
+        RuleFor(x => x.ColorName)
             .MustAsync(async (name, _) => await validationHelper.IsNameUniqueAsync(name))
             .WithMessage("Color with such name already exists! Color name must be unique");
     }

@@ -59,6 +59,27 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
 
         await Context.Set<VehicleModelDataModel>().AddAsync(mappedEntityModel);
     }
+    
+    public override async void UpdateExistingEntity(VehicleModel entity)
+    {
+        var mappedEntityModel = Mapper.Map<VehicleModel, VehicleModelDataModel>(entity);
+        
+        var types = new List<VehicleTypeDataModel>();
+        
+        mappedEntityModel.AvailableTypes.Clear();
+        
+        foreach (var typeId in entity.AvailableTypes.Select(x => x.Id))
+        {
+            var type = await Context.Set<VehicleTypeDataModel>().FindAsync(typeId);
+        
+            if (type is not null)
+                types.Add(type);
+        }
+
+        mappedEntityModel.AvailableTypes = types;
+
+        Context.Set<VehicleModelDataModel>().Update(mappedEntityModel);
+    }
 
     public override Task<int> CountAsync(
         IFilteringRequestParameters<VehicleModel>? filteringRequestParameters = null)

@@ -1,19 +1,30 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Application.Commands.Common;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Colors.DeleteColor;
 
-internal sealed class DeleteColorCommandHandler(IUnitOfWork unitOfWork)
-    : IRequestHandler<DeleteColorCommand, Result<Unit>>
+internal sealed class DeleteColorCommandHandler 
+    : CommandHandlerBase<Unit>, IRequestHandler<DeleteColorCommand, Result<Unit>>
 {
+    private readonly IUnitOfWork _unitOfWork;
+
+    public DeleteColorCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+        PossibleErrors = new[]
+        {
+            new Error("DeleteColorError", "Removing a brand was not successful!"),
+            new Error("DeleteColorError", "Error occured during the color removal!")
+        };
+    }
+
     public async Task<Result<Unit>> Handle(DeleteColorCommand request, CancellationToken cancellationToken)
     {
-        await unitOfWork.RetrieveRepository<VehicleColor>().RemoveExistingEntity(request.Id);
+        await _unitOfWork.RetrieveRepository<VehicleColor>().RemoveExistingEntity(request.Id);
 
-        var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
-
-        return result ? Result<Unit>.Success(Unit.Value) : Result<Unit>.Failure(new Error("DeleteError", "Failed to delete brand"));
+        return await TrySaveChanges(cancellationToken);
     }
 }

@@ -26,27 +26,26 @@ public sealed class ColorsController : BaseEntityRelatedApiController
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> CreateColor([FromBody] CreateColorDto createColorDto)
+    public async Task<ActionResult> CreateColor([FromBody] CreateColorCommand createCommand)
     {
-        return HandleResult(await Mediator.Send(new CreateColorCommand(createColorDto)));
+        return HandleResult(await Mediator.Send(createCommand));
     }
 
     [HttpPut]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-
-    public async Task<ActionResult> UpdateColor([FromBody] UpdateColorDto updateColorDto)
+    public async Task<ActionResult> UpdateColor([FromBody] UpdateColorCommand updateCommand)
     {
-        return HandleResult(await Mediator.Send(new UpdateColorCommand(updateColorDto)));
+        return HandleResult(await Mediator.Send(updateCommand));
     }
 
-    [HttpDelete("{id:guid}")]
+    [HttpDelete]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> DeleteColor(Guid id)
+    public async Task<ActionResult> DeleteColor([FromBody] DeleteColorCommand deleteCommand)
     {
-        return HandleResult(await Mediator.Send(new DeleteColorCommand(id)));
+        return HandleResult(await Mediator.Send(deleteCommand));
     }
 }

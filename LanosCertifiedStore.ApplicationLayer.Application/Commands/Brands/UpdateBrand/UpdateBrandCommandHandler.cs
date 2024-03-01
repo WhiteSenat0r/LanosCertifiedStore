@@ -1,28 +1,42 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Application.Commands.Common;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Brands.UpdateBrand;
 
-internal sealed class UpdateBrandCommandHandler(IUnitOfWork unitOfWork)
-    : IRequestHandler<UpdateBrandCommand, Result<Unit>>
+internal sealed class UpdateBrandCommandHandler : 
+    CommandHandlerBase<Unit>, IRequestHandler<UpdateBrandCommand, Result<Unit>>
 {
+    private readonly IUnitOfWork _unitOfWork;
+
+    public UpdateBrandCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+        PossibleErrors = new[]
+        {
+            new Error("UpdateBrandError", "Saving an updated brand was not successful!"),
+            new Error("UpdateBrandError", "Error occured during the brand update!")
+        };
+    }
+    
     public async Task<Result<Unit>> Handle(UpdateBrandCommand request, CancellationToken cancellationToken)
     {
-        var brand = await unitOfWork.RetrieveRepository<VehicleBrand>().GetEntityByIdAsync(request.UpdateBrandDto.Id);
+        var brandRepository = _unitOfWork.RetrieveRepository<VehicleBrand>();
+        var updatedBrand = await brandRepository.GetEntityByIdAsync(request.Id);
 
-        if (brand is null)
-            return Result<Unit>.Failure(Error.NotFound);
+        if (updatedBrand is null) return Result<Unit>.Failure(Error.NotFound);
 
-        brand.Name = request.UpdateBrandDto.UpdatedName;
+        UpdateBrand(request.UpdatedName, updatedBrand, brandRepository);
 
-        unitOfWork.RetrieveRepository<VehicleBrand>().UpdateExistingEntity(brand);
+        return await TrySaveChanges(cancellationToken);
+    }
 
-        var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
+    private void UpdateBrand(string updatedName, VehicleBrand brand, IRepository<VehicleBrand> repository)
+    {
+        brand.Name = updatedName;
 
-        return result
-            ? Result<Unit>.Success(Unit.Value)
-            : Result<Unit>.Failure(new Error("UpdateError", "Failed to update brand"));
+        repository.UpdateExistingEntity(brand);
     }
 }
