@@ -6,16 +6,19 @@ using MediatR;
 
 namespace Application.Commands.Brands.UpdateBrand;
 
-internal sealed class UpdateBrandCommandHandler : CommandBase<Unit>, IRequestHandler<UpdateBrandCommand, Result<Unit>>
+internal sealed class UpdateBrandCommandHandler : 
+    CommandHandlerBase<Unit>, IRequestHandler<UpdateBrandCommand, Result<Unit>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
     public UpdateBrandCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        PossibleErrorMessages = 
-            ["Saving an updated brand was not successful!", "Error occured during the brand update!"];
-        PossibleErrorCode = "UpdateBrandError";
+        PossibleErrors = new[]
+        {
+            new Error("UpdateBrandError", "Saving an updated brand was not successful!"),
+            new Error("UpdateBrandError", "Error occured during the brand update!")
+        };
     }
     
     public async Task<Result<Unit>> Handle(UpdateBrandCommand request, CancellationToken cancellationToken)

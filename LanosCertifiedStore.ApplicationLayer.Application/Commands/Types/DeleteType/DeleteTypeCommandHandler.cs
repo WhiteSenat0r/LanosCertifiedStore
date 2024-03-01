@@ -6,16 +6,18 @@ using MediatR;
 
 namespace Application.Commands.Types.DeleteType;
 
-internal sealed class DeleteTypeCommandHandler : CommandBase<Unit>, IRequestHandler<DeleteTypeCommand, Result<Unit>>
+internal sealed class DeleteTypeCommandHandler : CommandHandlerBase<Unit>, IRequestHandler<DeleteTypeCommand, Result<Unit>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
     public DeleteTypeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        PossibleErrorMessages = 
-            ["Removing a type was not successful!", "Error occured during the type removal!"];
-        PossibleErrorCode = "DeleteTypeError";
+        PossibleErrors = new[]
+        {
+            new Error("DeleteTypeError", "Removing a type was not successful!"),
+            new Error("DeleteTypeError", "Error occured during the type removal!")
+        };
     }
 
     public async Task<Result<Unit>> Handle(DeleteTypeCommand request, CancellationToken cancellationToken)

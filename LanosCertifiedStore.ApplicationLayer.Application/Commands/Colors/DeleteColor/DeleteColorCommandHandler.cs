@@ -6,16 +6,19 @@ using MediatR;
 
 namespace Application.Commands.Colors.DeleteColor;
 
-internal sealed class DeleteColorCommandHandler : CommandBase<Unit>, IRequestHandler<DeleteColorCommand, Result<Unit>>
+internal sealed class DeleteColorCommandHandler 
+    : CommandHandlerBase<Unit>, IRequestHandler<DeleteColorCommand, Result<Unit>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
     public DeleteColorCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        PossibleErrorMessages = 
-            ["Removing a brand was not successful!", "Error occured during the color removal!"];
-        PossibleErrorCode = "DeleteColorError";
+        PossibleErrors = new[]
+        {
+            new Error("DeleteColorError", "Removing a brand was not successful!"),
+            new Error("DeleteColorError", "Error occured during the color removal!")
+        };
     }
 
     public async Task<Result<Unit>> Handle(DeleteColorCommand request, CancellationToken cancellationToken)

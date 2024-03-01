@@ -6,16 +6,19 @@ using MediatR;
 
 namespace Application.Commands.Colors.UpdateColor;
 
-internal sealed class UpdateColorCommandHandler : CommandBase<Unit>, IRequestHandler<UpdateColorCommand, Result<Unit>>
+internal sealed class UpdateColorCommandHandler 
+    : CommandHandlerBase<Unit>, IRequestHandler<UpdateColorCommand, Result<Unit>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
     public UpdateColorCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        PossibleErrorMessages = 
-            ["Saving an updated color was not successful!", "Error occured during the color update!"];
-        PossibleErrorCode = "UpdateColorError";
+        PossibleErrors = new[]
+        {
+            new Error("UpdateColorError", "Saving an updated color was not successful!"),
+            new Error("UpdateColorError", "Error occured during the color update!")
+        };
     }
 
     public async Task<Result<Unit>> Handle(UpdateColorCommand request, CancellationToken cancellationToken)
