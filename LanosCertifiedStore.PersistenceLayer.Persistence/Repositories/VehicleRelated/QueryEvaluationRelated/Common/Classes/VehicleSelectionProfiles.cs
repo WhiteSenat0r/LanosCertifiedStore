@@ -124,6 +124,7 @@ internal class VehicleSelectionProfiles :
             {
                 Id = image.Id,
                 ImageUrl = image.ImageUrl,
+                CloudImageId = image.CloudImageId,
                 IsMainImage = image.IsMainImage
             }).OrderByDescending(image => image.IsMainImage) as ICollection<VehicleImageDataModel>)!,
             Type = new VehicleTypeDataModel
