@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Commands.Brands.UpdateBrand;
 
-internal sealed class UpdateBrandCommandHandler : CommandBase, IRequestHandler<UpdateBrandCommand, Result<Unit>>
+internal sealed class UpdateBrandCommandHandler : CommandBase<Unit>, IRequestHandler<UpdateBrandCommand, Result<Unit>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -20,19 +20,20 @@ internal sealed class UpdateBrandCommandHandler : CommandBase, IRequestHandler<U
     
     public async Task<Result<Unit>> Handle(UpdateBrandCommand request, CancellationToken cancellationToken)
     {
-        var updatedBrand = await _unitOfWork.RetrieveRepository<VehicleBrand>().GetEntityByIdAsync(request.Id);
+        var brandRepository = _unitOfWork.RetrieveRepository<VehicleBrand>();
+        var updatedBrand = await brandRepository.GetEntityByIdAsync(request.Id);
 
         if (updatedBrand is null) return Result<Unit>.Failure(Error.NotFound);
 
-        UpdateBrand(request.UpdatedName, updatedBrand);
+        UpdateBrand(request.UpdatedName, updatedBrand, brandRepository);
 
         return await TrySaveChanges(cancellationToken);
     }
 
-    private void UpdateBrand(string updatedName, VehicleBrand brand)
+    private void UpdateBrand(string updatedName, VehicleBrand brand, IRepository<VehicleBrand> repository)
     {
         brand.Name = updatedName;
 
-        _unitOfWork.RetrieveRepository<VehicleBrand>().UpdateExistingEntity(brand);
+        repository.UpdateExistingEntity(brand);
     }
 }

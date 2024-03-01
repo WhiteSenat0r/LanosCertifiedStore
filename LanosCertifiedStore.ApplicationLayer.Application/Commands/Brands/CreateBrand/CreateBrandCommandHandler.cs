@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Commands.Brands.CreateBrand;
 
-internal sealed class CreateBrandCommandHandler : CommandBase, IRequestHandler<CreateBrandCommand, Result<Unit>>
+internal sealed class CreateBrandCommandHandler : CommandBase<Unit>, IRequestHandler<CreateBrandCommand, Result<Unit>>
 {
     private readonly IUnitOfWork _unitOfWork;
 

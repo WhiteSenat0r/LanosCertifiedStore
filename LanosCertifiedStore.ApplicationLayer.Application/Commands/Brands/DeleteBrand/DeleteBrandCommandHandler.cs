@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Commands.Brands.DeleteBrand;
 
-internal sealed class DeleteBrandCommandHandler : CommandBase, IRequestHandler<DeleteBrandCommand, Result<Unit>>
+internal sealed class DeleteBrandCommandHandler : CommandBase<Unit>, IRequestHandler<DeleteBrandCommand, Result<Unit>>
 {
     private readonly IUnitOfWork _unitOfWork;
 

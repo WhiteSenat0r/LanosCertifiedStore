@@ -1,16 +1,16 @@
 ﻿using Domain.Contracts.RepositoryRelated;
 using Domain.Shared;
-using MediatR;
 
 namespace Application.Commands.Common;
 
-internal abstract class CommandBase(
-    IUnitOfWork unitOfWork)
+internal abstract class CommandBase<TReturnedValue>(IUnitOfWork unitOfWork) 
+    where TReturnedValue : struct
 {
     private protected string[] PossibleErrorMessages { get; init; } = null!;
     private protected string PossibleErrorCode { get; init; } = null!;
+    private protected TReturnedValue ReturnedValue { get; set; } = default;
 
-    private protected async Task<Result<Unit>> TrySaveChanges(
+    private protected async Task<Result<TReturnedValue>> TrySaveChanges(
         CancellationToken cancellationToken = default)
     {
         try
@@ -18,13 +18,13 @@ internal abstract class CommandBase(
             var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 
             return result
-                ? Result<Unit>.Success(Unit.Value)
-                : Result<Unit>.Failure(
+                ? Result<TReturnedValue>.Success(ReturnedValue)
+                : Result<TReturnedValue>.Failure(
                     new Error(PossibleErrorCode, PossibleErrorMessages[0]));
         }
         catch
         {
-            return Result<Unit>.Failure(
+            return Result<TReturnedValue>.Failure(
                 new Error(PossibleErrorCode, PossibleErrorMessages[1]));
         }
     }

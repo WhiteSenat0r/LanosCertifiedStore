@@ -1,7 +1,6 @@
-﻿using Application.Dtos.ColorDtos;
-using Domain.Shared;
+﻿using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Colors.CreateColor;
 
-public sealed record CreateColorCommand(CreateColorDto CreateColorDto) : IRequest<Result<Unit>>;
+public sealed record CreateColorCommand(string ColorName, string HexValue) : IRequest<Result<Unit>>;
