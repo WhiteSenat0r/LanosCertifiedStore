@@ -7,22 +7,22 @@ using MediatR;
 namespace Application.Commands.Vehicles.CreateVehicle;
 
 internal sealed class CreateVehicleCommandHandler(IUnitOfWork unitOfWork)
-    : ActionVehicleCommandHandlerBase, IRequestHandler<CreateVehicleCommand, Result<Unit>>
+    : ActionVehicleCommandHandlerBase, IRequestHandler<CreateVehicleCommand, Result<Guid>>
 {
-    public async Task<Result<Unit>> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
     {
         var vehicleInstantiationResult =
             await CreateVehicleBaseInstance(unitOfWork, request);
 
         if (!vehicleInstantiationResult.IsSuccess)
-            return Result<Unit>.Failure(vehicleInstantiationResult.Error!);
+            return Result<Guid>.Failure(vehicleInstantiationResult.Error!);
 
         var saveResult = await GetAddedVehicleSavingResult(
             vehicleInstantiationResult, cancellationToken);
 
         return saveResult
-            ? Result<Unit>.Success(Unit.Value)
-            : Result<Unit>.Failure(new Error("CreateError", "Failed to create a vehicle!"));
+            ? Result<Guid>.Success(vehicleInstantiationResult.Value!.Id)
+            : Result<Guid>.Failure(new Error("CreateError", "Failed to create a vehicle!"));
     }
 
     private async Task<bool> GetAddedVehicleSavingResult(

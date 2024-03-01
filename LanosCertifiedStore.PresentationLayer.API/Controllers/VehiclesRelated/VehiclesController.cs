@@ -37,10 +37,10 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> CreateVehicle([FromBody] CreateVehicleCommand createVehicleCommand)
+    public async Task<ActionResult<Guid>> CreateVehicle([FromBody] CreateVehicleCommand createVehicleCommand)
     {
         return HandleResult(await Mediator.Send(createVehicleCommand));
     }
