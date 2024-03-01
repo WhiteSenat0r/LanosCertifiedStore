@@ -50,20 +50,6 @@ internal sealed class VehicleBrandRepository(IMapper mapper, ApplicationDatabase
         return countedQueryable.CountAsync();
     }
 
-    public override async Task RemoveExistingEntity(Guid id)
-    {
-        var vehicleBrandQuery = QueryEvaluator.GetSingleEntityQueryable(
-            id, Context.Set<VehicleBrandDataModel>());
-
-        var removedEntity = await vehicleBrandQuery.AsNoTracking().SingleOrDefaultAsync();
-
-        if (removedEntity is not null)
-        {
-            Context.Set<VehicleModelDataModel>().RemoveRange(removedEntity.Models);
-            Context.Set<VehicleBrandDataModel>().Remove(removedEntity);
-        }
-    }
-
     private protected override IQueryable<VehicleBrandDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters) =>
         QueryEvaluator.GetAllEntitiesQueryable(
