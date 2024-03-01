@@ -6,7 +6,8 @@ using MediatR;
 
 namespace Application.Commands.Types.DeleteType;
 
-internal sealed class DeleteTypeCommandHandler : CommandHandlerBase<Unit>, IRequestHandler<DeleteTypeCommand, Result<Unit>>
+internal sealed class DeleteTypeCommandHandler : 
+    CommandHandlerBase<Unit>, IRequestHandler<DeleteTypeCommand, Result<Unit>>
 {
     private readonly IUnitOfWork _unitOfWork;
 

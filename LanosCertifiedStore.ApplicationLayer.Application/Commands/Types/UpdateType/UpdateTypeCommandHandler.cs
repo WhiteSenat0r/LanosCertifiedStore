@@ -6,7 +6,8 @@ using MediatR;
 
 namespace Application.Commands.Types.UpdateType;
 
-internal sealed class UpdateTypeCommandHandler : CommandHandlerBase<Unit>, IRequestHandler<UpdateTypeCommand, Result<Unit>>
+internal sealed class UpdateTypeCommandHandler : 
+    CommandHandlerBase<Unit>, IRequestHandler<UpdateTypeCommand, Result<Unit>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
