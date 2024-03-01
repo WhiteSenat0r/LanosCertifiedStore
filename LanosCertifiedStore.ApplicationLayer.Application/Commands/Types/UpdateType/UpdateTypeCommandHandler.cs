@@ -1,29 +1,40 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Application.Commands.Common;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Types.UpdateType;
 
-internal sealed class UpdateTypeCommandHandler(IUnitOfWork unitOfWork)
-    : IRequestHandler<UpdateTypeCommand, Result<Unit>>
+internal sealed class UpdateTypeCommandHandler : CommandBase<Unit>, IRequestHandler<UpdateTypeCommand, Result<Unit>>
 {
+    private readonly IUnitOfWork _unitOfWork;
+
+    public UpdateTypeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+        PossibleErrorMessages = 
+            ["Saving an updated type was not successful!", "Error occured during the type update!"];
+        PossibleErrorCode = "UpdateTypeError";
+    }
+
     public async Task<Result<Unit>> Handle(UpdateTypeCommand request, CancellationToken cancellationToken)
     {
-        var existingType =
-            await unitOfWork.RetrieveRepository<VehicleType>().GetEntityByIdAsync(request.UpdateTypeDto.Id);
+        var typeRepository = _unitOfWork.RetrieveRepository<VehicleType>();
+        var existingType = await typeRepository.GetEntityByIdAsync(request.Id);
 
-        if (existingType is null)
-            return Result<Unit>.Failure(Error.NotFound);
+        if (existingType is null) return Result<Unit>.Failure(Error.NotFound);
 
-        existingType.Name = request.UpdateTypeDto.UpdatedName;
+        UpdateType(request.UpdatedName, existingType, typeRepository);
 
-        unitOfWork.RetrieveRepository<VehicleType>().UpdateExistingEntity(existingType);
+        return await TrySaveChanges(cancellationToken);
+    }
 
-        var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
+    private static void UpdateType(string updatedName, 
+        VehicleType existingType, IRepository<VehicleType> typeRepository)
+    {
+        existingType.Name = updatedName;
 
-        return result
-            ? Result<Unit>.Success(Unit.Value)
-            : Result<Unit>.Failure(new Error("UpdateError", "Failed to update type!"));
+        typeRepository.UpdateExistingEntity(existingType);
     }
 }

@@ -1,7 +1,6 @@
-﻿using Application.Dtos.TypeDtos;
-using Domain.Shared;
+﻿using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Types.UpdateType;
 
-public sealed record UpdateTypeCommand(UpdateTypeDto UpdateTypeDto) : IRequest<Result<Unit>>;
+public sealed record UpdateTypeCommand(Guid Id, string UpdatedName) : IRequest<Result<Unit>>;

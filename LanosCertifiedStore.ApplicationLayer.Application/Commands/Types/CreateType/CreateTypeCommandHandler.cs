@@ -1,23 +1,29 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Application.Commands.Common;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Types.CreateType;
 
-internal sealed class CreateTypeCommandHandler(IUnitOfWork unitOfWork)
-    : IRequestHandler<CreateTypeCommand, Result<Unit>>
+internal sealed class CreateTypeCommandHandler : CommandBase<Unit>, IRequestHandler<CreateTypeCommand, Result<Unit>>
 {
+    private readonly IUnitOfWork _unitOfWork;
+
+    public CreateTypeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+        PossibleErrorMessages = 
+            ["Saving a new type was not successful!", "Error occured during a new type creation!"];
+        PossibleErrorCode = "CreateTypeError";
+    }
+
     public async Task<Result<Unit>> Handle(CreateTypeCommand request, CancellationToken cancellationToken)
     {
-        var vehicleType = new VehicleType(request.Name);
+        var newVehicleType = new VehicleType(request.Name);
 
-        await unitOfWork.RetrieveRepository<VehicleType>().AddNewEntityAsync(vehicleType);
+        await _unitOfWork.RetrieveRepository<VehicleType>().AddNewEntityAsync(newVehicleType);
 
-        var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
-
-        return result
-            ? Result<Unit>.Success(Unit.Value)
-            : Result<Unit>.Failure(new Error("CreateError", "Failed to create type!"));
+        return await TrySaveChanges(cancellationToken);
     }
 }
