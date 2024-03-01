@@ -26,25 +26,25 @@ public sealed class TypesController : BaseEntityRelatedApiController
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> CreateType([FromQuery] string name)
+    public async Task<ActionResult> CreateType([FromBody] CreateTypeCommand createCommand)
     {
-        return HandleResult(await Mediator.Send(new CreateTypeCommand(name)));
+        return HandleResult(await Mediator.Send(createCommand));
     }
 
     [HttpPut]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> UpdateType([FromBody] UpdateTypeDto updateTypeDto)
+    public async Task<ActionResult> UpdateType([FromBody] UpdateTypeCommand updateCommand)
     {
-        return HandleResult(await Mediator.Send(new UpdateTypeCommand(updateTypeDto)));
+        return HandleResult(await Mediator.Send(updateCommand));
     }
 
-    [HttpDelete("{id:guid}")]
+    [HttpDelete]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> DeleteType(Guid id)
+    public async Task<ActionResult> DeleteType([FromBody] DeleteTypeCommand deleteCommand)
     {
-        return HandleResult(await Mediator.Send(new DeleteTypeCommand(id)));
+        return HandleResult(await Mediator.Send(deleteCommand));
     }
 }
