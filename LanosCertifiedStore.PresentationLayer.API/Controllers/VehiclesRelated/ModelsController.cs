@@ -21,30 +21,38 @@ public sealed class ModelsController : BaseEntityRelatedApiController
     {
         return HandleResult(await Mediator.Send(new ModelsQuery(requestParameters)));
     }
+    
+    // [HttpDelete("{id:guid}")]
+    // [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
+    // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    // public async Task<ActionResult> GetModel(Guid id)
+    // {
+    //     return HandleResult(await Mediator.Send(new DeleteVehicleCommand(id)));
+    // }
 
     [HttpPost]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> CreateModel([FromBody] CreateModelCommand createModelCommand)
+    public async Task<ActionResult> CreateModel([FromBody] CreateModelCommand createCommand)
     {
-        return HandleResult(await Mediator.Send(createModelCommand));
+        return HandleResult(await Mediator.Send(createCommand));
     }
 
     [HttpPut]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> UpdateModel([FromBody] UpdateModelCommand updateModelCommand)
+    public async Task<ActionResult> UpdateModel([FromBody] UpdateModelCommand updateCommand)
     {
-        return HandleResult(await Mediator.Send(updateModelCommand));
+        return HandleResult(await Mediator.Send(updateCommand));
     }
 
-    [HttpDelete("{id:guid}")]
+    [HttpDelete]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> DeleteModel(Guid id)
+    public async Task<ActionResult> DeleteModel([FromBody] DeleteModelCommand deleteCommand)
     {
-        return HandleResult(await Mediator.Send(new DeleteModelCommand(id)));
+        return HandleResult(await Mediator.Send(deleteCommand));
     }
 }

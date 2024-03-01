@@ -1,29 +1,37 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Application.Commands.Common;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Models.CreateModel;
 
-internal sealed class CreateModelCommandHandler(
-    IUnitOfWork unitOfWork)
-    : IRequestHandler<CreateModelCommand, Result<Unit>>
+internal sealed class CreateModelCommandHandler : 
+    CommandHandlerBase<Unit>, IRequestHandler<CreateModelCommand, Result<Unit>>
 {
+    private readonly IUnitOfWork _unitOfWork;
+
+    public CreateModelCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
+    {
+        _unitOfWork = unitOfWork;
+        PossibleErrors = new[]
+        {
+            new Error("CreateModelError", "Saving a new model was not successful!"),
+            new Error("CreateModelError", "Error occured during a new model creation!")
+        };
+    }
+
     public async Task<Result<Unit>> Handle(CreateModelCommand request, CancellationToken cancellationToken)
     {
-        var vehicleBrand = await unitOfWork.RetrieveRepository<VehicleBrand>().GetEntityByIdAsync(request.BrandId);
+        var vehicleBrand = await _unitOfWork.RetrieveRepository<VehicleBrand>().GetEntityByIdAsync(request.BrandId);
 
-        var vehicleModel = new VehicleModel(
+        var newVehicleModel = new VehicleModel(
             vehicleBrand!,
             request.Name,
             availableTypesIds: request.AvailableTypesIds);
 
-        await unitOfWork.RetrieveRepository<VehicleModel>().AddNewEntityAsync(vehicleModel);
+        await _unitOfWork.RetrieveRepository<VehicleModel>().AddNewEntityAsync(newVehicleModel);
 
-        var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
-
-        return result
-            ? Result<Unit>.Success(Unit.Value)
-            : Result<Unit>.Failure(new Error("CreateError", "Failed to create model!"));
+        return await TrySaveChanges(cancellationToken);
     }
 }
