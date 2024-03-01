@@ -6,16 +6,19 @@ using MediatR;
 
 namespace Application.Commands.Types.CreateType;
 
-internal sealed class CreateTypeCommandHandler : CommandBase<Unit>, IRequestHandler<CreateTypeCommand, Result<Unit>>
+internal sealed class CreateTypeCommandHandlerHandler 
+    : CommandHandlerBase<Unit>, IRequestHandler<CreateTypeCommand, Result<Unit>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public CreateTypeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
+    public CreateTypeCommandHandlerHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        PossibleErrorMessages = 
-            ["Saving a new type was not successful!", "Error occured during a new type creation!"];
-        PossibleErrorCode = "CreateTypeError";
+        PossibleErrors = new[]
+        {
+            new Error("CreateTypeError", "Saving a new type was not successful!"),
+            new Error("CreateTypeError", "Error occured during a new type creation!")
+        };
     }
 
     public async Task<Result<Unit>> Handle(CreateTypeCommand request, CancellationToken cancellationToken)

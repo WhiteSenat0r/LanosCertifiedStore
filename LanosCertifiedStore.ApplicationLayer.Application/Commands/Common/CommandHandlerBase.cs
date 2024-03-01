@@ -3,11 +3,10 @@ using Domain.Shared;
 
 namespace Application.Commands.Common;
 
-internal abstract class CommandBase<TReturnedValue>(IUnitOfWork unitOfWork) 
+internal abstract class CommandHandlerBase<TReturnedValue>(IUnitOfWork unitOfWork) 
     where TReturnedValue : struct
 {
-    private protected string[] PossibleErrorMessages { get; init; } = null!;
-    private protected string PossibleErrorCode { get; init; } = null!;
+    private protected Error[] PossibleErrors { get; init; } = null!;
     private protected TReturnedValue ReturnedValue { get; set; } = default;
 
     private protected async Task<Result<TReturnedValue>> TrySaveChanges(
@@ -19,13 +18,11 @@ internal abstract class CommandBase<TReturnedValue>(IUnitOfWork unitOfWork)
 
             return result
                 ? Result<TReturnedValue>.Success(ReturnedValue)
-                : Result<TReturnedValue>.Failure(
-                    new Error(PossibleErrorCode, PossibleErrorMessages[0]));
+                : Result<TReturnedValue>.Failure(PossibleErrors[0]);
         }
         catch
         {
-            return Result<TReturnedValue>.Failure(
-                new Error(PossibleErrorCode, PossibleErrorMessages[1]));
+            return Result<TReturnedValue>.Failure(PossibleErrors[1]);
         }
     }
 }

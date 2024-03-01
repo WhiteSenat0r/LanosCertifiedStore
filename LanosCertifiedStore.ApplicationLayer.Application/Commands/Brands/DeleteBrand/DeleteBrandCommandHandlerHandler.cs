@@ -6,16 +6,18 @@ using MediatR;
 
 namespace Application.Commands.Brands.DeleteBrand;
 
-internal sealed class DeleteBrandCommandHandler : CommandBase<Unit>, IRequestHandler<DeleteBrandCommand, Result<Unit>>
+internal sealed class DeleteBrandCommandHandlerHandler : CommandHandlerBase<Unit>, IRequestHandler<DeleteBrandCommand, Result<Unit>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public DeleteBrandCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
+    public DeleteBrandCommandHandlerHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        PossibleErrorMessages = 
-            ["Removing a brand was not successful!", "Error occured during the brand removal!"];
-        PossibleErrorCode = "DeleteBrandError";
+        PossibleErrors = new[]
+        {
+            new Error("DeleteBrandError", "Removing a brand was not successful!"),
+            new Error("DeleteBrandError", "Error occured during the brand removal!")
+        };
     }
 
     public async Task<Result<Unit>> Handle(DeleteBrandCommand request, CancellationToken cancellationToken)

@@ -6,16 +6,18 @@ using MediatR;
 
 namespace Application.Commands.Types.UpdateType;
 
-internal sealed class UpdateTypeCommandHandler : CommandBase<Unit>, IRequestHandler<UpdateTypeCommand, Result<Unit>>
+internal sealed class UpdateTypeCommandHandlerHandler : CommandHandlerBase<Unit>, IRequestHandler<UpdateTypeCommand, Result<Unit>>
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateTypeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
+    public UpdateTypeCommandHandlerHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        PossibleErrorMessages = 
-            ["Saving an updated type was not successful!", "Error occured during the type update!"];
-        PossibleErrorCode = "UpdateTypeError";
+        PossibleErrors = new[]
+        {
+            new Error("UpdateTypeError", "Saving an updated type was not successful!"),
+            new Error("UpdateTypeError", "Error occured during the type update!")
+        };
     }
 
     public async Task<Result<Unit>> Handle(UpdateTypeCommand request, CancellationToken cancellationToken)
