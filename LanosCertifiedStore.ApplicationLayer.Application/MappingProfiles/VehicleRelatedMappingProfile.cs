@@ -30,7 +30,9 @@ public class VehicleRelatedMappingProfile : Profile
             .ForMember(d => d.Color, o => o.MapFrom(s => s.Color.Name))
             .ForMember(d => d.Model, o => o.MapFrom(s => s.Model.Name))
             .ForMember(d => d.Price, o => o.MapFrom(s => s.Prices.First()))
-            .ForMember(d => d.Image, o => o.MapFrom(s => s.Images.First()));
+            .ForMember(d => d.Image, o => o.MapFrom(s => s.Images.Count == 0
+                ? null
+                : s.Images.First()));
     }
 
     private void GetVehicleInstanceMapping()
