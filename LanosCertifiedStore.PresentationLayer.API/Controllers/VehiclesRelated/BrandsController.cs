@@ -22,14 +22,6 @@ public sealed class BrandsController : BaseEntityRelatedApiController
     {
         return HandleResult(await Mediator.Send(new ListBrandsQuery(requestParameters)));
     }
-    
-    [HttpGet("{id:guid}")]
-    [ProducesResponseType(typeof(IReadOnlyList<BrandDto>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<BrandDto>> GetBrand(Guid id)
-    {
-        return HandleResult(await Mediator.Send(new BrandDetailsQuery(id)));
-    }
 
     [HttpPost]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
