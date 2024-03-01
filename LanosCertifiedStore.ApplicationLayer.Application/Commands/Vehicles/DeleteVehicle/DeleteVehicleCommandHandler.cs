@@ -11,13 +11,13 @@ internal sealed class DeleteVehicleCommandHandler(IUnitOfWork unitOfWork, IImage
 {
     public async Task<Result<Unit>> Handle(DeleteVehicleCommand request, CancellationToken cancellationToken)
     {
-        var updatedEntity =
+        var vehicle =
             await unitOfWork.RetrieveRepository<Vehicle>().GetEntityByIdAsync(request.Id);
 
-        if (updatedEntity is null)
+        if (vehicle is null)
             return Result<Unit>.Failure(Error.NotFound);
 
-        foreach (var image in updatedEntity.Images)
+        foreach (var image in vehicle.Images)
             await imageService.TryDeletePhotoAsync(image.CloudImageId);
         
         await unitOfWork.RetrieveRepository<Vehicle>().RemoveExistingEntity(request.Id);
