@@ -7,7 +7,7 @@ using Persistence.QueryEvaluation.Common;
 
 namespace Persistence.Repositories.VehicleRelated.QueryEvaluationRelated.Common.Classes;
 
-internal class VehicleSelectionProfiles : 
+internal class VehicleSelectionProfiles :
     BaseSelectionProfiles<VehicleSelectionProfile, Vehicle, VehicleDataModel>
 {
     private readonly Dictionary<VehicleSelectionProfile,
@@ -23,14 +23,14 @@ internal class VehicleSelectionProfiles :
         IQueryable<VehicleDataModel> inputQueryable,
         IFilteringRequestParameters<Vehicle>? requestParameters = null)
     {
-        if (requestParameters is null) 
+        if (requestParameters is null)
             return _mappedProfiles[VehicleSelectionProfile.Default](inputQueryable, null);
-        
+
         var requestParams = requestParameters as IVehicleFilteringRequestParameters;
 
         return _mappedProfiles[requestParams!.SelectionProfile](inputQueryable, requestParams);
     }
-    
+
     private static IQueryable<VehicleDataModel> GetCatalogProfileQueryable(
         IQueryable<VehicleDataModel> queryable,
         IVehicleFilteringRequestParameters vehicleFilteringRequestParameters) =>
@@ -76,18 +76,20 @@ internal class VehicleSelectionProfiles :
             },
             Images = new List<VehicleImageDataModel>
             {
-                vehicle.Images.Where(image => image.IsMainImage)
-                    .Select(image => new VehicleImageDataModel
-                    {
-                        ImageUrl = image.ImageUrl
-                    }).First()
+                vehicle.Images.Count != 0 ? 
+                    vehicle.Images.Where(image => image.IsMainImage)
+                        .Select(image => new VehicleImageDataModel
+                        {
+                            ImageUrl = image.ImageUrl
+                        }).First()
+                    : null!
             },
             Type = new VehicleTypeDataModel
             {
                 Name = vehicle.Type.Name
             }
         });
-    
+
     private static IQueryable<VehicleDataModel> GetSingleProfileQueryable(
         IQueryable<VehicleDataModel> queryable,
         IVehicleFilteringRequestParameters vehicleFilteringRequestParameters) =>
@@ -104,7 +106,7 @@ internal class VehicleSelectionProfiles :
                 Id = vehicle.Model.Id,
                 Name = vehicle.Model.Name
             },
-            Prices = (vehicle.Prices!.Select(price => new VehiclePriceDataModel
+            Prices = (vehicle.Prices.Select(price => new VehiclePriceDataModel
             {
                 Id = price.Id,
                 Value = price.Value,
@@ -118,7 +120,7 @@ internal class VehicleSelectionProfiles :
                 Name = vehicle.Color.Name,
                 HexValue = vehicle.Color.HexValue
             },
-            Images = (vehicle.Images!.Select(image => new VehicleImageDataModel
+            Images = (vehicle.Images.Select(image => new VehicleImageDataModel
             {
                 Id = image.Id,
                 ImageUrl = image.ImageUrl,
@@ -130,7 +132,7 @@ internal class VehicleSelectionProfiles :
                 Name = vehicle.Type.Name
             }
         });
-    
+
     private static IQueryable<VehicleDataModel> GetDefaultProfileQueryable(
         IQueryable<VehicleDataModel> queryable,
         IVehicleFilteringRequestParameters vehicleFilteringRequestParameters) =>
@@ -159,11 +161,13 @@ internal class VehicleSelectionProfiles :
             },
             Images = new List<VehicleImageDataModel>
             {
+                vehicle.Images.Count != 0 ?
                 vehicle.Images.Where(image => image.IsMainImage)
                     .Select(image => new VehicleImageDataModel
                     {
                         ImageUrl = image.ImageUrl
                     }).First()
+                : null!
             },
             Type = new VehicleTypeDataModel
             {
