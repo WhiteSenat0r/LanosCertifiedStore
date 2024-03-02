@@ -4,7 +4,8 @@ using Application.Commands.Models.CreateModel;
 using Application.Commands.Models.DeleteModel;
 using Application.Commands.Models.UpdateModel;
 using Application.Dtos.ModelDtos;
-using Application.Queries.Models;
+using Application.Queries.Models.ModelDetailsQueryRelated;
+using Application.Queries.Models.ModelQueryRelated;
 using Application.RequestParams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -22,13 +23,13 @@ public sealed class ModelsController : BaseEntityRelatedApiController
         return HandleResult(await Mediator.Send(new ModelsQuery(requestParameters)));
     }
     
-    // [HttpDelete("{id:guid}")]
-    // [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
-    // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    // public async Task<ActionResult> GetModel(Guid id)
-    // {
-    //     return HandleResult(await Mediator.Send(new DeleteVehicleCommand(id)));
-    // }
+    [HttpGet("{id:guid}")]
+    [ProducesResponseType(typeof(ModelDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> GetModel(Guid id)
+    {
+        return HandleResult(await Mediator.Send(new SingleModelQuery(id)));
+    }
 
     [HttpPost]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
