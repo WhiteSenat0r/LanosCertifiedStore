@@ -15,7 +15,7 @@ internal sealed class DeleteBrandCommandHandler : CommandHandlerBase<Unit>, IReq
         _unitOfWork = unitOfWork;
         PossibleErrors = new[]
         {
-            new Error("DeleteBrandError", "Removing a brand was not successful!"),
+            new Error("DeleteBrandError", "Brand removal was not successful!"),
             new Error("DeleteBrandError", "Error occured during the brand removal!")
         };
     }

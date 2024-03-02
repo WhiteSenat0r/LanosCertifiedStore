@@ -16,7 +16,7 @@ internal sealed class DeleteTypeCommandHandler :
         _unitOfWork = unitOfWork;
         PossibleErrors = new[]
         {
-            new Error("DeleteTypeError", "Removing a type was not successful!"),
+            new Error("DeleteTypeError", "Type removal was not successful!"),
             new Error("DeleteTypeError", "Error occured during the type removal!")
         };
     }

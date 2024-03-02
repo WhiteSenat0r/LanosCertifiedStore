@@ -16,7 +16,7 @@ internal sealed class DeleteColorCommandHandler
         _unitOfWork = unitOfWork;
         PossibleErrors = new[]
         {
-            new Error("DeleteColorError", "Removing a brand was not successful!"),
+            new Error("DeleteColorError", "Color removal was not successful!"),
             new Error("DeleteColorError", "Error occured during the color removal!")
         };
     }
