@@ -10,7 +10,7 @@ internal sealed class DeleteModelCommandHandler(IUnitOfWork unitOfWork)
 {
     public async Task<Result<Unit>> Handle(DeleteModelCommand request, CancellationToken cancellationToken)
     {
-        await unitOfWork.RetrieveRepository<VehicleModel>().RemoveExistingEntity(request.Id);
+        await unitOfWork.RetrieveRepository<VehicleModel>().RemoveExistingEntityAsync(request.Id);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

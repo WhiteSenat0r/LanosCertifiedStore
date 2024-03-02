@@ -45,40 +45,20 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
     {
         var mappedEntityModel = Mapper.Map<VehicleModel, VehicleModelDataModel>(entity);
         
-        var types = new List<VehicleTypeDataModel>();
-        
-        foreach (var typeId in entity.AvailableTypes.Select(x => x.Id))
-        {
-            var type = await Context.Set<VehicleTypeDataModel>().FindAsync(typeId);
-        
-            if (type is not null)
-                types.Add(type);
-        }
-
-        mappedEntityModel.AvailableTypes = types;
+        await AssignTypeCollectionToModel(entity, mappedEntityModel);
 
         await Context.Set<VehicleModelDataModel>().AddAsync(mappedEntityModel);
     }
     
-    public override async void UpdateExistingEntity(VehicleModel entity)
+    public override async Task UpdateExistingEntityAsync(VehicleModel entity)
     {
-        var mappedEntityModel = Mapper.Map<VehicleModel, VehicleModelDataModel>(entity);
+        var databaseVehicleModel = await GetModelFromDatabase(entity);
         
-        var types = new List<VehicleTypeDataModel>();
-        
-        mappedEntityModel.AvailableTypes.Clear();
-        
-        foreach (var typeId in entity.AvailableTypes.Select(x => x.Id))
-        {
-            var type = await Context.Set<VehicleTypeDataModel>().FindAsync(typeId);
-        
-            if (type is not null)
-                types.Add(type);
-        }
+        UpdateModelRelatedTypes(entity, databaseVehicleModel!);
+        UpdateModelRelatedBrand(entity, databaseVehicleModel!);
+        UpdateModelName(entity, databaseVehicleModel!);
 
-        mappedEntityModel.AvailableTypes = types;
-
-        Context.Set<VehicleModelDataModel>().Update(mappedEntityModel);
+        Context.Set<VehicleModelDataModel>().Update(databaseVehicleModel!);
     }
 
     public override Task<int> CountAsync(
@@ -89,7 +69,7 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
 
         return countedQueryable.CountAsync();
     }
-
+    
     private protected override IQueryable<VehicleModelDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleModel>? filteringRequestParameters) =>
         QueryEvaluator.GetAllEntitiesQueryable(
@@ -98,4 +78,79 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
     private protected override BaseQueryEvaluator<VehicleModelSelectionProfile, VehicleModel, VehicleModelDataModel> 
         GetQueryEvaluator() =>
         new VehicleModelQueryEvaluator(new VehicleModelSelectionProfiles(), new VehicleModelFilteringCriteria());
+    
+    private Task<VehicleModelDataModel?> GetModelFromDatabase(VehicleModel entity) =>
+        Context.Set<VehicleModelDataModel>()
+            .Include(model => model.AvailableTypes)
+            .FirstOrDefaultAsync(model => model.Id.Equals(entity.Id));
+
+    private async Task AssignTypeCollectionToModel(VehicleModel entity, VehicleModelDataModel mappedEntityModel)
+    {
+        var types = await GetRequiredTypesAsync(entity);
+
+        mappedEntityModel.AvailableTypes = types;
+    }
+    
+    private async Task<List<VehicleTypeDataModel>> GetRequiredTypesAsync(VehicleModel entity)
+    {
+        var types = new List<VehicleTypeDataModel>();
+
+        foreach (var typeId in entity.AvailableTypes.Select(x => x.Id))
+        {
+            var type = await Context.Set<VehicleTypeDataModel>().FindAsync(typeId);
+        
+            if (type is not null) types.Add(type);
+        }
+
+        return types;
+    }
+    
+    private void UpdateModelName(VehicleModel entity, VehicleModelDataModel databaseVehicleModel)
+    {
+        if (!databaseVehicleModel.Name.Equals(entity.Name))
+            databaseVehicleModel.Name = entity.Name;
+    }
+
+    private void UpdateModelRelatedBrand(VehicleModel entity, VehicleModelDataModel databaseVehicleModel)
+    {
+        if (!databaseVehicleModel.VehicleBrandId.Equals(entity.Brand.Id))
+            databaseVehicleModel.VehicleBrandId = entity.Brand.Id;
+    }
+
+    private void UpdateModelRelatedTypes(VehicleModel entity, VehicleModelDataModel databaseVehicleModel)
+    {
+        var entityModelTypeIds = entity.AvailableTypes.Select(type => type.Id).ToList();
+        var databaseModelTypeIds = databaseVehicleModel!.AvailableTypes.Select(type => type.Id).ToList();
+
+        RemoveSpecifiedTypesFromModel(databaseVehicleModel, databaseModelTypeIds, entityModelTypeIds);
+        AddSpecifiedTypesToModel(entity, databaseVehicleModel, entityModelTypeIds, databaseModelTypeIds);
+    }
+
+    private void AddSpecifiedTypesToModel(VehicleModel entity, 
+        VehicleModelDataModel databaseVehicleModel,
+        IEnumerable<Guid> entityModelTypeIds,
+        IEnumerable<Guid> databaseModelTypeIds)
+    {
+        var addedTypeIdsToModel = entityModelTypeIds.Except(databaseModelTypeIds).ToList();
+        
+        foreach (var typeId in addedTypeIdsToModel)
+        {
+            var addedModelType = entity.AvailableTypes.First(type => type.Id.Equals(typeId));
+            databaseVehicleModel.AvailableTypes.Add(
+                Mapper.Map<VehicleType, VehicleTypeDataModel>(addedModelType));
+        }
+    }
+
+    private static void RemoveSpecifiedTypesFromModel(VehicleModelDataModel databaseVehicleModel, 
+        IEnumerable<Guid> databaseModelTypeIds,
+        IEnumerable<Guid> entityModelTypeIds)
+    {
+        var removedTypeIdsFromModel = databaseModelTypeIds.Except(entityModelTypeIds).ToList();
+        
+        foreach (var typeId in removedTypeIdsFromModel)
+        {
+            var removedModelType = databaseVehicleModel.AvailableTypes.First(type => type.Id.Equals(typeId));
+            databaseVehicleModel.AvailableTypes.Remove(removedModelType);
+        }
+    }
 }

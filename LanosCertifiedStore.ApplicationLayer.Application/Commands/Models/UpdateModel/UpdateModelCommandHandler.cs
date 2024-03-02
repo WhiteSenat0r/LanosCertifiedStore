@@ -23,31 +23,30 @@ internal sealed class UpdateModelCommandHandler :
 
     public async Task<Result<Unit>> Handle(UpdateModelCommand request, CancellationToken cancellationToken)
     {
-        // TODO Fix
         var modelRepository = _unitOfWork.RetrieveRepository<VehicleModel>();
-
-        var modelUpdateResult = await UpdateModel(modelRepository, request);
         
-        return modelUpdateResult.IsSuccess 
-            ? await TrySaveChanges(cancellationToken)
-            : modelUpdateResult;
-    }
-
-    private async Task<Result<Unit>> UpdateModel(IRepository<VehicleModel> repository, UpdateModelCommand request)
-    {
-        var updatedModelResult = await TryGetUpdatedModel(repository, request.Id);
+        var updatedModelResult = await TryGetUpdatedModel(modelRepository, request.Id);
         if (!updatedModelResult.IsSuccess) return Result<Unit>.Failure(updatedModelResult.Error!);
         
-        var brandUpdateResult = await TryUpdateRelatedBrand(updatedModelResult.Value!, request.BrandId);
+        var modelUpdateResult = await UpdateModel(updatedModelResult.Value!, request);
+
+        if (!modelUpdateResult.IsSuccess) return modelUpdateResult;
+        
+        await modelRepository.UpdateExistingEntityAsync(updatedModelResult.Value!);
+
+        return await TrySaveChanges(cancellationToken);
+    }
+
+    private async Task<Result<Unit>> UpdateModel(VehicleModel model, UpdateModelCommand request)
+    {
+        var brandUpdateResult = await TryUpdateRelatedBrand(model, request.BrandId);
         if (!brandUpdateResult.IsSuccess) return brandUpdateResult;
 
         var typesUpdateResult = await TryUpdateRelatedTypes(
-            _unitOfWork.RetrieveRepository<VehicleType>(), updatedModelResult.Value!, request.AvailableTypesIds);
+            _unitOfWork.RetrieveRepository<VehicleType>(), model, request.AvailableTypesIds);
         if (!typesUpdateResult.IsSuccess) return typesUpdateResult;
         
-        updatedModelResult.Value!.Name = request.UpdatedName;
-
-        repository.UpdateExistingEntity(updatedModelResult.Value);
+        model.Name = request.UpdatedName;
 
         return Result<Unit>.Success(Unit.Value);
     }
