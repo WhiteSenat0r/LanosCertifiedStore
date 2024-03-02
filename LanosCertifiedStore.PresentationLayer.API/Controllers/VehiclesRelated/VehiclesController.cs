@@ -54,12 +54,12 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
         return HandleResult(await Mediator.Send(updateVehicleCommand));
     }
 
-    [HttpDelete("{id:guid}")]
+    [HttpDelete]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> DeleteVehicle(Guid id)
+    public async Task<ActionResult> DeleteVehicle([FromBody] DeleteVehicleCommand deleteVehicleCommand)
     {
-        return HandleResult(await Mediator.Send(new DeleteVehicleCommand(id)));
+        return HandleResult(await Mediator.Send(deleteVehicleCommand));
     }
 
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
