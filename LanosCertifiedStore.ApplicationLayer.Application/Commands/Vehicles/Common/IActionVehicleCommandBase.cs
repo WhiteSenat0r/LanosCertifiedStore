@@ -1,9 +1,6 @@
-﻿using Domain.Shared;
-using MediatR;
+﻿namespace Application.Commands.Vehicles.Common;
 
-namespace Application.Commands.Vehicles.Common;
-
-public interface IActionVehicleCommandBase : IRequest<Result<Unit>>
+public interface IActionVehicleCommandBase
 {
     Guid ModelId { get; }
     Guid TypeId { get; }
