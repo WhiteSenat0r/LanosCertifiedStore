@@ -9,11 +9,8 @@ namespace Application.Commands.Colors.DeleteColor;
 internal sealed class DeleteColorCommandHandler 
     : CommandHandlerBase<Unit>, IRequestHandler<DeleteColorCommand, Result<Unit>>
 {
-    private readonly IUnitOfWork _unitOfWork;
-
     public DeleteColorCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        _unitOfWork = unitOfWork;
         PossibleErrors = new[]
         {
             new Error("DeleteColorError", "Color removal was not successful!"),
@@ -23,7 +20,7 @@ internal sealed class DeleteColorCommandHandler
 
     public async Task<Result<Unit>> Handle(DeleteColorCommand request, CancellationToken cancellationToken)
     {
-        await _unitOfWork.RetrieveRepository<VehicleColor>().RemoveExistingEntityAsync(request.Id);
+        await GetRequiredRepository<VehicleColor>().RemoveExistingEntityAsync(request.Id);
 
         return await TrySaveChanges(cancellationToken);
     }

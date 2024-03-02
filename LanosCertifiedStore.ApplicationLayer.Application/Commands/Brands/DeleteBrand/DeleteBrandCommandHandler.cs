@@ -8,11 +8,8 @@ namespace Application.Commands.Brands.DeleteBrand;
 
 internal sealed class DeleteBrandCommandHandler : CommandHandlerBase<Unit>, IRequestHandler<DeleteBrandCommand, Result<Unit>>
 {
-    private readonly IUnitOfWork _unitOfWork;
-
     public DeleteBrandCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        _unitOfWork = unitOfWork;
         PossibleErrors = new[]
         {
             new Error("DeleteBrandError", "Brand removal was not successful!"),
@@ -22,7 +19,7 @@ internal sealed class DeleteBrandCommandHandler : CommandHandlerBase<Unit>, IReq
 
     public async Task<Result<Unit>> Handle(DeleteBrandCommand request, CancellationToken cancellationToken)
     {
-        var brandRepository = _unitOfWork.RetrieveRepository<VehicleBrand>();
+        var brandRepository = GetRequiredRepository<VehicleBrand>();
         
         var removedBrand = await brandRepository.GetEntityByIdAsync(request.Id);
         
@@ -38,7 +35,7 @@ internal sealed class DeleteBrandCommandHandler : CommandHandlerBase<Unit>, IReq
         IEnumerable<VehicleModel> relatedModels,
         IRepository<VehicleBrand> brandRepository)
     {
-        var modelRepository = _unitOfWork.RetrieveRepository<VehicleModel>();
+        var modelRepository = GetRequiredRepository<VehicleModel>();
         
         foreach (var relatedModel in relatedModels)
             await modelRepository.RemoveExistingEntityAsync(relatedModel.Id);

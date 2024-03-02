@@ -9,11 +9,8 @@ namespace Application.Commands.Types.UpdateType;
 internal sealed class UpdateTypeCommandHandler : 
     CommandHandlerBase<Unit>, IRequestHandler<UpdateTypeCommand, Result<Unit>>
 {
-    private readonly IUnitOfWork _unitOfWork;
-
     public UpdateTypeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        _unitOfWork = unitOfWork;
         PossibleErrors = new[]
         {
             new Error("UpdateTypeError", "Saving an updated type was not successful!"),
@@ -23,7 +20,7 @@ internal sealed class UpdateTypeCommandHandler :
 
     public async Task<Result<Unit>> Handle(UpdateTypeCommand request, CancellationToken cancellationToken)
     {
-        var typeRepository = _unitOfWork.RetrieveRepository<VehicleType>();
+        var typeRepository = GetRequiredRepository<VehicleType>();
         var existingType = await typeRepository.GetEntityByIdAsync(request.Id);
 
         if (existingType is null) return Result<Unit>.Failure(Error.NotFound);
@@ -33,7 +30,7 @@ internal sealed class UpdateTypeCommandHandler :
         return await TrySaveChanges(cancellationToken);
     }
 
-    private static void UpdateType(string updatedName, 
+    private void UpdateType(string updatedName, 
         VehicleType existingType, IRepository<VehicleType> typeRepository)
     {
         existingType.Name = updatedName;

@@ -9,11 +9,8 @@ namespace Application.Commands.Models.DeleteModel;
 internal sealed class DeleteModelCommandHandler : CommandHandlerBase<Unit>,
     IRequestHandler<DeleteModelCommand, Result<Unit>>
 {
-    private readonly IUnitOfWork _unitOfWork;
-
     public DeleteModelCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        _unitOfWork = unitOfWork;
         PossibleErrors = new[]
         {
             new Error("DeleteModelError", "Model removal was not successful!"),
@@ -23,7 +20,7 @@ internal sealed class DeleteModelCommandHandler : CommandHandlerBase<Unit>,
 
     public async Task<Result<Unit>> Handle(DeleteModelCommand request, CancellationToken cancellationToken)
     {
-        await _unitOfWork.RetrieveRepository<VehicleModel>().RemoveExistingEntityAsync(request.Id);
+        await GetRequiredRepository<VehicleModel>().RemoveExistingEntityAsync(request.Id);
 
         return await TrySaveChanges(cancellationToken);
     }

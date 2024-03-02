@@ -9,11 +9,9 @@ namespace Application.Commands.Brands.CreateBrand;
 internal sealed class CreateBrandCommandHandler : 
     CommandHandlerBase<Unit>, IRequestHandler<CreateBrandCommand, Result<Unit>>
 {
-    private readonly IUnitOfWork _unitOfWork;
 
     public CreateBrandCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        _unitOfWork = unitOfWork;
         PossibleErrors = new[]
         {
             new Error("CreateBrandError", "Saving a new brand was not successful!"),
@@ -25,7 +23,7 @@ internal sealed class CreateBrandCommandHandler :
     {
         var newBrand = new VehicleBrand(request.Name);
         
-        await _unitOfWork.RetrieveRepository<VehicleBrand>().AddNewEntityAsync(newBrand);
+        await GetRequiredRepository<VehicleBrand>().AddNewEntityAsync(newBrand);
 
         return await TrySaveChanges(cancellationToken);
     }

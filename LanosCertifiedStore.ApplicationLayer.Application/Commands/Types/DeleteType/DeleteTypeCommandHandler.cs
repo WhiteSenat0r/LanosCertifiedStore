@@ -9,11 +9,8 @@ namespace Application.Commands.Types.DeleteType;
 internal sealed class DeleteTypeCommandHandler : 
     CommandHandlerBase<Unit>, IRequestHandler<DeleteTypeCommand, Result<Unit>>
 {
-    private readonly IUnitOfWork _unitOfWork;
-
     public DeleteTypeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        _unitOfWork = unitOfWork;
         PossibleErrors = new[]
         {
             new Error("DeleteTypeError", "Type removal was not successful!"),
@@ -23,7 +20,7 @@ internal sealed class DeleteTypeCommandHandler :
 
     public async Task<Result<Unit>> Handle(DeleteTypeCommand request, CancellationToken cancellationToken)
     {
-        await _unitOfWork.RetrieveRepository<VehicleType>().RemoveExistingEntityAsync(request.Id);
+        await GetRequiredRepository<VehicleType>().RemoveExistingEntityAsync(request.Id);
 
         return await TrySaveChanges(cancellationToken);
     }

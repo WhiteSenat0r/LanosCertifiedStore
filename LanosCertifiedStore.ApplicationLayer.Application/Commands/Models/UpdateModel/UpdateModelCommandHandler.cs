@@ -9,11 +9,8 @@ namespace Application.Commands.Models.UpdateModel;
 internal sealed class UpdateModelCommandHandler : 
     CommandHandlerBase<Unit>, IRequestHandler<UpdateModelCommand, Result<Unit>>
 {
-    private readonly IUnitOfWork _unitOfWork;
-
     public UpdateModelCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        _unitOfWork = unitOfWork;
         PossibleErrors = new[]
         {
             new Error("UpdateModelError", "Saving an updated model was not successful!"),
@@ -23,7 +20,7 @@ internal sealed class UpdateModelCommandHandler :
 
     public async Task<Result<Unit>> Handle(UpdateModelCommand request, CancellationToken cancellationToken)
     {
-        var modelRepository = _unitOfWork.RetrieveRepository<VehicleModel>();
+        var modelRepository = GetRequiredRepository<VehicleModel>();
         
         var updatedModelResult = await TryGetUpdatedModel(modelRepository, request.Id);
         if (!updatedModelResult.IsSuccess) return Result<Unit>.Failure(updatedModelResult.Error!);
@@ -43,7 +40,7 @@ internal sealed class UpdateModelCommandHandler :
         if (!brandUpdateResult.IsSuccess) return brandUpdateResult;
 
         var typesUpdateResult = await TryUpdateRelatedTypes(
-            _unitOfWork.RetrieveRepository<VehicleType>(), model, request.AvailableTypesIds);
+            GetRequiredRepository<VehicleType>(), model, request.AvailableTypesIds);
         if (!typesUpdateResult.IsSuccess) return typesUpdateResult;
         
         model.Name = request.UpdatedName;
@@ -65,7 +62,7 @@ internal sealed class UpdateModelCommandHandler :
     {
         if (model.Brand.Id.Equals(newBrandId)) return Result<Unit>.Success(Unit.Value);
         
-        var newBrand = await _unitOfWork.RetrieveRepository<VehicleBrand>().GetEntityByIdAsync(newBrandId);
+        var newBrand = await GetRequiredRepository<VehicleBrand>().GetEntityByIdAsync(newBrandId);
 
         if (newBrand is null) return Result<Unit>.Failure(Error.NotFound);
 

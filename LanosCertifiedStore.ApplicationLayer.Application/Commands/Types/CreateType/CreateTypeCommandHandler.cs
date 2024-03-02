@@ -9,11 +9,8 @@ namespace Application.Commands.Types.CreateType;
 internal sealed class CreateTypeCommandHandler 
     : CommandHandlerBase<Unit>, IRequestHandler<CreateTypeCommand, Result<Unit>>
 {
-    private readonly IUnitOfWork _unitOfWork;
-
     public CreateTypeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        _unitOfWork = unitOfWork;
         PossibleErrors = new[]
         {
             new Error("CreateTypeError", "Saving a new type was not successful!"),
@@ -25,7 +22,7 @@ internal sealed class CreateTypeCommandHandler
     {
         var newVehicleType = new VehicleType(request.Name);
 
-        await _unitOfWork.RetrieveRepository<VehicleType>().AddNewEntityAsync(newVehicleType);
+        await GetRequiredRepository<VehicleType>().AddNewEntityAsync(newVehicleType);
 
         return await TrySaveChanges(cancellationToken);
     }
