@@ -37,6 +37,6 @@ internal sealed class UpdateBrandCommandHandler :
     {
         brand.Name = updatedName;
 
-        repository.UpdateExistingEntity(brand);
+        repository.UpdateExistingEntityAsync(brand);
     }
 }

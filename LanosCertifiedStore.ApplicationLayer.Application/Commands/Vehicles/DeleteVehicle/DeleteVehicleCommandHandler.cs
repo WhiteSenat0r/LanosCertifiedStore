@@ -20,7 +20,7 @@ internal sealed class DeleteVehicleCommandHandler(IUnitOfWork unitOfWork, IImage
         foreach (var image in updatedEntity.Images)
             await imageService.TryDeletePhotoAsync(image.CloudImageId);
         
-        await unitOfWork.RetrieveRepository<Vehicle>().RemoveExistingEntity(request.Id);
+        await unitOfWork.RetrieveRepository<Vehicle>().RemoveExistingEntityAsync(request.Id);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

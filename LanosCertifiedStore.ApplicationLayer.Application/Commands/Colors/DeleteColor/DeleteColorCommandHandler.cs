@@ -23,7 +23,7 @@ internal sealed class DeleteColorCommandHandler
 
     public async Task<Result<Unit>> Handle(DeleteColorCommand request, CancellationToken cancellationToken)
     {
-        await _unitOfWork.RetrieveRepository<VehicleColor>().RemoveExistingEntity(request.Id);
+        await _unitOfWork.RetrieveRepository<VehicleColor>().RemoveExistingEntityAsync(request.Id);
 
         return await TrySaveChanges(cancellationToken);
     }

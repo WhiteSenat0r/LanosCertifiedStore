@@ -36,14 +36,14 @@ internal abstract class GenericRepository<TSelectionProfile, TEntity, TDataModel
         await Context.Set<TDataModel>().AddAsync(mappedEntityModel);
     }
 
-    public virtual void UpdateExistingEntity(TEntity updatedEntity)
+    public virtual async Task UpdateExistingEntityAsync(TEntity updatedEntity)
     {
         var mappedEntityModel = Mapper.Map<TEntity, TDataModel>(updatedEntity);
 
         Context.Set<TDataModel>().Update(mappedEntityModel);
     }
 
-    public virtual async Task RemoveExistingEntity(Guid id)
+    public virtual async Task RemoveExistingEntityAsync(Guid id)
     {
         var removedEntity = await Context.Set<TDataModel>().SingleOrDefaultAsync(
             entity => entity.Id.Equals(id));

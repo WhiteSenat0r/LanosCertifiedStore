@@ -12,9 +12,9 @@ public interface IRepository<TEntity>
 
     Task AddNewEntityAsync(TEntity entity);
 
-    void UpdateExistingEntity(TEntity updatedEntity);
+    Task UpdateExistingEntityAsync(TEntity updatedEntity);
 
-    Task RemoveExistingEntity(Guid id);
+    Task RemoveExistingEntityAsync(Guid id);
 
     Task<int> CountAsync(IFilteringRequestParameters<TEntity>? filteringRequestParameters = null!);
 }

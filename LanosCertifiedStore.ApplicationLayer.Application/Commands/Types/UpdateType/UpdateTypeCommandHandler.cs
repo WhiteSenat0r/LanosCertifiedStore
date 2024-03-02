@@ -38,6 +38,6 @@ internal sealed class UpdateTypeCommandHandler :
     {
         existingType.Name = updatedName;
 
-        typeRepository.UpdateExistingEntity(existingType);
+        typeRepository.UpdateExistingEntityAsync(existingType);
     }
 }

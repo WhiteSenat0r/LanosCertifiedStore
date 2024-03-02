@@ -40,6 +40,6 @@ internal sealed class UpdateColorCommandHandler
 
         updatedColor.HexValue = request.UpdatedHexValue!;
 
-        colorRepository.UpdateExistingEntity(updatedColor);
+        colorRepository.UpdateExistingEntityAsync(updatedColor);
     }
 }

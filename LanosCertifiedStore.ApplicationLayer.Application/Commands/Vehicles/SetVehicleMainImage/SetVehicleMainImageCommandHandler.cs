@@ -32,11 +32,11 @@ internal sealed class SetVehicleMainImageCommandHandler(IUnitOfWork unitOfWork)
         mainImage!.Vehicle = vehicle;
         mainImage.IsMainImage = false;
         
-        imageRepository.UpdateExistingEntity(mainImage);
+        imageRepository.UpdateExistingEntityAsync(mainImage);
 
         image.Vehicle = vehicle;
         image.IsMainImage = true;
-        imageRepository.UpdateExistingEntity(image);
+        imageRepository.UpdateExistingEntityAsync(image);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

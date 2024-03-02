@@ -41,8 +41,8 @@ internal sealed class DeleteBrandCommandHandler : CommandHandlerBase<Unit>, IReq
         var modelRepository = _unitOfWork.RetrieveRepository<VehicleModel>();
         
         foreach (var relatedModel in relatedModels)
-            await modelRepository.RemoveExistingEntity(relatedModel.Id);
+            await modelRepository.RemoveExistingEntityAsync(relatedModel.Id);
 
-        await brandRepository.RemoveExistingEntity(removedBrandId);
+        await brandRepository.RemoveExistingEntityAsync(removedBrandId);
     }
 }

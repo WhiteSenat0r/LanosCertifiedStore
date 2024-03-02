@@ -29,7 +29,7 @@ internal sealed class RemoveImageFromVehicleCommandHandler(
         if (image.IsMainImage)
             return Result<Unit>.Failure(new Error("DeleteImage", "Main image can't be deleted!"));
 
-        await unitOfWork.RetrieveRepository<VehicleImage>().RemoveExistingEntity(image.Id);
+        await unitOfWork.RetrieveRepository<VehicleImage>().RemoveExistingEntityAsync(image.Id);
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 
         if (!result)

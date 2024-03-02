@@ -23,7 +23,7 @@ internal sealed class DeleteTypeCommandHandler :
 
     public async Task<Result<Unit>> Handle(DeleteTypeCommand request, CancellationToken cancellationToken)
     {
-        await _unitOfWork.RetrieveRepository<VehicleType>().RemoveExistingEntity(request.Id);
+        await _unitOfWork.RetrieveRepository<VehicleType>().RemoveExistingEntityAsync(request.Id);
 
         return await TrySaveChanges(cancellationToken);
     }

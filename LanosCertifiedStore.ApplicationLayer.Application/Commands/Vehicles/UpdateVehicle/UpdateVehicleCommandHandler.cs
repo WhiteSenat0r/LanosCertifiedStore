@@ -53,7 +53,7 @@ internal sealed class UpdateVehicleCommandHandler(
     private async Task<bool> GetVehicleUpdateResult(
         Vehicle vehicleToUpdate, CancellationToken cancellationToken)
     {
-        unitOfWork.RetrieveRepository<Vehicle>().UpdateExistingEntity(vehicleToUpdate);
+        unitOfWork.RetrieveRepository<Vehicle>().UpdateExistingEntityAsync(vehicleToUpdate);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 
