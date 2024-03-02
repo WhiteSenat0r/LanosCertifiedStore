@@ -1,4 +1,5 @@
-﻿using Application.Contracts.ServicesRelated.ImageService;
+﻿using Application.Commands.Common;
+using Application.Contracts.ServicesRelated.ImageService;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
@@ -6,41 +7,43 @@ using MediatR;
 
 namespace Application.Commands.Vehicles.AddImageToVehicle;
 
-internal sealed class AddImageToVehicleCommandHandler(
-    IUnitOfWork unitOfWork,
-    IImageService imageService)
-    : IRequestHandler<AddImageToVehicleCommand, Result<Unit>>
+internal sealed class AddImageToVehicleCommandHandler : 
+    CommandHandlerBase<Unit>, IRequestHandler<AddImageToVehicleCommand, Result<Unit>>
 {
     private const string PathTemplate = "LanosCertifiedStore/Vehicles";
+    
+    private readonly IImageService _imageService;
+
+    public AddImageToVehicleCommandHandler(IUnitOfWork unitOfWork, IImageService imageService) : base(unitOfWork)
+    {
+        _imageService = imageService;
+        PossibleErrors = new[]
+        {
+            new Error("VehicleImageUploadError", "Vehicle image upload was not successful!"),
+            new Error("VehicleImageUploadError", "Error occured during the vehicle image upload!")
+        };
+    }
 
     public async Task<Result<Unit>> Handle(AddImageToVehicleCommand request, CancellationToken cancellationToken)
     {
-        var vehicle = await unitOfWork.RetrieveRepository<Vehicle>().GetEntityByIdAsync(request.VehicleId);
+        var vehicle = await GetRequiredRepository<Vehicle>().GetEntityByIdAsync(request.VehicleId);
 
-        if (vehicle is null)
-            return Result<Unit>.Failure(Error.NotFound);
+        if (vehicle is null) return Result<Unit>.Failure(Error.NotFound);
 
-        var imageResult = await imageService.UploadImageAsync(request.Image, PathTemplate);
+        var imageResult = await _imageService.UploadImageAsync(request.Image, PathTemplate);
 
         if (!imageResult.IsUploadedSuccessfully)
-            return Result<Unit>.Failure(new Error("ImageUploadError", imageResult.ErrorMessage!));
+            return Result<Unit>.Failure(new Error("VehicleImageUploadError", imageResult.ErrorMessage!));
 
         var vehicleImage = new VehicleImage(vehicle, imageResult.ImageId!, imageResult.ImageUrl!);
 
-        try
-        {
-            await unitOfWork.RetrieveRepository<VehicleImage>().AddNewEntityAsync(vehicleImage);
-            
-            var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
+        await GetRequiredRepository<VehicleImage>().AddNewEntityAsync(vehicleImage);
+        
+        var result = await TrySaveChanges(cancellationToken);
+        
+        if (!result.IsSuccess)
+            await _imageService.TryDeletePhotoAsync(imageResult.ImageId!);
 
-            return result
-                ? Result<Unit>.Success(Unit.Value)
-                : Result<Unit>.Failure(new Error("ImageUpload", "Failed to upload image to database!"));
-        }
-        catch (Exception e)
-        {
-            await imageService.TryDeletePhotoAsync(imageResult.ImageId!);
-            return Result<Unit>.Failure(new Error("ImageUpload", e.Message));
-        }
+        return result;
     }
 }
