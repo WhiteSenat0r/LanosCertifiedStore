@@ -6,32 +6,34 @@ using MediatR;
 
 namespace Application.Commands.Vehicles.CreateVehicle;
 
-internal sealed class CreateVehicleCommandHandler(IUnitOfWork unitOfWork)
-    : ActionVehicleCommandHandlerBase, IRequestHandler<CreateVehicleCommand, Result<Unit>>
+internal sealed class CreateVehicleCommandHandler : ActionVehicleCommandHandlerBase<Guid>,
+    IRequestHandler<CreateVehicleCommand, Result<Guid>>
 {
-    public async Task<Result<Unit>> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
+    public CreateVehicleCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        var vehicleInstantiationResult =
-            await CreateVehicleBaseInstance(unitOfWork, request);
-
-        if (!vehicleInstantiationResult.IsSuccess)
-            return Result<Unit>.Failure(vehicleInstantiationResult.Error!);
-
-        var saveResult = await GetAddedVehicleSavingResult(
-            vehicleInstantiationResult, cancellationToken);
-
-        return saveResult
-            ? Result<Unit>.Success(Unit.Value)
-            : Result<Unit>.Failure(new Error("CreateError", "Failed to create a vehicle!"));
+        PossibleErrors = new[]
+        {
+            new Error("CreateVehicleError", "Saving a new vehicle was not successful!"),
+            new Error("CreateVehicleError", "Error occured during a new vehicle creation!")
+        };
     }
 
-    private async Task<bool> GetAddedVehicleSavingResult(
-        Result<Vehicle> vehicleInstantiationResult,
-        CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
     {
-        await unitOfWork.RetrieveRepository<Vehicle>().AddNewEntityAsync(vehicleInstantiationResult.Value!);
-        var saveResult = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
+        var vehicleInstantiationResult = await CreateVehicleInstance(request);
 
-        return saveResult;
+        if (!vehicleInstantiationResult.IsSuccess) 
+            return Result<Guid>.Failure(vehicleInstantiationResult.Error!);
+
+        await AddNewVehicle(vehicleInstantiationResult);
+
+        return await TrySaveChanges(cancellationToken);
+    }
+
+    private async Task AddNewVehicle(Result<Vehicle> vehicleInstantiationResult)
+    {
+        await GetRequiredRepository<Vehicle>().AddNewEntityAsync(vehicleInstantiationResult.Value!);
+
+        ReturnedValue = vehicleInstantiationResult.Value!.Id;
     }
 }
