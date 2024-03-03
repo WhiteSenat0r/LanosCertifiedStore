@@ -3,7 +3,9 @@ using API.Responses;
 using Application.Commands.Models.CreateModel;
 using Application.Commands.Models.DeleteModel;
 using Application.Commands.Models.UpdateModel;
+using Application.Dtos.Common;
 using Application.Dtos.ModelDtos;
+using Application.Queries.Models.CountModelsQueryRelated;
 using Application.Queries.Models.ModelDetailsQueryRelated;
 using Application.Queries.Models.ModelQueryRelated;
 using Application.RequestParams;
@@ -29,6 +31,16 @@ public sealed class ModelsController : BaseEntityRelatedApiController
     public async Task<ActionResult> GetModel(Guid id)
     {
         return HandleResult(await Mediator.Send(new SingleModelQuery(id)));
+    }
+    
+    [HttpGet("countItems")]
+    [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
+        [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
+    {
+        return HandleResult(await Mediator.Send(new CountModelsQuery(requestParameters)));
     }
 
     [HttpPost]
