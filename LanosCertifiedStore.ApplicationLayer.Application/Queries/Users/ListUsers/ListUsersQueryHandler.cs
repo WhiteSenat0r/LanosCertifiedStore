@@ -21,9 +21,7 @@ internal sealed class ListUsersQueryHandler(IUnitOfWork unitOfWork, IMapper mapp
 
         var resultToReturn = new PaginationResult<ProfileDto>(
             items: mappedUsers,
-            pageIndex: request.UserFilteringRequestParameters.PageIndex,
-            0,
-                0); // TODO
+            pageIndex: request.UserFilteringRequestParameters.PageIndex); // TODO
 
         return Result<PaginationResult<ProfileDto>>.Success(resultToReturn);
     }

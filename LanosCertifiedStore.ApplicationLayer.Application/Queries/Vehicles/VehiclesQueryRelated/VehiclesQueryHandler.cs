@@ -25,9 +25,7 @@ internal sealed class VehiclesQueryHandler(IUnitOfWork unitOfWork, IMapper mappe
 
         var returnedResult = new PaginationResult<VehicleDto>(
             items: mappedVehicles,
-            pageIndex: request.RequestParameters.PageIndex,
-            totalItemsCount,
-            totalFilteredItemsCount);
+            pageIndex: request.RequestParameters.PageIndex);
 
         return Result<PaginationResult<VehicleDto>>.Success(returnedResult);
     }
