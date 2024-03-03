@@ -7,7 +7,9 @@ using Application.Commands.Vehicles.RemoveImageFromVehicle;
 using Application.Commands.Vehicles.SetVehicleMainImage;
 using Application.Commands.Vehicles.UpdateVehicle;
 using Application.Core.Results;
+using Application.Dtos.Common;
 using Application.Dtos.VehicleDtos;
+using Application.Queries.Vehicles.CountVehiclesQueryRelated;
 using Application.Queries.Vehicles.VehicleDetailsQueryRelated;
 using Application.Queries.Vehicles.VehiclesQueryRelated;
 using Application.RequestParams;
@@ -34,6 +36,16 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
     public async Task<ActionResult<SingleVehicleDto>> GetVehicle(Guid id)
     {
         return HandleResult(await Mediator.Send(new VehicleDetailsQuery(id)));
+    }
+    
+    [HttpGet("countItems")]
+    [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
+        [FromQuery] VehicleFilteringRequestParameters requestParameters)
+    {
+        return HandleResult(await Mediator.Send(new CountVehiclesQuery(requestParameters)));
     }
 
     [HttpPost]

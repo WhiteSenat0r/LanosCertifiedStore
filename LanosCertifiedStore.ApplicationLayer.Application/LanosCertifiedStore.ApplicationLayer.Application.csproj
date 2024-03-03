@@ -21,7 +21,6 @@
 
     <ItemGroup>
       <Folder Include="Contracts\" />
-      <Folder Include="Queries\Types\" />
     </ItemGroup>
 
     <ItemGroup>

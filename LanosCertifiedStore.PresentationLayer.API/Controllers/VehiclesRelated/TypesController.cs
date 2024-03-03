@@ -3,8 +3,10 @@ using API.Responses;
 using Application.Commands.Types.CreateType;
 using Application.Commands.Types.DeleteType;
 using Application.Commands.Types.UpdateType;
+using Application.Dtos.Common;
 using Application.Dtos.TypeDtos;
 using Application.Queries.Types;
+using Application.Queries.Types.CountTypesQueryRelated;
 using Application.RequestParams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +22,16 @@ public sealed class TypesController : BaseEntityRelatedApiController
         [FromQuery] VehicleTypeFilteringRequestParameters requestParameters)
     {
         return HandleResult(await Mediator.Send(new TypesQuery(requestParameters)));
+    }
+    
+    [HttpGet("countItems")]
+    [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
+        [FromQuery] VehicleTypeFilteringRequestParameters requestParameters)
+    {
+        return HandleResult(await Mediator.Send(new CountTypesQuery(requestParameters)));
     }
 
     [HttpPost]
