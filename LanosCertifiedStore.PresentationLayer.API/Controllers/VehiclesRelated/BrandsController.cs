@@ -4,7 +4,9 @@ using Application.Commands.Brands.CreateBrand;
 using Application.Commands.Brands.DeleteBrand;
 using Application.Commands.Brands.UpdateBrand;
 using Application.Dtos.BrandDtos;
+using Application.Dtos.Common;
 using Application.Queries.Brands.BrandQueryRelated;
+using Application.Queries.Brands.CountBrandsQueryRelated;
 using Application.RequestParams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +22,16 @@ public sealed class BrandsController : BaseEntityRelatedApiController
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
     {
         return HandleResult(await Mediator.Send(new ListBrandsQuery(requestParameters)));
+    }
+    
+    [HttpGet("countItems")]
+    [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
+        [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
+    {
+        return HandleResult(await Mediator.Send(new CountBrandsQuery(requestParameters)));
     }
 
     [HttpPost]
