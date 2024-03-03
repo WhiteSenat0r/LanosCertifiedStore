@@ -4,7 +4,9 @@ using Application.Commands.Colors.CreateColor;
 using Application.Commands.Colors.DeleteColor;
 using Application.Commands.Colors.UpdateColor;
 using Application.Dtos.ColorDtos;
+using Application.Dtos.Common;
 using Application.Queries.Colors;
+using Application.Queries.Colors.CountColorsQueryRelated;
 using Application.RequestParams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +22,16 @@ public sealed class ColorsController : BaseEntityRelatedApiController
         [FromQuery] VehicleColorFilteringRequestParameters requestParameters)
     {
         return HandleResult(await Mediator.Send(new ColorsQuery(requestParameters)));
+    }
+    
+    [HttpGet("countItems")]
+    [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
+        [FromQuery] VehicleColorFilteringRequestParameters requestParameters)
+    {
+        return HandleResult(await Mediator.Send(new CountColorsQuery(requestParameters)));
     }
 
     [HttpPost]
