@@ -1,7 +1,4 @@
-﻿using Domain.Shared;
-using MediatR;
-
-namespace Application.Commands.Vehicles.Common;
+﻿namespace Application.Commands.Vehicles.Common;
 
 public interface IActionVehicleCommandBase
 {

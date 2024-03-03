@@ -11,4 +11,4 @@ public record UpdateVehicleCommand(
     Guid ColorId,
     string Description,
     double Displacement,
-    decimal Price) : IActionVehicleCommandBase,  IRequest<Result<Unit>>;
+    decimal Price) : IActionVehicleCommandBase, IRequest<Result<Unit>>;

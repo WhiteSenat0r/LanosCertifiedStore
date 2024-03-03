@@ -11,7 +11,7 @@ internal sealed class DeleteUserCommandHandler(IUnitOfWork unitOfWork, IMapper m
 {
     public async Task<Result<Unit>> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
     {
-        await unitOfWork.RetrieveRepository<User>().RemoveExistingEntity(request.Id);
+        await unitOfWork.RetrieveRepository<User>().RemoveExistingEntityAsync(request.Id);
 
         var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
 

@@ -1,5 +1,4 @@
 ﻿using Application.Commands.Vehicles.Common;
-using Application.Contracts.ServicesRelated.ImageService;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -8,67 +7,60 @@ using MediatR;
 
 namespace Application.Commands.Vehicles.UpdateVehicle;
 
-internal sealed class UpdateVehicleCommandHandler(
-    IMapper mapper,
-    IUnitOfWork unitOfWork,
-    IImageService imageService) : ActionVehicleCommandHandlerBase, IRequestHandler<UpdateVehicleCommand, Result<Unit>>
+internal sealed class UpdateVehicleCommandHandler : 
+    ActionVehicleCommandHandlerBase<Unit>, IRequestHandler<UpdateVehicleCommand, Result<Unit>>
 {
-    public async Task<Result<Unit>> Handle(UpdateVehicleCommand request, CancellationToken cancellationToken)
+    private readonly IMapper _mapper;
+
+    public UpdateVehicleCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        var updatedEntity = await unitOfWork.RetrieveRepository<Vehicle>().GetEntityByIdAsync(request.Id);
-
-        if (updatedEntity is null)
-            return Result<Unit>.Failure(Error.NotFound);
-
-        var requestVehicleResult =
-            await CreateVehicleBaseInstance(unitOfWork, request);
-
-        if (!requestVehicleResult.IsSuccess)
-            return Result<Unit>.Failure(requestVehicleResult.Error!);
-
-        await TrySetupNewVehicleData(request, requestVehicleResult.Value!, updatedEntity);
-
-        var result = await GetVehicleUpdateResult(updatedEntity!, cancellationToken);
-
-        return result
-            ? Result<Unit>.Success(Unit.Value)
-            : Result<Unit>.Failure(new Error("UpdateError", "Failed to update a vehicle!"));
+        _mapper = mapper;
+        PossibleErrors = new[]
+        {
+            new Error("UpdateVehicleError", "Saving an updated vehicle was not successful!"),
+            new Error("UpdateVehicleError", "Error occured during the vehicle update!")
+        };
     }
 
-    private async Task TrySetupNewVehicleData(
-        UpdateVehicleCommand request,
+    public async Task<Result<Unit>> Handle(UpdateVehicleCommand request, CancellationToken cancellationToken)
+    {
+        var updatedEntity = await GetRequiredRepository<Vehicle>().GetEntityByIdAsync(request.Id);
+
+        if (updatedEntity is null) return Result<Unit>.Failure(Error.NotFound);
+
+        var requestVehicleResult = await CreateVehicleInstance(request);
+
+        if (!requestVehicleResult.IsSuccess) return Result<Unit>.Failure(requestVehicleResult.Error!);
+
+        await UpdateVehicle(request, requestVehicleResult.Value!, updatedEntity);
+
+        return await TrySaveChanges(cancellationToken);
+    }
+
+    private async Task UpdateVehicle(
+        IActionVehicleCommandBase request,
         Vehicle requestVehicleResult,
         Vehicle updatedEntity)
     {
         await TryUpdatePrice(request, updatedEntity);
-        mapper.Map(requestVehicleResult, updatedEntity!);
+        
+        _mapper.Map(requestVehicleResult, updatedEntity);
+
+        await GetRequiredRepository<Vehicle>().UpdateExistingEntityAsync(updatedEntity);
     }
 
-    private async Task TryUpdatePrice(UpdateVehicleCommand request, Vehicle vehicle)
-    {
-        if (IsAlteredPriceValue(request, vehicle!))
-            await InitializeNewPrice(request, vehicle!);
-    }
+    private Task TryUpdatePrice(IActionVehicleCommandBase request, Vehicle vehicle) =>
+        IsAlteredPriceValue(request, vehicle) 
+            ? InitializeNewPrice(request, vehicle) 
+            : Task.CompletedTask;
 
-    private async Task<bool> GetVehicleUpdateResult(
-        Vehicle vehicleToUpdate, CancellationToken cancellationToken)
-    {
-        unitOfWork.RetrieveRepository<Vehicle>().UpdateExistingEntity(vehicleToUpdate);
-
-        var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
-
-        if (!result) await imageService.TryRollbackImageUploadAsync();
-
-        return result;
-    }
-
-    private async Task InitializeNewPrice(UpdateVehicleCommand request, Vehicle updatedVehicle)
+    private async Task InitializeNewPrice(IActionVehicleCommandBase request, Vehicle updatedVehicle)
     {
         var newPrice = new VehiclePrice(updatedVehicle, request.Price);
 
-        await unitOfWork.RetrieveRepository<VehiclePrice>().AddNewEntityAsync(newPrice);
+        await GetRequiredRepository<VehiclePrice>().AddNewEntityAsync(newPrice);
     }
 
-    private bool IsAlteredPriceValue(UpdateVehicleCommand request, Vehicle updatedVehicle) =>
+    private bool IsAlteredPriceValue(IActionVehicleCommandBase request, Vehicle updatedVehicle) =>
         !updatedVehicle.Prices.MaxBy(p => p.IssueDate)!.Value.Equals(request.Price);
 }

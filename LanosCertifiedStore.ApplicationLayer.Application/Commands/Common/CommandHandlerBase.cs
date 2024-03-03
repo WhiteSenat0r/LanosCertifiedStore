@@ -1,9 +1,10 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Domain.Contracts.Common;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Shared;
 
 namespace Application.Commands.Common;
 
-internal abstract class CommandHandlerBase<TReturnedValue>(IUnitOfWork unitOfWork) 
+internal abstract class CommandHandlerBase<TReturnedValue>(IUnitOfWork unitOfWork)
     where TReturnedValue : struct
 {
     private protected Error[] PossibleErrors { get; init; } = null!;
@@ -25,4 +26,8 @@ internal abstract class CommandHandlerBase<TReturnedValue>(IUnitOfWork unitOfWor
             return Result<TReturnedValue>.Failure(PossibleErrors[1]);
         }
     }
+
+    private protected IRepository<TEntity> GetRequiredRepository<TEntity>()
+        where TEntity : IIdentifiable<Guid> =>
+        unitOfWork.RetrieveRepository<TEntity>();
 }

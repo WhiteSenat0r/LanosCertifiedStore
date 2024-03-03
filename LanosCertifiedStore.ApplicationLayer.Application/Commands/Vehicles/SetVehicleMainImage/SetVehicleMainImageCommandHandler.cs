@@ -1,47 +1,63 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Application.Commands.Vehicles.Common;
+using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Vehicles.SetVehicleMainImage;
 
-internal sealed class SetVehicleMainImageCommandHandler(IUnitOfWork unitOfWork)
-    : IRequestHandler<SetVehicleMainImageCommand, Result<Unit>>
+internal sealed class SetVehicleMainImageCommandHandler
+    : ActionVehicleImageCommandHandlerBase, IRequestHandler<SetVehicleMainImageCommand, Result<Unit>>
 {
+    public SetVehicleMainImageCommandHandler(IUnitOfWork unitOfWork)
+        : base(unitOfWork)
+    {
+        PossibleErrors = new[]
+        {
+            new Error("SetVehicleMainImageError", "Vehicle image update was not successful!"),
+            new Error("SetVehicleMainImageError", "Error occured during the vehicle image update!"),
+            new Error("SetVehicleMainImageError", "This image does not belong to this vehicle!"),
+            new Error("SetVehicleMainImageError", "Vehicle's image can't be updated!"),
+            new Error("SetVehicleMainImageError", "Failed to update vehicle's image from the cloud!"),
+        };
+    }
+    
     public async Task<Result<Unit>> Handle(SetVehicleMainImageCommand request, CancellationToken cancellationToken)
     {
-        var imageRepository = unitOfWork.RetrieveRepository<VehicleImage>();
+        var imageRepository = GetRequiredRepository<VehicleImage>();
 
-        var vehicle = await unitOfWork.RetrieveRepository<Vehicle>().GetEntityByIdAsync(request.VehicleId);
+        var vehicle = await GetRequiredRepository<Vehicle>().GetEntityByIdAsync(request.VehicleId);
 
-        if (vehicle is null)
-            return Result<Unit>.Failure(Error.NotFound);
+        if (vehicle is null) return Result<Unit>.Failure(Error.NotFound);
 
         var image = await imageRepository.GetEntityByIdAsync(request.ImageId);
-        if (image is null)
-            return Result<Unit>.Failure(Error.NotFound);
-
-        if (!vehicle.Images.Select(x => x.Id).Contains(image.Id))
-            return Result<Unit>.Failure(new Error("SetMainImage", "This image does not belong to this vehicle!"));
-
-        if (image.IsMainImage)
-            return Result<Unit>.Failure(new Error("SetMainImage", "This image is already main!"));
-
-        var mainImage = await imageRepository.GetEntityByIdAsync(vehicle.Images.Single(x => x.IsMainImage).Id);
         
+        var imageCheckResult = GetImageCheckResult(image, vehicle);
+
+        if (!imageCheckResult.IsSuccess) return imageCheckResult;
+
+        var mainImage = await imageRepository.GetEntityByIdAsync(
+            vehicle.Images.Single(x => x.IsMainImage).Id);
+        
+        await SetNewMainImage(mainImage, vehicle, imageRepository, image!);
+
+        return await TrySaveChanges(cancellationToken);
+    }
+
+    private async Task SetNewMainImage(
+        VehicleImage? mainImage, 
+        Vehicle vehicle, 
+        IRepository<VehicleImage> imageRepository,
+        VehicleImage image)
+    {
         mainImage!.Vehicle = vehicle;
         mainImage.IsMainImage = false;
         
-        imageRepository.UpdateExistingEntity(mainImage);
+        await imageRepository.UpdateExistingEntityAsync(mainImage);
 
         image.Vehicle = vehicle;
         image.IsMainImage = true;
-        imageRepository.UpdateExistingEntity(image);
-
-        var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
-
-        return result
-            ? Result<Unit>.Success(Unit.Value)
-            : Result<Unit>.Failure(new Error("SetMainImage", "Failed to set image as main."));
+        
+        await imageRepository.UpdateExistingEntityAsync(image);
     }
 }

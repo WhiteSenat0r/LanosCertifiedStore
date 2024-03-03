@@ -9,11 +9,8 @@ namespace Application.Commands.Colors.UpdateColor;
 internal sealed class UpdateColorCommandHandler 
     : CommandHandlerBase<Unit>, IRequestHandler<UpdateColorCommand, Result<Unit>>
 {
-    private readonly IUnitOfWork _unitOfWork;
-
     public UpdateColorCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        _unitOfWork = unitOfWork;
         PossibleErrors = new[]
         {
             new Error("UpdateColorError", "Saving an updated color was not successful!"),
@@ -23,7 +20,7 @@ internal sealed class UpdateColorCommandHandler
 
     public async Task<Result<Unit>> Handle(UpdateColorCommand request, CancellationToken cancellationToken)
     {
-        var colorRepository = _unitOfWork.RetrieveRepository<VehicleColor>();
+        var colorRepository = GetRequiredRepository<VehicleColor>();
         var updatedColor = await colorRepository.GetEntityByIdAsync(request.Id);
 
         if (updatedColor is null) return Result<Unit>.Failure(Error.NotFound);
@@ -40,6 +37,6 @@ internal sealed class UpdateColorCommandHandler
 
         updatedColor.HexValue = request.UpdatedHexValue!;
 
-        colorRepository.UpdateExistingEntity(updatedColor);
+        colorRepository.UpdateExistingEntityAsync(updatedColor);
     }
 }

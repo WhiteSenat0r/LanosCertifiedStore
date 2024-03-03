@@ -5,7 +5,7 @@ using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
 
-namespace Application.Queries.Models;
+namespace Application.Queries.Models.ModelQueryRelated;
 
 internal sealed class ModelsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
     : IRequestHandler<ModelsQuery, Result<IReadOnlyList<ModelDto>>>

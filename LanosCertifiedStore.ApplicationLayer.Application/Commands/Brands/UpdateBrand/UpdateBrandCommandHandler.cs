@@ -9,11 +9,8 @@ namespace Application.Commands.Brands.UpdateBrand;
 internal sealed class UpdateBrandCommandHandler : 
     CommandHandlerBase<Unit>, IRequestHandler<UpdateBrandCommand, Result<Unit>>
 {
-    private readonly IUnitOfWork _unitOfWork;
-
     public UpdateBrandCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        _unitOfWork = unitOfWork;
         PossibleErrors = new[]
         {
             new Error("UpdateBrandError", "Saving an updated brand was not successful!"),
@@ -23,7 +20,7 @@ internal sealed class UpdateBrandCommandHandler :
     
     public async Task<Result<Unit>> Handle(UpdateBrandCommand request, CancellationToken cancellationToken)
     {
-        var brandRepository = _unitOfWork.RetrieveRepository<VehicleBrand>();
+        var brandRepository = GetRequiredRepository<VehicleBrand>();
         var updatedBrand = await brandRepository.GetEntityByIdAsync(request.Id);
 
         if (updatedBrand is null) return Result<Unit>.Failure(Error.NotFound);
@@ -37,6 +34,6 @@ internal sealed class UpdateBrandCommandHandler :
     {
         brand.Name = updatedName;
 
-        repository.UpdateExistingEntity(brand);
+        repository.UpdateExistingEntityAsync(brand);
     }
 }

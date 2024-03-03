@@ -9,11 +9,8 @@ namespace Application.Commands.Colors.CreateColor;
 internal sealed class CreateColorCommandHandler 
     : CommandHandlerBase<Unit>, IRequestHandler<CreateColorCommand, Result<Unit>>
 {
-    private readonly IUnitOfWork _unitOfWork;
-
     public CreateColorCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        _unitOfWork = unitOfWork;
         PossibleErrors = new[]
         {
             new Error("CreateColorError", "Saving a new color was not successful!"),
@@ -25,7 +22,7 @@ internal sealed class CreateColorCommandHandler
     {
         var newColor = new VehicleColor(request.ColorName, request.HexValue);
 
-        await _unitOfWork.RetrieveRepository<VehicleColor>().AddNewEntityAsync(newColor);
+        await GetRequiredRepository<VehicleColor>().AddNewEntityAsync(newColor);
 
         return await TrySaveChanges(cancellationToken);
     }

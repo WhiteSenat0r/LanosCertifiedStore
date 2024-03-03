@@ -1,4 +1,5 @@
-﻿using Application.Contracts.ServicesRelated.ImageService;
+﻿using Application.Commands.Vehicles.Common;
+using Application.Contracts.ServicesRelated.ImageService;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
@@ -6,40 +7,47 @@ using MediatR;
 
 namespace Application.Commands.Vehicles.RemoveImageFromVehicle;
 
-internal sealed class RemoveImageFromVehicleCommandHandler(
-    IUnitOfWork unitOfWork,
-    IImageService imageService)
-    : IRequestHandler<RemoveImageFromVehicleCommand, Result<Unit>>
+internal sealed class RemoveImageFromVehicleCommandHandler : 
+    ActionVehicleImageCommandHandlerBase, IRequestHandler<RemoveImageFromVehicleCommand, Result<Unit>>
 {
+    private readonly IImageService _imageService;
+
+    public RemoveImageFromVehicleCommandHandler(IUnitOfWork unitOfWork, IImageService imageService)
+        : base(unitOfWork)
+    {
+        _imageService = imageService;
+        PossibleErrors = new[]
+        {
+            new Error("DeleteVehicleImageError", "Vehicle image removal was not successful!"),
+            new Error("DeleteVehicleImageError", "Error occured during the vehicle image removal!"),
+            new Error("DeleteVehicleImageError", "This image does not belong to this vehicle!"),
+            new Error("DeleteVehicleImageError", "Vehicle's main image can't be deleted!"),
+            new Error("DeleteVehicleImageError", "Failed to delete vehicle's image from the cloud!"),
+        };
+    }
+
     public async Task<Result<Unit>> Handle(RemoveImageFromVehicleCommand request, CancellationToken cancellationToken)
     {
-        var vehicle = await unitOfWork.RetrieveRepository<Vehicle>().GetEntityByIdAsync(request.VehicleId);
+        var vehicle = await GetRequiredRepository<Vehicle>().GetEntityByIdAsync(request.VehicleId);
 
-        if (vehicle is null)
-            return Result<Unit>.Failure(Error.NotFound);
+        if (vehicle is null) return Result<Unit>.Failure(Error.NotFound);
 
-        var image = await unitOfWork.RetrieveRepository<VehicleImage>().GetEntityByIdAsync(request.ImageId);
+        var image = await GetRequiredRepository<VehicleImage>().GetEntityByIdAsync(request.ImageId);
 
-        if (image is null)
-            return Result<Unit>.Failure(Error.NotFound);
+        var imageCheckResult = GetImageCheckResult(image, vehicle);
 
-        if (!vehicle.Images.Select(x => x.Id).Contains(image.Id))
-            return Result<Unit>.Failure(new Error("DeleteImage", "This image does not belong to this vehicle!"));
+        if (!imageCheckResult.IsSuccess) return imageCheckResult;
+
+        await GetRequiredRepository<VehicleImage>().RemoveExistingEntityAsync(image!.Id);
         
-        if (image.IsMainImage)
-            return Result<Unit>.Failure(new Error("DeleteImage", "Main image can't be deleted!"));
+        var result = await TrySaveChanges(cancellationToken);
 
-        await unitOfWork.RetrieveRepository<VehicleImage>().RemoveExistingEntity(image.Id);
-        var result = await unitOfWork.SaveChangesAsync(cancellationToken) > 0;
+        if (!result.IsSuccess) return result;
 
-        if (!result)
-            return Result<Unit>.Failure(new Error("DeleteImage", "Failed to delete image from database"));
-
-        var deleteImageFromCloudResult = await imageService.TryDeletePhotoAsync(image.CloudImageId);
-
-
+        var deleteImageFromCloudResult = await _imageService.TryDeletePhotoAsync(image.CloudImageId);
+        
         return deleteImageFromCloudResult
             ? Result<Unit>.Success(Unit.Value)
-            : Result<Unit>.Failure(new Error("DeleteImage", "Failed to delete image from cloud"));
+            : Result<Unit>.Failure(PossibleErrors[4]);
     }
 }
