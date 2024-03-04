@@ -1,6 +1,7 @@
 ﻿using Application.RequestParams;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Enums.RequestParametersRelated;
 using Microsoft.EntityFrameworkCore;
@@ -8,13 +9,16 @@ using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation;
 using Persistence.Repositories.Common.Classes;
-using Persistence.Repositories.VehicleBrandRelated.QueryEvaluationRelated;
-using Persistence.Repositories.VehicleBrandRelated.QueryEvaluationRelated.Common.Classes;
+using Persistence.Repositories.VehicleBrandRelated.QueryBuilderRelated;
+using Persistence.Repositories.VehicleBrandRelated.QueryBuilderRelated.Common.Classes;
 
 namespace Persistence.Repositories.VehicleBrandRelated;
 
 internal sealed class VehicleBrandRepository(IMapper mapper, ApplicationDatabaseContext dbContext) :
-    GenericRepository<VehicleBrandSelectionProfile, VehicleBrand, VehicleBrandDataModel>(mapper, dbContext)
+    GenericRepository<VehicleBrandSelectionProfile,
+        VehicleBrand,
+        VehicleBrandDataModel,
+        IVehicleBrandFilteringRequestParameters>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleBrand>> GetAllEntitiesAsync(
         IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters = null!)
@@ -28,7 +32,7 @@ internal sealed class VehicleBrandRepository(IMapper mapper, ApplicationDatabase
 
     public override async Task<VehicleBrand?> GetEntityByIdAsync(Guid id)
     {
-        var vehicleBrandQuery = QueryEvaluator.GetSingleEntityQueryable(
+        var vehicleBrandQuery = QueryBuilder.GetSingleEntityQueryable(
             id, Context.Set<VehicleBrandDataModel>(), new VehicleBrandFilteringRequestParameters
         {
             SelectionProfile = VehicleBrandSelectionProfile.Single
@@ -44,7 +48,7 @@ internal sealed class VehicleBrandRepository(IMapper mapper, ApplicationDatabase
     public override Task<int> CountAsync(
         IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters = null)
     {
-        var countedQueryable = QueryEvaluator.GetRelevantCountQueryable(
+        var countedQueryable = QueryBuilder.GetRelevantCountQueryable(
             Context.Set<VehicleBrandDataModel>(), filteringRequestParameters);
 
         return countedQueryable.CountAsync();
@@ -52,12 +56,14 @@ internal sealed class VehicleBrandRepository(IMapper mapper, ApplicationDatabase
 
     private protected override IQueryable<VehicleBrandDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters) =>
-        QueryEvaluator.GetAllEntitiesQueryable(
+        QueryBuilder.GetAllEntitiesQueryable(
             Context.Set<VehicleBrandDataModel>(), filteringRequestParameters);
 
-    private protected override BaseQueryEvaluator<VehicleBrandSelectionProfile, VehicleBrand, VehicleBrandDataModel>
-        GetQueryEvaluator() =>
-        new VehicleBrandQueryEvaluator(
+    private protected override BaseQueryBuilder<VehicleBrandSelectionProfile,
+        VehicleBrand,
+        VehicleBrandDataModel, 
+        IVehicleBrandFilteringRequestParameters> GetQueryBuilder() =>
+        new VehicleBrandQueryBuilder(
             new VehicleBrandSelectionProfiles(),
             new VehicleBrandFilteringCriteria());
 }

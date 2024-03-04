@@ -1,6 +1,7 @@
 ﻿using Application.RequestParams;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Enums.RequestParametersRelated;
 using Microsoft.EntityFrameworkCore;
@@ -8,13 +9,16 @@ using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation;
 using Persistence.Repositories.Common.Classes;
-using Persistence.Repositories.VehicleImageRelated.QueryEvaluationRelated;
-using Persistence.Repositories.VehicleImageRelated.QueryEvaluationRelated.Common.Classes;
+using Persistence.Repositories.VehicleImageRelated.QueryBuilderRelated;
+using Persistence.Repositories.VehicleImageRelated.QueryBuilderRelated.Common.Classes;
 
 namespace Persistence.Repositories.VehicleImageRelated;
 
 internal class VehicleImageRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
-    : GenericRepository<VehicleImageSelectionProfile, VehicleImage, VehicleImageDataModel>(mapper, dbContext)
+    : GenericRepository<VehicleImageSelectionProfile,
+        VehicleImage,
+        VehicleImageDataModel, 
+        IVehicleImageFilteringRequestParameters>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleImage>> GetAllEntitiesAsync(
         IFilteringRequestParameters<VehicleImage>? filteringRequestParameters = null!)
@@ -28,7 +32,7 @@ internal class VehicleImageRepository(IMapper mapper, ApplicationDatabaseContext
 
     public override async Task<VehicleImage?> GetEntityByIdAsync(Guid id)
     {
-        var vehicleImageQuery = QueryEvaluator.GetSingleEntityQueryable(
+        var vehicleImageQuery = QueryBuilder.GetSingleEntityQueryable(
             id, Context.Set<VehicleImageDataModel>(), new VehicleImageFilteringRequestParameters());
 
         var vehicleImageModel = await vehicleImageQuery.AsNoTracking().SingleOrDefaultAsync();
@@ -41,7 +45,7 @@ internal class VehicleImageRepository(IMapper mapper, ApplicationDatabaseContext
     public override Task<int> CountAsync(
         IFilteringRequestParameters<VehicleImage>? filteringRequestParameters = null)
     {
-        var countedQueryable = QueryEvaluator.GetRelevantCountQueryable(
+        var countedQueryable = QueryBuilder.GetRelevantCountQueryable(
             Context.Set<VehicleImageDataModel>(), filteringRequestParameters);
 
         return countedQueryable.CountAsync();
@@ -49,10 +53,13 @@ internal class VehicleImageRepository(IMapper mapper, ApplicationDatabaseContext
 
     private protected override IQueryable<VehicleImageDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleImage>? filteringRequestParameters) =>
-        QueryEvaluator.GetAllEntitiesQueryable(
+        QueryBuilder.GetAllEntitiesQueryable(
             Context.Set<VehicleImageDataModel>(), filteringRequestParameters);
 
-    private protected override BaseQueryEvaluator<VehicleImageSelectionProfile, VehicleImage, VehicleImageDataModel> 
-        GetQueryEvaluator() =>
-        new VehicleImageQueryEvaluator(new VehicleImageSelectionProfiles(), new VehicleImageFilteringCriteria());
+    private protected override BaseQueryBuilder<VehicleImageSelectionProfile,
+            VehicleImage,
+            VehicleImageDataModel,
+            IVehicleImageFilteringRequestParameters> 
+        GetQueryBuilder() =>
+        new VehicleImageQueryBuilder(new VehicleImageSelectionProfiles(), new VehicleImageFilteringCriteria());
 }

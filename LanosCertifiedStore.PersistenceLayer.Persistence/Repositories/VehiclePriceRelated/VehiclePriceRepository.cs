@@ -1,6 +1,7 @@
 ﻿using Application.RequestParams;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Enums.RequestParametersRelated;
 using Microsoft.EntityFrameworkCore;
@@ -8,13 +9,16 @@ using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation;
 using Persistence.Repositories.Common.Classes;
-using Persistence.Repositories.VehiclePriceRelated.QueryEvaluationRelated;
-using Persistence.Repositories.VehiclePriceRelated.QueryEvaluationRelated.Common.Classes;
+using Persistence.Repositories.VehiclePriceRelated.QueryBuilderRelated;
+using Persistence.Repositories.VehiclePriceRelated.QueryBuilderRelated.Common.Classes;
 
 namespace Persistence.Repositories.VehiclePriceRelated;
 
 internal class VehiclePriceRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
-    : GenericRepository<VehiclePriceSelectionProfile, VehiclePrice, VehiclePriceDataModel>(mapper, dbContext)
+    : GenericRepository<VehiclePriceSelectionProfile,
+        VehiclePrice,
+        VehiclePriceDataModel,
+        IVehiclePriceFilteringRequestParameters>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehiclePrice>> GetAllEntitiesAsync(
         IFilteringRequestParameters<VehiclePrice>? filteringRequestParameters = null!)
@@ -28,7 +32,7 @@ internal class VehiclePriceRepository(IMapper mapper, ApplicationDatabaseContext
 
     public override async Task<VehiclePrice?> GetEntityByIdAsync(Guid id)
     {
-        var vehiclePriceQuery = QueryEvaluator.GetSingleEntityQueryable(
+        var vehiclePriceQuery = QueryBuilder.GetSingleEntityQueryable(
             id, Context.Set<VehiclePriceDataModel>(), new VehiclePriceFilteringRequestParameters
             {
                 SelectionProfile = VehiclePriceSelectionProfile.Full
@@ -44,7 +48,7 @@ internal class VehiclePriceRepository(IMapper mapper, ApplicationDatabaseContext
     public override Task<int> CountAsync(
         IFilteringRequestParameters<VehiclePrice>? filteringRequestParameters = null)
     {
-        var countedQueryable = QueryEvaluator.GetRelevantCountQueryable(
+        var countedQueryable = QueryBuilder.GetRelevantCountQueryable(
             Context.Set<VehiclePriceDataModel>(), filteringRequestParameters);
 
         return countedQueryable.CountAsync();
@@ -52,10 +56,13 @@ internal class VehiclePriceRepository(IMapper mapper, ApplicationDatabaseContext
 
     private protected override IQueryable<VehiclePriceDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<VehiclePrice>? filteringRequestParameters) =>
-        QueryEvaluator.GetAllEntitiesQueryable(
+        QueryBuilder.GetAllEntitiesQueryable(
             Context.Set<VehiclePriceDataModel>(), filteringRequestParameters);
 
-    private protected override BaseQueryEvaluator<VehiclePriceSelectionProfile, VehiclePrice, VehiclePriceDataModel>
-        GetQueryEvaluator() =>
-        new VehiclePriceQueryEvaluator(new VehiclePriceSelectionProfiles(), new VehiclePriceFilteringCriteria());
+    private protected override BaseQueryBuilder<VehiclePriceSelectionProfile,
+            VehiclePrice,
+            VehiclePriceDataModel,
+            IVehiclePriceFilteringRequestParameters>
+        GetQueryBuilder() =>
+        new VehiclePriceQueryBuilder(new VehiclePriceSelectionProfiles(), new VehiclePriceFilteringCriteria());
 }
