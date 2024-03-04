@@ -5,12 +5,13 @@ using Persistence.QueryEvaluation.Common;
 
 namespace Persistence.QueryEvaluation;
 
-internal abstract class BaseQueryEvaluator<TSelectionProfile, TEntity, TDataModel>(
+internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel, TParamsType>(
     BaseSelectionProfiles<TSelectionProfile, TEntity, TDataModel> selectionProfiles,
-    BaseFilteringCriteria<TEntity, TDataModel> filteringCriteria)
+    BaseFilteringCriteria<TEntity, TDataModel, TParamsType> filteringCriteria)
     where TSelectionProfile : struct, Enum
     where TEntity : IIdentifiable<Guid>
     where TDataModel : class, IIdentifiable<Guid>
+    where TParamsType : class, IFilteringRequestParameters<TEntity>
 {
     public IQueryable<TDataModel> GetAllEntitiesQueryable(
         DbSet<TDataModel> dataModels,
@@ -102,8 +103,7 @@ internal abstract class BaseQueryEvaluator<TSelectionProfile, TEntity, TDataMode
 
     private IQueryable<TDataModel> GetQueryWithAddedSelects(IQueryable<TDataModel> returnedQuery,
         IFilteringRequestParameters<TEntity>? filteringRequestParameters) =>
-        (selectionProfiles.GetSuitableSelectionProfileQueryable(returnedQuery, filteringRequestParameters!)
-            as IQueryable<TDataModel>)!;
+        selectionProfiles.GetSuitableSelectionProfileQueryable(returnedQuery, filteringRequestParameters!)!;
 
     private bool IsOrderedByDescending(BaseSortingSettings<TDataModel> sortingSettings) =>
         sortingSettings.OrderByDescendingExpression is not null 
