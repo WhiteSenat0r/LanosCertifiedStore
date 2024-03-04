@@ -5,7 +5,7 @@ using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation.Common;
 
-namespace Persistence.Repositories.VehicleRelated.QueryEvaluationRelated.Common.Classes;
+namespace Persistence.Repositories.VehicleRelated.QueryBuilderRelated.Common.Classes;
 
 internal class VehicleSelectionProfiles :
     BaseSelectionProfiles<VehicleSelectionProfile, Vehicle, VehicleDataModel>
@@ -45,29 +45,14 @@ internal class VehicleSelectionProfiles :
             {
                 Name = vehicle.Model.Name
             },
-            Prices = vehicleFilteringRequestParameters.MinimalPriceDate.HasValue
-                ? new List<VehiclePriceDataModel>
+            Prices =
+            {
+                vehicle.Prices!.Select(price => new VehiclePriceDataModel
                 {
-                    vehicle.Prices!
-                        .Where(price => price.IssueDate >= vehicleFilteringRequestParameters.MinimalPriceDate)
-                        .Select(price => new VehiclePriceDataModel
-                        {
-                            IssueDate = price.IssueDate,
-                            Value = price.Value
-                        })
-                        .OrderByDescending(price =>
-                            Math.Abs((price.IssueDate - vehicleFilteringRequestParameters.MinimalPriceDate).Value
-                                .TotalMilliseconds))
-                        .First()
-                }
-                : new List<VehiclePriceDataModel>
-                {
-                    vehicle.Prices!.Select(price => new VehiclePriceDataModel
-                    {
-                        IssueDate = price.IssueDate,
-                        Value = price.Value
-                    }).OrderByDescending(price => price.IssueDate).First()
-                },
+                    IssueDate = price.IssueDate,
+                    Value = price.Value
+                }).OrderByDescending(price => price.IssueDate).First()
+            },
             Displacement = vehicle.Displacement,
             Color = new VehicleColorDataModel
             {
