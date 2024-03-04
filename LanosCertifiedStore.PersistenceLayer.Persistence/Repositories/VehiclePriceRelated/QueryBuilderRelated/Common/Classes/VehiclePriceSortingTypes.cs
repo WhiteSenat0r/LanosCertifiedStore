@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Persistence.DataModels.VehicleRelated;
 
-namespace Persistence.Repositories.VehiclePriceRelated.QueryEvaluationRelated.Common.Classes;
+namespace Persistence.Repositories.VehiclePriceRelated.QueryBuilderRelated.Common.Classes;
 
 internal abstract class VehiclePriceSortingTypes
 {

@@ -1,16 +1,20 @@
 ﻿using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation;
-using Persistence.Repositories.VehiclePriceRelated.QueryEvaluationRelated.Common.Classes;
+using Persistence.Repositories.VehiclePriceRelated.QueryBuilderRelated.Common.Classes;
 
-namespace Persistence.Repositories.VehiclePriceRelated.QueryEvaluationRelated;
+namespace Persistence.Repositories.VehiclePriceRelated.QueryBuilderRelated;
 
-internal class VehiclePriceQueryEvaluator(
+internal class VehiclePriceQueryBuilder(
     VehiclePriceSelectionProfiles selectionProfiles,
     VehiclePriceFilteringCriteria priceFilteringCriteria)
-    : BaseQueryEvaluator<VehiclePriceSelectionProfile, VehiclePrice, VehiclePriceDataModel>(
+    : BaseQueryBuilder<VehiclePriceSelectionProfile,
+        VehiclePrice,
+        VehiclePriceDataModel,
+        IVehiclePriceFilteringRequestParameters>(
         selectionProfiles,
         priceFilteringCriteria)
 {
