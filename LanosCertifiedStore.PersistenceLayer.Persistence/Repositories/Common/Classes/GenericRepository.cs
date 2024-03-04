@@ -6,12 +6,13 @@ using Persistence.QueryEvaluation;
 
 namespace Persistence.Repositories.Common.Classes;
 
-internal abstract class GenericRepository<TSelectionProfile, TEntity, TDataModel> : IRepository<TEntity>
+internal abstract class GenericRepository<TSelectionProfile, TEntity, TDataModel, TParamsType> : IRepository<TEntity>
     where TSelectionProfile : struct, Enum
     where TEntity : IIdentifiable<Guid>
     where TDataModel : class, IIdentifiable<Guid>
+    where TParamsType : class, IFilteringRequestParameters<TEntity>
 {
-    private protected readonly BaseQueryEvaluator<TSelectionProfile, TEntity, TDataModel> QueryEvaluator;
+    private protected readonly BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel, TParamsType> QueryBuilder;
     private protected readonly DbContext Context;
     private protected readonly IMapper Mapper;
 
@@ -21,7 +22,7 @@ internal abstract class GenericRepository<TSelectionProfile, TEntity, TDataModel
     {
         Mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         Context = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-        QueryEvaluator = GetQueryEvaluator();
+        QueryBuilder = GetQueryBuilder();
     }
     
     public abstract Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(
@@ -57,5 +58,5 @@ internal abstract class GenericRepository<TSelectionProfile, TEntity, TDataModel
     private protected abstract IQueryable<TDataModel> GetRelevantQueryable(
         IFilteringRequestParameters<TEntity> filteringRequestParameters);
 
-    private protected abstract BaseQueryEvaluator<TSelectionProfile, TEntity, TDataModel> GetQueryEvaluator();
+    private protected abstract BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel, TParamsType> GetQueryBuilder();
 }

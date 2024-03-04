@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Persistence.DataModels.UserRelated;
 
-namespace Persistence.Repositories.IdentityRelated.QueryEvaluationRelated.Common.Classes;
+namespace Persistence.Repositories.IdentityRelated.QueryBuilderRelated.Common.Classes;
 
 internal abstract class UserSortingTypes
 {

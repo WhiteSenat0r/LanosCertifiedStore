@@ -1,4 +1,4 @@
-﻿namespace Persistence.Repositories.IdentityRelated.QueryEvaluationRelated;
+﻿namespace Persistence.Repositories.IdentityRelated.QueryBuilderRelated;
 
 // TODO Add implementation
 // internal sealed class UserQueryEvaluator(
