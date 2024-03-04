@@ -1,16 +1,20 @@
 ﻿using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation;
-using Persistence.Repositories.VehicleImageRelated.QueryEvaluationRelated.Common.Classes;
+using Persistence.Repositories.VehicleImageRelated.QueryBuilderRelated.Common.Classes;
 
-namespace Persistence.Repositories.VehicleImageRelated.QueryEvaluationRelated;
+namespace Persistence.Repositories.VehicleImageRelated.QueryBuilderRelated;
 
-internal class VehicleImageQueryEvaluator(
+internal class VehicleImageQueryBuilder(
     VehicleImageSelectionProfiles imageSelectionProfile,
     VehicleImageFilteringCriteria imageFilteringCriteria)
-    : BaseQueryEvaluator<VehicleImageSelectionProfile, VehicleImage, VehicleImageDataModel>(
+    : BaseQueryBuilder<VehicleImageSelectionProfile,
+        VehicleImage,
+        VehicleImageDataModel,
+        IVehicleImageFilteringRequestParameters>(
         imageSelectionProfile,
         imageFilteringCriteria)
 {
