@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Persistence.DataModels.VehicleRelated;
 
-namespace Persistence.Repositories.VehicleColorRelated.QueryEvaluationRelated.Common.Classes;
+namespace Persistence.Repositories.VehicleColorRelated.QueryBuilderRelated.Common.Classes;
 
 internal abstract class VehicleColorSortingTypes
 {

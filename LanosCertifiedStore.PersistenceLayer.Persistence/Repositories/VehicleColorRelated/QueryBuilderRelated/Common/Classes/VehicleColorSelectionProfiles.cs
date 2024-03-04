@@ -4,7 +4,7 @@ using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation.Common;
 
-namespace Persistence.Repositories.VehicleColorRelated.QueryEvaluationRelated.Common.Classes;
+namespace Persistence.Repositories.VehicleColorRelated.QueryBuilderRelated.Common.Classes;
 
 internal class VehicleColorSelectionProfiles : 
     BaseSelectionProfiles<VehicleColorSelectionProfile, VehicleColor, VehicleColorDataModel>

@@ -1,16 +1,20 @@
 ﻿using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation;
-using Persistence.Repositories.VehicleColorRelated.QueryEvaluationRelated.Common.Classes;
+using Persistence.Repositories.VehicleColorRelated.QueryBuilderRelated.Common.Classes;
 
-namespace Persistence.Repositories.VehicleColorRelated.QueryEvaluationRelated;
+namespace Persistence.Repositories.VehicleColorRelated.QueryBuilderRelated;
 
-internal class VehicleColorQueryEvaluator(
+internal class VehicleColorQueryBuilder(
     VehicleColorSelectionProfiles colorSelectionProfiles,
     VehicleColorFilteringCriteria colorFilteringCriteria)
-    : BaseQueryEvaluator<VehicleColorSelectionProfile, VehicleColor, VehicleColorDataModel>(
+    : BaseQueryBuilder<VehicleColorSelectionProfile,
+        VehicleColor,
+        VehicleColorDataModel,
+        IVehicleColorFilteringRequestParameters>(
         colorSelectionProfiles,
         colorFilteringCriteria)
 {
