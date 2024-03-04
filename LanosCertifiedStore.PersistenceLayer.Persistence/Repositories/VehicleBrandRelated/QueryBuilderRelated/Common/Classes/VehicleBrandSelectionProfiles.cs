@@ -5,7 +5,7 @@ using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
 using Persistence.QueryEvaluation.Common;
 
-namespace Persistence.Repositories.VehicleBrandRelated.QueryEvaluationRelated.Common.Classes;
+namespace Persistence.Repositories.VehicleBrandRelated.QueryBuilderRelated.Common.Classes;
 
 internal class VehicleBrandSelectionProfiles : 
     BaseSelectionProfiles<VehicleBrandSelectionProfile, VehicleBrand, VehicleBrandDataModel>
