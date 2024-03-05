@@ -1,4 +1,5 @@
 ﻿using Application.Dtos.BrandDtos;
+using Application.Queries.Common.DetailsQueryRelated;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -7,19 +8,11 @@ using MediatR;
 
 namespace Application.Queries.Brands.BrandDetailsQueryRelated;
 
-internal sealed class BrandDetailsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
-    : IRequestHandler<BrandDetailsQuery, Result<BrandDto>>
+internal sealed class BrandDetailsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :
+    DetailsQueryHandlerBase<VehicleBrand, BrandDto>(unitOfWork, mapper),
+    IRequestHandler<BrandDetailsQuery, Result<BrandDto>>
 {
-    public async Task<Result<BrandDto>> Handle(BrandDetailsQuery request,
-        CancellationToken cancellationToken)
-    {
-        var brand = await unitOfWork.RetrieveRepository<VehicleBrand>()
-            .GetEntityByIdAsync(request.Id);
-
-        if (brand is null) return null!;
-        
-        var brandToReturn = mapper.Map<VehicleBrand, BrandDto>(brand);
-
-        return Result<BrandDto>.Success(brandToReturn);
-    }
+    public Task<Result<BrandDto>> Handle(BrandDetailsQuery request,
+        CancellationToken cancellationToken) =>
+        base.Handle(request, cancellationToken);
 }

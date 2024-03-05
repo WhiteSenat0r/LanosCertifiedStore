@@ -3,6 +3,7 @@ using API.Responses;
 using Application.Commands.Models.CreateModel;
 using Application.Commands.Models.DeleteModel;
 using Application.Commands.Models.UpdateModel;
+using Application.Core.Results;
 using Application.Dtos.Common;
 using Application.Dtos.ModelDtos;
 using Application.Queries.Models.CountModelsQueryRelated;
@@ -17,9 +18,9 @@ namespace API.Controllers.VehiclesRelated;
 public sealed class ModelsController : BaseEntityRelatedApiController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyList<ModelDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PaginationResult<ModelDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<IReadOnlyList<ModelDto>>> GetModels(
+    public async Task<ActionResult<PaginationResult<ModelDto>>> GetModels(
         [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
     {
         return HandleResult(await Mediator.Send(new ModelsQuery(requestParameters)));
@@ -30,7 +31,7 @@ public sealed class ModelsController : BaseEntityRelatedApiController
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> GetModel(Guid id)
     {
-        return HandleResult(await Mediator.Send(new SingleModelQuery(id)));
+        return HandleResult(await Mediator.Send(new ModelDetailsQuery(id)));
     }
     
     [HttpGet("countItems")]

@@ -3,6 +3,7 @@ using API.Responses;
 using Application.Commands.Types.CreateType;
 using Application.Commands.Types.DeleteType;
 using Application.Commands.Types.UpdateType;
+using Application.Core.Results;
 using Application.Dtos.Common;
 using Application.Dtos.TypeDtos;
 using Application.Queries.Types;
@@ -16,9 +17,9 @@ namespace API.Controllers.VehiclesRelated;
 public sealed class TypesController : BaseEntityRelatedApiController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyList<TypeDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PaginationResult<TypeDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<IReadOnlyList<TypeDto>>> GetTypes(
+    public async Task<ActionResult<PaginationResult<TypeDto>>> GetTypes(
         [FromQuery] VehicleTypeFilteringRequestParameters requestParameters)
     {
         return HandleResult(await Mediator.Send(new TypesQuery(requestParameters)));

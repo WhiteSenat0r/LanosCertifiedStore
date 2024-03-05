@@ -5,7 +5,7 @@ using Domain.Enums.RequestParametersRelated;
 
 namespace Application.RequestParams;
 
-public sealed class VehicleModelFilteringRequestParameters : BaseFilteringRequestParameters<VehicleBrand>,
+public sealed class VehicleModelFilteringRequestParameters : BaseFilteringRequestParameters<VehicleModel>,
     IVehicleModelFilteringRequestParameters
 {
     public string? Name { get; set; }

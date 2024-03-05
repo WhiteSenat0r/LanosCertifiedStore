@@ -3,6 +3,7 @@ using API.Responses;
 using Application.Commands.Brands.CreateBrand;
 using Application.Commands.Brands.DeleteBrand;
 using Application.Commands.Brands.UpdateBrand;
+using Application.Core.Results;
 using Application.Dtos.BrandDtos;
 using Application.Dtos.Common;
 using Application.Queries.Brands.BrandQueryRelated;
@@ -16,9 +17,9 @@ namespace API.Controllers.VehiclesRelated;
 public sealed class BrandsController : BaseEntityRelatedApiController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyList<BrandDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PaginationResult<BrandDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<IReadOnlyList<BrandDto>>> GetBrands(
+    public async Task<ActionResult<PaginationResult<BrandDto>>> GetBrands(
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
     {
         return HandleResult(await Mediator.Send(new ListBrandsQuery(requestParameters)));
