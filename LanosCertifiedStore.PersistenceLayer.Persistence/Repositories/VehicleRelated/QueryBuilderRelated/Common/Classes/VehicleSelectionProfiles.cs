@@ -15,8 +15,8 @@ internal class VehicleSelectionProfiles :
         _mappedProfiles = new()
         {
             { VehicleSelectionProfile.Default, GetDefaultProfileQueryable! },
-            { VehicleSelectionProfile.Single, GetSingleProfileQueryable! },
             { VehicleSelectionProfile.Catalog, GetCatalogProfileQueryable! },
+            { VehicleSelectionProfile.Single, GetSingleProfileQueryable! }
         };
 
     public override IQueryable<VehicleDataModel> GetSuitableSelectionProfileQueryable(
@@ -45,7 +45,7 @@ internal class VehicleSelectionProfiles :
             {
                 Name = vehicle.Model.Name
             },
-            Prices =
+            Prices = new List<VehiclePriceDataModel>
             {
                 vehicle.Prices!.Select(price => new VehiclePriceDataModel
                 {
