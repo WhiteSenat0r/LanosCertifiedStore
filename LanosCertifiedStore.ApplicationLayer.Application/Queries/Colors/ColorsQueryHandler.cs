@@ -1,4 +1,7 @@
-﻿using Application.Dtos.ColorDtos;
+﻿using Application.Core.Results;
+using Application.Dtos.ColorDtos;
+using Application.Queries.Common.QueryRelated;
+using Application.RequestParams;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -7,17 +10,11 @@ using MediatR;
 
 namespace Application.Queries.Colors;
 
-internal sealed class ColorsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
-    : IRequestHandler<ColorsQuery, Result<IReadOnlyList<ColorDto>>>
+internal sealed class ColorsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :
+    ListQueryHandlerBase<VehicleColor, VehicleColorFilteringRequestParameters, ColorDto>(unitOfWork, mapper), 
+    IRequestHandler<ColorsQuery, Result<PaginationResult<ColorDto>>>
 {
-    public async Task<Result<IReadOnlyList<ColorDto>>> Handle(ColorsQuery request,
-        CancellationToken cancellationToken)
-    {
-        var colors = 
-            await unitOfWork.RetrieveRepository<VehicleColor>().GetAllEntitiesAsync(request.RequestParameters);
-
-        var colorsToReturn = mapper.Map<IReadOnlyList<VehicleColor>, IReadOnlyList<ColorDto>>(colors);
-
-        return Result<IReadOnlyList<ColorDto>>.Success(colorsToReturn);
-    }
+    public Task<Result<PaginationResult<ColorDto>>> Handle(ColorsQuery request,
+        CancellationToken cancellationToken) =>
+        base.Handle(request, cancellationToken);
 }

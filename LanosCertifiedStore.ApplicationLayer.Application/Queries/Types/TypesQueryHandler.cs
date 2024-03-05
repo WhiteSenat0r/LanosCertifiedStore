@@ -1,4 +1,7 @@
-﻿using Application.Dtos.TypeDtos;
+﻿using Application.Core.Results;
+using Application.Dtos.TypeDtos;
+using Application.Queries.Common.QueryRelated;
+using Application.RequestParams;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -7,17 +10,11 @@ using MediatR;
 
 namespace Application.Queries.Types;
 
-internal sealed class TypesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
-    : IRequestHandler<TypesQuery, Result<IReadOnlyList<TypeDto>>>
+internal sealed class TypesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :
+    ListQueryHandlerBase<VehicleType, VehicleTypeFilteringRequestParameters, TypeDto>(unitOfWork, mapper),
+    IRequestHandler<TypesQuery, Result<PaginationResult<TypeDto>>>
 {
-    public async Task<Result<IReadOnlyList<TypeDto>>> Handle(TypesQuery request,
-        CancellationToken cancellationToken)
-    {
-        var types = 
-            await unitOfWork.RetrieveRepository<VehicleType>().GetAllEntitiesAsync(request.RequestParameters);
-
-        var typesToReturn = mapper.Map<IReadOnlyList<VehicleType>, IReadOnlyList<TypeDto>>(types);
-
-        return Result<IReadOnlyList<TypeDto>>.Success(typesToReturn);
-    }
+    public Task<Result<PaginationResult<TypeDto>>> Handle(TypesQuery request,
+        CancellationToken cancellationToken) =>
+        base.Handle(request, cancellationToken);
 }
