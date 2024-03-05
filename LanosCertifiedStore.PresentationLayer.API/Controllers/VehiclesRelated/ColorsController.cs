@@ -3,6 +3,7 @@ using API.Responses;
 using Application.Commands.Colors.CreateColor;
 using Application.Commands.Colors.DeleteColor;
 using Application.Commands.Colors.UpdateColor;
+using Application.Core.Results;
 using Application.Dtos.ColorDtos;
 using Application.Dtos.Common;
 using Application.Queries.Colors;
@@ -16,9 +17,9 @@ namespace API.Controllers.VehiclesRelated;
 public sealed class ColorsController : BaseEntityRelatedApiController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(IReadOnlyList<ColorDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PaginationResult<ColorDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<IReadOnlyList<ColorDto>>> GetColors(
+    public async Task<ActionResult<PaginationResult<ColorDto>>> GetColors(
         [FromQuery] VehicleColorFilteringRequestParameters requestParameters)
     {
         return HandleResult(await Mediator.Send(new ColorsQuery(requestParameters)));
