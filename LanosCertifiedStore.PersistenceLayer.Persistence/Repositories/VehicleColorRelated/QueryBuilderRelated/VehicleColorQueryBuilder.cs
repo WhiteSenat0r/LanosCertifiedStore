@@ -8,7 +8,7 @@ using Persistence.Repositories.VehicleColorRelated.QueryBuilderRelated.Common.Cl
 
 namespace Persistence.Repositories.VehicleColorRelated.QueryBuilderRelated;
 
-internal class VehicleColorQueryBuilder(
+internal sealed class VehicleColorQueryBuilder(
     VehicleColorSelectionProfiles colorSelectionProfiles,
     VehicleColorFilteringCriteria colorFilteringCriteria)
     : BaseQueryBuilder<VehicleColorSelectionProfile,

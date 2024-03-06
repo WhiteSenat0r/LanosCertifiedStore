@@ -8,7 +8,7 @@ using Persistence.Repositories.VehicleBrandRelated.QueryBuilderRelated.Common.Cl
 
 namespace Persistence.Repositories.VehicleBrandRelated.QueryBuilderRelated;
 
-internal class VehicleBrandQueryBuilder(
+internal sealed class VehicleBrandQueryBuilder(
     VehicleBrandSelectionProfiles selectionProfiles,
     VehicleBrandFilteringCriteria brandFilteringCriteria)
     : BaseQueryBuilder<VehicleBrandSelectionProfile,

@@ -83,20 +83,34 @@ internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel,
         IFilteringRequestParameters<TEntity>? filteringRequestParameters)
     {
         var returnedQuery = dataModels.AsQueryable();
-
+        
         returnedQuery = GetQueryWithAppliedFilters(filteringRequestParameters, returnedQuery);
+        returnedQuery = GetSortedQuery(filteringRequestParameters, returnedQuery);
         returnedQuery = GetQueryWithAddedSelects(returnedQuery, filteringRequestParameters);
+        returnedQuery = GetPaginatedQuery(filteringRequestParameters, returnedQuery);
+        
+        return returnedQuery;
+    }
 
+    private IQueryable<TDataModel> GetPaginatedQuery(
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters, IQueryable<TDataModel> returnedQuery)
+    {
+        returnedQuery = returnedQuery
+            .Skip(filteringRequestParameters!.ItemQuantity * (filteringRequestParameters.PageIndex - 1))
+            .Take(filteringRequestParameters!.ItemQuantity);
+        
+        return returnedQuery;
+    }
+
+    private IQueryable<TDataModel> GetSortedQuery(
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters, IQueryable<TDataModel> returnedQuery)
+    {
         var sortingSettings = GetQuerySortingSettings(filteringRequestParameters);
-
+        
         if (IsOrderedByAscending(sortingSettings))
             returnedQuery = returnedQuery.OrderBy(sortingSettings.OrderByAscendingExpression!);
         else if (IsOrderedByDescending(sortingSettings))
             returnedQuery = returnedQuery.OrderByDescending(sortingSettings.OrderByDescendingExpression!);
-
-        returnedQuery = returnedQuery
-            .Skip(filteringRequestParameters!.ItemQuantity * (filteringRequestParameters.PageIndex - 1))
-            .Take(filteringRequestParameters!.ItemQuantity);
         
         return returnedQuery;
     }

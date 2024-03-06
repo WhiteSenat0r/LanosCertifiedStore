@@ -8,7 +8,7 @@ using Persistence.Repositories.VehicleImageRelated.QueryBuilderRelated.Common.Cl
 
 namespace Persistence.Repositories.VehicleImageRelated.QueryBuilderRelated;
 
-internal class VehicleImageQueryBuilder(
+internal sealed class VehicleImageQueryBuilder(
     VehicleImageSelectionProfiles imageSelectionProfile,
     VehicleImageFilteringCriteria imageFilteringCriteria)
     : BaseQueryBuilder<VehicleImageSelectionProfile,
