@@ -50,7 +50,7 @@ internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel,
     private protected abstract BaseSortingSettings<TDataModel> GetQuerySortingSettings(
         IFilteringRequestParameters<TEntity>? filteringRequestParameters);
     
-    private IQueryable<TDataModel> GetQueryWithAppliedFilters(
+    private protected IQueryable<TDataModel> GetQueryWithAppliedFilters(
         IFilteringRequestParameters<TEntity>? filteringRequestParameters,
         IQueryable<TDataModel> returnedQuery) =>
         returnedQuery.Where(filteringCriteria.GetCriteria(filteringRequestParameters));
@@ -61,7 +61,7 @@ internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel,
     {
         var returnedQuery = dataModels.AsQueryable();
 
-        returnedQuery = GetQueryWithAddedSelects(returnedQuery, filteringRequestParameters);
+        returnedQuery = GetQueryWithAddedSelects(filteringRequestParameters, returnedQuery);
 
         return returnedQuery;
     }
@@ -73,7 +73,7 @@ internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel,
         var returnedQuery = dataModels.AsQueryable();
 
         returnedQuery = returnedQuery.Where(model => model.Id.Equals(id));
-        returnedQuery = GetQueryWithAddedSelects(returnedQuery, filteringRequestParameters);
+        returnedQuery = GetQueryWithAddedSelects(filteringRequestParameters, returnedQuery);
 
         return returnedQuery;
     }
@@ -86,7 +86,7 @@ internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel,
         
         returnedQuery = GetQueryWithAppliedFilters(filteringRequestParameters, returnedQuery);
         returnedQuery = GetSortedQuery(filteringRequestParameters, returnedQuery);
-        returnedQuery = GetQueryWithAddedSelects(returnedQuery, filteringRequestParameters);
+        returnedQuery = GetQueryWithAddedSelects(filteringRequestParameters, returnedQuery);
         returnedQuery = GetPaginatedQuery(filteringRequestParameters, returnedQuery);
         
         return returnedQuery;
@@ -115,8 +115,9 @@ internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel,
         return returnedQuery;
     }
 
-    private IQueryable<TDataModel> GetQueryWithAddedSelects(IQueryable<TDataModel> returnedQuery,
-        IFilteringRequestParameters<TEntity>? filteringRequestParameters) =>
+    private protected IQueryable<TDataModel> GetQueryWithAddedSelects(
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters,
+        IQueryable<TDataModel> returnedQuery) =>
         selectionProfiles.GetSuitableSelectionProfileQueryable(returnedQuery, filteringRequestParameters!)!;
 
     private bool IsOrderedByDescending(BaseSortingSettings<TDataModel> sortingSettings) =>
