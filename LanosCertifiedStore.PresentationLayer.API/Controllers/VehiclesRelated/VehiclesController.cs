@@ -50,10 +50,10 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
     }
     
     [HttpGet("getPriceRange")]
-    [ProducesResponseType(typeof(IDictionary<string, decimal>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Dictionary<string, decimal>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ItemsCountDto>> GetPriceRange(
+    public async Task<ActionResult<Dictionary<string, decimal>>> GetPriceRange(
         [FromQuery] VehicleFilteringRequestParameters requestParameters)
     {
         return HandleResult(await Mediator.Send(new VehiclePriceRangeQuery(requestParameters)));
