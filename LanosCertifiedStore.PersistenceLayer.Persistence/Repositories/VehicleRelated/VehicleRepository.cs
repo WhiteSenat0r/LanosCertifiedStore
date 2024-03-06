@@ -47,13 +47,10 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
             : null;
     }
 
-    public async Task<IDictionary<string, decimal>> GetPriceRange(
-        IFilteringRequestParameters<Vehicle>? filteringRequestParameters = null!)
-    {
-        var range = new Dictionary<string, string>();
-
-        throw new NotImplementedException();
-    }
+    public Task<IDictionary<string, decimal>> GetPriceRange(
+        IFilteringRequestParameters<Vehicle>? filteringRequestParameters = null!) =>
+        (QueryBuilder as VehicleQueryBuilder)!.GetPriceRange(
+            Context.Set<VehicleDataModel>(), filteringRequestParameters);
 
     public override Task<int> CountAsync(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters = null)
