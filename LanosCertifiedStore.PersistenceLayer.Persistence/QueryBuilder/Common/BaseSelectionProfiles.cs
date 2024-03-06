@@ -1,7 +1,7 @@
 ﻿using Domain.Contracts.Common;
-using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RepositoryRelated.Common;
 
-namespace Persistence.QueryEvaluation.Common;
+namespace Persistence.QueryBuilder.Common;
 
 internal abstract class BaseSelectionProfiles<TSelectionProfile, TEntity, TDataModel>
     where TSelectionProfile : struct, Enum

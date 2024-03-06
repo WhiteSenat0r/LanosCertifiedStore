@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
 using Domain.Contracts.Common;
-using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RepositoryRelated.Common;
 using LinqKit;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Persistence.QueryEvaluation.Common;
+namespace Persistence.QueryBuilder.Common;
 
 internal abstract class BaseFilteringCriteria<TEntity, TDataModel, TParamsType> 
     where TEntity : IIdentifiable<Guid> 

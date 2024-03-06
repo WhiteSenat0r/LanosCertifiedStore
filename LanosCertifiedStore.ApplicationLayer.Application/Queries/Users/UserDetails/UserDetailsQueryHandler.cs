@@ -1,6 +1,6 @@
 ﻿using Application.Dtos.IdentityDtos.ProfileDtos;
 using AutoMapper;
-using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.UserRelated;
 using Domain.Shared;
 using MediatR;

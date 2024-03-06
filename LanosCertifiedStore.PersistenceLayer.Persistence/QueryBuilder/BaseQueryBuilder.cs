@@ -1,9 +1,9 @@
 ﻿using Domain.Contracts.Common;
-using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RepositoryRelated.Common;
 using Microsoft.EntityFrameworkCore;
-using Persistence.QueryEvaluation.Common;
+using Persistence.QueryBuilder.Common;
 
-namespace Persistence.QueryEvaluation;
+namespace Persistence.QueryBuilder;
 
 internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel, TParamsType>(
     BaseSelectionProfiles<TSelectionProfile, TEntity, TDataModel> selectionProfiles,
@@ -50,7 +50,7 @@ internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel,
     private protected abstract BaseSortingSettings<TDataModel> GetQuerySortingSettings(
         IFilteringRequestParameters<TEntity>? filteringRequestParameters);
     
-    private IQueryable<TDataModel> GetQueryWithAppliedFilters(
+    private protected IQueryable<TDataModel> GetQueryWithAppliedFilters(
         IFilteringRequestParameters<TEntity>? filteringRequestParameters,
         IQueryable<TDataModel> returnedQuery) =>
         returnedQuery.Where(filteringCriteria.GetCriteria(filteringRequestParameters));
@@ -61,7 +61,7 @@ internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel,
     {
         var returnedQuery = dataModels.AsQueryable();
 
-        returnedQuery = GetQueryWithAddedSelects(returnedQuery, filteringRequestParameters);
+        returnedQuery = GetQueryWithAddedSelects(filteringRequestParameters, returnedQuery);
 
         return returnedQuery;
     }
@@ -73,7 +73,7 @@ internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel,
         var returnedQuery = dataModels.AsQueryable();
 
         returnedQuery = returnedQuery.Where(model => model.Id.Equals(id));
-        returnedQuery = GetQueryWithAddedSelects(returnedQuery, filteringRequestParameters);
+        returnedQuery = GetQueryWithAddedSelects(filteringRequestParameters, returnedQuery);
 
         return returnedQuery;
     }
@@ -83,17 +83,18 @@ internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel,
         IFilteringRequestParameters<TEntity>? filteringRequestParameters)
     {
         var returnedQuery = dataModels.AsQueryable();
-
+        
         returnedQuery = GetQueryWithAppliedFilters(filteringRequestParameters, returnedQuery);
-        returnedQuery = GetQueryWithAddedSelects(returnedQuery, filteringRequestParameters);
+        returnedQuery = GetSortedQuery(filteringRequestParameters, returnedQuery);
+        returnedQuery = GetQueryWithAddedSelects(filteringRequestParameters, returnedQuery);
+        returnedQuery = GetPaginatedQuery(filteringRequestParameters, returnedQuery);
+        
+        return returnedQuery;
+    }
 
-        var sortingSettings = GetQuerySortingSettings(filteringRequestParameters);
-
-        if (IsOrderedByAscending(sortingSettings))
-            returnedQuery = returnedQuery.OrderBy(sortingSettings.OrderByAscendingExpression!);
-        else if (IsOrderedByDescending(sortingSettings))
-            returnedQuery = returnedQuery.OrderByDescending(sortingSettings.OrderByDescendingExpression!);
-
+    private IQueryable<TDataModel> GetPaginatedQuery(
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters, IQueryable<TDataModel> returnedQuery)
+    {
         returnedQuery = returnedQuery
             .Skip(filteringRequestParameters!.ItemQuantity * (filteringRequestParameters.PageIndex - 1))
             .Take(filteringRequestParameters!.ItemQuantity);
@@ -101,8 +102,22 @@ internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel,
         return returnedQuery;
     }
 
-    private IQueryable<TDataModel> GetQueryWithAddedSelects(IQueryable<TDataModel> returnedQuery,
-        IFilteringRequestParameters<TEntity>? filteringRequestParameters) =>
+    private IQueryable<TDataModel> GetSortedQuery(
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters, IQueryable<TDataModel> returnedQuery)
+    {
+        var sortingSettings = GetQuerySortingSettings(filteringRequestParameters);
+        
+        if (IsOrderedByAscending(sortingSettings))
+            returnedQuery = returnedQuery.OrderBy(sortingSettings.OrderByAscendingExpression!);
+        else if (IsOrderedByDescending(sortingSettings))
+            returnedQuery = returnedQuery.OrderByDescending(sortingSettings.OrderByDescendingExpression!);
+        
+        return returnedQuery;
+    }
+
+    private protected IQueryable<TDataModel> GetQueryWithAddedSelects(
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters,
+        IQueryable<TDataModel> returnedQuery) =>
         selectionProfiles.GetSuitableSelectionProfileQueryable(returnedQuery, filteringRequestParameters!)!;
 
     private bool IsOrderedByDescending(BaseSortingSettings<TDataModel> sortingSettings) =>

@@ -1,13 +1,14 @@
 ﻿using Application.RequestParams;
 using AutoMapper;
-using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RepositoryRelated.Common;
+using Domain.Contracts.RepositoryRelated.VehicleRepositoryRelated;
 using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Enums.RequestParametersRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels.VehicleRelated;
-using Persistence.QueryEvaluation;
+using Persistence.QueryBuilder;
 using Persistence.Repositories.Common.Classes;
 using Persistence.Repositories.VehicleRelated.QueryBuilderRelated;
 using Persistence.Repositories.VehicleRelated.QueryBuilderRelated.Common.Classes;
@@ -18,7 +19,8 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
     : GenericRepository<VehicleSelectionProfile,
         Vehicle,
         VehicleDataModel, 
-        IVehicleFilteringRequestParameters>(mapper, dbContext)
+        IVehicleFilteringRequestParameters>(mapper, dbContext),
+        IVehicleRepositoryExtensions
 {
     public override async Task<IReadOnlyList<Vehicle>> GetAllEntitiesAsync(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters = null!)
@@ -44,6 +46,11 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
             ? Mapper.Map<VehicleDataModel, Vehicle>(vehicleModel)
             : null;
     }
+
+    public Task<IDictionary<string, decimal>> GetPriceRange(
+        IFilteringRequestParameters<Vehicle>? filteringRequestParameters = null!) =>
+        (QueryBuilder as VehicleQueryBuilder)!.GetPriceRange(
+            Context.Set<VehicleDataModel>(), filteringRequestParameters);
 
     public override Task<int> CountAsync(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters = null)

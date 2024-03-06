@@ -1,5 +1,5 @@
 ﻿using Application.Commands.Common;
-using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;

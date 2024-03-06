@@ -1,9 +1,9 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
-using Persistence.QueryEvaluation.Common;
+using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleRelated.QueryBuilderRelated.Common.Classes;
 

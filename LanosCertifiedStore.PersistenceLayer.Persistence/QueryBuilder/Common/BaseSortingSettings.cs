@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Domain.Contracts.Common;
 
-namespace Persistence.QueryEvaluation.Common;
+namespace Persistence.QueryBuilder.Common;
 
 internal abstract class BaseSortingSettings<TDataModel>(
     Expression<Func<TDataModel, object>>? orderByAscendingExpression = null!,

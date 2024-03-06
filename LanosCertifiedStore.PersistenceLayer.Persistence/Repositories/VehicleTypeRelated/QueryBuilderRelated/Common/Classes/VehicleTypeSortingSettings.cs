@@ -1,5 +1,5 @@
 ﻿using Persistence.DataModels.VehicleRelated;
-using Persistence.QueryEvaluation.Common;
+using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleTypeRelated.QueryBuilderRelated.Common.Classes;
 

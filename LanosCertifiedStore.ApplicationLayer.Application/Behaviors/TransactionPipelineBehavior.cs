@@ -1,4 +1,4 @@
-﻿using Domain.Contracts.RepositoryRelated;
+﻿using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Shared;
 using MediatR;
 

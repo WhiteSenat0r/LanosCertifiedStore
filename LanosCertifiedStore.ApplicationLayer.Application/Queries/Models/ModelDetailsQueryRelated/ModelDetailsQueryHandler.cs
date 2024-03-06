@@ -1,7 +1,7 @@
 ﻿using Application.Dtos.ModelDtos;
 using Application.Queries.Common.DetailsQueryRelated;
 using AutoMapper;
-using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Shared;
 using MediatR;
