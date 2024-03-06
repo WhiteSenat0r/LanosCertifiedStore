@@ -1,9 +1,9 @@
 ﻿using Domain.Contracts.Common;
-using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RepositoryRelated.Common;
 using Microsoft.EntityFrameworkCore;
-using Persistence.QueryEvaluation.Common;
+using Persistence.QueryBuilder.Common;
 
-namespace Persistence.QueryEvaluation;
+namespace Persistence.QueryBuilder;
 
 internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel, TParamsType>(
     BaseSelectionProfiles<TSelectionProfile, TEntity, TDataModel> selectionProfiles,

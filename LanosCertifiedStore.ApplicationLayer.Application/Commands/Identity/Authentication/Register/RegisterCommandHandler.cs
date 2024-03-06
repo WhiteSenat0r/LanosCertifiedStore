@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.ServicesRelated.IdentityRelated;
 using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using AutoMapper;
-using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.UserRelated;
 using Domain.Shared;
 using MediatR;

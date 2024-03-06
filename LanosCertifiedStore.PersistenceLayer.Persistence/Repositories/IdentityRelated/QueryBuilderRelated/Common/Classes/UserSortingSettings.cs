@@ -1,5 +1,5 @@
 ﻿using Persistence.DataModels.UserRelated;
-using Persistence.QueryEvaluation.Common;
+using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.IdentityRelated.QueryBuilderRelated.Common.Classes;
 

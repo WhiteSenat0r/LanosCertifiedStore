@@ -1,6 +1,6 @@
 ﻿using Domain.Contracts.Common;
 
-namespace Domain.Contracts.RepositoryRelated;
+namespace Domain.Contracts.RepositoryRelated.Common;
 
 public interface IUnitOfWork
 {

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Domain.Contracts.Common;
-using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RepositoryRelated.Common;
 using Microsoft.EntityFrameworkCore;
-using Persistence.QueryEvaluation;
+using Persistence.QueryBuilder;
 
 namespace Persistence.Repositories.Common.Classes;
 

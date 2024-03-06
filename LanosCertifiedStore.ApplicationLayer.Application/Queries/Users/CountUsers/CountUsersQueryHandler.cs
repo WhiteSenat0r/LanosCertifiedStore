@@ -1,5 +1,5 @@
 ﻿using Application.Dtos.Common;
-using Domain.Contracts.RepositoryRelated;
+using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.UserRelated;
 using Domain.Shared;
 using MediatR;
