@@ -4,7 +4,7 @@ namespace Domain.Entities.VehicleRelated.Classes;
 
 public sealed class VehicleBrand : NamedVehicleAspect
 {
-    public ICollection<VehicleModel> Models { get; set; } = new List<VehicleModel>();
+    public ICollection<VehicleModel> Models { get; init; } = [];
     
     public VehicleBrand() {}
     
