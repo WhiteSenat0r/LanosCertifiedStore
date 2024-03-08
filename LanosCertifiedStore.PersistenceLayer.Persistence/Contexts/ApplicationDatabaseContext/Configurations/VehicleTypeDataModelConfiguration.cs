@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Persistence.DataModels.VehicleRelated;
+using Persistence.DataModels.VehicleRelated.TypeRelated;
 
 namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations;
 
@@ -13,7 +13,7 @@ internal sealed class VehicleTypeConfiguration : IEntityTypeConfiguration<Vehicl
             .HasMaxLength(64);
         
         builder.HasMany(m => m.Vehicles)
-            .WithOne(v => v.Type)
+            .WithOne(v => v.VehicleType)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasIndex(p => p.Name).IsUnique();

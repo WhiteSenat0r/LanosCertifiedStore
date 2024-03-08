@@ -1,4 +1,5 @@
 ﻿using Persistence.DataModels.VehicleRelated;
+using Persistence.DataModels.VehicleRelated.TypeRelated;
 
 namespace Persistence.SeedingData;
 
@@ -14,7 +15,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
             brandId: brands[0].Id,
             modelId: models.Where(x => x.VehicleBrandId == brands[0].Id).ToList()[0].Id,
-            typeId: types.First(x => x.Name.Equals("Седан")).Id,
+            vehicleTypeId: types.First(x => x.Name.Equals("Седан")).Id,
             colorId: colors.First(x => x.Name.Equals("Чорний")).Id,
             displacement: 2.5d,
             price: 30000,
@@ -52,7 +53,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[1].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[1].Id).ToList()[0].Id,
-        typeId: types.First(x => x.Name.Equals("Пікап")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Пікап")).Id,
         colorId: colors.First(x => x.Name.Equals("Білий")).Id,
         displacement: 2.9d,
         price: 45000,
@@ -88,7 +89,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[2].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[2].Id).ToList()[0].Id,
-        typeId: types.First(x => x.Name.Equals("Купе")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Купе")).Id,
         colorId: colors.First(x => x.Name.Equals("Жовтий")).Id,
         displacement: 2.0d,
         price: 28000,
@@ -124,7 +125,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[3].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[3].Id).ToList()[0].Id,
-        typeId: types.First(x => x.Name.Equals("Пікап")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Пікап")).Id,
         colorId: colors.First(x => x.Name.Equals("Синій")).Id,
         price: 55000,
         displacement: 6.2d,
@@ -160,7 +161,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[3].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[3].Id).ToList()[0].Id,
-        typeId: types.First(x => x.Name.Equals("Пікап")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Пікап")).Id,
         colorId: colors.First(x => x.Name.Equals("Білий")).Id,
         price: 46000,
         displacement: 5.0d,
@@ -196,7 +197,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[4].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[4].Id).ToList()[1].Id,
-        typeId: types.First(x => x.Name.Equals("Універсал")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Універсал")).Id,
         colorId: colors.First(x => x.Name.Equals("Чорний")).Id,
         price: 27000,
         displacement: 2.0d,
@@ -232,7 +233,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[4].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[4].Id).ToList()[1].Id,
-        typeId: types.First(x => x.Name.Equals("Седан")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Седан")).Id,
         colorId: colors.First(x => x.Name.Equals("Сірий")).Id,
         price: 29000,
         displacement: 2.0d,
@@ -267,7 +268,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[5].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[5].Id).ToList()[0].Id,
-        typeId: types.First(x => x.Name.Equals("Седан")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Седан")).Id,
         colorId: colors.First(x => x.Name.Equals("Червоний")).Id,
         price: 31000,
         displacement: 2.4d,
@@ -302,7 +303,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[6].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[6].Id).ToList()[7].Id,
-        typeId: types.First(x => x.Name.Equals("Седан")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Седан")).Id,
         colorId: colors.First(x => x.Name.Equals("Білий")).Id,
         price: 75000,
         displacement: 3.0d,
@@ -340,7 +341,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[7].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[7].Id).ToList()[0].Id,
-        typeId: types.First(x => x.Name.Equals("Седан")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Седан")).Id,
         colorId: colors.First(x => x.Name.Equals("Чорний")).Id,
         price: 58000,
         displacement: 3.2d,
@@ -375,7 +376,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[7].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[7].Id).ToList()[0].Id,
-        typeId: types.First(x => x.Name.Equals("Кабріолет")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Кабріолет")).Id,
         colorId: colors.First(x => x.Name.Equals("Чорний")).Id,
         price: 78000,
         displacement: 4.0d,
@@ -410,7 +411,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[7].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[7].Id).ToList()[0].Id,
-        typeId: types.First(x => x.Name.Equals("Універсал")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Універсал")).Id,
         colorId: colors.First(x => x.Name.Equals("Сріблястий")).Id,
         price: 46000,
         displacement: 1.5d,
@@ -445,7 +446,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[7].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[7].Id).ToList()[0].Id,
-        typeId: types.First(x => x.Name.Equals("Універсал")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Універсал")).Id,
         colorId: colors.First(x => x.Name.Equals("Синій")).Id,
         price: 80000,
         displacement: 4.0d,
@@ -480,7 +481,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[8].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[8].Id).ToList()[2].Id,
-        typeId: types.First(x => x.Name.Equals("Універсал")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Універсал")).Id,
         colorId: colors.First(x => x.Name.Equals("Індиґо")).Id,
         price: 64000,
         displacement: 2.5d,
@@ -515,7 +516,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[8].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[8].Id).ToList()[2].Id,
-        typeId: types.First(x => x.Name.Equals("Універсал")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Універсал")).Id,
         colorId: colors.First(x => x.Name.Equals("Білий")).Id,
         price: 57000,
         displacement: 2.0,
@@ -550,7 +551,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[8].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[8].Id).ToList()[2].Id,
-        typeId: types.First(x => x.Name.Equals("Універсал")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Універсал")).Id,
         colorId: colors.First(x => x.Name.Equals("Червоний")).Id,
         price: 70000,
         displacement: 3.0d,
@@ -585,7 +586,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[8].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[8].Id).ToList()[2].Id,
-        typeId: types.First(x => x.Name.Equals("Седан")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Седан")).Id,
         colorId: colors.First(x => x.Name.Equals("Сірий")).Id,
         price: 73000,
         displacement: 3.0d,
@@ -620,7 +621,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[9].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[9].Id).ToList()[1].Id,
-        typeId: types.First(x => x.Name.Equals("Седан")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Седан")).Id,
         colorId: colors.First(x => x.Name.Equals("Сірий")).Id,
         price: 27000,
         displacement: 2.5d,
@@ -655,7 +656,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[9].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[9].Id).ToList()[1].Id,
-        typeId: types.First(x => x.Name.Equals("Седан")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Седан")).Id,
         colorId: colors.First(x => x.Name.Equals("Червоний")).Id,
         price: 26500,
         displacement: 2.0d,
@@ -690,7 +691,7 @@ internal static class SeedVehicles
         new VehicleDataModel(
         brandId: brands[9].Id,
         modelId: models.Where(x => x.VehicleBrandId == brands[9].Id).ToList()[1].Id,
-        typeId: types.First(x => x.Name.Equals("Седан")).Id,
+        vehicleTypeId: types.First(x => x.Name.Equals("Седан")).Id,
         colorId: colors.First(x => x.Name.Equals("Білий")).Id,
         price: 24000,
         displacement: 2.0d,

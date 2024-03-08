@@ -3,6 +3,7 @@ using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
+using Persistence.DataModels.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleModelRelated.QueryBuilderRelated.Common.Classes;

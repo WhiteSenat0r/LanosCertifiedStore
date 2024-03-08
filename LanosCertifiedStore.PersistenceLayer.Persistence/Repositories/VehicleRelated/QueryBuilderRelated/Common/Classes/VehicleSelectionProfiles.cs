@@ -3,6 +3,7 @@ using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
+using Persistence.DataModels.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleRelated.QueryBuilderRelated.Common.Classes;
@@ -69,9 +70,9 @@ internal class VehicleSelectionProfiles :
                         }).First()
                     : null!
             },
-            Type = new VehicleTypeDataModel
+            VehicleType = new VehicleTypeDataModel
             {
-                Name = vehicle.Type.Name
+                Name = vehicle.VehicleType.Name
             }
         });
 
@@ -112,10 +113,10 @@ internal class VehicleSelectionProfiles :
                 CloudImageId = image.CloudImageId,
                 IsMainImage = image.IsMainImage
             }).OrderByDescending(image => image.IsMainImage) as ICollection<VehicleImageDataModel>)!,
-            Type = new VehicleTypeDataModel
+            VehicleType = new VehicleTypeDataModel
             {
-                Id = vehicle.Type.Id,
-                Name = vehicle.Type.Name
+                Id = vehicle.VehicleType.Id,
+                Name = vehicle.VehicleType.Name
             }
         });
 
@@ -155,9 +156,9 @@ internal class VehicleSelectionProfiles :
                     }).First()
                 : null!
             },
-            Type = new VehicleTypeDataModel
+            VehicleType = new VehicleTypeDataModel
             {
-                Name = vehicle.Type.Name
+                Name = vehicle.VehicleType.Name
             }
         });
 }

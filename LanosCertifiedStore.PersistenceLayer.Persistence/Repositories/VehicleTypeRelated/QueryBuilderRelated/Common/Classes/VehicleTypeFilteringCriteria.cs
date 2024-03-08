@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
 using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Contracts.RequestParametersRelated;
-using Domain.Entities.VehicleRelated.Classes;
-using Persistence.DataModels.VehicleRelated;
+using Domain.Entities.VehicleRelated.Classes.TypesRelated;
+using Persistence.DataModels.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleTypeRelated.QueryBuilderRelated.Common.Classes;

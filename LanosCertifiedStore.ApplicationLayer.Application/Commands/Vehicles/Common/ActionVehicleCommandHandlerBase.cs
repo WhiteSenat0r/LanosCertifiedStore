@@ -2,6 +2,7 @@
 using Domain.Contracts.Common;
 using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Entities.VehicleRelated.Classes.TypesRelated;
 using Domain.Shared;
 
 namespace Application.Commands.Vehicles.Common;
@@ -37,7 +38,7 @@ internal abstract class ActionVehicleCommandHandlerBase<TResult>(
             brand: vehicleBrand,
             model: vehicleModel,
             color: vehicleColor,
-            type: vehicleType,
+            vehicleType: vehicleType,
             price: vehicleData.Price,
             displacement: vehicleData.Displacement,
             description: vehicleData.Description

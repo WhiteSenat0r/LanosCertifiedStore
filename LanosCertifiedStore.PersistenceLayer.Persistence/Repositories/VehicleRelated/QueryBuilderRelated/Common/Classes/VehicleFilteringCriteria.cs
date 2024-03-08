@@ -53,7 +53,7 @@ internal sealed class VehicleFilteringCriteria :
     
     private Expression<Func<VehicleDataModel, bool>> GetTypeNamePredicate(
         IVehicleFilteringRequestParameters requestParameters) =>
-        vehicle => vehicle.Type.Name.Equals(requestParameters.Type);
+        vehicle => vehicle.VehicleType.Name.Equals(requestParameters.Type);
     
     private Expression<Func<VehicleDataModel, bool>> GetColorNamePredicate(
         IVehicleFilteringRequestParameters requestParameters) =>
