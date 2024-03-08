@@ -5,7 +5,7 @@ namespace Persistence.DataModels.VehicleRelated;
 internal sealed class VehicleColorDataModel : NamedVehicleAspect
 {
     public string HexValue { get; set; } = null!;
-    public ICollection<VehicleDataModel> Vehicles { get; set; } = new List<VehicleDataModel>();
+    public ICollection<VehicleDataModel> Vehicles { get; set; } = [];
     
     public VehicleColorDataModel() {}
 

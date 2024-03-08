@@ -4,8 +4,8 @@ namespace Persistence.DataModels.VehicleRelated;
 
 internal sealed class VehicleBrandDataModel : NamedVehicleAspect
 {
-    public ICollection<VehicleModelDataModel> Models { get; set; } = new List<VehicleModelDataModel>();
-    public ICollection<VehicleDataModel> Vehicles { get; set; } = new List<VehicleDataModel>();
+    public ICollection<VehicleModelDataModel> Models { get; set; } = [];
+    public ICollection<VehicleDataModel> Vehicles { get; set; } = [];
     
     public VehicleBrandDataModel() { }
 
