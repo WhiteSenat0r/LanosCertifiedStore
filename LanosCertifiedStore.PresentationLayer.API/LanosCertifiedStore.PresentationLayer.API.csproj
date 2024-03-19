@@ -20,7 +20,7 @@
     <ProjectReference Include="..\LanosCertifiedStore.ApplicationLayer.Application\LanosCertifiedStore.ApplicationLayer.Application.csproj" />
     <ProjectReference Include="..\LanosCertifiedStore.DomainLayer.Domain\LanosCertifiedStore.DomainLayer.Domain.csproj" />
     <ProjectReference Include="..\LanosCertifiedStore.InfrastructureLayer.Services\LanosCertifiedStore.InfrastructureLayer.Services.csproj" />
-    <ProjectReference Include="..\LanosCertifiedStore.PersistenceLayer.Persistence\LanosCertifiedStore.PersistenceLayer.Persistence.csproj" />
+    <ProjectReference Include="..\LanosCertifiedStore.InfrastructureLayer.Persistence\LanosCertifiedStore.InfrastructureLayer.Persistence.csproj" />
   </ItemGroup>
   
   <ItemGroup>
