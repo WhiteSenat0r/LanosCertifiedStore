@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Persistence.DataModels.UserRelated;
 
-namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations;
+namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.IdentityRelated;
 
 internal sealed class UserRoleDataModelConfiguration : IEntityTypeConfiguration<UserRoleDataModel>
 {

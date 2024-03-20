@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Persistence.DataModels.UserRelated;
 
-namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations;
+namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.IdentityRelated;
 
 internal sealed class UserDataModelConfiguration : IEntityTypeConfiguration<UserDataModel>
 {
@@ -21,7 +21,9 @@ internal sealed class UserDataModelConfiguration : IEntityTypeConfiguration<User
         builder.Property(x => x.Email)
             .IsRequired()
             .HasMaxLength(320);
-        
-        
+
+        builder.HasMany(m => m.Roles)
+            .WithMany(r => r.Users)
+            .UsingEntity(join => join.ToTable("UserRoles"));
     }
 }
