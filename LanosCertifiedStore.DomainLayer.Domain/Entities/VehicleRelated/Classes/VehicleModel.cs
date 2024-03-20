@@ -6,7 +6,7 @@ namespace Domain.Entities.VehicleRelated.Classes;
 public sealed class VehicleModel : NamedVehicleAspect
 {
     public int MinimalProductionYear { get; init; }
-    public int MaximumProductionYear { get; init; }
+    public int? MaximumProductionYear { get; init; }
     public VehicleBrand Brand { get; set; } = null!;
     public ICollection<VehicleType> AvailableTypes { get; init; } = [];
     public ICollection<VehicleEngineType> AvailableEngineTypes { get; init; } = [];
@@ -16,15 +16,29 @@ public sealed class VehicleModel : NamedVehicleAspect
     
     public VehicleModel() { }
 
-    public VehicleModel(VehicleBrand brand, string name, ICollection<VehicleType> availableTypes) : base(name)
+    public VehicleModel(
+        VehicleBrand brand,
+        string name,
+        IEnumerable<Guid> availableTypesIds,
+        IEnumerable<Guid> availableEngineTypeIds,
+        IEnumerable<Guid> availableTransmissionTypeIds,
+        IEnumerable<Guid> availableDrivetrainTypeIds,
+        IEnumerable<Guid> availableBodyTypeIds,
+        int minimalProductionYear,
+        int? maximumProductionYear = null) : base(name)
     {
         Brand = brand;
-        AvailableTypes = availableTypes;
-    }
-
-    public VehicleModel(VehicleBrand brand, string name, IEnumerable<Guid> availableTypesIds) : base(name)
-    {
-        Brand = brand;
-        AvailableTypes = availableTypesIds.Select(id => new VehicleType { Id = id }).ToList();
+        MinimalProductionYear = minimalProductionYear;
+        MaximumProductionYear = maximumProductionYear;
+        AvailableTypes = availableTypesIds.Select(
+            id => new VehicleType { Id = id }).ToList();
+        AvailableEngineTypes = availableEngineTypeIds.Select(
+            id => new VehicleEngineType { Id = id }).ToList();
+        AvailableTransmissionTypes = availableTransmissionTypeIds.Select(
+            id => new VehicleTransmissionType { Id = id }).ToList();
+        AvailableDrivetrainTypes = availableDrivetrainTypeIds.Select(
+            id => new VehicleDrivetrainType { Id = id }).ToList();
+        AvailableBodyTypes = availableBodyTypeIds.Select(
+            id => new VehicleBodyType { Id = id }).ToList();
     }
 }
