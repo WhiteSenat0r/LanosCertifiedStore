@@ -13,7 +13,7 @@ public static class PersistenceServiceCollectionExtensions
     {
         services.AddDbContext<ApplicationDatabaseContext>(option =>
         {
-            option.UseSqlServer(config.GetConnectionString("SqlServerConnection"),
+            option.UseNpgsql(config.GetConnectionString("PostgreSqlConnection"),
                 o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
         });
         
