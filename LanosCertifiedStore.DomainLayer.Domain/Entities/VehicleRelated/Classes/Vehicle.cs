@@ -12,6 +12,7 @@ public sealed class Vehicle : IIdentifiable<Guid>
     public int ProductionYear { get; init; }
     public string Description { get; init; } = null!;
     public VehicleLocationTown LocationTown { get; init; } = null!;
+    public VehicleLocationRegion LocationRegion { get; init; } = null!;
     public VehicleBrand Brand { get; init; } = null!;
     public VehicleModel Model { get; init; } = null!;
     public VehicleColor Color { get; init; } = null!;
@@ -30,36 +31,32 @@ public sealed class Vehicle : IIdentifiable<Guid>
         VehicleModel model,
         VehicleColor color,
         VehicleType vehicleType,
-        decimal price,
-        double displacement,
-        string description)
-    {
-        Prices.Add(new VehiclePrice(this, price));
-        Brand = brand;
-        Model = model;
-        Color = color;
-        VehicleType = vehicleType;
-        Displacement = displacement;
-        Description = description;
-    }
-    
-    public Vehicle(
-        VehicleBrand brand,
-        VehicleModel model,
-        VehicleColor color,
-        VehicleType vehicleType,
+        VehicleBodyType bodyType,
+        VehicleEngineType engineType,
+        VehicleTransmissionType transmissionType,
+        VehicleDrivetrainType drivetrainType,
+        VehicleLocationTown locationTown,
+        VehicleLocationRegion locationRegion,
         decimal price,
         double displacement,
         string description,
-        ICollection<VehicleImage> images)
+        int productionYear,
+        int mileage)
     {
         Prices.Add(new VehiclePrice(this, price));
         Brand = brand;
         Model = model;
         Color = color;
         VehicleType = vehicleType;
+        BodyType = bodyType;
+        EngineType = engineType;
+        TransmissionType = transmissionType;
+        DrivetrainType = drivetrainType;
+        LocationTown = locationTown;
+        LocationRegion = locationRegion;
         Displacement = displacement;
         Description = description;
-        Images = images;
+        ProductionYear = productionYear;
+        Mileage = mileage;
     }
 }

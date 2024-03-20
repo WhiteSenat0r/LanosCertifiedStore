@@ -13,6 +13,8 @@ internal sealed class VehicleDataModel : IIdentifiable<Guid>
     public int ProductionYear { get; set; }
     public Guid LocationTownId { get; set; }
     public VehicleLocationTownDataModel LocationTown { get; set; } = null!;
+    public Guid LocationRegionId { get; set; }
+    public VehicleLocationRegionDataModel LocationRegion { get; set; } = null!;
     public Guid BrandId { get; set; }
     public VehicleBrandDataModel Brand { get; set; } = null!;
     public Guid ModelId { get; set; }
@@ -38,17 +40,33 @@ internal sealed class VehicleDataModel : IIdentifiable<Guid>
         Guid brandId,
         Guid modelId,
         Guid vehicleTypeId,
+        Guid drivetrainTypeId,
+        Guid engineTypeId,
+        Guid bodyTypeId,
+        Guid transmissionTypeId,
         Guid colorId,
+        Guid locationTownId,
+        Guid locationRegionId,
         decimal price,
         double displacement,
-        string description)
+        string description,
+        int productionYear,
+        int mileage)
     {
         BrandId = brandId;
         ModelId = modelId;
         VehicleTypeId = vehicleTypeId;
+        DrivetrainTypeId = drivetrainTypeId;
+        EngineTypeId = engineTypeId;
+        BodyTypeId = bodyTypeId;
+        TransmissionTypeId = transmissionTypeId;
         ColorId = colorId;
+        LocationTownId = locationTownId;
+        LocationRegionId = locationRegionId;
         Displacement = displacement;
         Prices.Add(new VehiclePriceDataModel(Id, price));
         Description = description;
+        ProductionYear = productionYear;
+        Mileage = mileage;
     }
 }
