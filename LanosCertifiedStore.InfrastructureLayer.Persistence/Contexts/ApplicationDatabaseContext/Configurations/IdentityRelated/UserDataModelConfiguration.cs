@@ -24,6 +24,6 @@ internal sealed class UserDataModelConfiguration : IEntityTypeConfiguration<User
 
         builder.HasMany(m => m.Roles)
             .WithMany(r => r.Users)
-            .UsingEntity(join => join.ToTable("UserRoles"));
+            .UsingEntity(join => join.ToTable("UsersRoles"));
     }
 }
