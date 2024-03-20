@@ -35,13 +35,14 @@ internal abstract class ActionVehicleCommandHandlerBase<TResult>(
         VehicleType vehicleType, 
         IActionVehicleCommandBase vehicleData) =>
         new(
-            brand: vehicleBrand,
-            model: vehicleModel,
-            color: vehicleColor,
-            vehicleType: vehicleType,
-            price: vehicleData.Price,
-            displacement: vehicleData.Displacement,
-            description: vehicleData.Description
+            // TODO
+            // brand: vehicleBrand,
+            // model: vehicleModel,
+            // color: vehicleColor,
+            // vehicleType: vehicleType,
+            // price: vehicleData.Price,
+            // displacement: vehicleData.Displacement,
+            // description: vehicleData.Description
         );
 
     private Task<TAspect?> GetAspectDataAsync<TAspect>(Guid id)
