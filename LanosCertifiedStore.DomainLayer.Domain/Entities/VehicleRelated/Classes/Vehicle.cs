@@ -12,6 +12,7 @@ public sealed class Vehicle : IIdentifiable<Guid>
     public int ProductionYear { get; init; }
     public string Description { get; init; } = null!;
     public VehicleLocationTown LocationTown { get; init; } = null!;
+    public VehicleLocationArea LocationArea { get; init; } = null!;
     public VehicleLocationRegion LocationRegion { get; init; } = null!;
     public VehicleBrand Brand { get; init; } = null!;
     public VehicleModel Model { get; init; } = null!;
@@ -36,6 +37,7 @@ public sealed class Vehicle : IIdentifiable<Guid>
         VehicleTransmissionType transmissionType,
         VehicleDrivetrainType drivetrainType,
         VehicleLocationTown locationTown,
+        VehicleLocationArea locationArea,
         VehicleLocationRegion locationRegion,
         decimal price,
         double displacement,
@@ -53,6 +55,7 @@ public sealed class Vehicle : IIdentifiable<Guid>
         TransmissionType = transmissionType;
         DrivetrainType = drivetrainType;
         LocationTown = locationTown;
+        LocationArea = locationArea;
         LocationRegion = locationRegion;
         Displacement = displacement;
         Description = description;

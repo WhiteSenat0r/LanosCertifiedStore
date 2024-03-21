@@ -13,6 +13,8 @@ internal sealed class VehicleDataModel : IIdentifiable<Guid>
     public int ProductionYear { get; set; }
     public Guid LocationTownId { get; set; }
     public VehicleLocationTownDataModel LocationTown { get; set; } = null!;
+    public Guid LocationAreaId { get; set; }
+    public VehicleLocationAreaDataModel LocationArea { get; set; } = null!;
     public Guid LocationRegionId { get; set; }
     public VehicleLocationRegionDataModel LocationRegion { get; set; } = null!;
     public Guid BrandId { get; set; }
@@ -46,6 +48,7 @@ internal sealed class VehicleDataModel : IIdentifiable<Guid>
         Guid transmissionTypeId,
         Guid colorId,
         Guid locationTownId,
+        Guid locationAreaId,
         Guid locationRegionId,
         decimal price,
         double displacement,
@@ -62,6 +65,7 @@ internal sealed class VehicleDataModel : IIdentifiable<Guid>
         TransmissionTypeId = transmissionTypeId;
         ColorId = colorId;
         LocationTownId = locationTownId;
+        LocationAreaId = locationAreaId;
         LocationRegionId = locationRegionId;
         Displacement = displacement;
         Prices.Add(new VehiclePriceDataModel(Id, price));
