@@ -12,6 +12,10 @@ internal sealed class VehicleLocationTownConfiguration : IEntityTypeConfiguratio
             .IsRequired()
             .HasMaxLength(64);
         
+        builder.HasOne(m => m.LocationArea)
+            .WithMany(l => l.RelatedTowns)
+            .OnDelete(DeleteBehavior.Cascade);
+        
         builder.HasOne(m => m.LocationRegion)
             .WithMany(l => l.RelatedTowns)
             .OnDelete(DeleteBehavior.Cascade);
