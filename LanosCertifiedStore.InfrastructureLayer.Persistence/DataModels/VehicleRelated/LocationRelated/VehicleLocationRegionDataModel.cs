@@ -4,7 +4,8 @@ namespace Persistence.DataModels.VehicleRelated.LocationRelated;
 
 public sealed class VehicleLocationRegionDataModel : NamedVehicleAspect
 {
-    public ICollection<VehicleLocationTownDataModel> RelatedTowns { get; init; } = [];
+    public ICollection<VehicleLocationAreaDataModel> RelatedAreas { get; set; } = [];
+    public ICollection<VehicleLocationTownDataModel> RelatedTowns { get; set; } = [];
     
     public VehicleLocationRegionDataModel() { }
 
