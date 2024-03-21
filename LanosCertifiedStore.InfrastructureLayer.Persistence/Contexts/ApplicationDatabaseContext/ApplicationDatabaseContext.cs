@@ -22,6 +22,7 @@ public sealed class ApplicationDatabaseContext(
     internal DbSet<VehicleDrivetrainTypeDataModel> VehicleDrivetrainTypes { get; set; } = null!;
     internal DbSet<VehicleTransmissionTypeDataModel> VehicleTransmissionTypes { get; set; } = null!;
     internal DbSet<VehicleLocationTownDataModel> VehicleLocationTowns { get; set; } = null!;
+    internal DbSet<VehicleLocationAreaDataModel> VehicleLocationAreas { get; set; } = null!;
     internal DbSet<VehicleLocationRegionDataModel> VehicleLocationRegions { get; set; } = null!;
     internal DbSet<VehicleImageDataModel> VehicleImages { get; set; } = null!;
     internal DbSet<UserDataModel> Users { get; set; } = null!;
