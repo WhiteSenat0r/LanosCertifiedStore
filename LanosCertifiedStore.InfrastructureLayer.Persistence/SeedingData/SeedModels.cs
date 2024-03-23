@@ -1,7 +1,4 @@
-﻿using Persistence.DataModels.VehicleRelated;
-using Persistence.DataModels.VehicleRelated.TypeRelated;
-
-namespace Persistence.SeedingData;
+﻿namespace Persistence.SeedingData;
 
 internal static class SeedModels
 {
