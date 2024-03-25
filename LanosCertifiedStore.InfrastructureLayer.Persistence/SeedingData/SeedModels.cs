@@ -404,8 +404,6 @@ internal static class SeedModels
 
         #endregion
 
-        //
-
         #region Volkswagen
 
         new VehicleModelDataModel(
@@ -488,8 +486,6 @@ internal static class SeedModels
 
         #endregion
 
-        //
-
         #region Nissan
 
         new VehicleModelDataModel(
@@ -510,7 +506,6 @@ internal static class SeedModels
                      || !t.Name.Equals("Купе"))),
             1992
         ),
-
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Nissan")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
@@ -526,7 +521,6 @@ internal static class SeedModels
                 t => !t.Name.Equals("Седан"))),
             1980
         ),
-
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Nissan")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
@@ -545,7 +539,6 @@ internal static class SeedModels
                      || !t.Name.Equals("Хетчбек"))),
             1982
         ),
-
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Nissan")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
@@ -563,7 +556,6 @@ internal static class SeedModels
                 t => !t.Name.Equals("Кросовер"))),
             2007
         ),
-
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Nissan")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
@@ -583,26 +575,92 @@ internal static class SeedModels
         ),
 
         #endregion
-
-        //
-        //     #region BMW
-        //     
-        //     new VehicleModelDataModel(brands[6].Id, "3 Series", [types[0], types[2]]),
-        //     // Седан, Купе
-        //
-        //     new VehicleModelDataModel(brands[6].Id, "5 Series", [types[0], types[2]]),
-        //     // Седан, Купе
-        //     new VehicleModelDataModel(brands[6].Id, "X5", [types[4]]),
-        //     // Кросовер
-        //
-        //     new VehicleModelDataModel(brands[6].Id, "X1", [types[4]]),
-        //
-        //     new VehicleModelDataModel(brands[6].Id, "M3", [types[0], types[2]]),
-        //     // Седан, Купе
-        //
-        //     #endregion
-        //
-
+        
+        #region BMW
+        
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("BMW")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "3 Series",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => e.Name.Equals("Електро"))),
+            GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
+                t => t.Name.Equals("Варіатор"))),
+            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
+                d => d.Name.Equals("Передній"))),
+            GetObjectsWithSelectedIds(
+            [
+                bodyTypes.Single(t => t.Name.Equals("Кабріолет")),
+                bodyTypes.Single(t => t.Name.Equals("Універсал")),
+                bodyTypes.Single(t => t.Name.Equals("Седан")),
+                bodyTypes.Single(t => t.Name.Equals("Купе")),
+            ]), 1975
+        ),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("BMW")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "5 Series",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => e.Name.Equals("Електро"))),
+            GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
+                t => t.Name.Equals("Варіатор"))),
+            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
+                d => d.Name.Equals("Передній"))),
+            GetObjectsWithSelectedIds(
+            [
+                bodyTypes.Single(t => t.Name.Equals("Універсал")),
+                bodyTypes.Single(t => t.Name.Equals("Седан")),
+            ]), 1972
+        ),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("BMW")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "M3",
+            GetObjectsWithSelectedIds(engineTypes.TakeWhile(
+                e => e.Name.Equals("Бензиновий"))),
+            GetObjectsWithSelectedIds(
+                transmissionTypes.TakeWhile(t => t.Name.Equals("Робот") 
+                                                 || t.Name.Equals("Автомат") 
+                                                 || t.Name.Equals("Механіка"))),
+            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
+                d => d.Name.Equals("Передній"))),
+            GetObjectsWithSelectedIds(
+            [
+                bodyTypes.Single(t => t.Name.Equals("Універсал")),
+                bodyTypes.Single(t => t.Name.Equals("Седан")),
+            ]), 1986
+        ),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("BMW")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "X5",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => e.Name.Equals("Електро"))),
+            GetObjectsWithSelectedIds(
+                transmissionTypes.SkipWhile(t => t.Name.Equals("Варіатор"))),
+            GetObjectsWithSelectedIds(
+                drivetrainTypes.SkipWhile(d => d.Name.Equals("Передній"))),
+            GetObjectsWithSelectedIds(
+            [
+                bodyTypes.Single(t => t.Name.Equals("Кросовер")),
+            ]), 1999),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("BMW")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "X3",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => e.Name.Equals("Електро"))),
+            GetObjectsWithSelectedIds(
+                transmissionTypes.SkipWhile(t => t.Name.Equals("Варіатор"))),
+            GetObjectsWithSelectedIds(
+                drivetrainTypes.SkipWhile(d => d.Name.Equals("Передній"))),
+            GetObjectsWithSelectedIds(
+            [
+                bodyTypes.Single(t => t.Name.Equals("Кросовер")),
+            ]), 2003),
+        
+        #endregion
+        
         #region Mercedes-Benz
 
         new VehicleModelDataModel(
@@ -687,7 +745,6 @@ internal static class SeedModels
                      || !t.Name.Equals("Хетчбек"))),
             1972
         ),
-
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Mercedes-Benz")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
@@ -709,10 +766,9 @@ internal static class SeedModels
         ),
 
         #endregion
-
-        //
-        //     #region Audi
-        //     
+        
+        #region Audi
+        
         //     new VehicleModelDataModel(brands[8].Id, "A3", [types[1]]),
         //     // Хетчбек
         //
@@ -727,8 +783,7 @@ internal static class SeedModels
         //     new VehicleModelDataModel(brands[8].Id, "R8", [types[5]]),
         //     // Спорткар
         //
-        //     #endregion
-        //
+        #endregion
 
         #region Hyundai
 
@@ -751,7 +806,6 @@ internal static class SeedModels
                      || !t.Name.Equals("Седан"))),
             1990
         ),
-
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Hyundai")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
@@ -769,7 +823,6 @@ internal static class SeedModels
                 t => !t.Name.Equals("Седан"))),
             1985
         ),
-
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Hyundai")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
@@ -789,7 +842,6 @@ internal static class SeedModels
                 t => !t.Name.Equals("Кросовер"))),
             2004
         ),
-
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Hyundai")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
@@ -809,7 +861,6 @@ internal static class SeedModels
                 t => !t.Name.Equals("Кросовер"))),
             2000
         ),
-
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Hyundai")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
@@ -827,8 +878,7 @@ internal static class SeedModels
             GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
                 t => !t.Name.Equals("Хетчбек"))),
             2017
-        ),
-        // Кросовер
+        )
 
         #endregion
     ];
