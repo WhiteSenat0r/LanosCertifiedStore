@@ -769,20 +769,65 @@ internal static class SeedModels
         
         #region Audi
         
-        //     new VehicleModelDataModel(brands[8].Id, "A3", [types[1]]),
-        //     // Хетчбек
-        //
-        //     new VehicleModelDataModel(brands[8].Id, "A4", [types[0], types[2]]),
-        //     // Седан, Купе
-        //
-        //     new VehicleModelDataModel(brands[8].Id, "A6", [types[0], types[2]]),
-        //     // Седан, Купе
-        //     new VehicleModelDataModel(brands[8].Id, "Q8", [types[4], types[6]]),
-        //     // Кросовер, Позашляховик
-        //
-        //     new VehicleModelDataModel(brands[8].Id, "R8", [types[5]]),
-        //     // Спорткар
-        //
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Audi")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "A3",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => e.Name.Equals("Електро")
+                     || e.Name.Equals("Гібридний (MHEV)"))),
+            GetObjectsWithSelectedIds(transmissionTypes),
+            GetObjectsWithSelectedIds(
+                drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
+            GetObjectsWithSelectedIds(
+            [
+                bodyTypes.Single(t => t.Name.Equals("Седан")),
+                bodyTypes.Single(t => t.Name.Equals("Хетчбек")),
+            ]), 1996),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Audi")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "A4",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => e.Name.Equals("Електро")
+                     || e.Name.Equals("Гібридний (PHEV)"))),
+            GetObjectsWithSelectedIds(transmissionTypes),
+            GetObjectsWithSelectedIds(
+                drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
+            GetObjectsWithSelectedIds(
+            [
+                bodyTypes.Single(t => t.Name.Equals("Седан")),
+                bodyTypes.Single(t => t.Name.Equals("Універсал")),
+            ]), 1994),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Audi")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "A8",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => e.Name.Equals("Електро")
+                     || e.Name.Equals("Гібридний (PHEV)")
+                     || e.Name.Equals("Гібридний (MHEV)"))),
+            GetObjectsWithSelectedIds(transmissionTypes),
+            GetObjectsWithSelectedIds(
+                drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
+            GetObjectsWithSelectedIds(
+            [
+                bodyTypes.Single(t => t.Name.Equals("Седан")),
+            ]), 1994),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Audi")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "R8",
+            GetObjectsWithSelectedIds(engineTypes.TakeWhile(
+                e => e.Name.Equals("Бензиновий"))),
+            GetObjectsWithSelectedIds(transmissionTypes),
+            GetObjectsWithSelectedIds(
+                drivetrainTypes.TakeWhile(d => d.Name.Equals("Повний"))),
+            GetObjectsWithSelectedIds(
+            [
+                bodyTypes.Single(t => t.Name.Equals("Купе")),
+            ]), 2006),
+        
         #endregion
 
         #region Hyundai
