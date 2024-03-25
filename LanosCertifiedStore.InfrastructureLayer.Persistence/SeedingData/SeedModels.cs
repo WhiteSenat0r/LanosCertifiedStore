@@ -104,7 +104,7 @@ internal static class SeedModels
             "F-150",
             GetObjectsWithSelectedIds(engineTypes.SkipWhile(
                 e => e.Name.Equals("Електро")
-                     || e.Name.Equals("Дизель"))),
+                     || e.Name.Equals("Дизельний"))),
             GetObjectsWithSelectedIds(
                 transmissionTypes.SkipWhile(t => t.Name.Equals("Робот"))),
             GetObjectsWithSelectedIds(
@@ -311,33 +311,100 @@ internal static class SeedModels
 
         #endregion
 
-        //
-        //     #region Chervolet
-        //
-        //     new VehicleModelDataModel(brands[3].Id, "Silverado",
-        //         [types[8]]),
-        //     new VehicleModelDataModel(brands[3].Id, "Malibu",
-        //     [
-        //         types[0], // Седан
-        //         types[12]
-        //     ]),
-        //     new VehicleModelDataModel(brands[3].Id, "Equinox",
-        //     [
-        //         types[4], // Кросовер
-        //         types[6]
-        //     ]),
-        //     new VehicleModelDataModel(brands[3].Id, "Camaro",
-        //     [
-        //         types[2], // Купе
-        //         types[5]
-        //     ]),
-        //     new VehicleModelDataModel(brands[3].Id, "Traverse",
-        //     [
-        //         types[4], // Кросовер
-        //         types[6]
-        //     ]),
-        //
-        //     #endregion
+
+        #region Chervolet
+
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Chevrolet")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "Silverado",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => !e.Name.Equals("Бензиновий")
+                     || !e.Name.Equals("Дизельний"))),
+            GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
+                t => t.Name.Equals("Типтронік")
+                     || t.Name.Equals("Варіатор"))),
+            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
+                d => d.Name.Equals("Повний"))),
+            GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
+                t => !t.Name.Equals("Пікап"))),
+            1998
+        ),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Chevrolet")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "Malibu",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => !e.Name.Equals("Бензиновий")
+                     || !e.Name.Equals("Гібридний (HEV)")
+                     || !e.Name.Equals("Гібридний (PHEV)"))),
+            GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
+                t => t.Name.Equals("Типтронік")
+                     || t.Name.Equals("Робот")
+                     || t.Name.Equals("Механіка"))),
+            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
+                d => d.Name.Equals("Передній"))),
+            GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
+                t => !t.Name.Equals("Кабріолет")
+                     || !t.Name.Equals("Купе"))),
+            1964
+        ),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Chevrolet")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "Equinox",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => !e.Name.Equals("Бензиновий")
+                     || !e.Name.Equals("Дизельний")
+                     || !e.Name.Equals("Гібридний (HEV)")
+                     || !e.Name.Equals("Гібридний (PHEV)"))),
+            GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
+                t => t.Name.Equals("Типтронік")
+                     || t.Name.Equals("Робот")
+                     || t.Name.Equals("Механіка"))),
+            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
+                d => d.Name.Equals("Задній"))),
+            GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
+                t => !t.Name.Equals("Седан")
+                     || !t.Name.Equals("Купе"))),
+            2004
+        ),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Chevrolet")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "Camaro",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => !e.Name.Equals("Бензиновий")
+                     || !e.Name.Equals("Гібридний (HEV)")
+                     || !e.Name.Equals("Гібридний (PHEV)"))),
+            GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
+                t => t.Name.Equals("Типтронік")
+                     || t.Name.Equals("Варіатор"))),
+            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
+                d => d.Name.Equals("Передній"))),
+            GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
+                t => !t.Name.Equals("Кабріолет")
+                     || !t.Name.Equals("Купе"))),
+            1966
+        ),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Chevrolet")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "Traverse",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => !e.Name.Equals("Бензиновий"))),
+            GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
+                t => !t.Name.Equals("Автомат"))),
+            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
+                d => d.Name.Equals("Задній"))),
+            GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
+                t => !t.Name.Equals("Кросовер")
+                     || !t.Name.Equals("Універсал"))),
+            2008
+        ),
+
+        #endregion
+
         //
         //     #region Volkswagen
         //
