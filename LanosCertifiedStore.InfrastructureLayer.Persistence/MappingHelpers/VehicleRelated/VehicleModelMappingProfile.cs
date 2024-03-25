@@ -18,7 +18,7 @@ internal sealed class VehicleModelMappingProfile : Profile
         CreateMap<VehicleModel, VehicleModelDataModel>()
             .ForMember(d => d.VehicleBrandId, o => o.MapFrom(s => s.Brand.Id))
             .ForMember(model => model.VehicleBrand, options => options.Ignore())
-            .ForMember(d => d.AvailableTypes, o => o.MapFrom(s => MapAvailableTypes(s.AvailableTypes)));
+            .ForMember(d => d.VehicleType, o => o.MapFrom(s => MapAvailableTypes(s.AvailableTypes)));
 
     private void AddMappingProfileFromEntityToModel() =>
         CreateMap<VehicleModelDataModel, VehicleModel>()
