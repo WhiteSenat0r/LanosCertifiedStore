@@ -311,7 +311,6 @@ internal static class SeedModels
 
         #endregion
 
-
         #region Chervolet
 
         new VehicleModelDataModel(
@@ -546,23 +545,114 @@ internal static class SeedModels
         //
         //     #endregion
         //
-        //     #region Mercedes-Benz
-        //
-        //     new VehicleModelDataModel(brands[7].Id, "C-Class", [types[0], types[2]]),
-        //     // Седан, Купе
-        //
-        //     new VehicleModelDataModel(brands[7].Id, "E-Class", [types[0], types[2]]),
-        //     // Седан, Купе
-        //
-        //     new VehicleModelDataModel(brands[7].Id, "S-Class", [types[0], types[2]]),
-        //     // Седан, Купе
-        //     new VehicleModelDataModel(brands[7].Id, "A-Class", [types[1]]),
-        //     // Хетчбек
-        //
-        //     new VehicleModelDataModel(brands[7].Id, "CLS", [types[0], types[2]]),
-        //     // Седан, Купе
-        //
-        //     #endregion
+
+        #region Mercedes-Benz
+
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Mercedes-Benz")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "C-Class",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => !e.Name.Equals("Бензиновий")
+                     || !e.Name.Equals("Дизельний")
+                     || !e.Name.Equals("Гібридний (PHEV)")
+            )),
+            GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
+                t => !t.Name.Equals("Автомат")
+                     || !t.Name.Equals("Механіка")
+                     || !t.Name.Equals("Варіатор"))),
+            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
+                d => d.Name.Equals("Передній"))),
+            GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
+                t => !t.Name.Equals("Седан")
+                     || !t.Name.Equals("Купе")
+                     || !t.Name.Equals("Кабріолет"))),
+            1993
+        ),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Mercedes-Benz")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "E-Class",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => !e.Name.Equals("Бензиновий")
+                     || !e.Name.Equals("Дизельний")
+                     || !e.Name.Equals("Гібридний (PHEV)")
+            )),
+            GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
+                t => !t.Name.Equals("Автомат")
+                     || !t.Name.Equals("Механіка")
+                     || !t.Name.Equals("Варіатор"))),
+            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
+                d => d.Name.Equals("Передній"))),
+            GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
+                t => !t.Name.Equals("Седан")
+                     || !t.Name.Equals("Купе")
+                     || !t.Name.Equals("Універсал"))),
+            1953
+        ),
+
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Mercedes-Benz")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "S-Class",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => !e.Name.Equals("Бензиновий")
+                     || !e.Name.Equals("Дизельний")
+                     || !e.Name.Equals("Гібридний (PHEV)")
+            )),
+            GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
+                t => !t.Name.Equals("Автомат")
+                     || !t.Name.Equals("Варіатор"))),
+            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
+                d => d.Name.Equals("Передній"))),
+            GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
+                t => !t.Name.Equals("Седан")
+                     || !t.Name.Equals("Купе"))),
+            1972
+        ),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Mercedes-Benz")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "A-Class",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => !e.Name.Equals("Бензиновий")
+                     || !e.Name.Equals("Дизельний")
+                     || !e.Name.Equals("Гібридний (PHEV)")
+            )),
+            GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
+                t => !t.Name.Equals("Автомат")
+                     || !t.Name.Equals("Робот"))),
+            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
+                d => d.Name.Equals("Задній"))),
+            GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
+                t => !t.Name.Equals("Седан")
+                     || !t.Name.Equals("Купе")
+                     || !t.Name.Equals("Хетчбек"))),
+            1972
+        ),
+
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Mercedes-Benz")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "CLS",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => !e.Name.Equals("Бензиновий")
+                     || !e.Name.Equals("Дизельний")
+                     || !e.Name.Equals("Гібридний (PHEV)")
+            )),
+            GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
+                t => !t.Name.Equals("Автомат")
+                     || !t.Name.Equals("Робот"))),
+            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
+                d => d.Name.Equals("Передній"))),
+            GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
+                t => !t.Name.Equals("Купе")
+                     || !t.Name.Equals("Седан"))),
+            2004
+        ),
+
+        #endregion
+
         //
         //     #region Audi
         //     
