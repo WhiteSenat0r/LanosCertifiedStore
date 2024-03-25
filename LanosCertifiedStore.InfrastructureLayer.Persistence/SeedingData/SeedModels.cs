@@ -1,59 +1,118 @@
-﻿namespace Persistence.SeedingData;
+﻿using Persistence.DataModels.Common.Classes;
+using Persistence.DataModels.VehicleRelated;
+using Persistence.DataModels.VehicleRelated.TypeRelated;
+
+namespace Persistence.SeedingData;
 
 internal static class SeedModels
 {
-    // TODO
-    // public static List<VehicleModelDataModel> GetModels(List<VehicleBrandDataModel> brands,
-    //     List<VehicleTypeDataModel> types) =>
-    // [
-    //     #region Toyota
-    //
-    //     new VehicleModelDataModel(brands[0].Id, "Camry",
-    //     [
-    //         types[0], // Седан
-    //         types[3]
-    //     ]),
-    //     new VehicleModelDataModel(brands[0].Id, "Corolla",
-    //     [
-    //         types[1], // Хетчбек
-    //         types[6]
-    //     ]),
-    //     new VehicleModelDataModel(brands[0].Id, "Rav4",
-    //     [
-    //         types[4], // Кросовер
-    //         types[5]
-    //     ]),
-    //     new VehicleModelDataModel(brands[0].Id, "Highlander",
-    //     [
-    //         types[4], // Кросовер
-    //         types[6]
-    //     ]),
-    //     new VehicleModelDataModel(brands[0].Id, "Prius",
-    //         [types[12]]),
-    //     new VehicleModelDataModel(brands[0].Id, "Tacoma",
-    //         [types[8]]),
-    //     new VehicleModelDataModel(brands[0].Id, "Sienna",
-    //         [types[7]]),
-    //     new VehicleModelDataModel(brands[0].Id, "4Runner",
-    //     [
-    //         types[6], // Позашляховик
-    //         types[9]
-    //     ]),
-    //     new VehicleModelDataModel(brands[0].Id, "Land Cruiser",
-    //     [
-    //         types[6], // Позашляховик
-    //         types[11]
-    //     ]),
-    //     new VehicleModelDataModel(brands[0].Id, "Yaris",
-    //     [
-    //         types[0], // Седан
-    //         types[1]
-    //     ]),
-    //
-    //     #endregion
-    //
-    //     #region Ford
-    //
+    public static List<VehicleModelDataModel> GetModels(
+        List<VehicleBrandDataModel> brands,
+        List<VehicleTypeDataModel> vehicleTypes,
+        List<VehicleEngineTypeDataModel> engineTypes,
+        List<VehicleBodyTypeDataModel> bodyTypes,
+        List<VehicleDrivetrainTypeDataModel> drivetrainTypes,
+        List<VehicleTransmissionTypeDataModel> transmissionTypes) =>
+    [
+        #region Toyota
+    
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Toyota")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "Camry",
+            GetObjectsWithSelectedIds(
+                engineTypes.SkipWhile(e => e.Name.Equals("Електро"))),
+            GetObjectsWithSelectedIds(
+                transmissionTypes.SkipWhile(t => t.Name.Equals("Робот"))),
+            GetObjectsWithSelectedIds(drivetrainTypes),
+            GetObjectsWithSelectedIds(
+            [
+                bodyTypes.Single(t => t.Name.Equals("Седан")),
+                bodyTypes.Single(t => t.Name.Equals("Ліфтбек")),
+                bodyTypes.Single(t => t.Name.Equals("Універсал")),
+            ]), 1982),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Toyota")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "Corolla",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => e.Name.Equals("Електро") 
+                     || e.Name.Equals("Гібридний (MHEV)") 
+                     || e.Name.Equals("Гібридний (PHEV)"))),
+            GetObjectsWithSelectedIds(transmissionTypes),
+            GetObjectsWithSelectedIds(drivetrainTypes),
+            GetObjectsWithSelectedIds(
+            [
+                bodyTypes.Single(t => t.Name.Equals("Купе")),
+                bodyTypes.Single(t => t.Name.Equals("Седан")),
+                bodyTypes.Single(t => t.Name.Equals("Ліфтбек")),
+                bodyTypes.Single(t => t.Name.Equals("Хетчбек")),
+                bodyTypes.Single(t => t.Name.Equals("Універсал")),
+            ]), 1966),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Toyota")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "RAV4",
+            GetObjectsWithSelectedIds(engineTypes),
+            GetObjectsWithSelectedIds(transmissionTypes),
+            GetObjectsWithSelectedIds(
+                drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
+            GetObjectsWithSelectedIds(
+            [
+                bodyTypes.Single(t => t.Name.Equals("Кросовер")),
+            ]), 1994),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Toyota")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "Highlander",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => e.Name.Equals("Електро") 
+                     || e.Name.Equals("Гібридний (MHEV)") 
+                     || e.Name.Equals("Гібридний (PHEV)"))),
+            GetObjectsWithSelectedIds(
+                transmissionTypes.SkipWhile(t => t.Name.Equals("Робот"))),
+            GetObjectsWithSelectedIds(
+                drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
+            GetObjectsWithSelectedIds(
+            [
+                bodyTypes.Single(t => t.Name.Equals("Кросовер")),
+            ]), 2000),
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Toyota")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "Prius",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => e.Name.Equals("Електро") 
+                     || e.Name.Equals("Дизель"))),
+            GetObjectsWithSelectedIds(
+                transmissionTypes.SkipWhile(t => t.Name.Equals("Робот"))),
+            GetObjectsWithSelectedIds(
+                drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
+            GetObjectsWithSelectedIds(
+            [
+                bodyTypes.Single(t => t.Name.Equals("Седан")),
+                bodyTypes.Single(t => t.Name.Equals("Ліфтбек")),
+            ]), 1997),
+    
+        #endregion
+    
+        #region Ford
+        
+        new VehicleModelDataModel(
+            brands.Single(b => b.Name.Equals("Ford")).Id,
+            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
+            "F-150",
+            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
+                e => e.Name.Equals("Електро") 
+                     || e.Name.Equals("Дизель"))),
+            GetObjectsWithSelectedIds(
+                transmissionTypes.SkipWhile(t => t.Name.Equals("Робот"))),
+            GetObjectsWithSelectedIds(
+                drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
+            GetObjectsWithSelectedIds(
+            [
+                bodyTypes.Single(t => t.Name.Equals("Пікап")),
+            ]), 1973),
     //     new VehicleModelDataModel(brands[1].Id, "F-150",
     //         [types[8]]),
     //     new VehicleModelDataModel(brands[1].Id, "Escape",
@@ -96,7 +155,7 @@ internal static class SeedModels
     //         types[16]
     //     ]),
     //
-    //     #endregion
+        #endregion
     //
     //     #region Honda
     //
@@ -750,5 +809,12 @@ internal static class SeedModels
     //     // Купе, Спорткар
     //
     //     #endregion
-    // ];
+    ];
+
+    private static List<T> GetObjectsWithSelectedIds<T>(IEnumerable<T> collection)
+        where T : NamedVehicleAspect, new() =>
+        collection.Select(i => new T
+        {
+            Id = i.Id
+        }).ToList();
 }
