@@ -17,8 +17,8 @@ internal sealed class VehicleTypeConfiguration : IEntityTypeConfiguration<Vehicl
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(m => m.Models)
-            .WithMany(x => x.AvailableTypes)
-            .UsingEntity(join => join.ToTable("VehicleTypesVehicleModels"));
+            .WithOne(x => x.VehicleType)
+            .OnDelete(DeleteBehavior.Cascade);
         
         builder.HasIndex(p => p.Name).IsUnique();
     }
