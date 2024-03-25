@@ -3,7 +3,6 @@ using AutoMapper;
 using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
-using Domain.Entities.VehicleRelated.Classes.TypesRelated;
 using Domain.Enums.RequestParametersRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
@@ -90,14 +89,15 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
     
     private Task<VehicleModelDataModel?> GetModelFromDatabase(VehicleModel entity) =>
         Context.Set<VehicleModelDataModel>()
-            .Include(model => model.AvailableTypes)
+            .Include(model => model.VehicleType)
             .FirstOrDefaultAsync(model => model.Id.Equals(entity.Id));
 
     private async Task AssignTypeCollectionToModel(VehicleModel entity, VehicleModelDataModel mappedEntityModel)
     {
-        var types = await GetRequiredTypesAsync(entity);
-
-        mappedEntityModel.AvailableTypes = types;
+        // TODO
+        // var types = await GetRequiredTypesAsync(entity);
+        //
+        // mappedEntityModel.VehicleType = types;
     }
     
     private async Task<List<VehicleTypeDataModel>> GetRequiredTypesAsync(VehicleModel entity)
@@ -128,11 +128,12 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
 
     private void UpdateModelRelatedTypes(VehicleModel entity, VehicleModelDataModel databaseVehicleModel)
     {
-        var entityModelTypeIds = entity.AvailableTypes.Select(type => type.Id).ToList();
-        var databaseModelTypeIds = databaseVehicleModel!.AvailableTypes.Select(type => type.Id).ToList();
-
-        RemoveSpecifiedTypesFromModel(databaseVehicleModel, databaseModelTypeIds, entityModelTypeIds);
-        AddSpecifiedTypesToModel(entity, databaseVehicleModel, entityModelTypeIds, databaseModelTypeIds);
+        // TODO
+        // var entityModelTypeIds = entity.AvailableTypes.Select(type => type.Id).ToList();
+        // var databaseModelTypeIds = databaseVehicleModel!.VehicleType.Select(type => type.Id).ToList();
+        //
+        // RemoveSpecifiedTypesFromModel(databaseVehicleModel, databaseModelTypeIds, entityModelTypeIds);
+        // AddSpecifiedTypesToModel(entity, databaseVehicleModel, entityModelTypeIds, databaseModelTypeIds);
     }
 
     private void AddSpecifiedTypesToModel(VehicleModel entity, 
@@ -140,26 +141,28 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
         IEnumerable<Guid> entityModelTypeIds,
         IEnumerable<Guid> databaseModelTypeIds)
     {
-        var addedTypeIdsToModel = entityModelTypeIds.Except(databaseModelTypeIds).ToList();
-        
-        foreach (var typeId in addedTypeIdsToModel)
-        {
-            var addedModelType = entity.AvailableTypes.First(type => type.Id.Equals(typeId));
-            databaseVehicleModel.AvailableTypes.Add(
-                Mapper.Map<VehicleType, VehicleTypeDataModel>(addedModelType));
-        }
+        // TODO
+        // var addedTypeIdsToModel = entityModelTypeIds.Except(databaseModelTypeIds).ToList();
+        //
+        // foreach (var typeId in addedTypeIdsToModel)
+        // {
+        //     var addedModelType = entity.AvailableTypes.First(type => type.Id.Equals(typeId));
+        //     databaseVehicleModel.VehicleType.Add(
+        //         Mapper.Map<VehicleType, VehicleTypeDataModel>(addedModelType));
+        // }
     }
 
-    private static void RemoveSpecifiedTypesFromModel(VehicleModelDataModel databaseVehicleModel, 
+    private void RemoveSpecifiedTypesFromModel(VehicleModelDataModel databaseVehicleModel, 
         IEnumerable<Guid> databaseModelTypeIds,
         IEnumerable<Guid> entityModelTypeIds)
     {
-        var removedTypeIdsFromModel = databaseModelTypeIds.Except(entityModelTypeIds).ToList();
-        
-        foreach (var typeId in removedTypeIdsFromModel)
-        {
-            var removedModelType = databaseVehicleModel.AvailableTypes.First(type => type.Id.Equals(typeId));
-            databaseVehicleModel.AvailableTypes.Remove(removedModelType);
-        }
+        // TODO
+        // var removedTypeIdsFromModel = databaseModelTypeIds.Except(entityModelTypeIds).ToList();
+        //
+        // foreach (var typeId in removedTypeIdsFromModel)
+        // {
+        //     var removedModelType = databaseVehicleModel.VehicleType.First(type => type.Id.Equals(typeId));
+        //     databaseVehicleModel.VehicleType.Remove(removedModelType);
+        // }
     }
 }

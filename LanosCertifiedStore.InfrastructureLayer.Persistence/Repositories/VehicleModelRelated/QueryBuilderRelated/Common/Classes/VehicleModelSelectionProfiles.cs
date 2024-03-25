@@ -3,7 +3,6 @@ using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
-using Persistence.DataModels.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleModelRelated.QueryBuilderRelated.Common.Classes;
@@ -16,7 +15,8 @@ internal class VehicleModelSelectionProfiles :
         _mappedProfiles = new()
         {
             { VehicleModelSelectionProfile.Default, GetDefaultProfileQueryable },
-            { VehicleModelSelectionProfile.Single, GetSingleProfileQueryable },
+            // TODO
+            // { VehicleModelSelectionProfile.Single, GetSingleProfileQueryable },
         };
 
     public override IQueryable<VehicleModelDataModel> GetSuitableSelectionProfileQueryable(
@@ -44,21 +44,22 @@ internal class VehicleModelSelectionProfiles :
             },
         });
     
-    private static IQueryable<VehicleModelDataModel> GetSingleProfileQueryable(
-        IQueryable<VehicleModelDataModel> queryable) =>
-        queryable.Select(vehicleModel => new VehicleModelDataModel
-        {
-            Id = vehicleModel.Id,
-            Name = vehicleModel.Name,
-            VehicleBrand = new VehicleBrandDataModel
-            {
-                Id = vehicleModel.VehicleBrand.Id,
-                Name = vehicleModel.VehicleBrand.Name
-            },
-            AvailableTypes = (vehicleModel.AvailableTypes.Select(type => new VehicleTypeDataModel
-            {
-                Id = type.Id,
-                Name = type.Name
-            }) as ICollection<VehicleTypeDataModel>)!
-        });
+    // TODO
+    // private static IQueryable<VehicleModelDataModel> GetSingleProfileQueryable(
+    //     IQueryable<VehicleModelDataModel> queryable) =>
+    //     queryable.Select(vehicleModel => new VehicleModelDataModel
+    //     {
+    //         Id = vehicleModel.Id,
+    //         Name = vehicleModel.Name,
+    //         VehicleBrand = new VehicleBrandDataModel
+    //         {
+    //             Id = vehicleModel.VehicleBrand.Id,
+    //             Name = vehicleModel.VehicleBrand.Name
+    //         },
+    //         VehicleType = (vehicleModel.VehicleType.Select(type => new VehicleTypeDataModel
+    //         {
+    //             Id = type.Id,
+    //             Name = type.Name
+    //         }) as ICollection<VehicleTypeDataModel>)!
+    //     });
 }
