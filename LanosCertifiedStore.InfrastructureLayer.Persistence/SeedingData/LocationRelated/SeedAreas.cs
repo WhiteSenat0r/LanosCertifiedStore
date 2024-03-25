@@ -1,6 +1,6 @@
 ﻿using Persistence.DataModels.VehicleRelated.LocationRelated;
 
-namespace Persistence.SeedingData;
+namespace Persistence.SeedingData.LocationRelated;
 
 internal static class SeedAreas
 {

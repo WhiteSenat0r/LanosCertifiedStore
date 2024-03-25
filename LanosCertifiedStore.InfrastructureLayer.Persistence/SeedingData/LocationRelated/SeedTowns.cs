@@ -1,6 +1,6 @@
 ﻿using Persistence.DataModels.VehicleRelated.LocationRelated;
 
-namespace Persistence.SeedingData;
+namespace Persistence.SeedingData.LocationRelated;
 
 internal static class SeedTowns
 {
@@ -11,10 +11,7 @@ internal static class SeedTowns
         regionAreaTownDictionary.SelectMany(
             regionAreaPair => regionAreaPair.Value.SelectMany(
                 areaTownPair => areaTownPair.Value.Select(
-                    town => new VehicleLocationTownDataModel(
-                        town,
-                        areas.Single(r => r.Name.Equals(areaTownPair.Key)),
-                        regions.Single(r => r.Name.Equals(regionAreaPair.Key)))
+                    town => new VehicleLocationTownDataModel(town)
                     {
                         LocationRegionId = regions.Single(
                             r => r.Name.Equals(regionAreaPair.Key)).Id,
