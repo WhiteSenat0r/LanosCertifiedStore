@@ -180,7 +180,6 @@ internal static class SeedModels
                 d => d.Name.Equals("Задній"))),
             GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
                 t => !t.Name.Equals("Седан")
-                     || !t.Name.Equals("Седан")
                      || !t.Name.Equals("Хетчбек")
                      || !t.Name.Equals("Універсал")
                      || !t.Name.Equals("Кабріолет"))),
@@ -273,28 +272,6 @@ internal static class SeedModels
                 e => e.Name.Equals("Електро")
                      || e.Name.Equals("Гібридний (MHEV)")
                      || e.Name.Equals("Гібридний (PHEV)")
-                     || e.Name.Equals("Гібридний (HEV)")
-                     || e.Name.Equals("Дизельний"))),
-            GetObjectsWithSelectedIds(
-            [
-                transmissionTypes.Single(t => t.Name.Equals("Механіка")),
-                transmissionTypes.Single(t => t.Name.Equals("Автомат")),
-                transmissionTypes.Single(t => t.Name.Equals("Типтронік")),
-            ]),
-            GetObjectsWithSelectedIds(
-                drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
-            GetObjectsWithSelectedIds(
-            [
-                bodyTypes.Single(t => t.Name.Equals("Кросовер")),
-            ]), 2002),
-        new VehicleModelDataModel(
-            brands.Single(b => b.Name.Equals("Honda")).Id,
-            vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
-            "Odyssey",
-            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
-                e => e.Name.Equals("Електро")
-                     || e.Name.Equals("Гібридний (MHEV)")
-                     || e.Name.Equals("Гібридний (PHEV)")
                      || e.Name.Equals("Дизельний"))),
             GetObjectsWithSelectedIds(
             [
@@ -324,7 +301,7 @@ internal static class SeedModels
                 t => t.Name.Equals("Типтронік")
                      || t.Name.Equals("Варіатор"))),
             GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
-                d => d.Name.Equals("Повний"))),
+                d => d.Name.Equals("Передній"))),
             GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
                 t => !t.Name.Equals("Пікап"))),
             1998
@@ -675,13 +652,14 @@ internal static class SeedModels
             GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
                 t => !t.Name.Equals("Автомат")
                      || !t.Name.Equals("Механіка")
-                     || !t.Name.Equals("Варіатор"))),
+                     || !t.Name.Equals("Робот"))),
             GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
                 d => d.Name.Equals("Передній"))),
             GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
                 t => !t.Name.Equals("Седан")
                      || !t.Name.Equals("Купе")
-                     || !t.Name.Equals("Кабріолет"))),
+                     || !t.Name.Equals("Кабріолет")
+                     || !t.Name.Equals("Універсал"))),
             1993
         ),
         new VehicleModelDataModel(
@@ -772,18 +750,17 @@ internal static class SeedModels
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Audi")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
-            "A3",
+            "A6",
             GetObjectsWithSelectedIds(engineTypes.SkipWhile(
-                e => e.Name.Equals("Електро")
-                     || e.Name.Equals("Гібридний (MHEV)"))),
+                e => e.Name.Equals("Електро"))),
             GetObjectsWithSelectedIds(transmissionTypes),
             GetObjectsWithSelectedIds(
                 drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
             GetObjectsWithSelectedIds(
             [
                 bodyTypes.Single(t => t.Name.Equals("Седан")),
-                bodyTypes.Single(t => t.Name.Equals("Хетчбек")),
-            ]), 1996),
+                bodyTypes.Single(t => t.Name.Equals("Універсал")),
+            ]), 1994),
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Audi")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
@@ -890,7 +867,7 @@ internal static class SeedModels
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Hyundai")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
-            "Santa fe",
+            "Santa Fe",
             GetObjectsWithSelectedIds(engineTypes.SkipWhile(
                 e => !e.Name.Equals("Бензиновий")
                      || !e.Name.Equals("Дизельний")
@@ -909,7 +886,7 @@ internal static class SeedModels
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Hyundai")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
-            "Santa fe",
+            "Kona",
             GetObjectsWithSelectedIds(engineTypes.SkipWhile(
                 e => !e.Name.Equals("Бензиновий")
                      || !e.Name.Equals("Дизельний")
@@ -929,9 +906,5 @@ internal static class SeedModels
     ];
 
     private static List<T> GetObjectsWithSelectedIds<T>(IEnumerable<T> collection)
-        where T : NamedVehicleAspect, new() =>
-        collection.Select(i => new T
-        {
-            Id = i.Id
-        }).ToList();
+        where T : NamedVehicleAspect => collection.ToList();
 }
