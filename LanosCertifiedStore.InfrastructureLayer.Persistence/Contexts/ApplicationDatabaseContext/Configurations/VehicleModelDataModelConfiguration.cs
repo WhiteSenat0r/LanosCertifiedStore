@@ -12,9 +12,6 @@ internal sealed class VehicleModelConfiguration : IEntityTypeConfiguration<Vehic
             .IsRequired()
             .HasMaxLength(64);
 
-        // builder.Property(p => p.AvailableTypes)
-        //     .IsRequired();
-
         builder.HasOne(vm => vm.VehicleBrand)
             .WithMany(b => b.Models)
             .HasForeignKey(vm => vm.VehicleBrandId)

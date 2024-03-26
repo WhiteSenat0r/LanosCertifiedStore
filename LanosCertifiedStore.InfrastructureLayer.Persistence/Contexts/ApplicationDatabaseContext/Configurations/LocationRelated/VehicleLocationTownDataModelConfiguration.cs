@@ -20,6 +20,6 @@ internal sealed class VehicleLocationTownConfiguration : IEntityTypeConfiguratio
             .WithMany(l => l.RelatedTowns)
             .OnDelete(DeleteBehavior.Cascade);
 
-        builder.HasIndex(p => p.Name).IsUnique();
+        builder.HasIndex(p => p.Name);
     }
 }

@@ -10,7 +10,7 @@ internal sealed class VehicleBodyTypeConfiguration : IEntityTypeConfiguration<Ve
     {
         builder.Property(p => p.Name)
             .IsRequired()
-            .HasMaxLength(32);
+            .HasMaxLength(64);
         
         builder.HasMany(m => m.Vehicles)
             .WithOne(v => v.BodyType)
