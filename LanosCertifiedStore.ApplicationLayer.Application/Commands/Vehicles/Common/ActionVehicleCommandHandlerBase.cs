@@ -2,6 +2,7 @@
 using Domain.Contracts.Common;
 using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Entities.VehicleRelated.Classes.TypesRelated;
 using Domain.Shared;
 
 namespace Application.Commands.Vehicles.Common;
@@ -34,13 +35,14 @@ internal abstract class ActionVehicleCommandHandlerBase<TResult>(
         VehicleType vehicleType, 
         IActionVehicleCommandBase vehicleData) =>
         new(
-            brand: vehicleBrand,
-            model: vehicleModel,
-            color: vehicleColor,
-            type: vehicleType,
-            price: vehicleData.Price,
-            displacement: vehicleData.Displacement,
-            description: vehicleData.Description
+            // TODO
+            // brand: vehicleBrand,
+            // model: vehicleModel,
+            // color: vehicleColor,
+            // vehicleType: vehicleType,
+            // price: vehicleData.Price,
+            // displacement: vehicleData.Displacement,
+            // description: vehicleData.Description
         );
 
     private Task<TAspect?> GetAspectDataAsync<TAspect>(Guid id)

@@ -5,8 +5,8 @@ namespace Domain.Entities.VehicleRelated.Classes;
 public sealed class VehiclePrice : IIdentifiable<Guid>
 {
     public Guid Id { get; init; } = Guid.NewGuid();
-    public decimal Value { get; set; }
-    public DateTime IssueDate { get; set; } = DateTime.UtcNow;
+    public decimal Value { get; init; }
+    public DateTime IssueDate { get; init; } = DateTime.UtcNow;
     public Vehicle Vehicle { get; private set; } = null!;
 
     public VehiclePrice() { }

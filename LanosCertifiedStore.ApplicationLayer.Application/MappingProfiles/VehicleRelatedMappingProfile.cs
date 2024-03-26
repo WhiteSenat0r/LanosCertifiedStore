@@ -17,7 +17,7 @@ public class VehicleRelatedMappingProfile : Profile
     {
         CreateMap<Vehicle, SingleVehicleDto>()
             .ForMember(d => d.Brand, o => o.MapFrom(s => s.Brand.Name))
-            .ForMember(d => d.Type, o => o.MapFrom(s => s.Type.Name))
+            .ForMember(d => d.Type, o => o.MapFrom(s => s.VehicleType.Name))
             .ForMember(d => d.Color, o => o.MapFrom(s => s.Color.Name))
             .ForMember(d => d.Model, o => o.MapFrom(s => s.Model.Name));
     }
@@ -26,7 +26,7 @@ public class VehicleRelatedMappingProfile : Profile
     {
         CreateMap<Vehicle, VehicleDto>()
             .ForMember(d => d.Brand, o => o.MapFrom(s => s.Brand.Name))
-            .ForMember(d => d.Type, o => o.MapFrom(s => s.Type.Name))
+            .ForMember(d => d.Type, o => o.MapFrom(s => s.VehicleType.Name))
             .ForMember(d => d.Color, o => o.MapFrom(s => s.Color.Name))
             .ForMember(d => d.Model, o => o.MapFrom(s => s.Model.Name))
             .ForMember(d => d.Price, o => o.MapFrom(s => s.Prices.First()))

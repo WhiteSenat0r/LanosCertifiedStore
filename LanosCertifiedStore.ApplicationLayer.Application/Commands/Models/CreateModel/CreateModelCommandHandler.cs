@@ -22,13 +22,15 @@ internal sealed class CreateModelCommandHandler :
     {
         var vehicleBrand = await GetRequiredRepository<VehicleBrand>().GetEntityByIdAsync(request.BrandId);
 
-        var newVehicleModel = new VehicleModel(
-            vehicleBrand!,
-            request.Name,
-            availableTypesIds: request.AvailableTypesIds);
-
-        await GetRequiredRepository<VehicleModel>().AddNewEntityAsync(newVehicleModel);
-
-        return await TrySaveChanges(cancellationToken);
+        throw new NotImplementedException();
+        
+        // var newVehicleModel = new VehicleModel(
+        //     vehicleBrand!,
+        //     request.Name,
+        //     availableTypesIds: request.AvailableTypesIds);
+        //
+        // await GetRequiredRepository<VehicleModel>().AddNewEntityAsync(newVehicleModel);
+        //
+        // return await TrySaveChanges(cancellationToken);
     }
 }

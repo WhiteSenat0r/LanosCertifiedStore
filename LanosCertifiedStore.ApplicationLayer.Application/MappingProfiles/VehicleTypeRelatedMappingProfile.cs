@@ -1,6 +1,6 @@
 ﻿using Application.Dtos.TypeDtos;
 using AutoMapper;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Entities.VehicleRelated.Classes.TypesRelated;
 
 namespace Application.MappingProfiles;
 
