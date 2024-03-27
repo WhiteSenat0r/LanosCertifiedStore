@@ -31,10 +31,10 @@ public sealed class VehiclesController : BaseEntityRelatedApiController
     }
 
     [HttpGet("{id:guid}")]
-    [ProducesResponseType(typeof(SingleVehicleDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(VehicleDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<SingleVehicleDto>> GetVehicle(Guid id)
+    public async Task<ActionResult<VehicleDto>> GetVehicle(Guid id)
     {
         return HandleResult(await Mediator.Send(new VehicleDetailsQuery(id)));
     }
