@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Domain.Entities.VehicleRelated.Classes.TypesRelated;
+using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Persistence.DataModels.VehicleRelated.TypeRelated;
 
-namespace Persistence.MappingHelpers.VehicleRelated;
+namespace Persistence.MappingHelpers.VehicleRelated.TypeRelated;
 
 internal sealed class VehicleTypeMappingProfile : Profile
 {
