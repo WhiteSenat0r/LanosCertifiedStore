@@ -1,7 +1,7 @@
 ﻿using Application.Dtos.Common;
 using Application.Queries.Common.CountItemsQueryRelated;
 using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Entities.VehicleRelated.Classes.TypesRelated;
+using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Shared;
 using MediatR;
 

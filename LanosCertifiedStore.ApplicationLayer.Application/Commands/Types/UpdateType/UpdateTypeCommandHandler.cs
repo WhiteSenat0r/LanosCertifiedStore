@@ -1,6 +1,6 @@
 ﻿using Application.Commands.Common;
 using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Entities.VehicleRelated.Classes.TypesRelated;
+using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Shared;
 using MediatR;
 
@@ -11,11 +11,11 @@ internal sealed class UpdateTypeCommandHandler :
 {
     public UpdateTypeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("UpdateTypeError", "Saving an updated type was not successful!"),
             new Error("UpdateTypeError", "Error occured during the type update!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(UpdateTypeCommand request, CancellationToken cancellationToken)

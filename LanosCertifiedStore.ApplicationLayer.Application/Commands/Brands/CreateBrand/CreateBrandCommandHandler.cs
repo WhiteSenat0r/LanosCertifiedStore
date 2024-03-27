@@ -12,11 +12,11 @@ internal sealed class CreateBrandCommandHandler :
 
     public CreateBrandCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("CreateBrandError", "Saving a new brand was not successful!"),
             new Error("CreateBrandError", "Error occured during a new brand creation!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(CreateBrandCommand request, CancellationToken cancellationToken)

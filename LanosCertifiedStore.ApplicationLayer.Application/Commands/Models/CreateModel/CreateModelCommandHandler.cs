@@ -11,11 +11,11 @@ internal sealed class CreateModelCommandHandler :
 {
     public CreateModelCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("CreateModelError", "Saving a new model was not successful!"),
             new Error("CreateModelError", "Error occured during a new model creation!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(CreateModelCommand request, CancellationToken cancellationToken)

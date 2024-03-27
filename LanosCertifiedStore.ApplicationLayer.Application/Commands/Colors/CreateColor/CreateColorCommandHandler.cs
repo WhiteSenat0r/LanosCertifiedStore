@@ -11,11 +11,11 @@ internal sealed class CreateColorCommandHandler
 {
     public CreateColorCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("CreateColorError", "Saving a new color was not successful!"),
             new Error("CreateColorError", "Error occured during a new color creation!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(CreateColorCommand request, CancellationToken cancellationToken)

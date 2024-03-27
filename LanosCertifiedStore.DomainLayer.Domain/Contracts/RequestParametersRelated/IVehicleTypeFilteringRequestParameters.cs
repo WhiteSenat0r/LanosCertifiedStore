@@ -1,5 +1,5 @@
 ﻿using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Entities.VehicleRelated.Classes.TypesRelated;
+using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Enums.RequestParametersRelated;
 
 namespace Domain.Contracts.RequestParametersRelated;

@@ -1,5 +1,5 @@
 ﻿using Application.Helpers;
-using Domain.Entities.VehicleRelated.Classes.TypesRelated;
+using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using FluentValidation;
 
 namespace Application.Commands.Types.CreateType;

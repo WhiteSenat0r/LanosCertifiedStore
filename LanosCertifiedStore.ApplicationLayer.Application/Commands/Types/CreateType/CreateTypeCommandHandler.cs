@@ -1,6 +1,6 @@
 ﻿using Application.Commands.Common;
 using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Entities.VehicleRelated.Classes.TypesRelated;
+using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Shared;
 using MediatR;
 
@@ -11,11 +11,11 @@ internal sealed class CreateTypeCommandHandler
 {
     public CreateTypeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("CreateTypeError", "Saving a new type was not successful!"),
             new Error("CreateTypeError", "Error occured during a new type creation!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(CreateTypeCommand request, CancellationToken cancellationToken)

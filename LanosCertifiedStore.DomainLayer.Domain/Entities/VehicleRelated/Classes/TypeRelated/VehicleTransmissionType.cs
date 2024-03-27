@@ -1,6 +1,6 @@
 ﻿using Domain.Entities.VehicleRelated.Classes.Common.Classes;
 
-namespace Domain.Entities.VehicleRelated.Classes.TypesRelated;
+namespace Domain.Entities.VehicleRelated.Classes.TypeRelated;
 
 public sealed class VehicleTransmissionType : NamedVehicleTypeAspect
 {

@@ -16,11 +16,11 @@ internal sealed class DeleteVehicleCommandHandler
         : base(unitOfWork)
     {
         _imageService = imageService;
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("DeleteVehicleError", "Vehicle removal was not successful!"),
             new Error("DeleteVehicleError", "Error occured during the vehicle removal!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(DeleteVehicleCommand request, CancellationToken cancellationToken)

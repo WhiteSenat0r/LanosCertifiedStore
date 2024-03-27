@@ -1,6 +1,6 @@
 ﻿using Application.Commands.Common;
 using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Entities.VehicleRelated.Classes.TypesRelated;
+using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Shared;
 using MediatR;
 
@@ -11,11 +11,11 @@ internal sealed class DeleteTypeCommandHandler :
 {
     public DeleteTypeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("DeleteTypeError", "Type removal was not successful!"),
             new Error("DeleteTypeError", "Error occured during the type removal!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(DeleteTypeCommand request, CancellationToken cancellationToken)

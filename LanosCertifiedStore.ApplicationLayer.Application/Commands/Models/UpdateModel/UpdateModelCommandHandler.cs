@@ -1,7 +1,7 @@
 ﻿using Application.Commands.Common;
 using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes;
-using Domain.Entities.VehicleRelated.Classes.TypesRelated;
+using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Shared;
 using MediatR;
 
@@ -12,11 +12,11 @@ internal sealed class UpdateModelCommandHandler :
 {
     public UpdateModelCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("UpdateModelError", "Saving an updated model was not successful!"),
             new Error("UpdateModelError", "Error occured during the model update!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(UpdateModelCommand request, CancellationToken cancellationToken)

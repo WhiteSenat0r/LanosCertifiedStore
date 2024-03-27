@@ -15,11 +15,11 @@ internal sealed class UpdateVehicleCommandHandler :
     public UpdateVehicleCommandHandler(IMapper mapper, IUnitOfWork unitOfWork) : base(unitOfWork)
     {
         _mapper = mapper;
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("UpdateVehicleError", "Saving an updated vehicle was not successful!"),
             new Error("UpdateVehicleError", "Error occured during the vehicle update!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(UpdateVehicleCommand request, CancellationToken cancellationToken)

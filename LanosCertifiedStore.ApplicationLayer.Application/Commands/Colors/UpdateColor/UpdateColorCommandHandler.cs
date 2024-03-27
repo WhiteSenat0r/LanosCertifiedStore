@@ -11,11 +11,11 @@ internal sealed class UpdateColorCommandHandler
 {
     public UpdateColorCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("UpdateColorError", "Saving an updated color was not successful!"),
             new Error("UpdateColorError", "Error occured during the color update!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(UpdateColorCommand request, CancellationToken cancellationToken)

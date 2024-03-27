@@ -1,5 +1,5 @@
 ﻿using Domain.Entities.VehicleRelated.Classes.Common.Classes;
-using Domain.Entities.VehicleRelated.Classes.TypesRelated;
+using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 
 namespace Domain.Entities.VehicleRelated.Classes;
 

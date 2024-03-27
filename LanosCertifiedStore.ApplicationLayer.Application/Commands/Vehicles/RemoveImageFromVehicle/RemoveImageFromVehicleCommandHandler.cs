@@ -16,14 +16,14 @@ internal sealed class RemoveImageFromVehicleCommandHandler :
         : base(unitOfWork)
     {
         _imageService = imageService;
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("DeleteVehicleImageError", "Vehicle image removal was not successful!"),
             new Error("DeleteVehicleImageError", "Error occured during the vehicle image removal!"),
             new Error("DeleteVehicleImageError", "This image does not belong to this vehicle!"),
             new Error("DeleteVehicleImageError", "Vehicle's main image can't be deleted!"),
-            new Error("DeleteVehicleImageError", "Failed to delete vehicle's image from the cloud!"),
-        };
+            new Error("DeleteVehicleImageError", "Failed to delete vehicle's image from the cloud!")
+        ];
     }
 
     public async Task<Result<Unit>> Handle(RemoveImageFromVehicleCommand request, CancellationToken cancellationToken)

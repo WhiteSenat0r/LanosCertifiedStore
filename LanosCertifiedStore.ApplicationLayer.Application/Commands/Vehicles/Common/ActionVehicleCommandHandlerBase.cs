@@ -2,7 +2,7 @@
 using Domain.Contracts.Common;
 using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes;
-using Domain.Entities.VehicleRelated.Classes.TypesRelated;
+using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Shared;
 
 namespace Application.Commands.Vehicles.Common;

@@ -11,11 +11,11 @@ internal sealed class UpdateBrandCommandHandler :
 {
     public UpdateBrandCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("UpdateBrandError", "Saving an updated brand was not successful!"),
             new Error("UpdateBrandError", "Error occured during the brand update!")
-        };
+        ];
     }
     
     public async Task<Result<Unit>> Handle(UpdateBrandCommand request, CancellationToken cancellationToken)

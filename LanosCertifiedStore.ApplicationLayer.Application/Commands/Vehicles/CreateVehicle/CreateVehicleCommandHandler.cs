@@ -11,11 +11,11 @@ internal sealed class CreateVehicleCommandHandler : ActionVehicleCommandHandlerB
 {
     public CreateVehicleCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("CreateVehicleError", "Saving a new vehicle was not successful!"),
             new Error("CreateVehicleError", "Error occured during a new vehicle creation!")
-        };
+        ];
     }
 
     public async Task<Result<Guid>> Handle(CreateVehicleCommand request, CancellationToken cancellationToken)
