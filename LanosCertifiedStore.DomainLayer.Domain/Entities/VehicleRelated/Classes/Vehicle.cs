@@ -1,6 +1,6 @@
 ﻿using Domain.Contracts.Common;
 using Domain.Entities.VehicleRelated.Classes.LocationRelated;
-using Domain.Entities.VehicleRelated.Classes.TypesRelated;
+using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 
 namespace Domain.Entities.VehicleRelated.Classes;
 
@@ -24,6 +24,7 @@ public sealed class Vehicle : IIdentifiable<Guid>
     public VehicleDrivetrainType DrivetrainType { get; init; } = null!;
     public ICollection<VehicleImage> Images { get; init; } = new List<VehicleImage>();
     public ICollection<VehiclePrice> Prices { get; init; } = new List<VehiclePrice>();
+    public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
 
     public Vehicle() { }
     

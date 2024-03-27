@@ -35,6 +35,7 @@ internal sealed class VehicleDataModel : IIdentifiable<Guid>
     public VehicleDrivetrainTypeDataModel DrivetrainType { get; set; } = null!;
     public ICollection<VehicleImageDataModel> Images { get; set; } = new List<VehicleImageDataModel>();
     public ICollection<VehiclePriceDataModel> Prices { get; set; } = new List<VehiclePriceDataModel>();
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public VehicleDataModel() { }
     
