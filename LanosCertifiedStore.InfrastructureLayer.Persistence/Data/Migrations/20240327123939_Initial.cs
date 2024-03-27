@@ -371,6 +371,7 @@ namespace Persistence.Data.Migrations
                     EngineTypeId = table.Column<Guid>(type: "uuid", nullable: false),
                     TransmissionTypeId = table.Column<Guid>(type: "uuid", nullable: false),
                     DrivetrainTypeId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UserDataModelId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
@@ -495,8 +496,8 @@ namespace Persistence.Data.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("309a8f16-7cae-4318-af3d-ff79fa988c55"), "Administrator" },
-                    { new Guid("da10ccf0-3d66-4f72-83c0-cd5a4bd955a6"), "User" }
+                    { new Guid("2d70b509-4928-4313-af38-0b9e72ea360f"), "Administrator" },
+                    { new Guid("cef82628-1117-478b-9e57-c61fa1f24a47"), "User" }
                 });
 
             migrationBuilder.CreateIndex(

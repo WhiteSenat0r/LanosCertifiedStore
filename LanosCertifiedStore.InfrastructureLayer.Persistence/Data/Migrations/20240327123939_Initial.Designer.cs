@@ -12,7 +12,7 @@ using Persistence.Contexts.ApplicationDatabaseContext;
 namespace Persistence.Data.Migrations
 {
     [DbContext(typeof(ApplicationDatabaseContext))]
-    [Migration("20240326133852_Initial")]
+    [Migration("20240327123939_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -105,12 +105,12 @@ namespace Persistence.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("da10ccf0-3d66-4f72-83c0-cd5a4bd955a6"),
+                            Id = new Guid("cef82628-1117-478b-9e57-c61fa1f24a47"),
                             Name = "User"
                         },
                         new
                         {
-                            Id = new Guid("309a8f16-7cae-4318-af3d-ff79fa988c55"),
+                            Id = new Guid("2d70b509-4928-4313-af38-0b9e72ea360f"),
                             Name = "Administrator"
                         });
                 });
@@ -338,6 +338,9 @@ namespace Persistence.Data.Migrations
 
                     b.Property<Guid>("ColorId")
                         .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
