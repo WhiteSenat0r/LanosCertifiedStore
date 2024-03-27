@@ -14,12 +14,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.VehiclesRelated;
 
-public sealed class TypesController : BaseEntityRelatedApiController
+public sealed class VehicleTypesController : BaseEntityRelatedApiController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(PaginationResult<TypeDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PaginationResult<VehicleTypeDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<PaginationResult<TypeDto>>> GetTypes(
+    public async Task<ActionResult<PaginationResult<VehicleTypeDto>>> GetTypes(
         [FromQuery] VehicleTypeFilteringRequestParameters requestParameters)
     {
         return HandleResult(await Mediator.Send(new TypesQuery(requestParameters)));
