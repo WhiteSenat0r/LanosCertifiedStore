@@ -2,4 +2,4 @@
 
 namespace Application.Dtos.TypeDtos;
 
-public sealed record TypeDto : VehicleAspectDto;
+public sealed record VehicleEngineTypeDto : VehicleAspectDto;
