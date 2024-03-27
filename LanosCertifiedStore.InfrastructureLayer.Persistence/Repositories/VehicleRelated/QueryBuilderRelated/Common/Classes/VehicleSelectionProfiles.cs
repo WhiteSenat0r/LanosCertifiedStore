@@ -3,6 +3,7 @@ using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
+using Persistence.DataModels.VehicleRelated.LocationRelated;
 using Persistence.DataModels.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder.Common;
 
@@ -48,13 +49,15 @@ internal class VehicleSelectionProfiles :
             },
             Prices = new List<VehiclePriceDataModel>
             {
-                vehicle.Prices!.Select(price => new VehiclePriceDataModel
+                vehicle.Prices.Select(price => new VehiclePriceDataModel
                 {
                     IssueDate = price.IssueDate,
                     Value = price.Value
                 }).OrderByDescending(price => price.IssueDate).First()
             },
             Displacement = vehicle.Displacement,
+            Mileage = vehicle.Mileage,
+            ProductionYear = vehicle.ProductionYear,
             Color = new VehicleColorDataModel
             {
                 Name = vehicle.Color.Name,
@@ -73,6 +76,18 @@ internal class VehicleSelectionProfiles :
             VehicleType = new VehicleTypeDataModel
             {
                 Name = vehicle.VehicleType.Name
+            },
+            BodyType = new VehicleBodyTypeDataModel
+            {
+                Name = vehicle.BodyType.Name
+            },
+            EngineType = new VehicleEngineTypeDataModel
+            {
+                Name = vehicle.EngineType.Name
+            },
+            LocationTown = new VehicleLocationTownDataModel
+            {
+                Name = vehicle.LocationTown.Name
             }
         });
 
@@ -136,7 +151,7 @@ internal class VehicleSelectionProfiles :
             },
             Prices = new List<VehiclePriceDataModel>
             {
-                vehicle.Prices!.Select(price => new VehiclePriceDataModel
+                vehicle.Prices.Select(price => new VehiclePriceDataModel
                 {
                     IssueDate = price.IssueDate,
                     Value = price.Value
