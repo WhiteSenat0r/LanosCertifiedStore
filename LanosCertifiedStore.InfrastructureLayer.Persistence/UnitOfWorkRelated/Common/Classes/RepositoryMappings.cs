@@ -1,6 +1,6 @@
 ﻿using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes;
-using Domain.Entities.VehicleRelated.Classes.TypesRelated;
+using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Persistence.Repositories.VehicleBrandRelated;
 using Persistence.Repositories.VehicleColorRelated;
 using Persistence.Repositories.VehicleImageRelated;
