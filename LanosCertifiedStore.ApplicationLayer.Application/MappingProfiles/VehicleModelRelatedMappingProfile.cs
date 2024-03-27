@@ -4,12 +4,16 @@ using Domain.Entities.VehicleRelated.Classes;
 
 namespace Application.MappingProfiles;
 
-public class VehicleModelRelatedMappingProfile : Profile
+public sealed class VehicleModelRelatedMappingProfile : Profile
 {
     public VehicleModelRelatedMappingProfile()
     {
         CreateMap<VehicleModel, ModelDto>()
             .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.Brand.Name))
-            .ForMember(d => d.AvailableTypes, o => o.MapFrom(s => s.AvailableTypes));
+            .ForMember(d => d.AvailableTypes, o => o.MapFrom(s => s.AvailableTypes))
+            .ForMember(d => d.AvailableBodyTypes, o => o.MapFrom(s => s.AvailableBodyTypes))
+            .ForMember(d => d.AvailableEngineTypes, o => o.MapFrom(s => s.AvailableEngineTypes))
+            .ForMember(d => d.AvailableDrivetrainTypes, o => o.MapFrom(s => s.AvailableDrivetrainTypes))
+            .ForMember(d => d.AvailableTransmissionTypes, o => o.MapFrom(s => s.AvailableTransmissionTypes));
     }
 }
