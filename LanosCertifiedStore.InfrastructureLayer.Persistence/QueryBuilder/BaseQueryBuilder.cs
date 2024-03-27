@@ -97,7 +97,7 @@ internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel,
     {
         returnedQuery = returnedQuery
             .Skip(filteringRequestParameters!.ItemQuantity * (filteringRequestParameters.PageIndex - 1))
-            .Take(filteringRequestParameters!.ItemQuantity);
+            .Take(filteringRequestParameters.ItemQuantity);
         
         return returnedQuery;
     }
@@ -118,7 +118,7 @@ internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel,
     private protected IQueryable<TDataModel> GetQueryWithAddedSelects(
         IFilteringRequestParameters<TEntity>? filteringRequestParameters,
         IQueryable<TDataModel> returnedQuery) =>
-        selectionProfiles.GetSuitableSelectionProfileQueryable(returnedQuery, filteringRequestParameters!)!;
+        selectionProfiles.GetSuitableSelectionProfileQueryable(returnedQuery, filteringRequestParameters!);
 
     private bool IsOrderedByDescending(BaseSortingSettings<TDataModel> sortingSettings) =>
         sortingSettings.OrderByDescendingExpression is not null 
