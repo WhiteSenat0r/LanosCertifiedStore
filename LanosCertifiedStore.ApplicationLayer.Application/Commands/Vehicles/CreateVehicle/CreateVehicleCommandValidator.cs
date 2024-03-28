@@ -33,18 +33,19 @@ internal sealed class CreateVehicleCommandValidator : AbstractValidator<CreateVe
             })
             .WithMessage("Such model doesn't exists!");
 
-        RuleFor(x => x.TypeId)
-            .NotEmpty()
-            .Must(typeId =>
-            {
-                if (model is not null)
-                    return model.AvailableTypes
-                        .Select(x => x.Id)
-                        .ToList()
-                        .Contains(typeId);
-
-                return false;
-            })
-            .WithMessage("This type is not available for this model!");
+        // TODO
+        // RuleFor(x => x.TypeId)
+        //     .NotEmpty()
+        //     .Must(typeId =>
+        //     {
+        //         if (model is not null)
+        //             return model.AvailableTypes
+        //                 .Select(x => x.Id)
+        //                 .ToList()
+        //                 .Contains(typeId);
+        //
+        //         return false;
+        //     })
+        //     .WithMessage("This type is not available for this model!");
     }
 }
