@@ -57,13 +57,17 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
     
     public override async Task UpdateExistingEntityAsync(VehicleModel entity)
     {
-        var databaseVehicleModel = await GetModelFromDatabase(entity);
-        
-        UpdateModelRelatedTypes(entity, databaseVehicleModel!);
-        UpdateModelRelatedBrand(entity, databaseVehicleModel!);
-        UpdateModelName(entity, databaseVehicleModel!);
+        var mappedEntityModel = Mapper.Map<VehicleModel, VehicleModelDataModel>(entity);
 
-        Context.Set<VehicleModelDataModel>().Update(databaseVehicleModel!);
+        Context.Set<VehicleModelDataModel>().Attach(mappedEntityModel);
+        // var databaseVehicleModel = await GetModelFromDatabase(entity);
+        //
+        // UpdateModelRelatedTypes(entity, databaseVehicleModel!);
+        // UpdateModelRelatedBrand(entity, databaseVehicleModel!);
+        // UpdateModelName(entity, databaseVehicleModel!);
+        //
+        // Context.Set<VehicleModelDataModel>().Update(databaseVehicleModel!);
+        // Context.Set<VehicleModelDataModel>().Attach(databaseVehicleModel!);
     }
 
     public override Task<int> CountAsync(
@@ -100,19 +104,19 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
         // mappedEntityModel.VehicleType = types;
     }
     
-    private async Task<List<VehicleTypeDataModel>> GetRequiredTypesAsync(VehicleModel entity)
-    {
-        var types = new List<VehicleTypeDataModel>();
-
-        foreach (var typeId in entity.AvailableTypes.Select(x => x.Id))
-        {
-            var type = await Context.Set<VehicleTypeDataModel>().FindAsync(typeId);
-        
-            if (type is not null) types.Add(type);
-        }
-
-        return types;
-    }
+    // private async Task<List<VehicleTypeDataModel>> GetRequiredTypesAsync(VehicleModel entity)
+    // {
+    //     var types = new List<VehicleTypeDataModel>();
+    //
+    //     foreach (var typeId in entity.AvailableTypes.Select(x => x.Id))
+    //     {
+    //         var type = await Context.Set<VehicleTypeDataModel>().FindAsync(typeId);
+    //     
+    //         if (type is not null) types.Add(type);
+    //     }
+    //
+    //     return types;
+    // }
     
     private void UpdateModelName(VehicleModel entity, VehicleModelDataModel databaseVehicleModel)
     {
