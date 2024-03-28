@@ -40,11 +40,10 @@ internal sealed class UpdateModelCommandHandler :
         var brandUpdateResult = await TryUpdateRelatedBrand(model, request.BrandId);
         if (!brandUpdateResult.IsSuccess) return brandUpdateResult;
 
-        var typesUpdateResult = await TryUpdateRelatedTypes(
-            GetRequiredRepository<VehicleType>(), model, request.AvailableTypesIds);
+        var typesUpdateResult = await TryUpdateRelatedType(model, request.TypeId);
         if (!typesUpdateResult.IsSuccess) return typesUpdateResult;
         
-        model.Name = request.UpdatedName;
+        model.Name = request.Name;
 
         return Result<Unit>.Success(Unit.Value);
     }
@@ -72,23 +71,15 @@ internal sealed class UpdateModelCommandHandler :
         return Result<Unit>.Success(Unit.Value);
     }
     
-    private async Task<Result<Unit>> TryUpdateRelatedTypes(
-        IRepository<VehicleType> repository, VehicleModel model, IEnumerable<Guid> typeIds)
+    private async Task<Result<Unit>> TryUpdateRelatedType(VehicleModel model, Guid newTypeId)
     {
-        if (model.AvailableTypes.Select(x => x.Id).SequenceEqual(typeIds))
-            return Result<Unit>.Success(Unit.Value);
+        if (model.Brand.Id.Equals(newTypeId)) return Result<Unit>.Success(Unit.Value);
         
-        model.AvailableTypes.Clear();
-        
-        foreach (var typeId in typeIds)
-        {
-            var type = await repository.GetEntityByIdAsync(typeId);
-            
-            if (type is null)
-                return Result<Unit>.Failure(Error.NotFound);
-                    
-            model.AvailableTypes.Add(type);
-        }
+        var newType = await GetRequiredRepository<VehicleType>().GetEntityByIdAsync(newTypeId);
+
+        if (newType is null) return Result<Unit>.Failure(Error.NotFound);
+
+        model.VehicleType = newType;
         
         return Result<Unit>.Success(Unit.Value);
     }
