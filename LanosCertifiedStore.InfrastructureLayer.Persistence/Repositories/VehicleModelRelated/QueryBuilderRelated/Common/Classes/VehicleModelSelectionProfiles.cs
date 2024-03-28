@@ -3,6 +3,7 @@ using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
+using Persistence.DataModels.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleModelRelated.QueryBuilderRelated.Common.Classes;
@@ -15,8 +16,7 @@ internal class VehicleModelSelectionProfiles :
         _mappedProfiles = new()
         {
             { VehicleModelSelectionProfile.Default, GetDefaultProfileQueryable },
-            // TODO
-            // { VehicleModelSelectionProfile.Single, GetSingleProfileQueryable },
+            { VehicleModelSelectionProfile.Single, GetSingleProfileQueryable },
         };
 
     public override IQueryable<VehicleModelDataModel> GetSuitableSelectionProfileQueryable(
@@ -42,24 +42,57 @@ internal class VehicleModelSelectionProfiles :
                 Id = vehicleModel.VehicleBrand.Id,
                 Name = vehicleModel.VehicleBrand.Name
             },
+            VehicleType = new VehicleTypeDataModel
+            {
+                Id = vehicleModel.VehicleType.Id,
+                Name = vehicleModel.VehicleType.Name
+            },
+            MinimalProductionYear = vehicleModel.MinimalProductionYear,
+            MaximumProductionYear = vehicleModel.MaximumProductionYear
         });
     
     // TODO
-    // private static IQueryable<VehicleModelDataModel> GetSingleProfileQueryable(
-    //     IQueryable<VehicleModelDataModel> queryable) =>
-    //     queryable.Select(vehicleModel => new VehicleModelDataModel
-    //     {
-    //         Id = vehicleModel.Id,
-    //         Name = vehicleModel.Name,
-    //         VehicleBrand = new VehicleBrandDataModel
-    //         {
-    //             Id = vehicleModel.VehicleBrand.Id,
-    //             Name = vehicleModel.VehicleBrand.Name
-    //         },
-    //         VehicleType = (vehicleModel.VehicleType.Select(type => new VehicleTypeDataModel
-    //         {
-    //             Id = type.Id,
-    //             Name = type.Name
-    //         }) as ICollection<VehicleTypeDataModel>)!
-    //     });
+    private static IQueryable<VehicleModelDataModel> GetSingleProfileQueryable(
+        IQueryable<VehicleModelDataModel> queryable) =>
+        queryable.Select(vehicleModel => new VehicleModelDataModel
+        {
+            Id = vehicleModel.Id,
+            Name = vehicleModel.Name,
+            VehicleBrand = new VehicleBrandDataModel
+            {
+                Id = vehicleModel.VehicleBrand.Id,
+                Name = vehicleModel.VehicleBrand.Name
+            },
+            VehicleType = new VehicleTypeDataModel
+            {
+                Id = vehicleModel.VehicleType.Id,
+                Name = vehicleModel.VehicleType.Name
+            },
+            AvailableBodyTypes = (vehicleModel.AvailableBodyTypes.Select(
+                b => new VehicleBodyTypeDataModel
+                {
+                    Name = b.Name
+                })
+                as ICollection<VehicleBodyTypeDataModel>)!,
+            AvailableEngineTypes = (vehicleModel.AvailableEngineTypes.Select(
+                    e => new VehicleEngineTypeDataModel
+                    {
+                        Name = e.Name
+                    })
+                as ICollection<VehicleEngineTypeDataModel>)!,
+            AvailableTransmissionTypes = (vehicleModel.AvailableTransmissionTypes.Select(
+                    e => new VehicleTransmissionTypeDataModel
+                    {
+                        Name = e.Name
+                    })
+                as ICollection<VehicleTransmissionTypeDataModel>)!,
+            AvailableDrivetrainTypes = (vehicleModel.AvailableDrivetrainTypes.Select(
+                    e => new VehicleDrivetrainTypeDataModel
+                    {
+                        Name = e.Name
+                    })
+                as ICollection<VehicleDrivetrainTypeDataModel>)!,
+            MinimalProductionYear = vehicleModel.MinimalProductionYear,
+            MaximumProductionYear = vehicleModel.MaximumProductionYear
+        });
 }
