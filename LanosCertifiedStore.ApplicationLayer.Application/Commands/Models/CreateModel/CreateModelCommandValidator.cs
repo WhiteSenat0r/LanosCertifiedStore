@@ -24,7 +24,7 @@ internal sealed class CreateModelCommandValidator : AbstractValidator<CreateMode
             .MustAsync(async (name, _) => await modelValidationHelper.IsNameUniqueAsync(name))
             .WithMessage("Model with such name already exists! Model name must be unique");
 
-        RuleFor(x => x.AvailableTypesIds)
+        RuleFor(x => x.TypeId)
             .NotEmpty();
     }
 }
