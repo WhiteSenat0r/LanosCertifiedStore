@@ -61,68 +61,6 @@ internal static class SeedModels
             GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Ліфтбек" ]),
             1997),
-        // new VehicleModelDataModel(
-        //     brands.Single(b => b.Name.Equals("Toyota")).Id,
-        //     vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
-        //     "Corolla",
-        //     GetObjectsWithSelectedIds(engineTypes.SkipWhile(
-        //         e => e.Name.Equals("Електро")
-        //              || e.Name.Equals("Гібридний (MHEV)")
-        //              || e.Name.Equals("Гібридний (PHEV)"))),
-        //     GetObjectsWithSelectedIds(transmissionTypes),
-        //     GetObjectsWithSelectedIds(drivetrainTypes),
-        //     GetObjectsWithSelectedIds(
-        //     [
-        //         bodyTypes.Single(t => t.Name.Equals("Купе")),
-        //         bodyTypes.Single(t => t.Name.Equals("Седан")),
-        //         bodyTypes.Single(t => t.Name.Equals("Ліфтбек")),
-        //         bodyTypes.Single(t => t.Name.Equals("Хетчбек")),
-        //         bodyTypes.Single(t => t.Name.Equals("Універсал")),
-        //     ]), 1966),
-        // new VehicleModelDataModel(
-        //     brands.Single(b => b.Name.Equals("Toyota")).Id,
-        //     vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
-        //     "RAV4",
-        //     GetObjectsWithSelectedIds(engineTypes),
-        //     GetObjectsWithSelectedIds(transmissionTypes),
-        //     GetObjectsWithSelectedIds(
-        //         drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
-        //     GetObjectsWithSelectedIds(
-        //     [
-        //         bodyTypes.Single(t => t.Name.Equals("Кросовер")),
-        //     ]), 1994),
-        // new VehicleModelDataModel(
-        //     brands.Single(b => b.Name.Equals("Toyota")).Id,
-        //     vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
-        //     "Highlander",
-        //     GetObjectsWithSelectedIds(engineTypes.SkipWhile(
-        //         e => e.Name.Equals("Електро")
-        //              || e.Name.Equals("Гібридний (MHEV)")
-        //              || e.Name.Equals("Гібридний (PHEV)"))),
-        //     GetObjectsWithSelectedIds(
-        //         transmissionTypes.SkipWhile(t => t.Name.Equals("Робот"))),
-        //     GetObjectsWithSelectedIds(
-        //         drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
-        //     GetObjectsWithSelectedIds(
-        //     [
-        //         bodyTypes.Single(t => t.Name.Equals("Кросовер")),
-        //     ]), 2000),
-        // new VehicleModelDataModel(
-        //     brands.Single(b => b.Name.Equals("Toyota")).Id,
-        //     vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
-        //     "Prius",
-        //     GetObjectsWithSelectedIds(engineTypes.SkipWhile(
-        //         e => e.Name.Equals("Електро")
-        //              || e.Name.Equals("Дизельний"))),
-        //     GetObjectsWithSelectedIds(
-        //         transmissionTypes.SkipWhile(t => t.Name.Equals("Робот"))),
-        //     GetObjectsWithSelectedIds(
-        //         drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
-        //     GetObjectsWithSelectedIds(
-        //     [
-        //         bodyTypes.Single(t => t.Name.Equals("Седан")),
-        //         bodyTypes.Single(t => t.Name.Equals("Ліфтбек")),
-        //     ]), 1997),
 
         #endregion
 
@@ -132,87 +70,56 @@ internal static class SeedModels
             brands.Single(b => b.Name.Equals("Ford")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "F-150",
-            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
-                e => e.Name.Equals("Електро")
-                     || e.Name.Equals("Дизельний"))),
-            GetObjectsWithSelectedIds(
-                transmissionTypes.SkipWhile(t => t.Name.Equals("Робот"))),
-            GetObjectsWithSelectedIds(
-                drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
-            GetObjectsWithSelectedIds(
-            [
-                bodyTypes.Single(t => t.Name.Equals("Пікап")),
-            ]), 1973),
+            GetItemsWithParticularValues(engineTypes, [ "Електро", "Дизельний" ], true),
+            GetItemsWithParticularValues(transmissionTypes, [ "Робот" ], true),
+            GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
+            GetItemsWithParticularValues(bodyTypes, [ "Пікап" ]),
+            1973),
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Ford")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Escape",
-            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
-                e => e.Name.Equals("Газовий")
-                     || e.Name.Equals("Бензиновий / газовий (метан)")
-                     || e.Name.Equals("Бензиновий / газовий (пропан-бутан)"))),
-            GetObjectsWithSelectedIds(
-                transmissionTypes.SkipWhile(t => t.Name.Equals("Механіка"))),
-            GetObjectsWithSelectedIds(
-                drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
-            GetObjectsWithSelectedIds([bodyTypes.Single(t => t.Name.Equals("Кросовер"))]),
+            GetItemsWithParticularValues(engineTypes, [ "Електро", "Гібридний (MHEV)" ], true),
+            GetItemsWithParticularValues(transmissionTypes, [ "Механіка" ], true),
+            GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
+            GetItemsWithParticularValues(bodyTypes, [ "Кросовер" ]),
             2000
         ),
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Ford")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Explorer",
-            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
-                e => !e.Name.Equals("Бензиновий")
-                     || !e.Name.Equals("Дизельний")
-                     || !e.Name.Equals("Гібридний (HEV)")
-                     || !e.Name.Equals("Гібридний (PHEV)"))),
-            GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
-                t => t.Name.Equals("Механіка"))),
-            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
-                d => d.Name.Equals("Задній"))),
-            GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
-                t => !t.Name.Equals("Кросовер")
-                     || !t.Name.Equals("Універсал")
-                     || !t.Name.Equals("Фургон")
-                     || !t.Name.Equals("Кабріолет"))),
+            GetItemsWithParticularValues(
+                engineTypes, [ "Електро", "Дизельний", "Гібридний (MHEV)", "Гібридний (PHEV)" ], true),
+            GetItemsWithParticularValues(transmissionTypes, [ "Механіка" ], true),
+            GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
+            GetItemsWithParticularValues(bodyTypes, [ "Кросовер" ]),
             1991
         ),
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Ford")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Mustang",
-            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
-                e => !e.Name.Equals("Бензиновий")
-                     || !e.Name.Equals("Гібридний (HEV)")
-                     || !e.Name.Equals("Гібридний (PHEV)"))),
-            GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
-                t => t.Name.Equals("Варіатор"))),
-            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
-                d => d.Name.Equals("Повний"))),
-            GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
-                t => !t.Name.Equals("Купе")
-                     || !t.Name.Equals("Кабріолет"))),
+            GetItemsWithParticularValues(
+                engineTypes, 
+                [ "Електро", "Дизельний", "Гібридний (MHEV)", "Гібридний (PHEV)", "Гібридний (HEV)" ],
+                true),
+            GetItemsWithParticularValues(
+                transmissionTypes, [ "Варіатор", "Робот", "Тіптронік" ], true),
+            GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ]),
+            GetItemsWithParticularValues(bodyTypes, [ "Купе", "Кабріолет" ]),
             1964
         ),
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Ford")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Focus",
-            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
-                e => !e.Name.Equals("Бензиновий")
-                     || !e.Name.Equals("Дизельний")
-                     || !e.Name.Equals("Гібридний (HEV)")
-                     || !e.Name.Equals("Гібридний (PHEV)"))),
-            GetObjectsWithSelectedIds(transmissionTypes.SkipWhile(
-                t => t.Name.Equals("Типтронік"))),
-            GetObjectsWithSelectedIds(drivetrainTypes.SkipWhile(
-                d => d.Name.Equals("Задній"))),
-            GetObjectsWithSelectedIds(bodyTypes.SkipWhile(
-                t => !t.Name.Equals("Седан")
-                     || !t.Name.Equals("Хетчбек")
-                     || !t.Name.Equals("Універсал")
-                     || !t.Name.Equals("Кабріолет"))),
+            GetItemsWithParticularValues(
+                engineTypes, [ "Гібридний (HEV)", "Гібридний (MHEV)", "Гібридний (PHEV)" ], true),
+            GetItemsWithParticularValues(transmissionTypes, [ ], true),
+            GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
+            GetItemsWithParticularValues(
+                bodyTypes, [ "Седан", "Хетчбек", "Універсал", "Кабріолет" ], true),
             1998
         ),
 
