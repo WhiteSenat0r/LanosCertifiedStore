@@ -44,7 +44,7 @@ internal sealed class JwtTokenProvider(JwtTokenOptions tokenOptions) : IJwtProvi
 
     private IEnumerable<Claim> GetUserClaims(User user)
     {
-        var claims = new List<Claim>()
+        var claims = new List<Claim>
         {
             new(ClaimTypes.Name, user.FirstName + user.LastName),
             new(ClaimTypes.Email, user.Email),
