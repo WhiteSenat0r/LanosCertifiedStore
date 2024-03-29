@@ -465,59 +465,39 @@ internal static class SeedModels
             brands.Single(b => b.Name.Equals("Audi")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "A6",
-            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
-                e => e.Name.Equals("Електро"))),
-            GetObjectsWithSelectedIds(transmissionTypes),
-            GetObjectsWithSelectedIds(
-                drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
-            GetObjectsWithSelectedIds(
-            [
-                bodyTypes.Single(t => t.Name.Equals("Седан")),
-                bodyTypes.Single(t => t.Name.Equals("Універсал")),
-            ]), 1994),
+            GetItemsWithParticularValues(engineTypes, [ "Електро" ], true),
+            GetItemsWithParticularValues(transmissionTypes, [ ], true),
+            GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
+            GetItemsWithParticularValues(bodyTypes, [ "Седан", "Універсал" ]),
+            1994),
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Audi")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "A4",
-            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
-                e => e.Name.Equals("Електро")
-                     || e.Name.Equals("Гібридний (PHEV)"))),
-            GetObjectsWithSelectedIds(transmissionTypes),
-            GetObjectsWithSelectedIds(
-                drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
-            GetObjectsWithSelectedIds(
-            [
-                bodyTypes.Single(t => t.Name.Equals("Седан")),
-                bodyTypes.Single(t => t.Name.Equals("Універсал")),
-            ]), 1994),
+            GetItemsWithParticularValues(engineTypes, [ "Електро", "Гібридний (PHEV)" ], true),
+            GetItemsWithParticularValues(transmissionTypes, [ ], true),
+            GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
+            GetItemsWithParticularValues(bodyTypes, [ "Седан", "Універсал" ]), 1994),
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Audi")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "A8",
-            GetObjectsWithSelectedIds(engineTypes.SkipWhile(
-                e => e.Name.Equals("Електро")
-                     || e.Name.Equals("Гібридний (PHEV)")
-                     || e.Name.Equals("Гібридний (MHEV)"))),
-            GetObjectsWithSelectedIds(transmissionTypes),
-            GetObjectsWithSelectedIds(
-                drivetrainTypes.SkipWhile(d => d.Name.Equals("Задній"))),
-            GetObjectsWithSelectedIds(
-            [
-                bodyTypes.Single(t => t.Name.Equals("Седан")),
-            ]), 1994),
+            GetItemsWithParticularValues(engineTypes,
+                [ "Електро", "Гібридний (PHEV)", "Гібридний (MHEV)" ], true),
+            GetItemsWithParticularValues(transmissionTypes, [ ], true),
+            GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
+            GetItemsWithParticularValues(bodyTypes, [ "Седан", "Універсал" ]),
+            1994),
         new VehicleModelDataModel(
             brands.Single(b => b.Name.Equals("Audi")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "R8",
-            GetObjectsWithSelectedIds(engineTypes.TakeWhile(
-                e => e.Name.Equals("Бензиновий"))),
-            GetObjectsWithSelectedIds(transmissionTypes),
-            GetObjectsWithSelectedIds(
-                drivetrainTypes.TakeWhile(d => d.Name.Equals("Повний"))),
-            GetObjectsWithSelectedIds(
-            [
-                bodyTypes.Single(t => t.Name.Equals("Купе")),
-            ]), 2006),
+            GetItemsWithParticularValues(engineTypes,
+                [ "Бензиновий" ]),
+            GetItemsWithParticularValues(transmissionTypes, [ "Варіатор" ], true),
+            GetItemsWithParticularValues(drivetrainTypes, [ "Повний" ]),
+            GetItemsWithParticularValues(bodyTypes, [ "Купе" ]),
+            2006),
         
         #endregion
 
