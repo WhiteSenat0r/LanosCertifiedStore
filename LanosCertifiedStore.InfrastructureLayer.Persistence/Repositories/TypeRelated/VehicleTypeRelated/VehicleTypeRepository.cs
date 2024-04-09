@@ -1,18 +1,18 @@
-﻿using Application.RequestParams;
+﻿using Application.RequestParams.TypeRelated;
 using AutoMapper;
 using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Contracts.RequestParametersRelated;
+using Domain.Contracts.RequestParametersRelated.TypeRelated;
 using Domain.Entities.VehicleRelated.Classes.TypeRelated;
-using Domain.Enums.RequestParametersRelated;
+using Domain.Enums.RequestParametersRelated.TypeRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.Common.Classes;
-using Persistence.Repositories.VehicleTypeRelated.QueryBuilderRelated;
-using Persistence.Repositories.VehicleTypeRelated.QueryBuilderRelated.Common.Classes;
+using Persistence.Repositories.TypeRelated.VehicleTypeRelated.QueryBuilderRelated;
+using Persistence.Repositories.TypeRelated.VehicleTypeRelated.QueryBuilderRelated.Common.Classes;
 
-namespace Persistence.Repositories.VehicleTypeRelated;
+namespace Persistence.Repositories.TypeRelated.VehicleTypeRelated;
 
 internal class VehicleTypeRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
     : GenericRepository<VehicleTypeSelectionProfile,

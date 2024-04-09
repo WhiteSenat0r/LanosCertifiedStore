@@ -1,10 +1,11 @@
 ﻿using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Enums.RequestParametersRelated;
+using Domain.Enums.RequestParametersRelated.TypeRelated;
 using Persistence.DataModels.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder.Common;
 
-namespace Persistence.Repositories.VehicleTypeRelated.QueryBuilderRelated.Common.Classes;
+namespace Persistence.Repositories.TypeRelated.VehicleTypeRelated.QueryBuilderRelated.Common.Classes;
 
 internal class VehicleTypeSelectionProfiles : 
     BaseSelectionProfiles<VehicleTypeSelectionProfile, VehicleType, VehicleTypeDataModel>

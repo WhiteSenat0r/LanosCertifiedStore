@@ -1,7 +1,7 @@
 ﻿using Application.Core.Results;
 using Application.Dtos.TypeDtos;
 using Application.Queries.Common.QueryRelated;
-using Application.RequestParams;
+using Application.RequestParams.TypeRelated;
 using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Shared;
 using MediatR;

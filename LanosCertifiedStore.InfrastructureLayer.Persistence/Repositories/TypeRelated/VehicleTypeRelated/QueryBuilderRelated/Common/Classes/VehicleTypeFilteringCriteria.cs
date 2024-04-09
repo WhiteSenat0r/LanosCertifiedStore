@@ -1,11 +1,11 @@
 ﻿using System.Linq.Expressions;
 using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Contracts.RequestParametersRelated;
+using Domain.Contracts.RequestParametersRelated.TypeRelated;
 using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Persistence.DataModels.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder.Common;
 
-namespace Persistence.Repositories.VehicleTypeRelated.QueryBuilderRelated.Common.Classes;
+namespace Persistence.Repositories.TypeRelated.VehicleTypeRelated.QueryBuilderRelated.Common.Classes;
 
 internal sealed class VehicleTypeFilteringCriteria : 
     BaseFilteringCriteria<VehicleType, VehicleTypeDataModel, IVehicleTypeFilteringRequestParameters>

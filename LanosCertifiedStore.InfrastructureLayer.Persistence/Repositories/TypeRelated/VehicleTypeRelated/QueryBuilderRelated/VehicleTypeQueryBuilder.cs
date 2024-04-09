@@ -1,12 +1,12 @@
 ﻿using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Contracts.RequestParametersRelated;
+using Domain.Contracts.RequestParametersRelated.TypeRelated;
 using Domain.Entities.VehicleRelated.Classes.TypeRelated;
-using Domain.Enums.RequestParametersRelated;
+using Domain.Enums.RequestParametersRelated.TypeRelated;
 using Persistence.DataModels.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder;
-using Persistence.Repositories.VehicleTypeRelated.QueryBuilderRelated.Common.Classes;
+using Persistence.Repositories.TypeRelated.VehicleTypeRelated.QueryBuilderRelated.Common.Classes;
 
-namespace Persistence.Repositories.VehicleTypeRelated.QueryBuilderRelated;
+namespace Persistence.Repositories.TypeRelated.VehicleTypeRelated.QueryBuilderRelated;
 
 internal sealed class VehicleTypeQueryBuilder(
     VehicleTypeSelectionProfiles selectionProfiles,

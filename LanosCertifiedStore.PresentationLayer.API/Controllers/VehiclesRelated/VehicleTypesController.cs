@@ -8,7 +8,7 @@ using Application.Dtos.Common;
 using Application.Dtos.TypeDtos;
 using Application.Queries.Types;
 using Application.Queries.Types.CountTypesQueryRelated;
-using Application.RequestParams;
+using Application.RequestParams.TypeRelated;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
