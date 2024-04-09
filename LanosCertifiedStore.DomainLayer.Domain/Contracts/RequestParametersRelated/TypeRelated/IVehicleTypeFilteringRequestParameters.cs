@@ -1,8 +1,8 @@
 ﻿using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes.TypeRelated;
-using Domain.Enums.RequestParametersRelated;
+using Domain.Enums.RequestParametersRelated.TypeRelated;
 
-namespace Domain.Contracts.RequestParametersRelated;
+namespace Domain.Contracts.RequestParametersRelated.TypeRelated;
 
 public interface IVehicleTypeFilteringRequestParameters : IFilteringRequestParameters<VehicleType>
 {
