@@ -1,13 +1,13 @@
 ﻿using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Entities.VehicleRelated.Classes.TypeRelated;
+using Persistence.Repositories.TypeRelated.VehicleTypeRelated;
 using Persistence.Repositories.VehicleBrandRelated;
 using Persistence.Repositories.VehicleColorRelated;
 using Persistence.Repositories.VehicleImageRelated;
 using Persistence.Repositories.VehicleModelRelated;
 using Persistence.Repositories.VehiclePriceRelated;
 using Persistence.Repositories.VehicleRelated;
-using Persistence.Repositories.VehicleTypeRelated;
 
 namespace Persistence.UnitOfWorkRelated.Common.Classes;
 
