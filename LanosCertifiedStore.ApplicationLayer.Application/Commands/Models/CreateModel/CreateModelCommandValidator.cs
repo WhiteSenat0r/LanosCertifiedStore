@@ -18,7 +18,7 @@ internal sealed class CreateModelCommandValidator : AbstractValidator<CreateMode
         RuleFor(x => x.BrandId)
             .MustAsync(async (brandId, _) => await brandValidationHelper.ExistsById(brandId))
             .WithMessage(
-                "Brand with such id doesn't exists!"); // TODO should be replaced with proper exception handling or something idk
+                "Brand with such ID doesn't exists!");
 
         RuleFor(x => x.Name)
             .MustAsync(async (name, _) => await modelValidationHelper.IsNameUniqueAsync(name))
@@ -26,5 +26,29 @@ internal sealed class CreateModelCommandValidator : AbstractValidator<CreateMode
 
         RuleFor(x => x.TypeId)
             .NotEmpty();
+        
+        RuleFor(x => x.AvailableBodyTypeIds)
+            .NotNull()
+            .NotEmpty();
+        
+        RuleFor(x => x.AvailableEngineTypeIds)
+            .NotNull()
+            .NotEmpty();
+        
+        RuleFor(x => x.AvailableTransmissionTypeIds)
+            .NotNull()
+            .NotEmpty();
+        
+        RuleFor(x => x.AvailableDrivetrainTypeIds)
+            .NotNull()
+            .NotEmpty();
+        
+        RuleFor(x => x.MinimalProductionYear)
+            .LessThanOrEqualTo(x => x.MaximumProductionYear)
+            .When(x => x.MaximumProductionYear is not null);
+        
+        RuleFor(x => x.MaximumProductionYear)
+            .GreaterThanOrEqualTo(x => x.MinimalProductionYear)
+            .When(x => x.MaximumProductionYear is not null);
     }
 }
