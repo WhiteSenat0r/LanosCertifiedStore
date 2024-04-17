@@ -1,5 +1,6 @@
 ﻿using Application.RequestParams;
 using AutoMapper;
+using Domain.Contracts.Common;
 using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
@@ -48,26 +49,23 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
 
     public override async Task AddNewEntityAsync(VehicleModel entity)
     {
-        var mappedEntityModel = Mapper.Map<VehicleModel, VehicleModelDataModel>(entity);
-        
-        await AssignTypeCollectionToModel(entity, mappedEntityModel);
-
-        await Context.Set<VehicleModelDataModel>().AddAsync(mappedEntityModel);
+        try
+        {
+           var model = await GetCreationPreparedModel(entity);
+           
+           await Context.Set<VehicleModelDataModel>().AddAsync(model);
+        }
+        catch (ArgumentNullException e)
+        {
+            Console.WriteLine(e);
+        }
     }
-    
+
     public override async Task UpdateExistingEntityAsync(VehicleModel entity)
     {
-        var mappedEntityModel = Mapper.Map<VehicleModel, VehicleModelDataModel>(entity);
-
-        Context.Set<VehicleModelDataModel>().Attach(mappedEntityModel);
-        // var databaseVehicleModel = await GetModelFromDatabase(entity);
-        //
-        // UpdateModelRelatedTypes(entity, databaseVehicleModel!);
-        // UpdateModelRelatedBrand(entity, databaseVehicleModel!);
-        // UpdateModelName(entity, databaseVehicleModel!);
-        //
-        // Context.Set<VehicleModelDataModel>().Update(databaseVehicleModel!);
-        // Context.Set<VehicleModelDataModel>().Attach(databaseVehicleModel!);
+        var model = await GetUpdateModel(entity);
+           
+        Context.Set<VehicleModelDataModel>().Update(model);
     }
 
     public override Task<int> CountAsync(
@@ -91,82 +89,160 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
         GetQueryBuilder() =>
         new VehicleModelQueryBuilder(new VehicleModelSelectionProfiles(), new VehicleModelFilteringCriteria());
     
-    private Task<VehicleModelDataModel?> GetModelFromDatabase(VehicleModel entity) =>
-        Context.Set<VehicleModelDataModel>()
-            .Include(model => model.VehicleType)
-            .FirstOrDefaultAsync(model => model.Id.Equals(entity.Id));
-
-    private async Task AssignTypeCollectionToModel(VehicleModel entity, VehicleModelDataModel mappedEntityModel)
+    private async Task<VehicleModelDataModel> GetCreationPreparedModel(VehicleModel entity)
     {
-        // TODO
-        // var types = await GetRequiredTypesAsync(entity);
-        //
-        // mappedEntityModel.VehicleType = types;
+        var mappedEntityModel = Mapper.Map<VehicleModel, VehicleModelDataModel>(entity);
+
+        await AssignCollectionToModel<VehicleBodyTypeDataModel>(mappedEntityModel);
+        await AssignCollectionToModel<VehicleEngineTypeDataModel>(mappedEntityModel);
+        await AssignCollectionToModel<VehicleTransmissionTypeDataModel>(mappedEntityModel);
+        await AssignCollectionToModel<VehicleDrivetrainTypeDataModel>(mappedEntityModel);
+
+        return mappedEntityModel;
     }
     
-    // private async Task<List<VehicleTypeDataModel>> GetRequiredTypesAsync(VehicleModel entity)
-    // {
-    //     var types = new List<VehicleTypeDataModel>();
-    //
-    //     foreach (var typeId in entity.AvailableTypes.Select(x => x.Id))
-    //     {
-    //         var type = await Context.Set<VehicleTypeDataModel>().FindAsync(typeId);
-    //     
-    //         if (type is not null) types.Add(type);
-    //     }
-    //
-    //     return types;
-    // }
+    private async Task<VehicleModelDataModel> GetUpdateModel(VehicleModel entity)
+    {
+        var databaseModel = await QueryBuilder.GetSingleEntityQueryable(
+            entity.Id, 
+            Context.Set<VehicleModelDataModel>(), new VehicleModelFilteringRequestParameters
+            {
+                SelectionProfile = VehicleModelSelectionProfile.Single
+            }).SingleOrDefaultAsync();
+
+        Context.Set<VehicleModelDataModel>().Attach(databaseModel!);
+
+        UpdateRelatesAspects(entity, databaseModel!);
+        UpdateRelatedAspectCollections(entity, databaseModel!);
+
+        return databaseModel!;
+    }
+
+    private void UpdateRelatedAspectCollections(VehicleModel entity, VehicleModelDataModel databaseModel)
+    {
+        UpdateRelatedAspectCollection(
+            entity, databaseModel!, e => e.AvailableBodyTypes, m => m.AvailableBodyTypes);
+        UpdateRelatedAspectCollection(
+            entity, databaseModel!, e => e.AvailableTransmissionTypes, m => m.AvailableTransmissionTypes);
+        UpdateRelatedAspectCollection(
+            entity, databaseModel!, e => e.AvailableDrivetrainTypes, m => m.AvailableDrivetrainTypes);
+        UpdateRelatedAspectCollection(
+            entity, databaseModel!, e => e.AvailableEngineTypes, m => m.AvailableEngineTypes);
+    }
+
+    private void UpdateRelatesAspects(VehicleModel entity, VehicleModelDataModel databaseModel)
+    {
+        UpdateRelatedAspect(databaseModel!, entity, m => m.Name, e => e.Name, (m, e) => m.Name = e.Name);
+        UpdateRelatedAspect(
+            databaseModel!, entity, m => m.MinimalProductionYear, 
+            e => e.MinimalProductionYear, (m, e) => m.MinimalProductionYear = e.MinimalProductionYear);
+        UpdateRelatedAspect(
+            databaseModel!, entity, m => m.MaximumProductionYear, 
+            e => e.MaximumProductionYear, (m, e) => m.MaximumProductionYear = e.MaximumProductionYear);
+        UpdateRelatedAspect(
+            databaseModel!, entity, m => m.VehicleBrandId,
+            e => e.Brand.Id, (m, e) => m.VehicleBrandId = e.Brand.Id);
+        UpdateRelatedAspect(
+            databaseModel!, entity, m => m.VehicleTypeId,
+            e => e.VehicleType.Id, (m, e) => m.VehicleTypeId = e.VehicleType.Id);
+    }
+
+    private void UpdateRelatedAspect<T>(
+        VehicleModelDataModel databaseModel,
+        VehicleModel entityModel,
+        Func<VehicleModelDataModel, T> propertySelector,
+        Func<VehicleModel, T> newValueSelector,
+        Action<VehicleModelDataModel, VehicleModel> propertyUpdateAction)
+    {
+        if (!propertySelector(databaseModel)!.Equals(newValueSelector(entityModel)))
+            propertyUpdateAction(databaseModel, entityModel);
+    }
+
     
-    private void UpdateModelName(VehicleModel entity, VehicleModelDataModel databaseVehicleModel)
-    {
-        if (!databaseVehicleModel.Name.Equals(entity.Name))
-            databaseVehicleModel.Name = entity.Name;
-    }
-
-    private void UpdateModelRelatedBrand(VehicleModel entity, VehicleModelDataModel databaseVehicleModel)
-    {
-        if (!databaseVehicleModel.VehicleBrandId.Equals(entity.Brand.Id))
-            databaseVehicleModel.VehicleBrandId = entity.Brand.Id;
-    }
-
-    private void UpdateModelRelatedTypes(VehicleModel entity, VehicleModelDataModel databaseVehicleModel)
-    {
-        // TODO
-        // var entityModelTypeIds = entity.AvailableTypes.Select(type => type.Id).ToList();
-        // var databaseModelTypeIds = databaseVehicleModel!.VehicleType.Select(type => type.Id).ToList();
-        //
-        // RemoveSpecifiedTypesFromModel(databaseVehicleModel, databaseModelTypeIds, entityModelTypeIds);
-        // AddSpecifiedTypesToModel(entity, databaseVehicleModel, entityModelTypeIds, databaseModelTypeIds);
-    }
-
-    private void AddSpecifiedTypesToModel(VehicleModel entity, 
+    private void UpdateRelatedAspectCollection<TEntity, TDataModel>(
+        VehicleModel entity,
         VehicleModelDataModel databaseVehicleModel,
-        IEnumerable<Guid> entityModelTypeIds,
-        IEnumerable<Guid> databaseModelTypeIds)
+        Func<VehicleModel, ICollection<TEntity>> entitySelector,
+        Func<VehicleModelDataModel, ICollection<TDataModel>> databaseModelSelector)
+        where TEntity : class, IIdentifiable<Guid>
+        where TDataModel : class, IIdentifiable<Guid>
     {
-        // TODO
-        // var addedTypeIdsToModel = entityModelTypeIds.Except(databaseModelTypeIds).ToList();
-        //
-        // foreach (var typeId in addedTypeIdsToModel)
-        // {
-        //     var addedModelType = entity.AvailableTypes.First(type => type.Id.Equals(typeId));
-        //     databaseVehicleModel.VehicleType.Add(
-        //         Mapper.Map<VehicleType, VehicleTypeDataModel>(addedModelType));
-        // }
+        var entityModelIds = entitySelector(entity)
+            .Select(type => type.Id).ToList();
+        var databaseModelIds = databaseModelSelector(databaseVehicleModel)
+            .Select(type => type.Id).ToList();
+        
+        RemoveSpecifiedAspectPartsFromModel(
+            databaseVehicleModel, databaseModelIds, entityModelIds, databaseModelSelector);
+        AddSpecifiedAspectPartsToModel(
+            entity, databaseVehicleModel, entityModelIds, databaseModelIds, entitySelector, databaseModelSelector);
     }
 
-    private void RemoveSpecifiedTypesFromModel(VehicleModelDataModel databaseVehicleModel, 
-        IEnumerable<Guid> databaseModelTypeIds,
-        IEnumerable<Guid> entityModelTypeIds)
+    private void AddSpecifiedAspectPartsToModel<TEntity, TDataModel>(
+        VehicleModel entity, 
+        VehicleModelDataModel databaseVehicleModel,
+        IEnumerable<Guid> entityModelIds,
+        IEnumerable<Guid> databaseModelIds,
+        Func<VehicleModel, ICollection<TEntity>> entitySelector,
+        Func<VehicleModelDataModel, ICollection<TDataModel>> databaseModelSelector)
+        where TEntity : class, IIdentifiable<Guid>
+        where TDataModel : class, IIdentifiable<Guid>
     {
-        // TODO
-        // var removedTypeIdsFromModel = databaseModelTypeIds.Except(entityModelTypeIds).ToList();
-        //
-        // foreach (var typeId in removedTypeIdsFromModel)
-        // {
-        //     var removedModelType = databaseVehicleModel.VehicleType.First(type => type.Id.Equals(typeId));
-        //     databaseVehicleModel.VehicleType.Remove(removedModelType);
-        // }
+        var addedTypeIdsToModel = entityModelIds.Except(databaseModelIds).ToList();
+
+        foreach (var addedModelType in addedTypeIdsToModel.Select(typeId => entitySelector(entity)
+                     .Single(type => type.Id.Equals(typeId))))
+        {
+            databaseModelSelector(databaseVehicleModel).Add(
+                Mapper.Map<TEntity, TDataModel>(addedModelType));
+        }
+    }
+
+    private void RemoveSpecifiedAspectPartsFromModel<TDataModel>(
+        VehicleModelDataModel databaseVehicleModel, 
+        IEnumerable<Guid> databaseModelIds,
+        IEnumerable<Guid> entityModelIds,
+        Func<VehicleModelDataModel, ICollection<TDataModel>> databaseModelSelector)
+        where TDataModel : class, IIdentifiable<Guid>
+    {
+        var idsFromModel = databaseModelIds.Except(entityModelIds).ToList();
+
+        foreach (var removedModelItem in idsFromModel.Select(id => databaseModelSelector(databaseVehicleModel)
+                     .Single(item => item.Id.Equals(id)))) 
+            databaseModelSelector(databaseVehicleModel).Remove(removedModelItem);
+    }
+
+    private async Task AssignCollectionToModel<T>(VehicleModelDataModel mappedModel)
+        where T : class, IIdentifiable<Guid>
+    {
+        var property = mappedModel.GetType().GetProperties()
+            .Single(p => p.PropertyType == typeof(ICollection<T>));
+
+        var value = property.GetValue(mappedModel)! as ICollection<T>;
+        
+        var ids = value!.Select(i => i.Id);
+
+        var assignedCollection = await GetCollectionToAssign(ids, value);
+            
+        property.SetValue(mappedModel, assignedCollection);
+    }
+
+    private async Task<ICollection<T>> GetCollectionToAssign<T>(IEnumerable<Guid> ids, ICollection<T>? value)
+        where T : class, IIdentifiable<Guid>
+    {
+        var assignedCollection = new List<T>();
+
+        foreach (var id in ids)
+        {
+            var item = await Context.Set<T>().FindAsync(id);
+
+            if (item is null)
+                throw new ArgumentNullException(
+                    value!.GetType().ToString(), "Aspect with such ID doesn't exist!");
+            
+            assignedCollection.Add(item);
+        }
+
+        return assignedCollection;
     }
 }
