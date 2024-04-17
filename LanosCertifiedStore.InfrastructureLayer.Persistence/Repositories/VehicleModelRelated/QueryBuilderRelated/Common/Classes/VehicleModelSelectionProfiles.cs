@@ -3,7 +3,6 @@ using Domain.Contracts.RequestParametersRelated;
 using Domain.Entities.VehicleRelated.Classes;
 using Domain.Enums.RequestParametersRelated;
 using Persistence.DataModels.VehicleRelated;
-using Persistence.DataModels.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleModelRelated.QueryBuilderRelated.Common.Classes;
@@ -37,61 +36,23 @@ internal class VehicleModelSelectionProfiles :
         {
             Id = vehicleModel.Id,
             Name = vehicleModel.Name,
-            VehicleBrand = new VehicleBrandDataModel
-            {
-                Id = vehicleModel.VehicleBrand.Id,
-                Name = vehicleModel.VehicleBrand.Name
-            },
-            VehicleType = new VehicleTypeDataModel
-            {
-                Id = vehicleModel.VehicleType.Id,
-                Name = vehicleModel.VehicleType.Name
-            },
+            VehicleBrand = vehicleModel.VehicleBrand,
             MinimalProductionYear = vehicleModel.MinimalProductionYear,
             MaximumProductionYear = vehicleModel.MaximumProductionYear
         });
     
-    // TODO
     private static IQueryable<VehicleModelDataModel> GetSingleProfileQueryable(
         IQueryable<VehicleModelDataModel> queryable) =>
         queryable.Select(vehicleModel => new VehicleModelDataModel
         {
             Id = vehicleModel.Id,
             Name = vehicleModel.Name,
-            VehicleBrand = new VehicleBrandDataModel
-            {
-                Id = vehicleModel.VehicleBrand.Id,
-                Name = vehicleModel.VehicleBrand.Name
-            },
-            VehicleType = new VehicleTypeDataModel
-            {
-                Id = vehicleModel.VehicleType.Id,
-                Name = vehicleModel.VehicleType.Name
-            },
-            AvailableBodyTypes = (vehicleModel.AvailableBodyTypes.Select(
-                b => new VehicleBodyTypeDataModel
-                {
-                    Name = b.Name
-                })
-                as ICollection<VehicleBodyTypeDataModel>)!,
-            AvailableEngineTypes = (vehicleModel.AvailableEngineTypes.Select(
-                    e => new VehicleEngineTypeDataModel
-                    {
-                        Name = e.Name
-                    })
-                as ICollection<VehicleEngineTypeDataModel>)!,
-            AvailableTransmissionTypes = (vehicleModel.AvailableTransmissionTypes.Select(
-                    e => new VehicleTransmissionTypeDataModel
-                    {
-                        Name = e.Name
-                    })
-                as ICollection<VehicleTransmissionTypeDataModel>)!,
-            AvailableDrivetrainTypes = (vehicleModel.AvailableDrivetrainTypes.Select(
-                    e => new VehicleDrivetrainTypeDataModel
-                    {
-                        Name = e.Name
-                    })
-                as ICollection<VehicleDrivetrainTypeDataModel>)!,
+            VehicleBrand = vehicleModel.VehicleBrand,
+            VehicleType = vehicleModel.VehicleType,
+            AvailableBodyTypes = vehicleModel.AvailableBodyTypes,
+            AvailableEngineTypes = vehicleModel.AvailableEngineTypes,
+            AvailableTransmissionTypes = vehicleModel.AvailableTransmissionTypes,
+            AvailableDrivetrainTypes = vehicleModel.AvailableDrivetrainTypes,
             MinimalProductionYear = vehicleModel.MinimalProductionYear,
             MaximumProductionYear = vehicleModel.MaximumProductionYear
         });
