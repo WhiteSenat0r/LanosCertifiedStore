@@ -5,14 +5,14 @@ namespace Domain.Entities.VehicleRelated.Classes;
 
 public sealed class VehicleModel : NamedVehicleAspect
 {
-    public int MinimalProductionYear { get; init; }
-    public int? MaximumProductionYear { get; init; }
+    public int MinimalProductionYear { get; set; }
+    public int? MaximumProductionYear { get; set; }
     public VehicleBrand Brand { get; set; } = null!;
     public VehicleType VehicleType { get; set; } = null!;
-    public ICollection<VehicleEngineType> AvailableEngineTypes { get; init; } = [];
-    public ICollection<VehicleTransmissionType> AvailableTransmissionTypes { get; init; } = [];
-    public ICollection<VehicleDrivetrainType> AvailableDrivetrainTypes { get; init; } = [];
-    public ICollection<VehicleBodyType> AvailableBodyTypes { get; init; } = [];
+    public ICollection<VehicleEngineType> AvailableEngineTypes { get; set; } = [];
+    public ICollection<VehicleTransmissionType> AvailableTransmissionTypes { get; set; } = [];
+    public ICollection<VehicleDrivetrainType> AvailableDrivetrainTypes { get; set; } = [];
+    public ICollection<VehicleBodyType> AvailableBodyTypes { get; set; } = [];
     
     public VehicleModel() { }
 
