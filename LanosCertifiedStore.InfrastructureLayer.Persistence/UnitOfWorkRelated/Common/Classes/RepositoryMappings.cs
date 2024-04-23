@@ -1,6 +1,10 @@
 ﻿using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Entities.VehicleRelated.Classes.LocationRelated;
 using Domain.Entities.VehicleRelated.Classes.TypeRelated;
+using Persistence.Repositories.LocationRelated.LocationAreaRelated;
+using Persistence.Repositories.LocationRelated.LocationRegionRelated;
+using Persistence.Repositories.LocationRelated.LocationTownRelated;
 using Persistence.Repositories.TypeRelated.VehicleBodyTypeRelated;
 using Persistence.Repositories.TypeRelated.VehicleDrivetrainTypeRelated;
 using Persistence.Repositories.TypeRelated.VehicleEngineTypeRelated;
@@ -30,6 +34,9 @@ internal abstract class RepositoryMappings
         { typeof(IRepository<VehicleColor>), typeof(VehicleColorRepository) },
         { typeof(IRepository<VehiclePrice>), typeof(VehiclePriceRepository) },
         { typeof(IRepository<VehicleImage>), typeof(VehicleImageRepository) },
+        { typeof(IRepository<VehicleLocationRegion>), typeof(LocationRegionRepository) },
+        { typeof(IRepository<VehicleLocationArea>), typeof(LocationAreaRepository) },
+        { typeof(IRepository<VehicleLocationTown>), typeof(LocationTownRepository) },
         // { typeof(IRepository<User>), typeof(UserRepository) }
     };
 }
