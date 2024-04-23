@@ -9,5 +9,5 @@ public sealed class VehicleEngineTypeFilteringRequestParameters : BaseFilteringR
     IVehicleEngineTypeFilteringRequestParameters
 {
     public string? Name { get; set; }
-    public VehicleEngineTypeSelectionProfile SelectionProfile { get; } = VehicleEngineTypeSelectionProfile.Default;
+    public VehicleEngineTypeSelectionProfile SelectionProfile => VehicleEngineTypeSelectionProfile.Default;
 }

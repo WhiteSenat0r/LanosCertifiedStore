@@ -9,6 +9,5 @@ public sealed class VehicleDrivetrainTypeFilteringRequestParameters :
     BaseFilteringRequestParameters<VehicleDrivetrainType>, IVehicleDrivetrainTypeFilteringRequestParameters
 {
     public string? Name { get; set; }
-    public VehicleDrivetrainTypeSelectionProfile SelectionProfile { get; } =
-        VehicleDrivetrainTypeSelectionProfile.Default;
+    public VehicleDrivetrainTypeSelectionProfile SelectionProfile => VehicleDrivetrainTypeSelectionProfile.Default;
 }

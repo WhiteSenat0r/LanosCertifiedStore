@@ -9,5 +9,5 @@ public sealed class VehicleBodyTypeFilteringRequestParameters : BaseFilteringReq
     IVehicleBodyTypeFilteringRequestParameters
 {
     public string? Name { get; set; }
-    public VehicleBodyTypeSelectionProfile SelectionProfile { get; } = VehicleBodyTypeSelectionProfile.Default;
+    public VehicleBodyTypeSelectionProfile SelectionProfile => VehicleBodyTypeSelectionProfile.Default;
 }

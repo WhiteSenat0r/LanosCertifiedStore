@@ -9,6 +9,5 @@ public sealed class VehicleTransmissionTypeFilteringRequestParameters :
     BaseFilteringRequestParameters<VehicleTransmissionType>, IVehicleTransmissionTypeFilteringRequestParameters
 {
     public string? Name { get; set; }
-    public VehicleTransmissionTypeSelectionProfile SelectionProfile { get; } =
-        VehicleTransmissionTypeSelectionProfile.Default;
+    public VehicleTransmissionTypeSelectionProfile SelectionProfile => VehicleTransmissionTypeSelectionProfile.Default;
 }
