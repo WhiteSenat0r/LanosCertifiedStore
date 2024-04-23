@@ -7,8 +7,14 @@ namespace Application.Commands.Vehicles.UpdateVehicle;
 public record UpdateVehicleCommand(
     Guid Id,
     Guid ModelId,
-    Guid TypeId,
     Guid ColorId,
+    Guid BodyTypeId,
+    Guid EngineTypeId,
+    Guid TransmissionTypeId,
+    Guid DrivetrainTypeId,
+    Guid LocationRegionId,
+    Guid LocationAreaId,
+    Guid LocationTownId,
     string Description,
     double Displacement,
     decimal Price) : IActionVehicleCommandBase, IRequest<Result<Unit>>;
