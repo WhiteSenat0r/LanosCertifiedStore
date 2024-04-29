@@ -28,6 +28,19 @@ internal sealed class ValidationHelper : IValidationHelper
         return mainAspect is not null;
     }
     
+    public async Task<bool> CheckMainAspectPresence<TMainAspect>(IUnitOfWork unitOfWork, IEnumerable<Guid> ids)
+        where TMainAspect : class, IIdentifiable<Guid>
+    {
+        foreach (var id in ids)
+        {
+            var mainAspect = await unitOfWork.RetrieveRepository<TMainAspect>().GetEntityByIdAsync(id);
+
+            if (mainAspect is null) return false;
+        }
+
+        return true;
+    }
+    
     public async Task<bool> CheckSecondaryAspectPresence<TMainAspect, TSecondaryAspect>(
         IUnitOfWork unitOfWork,
         (Guid?, Guid?)? ids,

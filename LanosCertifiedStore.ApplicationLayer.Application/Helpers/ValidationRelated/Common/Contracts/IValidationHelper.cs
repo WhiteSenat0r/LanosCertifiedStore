@@ -14,6 +14,10 @@ internal interface IValidationHelper
         IUnitOfWork unitOfWork, Guid id)
         where TMainAspect : class, IIdentifiable<Guid>;
     
+    Task<bool> CheckMainAspectPresence<TMainAspect>(
+        IUnitOfWork unitOfWork, IEnumerable<Guid> ids)
+        where TMainAspect : class, IIdentifiable<Guid>;
+    
     Task<bool> CheckSecondaryAspectPresence<TMainAspect, TSecondaryAspect>(
         IUnitOfWork unitOfWork,
         (Guid?, Guid?)? ids,
