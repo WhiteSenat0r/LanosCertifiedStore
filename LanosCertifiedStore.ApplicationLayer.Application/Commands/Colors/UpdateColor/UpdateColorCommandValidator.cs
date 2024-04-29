@@ -1,4 +1,5 @@
-﻿using Application.Helpers;
+﻿using Application.Helpers.ValidationRelated.Common.Contracts;
+using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes;
 using FluentValidation;
 
@@ -6,12 +7,12 @@ namespace Application.Commands.Colors.UpdateColor;
 
 internal sealed class UpdateColorCommandValidator : AbstractValidator<UpdateColorCommand>
 {
-    public UpdateColorCommandValidator(ValidationHelper<VehicleColor> validationHelper)
+    public UpdateColorCommandValidator(IUnitOfWork unitOfWork, IValidationHelper validationHelper)
     {
         RuleFor(x => x.UpdatedName)
             .NotEmpty()
-            .MinimumLength(2)
-            .MaximumLength(64);
+            .MaximumLength(64)
+            .MinimumLength(2);
         
         RuleFor(x => x.UpdatedHexValue)
             .NotEmpty()
@@ -19,7 +20,8 @@ internal sealed class UpdateColorCommandValidator : AbstractValidator<UpdateColo
             .MinimumLength(2);
 
         RuleFor(x => x.UpdatedName)
-            .MustAsync(async (name, _) => await validationHelper.IsNameUniqueAsync(name))
-            .WithMessage("Color with such name already exists! Color name must be unique");
+            .MustAsync(async (name, _) => 
+                await validationHelper.IsAspectNameUnique<VehicleColor>(unitOfWork, name))
+            .WithMessage("Color with such name already exists!");
     }
 }
