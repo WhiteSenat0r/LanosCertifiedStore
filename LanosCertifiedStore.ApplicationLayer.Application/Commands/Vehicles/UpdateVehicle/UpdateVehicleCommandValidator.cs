@@ -14,15 +14,17 @@ internal sealed class UpdateVehicleCommandValidator : AbstractValidator<UpdateVe
         RuleFor(x => x.Description)
             .NotEmpty()
             .MinimumLength(20)
-            .MaximumLength(3000);
+            .MaximumLength(3000)
+            .WithMessage("Description must be greater than 20 characters and less than 3000!");
 
         RuleFor(x => x.Price)
             .NotEmpty()
-            .GreaterThan(0);
+            .GreaterThan(0)
+            .WithMessage("Price must be greater than 0 $USD!");
         
         RuleFor(x => x.Displacement)
             .NotEmpty()
-            .GreaterThan(0);
+            .WithMessage("Engine's displacement must be greater than 0 liters!");
 
         RuleFor(x => x.ModelId)
             .NotEmpty()
