@@ -12,7 +12,8 @@ internal sealed class UpdateBrandCommandValidator : AbstractValidator<UpdateBran
         RuleFor(x => x.UpdatedName)
             .NotEmpty()
             .MinimumLength(2)
-            .MaximumLength(64);
+            .MaximumLength(64)
+            .WithMessage("Name must be greater than 2 characters and less than 64!");
 
         RuleFor(x => x.UpdatedName)
             .MustAsync(async (name, _) => 
