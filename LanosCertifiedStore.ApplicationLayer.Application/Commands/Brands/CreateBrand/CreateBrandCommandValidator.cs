@@ -1,4 +1,5 @@
-﻿using Application.Helpers;
+﻿using Application.Helpers.ValidationRelated.Common.Contracts;
+using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes;
 using FluentValidation;
 
@@ -6,7 +7,7 @@ namespace Application.Commands.Brands.CreateBrand;
 
 internal sealed class CreateBrandCommandValidator : AbstractValidator<CreateBrandCommand>
 {
-    public CreateBrandCommandValidator(ValidationHelper<VehicleBrand> validationHelper)
+    public CreateBrandCommandValidator(IUnitOfWork unitOfWork, IValidationHelper validationHelper)
     {
         RuleFor(x => x.Name)
             .NotEmpty()
@@ -14,7 +15,8 @@ internal sealed class CreateBrandCommandValidator : AbstractValidator<CreateBran
             .MinimumLength(2);
 
         RuleFor(x => x.Name)
-            .MustAsync(async (name, _) => await validationHelper.IsNameUniqueAsync(name))
-            .WithMessage("Brand with such name already exists! Brand name must be unique");
+            .MustAsync(async (name, _) => 
+                await validationHelper.IsAspectNameUnique<VehicleBrand>(unitOfWork, name))
+            .WithMessage("Brand with such name already exists!");
     }
 }
