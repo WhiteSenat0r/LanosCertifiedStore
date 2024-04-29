@@ -17,4 +17,6 @@ public record UpdateVehicleCommand(
     Guid LocationTownId,
     string Description,
     double Displacement,
-    decimal Price) : IActionVehicleCommandBase, IRequest<Result<Unit>>;
+    decimal Price,
+    int ProductionYear,
+    int Mileage) : IActionVehicleCommandBase, IRequest<Result<Unit>>;
