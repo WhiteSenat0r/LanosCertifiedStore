@@ -12,12 +12,14 @@ internal sealed class CreateColorCommandValidator : AbstractValidator<CreateColo
         RuleFor(x => x.ColorName)
             .NotEmpty()
             .MaximumLength(64)
-            .MinimumLength(2);
+            .MinimumLength(2)
+            .WithMessage("Name must be greater than 2 characters and less than 64!");
         
         RuleFor(x => x.HexValue)
             .NotEmpty()
             .MaximumLength(12)
-            .MinimumLength(2);
+            .MinimumLength(2)
+            .WithMessage("Hex value must be greater than 2 characters and less than 12!");
 
         RuleFor(x => x.ColorName)
             .MustAsync(async (name, _) => 
