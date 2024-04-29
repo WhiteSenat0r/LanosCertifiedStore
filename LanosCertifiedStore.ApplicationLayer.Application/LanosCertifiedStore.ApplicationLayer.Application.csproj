@@ -20,7 +20,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Commands\Common\ValidationRelated\" />
       <Folder Include="Contracts\" />
+      <Folder Include="Helpers\ValidationRelated\Common\" />
     </ItemGroup>
 
     <ItemGroup>
