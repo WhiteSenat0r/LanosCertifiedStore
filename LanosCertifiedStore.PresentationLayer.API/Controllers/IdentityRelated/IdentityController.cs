@@ -6,7 +6,7 @@ using Application.Commands.Identity.Authentication.Register;
 using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.VehiclesRelated;
+namespace API.Controllers.IdentityRelated;
 
 public sealed class IdentityController : BaseIdentityRelatedController
 {

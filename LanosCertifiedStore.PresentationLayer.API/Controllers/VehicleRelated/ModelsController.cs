@@ -13,7 +13,7 @@ using Application.RequestParams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.VehiclesRelated;
+namespace API.Controllers.VehicleRelated;
 
 public sealed class ModelsController : BaseEntityRelatedApiController
 {

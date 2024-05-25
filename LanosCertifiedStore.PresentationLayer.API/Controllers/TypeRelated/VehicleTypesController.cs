@@ -6,13 +6,13 @@ using Application.Commands.Types.UpdateType;
 using Application.Core.Results;
 using Application.Dtos.Common;
 using Application.Dtos.TypeDtos;
-using Application.Queries.Types;
-using Application.Queries.Types.CountTypesQueryRelated;
+using Application.Queries.Types.VehicleTypeRelated;
+using Application.Queries.Types.VehicleTypeRelated.CountTypesQueryRelated;
 using Application.RequestParams.TypeRelated;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.VehiclesRelated;
+namespace API.Controllers.TypeRelated;
 
 public sealed class VehicleTypesController : BaseEntityRelatedApiController
 {
@@ -22,7 +22,7 @@ public sealed class VehicleTypesController : BaseEntityRelatedApiController
     public async Task<ActionResult<PaginationResult<VehicleTypeDto>>> GetTypes(
         [FromQuery] VehicleTypeFilteringRequestParameters requestParameters)
     {
-        return HandleResult(await Mediator.Send(new TypesQuery(requestParameters)));
+        return HandleResult(await Mediator.Send(new VehicleTypesQuery(requestParameters)));
     }
     
     [HttpGet("countItems")]

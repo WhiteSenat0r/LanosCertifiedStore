@@ -28,5 +28,9 @@
       <_Parameter1>UnitTests</_Parameter1>
     </AssemblyAttribute>
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Controllers\LocationRelated\" />
+  </ItemGroup>
 
 </Project>
