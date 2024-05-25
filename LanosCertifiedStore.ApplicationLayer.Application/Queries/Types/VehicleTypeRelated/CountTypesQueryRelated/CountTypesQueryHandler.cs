@@ -5,7 +5,7 @@ using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Shared;
 using MediatR;
 
-namespace Application.Queries.Types.CountTypesQueryRelated;
+namespace Application.Queries.Types.VehicleTypeRelated.CountTypesQueryRelated;
 
 internal sealed class CountTypesQueryHandler(IUnitOfWork unitOfWork) : 
     CountItemsQueryHandlerBase<VehicleType>(unitOfWork),
