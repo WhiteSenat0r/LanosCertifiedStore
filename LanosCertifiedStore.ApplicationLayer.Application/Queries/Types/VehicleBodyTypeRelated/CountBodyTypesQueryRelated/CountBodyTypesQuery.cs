@@ -7,5 +7,5 @@ using MediatR;
 
 namespace Application.Queries.Types.VehicleBodyTypeRelated.CountBodyTypesQueryRelated;
 
-public sealed record CountBodyTypesQuery(IFilteringRequestParameters<VehicleEngineType> RequestParameters) : 
-    CountItemsQueryBase<VehicleEngineType>(RequestParameters), IRequest<Result<ItemsCountDto>>;
+public sealed record CountBodyTypesQuery(IFilteringRequestParameters<VehicleBodyType> RequestParameters) : 
+    CountItemsQueryBase<VehicleBodyType>(RequestParameters), IRequest<Result<ItemsCountDto>>;
