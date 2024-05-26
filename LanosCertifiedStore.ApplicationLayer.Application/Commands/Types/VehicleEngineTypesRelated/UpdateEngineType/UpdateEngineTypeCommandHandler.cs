@@ -31,10 +31,10 @@ internal sealed class UpdateEngineTypeCommandHandler :
     }
 
     private void UpdateEngineType(string updatedName, 
-        VehicleEngineType existingType, IRepository<VehicleEngineType> bodyTypeRepository)
+        VehicleEngineType existingType, IRepository<VehicleEngineType> engineTypeRepository)
     {
         existingType.Name = updatedName;
 
-        bodyTypeRepository.UpdateExistingEntityAsync(existingType);
+        engineTypeRepository.UpdateExistingEntityAsync(existingType);
     }
 }

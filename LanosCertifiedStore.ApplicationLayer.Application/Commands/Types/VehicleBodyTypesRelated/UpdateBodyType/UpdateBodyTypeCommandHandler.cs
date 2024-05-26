@@ -1,5 +1,4 @@
 ﻿using Application.Commands.Common;
-using Application.Commands.Types.VehicleTypesRelated.UpdateType;
 using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Shared;
@@ -8,7 +7,7 @@ using MediatR;
 namespace Application.Commands.Types.VehicleBodyTypesRelated.UpdateBodyType;
 
 internal sealed class UpdateBodyTypeCommandHandler : 
-    CommandHandlerBase<Unit>, IRequestHandler<UpdateTypeCommand, Result<Unit>>
+    CommandHandlerBase<Unit>, IRequestHandler<UpdateBodyTypeCommand, Result<Unit>>
 {
     public UpdateBodyTypeCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
@@ -19,7 +18,7 @@ internal sealed class UpdateBodyTypeCommandHandler :
         ];
     }
 
-    public async Task<Result<Unit>> Handle(UpdateTypeCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Unit>> Handle(UpdateBodyTypeCommand request, CancellationToken cancellationToken)
     {
         var bodyTypeRepository = GetRequiredRepository<VehicleBodyType>();
         var existingBodyType = await bodyTypeRepository.GetEntityByIdAsync(request.Id);

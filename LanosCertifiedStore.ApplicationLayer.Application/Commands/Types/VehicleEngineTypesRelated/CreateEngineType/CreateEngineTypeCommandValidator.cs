@@ -18,6 +18,6 @@ internal sealed class CreateEngineTypeCommandValidator : AbstractValidator<Creat
         RuleFor(x => x.Name)
             .MustAsync(async (name, _) => 
                 await validationHelper.IsAspectNameUnique<VehicleBodyType>(unitOfWork, name))
-            .WithMessage("Type with such name already exists!");
+            .WithMessage("Engine type with such name already exists!");
     }
 }

@@ -19,6 +19,6 @@ internal sealed class UpdateBodyTypeCommandValidator : AbstractValidator<UpdateT
         RuleFor(x => x.UpdatedName)
             .MustAsync(async (name, _) => 
                 await validationHelper.IsAspectNameUnique<VehicleType>(unitOfWork, name))
-            .WithMessage("Type with such name already exists!");
+            .WithMessage("Body type with such name already exists!");
     }
 }
