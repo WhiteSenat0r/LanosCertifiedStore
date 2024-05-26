@@ -4,7 +4,7 @@ using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Shared;
 using MediatR;
 
-namespace Application.Commands.Types.UpdateType;
+namespace Application.Commands.Types.VehicleTypesRelated.UpdateType;
 
 internal sealed class UpdateTypeCommandHandler : 
     CommandHandlerBase<Unit>, IRequestHandler<UpdateTypeCommand, Result<Unit>>
@@ -13,8 +13,8 @@ internal sealed class UpdateTypeCommandHandler :
     {
         PossibleErrors =
         [
-            new Error("UpdateTypeError", "Saving an updated type was not successful!"),
-            new Error("UpdateTypeError", "Error occured during the type update!")
+            new Error("UpdateTypeError", "Saving the updated vehicle type was not successful!"),
+            new Error("UpdateTypeError", "Error occured during the vehicle type update!")
         ];
     }
 

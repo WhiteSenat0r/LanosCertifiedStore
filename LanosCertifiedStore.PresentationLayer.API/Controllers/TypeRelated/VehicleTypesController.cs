@@ -1,8 +1,8 @@
 ﻿using API.Controllers.Common;
 using API.Responses;
-using Application.Commands.Types.CreateType;
-using Application.Commands.Types.DeleteType;
-using Application.Commands.Types.UpdateType;
+using Application.Commands.Types.VehicleTypesRelated.CreateType;
+using Application.Commands.Types.VehicleTypesRelated.DeleteType;
+using Application.Commands.Types.VehicleTypesRelated.UpdateType;
 using Application.Core.Results;
 using Application.Dtos.Common;
 using Application.Dtos.TypeDtos;

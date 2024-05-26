@@ -4,7 +4,7 @@ using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Shared;
 using MediatR;
 
-namespace Application.Commands.Types.CreateType;
+namespace Application.Commands.Types.VehicleTypesRelated.CreateType;
 
 internal sealed class CreateTypeCommandHandler 
     : CommandHandlerBase<Unit>, IRequestHandler<CreateTypeCommand, Result<Unit>>
@@ -13,8 +13,8 @@ internal sealed class CreateTypeCommandHandler
     {
         PossibleErrors =
         [
-            new Error("CreateTypeError", "Saving a new type was not successful!"),
-            new Error("CreateTypeError", "Error occured during a new type creation!")
+            new Error("CreateTypeError", "Saving a new vehicle type was not successful!"),
+            new Error("CreateTypeError", "Error occured during a new vehicle type creation!")
         ];
     }
 

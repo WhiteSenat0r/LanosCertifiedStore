@@ -4,7 +4,7 @@ using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Shared;
 using MediatR;
 
-namespace Application.Commands.Types.DeleteType;
+namespace Application.Commands.Types.VehicleTypesRelated.DeleteType;
 
 internal sealed class DeleteTypeCommandHandler : 
     CommandHandlerBase<Unit>, IRequestHandler<DeleteTypeCommand, Result<Unit>>
@@ -13,8 +13,8 @@ internal sealed class DeleteTypeCommandHandler :
     {
         PossibleErrors =
         [
-            new Error("DeleteTypeError", "Type removal was not successful!"),
-            new Error("DeleteTypeError", "Error occured during the type removal!")
+            new Error("DeleteTypeError", "Vehicle type removal was not successful!"),
+            new Error("DeleteTypeError", "Error occured during the vehicle type removal!")
         ];
     }
 

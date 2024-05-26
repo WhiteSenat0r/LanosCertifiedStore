@@ -3,7 +3,7 @@ using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using FluentValidation;
 
-namespace Application.Commands.Types.UpdateType;
+namespace Application.Commands.Types.VehicleTypesRelated.UpdateType;
 
 internal sealed class UpdateTypeCommandValidator : AbstractValidator<UpdateTypeCommand>
 {

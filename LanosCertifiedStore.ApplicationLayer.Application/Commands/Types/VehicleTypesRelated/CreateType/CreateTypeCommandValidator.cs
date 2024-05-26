@@ -3,7 +3,7 @@ using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using FluentValidation;
 
-namespace Application.Commands.Types.CreateType;
+namespace Application.Commands.Types.VehicleTypesRelated.CreateType;
 
 internal sealed class CreateTypeCommandValidator : AbstractValidator<CreateTypeCommand>
 {
