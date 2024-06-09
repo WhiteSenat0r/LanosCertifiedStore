@@ -9,5 +9,5 @@ public sealed class VehicleColorFilteringRequestParameters : BaseFilteringReques
     IVehicleColorFilteringRequestParameters
 {
     public string? Name { get; set; }
-    public VehicleColorSelectionProfile SelectionProfile { get; } = VehicleColorSelectionProfile.Default;
+    public VehicleColorSelectionProfile SelectionProfile => VehicleColorSelectionProfile.Default;
 }

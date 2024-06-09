@@ -6,9 +6,16 @@ namespace Application.Commands.Vehicles.CreateVehicle;
 
 public record CreateVehicleCommand(
     Guid ModelId,
-    Guid TypeId,
     Guid ColorId,
+    Guid BodyTypeId,
+    Guid EngineTypeId,
+    Guid TransmissionTypeId,
+    Guid DrivetrainTypeId,
+    Guid LocationRegionId,
+    Guid LocationAreaId,
+    Guid LocationTownId,
     string Description,
     double Displacement,
-    decimal Price)
-    : IActionVehicleCommandBase, IRequest<Result<Guid>>;
+    decimal Price,
+    int ProductionYear,
+    int Mileage) : IActionVehicleCommandBase, IRequest<Result<Guid>>;

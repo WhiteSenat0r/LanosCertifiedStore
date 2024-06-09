@@ -9,5 +9,5 @@ public sealed class VehicleImageFilteringRequestParameters : BaseFilteringReques
     IVehicleImageFilteringRequestParameters
 {
     public Guid? RelatedVehicleId { get; set; }
-    public VehicleImageSelectionProfile SelectionProfile { get; } = VehicleImageSelectionProfile.Default;
+    public VehicleImageSelectionProfile SelectionProfile => VehicleImageSelectionProfile.Default;
 }

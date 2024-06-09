@@ -15,8 +15,7 @@ internal class VehicleModelSelectionProfiles :
         _mappedProfiles = new()
         {
             { VehicleModelSelectionProfile.Default, GetDefaultProfileQueryable },
-            // TODO
-            // { VehicleModelSelectionProfile.Single, GetSingleProfileQueryable },
+            { VehicleModelSelectionProfile.Single, GetSingleProfileQueryable },
         };
 
     public override IQueryable<VehicleModelDataModel> GetSuitableSelectionProfileQueryable(
@@ -37,29 +36,24 @@ internal class VehicleModelSelectionProfiles :
         {
             Id = vehicleModel.Id,
             Name = vehicleModel.Name,
-            VehicleBrand = new VehicleBrandDataModel
-            {
-                Id = vehicleModel.VehicleBrand.Id,
-                Name = vehicleModel.VehicleBrand.Name
-            },
+            VehicleBrand = vehicleModel.VehicleBrand,
+            MinimalProductionYear = vehicleModel.MinimalProductionYear,
+            MaximumProductionYear = vehicleModel.MaximumProductionYear
         });
     
-    // TODO
-    // private static IQueryable<VehicleModelDataModel> GetSingleProfileQueryable(
-    //     IQueryable<VehicleModelDataModel> queryable) =>
-    //     queryable.Select(vehicleModel => new VehicleModelDataModel
-    //     {
-    //         Id = vehicleModel.Id,
-    //         Name = vehicleModel.Name,
-    //         VehicleBrand = new VehicleBrandDataModel
-    //         {
-    //             Id = vehicleModel.VehicleBrand.Id,
-    //             Name = vehicleModel.VehicleBrand.Name
-    //         },
-    //         VehicleType = (vehicleModel.VehicleType.Select(type => new VehicleTypeDataModel
-    //         {
-    //             Id = type.Id,
-    //             Name = type.Name
-    //         }) as ICollection<VehicleTypeDataModel>)!
-    //     });
+    private static IQueryable<VehicleModelDataModel> GetSingleProfileQueryable(
+        IQueryable<VehicleModelDataModel> queryable) =>
+        queryable.Select(vehicleModel => new VehicleModelDataModel
+        {
+            Id = vehicleModel.Id,
+            Name = vehicleModel.Name,
+            VehicleBrand = vehicleModel.VehicleBrand,
+            VehicleType = vehicleModel.VehicleType,
+            AvailableBodyTypes = vehicleModel.AvailableBodyTypes,
+            AvailableEngineTypes = vehicleModel.AvailableEngineTypes,
+            AvailableTransmissionTypes = vehicleModel.AvailableTransmissionTypes,
+            AvailableDrivetrainTypes = vehicleModel.AvailableDrivetrainTypes,
+            MinimalProductionYear = vehicleModel.MinimalProductionYear,
+            MaximumProductionYear = vehicleModel.MaximumProductionYear
+        });
 }

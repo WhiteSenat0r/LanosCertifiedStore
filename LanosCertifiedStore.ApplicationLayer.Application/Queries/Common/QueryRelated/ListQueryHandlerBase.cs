@@ -1,5 +1,4 @@
 ﻿using Application.Core.Results;
-using Application.RequestParams.Common.Classes;
 using AutoMapper;
 using Domain.Contracts.Common;
 using Domain.Contracts.RepositoryRelated.Common;
@@ -9,7 +8,7 @@ namespace Application.Queries.Common.QueryRelated;
 
 internal abstract class ListQueryHandlerBase<TEntity, TParamsType, TDto>(IUnitOfWork unitOfWork, IMapper mapper)
     where TEntity : class, IIdentifiable<Guid>
-    where TParamsType : BaseFilteringRequestParameters<TEntity>
+    where TParamsType : IFilteringRequestParameters<TEntity>
     where TDto : class
 {
     protected async Task<Result<PaginationResult<TDto>>> Handle(ListQueryBase<TEntity, TParamsType> request,

@@ -9,9 +9,9 @@ using MediatR;
 namespace Application.Queries.Vehicles.VehicleDetailsQueryRelated;
 
 internal sealed class VehicleDetailsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :
-    DetailsQueryHandlerBase<Vehicle, SingleVehicleDto>(unitOfWork, mapper),
-    IRequestHandler<VehicleDetailsQuery, Result<SingleVehicleDto>>
+    DetailsQueryHandlerBase<Vehicle, VehicleDto>(unitOfWork, mapper),
+    IRequestHandler<VehicleDetailsQuery, Result<VehicleDto>>
 {
-    public Task<Result<SingleVehicleDto>> Handle(VehicleDetailsQuery request, CancellationToken cancellationToken) => 
+    public Task<Result<VehicleDto>> Handle(VehicleDetailsQuery request, CancellationToken cancellationToken) => 
         base.Handle(request, cancellationToken);
 }

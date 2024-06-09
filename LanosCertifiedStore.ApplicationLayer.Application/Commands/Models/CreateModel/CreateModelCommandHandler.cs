@@ -1,6 +1,7 @@
 ﻿using Application.Commands.Common;
 using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes;
+using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Shared;
 using MediatR;
 
@@ -11,26 +12,31 @@ internal sealed class CreateModelCommandHandler :
 {
     public CreateModelCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("CreateModelError", "Saving a new model was not successful!"),
             new Error("CreateModelError", "Error occured during a new model creation!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(CreateModelCommand request, CancellationToken cancellationToken)
     {
         var vehicleBrand = await GetRequiredRepository<VehicleBrand>().GetEntityByIdAsync(request.BrandId);
+        var vehicleType = await GetRequiredRepository<VehicleType>().GetEntityByIdAsync(request.TypeId);
 
-        throw new NotImplementedException();
+        var newVehicleModel = new VehicleModel(
+            vehicleBrand!,
+            vehicleType!,
+            request.Name,
+            request.AvailableEngineTypeIds,
+            request.AvailableTransmissionTypeIds,
+            request.AvailableDrivetrainTypeIds,
+            request.AvailableBodyTypeIds,
+            request.MinimalProductionYear,
+            request.MaximumProductionYear);
         
-        // var newVehicleModel = new VehicleModel(
-        //     vehicleBrand!,
-        //     request.Name,
-        //     availableTypesIds: request.AvailableTypesIds);
-        //
-        // await GetRequiredRepository<VehicleModel>().AddNewEntityAsync(newVehicleModel);
-        //
-        // return await TrySaveChanges(cancellationToken);
+        await GetRequiredRepository<VehicleModel>().AddNewEntityAsync(newVehicleModel);
+        
+        return await TrySaveChanges(cancellationToken);
     }
 }

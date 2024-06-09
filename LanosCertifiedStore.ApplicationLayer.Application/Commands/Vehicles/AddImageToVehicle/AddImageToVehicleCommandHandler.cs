@@ -17,11 +17,11 @@ internal sealed class AddImageToVehicleCommandHandler :
     public AddImageToVehicleCommandHandler(IUnitOfWork unitOfWork, IImageService imageService) : base(unitOfWork)
     {
         _imageService = imageService;
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("VehicleImageUploadError", "Vehicle image upload was not successful!"),
             new Error("VehicleImageUploadError", "Error occured during the vehicle image upload!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(AddImageToVehicleCommand request, CancellationToken cancellationToken)

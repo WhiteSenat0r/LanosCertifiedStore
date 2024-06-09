@@ -12,14 +12,14 @@ internal sealed class SetVehicleMainImageCommandHandler
     public SetVehicleMainImageCommandHandler(IUnitOfWork unitOfWork)
         : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("SetVehicleMainImageError", "Vehicle image update was not successful!"),
             new Error("SetVehicleMainImageError", "Error occured during the vehicle image update!"),
             new Error("SetVehicleMainImageError", "This image does not belong to this vehicle!"),
             new Error("SetVehicleMainImageError", "Vehicle's image can't be updated!"),
-            new Error("SetVehicleMainImageError", "Failed to update vehicle's image from the cloud!"),
-        };
+            new Error("SetVehicleMainImageError", "Failed to update vehicle's image from the cloud!")
+        ];
     }
     
     public async Task<Result<Unit>> Handle(SetVehicleMainImageCommand request, CancellationToken cancellationToken)

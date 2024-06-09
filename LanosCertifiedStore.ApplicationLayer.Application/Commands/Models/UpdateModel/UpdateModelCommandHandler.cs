@@ -1,7 +1,8 @@
 ﻿using Application.Commands.Common;
+using Application.Commands.Models.UpdateModel.Common.Classes;
 using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes;
-using Domain.Entities.VehicleRelated.Classes.TypesRelated;
+using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Domain.Shared;
 using MediatR;
 
@@ -12,11 +13,11 @@ internal sealed class UpdateModelCommandHandler :
 {
     public UpdateModelCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("UpdateModelError", "Saving an updated model was not successful!"),
             new Error("UpdateModelError", "Error occured during the model update!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(UpdateModelCommand request, CancellationToken cancellationToken)
@@ -37,18 +38,44 @@ internal sealed class UpdateModelCommandHandler :
 
     private async Task<Result<Unit>> UpdateModel(VehicleModel model, UpdateModelCommand request)
     {
-        var brandUpdateResult = await TryUpdateRelatedBrand(model, request.BrandId);
-        if (!brandUpdateResult.IsSuccess) return brandUpdateResult;
+        var updateResults = await GetUpdateResults(model, request);
 
-        var typesUpdateResult = await TryUpdateRelatedTypes(
-            GetRequiredRepository<VehicleType>(), model, request.AvailableTypesIds);
-        if (!typesUpdateResult.IsSuccess) return typesUpdateResult;
+        foreach (var result in updateResults.Where(result => !result.IsSuccess))
+            return result;
         
-        model.Name = request.UpdatedName;
+        model.Name = request.Name;
+        model.MinimalProductionYear = request.MinimalProductionYear;
+        model.MaximumProductionYear = request.MaximumProductionYear;
 
         return Result<Unit>.Success(Unit.Value);
     }
-    
+
+    private async Task<List<Result<Unit>>> GetUpdateResults(VehicleModel model, UpdateModelCommand request)
+    {
+        var aspectUpdater = new ModelAspectUpdater();
+        
+        return
+        [
+            await aspectUpdater.GetAspectUpdateResult(
+                model, request, GetRequiredRepository<VehicleBrand>, true),
+
+            await aspectUpdater.GetAspectUpdateResult(
+                model, request, GetRequiredRepository<VehicleType>, true),
+
+            await aspectUpdater.GetAspectUpdateResult(
+                model, request, GetRequiredRepository<VehicleBodyType>, false),
+
+            await aspectUpdater.GetAspectUpdateResult(
+                model, request, GetRequiredRepository<VehicleTransmissionType>, false),
+
+            await aspectUpdater.GetAspectUpdateResult(
+                model, request, GetRequiredRepository<VehicleDrivetrainType>, false),
+
+            await aspectUpdater.GetAspectUpdateResult(
+                model, request, GetRequiredRepository<VehicleEngineType>, false)
+        ];
+    }
+
     private async Task<Result<VehicleModel>> TryGetUpdatedModel(
         IRepository<VehicleModel> repository, Guid modelId)
     {
@@ -57,39 +84,5 @@ internal sealed class UpdateModelCommandHandler :
         return updatedModel is null 
             ? Result<VehicleModel>.Failure(Error.NotFound)
             : Result<VehicleModel>.Success(updatedModel);
-    }
-    
-    private async Task<Result<Unit>> TryUpdateRelatedBrand(VehicleModel model, Guid newBrandId)
-    {
-        if (model.Brand.Id.Equals(newBrandId)) return Result<Unit>.Success(Unit.Value);
-        
-        var newBrand = await GetRequiredRepository<VehicleBrand>().GetEntityByIdAsync(newBrandId);
-
-        if (newBrand is null) return Result<Unit>.Failure(Error.NotFound);
-
-        model.Brand = newBrand;
-        
-        return Result<Unit>.Success(Unit.Value);
-    }
-    
-    private async Task<Result<Unit>> TryUpdateRelatedTypes(
-        IRepository<VehicleType> repository, VehicleModel model, IEnumerable<Guid> typeIds)
-    {
-        if (model.AvailableTypes.Select(x => x.Id).SequenceEqual(typeIds))
-            return Result<Unit>.Success(Unit.Value);
-        
-        model.AvailableTypes.Clear();
-        
-        foreach (var typeId in typeIds)
-        {
-            var type = await repository.GetEntityByIdAsync(typeId);
-            
-            if (type is null)
-                return Result<Unit>.Failure(Error.NotFound);
-                    
-            model.AvailableTypes.Add(type);
-        }
-        
-        return Result<Unit>.Success(Unit.Value);
     }
 }

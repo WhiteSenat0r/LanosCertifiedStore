@@ -11,11 +11,11 @@ internal sealed class DeleteModelCommandHandler : CommandHandlerBase<Unit>,
 {
     public DeleteModelCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("DeleteModelError", "Model removal was not successful!"),
             new Error("DeleteModelError", "Error occured during the color removal!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(DeleteModelCommand request, CancellationToken cancellationToken)

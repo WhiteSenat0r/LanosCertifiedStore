@@ -11,11 +11,11 @@ internal sealed class DeleteColorCommandHandler
 {
     public DeleteColorCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("DeleteColorError", "Color removal was not successful!"),
             new Error("DeleteColorError", "Error occured during the color removal!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(DeleteColorCommand request, CancellationToken cancellationToken)

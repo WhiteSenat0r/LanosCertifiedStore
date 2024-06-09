@@ -10,11 +10,11 @@ internal sealed class DeleteBrandCommandHandler : CommandHandlerBase<Unit>, IReq
 {
     public DeleteBrandCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
-        PossibleErrors = new[]
-        {
+        PossibleErrors =
+        [
             new Error("DeleteBrandError", "Brand removal was not successful!"),
             new Error("DeleteBrandError", "Error occured during the brand removal!")
-        };
+        ];
     }
 
     public async Task<Result<Unit>> Handle(DeleteBrandCommand request, CancellationToken cancellationToken)

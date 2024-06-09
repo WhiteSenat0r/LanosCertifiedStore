@@ -4,7 +4,7 @@ using Domain.Entities.VehicleRelated.Classes;
 
 namespace Application.MappingProfiles;
 
-public class VehicleBrandRelatedMappingProfile : Profile
+public sealed class VehicleBrandRelatedMappingProfile : Profile
 {
     public VehicleBrandRelatedMappingProfile()
     {

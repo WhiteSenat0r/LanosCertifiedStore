@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Entities.VehicleRelated.Classes;
-using Domain.Entities.VehicleRelated.Classes.TypesRelated;
+using Domain.Entities.VehicleRelated.Classes.TypeRelated;
 using Persistence.DataModels.VehicleRelated;
 using Persistence.DataModels.VehicleRelated.TypeRelated;
 
@@ -18,14 +18,13 @@ internal sealed class VehicleModelMappingProfile : Profile
         CreateMap<VehicleModel, VehicleModelDataModel>()
             .ForMember(d => d.VehicleBrandId, o => o.MapFrom(s => s.Brand.Id))
             .ForMember(model => model.VehicleBrand, options => options.Ignore())
-            .ForMember(d => d.VehicleType, o => o.MapFrom(s => MapAvailableTypes(s.AvailableTypes)));
+            .ForMember(d => d.VehicleTypeId, o => o.MapFrom(s => s.VehicleType.Id))
+            .ForMember(model => model.VehicleType, options => options.Ignore());
 
     private void AddMappingProfileFromEntityToModel() =>
         CreateMap<VehicleModelDataModel, VehicleModel>()
             .ForMember(d => d.Brand, o => o.MapFrom(s => s.VehicleBrand));
     
-    private List<VehicleTypeDataModel> MapAvailableTypes(ICollection<VehicleType> availableTypes)
-    {
-        return availableTypes.Select(t => new VehicleTypeDataModel { Id = t.Id }).ToList();
-    }
+    private List<VehicleTypeDataModel> MapAvailableTypes(ICollection<VehicleType> availableTypes) => 
+        availableTypes.Select(t => new VehicleTypeDataModel { Id = t.Id }).ToList();
 }

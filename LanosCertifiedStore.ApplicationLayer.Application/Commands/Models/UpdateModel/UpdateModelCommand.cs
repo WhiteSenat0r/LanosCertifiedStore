@@ -5,7 +5,12 @@ namespace Application.Commands.Models.UpdateModel;
 
 public sealed record UpdateModelCommand(
     Guid Id,
-    string UpdatedName,
     Guid BrandId,
-    IEnumerable<Guid> AvailableTypesIds)
-    : IRequest<Result<Unit>>;
+    Guid TypeId,
+    string Name,
+    IEnumerable<Guid> AvailableEngineTypeIds,
+    IEnumerable<Guid> AvailableTransmissionTypeIds,
+    IEnumerable<Guid> AvailableDrivetrainTypeIds,
+    IEnumerable<Guid> AvailableBodyTypeIds,
+    int MinimalProductionYear,
+    int? MaximumProductionYear = null) : IRequest<Result<Unit>>;
