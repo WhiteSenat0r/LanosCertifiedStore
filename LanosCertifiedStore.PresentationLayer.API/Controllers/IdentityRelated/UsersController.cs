@@ -11,7 +11,7 @@ using Application.RequestParams;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.VehicleRelated;
+namespace API.Controllers.IdentityRelated;
 
 public sealed class UsersController : BaseEntityRelatedApiController
 {
