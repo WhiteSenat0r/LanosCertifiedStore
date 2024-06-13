@@ -1,7 +1,7 @@
-﻿using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Contracts.RepositoryRelated.VehicleRepositoryRelated;
+﻿using Application.Contracts.RepositoryRelated.Common;
+using Application.Contracts.RepositoryRelated.VehicleRepositoryRelated;
+using Application.Shared;
 using Domain.Entities.VehicleRelated.Classes;
-using Domain.Shared;
 using MediatR;
 
 namespace Application.Queries.Vehicles.VehiclePriceRangeQueryRelated;

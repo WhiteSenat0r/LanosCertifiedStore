@@ -1,7 +1,7 @@
-﻿using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Contracts.RequestParametersRelated.LocationRelated;
+﻿using Application.Contracts.RepositoryRelated.Common;
+using Application.Contracts.RequestParametersRelated.LocationRelated;
+using Application.Enums.RequestParametersRelated.LocationRelated;
 using Domain.Entities.VehicleRelated.Classes.LocationRelated;
-using Domain.Enums.RequestParametersRelated.LocationRelated;
 using Persistence.DataModels.VehicleRelated.LocationRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.LocationRelated.LocationTownRelated.QueryBuilderRelated.Common.Classes;

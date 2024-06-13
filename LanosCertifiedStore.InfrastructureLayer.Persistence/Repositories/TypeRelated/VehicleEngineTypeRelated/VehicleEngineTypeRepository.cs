@@ -1,9 +1,9 @@
-﻿using Application.RequestParams.TypeRelated;
+﻿using Application.Contracts.RepositoryRelated.Common;
+using Application.Contracts.RequestParametersRelated.TypeRelated;
+using Application.Enums.RequestParametersRelated.TypeRelated;
+using Application.RequestParams.TypeRelated;
 using AutoMapper;
-using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Contracts.RequestParametersRelated.TypeRelated;
 using Domain.Entities.VehicleRelated.Classes.TypeRelated;
-using Domain.Enums.RequestParametersRelated.TypeRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels.VehicleRelated.TypeRelated;

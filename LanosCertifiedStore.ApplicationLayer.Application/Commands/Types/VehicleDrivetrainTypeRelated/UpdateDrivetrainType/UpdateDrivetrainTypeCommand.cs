@@ -1,4 +1,4 @@
-﻿using Domain.Shared;
+﻿using Application.Shared;
 using MediatR;
 
 namespace Application.Commands.Types.VehicleDrivetrainTypeRelated.UpdateDrivetrainType;

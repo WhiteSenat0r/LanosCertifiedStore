@@ -1,8 +1,8 @@
 ﻿using Application.Commands.Common;
+using Application.Contracts.RepositoryRelated.Common;
 using Application.Contracts.ServicesRelated.ImageService;
-using Domain.Contracts.RepositoryRelated.Common;
+using Application.Shared;
 using Domain.Entities.VehicleRelated.Classes;
-using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Vehicles.DeleteVehicle;

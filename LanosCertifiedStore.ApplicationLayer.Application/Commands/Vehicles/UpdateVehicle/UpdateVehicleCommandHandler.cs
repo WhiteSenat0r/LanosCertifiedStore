@@ -1,8 +1,8 @@
 ﻿using Application.Commands.Vehicles.Common;
+using Application.Contracts.RepositoryRelated.Common;
+using Application.Shared;
 using AutoMapper;
-using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes;
-using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Vehicles.UpdateVehicle;

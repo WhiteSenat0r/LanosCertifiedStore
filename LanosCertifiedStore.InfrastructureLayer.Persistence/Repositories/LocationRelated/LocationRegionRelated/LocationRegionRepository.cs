@@ -1,9 +1,9 @@
-﻿using Application.RequestParams.LocationRelated;
+﻿using Application.Contracts.RepositoryRelated.Common;
+using Application.Contracts.RequestParametersRelated.LocationRelated;
+using Application.Enums.RequestParametersRelated.LocationRelated;
+using Application.RequestParams.LocationRelated;
 using AutoMapper;
-using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Contracts.RequestParametersRelated.LocationRelated;
 using Domain.Entities.VehicleRelated.Classes.LocationRelated;
-using Domain.Enums.RequestParametersRelated.LocationRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels.VehicleRelated.LocationRelated;

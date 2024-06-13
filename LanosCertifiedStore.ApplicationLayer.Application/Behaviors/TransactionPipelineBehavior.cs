@@ -1,5 +1,5 @@
-﻿using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Shared;
+﻿using Application.Contracts.RepositoryRelated.Common;
+using Application.Shared;
 using MediatR;
 
 namespace Application.Behaviors;

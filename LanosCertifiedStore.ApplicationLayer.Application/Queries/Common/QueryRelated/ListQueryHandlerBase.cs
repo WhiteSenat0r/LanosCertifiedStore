@@ -1,8 +1,8 @@
-﻿using Application.Core.Results;
+﻿using Application.Contracts.RepositoryRelated.Common;
+using Application.Core.Results;
+using Application.Shared;
 using AutoMapper;
 using Domain.Contracts.Common;
-using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Shared;
 
 namespace Application.Queries.Common.QueryRelated;
 

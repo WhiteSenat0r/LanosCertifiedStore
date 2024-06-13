@@ -1,5 +1,5 @@
 ﻿using Application.Dtos.IdentityDtos.AuthenticationDtos;
-using Domain.Shared;
+using Application.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 

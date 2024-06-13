@@ -1,4 +1,4 @@
-﻿namespace Domain.Shared;
+﻿namespace Application.Shared;
 
 public class Error(string code, string message)
 {

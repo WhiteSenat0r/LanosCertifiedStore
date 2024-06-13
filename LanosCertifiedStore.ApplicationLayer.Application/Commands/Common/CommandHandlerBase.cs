@@ -1,6 +1,6 @@
-﻿using Domain.Contracts.Common;
-using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Shared;
+﻿using Application.Contracts.RepositoryRelated.Common;
+using Application.Shared;
+using Domain.Contracts.Common;
 
 namespace Application.Commands.Common;
 

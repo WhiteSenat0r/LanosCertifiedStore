@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using Domain.Contracts.RepositoryRelated.Common;
+﻿using Application.Contracts.RepositoryRelated.Common;
+using Application.Shared;
+using AutoMapper;
 using Domain.Entities.UserRelated;
-using Domain.Shared;
 using MediatR;
 
 namespace Application.Commands.Identity.UserManagement.DeleteUser;

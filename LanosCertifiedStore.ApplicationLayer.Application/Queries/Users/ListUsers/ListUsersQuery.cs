@@ -1,7 +1,7 @@
-﻿using Application.Core.Results;
+﻿using Application.Contracts.RequestParametersRelated;
+using Application.Core.Results;
 using Application.Dtos.IdentityDtos.ProfileDtos;
-using Domain.Contracts.RequestParametersRelated;
-using Domain.Shared;
+using Application.Shared;
 using MediatR;
 
 namespace Application.Queries.Users.ListUsers;

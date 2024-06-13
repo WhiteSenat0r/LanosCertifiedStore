@@ -1,5 +1,5 @@
 ﻿using Application.Dtos.IdentityDtos.ProfileDtos;
-using Domain.Shared;
+using Application.Shared;
 using MediatR;
 
 namespace Application.Queries.Users.UserDetails;

@@ -1,6 +1,6 @@
 ﻿using Application.Dtos.Common;
 using Application.RequestParams;
-using Domain.Shared;
+using Application.Shared;
 using MediatR;
 
 namespace Application.Queries.Users.CountUsers;

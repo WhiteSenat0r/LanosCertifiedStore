@@ -1,5 +1,5 @@
 ﻿using Application.RequestParams;
-using Domain.Shared;
+using Application.Shared;
 using MediatR;
 
 namespace Application.Queries.Vehicles.VehiclePriceRangeQueryRelated;

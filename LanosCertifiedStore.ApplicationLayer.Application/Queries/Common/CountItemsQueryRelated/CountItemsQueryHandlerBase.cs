@@ -1,7 +1,7 @@
-﻿using Application.Dtos.Common;
+﻿using Application.Contracts.RepositoryRelated.Common;
+using Application.Dtos.Common;
+using Application.Shared;
 using Domain.Contracts.Common;
-using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Shared;
 
 namespace Application.Queries.Common.CountItemsQueryRelated;
 

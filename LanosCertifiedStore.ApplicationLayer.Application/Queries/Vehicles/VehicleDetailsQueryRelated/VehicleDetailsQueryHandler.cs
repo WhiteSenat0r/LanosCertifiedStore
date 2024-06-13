@@ -1,9 +1,9 @@
-﻿using Application.Dtos.VehicleDtos;
+﻿using Application.Contracts.RepositoryRelated.Common;
+using Application.Dtos.VehicleDtos;
 using Application.Queries.Common.DetailsQueryRelated;
+using Application.Shared;
 using AutoMapper;
-using Domain.Contracts.RepositoryRelated.Common;
 using Domain.Entities.VehicleRelated.Classes;
-using Domain.Shared;
 using MediatR;
 
 namespace Application.Queries.Vehicles.VehicleDetailsQueryRelated;

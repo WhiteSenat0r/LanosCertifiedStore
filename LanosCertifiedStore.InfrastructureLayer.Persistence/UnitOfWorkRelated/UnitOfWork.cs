@@ -1,7 +1,7 @@
 using System.Collections;
+using Application.Contracts.RepositoryRelated.Common;
 using AutoMapper;
 using Domain.Contracts.Common;
-using Domain.Contracts.RepositoryRelated.Common;
 using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.UnitOfWorkRelated.Common.Classes;
 

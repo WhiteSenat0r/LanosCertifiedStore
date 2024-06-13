@@ -1,7 +1,7 @@
-﻿using AutoMapper;
+﻿using Application.Contracts.RepositoryRelated.Common;
+using Application.Shared;
+using AutoMapper;
 using Domain.Contracts.Common;
-using Domain.Contracts.RepositoryRelated.Common;
-using Domain.Shared;
 
 namespace Application.Queries.Common.DetailsQueryRelated;
 

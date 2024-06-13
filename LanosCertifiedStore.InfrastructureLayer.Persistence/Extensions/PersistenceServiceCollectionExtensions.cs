@@ -1,4 +1,4 @@
-﻿using Domain.Contracts.RepositoryRelated.Common;
+﻿using Application.Contracts.RepositoryRelated.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

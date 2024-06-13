@@ -1,6 +1,6 @@
 ﻿using API.Responses;
-using Domain.Contracts.ValidationRelated;
-using Domain.Shared;
+using Application.Contracts.ValidationRelated;
+using Application.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.Common;

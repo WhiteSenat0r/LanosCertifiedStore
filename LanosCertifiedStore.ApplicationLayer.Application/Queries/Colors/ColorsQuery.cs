@@ -2,8 +2,8 @@
 using Application.Dtos.ColorDtos;
 using Application.Queries.Common.QueryRelated;
 using Application.RequestParams;
+using Application.Shared;
 using Domain.Entities.VehicleRelated.Classes;
-using Domain.Shared;
 using MediatR;
 
 namespace Application.Queries.Colors;
