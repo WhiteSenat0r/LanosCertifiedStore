@@ -1,7 +1,7 @@
-﻿using Application.RequestParams.Common.Classes;
-using Domain.Contracts.RequestParametersRelated.TypeRelated;
+﻿using Application.Contracts.RequestParametersRelated.TypeRelated;
+using Application.Enums.RequestParametersRelated.TypeRelated;
+using Application.RequestParams.Common.Classes;
 using Domain.Entities.VehicleRelated.Classes.TypeRelated;
-using Domain.Enums.RequestParametersRelated.TypeRelated;
 
 namespace Application.RequestParams.TypeRelated;
 

@@ -1,4 +1,4 @@
-﻿namespace Domain.Enums.RequestParametersRelated;
+﻿namespace Application.Enums.RequestParametersRelated;
 
 public enum VehicleSelectionProfile
 {
