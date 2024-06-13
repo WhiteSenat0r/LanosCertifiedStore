@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
-using Domain.Entities.UserRelated;
+using Domain.Models.UserRelated;
 
 namespace Application.Contracts.RequestParametersRelated;
 

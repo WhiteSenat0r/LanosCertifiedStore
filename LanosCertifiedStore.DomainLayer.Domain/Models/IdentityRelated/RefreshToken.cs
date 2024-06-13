@@ -1,7 +1,7 @@
 ﻿using Domain.Contracts.Common;
-using Domain.Entities.UserRelated;
+using Domain.Models.UserRelated;
 
-namespace Domain.Entities.IdentityRelated;
+namespace Domain.Models.IdentityRelated;
 
 public sealed class RefreshToken : IIdentifiable<Guid>
 {

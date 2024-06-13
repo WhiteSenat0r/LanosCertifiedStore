@@ -1,4 +1,4 @@
-﻿using Domain.Entities.VehicleRelated.Classes.Common.Classes;
+﻿using Domain.Models.VehicleRelated.Classes.Common.Classes;
 
 namespace Persistence.DataModels.VehicleRelated.LocationRelated;
 

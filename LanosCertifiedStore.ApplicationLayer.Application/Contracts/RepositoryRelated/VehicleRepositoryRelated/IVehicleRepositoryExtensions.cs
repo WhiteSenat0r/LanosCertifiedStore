@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Models.VehicleRelated.Classes;
 
 namespace Application.Contracts.RepositoryRelated.VehicleRepositoryRelated;
 

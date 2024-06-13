@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
 using Application.Dtos.Common;
 using Application.Shared;
-using Domain.Entities.UserRelated;
+using Domain.Models.UserRelated;
 using MediatR;
 
 namespace Application.Queries.Users.CountUsers;

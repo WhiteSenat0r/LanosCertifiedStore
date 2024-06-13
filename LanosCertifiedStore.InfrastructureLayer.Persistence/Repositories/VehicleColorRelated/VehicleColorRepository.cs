@@ -3,7 +3,7 @@ using Application.Contracts.RequestParametersRelated;
 using Application.Enums.RequestParametersRelated;
 using Application.RequestParams;
 using AutoMapper;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Models.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.DataModels.VehicleRelated;

@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.RequestParametersRelated;
 using Application.Enums.RequestParametersRelated;
 using Application.RequestParams.Common.Classes;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Models.VehicleRelated.Classes;
 
 namespace Application.RequestParams;
 

@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
 using Application.Helpers.ValidationRelated.Common.Contracts;
 using Domain.Contracts.Common;
-using Domain.Entities.VehicleRelated.Classes.Common.Classes;
+using Domain.Models.VehicleRelated.Classes.Common.Classes;
 
 namespace Application.Helpers.ValidationRelated;
 

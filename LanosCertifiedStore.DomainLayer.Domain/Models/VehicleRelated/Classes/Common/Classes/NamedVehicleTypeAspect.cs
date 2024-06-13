@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities.VehicleRelated.Classes.Common.Classes;
+﻿namespace Domain.Models.VehicleRelated.Classes.Common.Classes;
 
 public abstract class NamedVehicleTypeAspect : NamedVehicleAspect
 {

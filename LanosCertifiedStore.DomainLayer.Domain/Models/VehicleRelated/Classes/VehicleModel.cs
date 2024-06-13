@@ -1,7 +1,7 @@
-﻿using Domain.Entities.VehicleRelated.Classes.Common.Classes;
-using Domain.Entities.VehicleRelated.Classes.TypeRelated;
+﻿using Domain.Models.VehicleRelated.Classes.Common.Classes;
+using Domain.Models.VehicleRelated.Classes.TypeRelated;
 
-namespace Domain.Entities.VehicleRelated.Classes;
+namespace Domain.Models.VehicleRelated.Classes;
 
 public sealed class VehicleModel : NamedVehicleAspect
 {

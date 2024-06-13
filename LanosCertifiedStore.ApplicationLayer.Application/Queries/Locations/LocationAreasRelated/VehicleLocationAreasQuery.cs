@@ -3,7 +3,7 @@ using Application.Core.Results;
 using Application.Dtos.LocationDtos;
 using Application.Queries.Common.QueryRelated;
 using Application.Shared;
-using Domain.Entities.VehicleRelated.Classes.LocationRelated;
+using Domain.Models.VehicleRelated.Classes.LocationRelated;
 using MediatR;
 
 namespace Application.Queries.Locations.LocationAreasRelated;

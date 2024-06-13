@@ -1,8 +1,8 @@
 ﻿using Domain.Contracts.Common;
-using Domain.Entities.VehicleRelated.Classes.LocationRelated;
-using Domain.Entities.VehicleRelated.Classes.TypeRelated;
+using Domain.Models.VehicleRelated.Classes.LocationRelated;
+using Domain.Models.VehicleRelated.Classes.TypeRelated;
 
-namespace Domain.Entities.VehicleRelated.Classes;
+namespace Domain.Models.VehicleRelated.Classes;
 
 public sealed class Vehicle : IIdentifiable<Guid>
 {

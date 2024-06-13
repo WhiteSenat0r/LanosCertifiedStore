@@ -1,4 +1,4 @@
-﻿using Domain.Entities.VehicleRelated.Classes.LocationRelated;
+﻿using Domain.Models.VehicleRelated.Classes.LocationRelated;
 using Persistence.DataModels.VehicleRelated.LocationRelated;
 using Persistence.MappingHelpers.VehicleRelated.LocationRelated.Common.Classes;
 

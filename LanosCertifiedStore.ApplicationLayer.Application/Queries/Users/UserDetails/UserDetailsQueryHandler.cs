@@ -2,7 +2,7 @@
 using Application.Dtos.IdentityDtos.ProfileDtos;
 using Application.Shared;
 using AutoMapper;
-using Domain.Entities.UserRelated;
+using Domain.Models.UserRelated;
 using MediatR;
 
 namespace Application.Queries.Users.UserDetails;

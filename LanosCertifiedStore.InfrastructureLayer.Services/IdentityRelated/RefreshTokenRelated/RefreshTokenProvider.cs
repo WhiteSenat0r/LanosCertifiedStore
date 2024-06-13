@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 using Application.Contracts.ServicesRelated.IdentityRelated;
-using Domain.Entities.IdentityRelated;
+using Domain.Models.IdentityRelated;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated.RefreshTokenRelated;
 

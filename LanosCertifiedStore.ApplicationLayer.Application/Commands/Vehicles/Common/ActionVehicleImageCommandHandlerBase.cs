@@ -1,7 +1,7 @@
 ﻿using Application.Commands.Common;
 using Application.Contracts.RepositoryRelated.Common;
 using Application.Shared;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Models.VehicleRelated.Classes;
 using MediatR;
 
 namespace Application.Commands.Vehicles.Common;

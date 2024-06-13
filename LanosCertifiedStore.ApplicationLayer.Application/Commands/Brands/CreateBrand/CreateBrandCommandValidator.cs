@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
 using Application.Helpers.ValidationRelated.Common.Contracts;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Models.VehicleRelated.Classes;
 using FluentValidation;
 
 namespace Application.Commands.Brands.CreateBrand;

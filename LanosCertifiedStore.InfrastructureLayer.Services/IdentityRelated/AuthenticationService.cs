@@ -2,7 +2,7 @@
 using Application.Contracts.ServicesRelated.IdentityRelated;
 using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using Application.RequestParams;
-using Domain.Entities.UserRelated;
+using Domain.Models.UserRelated;
 using LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated.JwtTokenRelated;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;

@@ -1,6 +1,6 @@
 ﻿using Domain.Contracts.Common;
 
-namespace Domain.Entities.VehicleRelated.Classes;
+namespace Domain.Models.VehicleRelated.Classes;
 
 public sealed class VehiclePrice : IIdentifiable<Guid>
 {

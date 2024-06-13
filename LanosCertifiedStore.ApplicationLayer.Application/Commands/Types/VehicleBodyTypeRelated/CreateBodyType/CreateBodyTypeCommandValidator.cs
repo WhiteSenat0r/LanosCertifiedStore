@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
 using Application.Helpers.ValidationRelated.Common.Contracts;
-using Domain.Entities.VehicleRelated.Classes.TypeRelated;
+using Domain.Models.VehicleRelated.Classes.TypeRelated;
 using FluentValidation;
 
 namespace Application.Commands.Types.VehicleBodyTypeRelated.CreateBodyType;

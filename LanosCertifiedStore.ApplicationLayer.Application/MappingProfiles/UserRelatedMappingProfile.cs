@@ -1,7 +1,7 @@
 ﻿using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using Application.Dtos.IdentityDtos.ProfileDtos;
 using AutoMapper;
-using Domain.Entities.UserRelated;
+using Domain.Models.UserRelated;
 
 namespace Application.MappingProfiles;
 

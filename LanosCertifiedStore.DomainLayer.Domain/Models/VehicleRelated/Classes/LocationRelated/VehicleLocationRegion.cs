@@ -1,6 +1,6 @@
-﻿using Domain.Entities.VehicleRelated.Classes.Common.Classes;
+﻿using Domain.Models.VehicleRelated.Classes.Common.Classes;
 
-namespace Domain.Entities.VehicleRelated.Classes.LocationRelated;
+namespace Domain.Models.VehicleRelated.Classes.LocationRelated;
 
 public sealed class VehicleLocationRegion : NamedVehicleAspect
 {

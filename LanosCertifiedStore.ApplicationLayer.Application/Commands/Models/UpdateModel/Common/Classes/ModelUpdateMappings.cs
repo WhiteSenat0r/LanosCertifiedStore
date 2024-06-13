@@ -1,5 +1,5 @@
-﻿using Domain.Entities.VehicleRelated.Classes;
-using Domain.Entities.VehicleRelated.Classes.TypeRelated;
+﻿using Domain.Models.VehicleRelated.Classes;
+using Domain.Models.VehicleRelated.Classes.TypeRelated;
 
 namespace Application.Commands.Models.UpdateModel.Common.Classes;
 

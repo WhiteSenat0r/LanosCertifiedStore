@@ -1,6 +1,6 @@
 ﻿using Domain.Contracts.Common;
 
-namespace Domain.Entities.UserRelated;
+namespace Domain.Models.UserRelated;
 
 public sealed class User : IIdentifiable<Guid>
 {

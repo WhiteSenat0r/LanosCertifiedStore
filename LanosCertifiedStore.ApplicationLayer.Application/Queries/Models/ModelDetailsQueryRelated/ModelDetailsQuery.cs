@@ -1,7 +1,7 @@
 ﻿using Application.Dtos.ModelDtos;
 using Application.Queries.Common.DetailsQueryRelated;
 using Application.Shared;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Models.VehicleRelated.Classes;
 using MediatR;
 
 namespace Application.Queries.Models.ModelDetailsQueryRelated;

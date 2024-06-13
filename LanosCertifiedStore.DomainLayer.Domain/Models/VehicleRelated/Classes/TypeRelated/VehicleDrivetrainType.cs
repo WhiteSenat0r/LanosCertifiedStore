@@ -1,6 +1,6 @@
-﻿using Domain.Entities.VehicleRelated.Classes.Common.Classes;
+﻿using Domain.Models.VehicleRelated.Classes.Common.Classes;
 
-namespace Domain.Entities.VehicleRelated.Classes.TypeRelated;
+namespace Domain.Models.VehicleRelated.Classes.TypeRelated;
 
 public sealed class VehicleDrivetrainType : NamedVehicleTypeAspect
 {

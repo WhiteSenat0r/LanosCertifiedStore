@@ -1,6 +1,6 @@
 ﻿using Application.Dtos.LocationDtos;
 using AutoMapper;
-using Domain.Entities.VehicleRelated.Classes.LocationRelated;
+using Domain.Models.VehicleRelated.Classes.LocationRelated;
 
 namespace Application.MappingProfiles;
 

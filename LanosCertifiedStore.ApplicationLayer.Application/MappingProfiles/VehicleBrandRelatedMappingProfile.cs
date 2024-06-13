@@ -1,6 +1,6 @@
 ﻿using Application.Dtos.BrandDtos;
 using AutoMapper;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Models.VehicleRelated.Classes;
 
 namespace Application.MappingProfiles;
 

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Domain.Entities.IdentityRelated;
-using Domain.Entities.UserRelated;
+using Domain.Models.IdentityRelated;
+using Domain.Models.UserRelated;
 using Persistence.DataModels.IdentityRelated;
 
 namespace Persistence.MappingHelpers.IdentityRelated;

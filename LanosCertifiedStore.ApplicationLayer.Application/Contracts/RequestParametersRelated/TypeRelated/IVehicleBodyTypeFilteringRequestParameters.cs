@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
 using Application.Enums.RequestParametersRelated.TypeRelated;
-using Domain.Entities.VehicleRelated.Classes.TypeRelated;
+using Domain.Models.VehicleRelated.Classes.TypeRelated;
 
 namespace Application.Contracts.RequestParametersRelated.TypeRelated;
 

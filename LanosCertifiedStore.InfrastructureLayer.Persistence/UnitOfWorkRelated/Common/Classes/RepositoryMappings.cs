@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
-using Domain.Entities.VehicleRelated.Classes;
-using Domain.Entities.VehicleRelated.Classes.LocationRelated;
-using Domain.Entities.VehicleRelated.Classes.TypeRelated;
+using Domain.Models.VehicleRelated.Classes;
+using Domain.Models.VehicleRelated.Classes.LocationRelated;
+using Domain.Models.VehicleRelated.Classes.TypeRelated;
 using Persistence.Repositories.LocationRelated.LocationAreaRelated;
 using Persistence.Repositories.LocationRelated.LocationRegionRelated;
 using Persistence.Repositories.LocationRelated.LocationTownRelated;

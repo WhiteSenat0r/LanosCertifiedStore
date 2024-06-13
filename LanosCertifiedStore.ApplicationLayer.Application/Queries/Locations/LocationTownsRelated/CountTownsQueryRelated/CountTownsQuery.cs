@@ -2,7 +2,7 @@
 using Application.Dtos.Common;
 using Application.Queries.Common.CountItemsQueryRelated;
 using Application.Shared;
-using Domain.Entities.VehicleRelated.Classes.LocationRelated;
+using Domain.Models.VehicleRelated.Classes.LocationRelated;
 using MediatR;
 
 namespace Application.Queries.Locations.LocationTownsRelated.CountTownsQueryRelated;

@@ -3,7 +3,7 @@ using Application.Core.Results;
 using Application.Dtos.TypeDtos;
 using Application.Queries.Common.QueryRelated;
 using Application.Shared;
-using Domain.Entities.VehicleRelated.Classes.TypeRelated;
+using Domain.Models.VehicleRelated.Classes.TypeRelated;
 using MediatR;
 
 namespace Application.Queries.Types.VehicleBodyTypeRelated;

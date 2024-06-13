@@ -2,7 +2,7 @@
 using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using Application.Shared;
 using AutoMapper;
-using Domain.Entities.UserRelated;
+using Domain.Models.UserRelated;
 using MediatR;
 
 namespace Application.Commands.Identity.Authentication.Login;

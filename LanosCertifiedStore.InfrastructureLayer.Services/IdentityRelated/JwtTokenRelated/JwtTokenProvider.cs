@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using Application.Contracts.ServicesRelated.IdentityRelated;
-using Domain.Entities.UserRelated;
+using Domain.Models.UserRelated;
 using Microsoft.IdentityModel.Tokens;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated.JwtTokenRelated;

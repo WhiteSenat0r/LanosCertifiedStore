@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.RequestParametersRelated.LocationRelated;
 using Application.Enums.RequestParametersRelated.LocationRelated;
 using Application.RequestParams.Common.Classes;
-using Domain.Entities.VehicleRelated.Classes.LocationRelated;
+using Domain.Models.VehicleRelated.Classes.LocationRelated;
 
 namespace Application.RequestParams.LocationRelated;
 

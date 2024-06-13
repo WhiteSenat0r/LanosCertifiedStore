@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Domain.Entities.UserRelated;
+using Domain.Models.UserRelated;
 using Persistence.DataModels.UserRelated;
 
 namespace Persistence.MappingHelpers.UserRelated;

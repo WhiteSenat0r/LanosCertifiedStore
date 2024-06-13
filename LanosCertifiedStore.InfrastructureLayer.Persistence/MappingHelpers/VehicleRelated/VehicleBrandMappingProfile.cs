@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Domain.Entities.VehicleRelated.Classes;
+using Domain.Models.VehicleRelated.Classes;
 using Persistence.DataModels.VehicleRelated;
 
 namespace Persistence.MappingHelpers.VehicleRelated;
