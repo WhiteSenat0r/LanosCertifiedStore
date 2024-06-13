@@ -1,6 +1,6 @@
-﻿using Domain.Shared;
+﻿using Application.Shared;
 
-namespace Domain.Contracts.ValidationRelated;
+namespace Application.Contracts.ValidationRelated;
 
 public interface IValidationResult
 {

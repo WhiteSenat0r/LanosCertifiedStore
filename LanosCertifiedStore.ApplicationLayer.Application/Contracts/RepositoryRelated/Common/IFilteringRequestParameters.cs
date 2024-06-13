@@ -1,6 +1,6 @@
 ﻿using Domain.Contracts.Common;
 
-namespace Domain.Contracts.RepositoryRelated.Common;
+namespace Application.Contracts.RepositoryRelated.Common;
 
 public interface IFilteringRequestParameters<TEntity>
     where TEntity : IIdentifiable<Guid>

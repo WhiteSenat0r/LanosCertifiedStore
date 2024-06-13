@@ -1,8 +1,8 @@
-﻿using Domain.Contracts.RepositoryRelated.Common;
+﻿using Application.Contracts.RepositoryRelated.Common;
+using Application.Enums.RequestParametersRelated.LocationRelated;
 using Domain.Entities.VehicleRelated.Classes.LocationRelated;
-using Domain.Enums.RequestParametersRelated.LocationRelated;
 
-namespace Domain.Contracts.RequestParametersRelated.LocationRelated;
+namespace Application.Contracts.RequestParametersRelated.LocationRelated;
 
 public interface IVehicleLocationRegionFilteringRequestParameters : IFilteringRequestParameters<VehicleLocationRegion>
 {
