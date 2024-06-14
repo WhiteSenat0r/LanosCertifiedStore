@@ -2,24 +2,24 @@
 using Application.Contracts.RequestParametersRelated;
 using Application.Enums.RequestParametersRelated;
 using Domain.Models.VehicleRelated.Classes;
-using Persistence.DataModels.VehicleRelated;
+using Persistence.Entities.VehicleRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleBrandRelated.QueryBuilderRelated.Common.Classes;
 
 internal class VehicleBrandSelectionProfiles : 
-    BaseSelectionProfiles<VehicleBrandSelectionProfile, VehicleBrand, VehicleBrandDataModel>
+    BaseSelectionProfiles<VehicleBrandSelectionProfile, VehicleBrand, VehicleBrandEntity>
 {
     private readonly Dictionary<VehicleBrandSelectionProfile,
-            Func<IQueryable<VehicleBrandDataModel>, IQueryable<VehicleBrandDataModel>>>
+            Func<IQueryable<VehicleBrandEntity>, IQueryable<VehicleBrandEntity>>>
         _mappedProfiles = new()
         {
             { VehicleBrandSelectionProfile.Default, GetCatalogProfileQueryable },
             { VehicleBrandSelectionProfile.Single, GetSingleProfileQueryable },
         };
 
-    public override IQueryable<VehicleBrandDataModel> GetSuitableSelectionProfileQueryable(
-        IQueryable<VehicleBrandDataModel> inputQueryable,
+    public override IQueryable<VehicleBrandEntity> GetSuitableSelectionProfileQueryable(
+        IQueryable<VehicleBrandEntity> inputQueryable,
         IFilteringRequestParameters<VehicleBrand>? requestParameters = null)
     {
         if (requestParameters is null) 
@@ -30,24 +30,24 @@ internal class VehicleBrandSelectionProfiles :
         return _mappedProfiles[brandRequestParams!.SelectionProfile](inputQueryable);
     }
 
-    private static IQueryable<VehicleBrandDataModel> GetCatalogProfileQueryable(
-        IQueryable<VehicleBrandDataModel> queryable) =>
-        queryable.Select(vehicleBrand => new VehicleBrandDataModel
+    private static IQueryable<VehicleBrandEntity> GetCatalogProfileQueryable(
+        IQueryable<VehicleBrandEntity> queryable) =>
+        queryable.Select(vehicleBrand => new VehicleBrandEntity
         {
             Id = vehicleBrand.Id,
             Name = vehicleBrand.Name
         });
     
-    private static IQueryable<VehicleBrandDataModel> GetSingleProfileQueryable(
-        IQueryable<VehicleBrandDataModel> queryable) =>
-        queryable.Select(vehicleBrand => new VehicleBrandDataModel
+    private static IQueryable<VehicleBrandEntity> GetSingleProfileQueryable(
+        IQueryable<VehicleBrandEntity> queryable) =>
+        queryable.Select(vehicleBrand => new VehicleBrandEntity
         {
             Id = vehicleBrand.Id,
             Name = vehicleBrand.Name,
-            Models = (vehicleBrand.Models.Select(vehicleModel => new VehicleModelDataModel
+            Models = (vehicleBrand.Models.Select(vehicleModel => new VehicleModelEntity
             {
                 Id = vehicleModel.Id,
                 Name = vehicleModel.Name
-            }) as ICollection<VehicleModelDataModel>)!
+            }) as ICollection<VehicleModelEntity>)!
         });
 }

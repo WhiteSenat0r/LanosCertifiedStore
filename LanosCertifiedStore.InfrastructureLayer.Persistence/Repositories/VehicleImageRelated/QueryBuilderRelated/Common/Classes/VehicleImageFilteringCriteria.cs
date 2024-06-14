@@ -2,15 +2,15 @@
 using Application.Contracts.RepositoryRelated.Common;
 using Application.Contracts.RequestParametersRelated;
 using Domain.Models.VehicleRelated.Classes;
-using Persistence.DataModels.VehicleRelated;
+using Persistence.Entities.VehicleRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleImageRelated.QueryBuilderRelated.Common.Classes;
 
 internal sealed class VehicleImageFilteringCriteria 
-    : BaseFilteringCriteria<VehicleImage, VehicleImageDataModel, IVehicleImageFilteringRequestParameters>
+    : BaseFilteringCriteria<VehicleImage, VehicleImageEntity, IVehicleImageFilteringRequestParameters>
 { 
-    internal override Expression<Func<VehicleImageDataModel, bool>> GetCriteria(
+    internal override Expression<Func<VehicleImageEntity, bool>> GetCriteria(
         IFilteringRequestParameters<VehicleImage>? filteringRequestParameters)
     {
         if (filteringRequestParameters is not IVehicleImageFilteringRequestParameters requestParameters)
@@ -28,7 +28,7 @@ internal sealed class VehicleImageFilteringCriteria
             PredicateDelegates.Add(GetImageRelatedVehicleIdPredicate);
     }
     
-    private Expression<Func<VehicleImageDataModel, bool>> GetImageRelatedVehicleIdPredicate(
+    private Expression<Func<VehicleImageEntity, bool>> GetImageRelatedVehicleIdPredicate(
         IVehicleImageFilteringRequestParameters requestParameters) =>
         vehicleImage => vehicleImage.VehicleId.Equals(requestParameters.RelatedVehicleId!.Value);
 }

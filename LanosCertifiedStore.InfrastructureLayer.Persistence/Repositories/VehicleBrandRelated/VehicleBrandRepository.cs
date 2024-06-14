@@ -6,7 +6,7 @@ using AutoMapper;
 using Domain.Models.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.DataModels.VehicleRelated;
+using Persistence.Entities.VehicleRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.Common.Classes;
 using Persistence.Repositories.VehicleBrandRelated.QueryBuilderRelated;
@@ -17,7 +17,7 @@ namespace Persistence.Repositories.VehicleBrandRelated;
 internal sealed class VehicleBrandRepository(IMapper mapper, ApplicationDatabaseContext dbContext) :
     GenericRepository<VehicleBrandSelectionProfile,
         VehicleBrand,
-        VehicleBrandDataModel,
+        VehicleBrandEntity,
         IVehicleBrandFilteringRequestParameters>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleBrand>> GetAllEntitiesAsync(
@@ -27,13 +27,13 @@ internal sealed class VehicleBrandRepository(IMapper mapper, ApplicationDatabase
 
         var vehicleBrands = await vehicleBrandsQuery.AsNoTracking().ToListAsync();
         
-        return Mapper.Map<IReadOnlyList<VehicleBrandDataModel>, IReadOnlyList<VehicleBrand>>(vehicleBrands);
+        return Mapper.Map<IReadOnlyList<VehicleBrandEntity>, IReadOnlyList<VehicleBrand>>(vehicleBrands);
     }
 
     public override async Task<VehicleBrand?> GetEntityByIdAsync(Guid id)
     {
         var vehicleBrandQuery = QueryBuilder.GetSingleEntityQueryable(
-            id, Context.Set<VehicleBrandDataModel>(), new VehicleBrandFilteringRequestParameters
+            id, Context.Set<VehicleBrandEntity>(), new VehicleBrandFilteringRequestParameters
         {
             SelectionProfile = VehicleBrandSelectionProfile.Single
         });
@@ -41,7 +41,7 @@ internal sealed class VehicleBrandRepository(IMapper mapper, ApplicationDatabase
         var vehicleBrandModel = await vehicleBrandQuery.AsNoTracking().SingleOrDefaultAsync();
         
         return vehicleBrandModel is not null 
-            ? Mapper.Map<VehicleBrandDataModel, VehicleBrand>(vehicleBrandModel) 
+            ? Mapper.Map<VehicleBrandEntity, VehicleBrand>(vehicleBrandModel) 
             : null;
     }
 
@@ -49,19 +49,19 @@ internal sealed class VehicleBrandRepository(IMapper mapper, ApplicationDatabase
         IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters = null)
     {
         var countedQueryable = QueryBuilder.GetRelevantCountQueryable(
-            Context.Set<VehicleBrandDataModel>(), filteringRequestParameters);
+            Context.Set<VehicleBrandEntity>(), filteringRequestParameters);
 
         return countedQueryable.CountAsync();
     }
 
-    private protected override IQueryable<VehicleBrandDataModel> GetRelevantQueryable(
+    private protected override IQueryable<VehicleBrandEntity> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters) =>
         QueryBuilder.GetAllEntitiesQueryable(
-            Context.Set<VehicleBrandDataModel>(), filteringRequestParameters);
+            Context.Set<VehicleBrandEntity>(), filteringRequestParameters);
 
     private protected override BaseQueryBuilder<VehicleBrandSelectionProfile,
         VehicleBrand,
-        VehicleBrandDataModel, 
+        VehicleBrandEntity, 
         IVehicleBrandFilteringRequestParameters> GetQueryBuilder() =>
         new VehicleBrandQueryBuilder(
             new VehicleBrandSelectionProfiles(),

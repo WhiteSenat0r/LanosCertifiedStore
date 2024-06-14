@@ -1,10 +1,10 @@
-﻿using Persistence.DataModels.VehicleRelated;
+﻿using Persistence.Entities.VehicleRelated;
 
 namespace Persistence.SeedingData;
 
 internal static class SeedImages
 {
-    public static List<VehicleImageDataModel> GetImages(List<VehicleDataModel> vehicles) =>
+    public static List<VehicleImageEntity> GetImages(List<VehicleEntity> vehicles) =>
     [
         // Toyota Camry 2022 Sedan Black +
         new(

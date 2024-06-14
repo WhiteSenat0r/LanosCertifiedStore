@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Models.IdentityRelated;
 using Domain.Models.UserRelated;
-using Persistence.DataModels.IdentityRelated;
+using Persistence.Entities.IdentityRelated;
 
 namespace Persistence.MappingHelpers.IdentityRelated;
 
@@ -14,7 +14,7 @@ internal sealed class RefreshTokenMappingProfile : Profile
     }
 
     private void AddMappingProfileFromModelToEntity() =>
-        CreateMap<RefreshTokenDataModel, RefreshToken>();
+        CreateMap<RefreshTokenEntity, RefreshToken>();
 
     private void AddMappingProfileFromEntityToModel() =>
         CreateMap<User, RefreshToken>();

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Models.VehicleRelated.Classes.TypeRelated;
-using Persistence.DataModels.VehicleRelated.TypeRelated;
+using Persistence.Entities.VehicleRelated.TypeRelated;
 
 namespace Persistence.MappingHelpers.VehicleRelated.TypeRelated;
 
@@ -13,8 +13,8 @@ internal sealed class VehicleDrivetrainTypeMappingProfile : Profile
     }
 
     private void AddMappingProfileFromEntityToModel() => 
-        CreateMap<VehicleDrivetrainType, VehicleDrivetrainTypeDataModel>();
+        CreateMap<VehicleDrivetrainType, VehicleDrivetrainTypeEntity>();
 
     private void AddMappingProfileFromModelToEntity() => 
-        CreateMap<VehicleDrivetrainTypeDataModel, VehicleDrivetrainType>();
+        CreateMap<VehicleDrivetrainTypeEntity, VehicleDrivetrainType>();
 }

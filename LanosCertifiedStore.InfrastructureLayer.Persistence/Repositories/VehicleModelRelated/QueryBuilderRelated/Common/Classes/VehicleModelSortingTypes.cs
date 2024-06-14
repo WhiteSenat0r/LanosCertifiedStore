@@ -1,11 +1,11 @@
 ﻿using System.Linq.Expressions;
-using Persistence.DataModels.VehicleRelated;
+using Persistence.Entities.VehicleRelated;
 
 namespace Persistence.Repositories.VehicleModelRelated.QueryBuilderRelated.Common.Classes;
 
 internal abstract class VehicleModelSortingTypes
 {
-    public static readonly Dictionary<string, Expression<Func<VehicleModelDataModel, object>>> 
+    public static readonly Dictionary<string, Expression<Func<VehicleModelEntity, object>>> 
         Options = new()
     {
         { "name-asc", vehicleModel => vehicleModel.Name },

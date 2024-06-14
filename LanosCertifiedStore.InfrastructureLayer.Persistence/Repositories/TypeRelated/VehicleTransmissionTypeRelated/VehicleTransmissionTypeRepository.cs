@@ -6,7 +6,7 @@ using AutoMapper;
 using Domain.Models.VehicleRelated.Classes.TypeRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.DataModels.VehicleRelated.TypeRelated;
+using Persistence.Entities.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.Common.Classes;
 using Persistence.Repositories.TypeRelated.VehicleTransmissionTypeRelated.QueryBuilderRelated;
@@ -17,7 +17,7 @@ namespace Persistence.Repositories.TypeRelated.VehicleTransmissionTypeRelated;
 internal class VehicleTransmissionTypeRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
     : GenericRepository<VehicleTransmissionTypeSelectionProfile,
         VehicleTransmissionType,
-        VehicleTransmissionTypeDataModel,
+        VehicleTransmissionTypeEntity,
         IVehicleTransmissionTypeFilteringRequestParameters>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleTransmissionType>> GetAllEntitiesAsync(
@@ -27,7 +27,7 @@ internal class VehicleTransmissionTypeRepository(IMapper mapper, ApplicationData
 
         var vehicleTransmissionTypeModels = await vehicleTransmissionTypeModelsQuery.AsNoTracking().ToListAsync();
         
-        return Mapper.Map<IReadOnlyList<VehicleTransmissionTypeDataModel>, IReadOnlyList<VehicleTransmissionType>>
+        return Mapper.Map<IReadOnlyList<VehicleTransmissionTypeEntity>, IReadOnlyList<VehicleTransmissionType>>
             (vehicleTransmissionTypeModels);
     }
 
@@ -35,7 +35,7 @@ internal class VehicleTransmissionTypeRepository(IMapper mapper, ApplicationData
     {
         var vehicleTransmissionTypeModelQuery = QueryBuilder.GetSingleEntityQueryable(
             id, 
-            Context.Set<VehicleTransmissionTypeDataModel>(),
+            Context.Set<VehicleTransmissionTypeEntity>(),
             new VehicleTransmissionTypeFilteringRequestParameters());
 
         var vehicleTransmissionTypeModel = await vehicleTransmissionTypeModelQuery
@@ -43,7 +43,7 @@ internal class VehicleTransmissionTypeRepository(IMapper mapper, ApplicationData
             .SingleOrDefaultAsync();
         
         return vehicleTransmissionTypeModel is not null 
-            ? Mapper.Map<VehicleTransmissionTypeDataModel, VehicleTransmissionType>(vehicleTransmissionTypeModel) 
+            ? Mapper.Map<VehicleTransmissionTypeEntity, VehicleTransmissionType>(vehicleTransmissionTypeModel) 
             : null;
     }
 
@@ -51,19 +51,19 @@ internal class VehicleTransmissionTypeRepository(IMapper mapper, ApplicationData
         IFilteringRequestParameters<VehicleTransmissionType>? filteringRequestParameters = null)
     {
         var countedQueryable = QueryBuilder.GetRelevantCountQueryable(
-            Context.Set<VehicleTransmissionTypeDataModel>(), filteringRequestParameters);
+            Context.Set<VehicleTransmissionTypeEntity>(), filteringRequestParameters);
 
         return countedQueryable.CountAsync();
     }
 
-    private protected override IQueryable<VehicleTransmissionTypeDataModel> GetRelevantQueryable(
+    private protected override IQueryable<VehicleTransmissionTypeEntity> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleTransmissionType>? filteringRequestParameters) =>
         QueryBuilder.GetAllEntitiesQueryable(
-            Context.Set<VehicleTransmissionTypeDataModel>(), filteringRequestParameters);
+            Context.Set<VehicleTransmissionTypeEntity>(), filteringRequestParameters);
 
     private protected override BaseQueryBuilder<VehicleTransmissionTypeSelectionProfile,
             VehicleTransmissionType,
-            VehicleTransmissionTypeDataModel,
+            VehicleTransmissionTypeEntity,
             IVehicleTransmissionTypeFilteringRequestParameters>
         GetQueryBuilder() =>
         new VehicleTransmissionTypeQueryBuilder(

@@ -7,7 +7,7 @@ using AutoMapper;
 using Domain.Models.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.DataModels.VehicleRelated;
+using Persistence.Entities.VehicleRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.Common.Classes;
 using Persistence.Repositories.VehicleRelated.QueryBuilderRelated;
@@ -18,7 +18,7 @@ namespace Persistence.Repositories.VehicleRelated;
 internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
     : GenericRepository<VehicleSelectionProfile,
         Vehicle,
-        VehicleDataModel, 
+        VehicleEntity, 
         IVehicleFilteringRequestParameters>(mapper, dbContext),
         IVehicleRepositoryExtensions
 {
@@ -29,13 +29,13 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
 
         var vehicleModels = await vehicleModelsQuery.AsNoTracking().ToListAsync();
 
-        return Mapper.Map<IReadOnlyList<VehicleDataModel>, IReadOnlyList<Vehicle>>(vehicleModels);
+        return Mapper.Map<IReadOnlyList<VehicleEntity>, IReadOnlyList<Vehicle>>(vehicleModels);
     }
 
     public override async Task<Vehicle?> GetEntityByIdAsync(Guid id)
     {
         var vehicleModelQuery = QueryBuilder.GetSingleEntityQueryable(
-            id, Context.Set<VehicleDataModel>(), new VehicleFilteringRequestParameters
+            id, Context.Set<VehicleEntity>(), new VehicleFilteringRequestParameters
             {
                 SelectionProfile = VehicleSelectionProfile.Single
             });
@@ -43,32 +43,32 @@ internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbCo
         var vehicleModel = await vehicleModelQuery.AsNoTracking().SingleOrDefaultAsync();
 
         return vehicleModel is not null
-            ? Mapper.Map<VehicleDataModel, Vehicle>(vehicleModel)
+            ? Mapper.Map<VehicleEntity, Vehicle>(vehicleModel)
             : null;
     }
 
     public Task<IDictionary<string, decimal>> GetPriceRange(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters = null!) =>
         (QueryBuilder as VehicleQueryBuilder)!.GetPriceRange(
-            Context.Set<VehicleDataModel>(), filteringRequestParameters);
+            Context.Set<VehicleEntity>(), filteringRequestParameters);
 
     public override Task<int> CountAsync(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters = null)
     {
         var countedQueryable = QueryBuilder.GetRelevantCountQueryable(
-            Context.Set<VehicleDataModel>(), filteringRequestParameters);
+            Context.Set<VehicleEntity>(), filteringRequestParameters);
 
         return countedQueryable.CountAsync();
     }
 
-    private protected override IQueryable<VehicleDataModel> GetRelevantQueryable(
+    private protected override IQueryable<VehicleEntity> GetRelevantQueryable(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters) =>
         QueryBuilder.GetAllEntitiesQueryable(
-            Context.Set<VehicleDataModel>(), filteringRequestParameters);
+            Context.Set<VehicleEntity>(), filteringRequestParameters);
 
     private protected override BaseQueryBuilder<VehicleSelectionProfile,
             Vehicle,
-            VehicleDataModel,
+            VehicleEntity,
             IVehicleFilteringRequestParameters>
         GetQueryBuilder() =>
         new VehicleQueryBuilder(new VehicleSelectionProfiles(), new VehicleFilteringCriteria());

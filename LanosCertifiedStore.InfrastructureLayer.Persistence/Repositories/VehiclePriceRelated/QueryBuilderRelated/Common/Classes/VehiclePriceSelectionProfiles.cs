@@ -2,24 +2,24 @@
 using Application.Contracts.RequestParametersRelated;
 using Application.Enums.RequestParametersRelated;
 using Domain.Models.VehicleRelated.Classes;
-using Persistence.DataModels.VehicleRelated;
+using Persistence.Entities.VehicleRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehiclePriceRelated.QueryBuilderRelated.Common.Classes;
 
 internal class VehiclePriceSelectionProfiles : 
-    BaseSelectionProfiles<VehiclePriceSelectionProfile, VehiclePrice, VehiclePriceDataModel>
+    BaseSelectionProfiles<VehiclePriceSelectionProfile, VehiclePrice, VehiclePriceEntity>
 {
     private readonly Dictionary<VehiclePriceSelectionProfile,
-            Func<IQueryable<VehiclePriceDataModel>, IQueryable<VehiclePriceDataModel>>>
+            Func<IQueryable<VehiclePriceEntity>, IQueryable<VehiclePriceEntity>>>
         _mappedProfiles = new()
         {
             { VehiclePriceSelectionProfile.Default, GetDefaultProfileQueryable },
             { VehiclePriceSelectionProfile.Full, GetFullProfileQueryable },
         };
 
-    public override IQueryable<VehiclePriceDataModel> GetSuitableSelectionProfileQueryable(
-        IQueryable<VehiclePriceDataModel> inputQueryable,
+    public override IQueryable<VehiclePriceEntity> GetSuitableSelectionProfileQueryable(
+        IQueryable<VehiclePriceEntity> inputQueryable,
         IFilteringRequestParameters<VehiclePrice>? requestParameters = null)
     {
         if (requestParameters is null) 
@@ -30,17 +30,17 @@ internal class VehiclePriceSelectionProfiles :
         return _mappedProfiles[brandRequestParams!.SelectionProfile](inputQueryable);
     }
 
-    private static IQueryable<VehiclePriceDataModel> GetDefaultProfileQueryable(
-        IQueryable<VehiclePriceDataModel> queryable) =>
-        queryable.Select(vehiclePrice => new VehiclePriceDataModel
+    private static IQueryable<VehiclePriceEntity> GetDefaultProfileQueryable(
+        IQueryable<VehiclePriceEntity> queryable) =>
+        queryable.Select(vehiclePrice => new VehiclePriceEntity
         {
             Id = vehiclePrice.Id,
             Value = vehiclePrice.Value
         });
     
-    private static IQueryable<VehiclePriceDataModel> GetFullProfileQueryable(
-        IQueryable<VehiclePriceDataModel> queryable) =>
-        queryable.Select(vehiclePrice => new VehiclePriceDataModel
+    private static IQueryable<VehiclePriceEntity> GetFullProfileQueryable(
+        IQueryable<VehiclePriceEntity> queryable) =>
+        queryable.Select(vehiclePrice => new VehiclePriceEntity
         {
             Id = vehiclePrice.Id,
             Value = vehiclePrice.Value,

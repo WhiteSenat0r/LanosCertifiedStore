@@ -2,15 +2,15 @@
 using Application.Contracts.RepositoryRelated.Common;
 using Application.Contracts.RequestParametersRelated.TypeRelated;
 using Domain.Models.VehicleRelated.Classes.TypeRelated;
-using Persistence.DataModels.VehicleRelated.TypeRelated;
+using Persistence.Entities.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.TypeRelated.VehicleTypeRelated.QueryBuilderRelated.Common.Classes;
 
 internal sealed class VehicleTypeFilteringCriteria : 
-    BaseFilteringCriteria<VehicleType, VehicleTypeDataModel, IVehicleTypeFilteringRequestParameters>
+    BaseFilteringCriteria<VehicleType, VehicleTypeEntity, IVehicleTypeFilteringRequestParameters>
 { 
-    internal override Expression<Func<VehicleTypeDataModel, bool>> GetCriteria(
+    internal override Expression<Func<VehicleTypeEntity, bool>> GetCriteria(
         IFilteringRequestParameters<VehicleType>? filteringRequestParameters)
     { 
         var vehicleTypeFilteringParameters = filteringRequestParameters as IVehicleTypeFilteringRequestParameters;
@@ -27,7 +27,7 @@ internal sealed class VehicleTypeFilteringCriteria :
             PredicateDelegates.Add(GetNamePredicate);
     }
 
-    private Expression<Func<VehicleTypeDataModel, bool>> GetNamePredicate(
+    private Expression<Func<VehicleTypeEntity, bool>> GetNamePredicate(
         IVehicleTypeFilteringRequestParameters requestParameters) =>
         vehicleType => vehicleType.Name.Equals(requestParameters.Name);
 }

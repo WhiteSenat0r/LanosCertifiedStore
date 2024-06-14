@@ -2,15 +2,15 @@
 using Application.Contracts.RepositoryRelated.Common;
 using Application.Contracts.RequestParametersRelated;
 using Domain.Models.VehicleRelated.Classes;
-using Persistence.DataModels.VehicleRelated;
+using Persistence.Entities.VehicleRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleRelated.QueryBuilderRelated.Common.Classes;
 
 internal sealed class VehicleFilteringCriteria : 
-    BaseFilteringCriteria<Vehicle, VehicleDataModel, IVehicleFilteringRequestParameters>
+    BaseFilteringCriteria<Vehicle, VehicleEntity, IVehicleFilteringRequestParameters>
 {
-    internal override Expression<Func<VehicleDataModel, bool>> GetCriteria(
+    internal override Expression<Func<VehicleEntity, bool>> GetCriteria(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters)
     {
         if (filteringRequestParameters is not IVehicleFilteringRequestParameters requestParameters)
@@ -43,28 +43,28 @@ internal sealed class VehicleFilteringCriteria :
             PredicateDelegates.Add(GetUpperPriceLimitPredicate);
     }
 
-    private Expression<Func<VehicleDataModel, bool>> GetBrandNamePredicate(
+    private Expression<Func<VehicleEntity, bool>> GetBrandNamePredicate(
         IVehicleFilteringRequestParameters requestParameters) =>
         vehicle => vehicle.Brand.Name.Equals(requestParameters.Brand);
     
-    private Expression<Func<VehicleDataModel, bool>> GetModelNamePredicate(
+    private Expression<Func<VehicleEntity, bool>> GetModelNamePredicate(
         IVehicleFilteringRequestParameters requestParameters) =>
         vehicle => vehicle.Model.Name.Equals(requestParameters.Model);
     
-    private Expression<Func<VehicleDataModel, bool>> GetTypeNamePredicate(
+    private Expression<Func<VehicleEntity, bool>> GetTypeNamePredicate(
         IVehicleFilteringRequestParameters requestParameters) =>
         vehicle => vehicle.VehicleType.Name.Equals(requestParameters.Type);
     
-    private Expression<Func<VehicleDataModel, bool>> GetColorNamePredicate(
+    private Expression<Func<VehicleEntity, bool>> GetColorNamePredicate(
         IVehicleFilteringRequestParameters requestParameters) =>
         vehicle => vehicle.Color.Name.Equals(requestParameters.Color);
     
-    private Expression<Func<VehicleDataModel, bool>> GetLowerPriceLimitPredicate(
+    private Expression<Func<VehicleEntity, bool>> GetLowerPriceLimitPredicate(
         IVehicleFilteringRequestParameters requestParameters) =>
         vehicle => vehicle.Prices.OrderByDescending(
             price => price.IssueDate).First().Value >= requestParameters.LowerPriceLimit!.Value;
     
-    private Expression<Func<VehicleDataModel, bool>> GetUpperPriceLimitPredicate(
+    private Expression<Func<VehicleEntity, bool>> GetUpperPriceLimitPredicate(
         IVehicleFilteringRequestParameters requestParameters) =>
         vehicle => vehicle.Prices.OrderByDescending(
             price => price.IssueDate).First().Value <= requestParameters.UpperPriceLimit!.Value;

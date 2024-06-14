@@ -6,7 +6,7 @@ using AutoMapper;
 using Domain.Models.VehicleRelated.Classes.TypeRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.DataModels.VehicleRelated.TypeRelated;
+using Persistence.Entities.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.Common.Classes;
 using Persistence.Repositories.TypeRelated.VehicleDrivetrainTypeRelated.QueryBuilderRelated;
@@ -17,7 +17,7 @@ namespace Persistence.Repositories.TypeRelated.VehicleDrivetrainTypeRelated;
 internal class VehicleDrivetrainTypeRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
     : GenericRepository<VehicleDrivetrainTypeSelectionProfile,
         VehicleDrivetrainType,
-        VehicleDrivetrainTypeDataModel,
+        VehicleDrivetrainTypeEntity,
         IVehicleDrivetrainTypeFilteringRequestParameters>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleDrivetrainType>> GetAllEntitiesAsync(
@@ -27,19 +27,19 @@ internal class VehicleDrivetrainTypeRepository(IMapper mapper, ApplicationDataba
 
         var vehicleDrivetrainTypeModels = await vehicleDrivetrainTypeModelsQuery.AsNoTracking().ToListAsync();
         
-        return Mapper.Map<IReadOnlyList<VehicleDrivetrainTypeDataModel>, IReadOnlyList<VehicleDrivetrainType>>(
+        return Mapper.Map<IReadOnlyList<VehicleDrivetrainTypeEntity>, IReadOnlyList<VehicleDrivetrainType>>(
             vehicleDrivetrainTypeModels);
     }
 
     public override async Task<VehicleDrivetrainType?> GetEntityByIdAsync(Guid id)
     {
         var vehicleDrivetrainTypeModelQuery = QueryBuilder.GetSingleEntityQueryable(
-            id, Context.Set<VehicleDrivetrainTypeDataModel>(), new VehicleDrivetrainTypeFilteringRequestParameters());
+            id, Context.Set<VehicleDrivetrainTypeEntity>(), new VehicleDrivetrainTypeFilteringRequestParameters());
 
         var vehicleDrivetrainTypeModel = await vehicleDrivetrainTypeModelQuery.AsNoTracking().SingleOrDefaultAsync();
         
         return vehicleDrivetrainTypeModel is not null 
-            ? Mapper.Map<VehicleDrivetrainTypeDataModel, VehicleDrivetrainType>(vehicleDrivetrainTypeModel) 
+            ? Mapper.Map<VehicleDrivetrainTypeEntity, VehicleDrivetrainType>(vehicleDrivetrainTypeModel) 
             : null;
     }
 
@@ -47,19 +47,19 @@ internal class VehicleDrivetrainTypeRepository(IMapper mapper, ApplicationDataba
         IFilteringRequestParameters<VehicleDrivetrainType>? filteringRequestParameters = null)
     {
         var countedQueryable = QueryBuilder.GetRelevantCountQueryable(
-            Context.Set<VehicleDrivetrainTypeDataModel>(), filteringRequestParameters);
+            Context.Set<VehicleDrivetrainTypeEntity>(), filteringRequestParameters);
 
         return countedQueryable.CountAsync();
     }
 
-    private protected override IQueryable<VehicleDrivetrainTypeDataModel> GetRelevantQueryable(
+    private protected override IQueryable<VehicleDrivetrainTypeEntity> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleDrivetrainType>? filteringRequestParameters) =>
         QueryBuilder.GetAllEntitiesQueryable(
-            Context.Set<VehicleDrivetrainTypeDataModel>(), filteringRequestParameters);
+            Context.Set<VehicleDrivetrainTypeEntity>(), filteringRequestParameters);
 
     private protected override BaseQueryBuilder<VehicleDrivetrainTypeSelectionProfile,
             VehicleDrivetrainType,
-            VehicleDrivetrainTypeDataModel,
+            VehicleDrivetrainTypeEntity,
             IVehicleDrivetrainTypeFilteringRequestParameters>
         GetQueryBuilder() =>
         new VehicleDrivetrainTypeQueryBuilder(

@@ -1,30 +1,30 @@
-﻿using Persistence.DataModels.VehicleRelated;
+﻿using Persistence.Entities.VehicleRelated;
 
 namespace Persistence.SeedingData;
 
 internal static class SeedBrands
 {
-    public static List<VehicleBrandDataModel> GetBrands() =>
+    public static List<VehicleBrandEntity> GetBrands() =>
     [
-        new VehicleBrandDataModel("Toyota"),
-        new VehicleBrandDataModel("Ford"),
-        new VehicleBrandDataModel("Honda"),
-        new VehicleBrandDataModel("Chevrolet"),
-        new VehicleBrandDataModel("Volkswagen"),
-        new VehicleBrandDataModel("Nissan"),
-        new VehicleBrandDataModel("BMW"),
-        new VehicleBrandDataModel("Mercedes-Benz"),
-        new VehicleBrandDataModel("Audi"),
-        new VehicleBrandDataModel("Hyundai"),
-        new VehicleBrandDataModel("Kia"),
-        new VehicleBrandDataModel("Mazda"),
-        new VehicleBrandDataModel("Subaru"),
-        new VehicleBrandDataModel("Lexus"),
-        new VehicleBrandDataModel("Jeep"),
-        new VehicleBrandDataModel("Tesla"),
-        new VehicleBrandDataModel("Volvo"),
-        new VehicleBrandDataModel("Porsche"),
-        new VehicleBrandDataModel("Ferrari"),
-        new VehicleBrandDataModel("Jaguar")
+        new VehicleBrandEntity("Toyota"),
+        new VehicleBrandEntity("Ford"),
+        new VehicleBrandEntity("Honda"),
+        new VehicleBrandEntity("Chevrolet"),
+        new VehicleBrandEntity("Volkswagen"),
+        new VehicleBrandEntity("Nissan"),
+        new VehicleBrandEntity("BMW"),
+        new VehicleBrandEntity("Mercedes-Benz"),
+        new VehicleBrandEntity("Audi"),
+        new VehicleBrandEntity("Hyundai"),
+        new VehicleBrandEntity("Kia"),
+        new VehicleBrandEntity("Mazda"),
+        new VehicleBrandEntity("Subaru"),
+        new VehicleBrandEntity("Lexus"),
+        new VehicleBrandEntity("Jeep"),
+        new VehicleBrandEntity("Tesla"),
+        new VehicleBrandEntity("Volvo"),
+        new VehicleBrandEntity("Porsche"),
+        new VehicleBrandEntity("Ferrari"),
+        new VehicleBrandEntity("Jaguar")
     ];
 }

@@ -7,8 +7,8 @@ using Domain.Contracts.Common;
 using Domain.Models.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.DataModels.VehicleRelated;
-using Persistence.DataModels.VehicleRelated.TypeRelated;
+using Persistence.Entities.VehicleRelated;
+using Persistence.Entities.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.Common.Classes;
 using Persistence.Repositories.VehicleModelRelated.QueryBuilderRelated;
@@ -19,7 +19,7 @@ namespace Persistence.Repositories.VehicleModelRelated;
 internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
     : GenericRepository<VehicleModelSelectionProfile,
         VehicleModel,
-        VehicleModelDataModel,
+        VehicleModelEntity,
         IVehicleModelFilteringRequestParameters>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleModel>> GetAllEntitiesAsync(
@@ -29,13 +29,13 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
 
         var vehicleModels = await vehicleModelsQuery.AsNoTracking().ToListAsync();
         
-        return Mapper.Map<IReadOnlyList<VehicleModelDataModel>, IReadOnlyList<VehicleModel>>(vehicleModels);
+        return Mapper.Map<IReadOnlyList<VehicleModelEntity>, IReadOnlyList<VehicleModel>>(vehicleModels);
     }
 
     public override async Task<VehicleModel?> GetEntityByIdAsync(Guid id)
     {
         var vehicleModelQuery = QueryBuilder.GetSingleEntityQueryable(
-            id, Context.Set<VehicleModelDataModel>(), new VehicleModelFilteringRequestParameters
+            id, Context.Set<VehicleModelEntity>(), new VehicleModelFilteringRequestParameters
             {
                 SelectionProfile = VehicleModelSelectionProfile.Single
             });
@@ -43,7 +43,7 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
         var vehicleModel = await vehicleModelQuery.AsNoTracking().SingleOrDefaultAsync();
         
         return vehicleModel is not null 
-            ? Mapper.Map<VehicleModelDataModel, VehicleModel>(vehicleModel) 
+            ? Mapper.Map<VehicleModelEntity, VehicleModel>(vehicleModel) 
             : null;
     }
 
@@ -53,7 +53,7 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
         {
            var model = await GetCreationPreparedModel(entity);
            
-           await Context.Set<VehicleModelDataModel>().AddAsync(model);
+           await Context.Set<VehicleModelEntity>().AddAsync(model);
         }
         catch (ArgumentNullException e)
         {
@@ -65,52 +65,52 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
     {
         var model = await GetUpdateModel(entity);
            
-        Context.Set<VehicleModelDataModel>().Update(model);
+        Context.Set<VehicleModelEntity>().Update(model);
     }
 
     public override Task<int> CountAsync(
         IFilteringRequestParameters<VehicleModel>? filteringRequestParameters = null)
     {
         var countedQueryable = QueryBuilder.GetRelevantCountQueryable(
-            Context.Set<VehicleModelDataModel>(),filteringRequestParameters);
+            Context.Set<VehicleModelEntity>(),filteringRequestParameters);
 
         return countedQueryable.CountAsync();
     }
     
-    private protected override IQueryable<VehicleModelDataModel> GetRelevantQueryable(
+    private protected override IQueryable<VehicleModelEntity> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleModel>? filteringRequestParameters) =>
         QueryBuilder.GetAllEntitiesQueryable(
-            Context.Set<VehicleModelDataModel>(),filteringRequestParameters);
+            Context.Set<VehicleModelEntity>(),filteringRequestParameters);
 
     private protected override BaseQueryBuilder<VehicleModelSelectionProfile,
             VehicleModel,
-            VehicleModelDataModel,
+            VehicleModelEntity,
             IVehicleModelFilteringRequestParameters> 
         GetQueryBuilder() =>
         new VehicleModelQueryBuilder(new VehicleModelSelectionProfiles(), new VehicleModelFilteringCriteria());
     
-    private async Task<VehicleModelDataModel> GetCreationPreparedModel(VehicleModel entity)
+    private async Task<VehicleModelEntity> GetCreationPreparedModel(VehicleModel entity)
     {
-        var mappedEntityModel = Mapper.Map<VehicleModel, VehicleModelDataModel>(entity);
+        var mappedEntityModel = Mapper.Map<VehicleModel, VehicleModelEntity>(entity);
 
-        await AssignCollectionToModel<VehicleBodyTypeDataModel>(mappedEntityModel);
-        await AssignCollectionToModel<VehicleEngineTypeDataModel>(mappedEntityModel);
-        await AssignCollectionToModel<VehicleTransmissionTypeDataModel>(mappedEntityModel);
-        await AssignCollectionToModel<VehicleDrivetrainTypeDataModel>(mappedEntityModel);
+        await AssignCollectionToModel<VehicleBodyTypeEntity>(mappedEntityModel);
+        await AssignCollectionToModel<VehicleEngineTypeEntity>(mappedEntityModel);
+        await AssignCollectionToModel<VehicleTransmissionTypeEntity>(mappedEntityModel);
+        await AssignCollectionToModel<VehicleDrivetrainTypeEntity>(mappedEntityModel);
 
         return mappedEntityModel;
     }
     
-    private async Task<VehicleModelDataModel> GetUpdateModel(VehicleModel entity)
+    private async Task<VehicleModelEntity> GetUpdateModel(VehicleModel entity)
     {
         var databaseModel = await QueryBuilder.GetSingleEntityQueryable(
             entity.Id, 
-            Context.Set<VehicleModelDataModel>(), new VehicleModelFilteringRequestParameters
+            Context.Set<VehicleModelEntity>(), new VehicleModelFilteringRequestParameters
             {
                 SelectionProfile = VehicleModelSelectionProfile.Single
             }).SingleOrDefaultAsync();
 
-        Context.Set<VehicleModelDataModel>().Attach(databaseModel!);
+        Context.Set<VehicleModelEntity>().Attach(databaseModel!);
 
         UpdateRelatesAspects(entity, databaseModel!);
         UpdateRelatedAspectCollections(entity, databaseModel!);
@@ -118,7 +118,7 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
         return databaseModel!;
     }
 
-    private void UpdateRelatedAspectCollections(VehicleModel entity, VehicleModelDataModel databaseModel)
+    private void UpdateRelatedAspectCollections(VehicleModel entity, VehicleModelEntity databaseModel)
     {
         UpdateRelatedAspectCollection(
             entity, databaseModel!, e => e.AvailableBodyTypes, m => m.AvailableBodyTypes);
@@ -130,7 +130,7 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
             entity, databaseModel!, e => e.AvailableEngineTypes, m => m.AvailableEngineTypes);
     }
 
-    private void UpdateRelatesAspects(VehicleModel entity, VehicleModelDataModel databaseModel)
+    private void UpdateRelatesAspects(VehicleModel entity, VehicleModelEntity databaseModel)
     {
         UpdateRelatedAspect(databaseModel!, entity, m => m.Name, e => e.Name, (m, e) => m.Name = e.Name);
         UpdateRelatedAspect(
@@ -148,11 +148,11 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
     }
 
     private void UpdateRelatedAspect<T>(
-        VehicleModelDataModel databaseModel,
+        VehicleModelEntity databaseModel,
         VehicleModel entityModel,
-        Func<VehicleModelDataModel, T> propertySelector,
+        Func<VehicleModelEntity, T> propertySelector,
         Func<VehicleModel, T> newValueSelector,
-        Action<VehicleModelDataModel, VehicleModel> propertyUpdateAction)
+        Action<VehicleModelEntity, VehicleModel> propertyUpdateAction)
     {
         if (!propertySelector(databaseModel)!.Equals(newValueSelector(entityModel)))
             propertyUpdateAction(databaseModel, entityModel);
@@ -161,9 +161,9 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
     
     private void UpdateRelatedAspectCollection<TEntity, TDataModel>(
         VehicleModel entity,
-        VehicleModelDataModel databaseVehicleModel,
+        VehicleModelEntity databaseVehicleModel,
         Func<VehicleModel, ICollection<TEntity>> entitySelector,
-        Func<VehicleModelDataModel, ICollection<TDataModel>> databaseModelSelector)
+        Func<VehicleModelEntity, ICollection<TDataModel>> databaseModelSelector)
         where TEntity : class, IIdentifiable<Guid>
         where TDataModel : class, IIdentifiable<Guid>
     {
@@ -180,11 +180,11 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
 
     private void AddSpecifiedAspectPartsToModel<TEntity, TDataModel>(
         VehicleModel entity, 
-        VehicleModelDataModel databaseVehicleModel,
+        VehicleModelEntity databaseVehicleModel,
         IEnumerable<Guid> entityModelIds,
         IEnumerable<Guid> databaseModelIds,
         Func<VehicleModel, ICollection<TEntity>> entitySelector,
-        Func<VehicleModelDataModel, ICollection<TDataModel>> databaseModelSelector)
+        Func<VehicleModelEntity, ICollection<TDataModel>> databaseModelSelector)
         where TEntity : class, IIdentifiable<Guid>
         where TDataModel : class, IIdentifiable<Guid>
     {
@@ -199,10 +199,10 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
     }
 
     private void RemoveSpecifiedAspectPartsFromModel<TDataModel>(
-        VehicleModelDataModel databaseVehicleModel, 
+        VehicleModelEntity databaseVehicleModel, 
         IEnumerable<Guid> databaseModelIds,
         IEnumerable<Guid> entityModelIds,
-        Func<VehicleModelDataModel, ICollection<TDataModel>> databaseModelSelector)
+        Func<VehicleModelEntity, ICollection<TDataModel>> databaseModelSelector)
         where TDataModel : class, IIdentifiable<Guid>
     {
         var idsFromModel = databaseModelIds.Except(entityModelIds).ToList();
@@ -212,7 +212,7 @@ internal class VehicleModelRepository(IMapper mapper, ApplicationDatabaseContext
             databaseModelSelector(databaseVehicleModel).Remove(removedModelItem);
     }
 
-    private async Task AssignCollectionToModel<T>(VehicleModelDataModel mappedModel)
+    private async Task AssignCollectionToModel<T>(VehicleModelEntity mappedModel)
         where T : class, IIdentifiable<Guid>
     {
         var property = mappedModel.GetType().GetProperties()

@@ -2,15 +2,15 @@
 using Application.Contracts.RepositoryRelated.Common;
 using Application.Contracts.RequestParametersRelated;
 using Domain.Models.VehicleRelated.Classes;
-using Persistence.DataModels.VehicleRelated;
+using Persistence.Entities.VehicleRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleBrandRelated.QueryBuilderRelated.Common.Classes;
 
 internal sealed class VehicleBrandFilteringCriteria 
-    : BaseFilteringCriteria<VehicleBrand, VehicleBrandDataModel, IVehicleBrandFilteringRequestParameters>
+    : BaseFilteringCriteria<VehicleBrand, VehicleBrandEntity, IVehicleBrandFilteringRequestParameters>
 { 
-    internal override Expression<Func<VehicleBrandDataModel, bool>> GetCriteria(
+    internal override Expression<Func<VehicleBrandEntity, bool>> GetCriteria(
         IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters)
     {
         if (filteringRequestParameters is not IVehicleBrandFilteringRequestParameters requestParameters)
@@ -31,11 +31,11 @@ internal sealed class VehicleBrandFilteringCriteria
             PredicateDelegates.Add(GetContainedModelNamePredicate);
     }
 
-    private Expression<Func<VehicleBrandDataModel, bool>> GetContainedModelNamePredicate(
+    private Expression<Func<VehicleBrandEntity, bool>> GetContainedModelNamePredicate(
         IVehicleBrandFilteringRequestParameters requestParameters) =>
         vehicleBrand => vehicleBrand.Models.Any(model => model.Name.Equals(requestParameters.ContainedModelName));
 
-    private Expression<Func<VehicleBrandDataModel, bool>> GetBrandNamePredicate(
+    private Expression<Func<VehicleBrandEntity, bool>> GetBrandNamePredicate(
         IVehicleBrandFilteringRequestParameters requestParameters) =>
         vehicleBrand => vehicleBrand.Name.Equals(requestParameters.Name);
 }

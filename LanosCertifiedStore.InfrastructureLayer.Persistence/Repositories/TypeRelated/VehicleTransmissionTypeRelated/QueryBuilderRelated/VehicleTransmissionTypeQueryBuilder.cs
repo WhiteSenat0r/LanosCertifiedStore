@@ -2,7 +2,7 @@
 using Application.Contracts.RequestParametersRelated.TypeRelated;
 using Application.Enums.RequestParametersRelated.TypeRelated;
 using Domain.Models.VehicleRelated.Classes.TypeRelated;
-using Persistence.DataModels.VehicleRelated.TypeRelated;
+using Persistence.Entities.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.TypeRelated.VehicleTransmissionTypeRelated.QueryBuilderRelated.Common.Classes;
 
@@ -13,7 +13,7 @@ internal sealed class VehicleTransmissionTypeQueryBuilder(
     VehicleTransmissionTypeFilteringCriteria typeFilteringCriteria)
     : BaseQueryBuilder<VehicleTransmissionTypeSelectionProfile,
         VehicleTransmissionType,
-        VehicleTransmissionTypeDataModel,
+        VehicleTransmissionTypeEntity,
         IVehicleTransmissionTypeFilteringRequestParameters>(
         selectionProfiles,
         typeFilteringCriteria)

@@ -6,7 +6,7 @@ using AutoMapper;
 using Domain.Models.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.DataModels.VehicleRelated;
+using Persistence.Entities.VehicleRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.Common.Classes;
 using Persistence.Repositories.VehicleColorRelated.QueryBuilderRelated;
@@ -17,7 +17,7 @@ namespace Persistence.Repositories.VehicleColorRelated;
 internal class VehicleColorRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
     : GenericRepository<VehicleColorSelectionProfile,
         VehicleColor,
-        VehicleColorDataModel,
+        VehicleColorEntity,
         IVehicleColorFilteringRequestParameters>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleColor>> GetAllEntitiesAsync(
@@ -27,18 +27,18 @@ internal class VehicleColorRepository(IMapper mapper, ApplicationDatabaseContext
 
         var vehicleColors = await vehicleColorsQuery.AsNoTracking().ToListAsync();
         
-        return Mapper.Map<IReadOnlyList<VehicleColorDataModel>, IReadOnlyList<VehicleColor>>(vehicleColors);
+        return Mapper.Map<IReadOnlyList<VehicleColorEntity>, IReadOnlyList<VehicleColor>>(vehicleColors);
     }
 
     public override async Task<VehicleColor?> GetEntityByIdAsync(Guid id)
     {
         var vehicleColorQuery = QueryBuilder.GetSingleEntityQueryable(
-            id, Context.Set<VehicleColorDataModel>(), new VehicleColorFilteringRequestParameters());
+            id, Context.Set<VehicleColorEntity>(), new VehicleColorFilteringRequestParameters());
 
         var vehicleColorModel = await vehicleColorQuery.AsNoTracking().SingleOrDefaultAsync();
         
         return vehicleColorModel is not null 
-            ? Mapper.Map<VehicleColorDataModel, VehicleColor>(vehicleColorModel) 
+            ? Mapper.Map<VehicleColorEntity, VehicleColor>(vehicleColorModel) 
             : null;
     }
 
@@ -46,19 +46,19 @@ internal class VehicleColorRepository(IMapper mapper, ApplicationDatabaseContext
         IFilteringRequestParameters<VehicleColor>? filteringRequestParameters = null)
     {
         var countedQueryable = QueryBuilder.GetRelevantCountQueryable(
-            Context.Set<VehicleColorDataModel>(), filteringRequestParameters);
+            Context.Set<VehicleColorEntity>(), filteringRequestParameters);
 
         return countedQueryable.CountAsync();
     }
 
-    private protected override IQueryable<VehicleColorDataModel> GetRelevantQueryable(
+    private protected override IQueryable<VehicleColorEntity> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleColor>? filteringRequestParameters) =>
         QueryBuilder.GetAllEntitiesQueryable(
-            Context.Set<VehicleColorDataModel>(), filteringRequestParameters);
+            Context.Set<VehicleColorEntity>(), filteringRequestParameters);
 
     private protected override BaseQueryBuilder<VehicleColorSelectionProfile,
             VehicleColor,
-            VehicleColorDataModel,
+            VehicleColorEntity,
             IVehicleColorFilteringRequestParameters>
         GetQueryBuilder() =>
         new VehicleColorQueryBuilder(

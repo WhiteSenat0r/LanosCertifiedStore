@@ -1,6 +1,6 @@
-﻿using Persistence.DataModels.UserRelated;
+﻿using Persistence.Entities.UserRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.IdentityRelated.QueryBuilderRelated.Common.Classes;
 
-internal sealed class UserSortingSettings : BaseSortingSettings<UserDataModel>;
+internal sealed class UserSortingSettings : BaseSortingSettings<UserEntity>;

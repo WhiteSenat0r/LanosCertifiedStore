@@ -2,24 +2,24 @@
 using Application.Contracts.RequestParametersRelated;
 using Application.Enums.RequestParametersRelated;
 using Domain.Models.VehicleRelated.Classes;
-using Persistence.DataModels.VehicleRelated;
+using Persistence.Entities.VehicleRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleModelRelated.QueryBuilderRelated.Common.Classes;
 
 internal class VehicleModelSelectionProfiles : 
-    BaseSelectionProfiles<VehicleModelSelectionProfile, VehicleModel, VehicleModelDataModel>
+    BaseSelectionProfiles<VehicleModelSelectionProfile, VehicleModel, VehicleModelEntity>
 {
     private readonly Dictionary<VehicleModelSelectionProfile,
-            Func<IQueryable<VehicleModelDataModel>, IQueryable<VehicleModelDataModel>>>
+            Func<IQueryable<VehicleModelEntity>, IQueryable<VehicleModelEntity>>>
         _mappedProfiles = new()
         {
             { VehicleModelSelectionProfile.Default, GetDefaultProfileQueryable },
             { VehicleModelSelectionProfile.Single, GetSingleProfileQueryable },
         };
 
-    public override IQueryable<VehicleModelDataModel> GetSuitableSelectionProfileQueryable(
-        IQueryable<VehicleModelDataModel> inputQueryable,
+    public override IQueryable<VehicleModelEntity> GetSuitableSelectionProfileQueryable(
+        IQueryable<VehicleModelEntity> inputQueryable,
         IFilteringRequestParameters<VehicleModel>? requestParameters = null)
     {
         if (requestParameters is null) 
@@ -30,9 +30,9 @@ internal class VehicleModelSelectionProfiles :
         return _mappedProfiles[brandRequestParams!.SelectionProfile](inputQueryable);
     }
 
-    private static IQueryable<VehicleModelDataModel> GetDefaultProfileQueryable(
-        IQueryable<VehicleModelDataModel> queryable) =>
-        queryable.Select(vehicleModel => new VehicleModelDataModel
+    private static IQueryable<VehicleModelEntity> GetDefaultProfileQueryable(
+        IQueryable<VehicleModelEntity> queryable) =>
+        queryable.Select(vehicleModel => new VehicleModelEntity
         {
             Id = vehicleModel.Id,
             Name = vehicleModel.Name,
@@ -41,9 +41,9 @@ internal class VehicleModelSelectionProfiles :
             MaximumProductionYear = vehicleModel.MaximumProductionYear
         });
     
-    private static IQueryable<VehicleModelDataModel> GetSingleProfileQueryable(
-        IQueryable<VehicleModelDataModel> queryable) =>
-        queryable.Select(vehicleModel => new VehicleModelDataModel
+    private static IQueryable<VehicleModelEntity> GetSingleProfileQueryable(
+        IQueryable<VehicleModelEntity> queryable) =>
+        queryable.Select(vehicleModel => new VehicleModelEntity
         {
             Id = vehicleModel.Id,
             Name = vehicleModel.Name,

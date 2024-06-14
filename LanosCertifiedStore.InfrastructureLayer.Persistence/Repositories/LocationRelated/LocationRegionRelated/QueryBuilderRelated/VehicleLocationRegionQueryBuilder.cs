@@ -2,7 +2,7 @@
 using Application.Contracts.RequestParametersRelated.LocationRelated;
 using Application.Enums.RequestParametersRelated.LocationRelated;
 using Domain.Models.VehicleRelated.Classes.LocationRelated;
-using Persistence.DataModels.VehicleRelated.LocationRelated;
+using Persistence.Entities.VehicleRelated.LocationRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.LocationRelated.LocationRegionRelated.QueryBuilderRelated.Common.Classes;
 
@@ -13,7 +13,7 @@ internal sealed class VehicleLocationRegionQueryBuilder(
     VehicleLocationRegionFilteringCriteria typeFilteringCriteria)
     : BaseQueryBuilder<VehicleLocationRegionSelectionProfile,
         VehicleLocationRegion,
-        VehicleLocationRegionDataModel,
+        VehicleLocationRegionEntity,
         IVehicleLocationRegionFilteringRequestParameters>(
         selectionProfiles,
         typeFilteringCriteria)

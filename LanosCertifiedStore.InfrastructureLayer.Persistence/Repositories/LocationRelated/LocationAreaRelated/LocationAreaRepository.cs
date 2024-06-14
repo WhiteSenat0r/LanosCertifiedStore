@@ -6,7 +6,7 @@ using AutoMapper;
 using Domain.Models.VehicleRelated.Classes.LocationRelated;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.DataModels.VehicleRelated.LocationRelated;
+using Persistence.Entities.VehicleRelated.LocationRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.Common.Classes;
 using Persistence.Repositories.LocationRelated.LocationAreaRelated.QueryBuilderRelated;
@@ -17,7 +17,7 @@ namespace Persistence.Repositories.LocationRelated.LocationAreaRelated;
 internal class LocationAreaRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
     : GenericRepository<VehicleLocationAreaSelectionProfile,
         VehicleLocationArea,
-        VehicleLocationAreaDataModel,
+        VehicleLocationAreaEntity,
         IVehicleLocationAreaFilteringRequestParameters>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleLocationArea>> GetAllEntitiesAsync(
@@ -27,19 +27,19 @@ internal class LocationAreaRepository(IMapper mapper, ApplicationDatabaseContext
 
         var vehicleTypeModels = await vehicleTypeModelsQuery.AsNoTracking().ToListAsync();
         
-        return Mapper.Map<IReadOnlyList<VehicleLocationAreaDataModel>, IReadOnlyList<VehicleLocationArea>>(
+        return Mapper.Map<IReadOnlyList<VehicleLocationAreaEntity>, IReadOnlyList<VehicleLocationArea>>(
             vehicleTypeModels);
     }
 
     public override async Task<VehicleLocationArea?> GetEntityByIdAsync(Guid id)
     {
         var vehicleTypeModelQuery = QueryBuilder.GetSingleEntityQueryable(
-            id, Context.Set<VehicleLocationAreaDataModel>(), new VehicleLocationAreaFilteringRequestParameters());
+            id, Context.Set<VehicleLocationAreaEntity>(), new VehicleLocationAreaFilteringRequestParameters());
 
         var vehicleTypeModel = await vehicleTypeModelQuery.AsNoTracking().SingleOrDefaultAsync();
         
         return vehicleTypeModel is not null 
-            ? Mapper.Map<VehicleLocationAreaDataModel, VehicleLocationArea>(vehicleTypeModel) 
+            ? Mapper.Map<VehicleLocationAreaEntity, VehicleLocationArea>(vehicleTypeModel) 
             : null;
     }
 
@@ -47,19 +47,19 @@ internal class LocationAreaRepository(IMapper mapper, ApplicationDatabaseContext
         IFilteringRequestParameters<VehicleLocationArea>? filteringRequestParameters = null)
     {
         var countedQueryable = QueryBuilder.GetRelevantCountQueryable(
-            Context.Set<VehicleLocationAreaDataModel>(), filteringRequestParameters);
+            Context.Set<VehicleLocationAreaEntity>(), filteringRequestParameters);
 
         return countedQueryable.CountAsync();
     }
 
-    private protected override IQueryable<VehicleLocationAreaDataModel> GetRelevantQueryable(
+    private protected override IQueryable<VehicleLocationAreaEntity> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleLocationArea>? filteringRequestParameters) =>
         QueryBuilder.GetAllEntitiesQueryable(
-            Context.Set<VehicleLocationAreaDataModel>(), filteringRequestParameters);
+            Context.Set<VehicleLocationAreaEntity>(), filteringRequestParameters);
 
     private protected override BaseQueryBuilder<VehicleLocationAreaSelectionProfile,
             VehicleLocationArea,
-            VehicleLocationAreaDataModel,
+            VehicleLocationAreaEntity,
             IVehicleLocationAreaFilteringRequestParameters>
         GetQueryBuilder() =>
         new VehicleLocationAreaQueryBuilder(

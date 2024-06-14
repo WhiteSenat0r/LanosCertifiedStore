@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Models.VehicleRelated.Classes;
-using Persistence.DataModels.VehicleRelated;
+using Persistence.Entities.VehicleRelated;
 
 namespace Persistence.MappingHelpers.VehicleRelated;
 
@@ -13,9 +13,9 @@ internal sealed class VehicleBrandMappingProfile : Profile
     }
 
     private void AddMappingProfileFromModelToEntity() =>
-        CreateMap<VehicleBrandDataModel, VehicleBrand>();
+        CreateMap<VehicleBrandEntity, VehicleBrand>();
 
     private void AddMappingProfileFromEntityToModel() =>
-        CreateMap<VehicleBrand, VehicleBrandDataModel>()
+        CreateMap<VehicleBrand, VehicleBrandEntity>()
             .ForMember(model => model.Models, options => options.Ignore());
 }

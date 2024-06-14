@@ -1,11 +1,11 @@
 ﻿using System.Linq.Expressions;
-using Persistence.DataModels.UserRelated;
+using Persistence.Entities.UserRelated;
 
 namespace Persistence.Repositories.IdentityRelated.QueryBuilderRelated.Common.Classes;
 
 internal abstract class UserSortingTypes
 {
-    public static readonly Dictionary<string, Expression<Func<UserDataModel, object>>>
+    public static readonly Dictionary<string, Expression<Func<UserEntity, object>>>
         Options = new()
         {
             { "firstName-desc", user => user.FirstName },

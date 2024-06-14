@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.DataModels.VehicleRelated;
-using Persistence.DataModels.VehicleRelated.LocationRelated;
+using Persistence.Entities.VehicleRelated;
+using Persistence.Entities.VehicleRelated.LocationRelated;
 using Persistence.SeedingData.LocationRelated;
 
 namespace Persistence.SeedingData;
@@ -37,7 +37,7 @@ public static class SeedData
             await context.SaveChangesAsync();
     }
 
-    private static async Task SeedImages(ApplicationDatabaseContext context, List<VehicleDataModel> vehicles)
+    private static async Task SeedImages(ApplicationDatabaseContext context, List<VehicleEntity> vehicles)
     {
         var images = SeedingData.SeedImages.GetImages(vehicles);
         
@@ -45,7 +45,7 @@ public static class SeedData
             await context.VehicleImages.AddRangeAsync(images);
     }
 
-    private static async Task<List<VehicleDataModel>> SeedVehicles(ApplicationDatabaseContext context)
+    private static async Task<List<VehicleEntity>> SeedVehicles(ApplicationDatabaseContext context)
     {
         var vehicles = SeedingData.SeedVehicles.GetVehicles(
             await context.VehicleTypes.AsNoTracking().ToListAsync(),
@@ -86,7 +86,7 @@ public static class SeedData
         {
             foreach (var model in models)
             {
-                var insertedModel = new VehicleModelDataModel()
+                var insertedModel = new VehicleModelEntity()
                 {
                     Name = model.Name,
                     MinimalProductionYear = model.MinimalProductionYear,
@@ -204,7 +204,7 @@ public static class SeedData
     }
 
     private static Dictionary<string, string> GetAreaRegionDictionary(
-        List<VehicleLocationRegionDataModel> regions,
+        List<VehicleLocationRegionEntity> regions,
         IReadOnlyDictionary<string, Dictionary<string, List<string>>> deserializedLocationsData)
     {
         var mappedAreas = new Dictionary<string, string>();

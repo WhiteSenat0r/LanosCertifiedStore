@@ -1,11 +1,11 @@
 ﻿using System.Linq.Expressions;
-using Persistence.DataModels.VehicleRelated.LocationRelated;
+using Persistence.Entities.VehicleRelated.LocationRelated;
 
 namespace Persistence.Repositories.LocationRelated.LocationAreaRelated.QueryBuilderRelated.Common.Classes;
 
 internal abstract class VehicleLocationAreaSortingTypes
 {
-    public static readonly Dictionary<string, Expression<Func<VehicleLocationAreaDataModel, object>>> 
+    public static readonly Dictionary<string, Expression<Func<VehicleLocationAreaEntity, object>>> 
         Options = new()
     {
         { "name-asc", vehicleType => vehicleType.Name },

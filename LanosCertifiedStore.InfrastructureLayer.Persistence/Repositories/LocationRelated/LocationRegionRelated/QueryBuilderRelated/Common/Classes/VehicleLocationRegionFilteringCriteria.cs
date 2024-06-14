@@ -2,16 +2,16 @@
 using Application.Contracts.RepositoryRelated.Common;
 using Application.Contracts.RequestParametersRelated.LocationRelated;
 using Domain.Models.VehicleRelated.Classes.LocationRelated;
-using Persistence.DataModels.VehicleRelated.LocationRelated;
+using Persistence.Entities.VehicleRelated.LocationRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.LocationRelated.LocationRegionRelated.QueryBuilderRelated.Common.Classes;
 
 internal sealed class VehicleLocationRegionFilteringCriteria : 
-    BaseFilteringCriteria<VehicleLocationRegion, VehicleLocationRegionDataModel,
+    BaseFilteringCriteria<VehicleLocationRegion, VehicleLocationRegionEntity,
         IVehicleLocationRegionFilteringRequestParameters>
 { 
-    internal override Expression<Func<VehicleLocationRegionDataModel, bool>> GetCriteria(
+    internal override Expression<Func<VehicleLocationRegionEntity, bool>> GetCriteria(
         IFilteringRequestParameters<VehicleLocationRegion>? filteringRequestParameters)
     { 
         var vehicleTypeFilteringParameters = filteringRequestParameters 
@@ -29,7 +29,7 @@ internal sealed class VehicleLocationRegionFilteringCriteria :
             PredicateDelegates.Add(GetNamePredicate);
     }
 
-    private Expression<Func<VehicleLocationRegionDataModel, bool>> GetNamePredicate(
+    private Expression<Func<VehicleLocationRegionEntity, bool>> GetNamePredicate(
         IVehicleLocationRegionFilteringRequestParameters requestParameters) =>
         vehicleType => vehicleType.Name.Equals(requestParameters.Name);
 }

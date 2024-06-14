@@ -6,7 +6,7 @@ using AutoMapper;
 using Domain.Models.VehicleRelated.Classes;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.DataModels.VehicleRelated;
+using Persistence.Entities.VehicleRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.Common.Classes;
 using Persistence.Repositories.VehicleImageRelated.QueryBuilderRelated;
@@ -17,7 +17,7 @@ namespace Persistence.Repositories.VehicleImageRelated;
 internal class VehicleImageRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
     : GenericRepository<VehicleImageSelectionProfile,
         VehicleImage,
-        VehicleImageDataModel, 
+        VehicleImageEntity, 
         IVehicleImageFilteringRequestParameters>(mapper, dbContext)
 {
     public override async Task<IReadOnlyList<VehicleImage>> GetAllEntitiesAsync(
@@ -27,18 +27,18 @@ internal class VehicleImageRepository(IMapper mapper, ApplicationDatabaseContext
 
         var vehicleImages = await vehicleImagesQuery.AsNoTracking().ToListAsync();
         
-        return Mapper.Map<IReadOnlyList<VehicleImageDataModel>, IReadOnlyList<VehicleImage>>(vehicleImages);
+        return Mapper.Map<IReadOnlyList<VehicleImageEntity>, IReadOnlyList<VehicleImage>>(vehicleImages);
     }
 
     public override async Task<VehicleImage?> GetEntityByIdAsync(Guid id)
     {
         var vehicleImageQuery = QueryBuilder.GetSingleEntityQueryable(
-            id, Context.Set<VehicleImageDataModel>(), new VehicleImageFilteringRequestParameters());
+            id, Context.Set<VehicleImageEntity>(), new VehicleImageFilteringRequestParameters());
 
         var vehicleImageModel = await vehicleImageQuery.AsNoTracking().SingleOrDefaultAsync();
         
         return vehicleImageModel is not null 
-            ? Mapper.Map<VehicleImageDataModel, VehicleImage>(vehicleImageModel) 
+            ? Mapper.Map<VehicleImageEntity, VehicleImage>(vehicleImageModel) 
             : null;
     }
 
@@ -46,19 +46,19 @@ internal class VehicleImageRepository(IMapper mapper, ApplicationDatabaseContext
         IFilteringRequestParameters<VehicleImage>? filteringRequestParameters = null)
     {
         var countedQueryable = QueryBuilder.GetRelevantCountQueryable(
-            Context.Set<VehicleImageDataModel>(), filteringRequestParameters);
+            Context.Set<VehicleImageEntity>(), filteringRequestParameters);
 
         return countedQueryable.CountAsync();
     }
 
-    private protected override IQueryable<VehicleImageDataModel> GetRelevantQueryable(
+    private protected override IQueryable<VehicleImageEntity> GetRelevantQueryable(
         IFilteringRequestParameters<VehicleImage>? filteringRequestParameters) =>
         QueryBuilder.GetAllEntitiesQueryable(
-            Context.Set<VehicleImageDataModel>(), filteringRequestParameters);
+            Context.Set<VehicleImageEntity>(), filteringRequestParameters);
 
     private protected override BaseQueryBuilder<VehicleImageSelectionProfile,
             VehicleImage,
-            VehicleImageDataModel,
+            VehicleImageEntity,
             IVehicleImageFilteringRequestParameters> 
         GetQueryBuilder() =>
         new VehicleImageQueryBuilder(new VehicleImageSelectionProfiles(), new VehicleImageFilteringCriteria());

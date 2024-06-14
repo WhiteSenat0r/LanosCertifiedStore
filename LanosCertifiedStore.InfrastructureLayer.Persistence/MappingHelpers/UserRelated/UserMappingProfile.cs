@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Domain.Models.UserRelated;
-using Persistence.DataModels.UserRelated;
+using Persistence.Entities.UserRelated;
 
 namespace Persistence.MappingHelpers.UserRelated;
 
@@ -13,9 +13,9 @@ internal sealed class UserMappingProfile : Profile
     }
 
     private void AddMappingProfileFromModelToEntity() =>
-        CreateMap<UserDataModel, User>()
+        CreateMap<UserEntity, User>()
             .ForMember(d => d.Roles, o => o.MapFrom(s => s.Roles));
 
     private void AddMappingProfileFromEntityToModel() =>
-        CreateMap<User, UserDataModel>();
+        CreateMap<User, UserEntity>();
 }
