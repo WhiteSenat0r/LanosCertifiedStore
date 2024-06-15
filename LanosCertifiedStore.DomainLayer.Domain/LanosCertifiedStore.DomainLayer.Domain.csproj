@@ -7,9 +7,4 @@
         <RootNamespace>Domain</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="Constants\LocationRelated\" />
-      <Folder Include="Constants\TypeRelated\" />
-    </ItemGroup>
-
 </Project>
