@@ -1,5 +1,7 @@
-﻿using Application.Contracts.RepositoryRelated.Common;
+﻿using Application.Commands.Brands.Shared;
+using Application.Contracts.RepositoryRelated.Common;
 using Application.Helpers.ValidationRelated.Common.Contracts;
+using Domain.Constants.VehicleRelated;
 using Domain.Models.VehicleRelated.Classes;
 using FluentValidation;
 
@@ -11,13 +13,13 @@ internal sealed class UpdateBrandCommandValidator : AbstractValidator<UpdateBran
     {
         RuleFor(x => x.UpdatedName)
             .NotEmpty()
-            .MinimumLength(2)
-            .MaximumLength(64)
-            .WithMessage("Name must be greater than 2 characters and less than 64!");
+            .MinimumLength(VehicleBrandConstants.MinimalNameLength)
+            .MaximumLength(VehicleBrandConstants.MaximumNameLength)
+            .WithMessage(VehicleBrandValidatorMessages.InvalidNameValue);
 
         RuleFor(x => x.UpdatedName)
             .MustAsync(async (name, _) => 
                 await validationHelper.IsAspectNameUnique<VehicleBrand>(unitOfWork, name))
-            .WithMessage("Brand with such name already exists!");
+            .WithMessage(VehicleBrandValidatorMessages.AlreadyExistingNameValue);
     }
 }

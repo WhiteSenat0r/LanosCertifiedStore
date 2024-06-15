@@ -1,4 +1,5 @@
-﻿using Application.Commands.Common;
+﻿using Application.Commands.Brands.Shared;
+using Application.Commands.Common;
 using Application.Contracts.RepositoryRelated.Common;
 using Application.Shared;
 using Domain.Models.VehicleRelated.Classes;
@@ -13,8 +14,10 @@ internal sealed class UpdateBrandCommandHandler :
     {
         PossibleErrors =
         [
-            new Error("UpdateBrandError", "Saving an updated brand was not successful!"),
-            new Error("UpdateBrandError", "Error occured during the brand update!")
+            new Error(
+                VehicleBrandHandlerErrorNames.UpdateError, VehicleBrandHandlerMessages.FailedSavingUpdatedBrandProcess),
+            new Error(
+                VehicleBrandHandlerErrorNames.UpdateError, VehicleBrandHandlerMessages.FailedUpdateProcess)
         ];
     }
     
