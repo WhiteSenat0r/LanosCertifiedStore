@@ -1,4 +1,5 @@
-﻿using Application.Commands.Common;
+﻿using Application.Commands.Brands.Shared;
+using Application.Commands.Common;
 using Application.Contracts.RepositoryRelated.Common;
 using Application.Shared;
 using Domain.Models.VehicleRelated.Classes;
@@ -6,14 +7,17 @@ using MediatR;
 
 namespace Application.Commands.Brands.DeleteBrand;
 
-internal sealed class DeleteBrandCommandHandler : CommandHandlerBase<Unit>, IRequestHandler<DeleteBrandCommand, Result<Unit>>
+internal sealed class DeleteBrandCommandHandler : 
+    CommandHandlerBase<Unit>, IRequestHandler<DeleteBrandCommand, Result<Unit>>
 {
     public DeleteBrandCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
         PossibleErrors =
         [
-            new Error("DeleteBrandError", "Brand removal was not successful!"),
-            new Error("DeleteBrandError", "Error occured during the brand removal!")
+            new Error(
+                VehicleBrandHandlerErrorNames.DeleteError, VehicleBrandHandlerMessages.FailedSavingRemovedBrandProcess),
+            new Error(
+                VehicleBrandHandlerErrorNames.DeleteError, VehicleBrandHandlerMessages.FailedRemovalProcess)
         ];
     }
 
