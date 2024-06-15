@@ -1,4 +1,5 @@
-﻿using Application.Commands.Common;
+﻿using Application.Commands.Brands.Shared;
+using Application.Commands.Common;
 using Application.Contracts.RepositoryRelated.Common;
 using Application.Shared;
 using Domain.Models.VehicleRelated.Classes;
@@ -9,13 +10,14 @@ namespace Application.Commands.Brands.CreateBrand;
 internal sealed class CreateBrandCommandHandler : 
     CommandHandlerBase<Unit>, IRequestHandler<CreateBrandCommand, Result<Unit>>
 {
-
     public CreateBrandCommandHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
     {
         PossibleErrors =
         [
-            new Error("CreateBrandError", "Saving a new brand was not successful!"),
-            new Error("CreateBrandError", "Error occured during a new brand creation!")
+            new Error(
+                VehicleBrandHandlerErrorNames.CreationError, VehicleBrandHandlerMessages.FailedSavingNewBrandProcess),
+            new Error(
+                VehicleBrandHandlerErrorNames.CreationError, VehicleBrandHandlerMessages.FailedCreationProcess)
         ];
     }
 
