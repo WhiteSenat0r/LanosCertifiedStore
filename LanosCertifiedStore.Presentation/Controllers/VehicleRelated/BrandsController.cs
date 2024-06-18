@@ -22,7 +22,7 @@ public sealed class BrandsController : BaseEntityRelatedApiController
     public async Task<ActionResult<PaginationResult<BrandDto>>> GetBrands(
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
     {
-        return HandleResult(await Mediator.Send(new ListBrandsQuery(requestParameters)));
+        return HandleResult(await Mediator.Send(new BrandsQuery(requestParameters)));
     }
     
     [HttpGet("countItems")]

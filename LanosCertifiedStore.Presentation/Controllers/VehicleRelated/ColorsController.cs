@@ -17,9 +17,9 @@ namespace API.Controllers.VehicleRelated;
 public sealed class ColorsController : BaseEntityRelatedApiController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(PaginationResult<ColorDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PaginationResult<VehicleColorDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<PaginationResult<ColorDto>>> GetColors(
+    public async Task<ActionResult<PaginationResult<VehicleColorDto>>> GetColors(
         [FromQuery] VehicleColorFilteringRequestParameters requestParameters)
     {
         return HandleResult(await Mediator.Send(new ColorsQuery(requestParameters)));

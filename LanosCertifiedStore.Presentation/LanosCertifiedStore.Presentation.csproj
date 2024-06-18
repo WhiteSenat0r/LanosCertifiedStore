@@ -17,10 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LanosCertifiedStore.ApplicationLayer.Application\LanosCertifiedStore.ApplicationLayer.Application.csproj" />
-    <ProjectReference Include="..\LanosCertifiedStore.DomainLayer.Domain\LanosCertifiedStore.DomainLayer.Domain.csproj" />
-    <ProjectReference Include="..\LanosCertifiedStore.InfrastructureLayer.Services\LanosCertifiedStore.InfrastructureLayer.Services.csproj" />
-    <ProjectReference Include="..\LanosCertifiedStore.InfrastructureLayer.Persistence\LanosCertifiedStore.InfrastructureLayer.Persistence.csproj" />
+    <ProjectReference Include="..\LanosCertifiedStore.Application\LanosCertifiedStore.Application.csproj" />
+    <ProjectReference Include="..\LanosCertifiedStore.Domain\LanosCertifiedStore.Domain.csproj" />
+    <ProjectReference Include="..\LanosCertifiedStore.Infrastructure\LanosCertifiedStore.Infrastructure.csproj" />
+    <ProjectReference Include="..\LanosCertifiedStore.Persistence\LanosCertifiedStore.Persistence.csproj" />
   </ItemGroup>
   
   <ItemGroup>
