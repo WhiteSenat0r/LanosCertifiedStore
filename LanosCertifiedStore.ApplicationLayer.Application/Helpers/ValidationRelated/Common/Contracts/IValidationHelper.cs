@@ -6,8 +6,8 @@ namespace Application.Helpers.ValidationRelated.Common.Contracts;
 
 internal interface IValidationHelper
 {
-    Task<bool> IsAspectNameUnique<TMainAspect>(
-        IUnitOfWork unitOfWork, string name)
+    Task<bool> IsAspectValueUnique<TMainAspect, TValue>(
+        IUnitOfWork unitOfWork, TValue value, string aspectName)
         where TMainAspect : NamedVehicleAspect;
     
     Task<bool> CheckMainAspectPresence<TMainAspect>(

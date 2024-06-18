@@ -7,17 +7,17 @@ namespace Application.Helpers.ValidationRelated;
 
 internal sealed class ValidationHelper : IValidationHelper
 {
-    private const string PropertyName = "Name";
-
-    public async Task<bool> IsAspectNameUnique<TMainAspect>(IUnitOfWork unitOfWork, string name)
+    public async Task<bool> IsAspectValueUnique<TMainAspect, TValue>(
+        IUnitOfWork unitOfWork,
+        TValue value,
+        string aspectName)
         where TMainAspect : NamedVehicleAspect
     {
         var items = await unitOfWork.RetrieveRepository<TMainAspect>().GetAllEntitiesAsync();
         
-        var nameProperty = typeof(TMainAspect).GetProperty(PropertyName)!;
-
-        return items.All(x =>
-            !string.Equals((string?)nameProperty.GetValue(x), name, StringComparison.OrdinalIgnoreCase));
+        var nameProperty = typeof(TMainAspect).GetProperty(aspectName)!;
+        
+        return !items.All(x => ((TValue)nameProperty.GetValue(x)!).Equals(value));
     }
 
     public async Task<bool> CheckMainAspectPresence<TMainAspect>(IUnitOfWork unitOfWork, Guid id)
