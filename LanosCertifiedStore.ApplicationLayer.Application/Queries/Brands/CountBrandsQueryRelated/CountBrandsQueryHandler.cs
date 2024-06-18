@@ -7,11 +7,12 @@ using MediatR;
 
 namespace Application.Queries.Brands.CountBrandsQueryRelated;
 
-internal sealed class CountBrandsQueryHandler(IUnitOfWork unitOfWork) : 
-    CountItemsQueryHandlerBase<VehicleBrand>(unitOfWork),
-    IRequestHandler<CountBrandsQuery, Result<ItemsCountDto>>
-{
-    public Task<Result<ItemsCountDto>> Handle(
-        CountBrandsQuery request, CancellationToken cancellationToken) =>
-        base.Handle(request, cancellationToken);
-}
+// TODO
+// internal sealed class CountBrandsQueryHandler(IUnitOfWork unitOfWork) : 
+//     CountItemsQueryHandlerBase<VehicleBrand>(unitOfWork),
+//     IRequestHandler<CountBrandsQuery, Result<ItemsCountDto>>
+// {
+//     public Task<Result<ItemsCountDto>> Handle(
+//         CountBrandsQuery request, CancellationToken cancellationToken) =>
+//         base.Handle(request, cancellationToken);
+// }

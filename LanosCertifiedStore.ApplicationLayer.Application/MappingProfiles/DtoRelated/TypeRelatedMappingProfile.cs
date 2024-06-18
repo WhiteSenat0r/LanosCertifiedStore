@@ -2,7 +2,7 @@
 using AutoMapper;
 using Domain.Models.VehicleRelated.Classes.TypeRelated;
 
-namespace Application.MappingProfiles;
+namespace Application.MappingProfiles.DtoRelated;
 
 public sealed class TypeRelatedMappingProfile : Profile
 {

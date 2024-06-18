@@ -17,7 +17,7 @@ public static class PersistenceServiceCollectionExtensions
                 o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
         });
         
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        // services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }

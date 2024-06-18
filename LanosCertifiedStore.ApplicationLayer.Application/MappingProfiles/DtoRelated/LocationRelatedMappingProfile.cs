@@ -2,7 +2,7 @@
 using AutoMapper;
 using Domain.Models.VehicleRelated.Classes.LocationRelated;
 
-namespace Application.MappingProfiles;
+namespace Application.MappingProfiles.DtoRelated;
 
 public sealed class LocationRelatedMappingProfile : Profile
 {

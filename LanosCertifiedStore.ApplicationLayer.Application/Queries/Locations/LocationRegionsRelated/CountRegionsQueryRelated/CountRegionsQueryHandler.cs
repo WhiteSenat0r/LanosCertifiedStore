@@ -7,11 +7,12 @@ using MediatR;
 
 namespace Application.Queries.Locations.LocationRegionsRelated.CountRegionsQueryRelated;
 
-internal sealed class CountRegionsQueryHandler(IUnitOfWork unitOfWork) : 
-    CountItemsQueryHandlerBase<VehicleLocationRegion>(unitOfWork),
-    IRequestHandler<CountRegionsQuery, Result<ItemsCountDto>>
-{
-    public Task<Result<ItemsCountDto>> Handle(
-        CountRegionsQuery request, CancellationToken cancellationToken) =>
-        base.Handle(request, cancellationToken);
-}
+// TODO
+// internal sealed class CountRegionsQueryHandler(IUnitOfWork unitOfWork) : 
+//     CountItemsQueryHandlerBase<VehicleLocationRegion>(unitOfWork),
+//     IRequestHandler<CountRegionsQuery, Result<ItemsCountDto>>
+// {
+//     public Task<Result<ItemsCountDto>> Handle(
+//         CountRegionsQuery request, CancellationToken cancellationToken) =>
+//         base.Handle(request, cancellationToken);
+// }

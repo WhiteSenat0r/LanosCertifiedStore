@@ -1,4 +1,4 @@
-﻿namespace Application.Commands.Brands.Shared;
+﻿namespace Application.Commands.Brands.Shared.MessageRelated;
 
 public static class VehicleBrandHandlerMessages
 {

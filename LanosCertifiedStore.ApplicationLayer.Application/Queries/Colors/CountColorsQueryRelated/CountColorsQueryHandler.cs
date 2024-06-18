@@ -7,11 +7,12 @@ using MediatR;
 
 namespace Application.Queries.Colors.CountColorsQueryRelated;
 
-internal sealed class CountColorsQueryHandler(IUnitOfWork unitOfWork) : 
-    CountItemsQueryHandlerBase<VehicleColor>(unitOfWork),
-    IRequestHandler<CountColorsQuery, Result<ItemsCountDto>>
-{
-    public Task<Result<ItemsCountDto>> Handle(
-        CountColorsQuery request, CancellationToken cancellationToken) =>
-        base.Handle(request, cancellationToken);
-}
+// TODO
+// internal sealed class CountColorsQueryHandler(IUnitOfWork unitOfWork) : 
+//     CountItemsQueryHandlerBase<VehicleColor>(unitOfWork),
+//     IRequestHandler<CountColorsQuery, Result<ItemsCountDto>>
+// {
+//     public Task<Result<ItemsCountDto>> Handle(
+//         CountColorsQuery request, CancellationToken cancellationToken) =>
+//         base.Handle(request, cancellationToken);
+// }

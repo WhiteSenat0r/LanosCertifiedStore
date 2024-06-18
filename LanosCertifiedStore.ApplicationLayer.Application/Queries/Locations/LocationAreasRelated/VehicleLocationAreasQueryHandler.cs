@@ -9,12 +9,13 @@ using MediatR;
 
 namespace Application.Queries.Locations.LocationAreasRelated;
 
-internal sealed class VehicleLocationAreasQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :
-    ListQueryHandlerBase<VehicleLocationArea, IFilteringRequestParameters<VehicleLocationArea>, AreaDto>(
-        unitOfWork, mapper),
-    IRequestHandler<VehicleLocationAreasQuery, Result<PaginationResult<AreaDto>>>
-{
-    public Task<Result<PaginationResult<AreaDto>>> Handle(VehicleLocationAreasQuery request,
-        CancellationToken cancellationToken) =>
-        base.Handle(request, cancellationToken);
-}
+// TODO
+// internal sealed class VehicleLocationAreasQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :
+//     ListQueryHandlerBase<VehicleLocationArea, IFilteringRequestParameters<VehicleLocationArea>, AreaDto>(
+//         unitOfWork, mapper),
+//     IRequestHandler<VehicleLocationAreasQuery, Result<PaginationResult<AreaDto>>>
+// {
+//     public Task<Result<PaginationResult<AreaDto>>> Handle(VehicleLocationAreasQuery request,
+//         CancellationToken cancellationToken) =>
+//         base.Handle(request, cancellationToken);
+// }

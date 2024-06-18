@@ -10,11 +10,12 @@ using MediatR;
 
 namespace Application.Queries.Brands.BrandQueryRelated;
 
-internal sealed class ListBrandsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :
-    ListQueryHandlerBase<VehicleBrand, VehicleBrandFilteringRequestParameters, BrandDto>(unitOfWork, mapper),
-    IRequestHandler<ListBrandsQuery, Result<PaginationResult<BrandDto>>>
-{
-    public Task<Result<PaginationResult<BrandDto>>> Handle(ListBrandsQuery request,
-        CancellationToken cancellationToken) =>
-        base.Handle(request, cancellationToken);
-}
+// TODO
+// internal sealed class ListBrandsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :
+//     ListQueryHandlerBase<VehicleBrand, VehicleBrandFilteringRequestParameters, BrandDto>(unitOfWork, mapper),
+//     IRequestHandler<ListBrandsQuery, Result<PaginationResult<BrandDto>>>
+// {
+//     public Task<Result<PaginationResult<BrandDto>>> Handle(ListBrandsQuery request,
+//         CancellationToken cancellationToken) =>
+//         base.Handle(request, cancellationToken);
+// }

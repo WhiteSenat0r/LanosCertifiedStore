@@ -1,10 +1,15 @@
 ﻿namespace Application.Shared;
 
-public class Error(string code, string message)
+public class Error
 {
-    public static readonly Error None = new(string.Empty, string.Empty);
+    public Error(string code, string message)
+    {
+        Code = code;
+        Message = message;
+    }
+
     public static Error NotFound => new( "NotFound", "The result with specified value is null");
 
-    public string Code { get; } = code;
-    public string Message { get; } = message;
+    public string Code { get; }
+    public string Message { get; }
 }

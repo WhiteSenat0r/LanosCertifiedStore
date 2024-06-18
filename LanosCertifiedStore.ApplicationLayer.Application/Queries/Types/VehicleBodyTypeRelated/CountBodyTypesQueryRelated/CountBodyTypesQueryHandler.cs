@@ -7,11 +7,12 @@ using MediatR;
 
 namespace Application.Queries.Types.VehicleBodyTypeRelated.CountBodyTypesQueryRelated;
 
-internal sealed class CountBodyTypesQueryHandler(IUnitOfWork unitOfWork) : 
-    CountItemsQueryHandlerBase<VehicleBodyType>(unitOfWork),
-    IRequestHandler<CountBodyTypesQuery, Result<ItemsCountDto>>
-{
-    public Task<Result<ItemsCountDto>> Handle(
-        CountBodyTypesQuery request, CancellationToken cancellationToken) =>
-        base.Handle(request, cancellationToken);
-}
+// TODO
+// internal sealed class CountBodyTypesQueryHandler(IUnitOfWork unitOfWork) : 
+//     CountItemsQueryHandlerBase<VehicleBodyType>(unitOfWork),
+//     IRequestHandler<CountBodyTypesQuery, Result<ItemsCountDto>>
+// {
+//     public Task<Result<ItemsCountDto>> Handle(
+//         CountBodyTypesQuery request, CancellationToken cancellationToken) =>
+//         base.Handle(request, cancellationToken);
+// }

@@ -3,7 +3,7 @@ using Application.Dtos.IdentityDtos.ProfileDtos;
 using AutoMapper;
 using Domain.Models.UserRelated;
 
-namespace Application.MappingProfiles;
+namespace Application.MappingProfiles.DtoRelated;
 
 public sealed class UserTypeRelatedMappingProfile : Profile
 {
