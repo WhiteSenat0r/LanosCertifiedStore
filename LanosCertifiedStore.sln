@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 #
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanosCertifiedStore.PresentationLayer.API", "LanosCertifiedStore.PresentationLayer.API\LanosCertifiedStore.PresentationLayer.API.csproj", "{98D83B0E-4DFC-44C5-8138-6E1078EC76AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanosCertifiedStore.Presentation", "LanosCertifiedStore.Presentation\LanosCertifiedStore.Presentation.csproj", "{98D83B0E-4DFC-44C5-8138-6E1078EC76AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanosCertifiedStore.DomainLayer.Domain", "LanosCertifiedStore.DomainLayer.Domain\LanosCertifiedStore.DomainLayer.Domain.csproj", "{2F978349-367F-4C03-83CF-5E75B62A70D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanosCertifiedStore.Domain", "LanosCertifiedStore.Domain\LanosCertifiedStore.Domain.csproj", "{2F978349-367F-4C03-83CF-5E75B62A70D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanosCertifiedStore.InfrastructureLayer.Persistence", "LanosCertifiedStore.InfrastructureLayer.Persistence\LanosCertifiedStore.InfrastructureLayer.Persistence.csproj", "{DDB0481B-E2C7-4D37-BB2C-1EC779D18668}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanosCertifiedStore.Persistence", "LanosCertifiedStore.Persistence\LanosCertifiedStore.Persistence.csproj", "{DDB0481B-E2C7-4D37-BB2C-1EC779D18668}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanosCertifiedStore.ApplicationLayer.Application", "LanosCertifiedStore.ApplicationLayer.Application\LanosCertifiedStore.ApplicationLayer.Application.csproj", "{01680589-A225-4E10-AA1E-021D3BCA6262}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanosCertifiedStore.Application", "LanosCertifiedStore.Application\LanosCertifiedStore.Application.csproj", "{01680589-A225-4E10-AA1E-021D3BCA6262}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainLayer", "DomainLayer", "{08AD0B30-C411-4F09-B9D8-987115A1884C}"
 EndProject
@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PresentationLayer", "Presen
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InfrastructureLayer", "InfrastructureLayer", "{43ED3C6C-CD26-498F-8E02-A4EEB139CF5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanosCertifiedStore.InfrastructureLayer.Services", "LanosCertifiedStore.InfrastructureLayer.Services\LanosCertifiedStore.InfrastructureLayer.Services.csproj", "{2891F347-5B29-4BAE-BAE0-92F4AE32D404}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanosCertifiedStore.Infrastructure", "LanosCertifiedStore.Infrastructure\LanosCertifiedStore.Infrastructure.csproj", "{2891F347-5B29-4BAE-BAE0-92F4AE32D404}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
