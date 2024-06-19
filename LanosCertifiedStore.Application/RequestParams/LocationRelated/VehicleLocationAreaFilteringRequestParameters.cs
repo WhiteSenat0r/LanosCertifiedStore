@@ -5,10 +5,9 @@ using Domain.Models.VehicleRelated.Classes.LocationRelated;
 
 namespace Application.RequestParams.LocationRelated;
 
-public sealed class VehicleLocationTownFilteringRequestParameters : 
-    BaseFilteringRequestParameters<VehicleLocationTown>,
-    IVehicleLocationTownFilteringRequestParameters
+public sealed class VehicleLocationAreaFilteringRequestParameters : BaseFilteringRequestParameters<VehicleLocationArea>,
+    IVehicleLocationAreaFilteringRequestParameters
 {
     public string? Name { get; set; }
-    public VehicleLocationTownSelectionProfile SelectionProfile => VehicleLocationTownSelectionProfile.Default;
+    public VehicleLocationAreaSelectionProfile SelectionProfile => VehicleLocationAreaSelectionProfile.Default;
 }

@@ -5,9 +5,10 @@ using Domain.Models.VehicleRelated.Classes.TypeRelated;
 
 namespace Application.RequestParams.TypeRelated;
 
-public sealed class VehicleTransmissionTypeFilteringRequestParameters : 
-    BaseFilteringRequestParameters<VehicleTransmissionType>, IVehicleTransmissionTypeFilteringRequestParameters
+public sealed class VehicleDrivetrainTypeFilteringRequestParameters : 
+    BaseFilteringRequestParameters<VehicleDrivetrainType>,
+    IVehicleDrivetrainTypeFilteringRequestParameters
 {
     public string? Name { get; set; }
-    public VehicleTransmissionTypeSelectionProfile SelectionProfile => VehicleTransmissionTypeSelectionProfile.Default;
+    public VehicleDrivetrainTypeSelectionProfile SelectionProfile => VehicleDrivetrainTypeSelectionProfile.Default;
 }
