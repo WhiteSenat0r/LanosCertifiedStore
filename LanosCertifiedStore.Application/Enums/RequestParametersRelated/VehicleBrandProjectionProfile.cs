@@ -1,6 +1,6 @@
 ﻿namespace Application.Enums.RequestParametersRelated;
 
-public enum VehicleBrandSelectionProfile
+public enum VehicleBrandProjectionProfile
 {
     Default,
     Single,
