@@ -6,6 +6,6 @@ namespace Application.Contracts.RequestParametersRelated.TypeRelated;
 
 public interface IVehicleBodyTypeFilteringRequestParameters : IFilteringRequestParameters<VehicleBodyType>
 {
-    string? Name { get; set; }
+    string? Name { get; }
     VehicleBodyTypeSelectionProfile SelectionProfile { get; }
 }

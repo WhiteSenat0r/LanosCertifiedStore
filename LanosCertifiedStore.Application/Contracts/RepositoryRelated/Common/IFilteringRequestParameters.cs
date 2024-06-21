@@ -1,12 +1,13 @@
-﻿using Domain.Contracts.Common;
+﻿using Application.RequestParams.Common.Enums;
+using Domain.Contracts.Common;
 
 namespace Application.Contracts.RepositoryRelated.Common;
 
 public interface IFilteringRequestParameters<TModel>
     where TModel : IIdentifiable<Guid>
 {
-    int PageIndex { get; set; }
-    int ItemQuantity { get; set; }
-    int MaxQuantityPerRequest { get; }
-    string? SortingType { get; set; }
+    int PageIndex { get; }
+    ItemQuantitySelection ItemQuantity { get; }
+    ItemQuantitySelection MaxQuantityPerRequest { get; }
+    string? SortingType { get; }
 }

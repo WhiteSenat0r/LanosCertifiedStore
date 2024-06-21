@@ -8,5 +8,5 @@ public interface IVehicleBrandFilteringRequestParameters : IFilteringRequestPara
 {
     string? Name { get; set; }
     string? ContainedModelName { get; set; }
-    VehicleBrandSelectionProfile SelectionProfile { get; set; }
+    VehicleBrandProjectionProfile ProjectionProfile { get; set; }
 }
