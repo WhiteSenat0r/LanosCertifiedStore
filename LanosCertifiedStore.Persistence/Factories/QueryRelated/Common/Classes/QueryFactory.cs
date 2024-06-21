@@ -27,8 +27,8 @@ internal sealed class QueryFactory(IEnumerable<object> queries) : IQueryFactory
         {
             var queryInterfaceType = query.GetType().BaseType!.GetInterfaces().First();
 
-            if (queryInterfaceType!.GenericTypeArguments[0] != typeof(TModel) ||
-                queryInterfaceType!.GenericTypeArguments[1] != typeof(TResult))
+            if (queryInterfaceType.GenericTypeArguments[0] != typeof(TModel) ||
+                queryInterfaceType.GenericTypeArguments[1] != typeof(TResult))
                 continue;
             
             return (IQuery<TModel, TResult>)query;
