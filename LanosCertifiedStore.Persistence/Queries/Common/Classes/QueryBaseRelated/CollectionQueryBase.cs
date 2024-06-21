@@ -12,24 +12,26 @@ namespace Persistence.Queries.Common.Classes.QueryBaseRelated;
 
 internal abstract class CollectionQueryBase<TModel, TEntity>(
     ApplicationDatabaseContext context,
-    IQuerySelectionProfileSelector<TEntity> selectionProfileSelector,
-    IQuerySortingSettingsSelector<TEntity> sortingSettingsSelector,
-    IQueryFilteringCriteriaSelector<TEntity> filteringCriteriaSelector,
+    IQueryProjectionProfileSelector<TModel, TEntity> projectionProfileSelector,
+    IQuerySortingSettingsSelector<TModel, TEntity> sortingSettingsSelector,
+    IQueryFilteringCriteriaSelector<TModel, TEntity> filteringCriteriaSelector,
     IQueryPaginator queryPaginator,
-    IMapper mapper) : IQuery<TModel, Result<IReadOnlyCollection<TModel>>>
+    IMapper mapper) : IQuery<TModel, IReadOnlyCollection<TModel>>
     where TModel : class, IIdentifiable<Guid>
     where TEntity : class, IIdentifiable<Guid>
 {
     public async Task<Result<IReadOnlyCollection<TModel>>> Execute<TRequestResult>(
-        IQueryRequest<TModel, Result<IReadOnlyCollection<TModel>>, TRequestResult> queryRequest,
+        IQueryRequest<TModel, IReadOnlyCollection<TModel>, TRequestResult> queryRequest,
         CancellationToken cancellationToken)
         where TRequestResult : notnull
     {
         var queryable = GetDatabaseQueryable();
 
-        queryable = queryable.GetQueryWithAppliedFilters(filteringCriteriaSelector);
-        queryable = queryable.GetQueryWithAppliedSortingSettings(sortingSettingsSelector);
-        queryable = queryable.GetQueryWithAppliedSelectionProfile(selectionProfileSelector);
+        queryable = queryable.GetQueryWithAppliedFilters(queryRequest.FilteringParameters, filteringCriteriaSelector);
+        queryable = queryable.GetQueryWithAppliedSortingSettings(
+            queryRequest.FilteringParameters, sortingSettingsSelector);
+        queryable = queryable.GetQueryWithAppliedSelectionProfile(
+            queryRequest.FilteringParameters, projectionProfileSelector);
         queryable = queryable.GetQueryWithAppliedPagination(queryPaginator, queryRequest.FilteringParameters);
         queryable = queryable.GetQueryWithAppliedTrackingSettings(queryRequest.IsTracked);
 
