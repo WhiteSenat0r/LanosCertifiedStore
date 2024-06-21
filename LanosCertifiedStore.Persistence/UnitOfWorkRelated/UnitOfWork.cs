@@ -1,5 +1,11 @@
-namespace Persistence.UnitOfWorkRelated;
-
+// using System.Collections;
+// using Application.Contracts.RepositoryRelated.Common;
+// using AutoMapper;
+// using Domain.Contracts.Common;
+// using Persistence.Contexts.ApplicationDatabaseContext;
+//
+// namespace Persistence.UnitOfWorkRelated;
+//
 // internal sealed class UnitOfWork(ApplicationDatabaseContext context, IMapper mapper) : IUnitOfWork
 // {
 //     private readonly Hashtable _repositoryInstancesHashTable = new();

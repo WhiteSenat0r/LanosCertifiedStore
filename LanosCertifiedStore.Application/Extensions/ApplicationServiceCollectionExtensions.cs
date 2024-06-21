@@ -1,5 +1,8 @@
 ﻿using System.Reflection;
 using Application.Behaviors;
+using Application.Helpers.ValidationRelated;
+using Application.Helpers.ValidationRelated.Common.Contracts;
+using Application.Queries.Brands.BrandQueryRelated;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,8 +13,8 @@ public static class ApplicationServiceCollectionExtensions
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        // TODO
-        // services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(VehiclesQueryHandler).Assembly));
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(
+            typeof(ListVehicleBrandsQueryRequestHandler).Assembly));
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         AddTransactionRelatedServices(services);
@@ -25,10 +28,8 @@ public static class ApplicationServiceCollectionExtensions
 
     private static void AddValidationRelatedServices(IServiceCollection services)
     {
-        // TODO
-        // services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TransactionPipelineBehavior<,>));
-        // TODO
-        // services.AddScoped(typeof(IValidationHelper), typeof(ValidationHelper));
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TransactionPipelineBehavior<,>));
+        services.AddScoped(typeof(IValidationHelper), typeof(ValidationHelper));
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), includeInternalTypes: true);
     }
 }

@@ -4,7 +4,7 @@ using Domain.Models.IdentityRelated;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated.RefreshTokenRelated;
 
-internal sealed class RefreshTokenProvider() : IRefreshTokenProvider
+internal sealed class RefreshTokenProvider : IRefreshTokenProvider
 {
     public RefreshToken Generate(int bytesQuantity)
     {

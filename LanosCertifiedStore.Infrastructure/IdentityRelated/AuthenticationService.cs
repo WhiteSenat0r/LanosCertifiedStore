@@ -1,5 +1,4 @@
-﻿using Application.Contracts.RepositoryRelated.Common;
-using Application.Contracts.ServicesRelated.IdentityRelated;
+﻿using Application.Contracts.ServicesRelated.IdentityRelated;
 using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using Application.RequestParams;
 using Domain.Models.UserRelated;
@@ -10,7 +9,6 @@ using Microsoft.Extensions.Options;
 namespace LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated;
 
 internal sealed class AuthenticationService(
-    IUnitOfWork unitOfWork,
     IPasswordHasher passwordHasher,
     IOptions<JwtTokenOptions> jwtOptions) : IAuthenticationService
 {
@@ -21,29 +19,32 @@ internal sealed class AuthenticationService(
             Email = loginDto.Email
         };
 
-        var user = (await unitOfWork.RetrieveRepository<User>()
-            .GetAllEntitiesAsync(filteringParamsForGettingUserByEmail)).SingleOrDefault();
+        // var user = (await unitOfWork.RetrieveRepository<User>()
+        //     .GetAllEntitiesAsync(filteringParamsForGettingUserByEmail)).SingleOrDefault();
+        //
+        // if (user is null) return null;
+        //
+        // var isPasswordCorrect = passwordHasher.VerifyPassword(loginDto.Password, user.PasswordHash);
+        //
+        // if (!isPasswordCorrect) return null;
+        //
+        // AppendUserAccessTokenCookie(httpResponse, user);
+        //
+        // return user;
 
-        if (user is null) return null;
-
-        var isPasswordCorrect = passwordHasher.VerifyPassword(loginDto.Password, user.PasswordHash);
-
-        if (!isPasswordCorrect) return null;
-        
-        AppendUserAccessTokenCookie(httpResponse, user);
-        
-        return user;
+        throw new NotImplementedException();
     }
 
     public async Task<User?> RegisterAsync(RegisterDto registerDto)
     {
-        var passwordHash = passwordHasher.HashPassword(registerDto.Password);
-
-        var user = new User(registerDto.FirstName, registerDto.LastName, registerDto.Email, passwordHash);
-
-        await unitOfWork.RetrieveRepository<User>().AddNewEntityAsync(user);
-
-        return user;
+        throw new NotImplementedException();
+        // var passwordHash = passwordHasher.HashPassword(registerDto.Password);
+        //
+        // var user = new User(registerDto.FirstName, registerDto.LastName, registerDto.Email, passwordHash);
+        //
+        // await unitOfWork.RetrieveRepository<User>().AddNewEntityAsync(user);
+        //
+        // return user;
     }
 
     public IDictionary<string, bool> GetAuthenticationStatus(HttpRequest httpRequest) =>

@@ -17,12 +17,12 @@ namespace API.Controllers.VehicleRelated;
 public sealed class BrandsController : BaseEntityRelatedApiController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(PaginationResult<BrandDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(PaginationResult<VehicleBrandDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<PaginationResult<BrandDto>>> GetBrands(
-        [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
+    public async Task<ActionResult<PaginationResult<VehicleBrandDto>>> GetBrands(
+        [FromQuery] VehicleBrandFilteringRequestParameters requestParameters, bool isTracked)
     {
-        return HandleResult(await Mediator.Send(new BrandsQuery(requestParameters)));
+        return HandleResult(await Mediator.Send(new ListVehicleBrandsQueryRequest(requestParameters, isTracked)));
     }
     
     [HttpGet("countItems")]
