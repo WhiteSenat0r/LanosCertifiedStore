@@ -8,6 +8,6 @@ public sealed class VehicleBrandRelatedMappingProfile : Profile
 {
     public VehicleBrandRelatedMappingProfile()
     {
-        CreateMap<VehicleBrand, BrandDto>();
+        CreateMap<VehicleBrand, VehicleBrandDto>();
     }
 }
