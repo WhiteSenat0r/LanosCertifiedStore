@@ -23,6 +23,7 @@
       <Folder Include="Data\" />
       <Folder Include="Data\Migrations\" />
       <Folder Include="Repositories\VehicleRelated\QueryBuilderRelated\Common\" />
+      <Folder Include="Services\QueryRelated\Common\Classes\Constants\" />
     </ItemGroup>
 
     <ItemGroup>
