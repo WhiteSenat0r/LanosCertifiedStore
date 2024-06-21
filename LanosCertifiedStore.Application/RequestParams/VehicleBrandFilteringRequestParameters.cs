@@ -10,5 +10,5 @@ public sealed class VehicleBrandFilteringRequestParameters : BaseFilteringReques
 {
     public string? Name { get; set; }
     public string? ContainedModelName { get; set; }
-    public VehicleBrandSelectionProfile SelectionProfile { get; set; } = VehicleBrandSelectionProfile.Default;
+    public VehicleBrandProjectionProfile ProjectionProfile { get; set; } = VehicleBrandProjectionProfile.Default;
 }
