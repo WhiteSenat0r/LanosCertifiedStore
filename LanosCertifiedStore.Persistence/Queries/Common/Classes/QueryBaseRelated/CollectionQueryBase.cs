@@ -1,4 +1,4 @@
-﻿using Application.Contracts.RequestRelated;
+﻿using Application.Contracts.RequestRelated.QueryRelated;
 using Application.Shared;
 using AutoMapper;
 using Domain.Contracts.Common;
@@ -16,7 +16,7 @@ internal abstract class CollectionQueryBase<TModel, TEntity>(
     IQuerySortingSettingsSelector<TModel, TEntity> sortingSettingsSelector,
     IQueryFilteringCriteriaSelector<TModel, TEntity> filteringCriteriaSelector,
     IQueryPaginator queryPaginator,
-    IMapper mapper) : IQuery<TModel, IReadOnlyCollection<TModel>>
+    IMapper mapper) : ICollectionQuery<TModel, IReadOnlyCollection<TModel>>
     where TModel : class, IIdentifiable<Guid>
     where TEntity : class, IIdentifiable<Guid>
 {
