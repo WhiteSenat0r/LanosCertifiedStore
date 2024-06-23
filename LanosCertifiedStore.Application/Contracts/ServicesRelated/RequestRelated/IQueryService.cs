@@ -1,4 +1,4 @@
-﻿using Application.Contracts.RequestRelated;
+﻿using Application.Contracts.RequestRelated.QueryRelated;
 using Application.Shared;
 using Domain.Contracts.Common;
 

@@ -1,11 +1,10 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
-using Application.Shared;
 using Domain.Contracts.Common;
 using MediatR;
 
-namespace Application.Contracts.RequestRelated;
+namespace Application.Contracts.RequestRelated.QueryRelated;
 
-public interface IQueryRequest<TModel, TQueryResult, TRequestResult> : IRequest<Result<TRequestResult>>
+public interface IQueryRequest<TModel, TQueryResult, TRequestResult> : IRequest<TRequestResult>
     where TModel : IIdentifiable<Guid>
     where TQueryResult : notnull
     where TRequestResult : notnull
