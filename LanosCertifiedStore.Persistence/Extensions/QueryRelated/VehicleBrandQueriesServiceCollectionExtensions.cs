@@ -17,7 +17,7 @@ internal static class VehicleBrandQueriesServiceCollectionExtensions
         services.AddTransient<IQueryFilteringCriteriaSelector<VehicleBrand, VehicleBrandEntity>,
             VehicleBrandsFilteringCriteriaSelector>();
         
-        services.AddTransient<IQuery<VehicleBrand, IReadOnlyCollection<VehicleBrand>>, VehicleBrandsCollectionQuery>();
+        services.AddTransient<IQuery<VehicleBrand, IReadOnlyCollection<VehicleBrand>>, CollectionVehicleBrandsQuery>();
         services.AddTransient<IQuery<VehicleBrand, VehicleBrand>, SingleVehicleBrandQuery>();
 
         return services;
