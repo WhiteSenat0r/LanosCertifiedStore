@@ -2,7 +2,7 @@
 using Application.Behaviors;
 using Application.Helpers.ValidationRelated;
 using Application.Helpers.ValidationRelated.Common.Contracts;
-using Application.Queries.Brands.BrandQueryRelated;
+using Application.Queries.VehicleBrandsRelated.ListVehicleBrandsQueryRelated;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +14,7 @@ public static class ApplicationServiceCollectionExtensions
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(
-            typeof(ListVehicleBrandsQueryRequestHandler).Assembly));
+            typeof(CollectionVehicleBrandsQueryRequestHandler).Assembly));
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         AddTransactionRelatedServices(services);
