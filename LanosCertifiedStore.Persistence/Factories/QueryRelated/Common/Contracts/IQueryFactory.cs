@@ -1,4 +1,4 @@
-﻿using Application.Contracts.RequestRelated;
+﻿using Application.Contracts.RequestRelated.QueryRelated;
 using Domain.Contracts.Common;
 using Persistence.Queries.Common.Contracts;
 
