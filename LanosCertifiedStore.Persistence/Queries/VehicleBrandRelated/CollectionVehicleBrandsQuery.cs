@@ -7,7 +7,7 @@ using Persistence.Queries.Common.Contracts;
 
 namespace Persistence.Queries.VehicleBrandRelated;
 
-internal sealed class VehicleBrandsQuery(
+internal sealed class CollectionVehicleBrandsQuery(
     ApplicationDatabaseContext context,
     IQueryProjectionProfileSelector<VehicleBrand, VehicleBrandEntity> projectionProfileSelector,
     IQuerySortingSettingsSelector<VehicleBrand, VehicleBrandEntity> sortingSettingsSelector,
