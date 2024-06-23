@@ -1,5 +1,5 @@
 ﻿using Application.Constants;
-using Application.Contracts.RequestRelated;
+using Application.Contracts.RequestRelated.QueryRelated;
 using Application.Contracts.ServicesRelated.RequestRelated;
 using Application.Shared;
 using Domain.Contracts.Common;
