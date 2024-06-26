@@ -3,7 +3,7 @@ using Domain.Models.VehicleRelated.Classes;
 using Persistence.Entities.VehicleRelated;
 using Persistence.Queries.Common.Classes.QueryRelated;
 
-namespace Persistence.Queries.VehicleBrandRelated;
+namespace Persistence.Queries.VehicleBrandRelated.SelectorRelated;
 
 internal sealed class VehicleBrandsSortingSettingsSelector : 
     QuerySortingSettingsSelectorBase<VehicleBrand, VehicleBrandEntity>
