@@ -6,7 +6,7 @@ using Application.Commands.Brands.UpdateBrand;
 using Application.Core.Results;
 using Application.Dtos.BrandDtos;
 using Application.Dtos.Common;
-using Application.Queries.VehicleBrandsRelated.CountBrandsQueryRelated;
+using Application.Queries.VehicleBrandsRelated.CountVehicleBrandsQueryRelated;
 using Application.Queries.VehicleBrandsRelated.ListVehicleBrandsQueryRelated;
 using Application.Queries.VehicleBrandsRelated.SingleVehicleBrandQueryRelated;
 using Application.RequestParams;
@@ -40,10 +40,10 @@ public sealed class BrandsController : BaseEntityRelatedApiController
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
+    public async Task<ActionResult<ItemsCountDto>> GetBrandsCount(
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
     {
-        return HandleResult(await Mediator.Send(new CountBrandsQuery(requestParameters)));
+        return HandleResult(await Mediator.Send(new CountVehicleBrandsQueryRequest(requestParameters)));
     }
 
     [HttpPost]
