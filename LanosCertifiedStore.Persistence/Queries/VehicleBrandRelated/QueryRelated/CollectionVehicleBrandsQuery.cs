@@ -5,7 +5,7 @@ using Persistence.Entities.VehicleRelated;
 using Persistence.Queries.Common.Classes.QueryBaseRelated;
 using Persistence.Queries.Common.Contracts;
 
-namespace Persistence.Queries.VehicleBrandRelated;
+namespace Persistence.Queries.VehicleBrandRelated.QueryRelated;
 
 internal sealed class CollectionVehicleBrandsQuery(
     ApplicationDatabaseContext context,
