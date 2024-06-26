@@ -13,7 +13,7 @@ namespace Persistence.Queries.Common.Classes.QueryBaseRelated;
 internal abstract class SingleQueryBase<TModel, TEntity, TDto>(
     ApplicationDatabaseContext context,
     IQueryProjectionProfileSelector<TModel, TEntity> projectionProfileSelector,
-    IMapper mapper) : ISingleQuery<TModel, TModel, Result<TDto>, TDto>
+    IMapper mapper) : ISingleQuery<TModel, TModel>
     where TModel : class, IIdentifiable<Guid>
     where TEntity : class, IIdentifiable<Guid>
     where TDto : class
