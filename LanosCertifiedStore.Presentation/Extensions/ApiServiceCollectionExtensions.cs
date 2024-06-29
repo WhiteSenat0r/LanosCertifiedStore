@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using API.Middlewares.ExceptionRelated;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -23,7 +24,13 @@ internal static class ApiServiceCollectionExtensions
 
         OverrideAuthenticationScheme(services);
         AddJwtAuthenticationOptions(services, config);
+        
         services.AddAuthorization();
+        
+        services.AddExceptionHandler<DatabaseConnectionExceptionHandler>();
+        services.AddExceptionHandler<DatabaseUpdateExceptionHandler>();
+        services.AddExceptionHandler<GlobalExceptionHandler>();
+        services.AddProblemDetails();
 
         return services;
     }

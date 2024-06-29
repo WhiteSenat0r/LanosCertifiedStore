@@ -1,5 +1,4 @@
 using API.Extensions;
-using API.Middleware;
 using Application.Extensions;
 using LanosCertifiedStore.InfrastructureLayer.Services.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +17,6 @@ builder.Services.AddExternalServices(builder.Configuration);
 
 var app = builder.Build();
 
-app.UseMiddleware<ExceptionMiddleware>();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -31,6 +28,7 @@ app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseExceptionHandler();
 
 app.MapControllers();
 
