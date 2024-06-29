@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.RequestRelated.QueryRelated;
-using Application.Shared;
+using Application.Shared.ResultRelated;
 using AutoMapper;
 using Domain.Contracts.Common;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +26,7 @@ internal abstract class CollectionQueryBase<TModel, TEntity>(
         where TRequestResult : notnull
     {
         var queryable = GetDatabaseQueryable();
-
+        
         queryable = queryable.GetQueryWithAppliedFilters(queryRequest.FilteringParameters, filteringCriteriaSelector);
         queryable = queryable.GetQueryWithAppliedSortingSettings(
             queryRequest.FilteringParameters, sortingSettingsSelector);

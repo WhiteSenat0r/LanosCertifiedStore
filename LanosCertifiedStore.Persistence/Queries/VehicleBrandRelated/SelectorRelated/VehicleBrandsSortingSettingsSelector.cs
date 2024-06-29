@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Domain.Models.VehicleRelated.Classes;
 using Persistence.Entities.VehicleRelated;
-using Persistence.Queries.Common.Classes.QueryRelated;
+using Persistence.Queries.Common.Classes.SelectorBaseRelated;
 
 namespace Persistence.Queries.VehicleBrandRelated.SelectorRelated;
 

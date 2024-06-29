@@ -4,7 +4,7 @@ using Persistence.Factories.QueryRelated.Common.Classes;
 using Persistence.Factories.QueryRelated.Common.Contracts;
 using Persistence.Queries.Common.Classes;
 using Persistence.Queries.Common.Contracts;
-using Persistence.Services.QueryRelated;
+using Persistence.Services;
 
 namespace Persistence.Extensions.QueryRelated;
 
@@ -34,7 +34,6 @@ internal static class QueriesServiceCollectionExtensions
             .ToList();
 
         var serviceTypes = queryDescriptors.Select(d => d.ServiceType);
-
         var queries = serviceTypes.Select(type => provider.GetService(type)!).ToList();
 
         var queryFactory = new QueryFactory(queries);

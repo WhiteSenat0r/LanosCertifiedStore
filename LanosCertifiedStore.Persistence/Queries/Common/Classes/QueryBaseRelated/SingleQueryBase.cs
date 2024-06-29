@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.RequestRelated.QueryRelated;
-using Application.Shared;
+using Application.Shared.ResultRelated;
 using AutoMapper;
 using Domain.Contracts.Common;
 using Microsoft.EntityFrameworkCore;
@@ -48,22 +48,13 @@ internal abstract class SingleQueryBase<TModel, TEntity, TDto>(
         CancellationToken cancellationToken)
         where TRequestResult : Result<TDto>
     {
-        try
-        {
-            var item = await queryable.SingleAsync(i => i.Id.Equals(queryRequest.ItemId),cancellationToken);
-            var mappedItem = mapper.Map<TEntity, TModel>(item);
+        var item = await queryable.SingleOrDefaultAsync(i => i.Id.Equals(queryRequest.ItemId),cancellationToken);
+        
+        if (item is null)
+            return Result<TModel>.Success(null!);
             
-            return Result<TModel>.Success(mappedItem);
-        }
-        catch (InvalidOperationException)
-        {
-            return Result<TModel>.Failure(
-                new Error(QueryConstants.QueryExecutionErrorCode, QueryConstants.QueryNonExistingItemErrorMessage));
-        }
-        catch (Exception)
-        {
-            return Result<TModel>.Failure(
-                new Error(QueryConstants.QueryExecutionErrorCode, QueryConstants.QueryExecutionErrorMessage));
-        }
+        var mappedItem = mapper.Map<TEntity, TModel>(item);
+        
+        return Result<TModel>.Success(mappedItem);
     }
 }

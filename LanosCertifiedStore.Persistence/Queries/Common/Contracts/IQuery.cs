@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.RequestRelated.QueryRelated;
-using Application.Shared;
+using Application.Shared.ResultRelated;
 using Domain.Contracts.Common;
 
 namespace Persistence.Queries.Common.Contracts;

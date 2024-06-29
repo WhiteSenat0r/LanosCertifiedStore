@@ -4,7 +4,7 @@ using Domain.Contracts.Common;
 using LinqKit;
 using Persistence.Queries.Common.Contracts;
 
-namespace Persistence.Queries.Common.Classes.QueryRelated;
+namespace Persistence.Queries.Common.Classes.SelectorBaseRelated;
 
 internal abstract class QueryFilteringCriteriaSelectorBase<TModel, TEntity> : 
     IQueryFilteringCriteriaSelector<TModel, TEntity> 

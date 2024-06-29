@@ -3,7 +3,7 @@ using Application.Contracts.RepositoryRelated.Common;
 using Domain.Contracts.Common;
 using Persistence.Queries.Common.Contracts;
 
-namespace Persistence.Queries.Common.Classes.QueryRelated;
+namespace Persistence.Queries.Common.Classes.SelectorBaseRelated;
 
 internal abstract class QuerySortingSettingsSelectorBase<TModel, TEntity> : 
     IQuerySortingSettingsSelector<TModel, TEntity>
