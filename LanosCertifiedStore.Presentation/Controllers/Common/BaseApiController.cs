@@ -1,4 +1,4 @@
-﻿using Application.Shared;
+﻿using Application.Shared.ResultRelated;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,15 +13,21 @@ public abstract class BaseApiController : ControllerBase
     protected IMediator Mediator => (_mediator ??=
         HttpContext.RequestServices.GetService<IMediator>())!;
 
-    protected abstract ActionResult HandleResult<T>(Result<T> result);
+    private protected abstract ActionResult HandleResult<T>(Result<T> result);
     
-    protected static ProblemDetails CreateProblemDetails(
-        string title, int status, Error error, Error[]? errors = null) => new()
+    private protected static ProblemDetails CreateProblemDetails(
+        string title, int status, Error error, Error[]? errors) => new()
     {
         Title = title,
         Status = status,
-        Type = error.Code,
         Detail = error.Message,
         Extensions = { { nameof(errors), errors } }
+    };
+    
+    private protected static ProblemDetails CreateProblemDetails(string title, int status, Error error) => new()
+    {
+        Title = title,
+        Status = status,
+        Detail = error.Message,
     };
 }
