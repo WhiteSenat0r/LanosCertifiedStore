@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.ServicesRelated.RequestRelated;
 using Application.Dtos.BrandDtos;
 using Application.Queries.Common.SingleQueryRelated;
-using Application.Shared;
+using Application.Shared.ResultRelated;
 using AutoMapper;
 using Domain.Models.VehicleRelated.Classes;
 

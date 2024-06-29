@@ -30,5 +30,9 @@
         </AssemblyAttribute>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Shared\ExceptionRelated\ApiException.cs" />
+    </ItemGroup>
+
 
 </Project>

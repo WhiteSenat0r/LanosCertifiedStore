@@ -2,7 +2,7 @@
 using Application.Enums.RequestParametersRelated;
 using Application.Queries.Common.SingleQueryRelated;
 using Application.RequestParams;
-using Application.Shared;
+using Application.Shared.ResultRelated;
 using Domain.Models.VehicleRelated.Classes;
 
 namespace Application.Queries.VehicleBrandsRelated.SingleVehicleBrandQueryRelated;

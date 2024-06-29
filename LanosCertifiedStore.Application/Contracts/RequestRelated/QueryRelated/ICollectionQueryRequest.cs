@@ -1,5 +1,5 @@
 ﻿using Application.Core.Results;
-using Application.Shared;
+using Application.Shared.ResultRelated;
 using Domain.Contracts.Common;
 
 namespace Application.Contracts.RequestRelated.QueryRelated;

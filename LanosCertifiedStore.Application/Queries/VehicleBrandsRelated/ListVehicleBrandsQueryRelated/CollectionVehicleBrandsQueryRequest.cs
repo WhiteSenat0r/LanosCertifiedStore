@@ -2,7 +2,7 @@
 using Application.Core.Results;
 using Application.Dtos.BrandDtos;
 using Application.Queries.Common.CollectionQueryRelated;
-using Application.Shared;
+using Application.Shared.ResultRelated;
 using Domain.Models.VehicleRelated.Classes;
 
 namespace Application.Queries.VehicleBrandsRelated.ListVehicleBrandsQueryRelated;

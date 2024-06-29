@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.RequestParametersRelated;
 using Application.Dtos.Common;
 using Application.Queries.Common.CountItemsQueryRelated;
-using Application.Shared;
+using Application.Shared.ResultRelated;
 using Domain.Models.VehicleRelated.Classes;
 
 namespace Application.Queries.VehicleBrandsRelated.CountVehicleBrandsQueryRelated;
