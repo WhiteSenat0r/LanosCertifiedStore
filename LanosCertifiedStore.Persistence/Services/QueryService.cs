@@ -1,11 +1,11 @@
 ﻿using Application.Constants;
 using Application.Contracts.RequestRelated.QueryRelated;
 using Application.Contracts.ServicesRelated.RequestRelated;
-using Application.Shared;
+using Application.Shared.ResultRelated;
 using Domain.Contracts.Common;
 using Persistence.Factories.QueryRelated.Common.Contracts;
 
-namespace Persistence.Services.QueryRelated;
+namespace Persistence.Services;
 
 internal sealed class QueryService(IQueryFactory queryFactory) : IQueryService
 {
