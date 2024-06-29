@@ -24,6 +24,7 @@ internal abstract class ExceptionHandlerBase<TException>(
         var problemDetails = new ProblemDetails
         {
             Title = title,
+            Status = (int)statusCode,
             Detail = detail
         };
 
