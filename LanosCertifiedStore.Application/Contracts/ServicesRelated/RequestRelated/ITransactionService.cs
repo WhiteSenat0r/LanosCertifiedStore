@@ -2,9 +2,11 @@
 
 public interface ITransactionService
 {
-    Task BeginTransaction(CancellationToken cancellationToken);
+    Task BeginTransaction(CancellationToken cancellationToken = default);
 
-    Task CommitTransaction(CancellationToken cancellationToken);
+    Task CommitTransaction(CancellationToken cancellationToken = default);
 
-    Task RollbackTransaction(CancellationToken cancellationToken);
+    Task RollbackTransaction(CancellationToken cancellationToken = default);
+
+    Task SavePerformedChanges(CancellationToken cancellationToken = default);
 }
