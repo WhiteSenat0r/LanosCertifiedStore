@@ -1,7 +1,5 @@
 ﻿using System.Reflection;
 using Application.Behaviors;
-using Application.Helpers.ValidationRelated;
-using Application.Helpers.ValidationRelated.Common.Contracts;
 using Application.Queries.VehicleBrandsRelated.ListVehicleBrandsQueryRelated;
 using FluentValidation;
 using MediatR;
@@ -29,7 +27,6 @@ public static class ApplicationServiceCollectionExtensions
     private static void AddValidationRelatedServices(IServiceCollection services)
     {
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TransactionPipelineBehavior<,>));
-        services.AddScoped(typeof(IValidationHelper), typeof(ValidationHelper));
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), includeInternalTypes: true);
     }
 }
