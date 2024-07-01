@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Entities.UserRelated;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Persistence.Entities.UserRelated;
 
 namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.IdentityRelated;
 
-internal sealed class UserRoleEntityConfiguration : IEntityTypeConfiguration<UserRoleEntity>
+internal sealed class UserRoleEntityConfiguration : IEntityTypeConfiguration<UserRole>
 {
-    public void Configure(EntityTypeBuilder<UserRoleEntity> builder)
+    public void Configure(EntityTypeBuilder<UserRole> builder)
     {
         builder.HasIndex(x => x.Name).IsUnique();
 
@@ -14,10 +14,10 @@ internal sealed class UserRoleEntityConfiguration : IEntityTypeConfiguration<Use
             .IsRequired()
             .HasMaxLength(64);
 
-        var roles = new List<UserRoleEntity>
+        var roles = new List<UserRole>
         {
-            new("User"),
-            new("Administrator"),
+            new((string)"User"),
+            new((string)"Administrator"),
         };
 
         builder.HasData(roles);

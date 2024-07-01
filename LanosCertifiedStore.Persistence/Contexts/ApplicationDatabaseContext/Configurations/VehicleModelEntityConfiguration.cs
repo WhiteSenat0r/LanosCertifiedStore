@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Entities.VehicleRelated;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Persistence.Entities.VehicleRelated;
 
 namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations;
 
-internal sealed class VehicleModelConfiguration : IEntityTypeConfiguration<VehicleModelEntity>
+internal sealed class VehicleModelConfiguration : IEntityTypeConfiguration<VehicleModel>
 {
-    public void Configure(EntityTypeBuilder<VehicleModelEntity> builder)
+    public void Configure(EntityTypeBuilder<VehicleModel> builder)
     {
         builder.Property(p => p.Name)
             .IsRequired()

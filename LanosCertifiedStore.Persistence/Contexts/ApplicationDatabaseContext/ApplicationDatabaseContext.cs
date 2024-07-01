@@ -1,33 +1,33 @@
 ﻿using System.Reflection;
+using Domain.Entities.IdentityRelated;
+using Domain.Entities.UserRelated;
+using Domain.Entities.VehicleRelated;
+using Domain.Entities.VehicleRelated.LocationRelated;
+using Domain.Entities.VehicleRelated.TypeRelated;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Entities.IdentityRelated;
-using Persistence.Entities.UserRelated;
-using Persistence.Entities.VehicleRelated;
-using Persistence.Entities.VehicleRelated.LocationRelated;
-using Persistence.Entities.VehicleRelated.TypeRelated;
 
 namespace Persistence.Contexts.ApplicationDatabaseContext;
 
 public sealed class ApplicationDatabaseContext(
     DbContextOptions<ApplicationDatabaseContext> options) : DbContext(options)
 {
-    internal DbSet<VehicleEntity> Vehicles { get; set; } = null!;
-    internal DbSet<VehicleBrandEntity> VehiclesBrands { get; set; } = null!;
-    internal DbSet<VehicleColorEntity> VehiclesColors { get; set; } = null!;
-    internal DbSet<VehicleModelEntity> VehicleModels { get; set; } = null!;
-    internal DbSet<VehiclePriceEntity> VehiclePrices { get; set; } = null!;
-    internal DbSet<VehicleTypeEntity> VehicleTypes { get; set; } = null!;
-    internal DbSet<VehicleBodyTypeEntity> VehicleBodyTypes { get; set; } = null!;
-    internal DbSet<VehicleEngineTypeEntity> VehicleEngineTypes { get; set; } = null!;
-    internal DbSet<VehicleDrivetrainTypeEntity> VehicleDrivetrainTypes { get; set; } = null!;
-    internal DbSet<VehicleTransmissionTypeEntity> VehicleTransmissionTypes { get; set; } = null!;
-    internal DbSet<VehicleLocationTownEntity> VehicleLocationTowns { get; set; } = null!;
-    internal DbSet<VehicleLocationAreaEntity> VehicleLocationAreas { get; set; } = null!;
-    internal DbSet<VehicleLocationRegionEntity> VehicleLocationRegions { get; set; } = null!;
-    internal DbSet<VehicleImageEntity> VehicleImages { get; set; } = null!;
-    internal DbSet<UserEntity> Users { get; set; } = null!;
-    internal DbSet<UserRoleEntity> Roles { get; set; } = null!;
-    internal DbSet<RefreshTokenEntity> RefreshTokens { get; set; } = null!;
+    internal DbSet<Vehicle> Vehicles { get; set; } = null!;
+    internal DbSet<VehicleBrand> VehiclesBrands { get; set; } = null!;
+    internal DbSet<VehicleColor> VehiclesColors { get; set; } = null!;
+    internal DbSet<VehicleModel> VehicleModels { get; set; } = null!;
+    internal DbSet<VehiclePrice> VehiclePrices { get; set; } = null!;
+    internal DbSet<VehicleType> VehicleTypes { get; set; } = null!;
+    internal DbSet<VehicleBodyType> VehicleBodyTypes { get; set; } = null!;
+    internal DbSet<VehicleEngineType> VehicleEngineTypes { get; set; } = null!;
+    internal DbSet<VehicleDrivetrainType> VehicleDrivetrainTypes { get; set; } = null!;
+    internal DbSet<VehicleTransmissionType> VehicleTransmissionTypes { get; set; } = null!;
+    internal DbSet<VehicleLocationTown> VehicleLocationTowns { get; set; } = null!;
+    internal DbSet<VehicleLocationArea> VehicleLocationAreas { get; set; } = null!;
+    internal DbSet<VehicleLocationRegion> VehicleLocationRegions { get; set; } = null!;
+    internal DbSet<VehicleImage> VehicleImages { get; set; } = null!;
+    internal DbSet<User> Users { get; set; } = null!;
+    internal DbSet<UserRole> Roles { get; set; } = null!;
+    internal DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

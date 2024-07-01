@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Entities.UserRelated;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Persistence.Entities.UserRelated;
 
 namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.IdentityRelated;
 
-internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<UserEntity>
+internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
 {
-    public void Configure(EntityTypeBuilder<UserEntity> builder)
+    public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.HasIndex(x => x.Email).IsUnique();
         

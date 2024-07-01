@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Entities.VehicleRelated.LocationRelated;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Persistence.Entities.VehicleRelated.LocationRelated;
 
 namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.LocationRelated;
 
-internal sealed class VehicleLocationTownConfiguration : IEntityTypeConfiguration<VehicleLocationTownEntity>
+internal sealed class VehicleLocationTownConfiguration : IEntityTypeConfiguration<VehicleLocationTown>
 {
-    public void Configure(EntityTypeBuilder<VehicleLocationTownEntity> builder)
+    public void Configure(EntityTypeBuilder<VehicleLocationTown> builder)
     {
         builder.Property(p => p.Name)
             .IsRequired()

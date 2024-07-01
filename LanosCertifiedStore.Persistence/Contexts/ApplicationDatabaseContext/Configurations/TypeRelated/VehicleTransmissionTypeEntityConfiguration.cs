@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Entities.VehicleRelated.TypeRelated;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Persistence.Entities.VehicleRelated.TypeRelated;
 
 namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.TypeRelated;
 
-internal sealed class VehicleTransmissionTypeConfiguration : IEntityTypeConfiguration<VehicleTransmissionTypeEntity>
+internal sealed class VehicleTransmissionTypeConfiguration : IEntityTypeConfiguration<VehicleTransmissionType>
 {
-    public void Configure(EntityTypeBuilder<VehicleTransmissionTypeEntity> builder)
+    public void Configure(EntityTypeBuilder<VehicleTransmissionType> builder)
     {
         builder.Property(p => p.Name)
             .IsRequired()

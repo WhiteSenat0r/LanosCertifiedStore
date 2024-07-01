@@ -1,12 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Entities.VehicleRelated;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Persistence.Entities.VehicleRelated;
 
 namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations;
 
-internal sealed class VehicleEntityConfiguration : IEntityTypeConfiguration<VehicleEntity>
+internal sealed class VehicleEntityConfiguration : IEntityTypeConfiguration<Vehicle>
 {
-    public void Configure(EntityTypeBuilder<VehicleEntity> builder)
+    public void Configure(EntityTypeBuilder<Vehicle> builder)
     {
         builder.Property(x => x.Description).IsRequired().HasMaxLength(2048);
     }
