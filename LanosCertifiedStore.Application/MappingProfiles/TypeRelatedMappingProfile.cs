@@ -1,8 +1,8 @@
 ﻿using Application.Dtos.TypeDtos;
 using AutoMapper;
-using Domain.Models.VehicleRelated.Classes.TypeRelated;
+using Domain.Entities.VehicleRelated.TypeRelated;
 
-namespace Application.MappingProfiles.DtoRelated;
+namespace Application.MappingProfiles;
 
 public sealed class TypeRelatedMappingProfile : Profile
 {

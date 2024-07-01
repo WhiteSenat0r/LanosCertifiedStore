@@ -1,8 +1,8 @@
 ﻿using Application.Dtos.ImageDtos;
 using AutoMapper;
-using Domain.Models.VehicleRelated.Classes;
+using Domain.Entities.VehicleRelated;
 
-namespace Application.MappingProfiles.DtoRelated;
+namespace Application.MappingProfiles;
 
 public sealed class VehicleImageRelatedMappingProfile : Profile
 {

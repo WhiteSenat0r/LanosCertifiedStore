@@ -1,8 +1,8 @@
 ﻿using Application.Dtos.LocationDtos;
 using AutoMapper;
-using Domain.Models.VehicleRelated.Classes.LocationRelated;
+using Domain.Entities.VehicleRelated.LocationRelated;
 
-namespace Application.MappingProfiles.DtoRelated;
+namespace Application.MappingProfiles;
 
 public sealed class LocationRelatedMappingProfile : Profile
 {

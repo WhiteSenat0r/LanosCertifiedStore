@@ -1,9 +1,9 @@
 ﻿using Application.Dtos.IdentityDtos.AuthenticationDtos;
 using Application.Dtos.IdentityDtos.ProfileDtos;
 using AutoMapper;
-using Domain.Models.UserRelated;
+using Domain.Entities.UserRelated;
 
-namespace Application.MappingProfiles.DtoRelated;
+namespace Application.MappingProfiles;
 
 public sealed class UserTypeRelatedMappingProfile : Profile
 {

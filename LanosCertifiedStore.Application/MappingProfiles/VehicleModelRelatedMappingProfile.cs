@@ -1,15 +1,15 @@
 ﻿using Application.Dtos.ModelDtos;
 using AutoMapper;
-using Domain.Models.VehicleRelated.Classes;
+using Domain.Entities.VehicleRelated;
 
-namespace Application.MappingProfiles.DtoRelated;
+namespace Application.MappingProfiles;
 
 public sealed class VehicleModelRelatedMappingProfile : Profile
 {
     public VehicleModelRelatedMappingProfile()
     {
         CreateMap<VehicleModel, ModelDto>()
-            .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.Brand.Name))
+            .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.VehicleBrand.Name))
             .ForMember(d => d.VehicleType, o => o.MapFrom(s => s.VehicleType.Name))
             .ForMember(d => d.AvailableBodyTypes, o => o.MapFrom(s => s.AvailableBodyTypes))
             .ForMember(d => d.AvailableEngineTypes, o => o.MapFrom(s => s.AvailableEngineTypes))
