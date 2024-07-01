@@ -1,8 +1,8 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
-using Application.Shared;
+using Application.Shared.ResultRelated;
 using Domain.Contracts.Common;
-using Domain.Models.VehicleRelated.Classes;
-using Domain.Models.VehicleRelated.Classes.TypeRelated;
+using Domain.Entities.VehicleRelated;
+using Domain.Entities.VehicleRelated.TypeRelated;
 using MediatR;
 
 namespace Application.Commands.Models.UpdateModel.Common.Classes;

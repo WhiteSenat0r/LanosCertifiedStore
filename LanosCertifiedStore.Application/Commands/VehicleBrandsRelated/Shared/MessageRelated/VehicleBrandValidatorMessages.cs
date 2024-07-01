@@ -1,6 +1,6 @@
 ﻿using Domain.Constants.VehicleRelated;
 
-namespace Application.Commands.Brands.Shared.MessageRelated;
+namespace Application.Commands.VehicleBrandsRelated.Shared.MessageRelated;
 
 public static class VehicleBrandValidatorMessages
 {

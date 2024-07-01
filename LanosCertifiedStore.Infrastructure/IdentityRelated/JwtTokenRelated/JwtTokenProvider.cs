@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using Application.Contracts.ServicesRelated.IdentityRelated;
-using Domain.Models.UserRelated;
+using Domain.Entities.UserRelated;
 using Microsoft.IdentityModel.Tokens;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated.JwtTokenRelated;
@@ -50,7 +50,7 @@ internal sealed class JwtTokenProvider(JwtTokenOptions tokenOptions) : IJwtProvi
             new(ClaimTypes.Email, user.Email),
         };
         
-        claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role)));
+        claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.Name)));
 
         return claims;
     }

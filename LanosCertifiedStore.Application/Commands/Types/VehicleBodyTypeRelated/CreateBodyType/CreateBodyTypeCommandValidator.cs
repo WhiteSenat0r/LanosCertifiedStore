@@ -3,7 +3,7 @@
 // TODO
 // internal sealed class CreateBodyTypeCommandValidator : AbstractValidator<CreateBodyTypeCommand>
 // {
-//     public CreateBodyTypeCommandValidator(IUnitOfWork unitOfWork, IValidationHelper validationHelper)
+//     public CreateBodyTypeCommandValidator(IUnitOfWork unitOfWork, IValidationHelper inputValidationService)
 //     {
 //         RuleFor(x => x.Name)
 //             .NotEmpty()
@@ -13,7 +13,7 @@
 //
 //         RuleFor(x => x.Name)
 //             .MustAsync(async (name, _) => 
-//                 await validationHelper.IsAspectValueUnique<VehicleBodyType, string>(
+//                 await inputValidationService.CheckAspectValueUniqueness<VehicleBodyType, string>(
 //                     unitOfWork,
 //                     name,
 //                     nameof(VehicleBodyType.Name)))

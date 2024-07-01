@@ -3,7 +3,7 @@
 // TODO
 // internal sealed class UpdateEngineTypeCommandValidator : AbstractValidator<UpdateEngineTypeCommand>
 // {
-//     public UpdateEngineTypeCommandValidator(IUnitOfWork unitOfWork, IValidationHelper validationHelper)
+//     public UpdateEngineTypeCommandValidator(IUnitOfWork unitOfWork, IValidationHelper inputValidationService)
 //     {
 //         RuleFor(x => x.UpdatedName)
 //             .NotEmpty()
@@ -13,7 +13,7 @@
 //
 //         RuleFor(x => x.UpdatedName)
 //             .MustAsync(async (name, _) => 
-//                 await validationHelper.IsAspectValueUnique<VehicleEngineType, string>(
+//                 await inputValidationService.CheckAspectValueUniqueness<VehicleEngineType, string>(
 //                     unitOfWork,
 //                     name,
 //                     nameof(VehicleEngineType.Name)))

@@ -1,15 +1,16 @@
-﻿using Application.Helpers.ValidationRelated.Common.Contracts;
+﻿using Application.Contracts.ValidationRelated;
 using Domain.Contracts.Common;
-using Domain.Models.VehicleRelated.Classes.Common.Classes;
+using Persistence.Contexts.ApplicationDatabaseContext;
 
-namespace Application.Helpers.ValidationRelated;
+namespace Persistence.Services;
 
-internal sealed class ValidationHelper : IValidationHelper
+internal sealed class ValidationHelper(
+    ApplicationDatabaseContext context) : IValidationHelper
 {
-    public async Task<bool> IsAspectValueUnique<TMainAspect, TValue>(
+    public async Task<bool> CheckAspectValueUniqueness<TMainAspect, TValue>(
         TValue value,
-        string aspectName)
-        where TMainAspect : NamedVehicleAspect
+        string aspectName) 
+        where TMainAspect : class, IIdentifiable<Guid>
     {
         throw new NotImplementedException();
         // var items = await unitOfWork.RetrieveRepository<TMainAspect>().GetAllEntitiesAsync();

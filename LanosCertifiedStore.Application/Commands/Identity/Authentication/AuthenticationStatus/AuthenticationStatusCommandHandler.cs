@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.ServicesRelated.IdentityRelated;
-using Application.Shared;
+using Application.Shared.ResultRelated;
 using MediatR;
 
 namespace Application.Commands.Identity.Authentication.AuthenticationStatus;

@@ -3,7 +3,7 @@
 // TODO
 // internal sealed class CreateColorCommandValidator : AbstractValidator<CreateColorCommand>
 // {
-//     public CreateColorCommandValidator(IUnitOfWork unitOfWork, IValidationHelper validationHelper)
+//     public CreateColorCommandValidator(IUnitOfWork unitOfWork, IValidationHelper inputValidationService)
 //     {
 //         RuleFor(x => x.ColorName)
 //             .NotEmpty()
@@ -18,7 +18,7 @@
 //
 //         RuleFor(x => x.ColorName)
 //             .MustAsync(async (name, _) => 
-//                 await validationHelper.IsAspectValueUnique<VehicleColor, string>(
+//                 await inputValidationService.CheckAspectValueUniqueness<VehicleColor, string>(
 //                     unitOfWork,
 //                     name,
 //                     nameof(VehicleColor.Name)))

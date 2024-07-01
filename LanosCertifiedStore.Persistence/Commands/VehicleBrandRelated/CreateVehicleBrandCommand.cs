@@ -2,11 +2,10 @@
 using Application.Dtos.BrandDtos;
 using Application.Shared.ResultRelated;
 using AutoMapper;
-using Domain.Models.VehicleRelated.Classes;
+using Domain.Entities.VehicleRelated;
 using Persistence.Commands.Common.Classes;
 using Persistence.Commands.Common.Classes.Constants;
 using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.Entities.VehicleRelated;
 
 namespace Persistence.Commands.VehicleBrandRelated;
 
@@ -19,11 +18,11 @@ internal sealed class CreateVehicleBrandCommand(ApplicationDatabaseContext conte
     {
         try
         {
-            var brandEntity = new VehicleBrandEntity(commandRequest.Name);
+            var brandEntity = new VehicleBrand(commandRequest.Name);
             
-            await context.Set<VehicleBrandEntity>().AddAsync(brandEntity, cancellationToken);
+            await context.Set<VehicleBrand>().AddAsync(brandEntity, cancellationToken);
 
-            var brand = mapper.Map<VehicleBrandEntity, VehicleBrand>(brandEntity);
+            var brand = mapper.Map<VehicleBrand, VehicleBrand>(brandEntity);
             
             return Result<VehicleBrand>.Success(brand);
         }

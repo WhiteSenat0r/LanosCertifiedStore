@@ -1,4 +1,4 @@
-﻿using Application.Shared;
+﻿using Application.Shared.ResultRelated;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 

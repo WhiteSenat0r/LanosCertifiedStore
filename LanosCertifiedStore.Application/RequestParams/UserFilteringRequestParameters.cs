@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.RequestParametersRelated;
 using Application.RequestParams.Common.Classes;
-using Domain.Models.UserRelated;
+using Domain.Entities.UserRelated;
 
 namespace Application.RequestParams;
 

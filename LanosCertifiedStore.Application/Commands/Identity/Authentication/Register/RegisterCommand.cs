@@ -1,5 +1,5 @@
 ﻿using Application.Dtos.IdentityDtos.AuthenticationDtos;
-using Application.Shared;
+using Application.Shared.ResultRelated;
 using MediatR;
 
 namespace Application.Commands.Identity.Authentication.Register;

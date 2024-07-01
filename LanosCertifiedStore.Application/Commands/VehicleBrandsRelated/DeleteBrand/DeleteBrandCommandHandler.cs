@@ -1,4 +1,4 @@
-﻿namespace Application.Commands.Brands.DeleteBrand;
+﻿namespace Application.Commands.VehicleBrandsRelated.DeleteBrand;
 
 // TODO
 // internal sealed class DeleteBrandCommandHandler : 

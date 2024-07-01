@@ -1,4 +1,4 @@
-﻿namespace Application.Shared;
+﻿namespace Application.Shared.ResultRelated;
 
 public class Result
 {

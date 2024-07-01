@@ -1,6 +1,5 @@
-﻿using Domain.Models.VehicleRelated.Classes;
+﻿using Domain.Entities.VehicleRelated;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence.Entities.VehicleRelated;
 using Persistence.Queries.Common.Contracts;
 using Persistence.Queries.VehicleBrandRelated.QueryRelated;
 using Persistence.Queries.VehicleBrandRelated.SelectorRelated;
@@ -11,11 +10,11 @@ internal static class VehicleBrandQueriesServiceCollectionExtensions
 {
     public static IServiceCollection AddVehicleBrandQueriesRelatedServices(this IServiceCollection services)
     {
-        services.AddTransient<IQuerySortingSettingsSelector<VehicleBrand, VehicleBrandEntity>,
+        services.AddTransient<IQuerySortingSettingsSelector<VehicleBrand, VehicleBrand>,
             VehicleBrandsSortingSettingsSelector>();
-        services.AddTransient<IQueryProjectionProfileSelector<VehicleBrand, VehicleBrandEntity>,
+        services.AddTransient<IQueryProjectionProfileSelector<VehicleBrand, VehicleBrand>,
             VehicleBrandsProjectionProfileSelector>();
-        services.AddTransient<IQueryFilteringCriteriaSelector<VehicleBrand, VehicleBrandEntity>,
+        services.AddTransient<IQueryFilteringCriteriaSelector<VehicleBrand, VehicleBrand>,
             VehicleBrandsFilteringCriteriaSelector>();
         
         services.AddTransient<IQuery<VehicleBrand, IReadOnlyCollection<VehicleBrand>>, CollectionVehicleBrandsQuery>();

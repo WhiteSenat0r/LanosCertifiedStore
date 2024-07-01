@@ -3,7 +3,7 @@
 // TODO
 // internal sealed class UpdateBodyTypeCommandValidator : AbstractValidator<UpdateBodyTypeCommand>
 // {
-//     public UpdateBodyTypeCommandValidator(IUnitOfWork unitOfWork, IValidationHelper validationHelper)
+//     public UpdateBodyTypeCommandValidator(IUnitOfWork unitOfWork, IValidationHelper inputValidationService)
 //     {
 //         RuleFor(x => x.UpdatedName)
 //             .NotEmpty()
@@ -13,7 +13,7 @@
 //
 //         RuleFor(x => x.UpdatedName)
 //             .MustAsync(async (name, _) => 
-//                 await validationHelper.IsAspectValueUnique<VehicleBodyType, string>(
+//                 await inputValidationService.CheckAspectValueUniqueness<VehicleBodyType, string>(
 //                     unitOfWork,
 //                     name,
 //                     nameof(VehicleBodyType.Name)))

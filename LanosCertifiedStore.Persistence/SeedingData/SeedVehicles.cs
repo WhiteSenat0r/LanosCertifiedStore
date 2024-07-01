@@ -1,25 +1,25 @@
-﻿using Persistence.Entities.VehicleRelated;
-using Persistence.Entities.VehicleRelated.LocationRelated;
-using Persistence.Entities.VehicleRelated.TypeRelated;
+﻿using Domain.Entities.VehicleRelated;
+using Domain.Entities.VehicleRelated.LocationRelated;
+using Domain.Entities.VehicleRelated.TypeRelated;
 
 namespace Persistence.SeedingData;
 
 internal static class SeedVehicles
 {
-    public static List<VehicleEntity> GetVehicles(
-        List<VehicleTypeEntity> types,
-        List<VehicleColorEntity> colors,
-        List<VehicleBrandEntity> brands,
-        List<VehicleModelEntity> models,
-        List<VehicleBodyTypeEntity> bodyTypes,
-        List<VehicleDrivetrainTypeEntity> drivetrainTypes,
-        List<VehicleEngineTypeEntity> engineTypes,
-        List<VehicleTransmissionTypeEntity> transmissionTypes,
-        List<VehicleLocationRegionEntity> regions,
-        List<VehicleLocationAreaEntity> areas,
-        List<VehicleLocationTownEntity> towns) =>
+    public static List<Vehicle> GetVehicles(
+        List<VehicleType> types,
+        List<VehicleColor> colors,
+        List<VehicleBrand> brands,
+        List<VehicleModel> models,
+        List<VehicleBodyType> bodyTypes,
+        List<VehicleDrivetrainType> drivetrainTypes,
+        List<VehicleEngineType> engineTypes,
+        List<VehicleTransmissionType> transmissionTypes,
+        List<VehicleLocationRegion> regions,
+        List<VehicleLocationArea> areas,
+        List<VehicleLocationTown> towns) =>
     [
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Toyota")).Id,
             models.Single(m => m.Name.Equals("Camry")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -40,7 +40,7 @@ internal static class SeedVehicles
             price: 30000,
             description: "Продам свою Toyota Camry..........................................................."
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Ford")).Id,
             models.Single(m => m.Name.Equals("F-150")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -61,7 +61,7 @@ internal static class SeedVehicles
             price: 45000,
             description: "Опис Ford F-150)))))))))))))))))))))))))))))))))))))))))))))))))))"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Honda")).Id,
             models.Single(m => m.Name.Equals("Civic")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -82,7 +82,7 @@ internal static class SeedVehicles
             price: 28000,
             description: "ХОНДА КІВІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІК"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Chevrolet")).Id,
             models.Single(m => m.Name.Equals("Silverado")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -103,7 +103,7 @@ internal static class SeedVehicles
             displacement: 6.2d,
             description: "ЧЕВРОЛЄТ СЮЛЬВЄРАДО СИНІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІЙ"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Chevrolet")).Id,
             models.Single(m => m.Name.Equals("Silverado")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -124,7 +124,7 @@ internal static class SeedVehicles
             displacement: 5.0d,
             description: "ЧЕВРОЛЄТ СЮЛЬВЄРАДО БІЛІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІЙ"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Volkswagen")).Id,
             models.Single(m => m.Name.Equals("Passat")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -145,7 +145,7 @@ internal static class SeedVehicles
             displacement: 2.0d,
             description: "ПАССАТІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІК"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Volkswagen")).Id,
             models.Single(m => m.Name.Equals("Passat")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -166,7 +166,7 @@ internal static class SeedVehicles
             displacement: 2.0d,
             description: "ПАССАТІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІК"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Nissan")).Id,
             models.Single(m => m.Name.Equals("Altima")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -187,7 +187,7 @@ internal static class SeedVehicles
             displacement: 2.4d,
             description: "НІСАН АЛЬТІМА ЧЕРВОНИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИЙ"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("BMW")).Id,
             models.Single(m => m.Name.Equals("M3")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -208,7 +208,7 @@ internal static class SeedVehicles
             displacement: 3.0d,
             description: "БЕМЕР БІЛИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИЙ"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Mercedes-Benz")).Id,
             models.Single(m => m.Name.Equals("C-Class")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -229,7 +229,7 @@ internal static class SeedVehicles
             displacement: 3d,
             description: "МЕРКЕДЕК БЕНК ЧОРНИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИЙ"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Mercedes-Benz")).Id,
             models.Single(m => m.Name.Equals("C-Class")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -250,7 +250,7 @@ internal static class SeedVehicles
             displacement: 4.0d,
             description: "МЕРКЕДЕК БЕНК ЧОРНИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИЙ"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Mercedes-Benz")).Id,
             models.Single(m => m.Name.Equals("C-Class")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -271,7 +271,7 @@ internal static class SeedVehicles
             displacement: 2.0d,
             description: "МЕРКЕДЕК БЕНК СІЛЬВЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕЕР"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Mercedes-Benz")).Id,
             models.Single(m => m.Name.Equals("C-Class")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -292,7 +292,7 @@ internal static class SeedVehicles
             displacement: 4.0d,
             description: "МЕРКЕДЕК БЕНК СИНІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІІЙ"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Audi")).Id,
             models.Single(m => m.Name.Equals("A6")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -313,7 +313,7 @@ internal static class SeedVehicles
             displacement: 3.0d,
             description: "АУДІ ІНДИГООООООООООООООООООООООООООООООООООООООООООООО"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Audi")).Id,
             models.Single(m => m.Name.Equals("A6")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -334,7 +334,7 @@ internal static class SeedVehicles
             displacement: 2.0,
             description: "АУДІ БІЛАААААААААААААААААААААААААААААААААААААААААААААААААААААААААА"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Audi")).Id,
             models.Single(m => m.Name.Equals("A6")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -355,7 +355,7 @@ internal static class SeedVehicles
             displacement: 3.0d,
             description: "АУДІ ЧЕРВОНААААААААААААААААААААААААААААААААААААААААААААААААААААА"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Audi")).Id,
             models.Single(m => m.Name.Equals("A6")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -376,7 +376,7 @@ internal static class SeedVehicles
             displacement: 3.0d,
             description: "АУДІ СІРАААААААААААААААААААААААААААААААААААААААААААААААААААААААААА"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Hyundai")).Id,
             models.Single(m => m.Name.Equals("Sonata")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -397,7 +397,7 @@ internal static class SeedVehicles
             displacement: 2.5d,
             description: "ХУНДАЙ СІРИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИЙ"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Hyundai")).Id,
             models.Single(m => m.Name.Equals("Sonata")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,
@@ -418,7 +418,7 @@ internal static class SeedVehicles
             displacement: 2.0d,
             description: "ХУНДАЙ ЧЕРВОНИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИИЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙЙ"
         ),
-        new VehicleEntity(
+        new Vehicle(
             brands.Single(b => b.Name.Equals("Hyundai")).Id,
             models.Single(m => m.Name.Equals("Sonata")).Id,
             types.Single(x => x.Name.Equals("Легковик")).Id,

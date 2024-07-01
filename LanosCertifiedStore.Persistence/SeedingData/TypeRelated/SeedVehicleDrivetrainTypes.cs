@@ -1,13 +1,13 @@
-﻿using Persistence.Entities.VehicleRelated.TypeRelated;
+﻿using Domain.Entities.VehicleRelated.TypeRelated;
 
 namespace Persistence.SeedingData.TypeRelated;
 
 internal static class SeedVehicleDrivetrainTypes
 {
-    public static List<VehicleDrivetrainTypeEntity> GetVehicleDrivetrainTypes() =>
+    public static List<VehicleDrivetrainType> GetVehicleDrivetrainTypes() =>
     [
-        new VehicleDrivetrainTypeEntity("Передній"),
-        new VehicleDrivetrainTypeEntity("Задній"),
-        new VehicleDrivetrainTypeEntity("Повний")
+        new VehicleDrivetrainType("Передній"),
+        new VehicleDrivetrainType("Задній"),
+        new VehicleDrivetrainType("Повний")
     ];
 }

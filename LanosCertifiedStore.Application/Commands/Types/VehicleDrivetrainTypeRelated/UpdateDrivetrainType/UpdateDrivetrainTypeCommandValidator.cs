@@ -3,7 +3,7 @@
 // TODO
 // internal sealed class UpdateDrivetrainTypeCommandValidator : AbstractValidator<UpdateDrivetrainTypeCommand>
 // {
-//     public UpdateDrivetrainTypeCommandValidator(IUnitOfWork unitOfWork, IValidationHelper validationHelper)
+//     public UpdateDrivetrainTypeCommandValidator(IUnitOfWork unitOfWork, IValidationHelper inputValidationService)
 //     {
 //         RuleFor(x => x.UpdatedName)
 //             .NotEmpty()
@@ -13,7 +13,7 @@
 //
 //         RuleFor(x => x.UpdatedName)
 //             .MustAsync(async (name, _) => 
-//                 await validationHelper.IsAspectValueUnique<VehicleDrivetrainType, string>(
+//                 await inputValidationService.CheckAspectValueUniqueness<VehicleDrivetrainType, string>(
 //                     unitOfWork,
 //                     name,
 //                     nameof(VehicleDrivetrainType.Name)))

@@ -3,7 +3,7 @@
 // TODO
 // internal sealed class UpdateTransmissionTypeCommandValidator : AbstractValidator<UpdateTransmissionTypeCommand>
 // {
-//     public UpdateTransmissionTypeCommandValidator(IUnitOfWork unitOfWork, IValidationHelper validationHelper)
+//     public UpdateTransmissionTypeCommandValidator(IUnitOfWork unitOfWork, IValidationHelper inputValidationService)
 //     {
 //         RuleFor(x => x.UpdatedName)
 //             .NotEmpty()
@@ -13,7 +13,7 @@
 //
 //         RuleFor(x => x.UpdatedName)
 //             .MustAsync(async (name, _) => 
-//                 await validationHelper.IsAspectValueUnique<VehicleTransmissionType, string>(
+//                 await inputValidationService.CheckAspectValueUniqueness<VehicleTransmissionType, string>(
 //                     unitOfWork,
 //                     name,
 //                     nameof(VehicleTransmissionType.Name)))

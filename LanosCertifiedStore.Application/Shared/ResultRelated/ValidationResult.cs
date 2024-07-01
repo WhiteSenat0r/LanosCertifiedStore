@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.ValidationRelated;
 
-namespace Application.Shared;
+namespace Application.Shared.ResultRelated;
 
 public sealed class ValidationResult<TValue> : Result<TValue>, IValidationResult
 {

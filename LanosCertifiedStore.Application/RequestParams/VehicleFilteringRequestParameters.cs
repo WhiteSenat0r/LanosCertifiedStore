@@ -2,7 +2,7 @@
 using Application.Enums.RequestParametersRelated;
 using Application.RequestParams.Common.Classes;
 using Application.RequestParams.Common.Enums;
-using Domain.Models.VehicleRelated.Classes;
+using Domain.Entities.VehicleRelated;
 
 namespace Application.RequestParams;
 

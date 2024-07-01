@@ -1,20 +1,20 @@
-﻿using Persistence.Entities.VehicleRelated.TypeRelated;
+﻿using Domain.Entities.VehicleRelated.TypeRelated;
 
 namespace Persistence.SeedingData.TypeRelated;
 
 internal static class SeedVehicleBodyTypes
 {
-    public static List<VehicleBodyTypeEntity> GetVehicleBodyTypes() =>
+    public static List<VehicleBodyType> GetVehicleBodyTypes() =>
     [
-        new VehicleBodyTypeEntity("Седан"),
-        new VehicleBodyTypeEntity("Хетчбек"),
-        new VehicleBodyTypeEntity("Ліфтбек"),
-        new VehicleBodyTypeEntity("Купе"),
-        new VehicleBodyTypeEntity("Універсал"),
-        new VehicleBodyTypeEntity("Кросовер"),
-        new VehicleBodyTypeEntity("Мінівен"),
-        new VehicleBodyTypeEntity("Пікап"),
-        new VehicleBodyTypeEntity("Кабріолет"),
-        new VehicleBodyTypeEntity("Фургон"),
+        new VehicleBodyType("Седан"),
+        new VehicleBodyType("Хетчбек"),
+        new VehicleBodyType("Ліфтбек"),
+        new VehicleBodyType("Купе"),
+        new VehicleBodyType("Універсал"),
+        new VehicleBodyType("Кросовер"),
+        new VehicleBodyType("Мінівен"),
+        new VehicleBodyType("Пікап"),
+        new VehicleBodyType("Кабріолет"),
+        new VehicleBodyType("Фургон"),
     ];
 }

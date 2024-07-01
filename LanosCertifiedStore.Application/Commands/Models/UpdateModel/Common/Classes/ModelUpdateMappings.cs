@@ -1,5 +1,5 @@
-﻿using Domain.Models.VehicleRelated.Classes;
-using Domain.Models.VehicleRelated.Classes.TypeRelated;
+﻿using Domain.Entities.VehicleRelated;
+using Domain.Entities.VehicleRelated.TypeRelated;
 
 namespace Application.Commands.Models.UpdateModel.Common.Classes;
 
@@ -8,7 +8,7 @@ internal abstract class ModelUpdateMappings<TAspect>
 {
     public static readonly Dictionary<Type, Func<VehicleModel, TAspect>> SingleAspectMappings = new()
     {
-        { typeof(VehicleBrand), model => (model.Brand as TAspect)! },
+        { typeof(VehicleBrand), model => (model.VehicleBrand as TAspect)! },
         { typeof(VehicleType), model => (model.VehicleType as TAspect)! },
         { typeof(VehicleBodyType), model => (model.AvailableBodyTypes as TAspect)! },
         { typeof(VehicleEngineType), model => (model.AvailableEngineTypes as TAspect)! },
@@ -26,7 +26,7 @@ internal abstract class ModelUpdateMappings<TAspect>
     
     public static readonly Dictionary<Type, Action<VehicleModel, TAspect>> SingleAspectActionMappings = new()
     {
-        { typeof(VehicleBrand), (model, aspect) => model.Brand = (aspect as VehicleBrand)! },
+        { typeof(VehicleBrand), (model, aspect) => model.VehicleBrand = (aspect as VehicleBrand)! },
         { typeof(VehicleType), (model, aspect) => model.VehicleType = (aspect as VehicleType)! },
         {
             typeof(VehicleBodyType),

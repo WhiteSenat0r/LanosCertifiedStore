@@ -1,22 +1,22 @@
-﻿using Persistence.Entities.Common.Classes;
-using Persistence.Entities.VehicleRelated;
-using Persistence.Entities.VehicleRelated.TypeRelated;
+﻿using Domain.Entities.Common.Classes;
+using Domain.Entities.VehicleRelated;
+using Domain.Entities.VehicleRelated.TypeRelated;
 
 namespace Persistence.SeedingData;
 
 internal static class SeedModels
 {
-    public static List<VehicleModelEntity> GetModels(
-        List<VehicleBrandEntity> brands,
-        List<VehicleTypeEntity> vehicleTypes,
-        List<VehicleEngineTypeEntity> engineTypes,
-        List<VehicleBodyTypeEntity> bodyTypes,
-        List<VehicleDrivetrainTypeEntity> drivetrainTypes,
-        List<VehicleTransmissionTypeEntity> transmissionTypes) =>
+    public static List<VehicleModel> GetModels(
+        List<VehicleBrand> brands,
+        List<VehicleType> vehicleTypes,
+        List<VehicleEngineType> engineTypes,
+        List<VehicleBodyType> bodyTypes,
+        List<VehicleDrivetrainType> drivetrainTypes,
+        List<VehicleTransmissionType> transmissionTypes) =>
     [
         #region Toyota
 
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Toyota")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Camry",
@@ -25,7 +25,7 @@ internal static class SeedModels
             drivetrainTypes,
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Ліфтбек", "Універсал" ]),
             1982),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Toyota")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Corolla",
@@ -34,7 +34,7 @@ internal static class SeedModels
             drivetrainTypes,
             GetItemsWithParticularValues(bodyTypes, [ "Купе", "Седан", "Ліфтбек", "Хетчбек", "Універсал" ]),
             1966),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Toyota")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "RAV4",
@@ -43,7 +43,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Кросовер" ]),
             1994),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Toyota")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Highlander",
@@ -52,7 +52,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Кросовер" ]),
             2000),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Toyota")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Prius",
@@ -66,7 +66,7 @@ internal static class SeedModels
 
         #region Ford
 
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Ford")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "F-150",
@@ -75,7 +75,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Пікап" ]),
             1973),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Ford")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Escape",
@@ -85,7 +85,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Кросовер" ]),
             2000
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Ford")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Explorer",
@@ -96,7 +96,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Кросовер" ]),
             1991
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Ford")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Mustang",
@@ -110,7 +110,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Купе", "Кабріолет" ]),
             1964
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Ford")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Focus",
@@ -127,7 +127,7 @@ internal static class SeedModels
 
         #region Honda
 
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Honda")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Civic",
@@ -136,7 +136,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Купе", "Седан", "Ліфтбек", "Хетчбек", "Універсал" ]),
             1972),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Honda")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Accord",
@@ -145,7 +145,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Купе", "Седан", "Ліфтбек", "Хетчбек", "Універсал" ]),
             1976),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Honda")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "CR-V",
@@ -154,7 +154,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Кросовер" ]),
             1995),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Honda")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Pilot",
@@ -164,7 +164,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Кросовер" ]),
             2002),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Honda")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Odyssey",
@@ -178,7 +178,7 @@ internal static class SeedModels
 
         #region Chervolet
 
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Chevrolet")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Silverado",
@@ -189,7 +189,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Пікап" ]),
             1998
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Chevrolet")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Malibu",
@@ -200,7 +200,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Універсал" ]),
             1978
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Chevrolet")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Equinox",
@@ -211,7 +211,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Кросовер" ]),
             2004
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Chevrolet")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Camaro",
@@ -222,7 +222,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Кабріолет", "Купе" ]),
             1966
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Chevrolet")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Traverse",
@@ -238,7 +238,7 @@ internal static class SeedModels
 
         #region Volkswagen
 
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Volkswagen")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Jetta",
@@ -247,7 +247,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Універсал" ]),
             1979),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Volkswagen")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Passat",
@@ -256,7 +256,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Універсал", "Ліфтбек" ]),
             1973),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Volkswagen")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Golf",
@@ -265,7 +265,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Кабріолет", "Універсал", "Хетчбек" ]),
             1974),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Volkswagen")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Touran",
@@ -275,7 +275,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Мінівен" ]),
             2003),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Volkswagen")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "ID.4",
@@ -289,7 +289,7 @@ internal static class SeedModels
 
         #region Nissan
 
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Nissan")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Altima",
@@ -300,7 +300,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Купе" ]),
             1992
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Nissan")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Maxima",
@@ -311,7 +311,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Купе", "Універсал" ]),
             1980
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Nissan")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Sentra",
@@ -322,7 +322,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Седан" ]),
             1982
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Nissan")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Rogue",
@@ -333,7 +333,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Кросовер" ]),
             2007
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Nissan")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Leaf",
@@ -348,7 +348,7 @@ internal static class SeedModels
         
         #region BMW
         
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("BMW")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "3 Series",
@@ -358,7 +358,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Купе", "Універсал", "Кабріолет" ]),
             1975
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("BMW")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "5 Series",
@@ -368,7 +368,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Універсал" ]),
             1972
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("BMW")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "M3",
@@ -379,7 +379,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Універсал" ]),
             1986
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("BMW")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "X5",
@@ -388,7 +388,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(drivetrainTypes, [ "Передній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Кросовер" ]),
             1999),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("BMW")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "X3",
@@ -402,7 +402,7 @@ internal static class SeedModels
         
         #region Mercedes-Benz
 
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Mercedes-Benz")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "C-Class",
@@ -413,7 +413,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Купе", "Універсал", "Кабріолет" ]),
             1993
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Mercedes-Benz")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "E-Class",
@@ -423,7 +423,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Купе", "Універсал", "Кабріолет" ]),
             1953
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Mercedes-Benz")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "S-Class",
@@ -433,7 +433,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Купе", "Кабріолет" ]),
             1972
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Mercedes-Benz")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "A-Class",
@@ -444,7 +444,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Хетчбек" ]),
             1972
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Mercedes-Benz")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "CLS",
@@ -460,7 +460,7 @@ internal static class SeedModels
         
         #region Audi
         
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Audi")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "A6",
@@ -469,7 +469,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Універсал" ]),
             1994),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Audi")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "A4",
@@ -477,7 +477,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(transmissionTypes, [ ], true),
             GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Універсал" ]), 1994),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Audi")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "A8",
@@ -487,7 +487,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(drivetrainTypes, [ "Задній" ], true),
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Універсал" ]),
             1994),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Audi")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "R8",
@@ -502,7 +502,7 @@ internal static class SeedModels
 
         #region Hyundai
 
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Hyundai")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Elantra",
@@ -513,7 +513,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Седан", "Хетчбек", "Універсал" ]),
             1990
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Hyundai")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Sonata",
@@ -523,7 +523,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Седан" ]),
             1985
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Hyundai")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Tucson",
@@ -534,7 +534,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Кросовер" ]),
             2004
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Hyundai")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Santa Fe",
@@ -545,7 +545,7 @@ internal static class SeedModels
             GetItemsWithParticularValues(bodyTypes, [ "Кросовер" ]),
             2000
         ),
-        new VehicleModelEntity(
+        new VehicleModel(
             brands.Single(b => b.Name.Equals("Hyundai")).Id,
             vehicleTypes.Single(t => t.Name.Equals("Легковик")).Id,
             "Kona",

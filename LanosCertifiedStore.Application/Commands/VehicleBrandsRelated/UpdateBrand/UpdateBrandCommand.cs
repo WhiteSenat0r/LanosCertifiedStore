@@ -1,6 +1,6 @@
-﻿using Application.Shared;
+﻿using Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.Commands.Brands.UpdateBrand;
+namespace Application.Commands.VehicleBrandsRelated.UpdateBrand;
 
 public sealed record UpdateBrandCommand(Guid Id, string UpdatedName) : IRequest<Result<Unit>>;

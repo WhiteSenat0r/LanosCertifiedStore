@@ -1,5 +1,5 @@
 ﻿using Application.Commands.Vehicles.Common;
-using Application.Shared;
+using Application.Shared.ResultRelated;
 using MediatR;
 
 namespace Application.Commands.Vehicles.UpdateVehicle;

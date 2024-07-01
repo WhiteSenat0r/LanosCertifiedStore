@@ -3,7 +3,7 @@
 // TODO
 // internal sealed class CreateTypeCommandValidator : AbstractValidator<CreateTypeCommand>
 // {
-//     public CreateTypeCommandValidator(IUnitOfWork unitOfWork, IValidationHelper validationHelper)
+//     public CreateTypeCommandValidator(IUnitOfWork unitOfWork, IValidationHelper inputValidationService)
 //     {
 //         RuleFor(x => x.Name)
 //             .NotEmpty()
@@ -13,7 +13,7 @@
 //
 //         RuleFor(x => x.Name)
 //             .MustAsync(async (name, _) => 
-//                 await validationHelper.IsAspectValueUnique<VehicleType, string>(
+//                 await inputValidationService.CheckAspectValueUniqueness<VehicleType, string>(
 //                     unitOfWork,
 //                     name,
 //                     nameof(VehicleType.Name)))

@@ -1,6 +1,6 @@
 ﻿using Application.Commands.VehicleBrandsRelated.CreateVehicleBrandRelated;
 using Application.Dtos.BrandDtos;
-using Domain.Models.VehicleRelated.Classes;
+using Domain.Entities.VehicleRelated;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Commands.Common.Contracts;
 using Persistence.Commands.VehicleBrandRelated;

@@ -1,8 +1,8 @@
 ﻿using Application.Contracts.ServicesRelated.IdentityRelated;
 using Application.Dtos.IdentityDtos.AuthenticationDtos;
-using Application.Shared;
+using Application.Shared.ResultRelated;
 using AutoMapper;
-using Domain.Models.UserRelated;
+using Domain.Entities.UserRelated;
 using MediatR;
 
 namespace Application.Commands.Identity.Authentication.Login;

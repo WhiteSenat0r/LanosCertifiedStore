@@ -1,30 +1,30 @@
-﻿using Persistence.Entities.VehicleRelated;
+﻿using Domain.Entities.VehicleRelated;
 
 namespace Persistence.SeedingData;
 
 internal static class SeedBrands
 {
-    public static List<VehicleBrandEntity> GetBrands() =>
+    public static List<VehicleBrand> GetBrands() =>
     [
-        new VehicleBrandEntity("Toyota"),
-        new VehicleBrandEntity("Ford"),
-        new VehicleBrandEntity("Honda"),
-        new VehicleBrandEntity("Chevrolet"),
-        new VehicleBrandEntity("Volkswagen"),
-        new VehicleBrandEntity("Nissan"),
-        new VehicleBrandEntity("BMW"),
-        new VehicleBrandEntity("Mercedes-Benz"),
-        new VehicleBrandEntity("Audi"),
-        new VehicleBrandEntity("Hyundai"),
-        new VehicleBrandEntity("Kia"),
-        new VehicleBrandEntity("Mazda"),
-        new VehicleBrandEntity("Subaru"),
-        new VehicleBrandEntity("Lexus"),
-        new VehicleBrandEntity("Jeep"),
-        new VehicleBrandEntity("Tesla"),
-        new VehicleBrandEntity("Volvo"),
-        new VehicleBrandEntity("Porsche"),
-        new VehicleBrandEntity("Ferrari"),
-        new VehicleBrandEntity("Jaguar")
+        new VehicleBrand("Toyota"),
+        new VehicleBrand("Ford"),
+        new VehicleBrand("Honda"),
+        new VehicleBrand("Chevrolet"),
+        new VehicleBrand("Volkswagen"),
+        new VehicleBrand("Nissan"),
+        new VehicleBrand("BMW"),
+        new VehicleBrand("Mercedes-Benz"),
+        new VehicleBrand("Audi"),
+        new VehicleBrand("Hyundai"),
+        new VehicleBrand("Kia"),
+        new VehicleBrand("Mazda"),
+        new VehicleBrand("Subaru"),
+        new VehicleBrand("Lexus"),
+        new VehicleBrand("Jeep"),
+        new VehicleBrand("Tesla"),
+        new VehicleBrand("Volvo"),
+        new VehicleBrand("Porsche"),
+        new VehicleBrand("Ferrari"),
+        new VehicleBrand("Jaguar")
     ];
 }
