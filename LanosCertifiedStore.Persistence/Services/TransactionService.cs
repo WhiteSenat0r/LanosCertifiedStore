@@ -13,7 +13,4 @@ internal sealed class TransactionService(ApplicationDatabaseContext context) : I
 
     public async Task RollbackTransaction(CancellationToken cancellationToken = default) => 
         await context.Database.RollbackTransactionAsync(cancellationToken);
-
-    public async Task SavePerformedChanges(CancellationToken cancellationToken = default) =>
-        await context.SaveChangesAsync(cancellationToken);
 }

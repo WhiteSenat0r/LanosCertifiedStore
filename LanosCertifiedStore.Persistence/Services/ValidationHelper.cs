@@ -1,5 +1,7 @@
-﻿using Application.Contracts.ValidationRelated;
+﻿using System.Linq.Expressions;
+using Application.Contracts.ValidationRelated;
 using Domain.Contracts.Common;
+using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
 
 namespace Persistence.Services;
@@ -7,17 +9,13 @@ namespace Persistence.Services;
 internal sealed class ValidationHelper(
     ApplicationDatabaseContext context) : IValidationHelper
 {
-    public async Task<bool> CheckAspectValueUniqueness<TMainAspect, TValue>(
-        TValue value,
-        string aspectName) 
+    public async Task<bool> CheckAspectValueUniqueness<TMainAspect, TValue>(TValue value,
+        Expression<Func<TMainAspect, bool>> equalitySelector) 
         where TMainAspect : class, IIdentifiable<Guid>
     {
-        throw new NotImplementedException();
-        // var items = await unitOfWork.RetrieveRepository<TMainAspect>().GetAllEntitiesAsync();
-        //
-        // var nameProperty = typeof(TMainAspect).GetProperty(aspectName)!;
-        //
-        // return !items.All(x => ((TValue)nameProperty.GetValue(x)!).Equals(value));
+        var itemsCount = await context.Set<TMainAspect>().CountAsync(equalitySelector);
+        
+        return itemsCount.Equals(0);
     }
 
     public async Task<bool> CheckMainAspectPresence<TMainAspect>(Guid id)
