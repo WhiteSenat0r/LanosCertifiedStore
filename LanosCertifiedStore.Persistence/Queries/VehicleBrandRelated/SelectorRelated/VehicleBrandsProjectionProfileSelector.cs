@@ -7,7 +7,7 @@ using Persistence.Queries.Common.Classes.SelectorBaseRelated;
 
 namespace Persistence.Queries.VehicleBrandRelated.SelectorRelated;
 
-internal sealed class VehicleBrandsProjectionProfileSelector : 
+internal sealed class VehicleBrandsProjectionProfileSelector :
     ProjectionProfileSelectorBase<VehicleBrand>
 {
     private protected override Expression<Func<VehicleBrand, VehicleBrand>> GetDefaultProfile() =>
@@ -27,7 +27,7 @@ internal sealed class VehicleBrandsProjectionProfileSelector :
             ? GetDefaultProfile()
             : GetSingleProfile();
     }
-    
+
     private Expression<Func<VehicleBrand, VehicleBrand>> GetSingleProfile() =>
         vehicleBrand => new VehicleBrand
         {
@@ -40,6 +40,6 @@ internal sealed class VehicleBrandsProjectionProfileSelector :
             }) as ICollection<VehicleModel>)!
         };
 
-    private bool IsDefaultProfileSelected(IVehicleBrandFilteringRequestParameters brandRequestParameters) => 
+    private bool IsDefaultProfileSelected(IVehicleBrandFilteringRequestParameters brandRequestParameters) =>
         brandRequestParameters.ProjectionProfile.Equals(VehicleBrandProjectionProfile.Default);
 }

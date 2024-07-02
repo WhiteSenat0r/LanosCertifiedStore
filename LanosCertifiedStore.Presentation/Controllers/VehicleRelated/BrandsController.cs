@@ -25,7 +25,7 @@ public sealed class BrandsController : BaseModelRelatedApiController
         return HandleResult(
             await Mediator.Send(new CollectionVehicleBrandsQueryRequest(requestParameters)));
     }
-    
+
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(VehicleBrandDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -33,7 +33,7 @@ public sealed class BrandsController : BaseModelRelatedApiController
     {
         return HandleResult(await Mediator.Send(new SingleVehicleBrandQueryRequest(id)));
     }
-    
+
     [HttpGet("countItems")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
