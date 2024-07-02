@@ -10,16 +10,13 @@ internal static class VehicleBrandQueriesServiceCollectionExtensions
 {
     public static IServiceCollection AddVehicleBrandQueriesRelatedServices(this IServiceCollection services)
     {
-        services.AddTransient<IQuerySortingSettingsSelector<VehicleBrand, VehicleBrand>,
-            VehicleBrandsSortingSettingsSelector>();
-        services.AddTransient<IQueryProjectionProfileSelector<VehicleBrand, VehicleBrand>,
-            VehicleBrandsProjectionProfileSelector>();
-        services.AddTransient<IQueryFilteringCriteriaSelector<VehicleBrand, VehicleBrand>,
-            VehicleBrandsFilteringCriteriaSelector>();
+        services.AddTransient<IQuerySortingSettingsSelector<VehicleBrand>, VehicleBrandsSortingSettingsSelector>();
+        services.AddTransient<IQueryProjectionProfileSelector<VehicleBrand>, VehicleBrandsProjectionProfileSelector>();
+        services.AddTransient<IQueryFilteringCriteriaSelector<VehicleBrand>, VehicleBrandsFilteringCriteriaSelector>();
         
-        services.AddTransient<IQuery<VehicleBrand, IReadOnlyCollection<VehicleBrand>>, CollectionVehicleBrandsQuery>();
-        services.AddTransient<IQuery<VehicleBrand, VehicleBrand>, SingleVehicleBrandQuery>();
-        services.AddTransient<IQuery<VehicleBrand, Tuple<int, int>>, CountVehicleBrandsQuery>();
+        services.AddTransient<CollectionVehicleBrandsQuery>();
+        services.AddTransient<SingleVehicleBrandQuery>();
+        services.AddTransient<CountVehicleBrandsQuery>();
 
         return services;
     }

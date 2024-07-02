@@ -25,6 +25,12 @@ public static class PersistenceServiceCollectionExtensions
 
         services.AddScoped<ITransactionService, TransactionService>();
         services.AddScoped<IValidationHelper, ValidationHelper>();
+        services.AddScoped<Func<CancellationToken, Task<int>>>(sp =>
+        {
+            var context = sp.GetService<ApplicationDatabaseContext>()!;
+
+            return context.SaveChangesAsync;
+        });
 
         return services;
     }
