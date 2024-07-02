@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\LanosCertifiedStore.Application\LanosCertifiedStore.Application.csproj" />
+      <ProjectReference Include="..\LanosCertifiedStore.Persistence\LanosCertifiedStore.Persistence.csproj" />
     </ItemGroup>
 
     <ItemGroup>
