@@ -4,10 +4,10 @@ using Domain.Contracts.Common;
 
 namespace Persistence.Commands.Common.Contracts;
 
-internal interface ICommand<TModel, TRequest, TRequestResult>
-    where TModel : class, IIdentifiable<Guid>
-    where TRequest : ICommandRequest<TModel, TRequestResult>
+internal interface ICommand<TEntity, TRequest, TRequestResult>
+    where TEntity : class, IIdentifiable<Guid>
+    where TRequest : ICommandRequest<TEntity, TRequestResult>
     where TRequestResult : notnull
 {
-    Task<Result<TModel>> Execute(TRequest commandRequest, CancellationToken cancellationToken);
+    Task<Result<TEntity>> Execute(TRequest commandRequest, CancellationToken cancellationToken);
 }

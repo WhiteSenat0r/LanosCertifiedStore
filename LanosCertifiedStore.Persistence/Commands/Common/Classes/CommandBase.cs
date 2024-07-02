@@ -5,11 +5,11 @@ using Persistence.Commands.Common.Contracts;
 
 namespace Persistence.Commands.Common.Classes;
 
-internal abstract class CommandBase<TModel, TRequest, TRequestResult> : 
-    ICommand<TModel, TRequest, TRequestResult>
-    where TModel : class, IIdentifiable<Guid> 
-    where TRequest : ICommandRequest<TModel, TRequestResult>
+internal abstract class CommandBase<TEntity, TRequest, TRequestResult> : 
+    ICommand<TEntity, TRequest, TRequestResult>
+    where TEntity : class, IIdentifiable<Guid> 
+    where TRequest : ICommandRequest<TEntity, TRequestResult>
     where TRequestResult : notnull
 {
-    public abstract Task<Result<TModel>> Execute(TRequest commandRequest, CancellationToken cancellationToken);
+    public abstract Task<Result<TEntity>> Execute(TRequest commandRequest, CancellationToken cancellationToken);
 }
