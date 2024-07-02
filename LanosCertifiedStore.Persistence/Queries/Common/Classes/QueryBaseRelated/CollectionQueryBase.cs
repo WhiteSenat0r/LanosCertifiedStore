@@ -15,7 +15,7 @@ public abstract class CollectionQueryBase<TEntity, TDto>(
     IQuerySortingSettingsSelector<TEntity> sortingSettingsSelector,
     IQueryFilteringCriteriaSelector<TEntity> filteringCriteriaSelector,
     IQueryPaginator queryPaginator,
-    IMapper mapper) 
+    IMapper mapper)
     where TEntity : class, IIdentifiable<Guid>
     where TDto : class
 {
@@ -29,8 +29,10 @@ public abstract class CollectionQueryBase<TEntity, TDto>(
         queryable = queryable.GetQueryWithAppliedFilters(queryRequest.FilteringParameters, filteringCriteriaSelector);
         queryable = queryable.GetQueryWithAppliedSortingSettings(
             queryRequest.FilteringParameters, sortingSettingsSelector);
-        queryable = queryable.GetQueryWithAppliedSelectionProfile(
-            queryRequest.FilteringParameters, projectionProfileSelector);
+
+        // queryable = queryable.GetQueryWithAppliedSelectionProfile(
+        //     queryRequest.FilteringParameters, projectionProfileSelector);  // TODO -- get rid of selection profiles functionality........
+
         queryable = queryable.GetQueryWithAppliedPagination(queryPaginator, queryRequest.FilteringParameters);
 
         var executionResult = await GetQueryResult(queryable, cancellationToken);
@@ -41,18 +43,18 @@ public abstract class CollectionQueryBase<TEntity, TDto>(
     private IQueryable<TEntity> GetDatabaseQueryable()
     {
         var dataSet = context.Set<TEntity>();
-        
+
         return dataSet.AsQueryable();
     }
-    
+
     private async Task<IReadOnlyCollection<TDto>> GetQueryResult(
         IQueryable<TEntity> queryable,
         CancellationToken cancellationToken)
     {
-        var items =  queryable
-            .ProjectTo<TDto>(mapper.ConfigurationProvider)
-            .AsNoTracking();
-            // .ToListAsync(cancellationToken);
+        var items = queryable
+            .AsNoTracking()
+            .ProjectTo<TDto>(mapper.ConfigurationProvider);
+        // .ToListAsync(cancellationToken);
 
         return await items.ToListAsync(cancellationToken);
     }
