@@ -4,6 +4,10 @@ namespace Application.Dtos.ModelDtos;
 
 public sealed record ModelWithRelatedCollectionsDto : ModelDto
 {
+    public int? MinimalProductionYear { get; init; }
+    public int? MaximumProductionYear { get; init; }
+    public string? VehicleBrand { get; init; }
+    public string? VehicleType { get; init; }
     public IEnumerable<VehicleBodyTypeDto>? AvailableBodyTypes { get; init; }
     public IEnumerable<VehicleEngineTypeDto>? AvailableEngineTypes { get; init; }
     public IEnumerable<VehicleDrivetrainTypeDto>? AvailableDrivetrainTypes { get; init; }
