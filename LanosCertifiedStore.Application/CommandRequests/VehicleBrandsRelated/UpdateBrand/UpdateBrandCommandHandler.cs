@@ -1,4 +1,4 @@
-﻿namespace Application.Commands.VehicleBrandsRelated.UpdateBrand;
+﻿namespace Application.CommandRequests.VehicleBrandsRelated.UpdateBrand;
 
 // TODO
 // internal sealed class UpdateBrandCommandHandler : 
