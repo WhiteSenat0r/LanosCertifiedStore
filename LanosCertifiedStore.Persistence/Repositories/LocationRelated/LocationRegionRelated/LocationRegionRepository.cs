@@ -4,7 +4,7 @@
 // internal class LocationRegionRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
 //     : GenericRepository<VehicleLocationRegionSelectionProfile,
 //         VehicleLocationRegion,
-//         VehicleLocationRegionEntity,
+//         VehicleLocationRegion,
 //         IVehicleLocationRegionFilteringRequestParameters>(mapper, dbContext)
 // {
 //     public override async Task<IReadOnlyList<VehicleLocationRegion>> GetAllEntitiesAsync(
@@ -14,19 +14,19 @@
 //
 //         var vehicleTypeModels = await vehicleTypeModelsQuery.AsNoTracking().ToListAsync();
 //         
-//         return Mapper.Map<IReadOnlyList<VehicleLocationRegionEntity>, IReadOnlyList<VehicleLocationRegion>>(
+//         return Mapper.Map<IReadOnlyList<VehicleLocationRegion>, IReadOnlyList<VehicleLocationRegion>>(
 //             vehicleTypeModels);
 //     }
 //
 //     public override async Task<VehicleLocationRegion?> GetEntityByIdAsync(Guid id)
 //     {
 //         var vehicleTypeModelQuery = QueryBuilder.GetSingleEntityQueryable(
-//             id, Context.Set<VehicleLocationRegionEntity>(), new VehicleLocationRegionFilteringRequestParameters());
+//             id, Context.Set<VehicleLocationRegion>(), new VehicleLocationRegionFilteringRequestParameters());
 //
 //         var vehicleTypeModel = await vehicleTypeModelQuery.AsNoTracking().SingleOrDefaultAsync();
 //         
 //         return vehicleTypeModel is not null 
-//             ? Mapper.Map<VehicleLocationRegionEntity, VehicleLocationRegion>(vehicleTypeModel) 
+//             ? Mapper.Map<VehicleLocationRegion, VehicleLocationRegion>(vehicleTypeModel) 
 //             : null;
 //     }
 //
@@ -34,19 +34,19 @@
 //         IFilteringRequestParameters<VehicleLocationRegion>? filteringRequestParameters = null)
 //     {
 //         var countedQueryable = QueryBuilder.GetRelevantCountQueryable(
-//             Context.Set<VehicleLocationRegionEntity>(), filteringRequestParameters);
+//             Context.Set<VehicleLocationRegion>(), filteringRequestParameters);
 //
 //         return countedQueryable.CountAsync();
 //     }
 //
-//     private protected override IQueryable<VehicleLocationRegionEntity> GetRelevantQueryable(
+//     private protected override IQueryable<VehicleLocationRegion> GetRelevantQueryable(
 //         IFilteringRequestParameters<VehicleLocationRegion>? filteringRequestParameters) =>
 //         QueryBuilder.GetAllEntitiesQueryable(
-//             Context.Set<VehicleLocationRegionEntity>(), filteringRequestParameters);
+//             Context.Set<VehicleLocationRegion>(), filteringRequestParameters);
 //
 //     private protected override BaseQueryBuilder<VehicleLocationRegionSelectionProfile,
 //             VehicleLocationRegion,
-//             VehicleLocationRegionEntity,
+//             VehicleLocationRegion,
 //             IVehicleLocationRegionFilteringRequestParameters>
 //         GetQueryBuilder() =>
 //         new VehicleLocationRegionQueryBuilder(

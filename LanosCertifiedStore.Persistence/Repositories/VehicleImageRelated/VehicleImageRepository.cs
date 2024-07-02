@@ -4,7 +4,7 @@
 // internal class VehicleImageRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
 //     : GenericRepository<VehicleImageSelectionProfile,
 //         VehicleImage,
-//         VehicleImageEntity, 
+//         VehicleImage, 
 //         IVehicleImageFilteringRequestParameters>(mapper, dbContext)
 // {
 //     public override async Task<IReadOnlyList<VehicleImage>> GetAllEntitiesAsync(
@@ -14,18 +14,18 @@
 //
 //         var vehicleImages = await vehicleImagesQuery.AsNoTracking().ToListAsync();
 //         
-//         return Mapper.Map<IReadOnlyList<VehicleImageEntity>, IReadOnlyList<VehicleImage>>(vehicleImages);
+//         return Mapper.Map<IReadOnlyList<VehicleImage>, IReadOnlyList<VehicleImage>>(vehicleImages);
 //     }
 //
 //     public override async Task<VehicleImage?> GetEntityByIdAsync(Guid id)
 //     {
 //         var vehicleImageQuery = QueryBuilder.GetSingleEntityQueryable(
-//             id, Context.Set<VehicleImageEntity>(), new VehicleImageFilteringRequestParameters());
+//             id, Context.Set<VehicleImage>(), new VehicleImageFilteringRequestParameters());
 //
 //         var vehicleImageModel = await vehicleImageQuery.AsNoTracking().SingleOrDefaultAsync();
 //         
 //         return vehicleImageModel is not null 
-//             ? Mapper.Map<VehicleImageEntity, VehicleImage>(vehicleImageModel) 
+//             ? Mapper.Map<VehicleImage, VehicleImage>(vehicleImageModel) 
 //             : null;
 //     }
 //
@@ -33,19 +33,19 @@
 //         IFilteringRequestParameters<VehicleImage>? filteringRequestParameters = null)
 //     {
 //         var countedQueryable = QueryBuilder.GetRelevantCountQueryable(
-//             Context.Set<VehicleImageEntity>(), filteringRequestParameters);
+//             Context.Set<VehicleImage>(), filteringRequestParameters);
 //
 //         return countedQueryable.CountAsync();
 //     }
 //
-//     private protected override IQueryable<VehicleImageEntity> GetRelevantQueryable(
+//     private protected override IQueryable<VehicleImage> GetRelevantQueryable(
 //         IFilteringRequestParameters<VehicleImage>? filteringRequestParameters) =>
 //         QueryBuilder.GetAllEntitiesQueryable(
-//             Context.Set<VehicleImageEntity>(), filteringRequestParameters);
+//             Context.Set<VehicleImage>(), filteringRequestParameters);
 //
 //     private protected override BaseQueryBuilder<VehicleImageSelectionProfile,
 //             VehicleImage,
-//             VehicleImageEntity,
+//             VehicleImage,
 //             IVehicleImageFilteringRequestParameters> 
 //         GetQueryBuilder() =>
 //         new VehicleImageQueryBuilder(new VehicleImageSelectionProfiles(), new VehicleImageFilteringCriteria());

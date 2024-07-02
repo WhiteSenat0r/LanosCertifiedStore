@@ -2,7 +2,7 @@
 
 // TODO
 // internal sealed class VehicleBrandRepository(IMapper mapper, ApplicationDatabaseContext dbContext) :
-//     GenericRepository<VehicleBrandSelectionProfile,
+//     GenericRepository<VehicleBrandProjectionProfile,
 //         VehicleBrand,
 //         VehicleBrandEntity,
 //         IVehicleBrandFilteringRequestParameters>(mapper, dbContext)
@@ -22,7 +22,7 @@
 //         var vehicleBrandQuery = QueryBuilder.GetSingleEntityQueryable(
 //             id, Context.Set<VehicleBrandEntity>(), new VehicleBrandFilteringRequestParameters
 //         {
-//             SelectionProfile = VehicleBrandSelectionProfile.Single
+//             ProjectionProfile = VehicleBrandProjectionProfile.Single
 //         });
 //
 //         var vehicleBrandModel = await vehicleBrandQuery.AsNoTracking().SingleOrDefaultAsync();
@@ -46,7 +46,7 @@
 //         QueryBuilder.GetAllEntitiesQueryable(
 //             Context.Set<VehicleBrandEntity>(), filteringRequestParameters);
 //
-//     private protected override BaseQueryBuilder<VehicleBrandSelectionProfile,
+//     private protected override BaseQueryBuilder<VehicleBrandProjectionProfile,
 //         VehicleBrand,
 //         VehicleBrandEntity, 
 //         IVehicleBrandFilteringRequestParameters> GetQueryBuilder() =>

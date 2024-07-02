@@ -3,7 +3,7 @@
 // TODO Implement
 // internal sealed class UserFilteringCriteria : BaseFilteringCriteria<User, UserDataModel>
 // {
-//     internal override Expression<Func<UserDataModel, bool>> GetCriteria(
+//     internal override Expression<Func<UserDataModel, bool>> ExecutePagination(
 //         IFilteringRequestParameters<User>? filteringRequestParameters)
 //     {
 //         var userFilteringCriteria = filteringRequestParameters as IUserFilteringRequestParameters;

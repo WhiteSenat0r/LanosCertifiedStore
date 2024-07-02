@@ -4,7 +4,7 @@
 // internal class VehicleRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
 //     : GenericRepository<VehicleSelectionProfile,
 //         Vehicle,
-//         VehicleEntity, 
+//         Vehicle, 
 //         IVehicleFilteringRequestParameters>(mapper, dbContext),
 //         IVehicleRepositoryExtensions
 // {
@@ -15,46 +15,46 @@
 //
 //         var vehicleModels = await vehicleModelsQuery.AsNoTracking().ToListAsync();
 //
-//         return Mapper.Map<IReadOnlyList<VehicleEntity>, IReadOnlyList<Vehicle>>(vehicleModels);
+//         return Mapper.Map<IReadOnlyList<Vehicle>, IReadOnlyList<Vehicle>>(vehicleModels);
 //     }
 //
 //     public override async Task<Vehicle?> GetEntityByIdAsync(Guid id)
 //     {
 //         var vehicleModelQuery = QueryBuilder.GetSingleEntityQueryable(
-//             id, Context.Set<VehicleEntity>(), new VehicleFilteringRequestParameters
+//             id, Context.Set<Vehicle>(), new VehicleFilteringRequestParameters
 //             {
-//                 SelectionProfile = VehicleSelectionProfile.Single
+//                 ProjectionProfile = VehicleSelectionProfile.Single
 //             });
 //
 //         var vehicleModel = await vehicleModelQuery.AsNoTracking().SingleOrDefaultAsync();
 //
 //         return vehicleModel is not null
-//             ? Mapper.Map<VehicleEntity, Vehicle>(vehicleModel)
+//             ? Mapper.Map<Vehicle, Vehicle>(vehicleModel)
 //             : null;
 //     }
 //
 //     public Task<IDictionary<string, decimal>> GetPriceRange(
 //         IFilteringRequestParameters<Vehicle>? filteringRequestParameters = null!) =>
 //         (QueryBuilder as VehicleQueryBuilder)!.GetPriceRange(
-//             Context.Set<VehicleEntity>(), filteringRequestParameters);
+//             Context.Set<Vehicle>(), filteringRequestParameters);
 //
 //     public override Task<int> CountAsync(
 //         IFilteringRequestParameters<Vehicle>? filteringRequestParameters = null)
 //     {
 //         var countedQueryable = QueryBuilder.GetRelevantCountQueryable(
-//             Context.Set<VehicleEntity>(), filteringRequestParameters);
+//             Context.Set<Vehicle>(), filteringRequestParameters);
 //
 //         return countedQueryable.CountAsync();
 //     }
 //
-//     private protected override IQueryable<VehicleEntity> GetRelevantQueryable(
+//     private protected override IQueryable<Vehicle> GetRelevantQueryable(
 //         IFilteringRequestParameters<Vehicle>? filteringRequestParameters) =>
 //         QueryBuilder.GetAllEntitiesQueryable(
-//             Context.Set<VehicleEntity>(), filteringRequestParameters);
+//             Context.Set<Vehicle>(), filteringRequestParameters);
 //
 //     private protected override BaseQueryBuilder<VehicleSelectionProfile,
 //             Vehicle,
-//             VehicleEntity,
+//             Vehicle,
 //             IVehicleFilteringRequestParameters>
 //         GetQueryBuilder() =>
 //         new VehicleQueryBuilder(new VehicleSelectionProfiles(), new VehicleFilteringCriteria());

@@ -4,7 +4,7 @@
 // internal class VehicleTransmissionTypeRepository(IMapper mapper, ApplicationDatabaseContext dbContext)
 //     : GenericRepository<VehicleTransmissionTypeSelectionProfile,
 //         VehicleTransmissionType,
-//         VehicleTransmissionTypeEntity,
+//         VehicleTransmissionType,
 //         IVehicleTransmissionTypeFilteringRequestParameters>(mapper, dbContext)
 // {
 //     public override async Task<IReadOnlyList<VehicleTransmissionType>> GetAllEntitiesAsync(
@@ -14,7 +14,7 @@
 //
 //         var vehicleTransmissionTypeModels = await vehicleTransmissionTypeModelsQuery.AsNoTracking().ToListAsync();
 //         
-//         return Mapper.Map<IReadOnlyList<VehicleTransmissionTypeEntity>, IReadOnlyList<VehicleTransmissionType>>
+//         return Mapper.Map<IReadOnlyList<VehicleTransmissionType>, IReadOnlyList<VehicleTransmissionType>>
 //             (vehicleTransmissionTypeModels);
 //     }
 //
@@ -22,7 +22,7 @@
 //     {
 //         var vehicleTransmissionTypeModelQuery = QueryBuilder.GetSingleEntityQueryable(
 //             id, 
-//             Context.Set<VehicleTransmissionTypeEntity>(),
+//             Context.Set<VehicleTransmissionType>(),
 //             new VehicleTransmissionTypeFilteringRequestParameters());
 //
 //         var vehicleTransmissionTypeModel = await vehicleTransmissionTypeModelQuery
@@ -30,7 +30,7 @@
 //             .SingleOrDefaultAsync();
 //         
 //         return vehicleTransmissionTypeModel is not null 
-//             ? Mapper.Map<VehicleTransmissionTypeEntity, VehicleTransmissionType>(vehicleTransmissionTypeModel) 
+//             ? Mapper.Map<VehicleTransmissionType, VehicleTransmissionType>(vehicleTransmissionTypeModel) 
 //             : null;
 //     }
 //
@@ -38,19 +38,19 @@
 //         IFilteringRequestParameters<VehicleTransmissionType>? filteringRequestParameters = null)
 //     {
 //         var countedQueryable = QueryBuilder.GetRelevantCountQueryable(
-//             Context.Set<VehicleTransmissionTypeEntity>(), filteringRequestParameters);
+//             Context.Set<VehicleTransmissionType>(), filteringRequestParameters);
 //
 //         return countedQueryable.CountAsync();
 //     }
 //
-//     private protected override IQueryable<VehicleTransmissionTypeEntity> GetRelevantQueryable(
+//     private protected override IQueryable<VehicleTransmissionType> GetRelevantQueryable(
 //         IFilteringRequestParameters<VehicleTransmissionType>? filteringRequestParameters) =>
 //         QueryBuilder.GetAllEntitiesQueryable(
-//             Context.Set<VehicleTransmissionTypeEntity>(), filteringRequestParameters);
+//             Context.Set<VehicleTransmissionType>(), filteringRequestParameters);
 //
 //     private protected override BaseQueryBuilder<VehicleTransmissionTypeSelectionProfile,
 //             VehicleTransmissionType,
-//             VehicleTransmissionTypeEntity,
+//             VehicleTransmissionType,
 //             IVehicleTransmissionTypeFilteringRequestParameters>
 //         GetQueryBuilder() =>
 //         new VehicleTransmissionTypeQueryBuilder(

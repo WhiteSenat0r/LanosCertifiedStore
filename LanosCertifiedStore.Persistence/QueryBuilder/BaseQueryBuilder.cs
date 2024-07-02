@@ -95,9 +95,9 @@ internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel,
     private IQueryable<TDataModel> GetPaginatedQuery(
         IFilteringRequestParameters<TEntity>? filteringRequestParameters, IQueryable<TDataModel> returnedQuery)
     {
-        returnedQuery = returnedQuery
-            .Skip(filteringRequestParameters!.ItemQuantity * (filteringRequestParameters.PageIndex - 1))
-            .Take(filteringRequestParameters.ItemQuantity);
+        // returnedQuery = returnedQuery
+        //     .Skip(filteringRequestParameters!.ItemQuantity * (filteringRequestParameters.PageIndex - 1))
+        //     .Take(filteringRequestParameters.ItemQuantity);
         
         return returnedQuery;
     }

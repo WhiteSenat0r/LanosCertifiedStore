@@ -1,30 +1,29 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
 using Application.Enums.RequestParametersRelated;
 using Application.Enums.RequestParametersRelated.TypeRelated;
-using Domain.Models.VehicleRelated.Classes.TypeRelated;
-using Persistence.Entities.VehicleRelated.TypeRelated;
+using Domain.Entities.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.TypeRelated.VehicleEngineTypeRelated.QueryBuilderRelated.Common.Classes;
 
 internal class VehicleEngineTypeSelectionProfiles : 
-    BaseSelectionProfiles<VehicleEngineTypeSelectionProfile, VehicleEngineType, VehicleEngineTypeEntity>
+    BaseSelectionProfiles<VehicleEngineTypeSelectionProfile, VehicleEngineType, VehicleEngineType>
 {
     private readonly Dictionary<VehicleColorSelectionProfile,
-            Func<IQueryable<VehicleEngineTypeEntity>, IQueryable<VehicleEngineTypeEntity>>>
+            Func<IQueryable<VehicleEngineType>, IQueryable<VehicleEngineType>>>
         _mappedProfiles = new()
         {
             { VehicleColorSelectionProfile.Default, GetDefaultProfileQueryable }
         };
 
-    public override IQueryable<VehicleEngineTypeEntity> GetSuitableSelectionProfileQueryable(
-        IQueryable<VehicleEngineTypeEntity> inputQueryable,
+    public override IQueryable<VehicleEngineType> GetSuitableSelectionProfileQueryable(
+        IQueryable<VehicleEngineType> inputQueryable,
         IFilteringRequestParameters<VehicleEngineType>? requestParameters = null) =>
         _mappedProfiles[VehicleColorSelectionProfile.Default](inputQueryable);
 
-    private static IQueryable<VehicleEngineTypeEntity> GetDefaultProfileQueryable(
-        IQueryable<VehicleEngineTypeEntity> queryable) =>
-        queryable.Select(vehicleEngineType => new VehicleEngineTypeEntity
+    private static IQueryable<VehicleEngineType> GetDefaultProfileQueryable(
+        IQueryable<VehicleEngineType> queryable) =>
+        queryable.Select(vehicleEngineType => new VehicleEngineType
         {
             Id = vehicleEngineType.Id,
             Name = vehicleEngineType.Name,

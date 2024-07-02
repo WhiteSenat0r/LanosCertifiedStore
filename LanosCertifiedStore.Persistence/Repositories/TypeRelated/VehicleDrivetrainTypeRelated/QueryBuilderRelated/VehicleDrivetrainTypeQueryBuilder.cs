@@ -1,8 +1,7 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
 using Application.Contracts.RequestParametersRelated.TypeRelated;
 using Application.Enums.RequestParametersRelated.TypeRelated;
-using Domain.Models.VehicleRelated.Classes.TypeRelated;
-using Persistence.Entities.VehicleRelated.TypeRelated;
+using Domain.Entities.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.TypeRelated.VehicleDrivetrainTypeRelated.QueryBuilderRelated.Common.Classes;
 
@@ -13,7 +12,7 @@ internal sealed class VehicleDrivetrainTypeQueryBuilder(
     VehicleDrivetrainTypeFilteringCriteria typeFilteringCriteria)
     : BaseQueryBuilder<VehicleDrivetrainTypeSelectionProfile,
         VehicleDrivetrainType,
-        VehicleDrivetrainTypeEntity,
+        VehicleDrivetrainType,
         IVehicleDrivetrainTypeFilteringRequestParameters>(
         selectionProfiles,
         typeFilteringCriteria)

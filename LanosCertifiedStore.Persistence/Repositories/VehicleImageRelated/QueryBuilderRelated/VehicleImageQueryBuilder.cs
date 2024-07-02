@@ -1,8 +1,7 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
 using Application.Contracts.RequestParametersRelated;
 using Application.Enums.RequestParametersRelated;
-using Domain.Models.VehicleRelated.Classes;
-using Persistence.Entities.VehicleRelated;
+using Domain.Entities.VehicleRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.VehicleImageRelated.QueryBuilderRelated.Common.Classes;
 
@@ -13,7 +12,7 @@ internal sealed class VehicleImageQueryBuilder(
     VehicleImageFilteringCriteria imageFilteringCriteria)
     : BaseQueryBuilder<VehicleImageSelectionProfile,
         VehicleImage,
-        VehicleImageEntity,
+        VehicleImage,
         IVehicleImageFilteringRequestParameters>(
         imageSelectionProfile,
         imageFilteringCriteria)

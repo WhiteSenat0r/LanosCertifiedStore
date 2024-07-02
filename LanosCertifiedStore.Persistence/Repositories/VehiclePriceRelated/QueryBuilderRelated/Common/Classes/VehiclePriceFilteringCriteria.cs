@@ -1,16 +1,15 @@
 ﻿using System.Linq.Expressions;
 using Application.Contracts.RepositoryRelated.Common;
 using Application.Contracts.RequestParametersRelated;
-using Domain.Models.VehicleRelated.Classes;
-using Persistence.Entities.VehicleRelated;
+using Domain.Entities.VehicleRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehiclePriceRelated.QueryBuilderRelated.Common.Classes;
 
 internal sealed class VehiclePriceFilteringCriteria 
-    : BaseFilteringCriteria<VehiclePrice, VehiclePriceEntity, IVehiclePriceFilteringRequestParameters>
+    : BaseFilteringCriteria<VehiclePrice, VehiclePrice, IVehiclePriceFilteringRequestParameters>
 { 
-    internal override Expression<Func<VehiclePriceEntity, bool>> GetCriteria(
+    internal override Expression<Func<VehiclePrice, bool>> GetCriteria(
         IFilteringRequestParameters<VehiclePrice>? filteringRequestParameters)
     {
         if (filteringRequestParameters is not IVehiclePriceFilteringRequestParameters requestParameters)
@@ -31,11 +30,11 @@ internal sealed class VehiclePriceFilteringCriteria
             PredicateDelegates.Add(GetUpperLimitPredicate);
     }
 
-    private Expression<Func<VehiclePriceEntity, bool>> GetLowerLimitPredicate(
+    private Expression<Func<VehiclePrice, bool>> GetLowerLimitPredicate(
         IVehiclePriceFilteringRequestParameters requestParameters) =>
         vehiclePrice => vehiclePrice.Value >= requestParameters.LowerPriceLimit!.Value;
     
-    private Expression<Func<VehiclePriceEntity, bool>> GetUpperLimitPredicate(
+    private Expression<Func<VehiclePrice, bool>> GetUpperLimitPredicate(
         IVehiclePriceFilteringRequestParameters requestParameters) =>
         vehiclePrice => vehiclePrice.Value <= requestParameters.UpperPriceLimit!.Value;
 }

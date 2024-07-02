@@ -21,7 +21,7 @@
 //         var vehicleModelQuery = QueryBuilder.GetSingleEntityQueryable(
 //             id, Context.Set<VehicleModelEntity>(), new VehicleModelFilteringRequestParameters
 //             {
-//                 SelectionProfile = VehicleModelSelectionProfile.Single
+//                 ProjectionProfile = VehicleModelSelectionProfile.Single
 //             });
 //
 //         var vehicleModel = await vehicleModelQuery.AsNoTracking().SingleOrDefaultAsync();
@@ -77,10 +77,10 @@
 //     {
 //         var mappedEntityModel = Mapper.Map<VehicleModel, VehicleModelEntity>(entity);
 //
-//         await AssignCollectionToModel<VehicleBodyTypeEntity>(mappedEntityModel);
-//         await AssignCollectionToModel<VehicleEngineTypeEntity>(mappedEntityModel);
-//         await AssignCollectionToModel<VehicleTransmissionTypeEntity>(mappedEntityModel);
-//         await AssignCollectionToModel<VehicleDrivetrainTypeEntity>(mappedEntityModel);
+//         await AssignCollectionToModel<VehicleBodyType>(mappedEntityModel);
+//         await AssignCollectionToModel<VehicleEngineType>(mappedEntityModel);
+//         await AssignCollectionToModel<VehicleTransmissionType>(mappedEntityModel);
+//         await AssignCollectionToModel<VehicleDrivetrainType>(mappedEntityModel);
 //
 //         return mappedEntityModel;
 //     }
@@ -91,7 +91,7 @@
 //             entity.Id, 
 //             Context.Set<VehicleModelEntity>(), new VehicleModelFilteringRequestParameters
 //             {
-//                 SelectionProfile = VehicleModelSelectionProfile.Single
+//                 ProjectionProfile = VehicleModelSelectionProfile.Single
 //             }).SingleOrDefaultAsync();
 //
 //         Context.Set<VehicleModelEntity>().Attach(databaseModel!);

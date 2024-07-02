@@ -1,10 +1,9 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
 using Application.Contracts.RequestParametersRelated;
 using Application.Enums.RequestParametersRelated;
-using Domain.Models.VehicleRelated.Classes;
+using Domain.Entities.VehicleRelated;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Persistence.Entities.VehicleRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.VehicleRelated.QueryBuilderRelated.Common.Classes;
 
@@ -15,12 +14,12 @@ internal sealed class VehicleQueryBuilder(
     VehicleFilteringCriteria vehicleFilteringCriteria)
     : BaseQueryBuilder<VehicleSelectionProfile,
         Vehicle,
-        VehicleEntity,
+        Vehicle,
         IVehicleFilteringRequestParameters>(
         selectionProfiles,
         vehicleFilteringCriteria)
 {
-    internal Task<IDictionary<string, decimal>> GetPriceRange(DbSet<VehicleEntity> dataModels,
+    internal Task<IDictionary<string, decimal>> GetPriceRange(DbSet<Vehicle> dataModels,
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters = null!)
     {
         var range = new Dictionary<string, decimal>();
@@ -59,14 +58,14 @@ internal sealed class VehicleQueryBuilder(
         return settings;
     }
 
-    private void GetRangeParts(IDictionary<string, decimal> range, IQueryable<VehicleEntity> vehicles)
+    private void GetRangeParts(IDictionary<string, decimal> range, IQueryable<Vehicle> vehicles)
     {
         range.Add("lowerPriceRange", GetRangePart(vehicles, vehicle => vehicle.First()));
         range.Add("upperPriceRange", GetRangePart(vehicles, vehicle => vehicle.Last()));
     }
 
-    private decimal GetRangePart(IQueryable<VehicleEntity> vehicles,
-        Func<IQueryable<VehicleEntity>, VehicleEntity> vehicleSelector)
+    private decimal GetRangePart(IQueryable<Vehicle> vehicles,
+        Func<IQueryable<Vehicle>, Vehicle> vehicleSelector)
     {
         var selectedVehicle = vehicleSelector(vehicles);
         var selectedPrice = selectedVehicle.Prices.First();
@@ -74,7 +73,7 @@ internal sealed class VehicleQueryBuilder(
         return selectedPrice.Value;
     }
 
-    private IOrderedQueryable<VehicleEntity> OrderQueryByPrice(IQueryable<VehicleEntity> vehicles) =>
+    private IOrderedQueryable<Vehicle> OrderQueryByPrice(IQueryable<Vehicle> vehicles) =>
         vehicles.OrderBy(
             v => v.Prices.OrderByDescending(
                 p => p.IssueDate).FirstOrDefault()!.Value);

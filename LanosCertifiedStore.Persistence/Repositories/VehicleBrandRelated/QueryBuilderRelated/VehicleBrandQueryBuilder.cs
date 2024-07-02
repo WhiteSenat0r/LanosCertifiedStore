@@ -1,8 +1,7 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
 using Application.Contracts.RequestParametersRelated;
 using Application.Enums.RequestParametersRelated;
-using Domain.Models.VehicleRelated.Classes;
-using Persistence.Entities.VehicleRelated;
+using Domain.Entities.VehicleRelated;
 using Persistence.QueryBuilder;
 using Persistence.Repositories.VehicleBrandRelated.QueryBuilderRelated.Common.Classes;
 
@@ -11,9 +10,9 @@ namespace Persistence.Repositories.VehicleBrandRelated.QueryBuilderRelated;
 internal sealed class VehicleBrandQueryBuilder(
     VehicleBrandSelectionProfiles selectionProfiles,
     VehicleBrandFilteringCriteria brandFilteringCriteria)
-    : BaseQueryBuilder<VehicleBrandSelectionProfile,
+    : BaseQueryBuilder<VehicleBrandProjectionProfile,
         VehicleBrand,
-        VehicleBrandEntity,
+        VehicleBrand,
         IVehicleBrandFilteringRequestParameters>(
         selectionProfiles,
         brandFilteringCriteria)

@@ -1,6 +1,6 @@
-﻿using Persistence.Entities.VehicleRelated;
+﻿using Domain.Entities.VehicleRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleBrandRelated.QueryBuilderRelated.Common.Classes;
 
-internal class VehicleBrandSortingSettings : BaseSortingSettings<VehicleBrandEntity>;
+internal class VehicleBrandSortingSettings : BaseSortingSettings<VehicleBrand>;

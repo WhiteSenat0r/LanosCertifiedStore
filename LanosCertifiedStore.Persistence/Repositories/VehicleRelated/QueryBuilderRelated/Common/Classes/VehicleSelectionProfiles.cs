@@ -1,19 +1,18 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
 using Application.Contracts.RequestParametersRelated;
 using Application.Enums.RequestParametersRelated;
-using Domain.Models.VehicleRelated.Classes;
-using Persistence.Entities.VehicleRelated;
-using Persistence.Entities.VehicleRelated.LocationRelated;
-using Persistence.Entities.VehicleRelated.TypeRelated;
+using Domain.Entities.VehicleRelated;
+using Domain.Entities.VehicleRelated.LocationRelated;
+using Domain.Entities.VehicleRelated.TypeRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleRelated.QueryBuilderRelated.Common.Classes;
 
 internal class VehicleSelectionProfiles :
-    BaseSelectionProfiles<VehicleSelectionProfile, Vehicle, VehicleEntity>
+    BaseSelectionProfiles<VehicleSelectionProfile, Vehicle, Vehicle>
 {
     private readonly Dictionary<VehicleSelectionProfile,
-            Func<IQueryable<VehicleEntity>, IVehicleFilteringRequestParameters?, IQueryable<VehicleEntity>>>
+            Func<IQueryable<Vehicle>, IVehicleFilteringRequestParameters?, IQueryable<Vehicle>>>
         _mappedProfiles = new()
         {
             { VehicleSelectionProfile.Default, GetDefaultProfileQueryable! },
@@ -21,8 +20,8 @@ internal class VehicleSelectionProfiles :
             { VehicleSelectionProfile.Single, GetSingleProfileQueryable! }
         };
 
-    public override IQueryable<VehicleEntity> GetSuitableSelectionProfileQueryable(
-        IQueryable<VehicleEntity> inputQueryable,
+    public override IQueryable<Vehicle> GetSuitableSelectionProfileQueryable(
+        IQueryable<Vehicle> inputQueryable,
         IFilteringRequestParameters<Vehicle>? requestParameters = null)
     {
         if (requestParameters is null)
@@ -33,23 +32,23 @@ internal class VehicleSelectionProfiles :
         return _mappedProfiles[requestParams!.SelectionProfile](inputQueryable, requestParams);
     }
 
-    private static IQueryable<VehicleEntity> GetCatalogProfileQueryable(
-        IQueryable<VehicleEntity> queryable,
+    private static IQueryable<Vehicle> GetCatalogProfileQueryable(
+        IQueryable<Vehicle> queryable,
         IVehicleFilteringRequestParameters vehicleFilteringRequestParameters) =>
-        queryable.Select(vehicle => new VehicleEntity
+        queryable.Select(vehicle => new Vehicle
         {
             Id = vehicle.Id,
-            Brand = new VehicleBrandEntity
+            Brand = new VehicleBrand
             {
                 Name = vehicle.Brand.Name
             },
-            Model = new VehicleModelEntity
+            Model = new VehicleModel
             {
                 Name = vehicle.Model.Name
             },
-            Prices = new List<VehiclePriceEntity>
+            Prices = new List<VehiclePrice>
             {
-                vehicle.Prices.Select(price => new VehiclePriceEntity
+                vehicle.Prices.Select(price => new VehiclePrice
                 {
                     IssueDate = price.IssueDate,
                     Value = price.Value
@@ -58,120 +57,120 @@ internal class VehicleSelectionProfiles :
             Displacement = vehicle.Displacement,
             Mileage = vehicle.Mileage,
             ProductionYear = vehicle.ProductionYear,
-            Color = new VehicleColorEntity
+            Color = new VehicleColor
             {
                 Name = vehicle.Color.Name,
                 HexValue = vehicle.Color.HexValue
             },
-            Images = new List<VehicleImageEntity>
+            Images = new List<VehicleImage>
             {
                 vehicle.Images.Count != 0 ? 
                     vehicle.Images.Where(image => image.IsMainImage)
-                        .Select(image => new VehicleImageEntity
+                        .Select(image => new VehicleImage
                         {
                             ImageUrl = image.ImageUrl
                         }).First()
                     : null!
             },
-            VehicleType = new VehicleTypeEntity
+            VehicleType = new VehicleType
             {
                 Name = vehicle.VehicleType.Name
             },
-            BodyType = new VehicleBodyTypeEntity
+            BodyType = new VehicleBodyType
             {
                 Name = vehicle.BodyType.Name
             },
-            EngineType = new VehicleEngineTypeEntity
+            EngineType = new VehicleEngineType
             {
                 Name = vehicle.EngineType.Name
             },
-            LocationTown = new VehicleLocationTownEntity
+            LocationTown = new VehicleLocationTown
             {
                 Name = vehicle.LocationTown.Name
             }
         });
 
-    private static IQueryable<VehicleEntity> GetSingleProfileQueryable(
-        IQueryable<VehicleEntity> queryable,
+    private static IQueryable<Vehicle> GetSingleProfileQueryable(
+        IQueryable<Vehicle> queryable,
         IVehicleFilteringRequestParameters vehicleFilteringRequestParameters) =>
-        queryable.Select(vehicle => new VehicleEntity
+        queryable.Select(vehicle => new Vehicle
         {
             Id = vehicle.Id,
-            Brand = new VehicleBrandEntity
+            Brand = new VehicleBrand
             {
                 Id = vehicle.Brand.Id,
                 Name = vehicle.Brand.Name
             },
-            Model = new VehicleModelEntity
+            Model = new VehicleModel
             {
                 Id = vehicle.Model.Id,
                 Name = vehicle.Model.Name
             },
-            Prices = (vehicle.Prices.Select(price => new VehiclePriceEntity
+            Prices = (vehicle.Prices.Select(price => new VehiclePrice
             {
                 Id = price.Id,
                 Value = price.Value,
                 IssueDate = price.IssueDate
-            }).OrderByDescending(price => price.IssueDate) as ICollection<VehiclePriceEntity>)!,
+            }).OrderByDescending(price => price.IssueDate) as ICollection<VehiclePrice>)!,
             Displacement = vehicle.Displacement,
             Description = vehicle.Description,
-            Color = new VehicleColorEntity
+            Color = new VehicleColor
             {
                 Id = vehicle.Color.Id,
                 Name = vehicle.Color.Name,
                 HexValue = vehicle.Color.HexValue
             },
-            Images = (vehicle.Images.Select(image => new VehicleImageEntity
+            Images = (vehicle.Images.Select(image => new VehicleImage
             {
                 Id = image.Id,
                 ImageUrl = image.ImageUrl,
                 CloudImageId = image.CloudImageId,
                 IsMainImage = image.IsMainImage
-            }).OrderByDescending(image => image.IsMainImage) as ICollection<VehicleImageEntity>)!,
-            VehicleType = new VehicleTypeEntity
+            }).OrderByDescending(image => image.IsMainImage) as ICollection<VehicleImage>)!,
+            VehicleType = new VehicleType
             {
                 Id = vehicle.VehicleType.Id,
                 Name = vehicle.VehicleType.Name
             }
         });
 
-    private static IQueryable<VehicleEntity> GetDefaultProfileQueryable(
-        IQueryable<VehicleEntity> queryable,
+    private static IQueryable<Vehicle> GetDefaultProfileQueryable(
+        IQueryable<Vehicle> queryable,
         IVehicleFilteringRequestParameters vehicleFilteringRequestParameters) =>
-        queryable.Select(vehicle => new VehicleEntity
+        queryable.Select(vehicle => new Vehicle
         {
             Id = vehicle.Id,
-            Brand = new VehicleBrandEntity
+            Brand = new VehicleBrand
             {
                 Name = vehicle.Brand.Name
             },
-            Model = new VehicleModelEntity
+            Model = new VehicleModel
             {
                 Name = vehicle.Model.Name
             },
-            Prices = new List<VehiclePriceEntity>
+            Prices = new List<VehiclePrice>
             {
-                vehicle.Prices.Select(price => new VehiclePriceEntity
+                vehicle.Prices.Select(price => new VehiclePrice
                 {
                     IssueDate = price.IssueDate,
                     Value = price.Value
                 }).OrderByDescending(price => price.IssueDate).First()
             },
-            Color = new VehicleColorEntity
+            Color = new VehicleColor
             {
                 Name = vehicle.Color.Name
             },
-            Images = new List<VehicleImageEntity>
+            Images = new List<VehicleImage>
             {
                 vehicle.Images.Count != 0 ?
                 vehicle.Images.Where(image => image.IsMainImage)
-                    .Select(image => new VehicleImageEntity
+                    .Select(image => new VehicleImage
                     {
                         ImageUrl = image.ImageUrl
                     }).First()
                 : null!
             },
-            VehicleType = new VehicleTypeEntity
+            VehicleType = new VehicleType
             {
                 Name = vehicle.VehicleType.Name
             }

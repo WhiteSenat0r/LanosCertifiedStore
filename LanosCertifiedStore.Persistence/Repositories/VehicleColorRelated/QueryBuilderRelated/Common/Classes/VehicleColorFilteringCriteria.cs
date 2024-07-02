@@ -1,16 +1,15 @@
 ﻿using System.Linq.Expressions;
 using Application.Contracts.RepositoryRelated.Common;
 using Application.Contracts.RequestParametersRelated;
-using Domain.Models.VehicleRelated.Classes;
-using Persistence.Entities.VehicleRelated;
+using Domain.Entities.VehicleRelated;
 using Persistence.QueryBuilder.Common;
 
 namespace Persistence.Repositories.VehicleColorRelated.QueryBuilderRelated.Common.Classes;
 
 internal sealed class VehicleColorFilteringCriteria : 
-    BaseFilteringCriteria<VehicleColor, VehicleColorEntity, IVehicleColorFilteringRequestParameters>
+    BaseFilteringCriteria<VehicleColor, VehicleColor, IVehicleColorFilteringRequestParameters>
 { 
-    internal override Expression<Func<VehicleColorEntity, bool>> GetCriteria(
+    internal override Expression<Func<VehicleColor, bool>> GetCriteria(
         IFilteringRequestParameters<VehicleColor>? filteringRequestParameters)
     {
         if (filteringRequestParameters is not IVehicleColorFilteringRequestParameters requestParameters)
@@ -28,7 +27,7 @@ internal sealed class VehicleColorFilteringCriteria :
             PredicateDelegates.Add(GetColorNamePredicate);
     }
     
-    private Expression<Func<VehicleColorEntity, bool>> GetColorNamePredicate(
+    private Expression<Func<VehicleColor, bool>> GetColorNamePredicate(
         IVehicleColorFilteringRequestParameters requestParameters) =>
         vehicleColor => vehicleColor.Name.Equals(requestParameters.Name);
 }
