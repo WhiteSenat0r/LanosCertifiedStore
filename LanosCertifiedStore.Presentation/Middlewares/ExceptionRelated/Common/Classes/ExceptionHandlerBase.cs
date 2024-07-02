@@ -6,9 +6,9 @@ namespace API.Middlewares.ExceptionRelated.Common.Classes;
 
 internal abstract class ExceptionHandlerBase<TException>(
     ILogger<ExceptionHandlerBase<TException>> logger,
+    HttpStatusCode statusCode,
     string title,
-    string detail,
-    HttpStatusCode statusCode) : IExceptionHandler
+    string? detail = null!) : IExceptionHandler
     where TException : Exception
 {
     public async ValueTask<bool> TryHandleAsync(
@@ -25,7 +25,7 @@ internal abstract class ExceptionHandlerBase<TException>(
         {
             Title = title,
             Status = (int)statusCode,
-            Detail = detail
+            Detail = detail ?? exception.Message
         };
 
         httpContext.Response.StatusCode = (int)statusCode;
