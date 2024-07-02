@@ -1,6 +1,6 @@
 ﻿using Application.Contracts.ServicesRelated.IdentityRelated;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated;
+namespace LanosCertifiedStore.InfrastructureLayer.Services.Services.IdentityRelated;
 
 internal sealed class PasswordHasher : IPasswordHasher
 {

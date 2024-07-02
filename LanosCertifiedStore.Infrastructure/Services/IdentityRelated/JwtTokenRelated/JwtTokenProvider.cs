@@ -5,7 +5,7 @@ using Application.Contracts.ServicesRelated.IdentityRelated;
 using Domain.Entities.UserRelated;
 using Microsoft.IdentityModel.Tokens;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated.JwtTokenRelated;
+namespace LanosCertifiedStore.InfrastructureLayer.Services.Services.IdentityRelated.JwtTokenRelated;
 
 internal sealed class JwtTokenProvider(JwtTokenOptions tokenOptions) : IJwtProvider
 {

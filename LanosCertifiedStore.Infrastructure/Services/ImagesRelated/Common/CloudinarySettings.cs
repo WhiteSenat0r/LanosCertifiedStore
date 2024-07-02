@@ -1,4 +1,4 @@
-﻿namespace LanosCertifiedStore.InfrastructureLayer.Services.ImagesRelated.Common;
+﻿namespace LanosCertifiedStore.InfrastructureLayer.Services.Services.ImagesRelated.Common;
 
 internal record CloudinarySettings
 {

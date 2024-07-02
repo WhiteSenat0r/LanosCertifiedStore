@@ -2,7 +2,7 @@
 using Application.Contracts.ServicesRelated.IdentityRelated;
 using Domain.Entities.IdentityRelated;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated.RefreshTokenRelated;
+namespace LanosCertifiedStore.InfrastructureLayer.Services.Services.IdentityRelated.RefreshTokenRelated;
 
 internal sealed class RefreshTokenProvider : IRefreshTokenProvider
 {

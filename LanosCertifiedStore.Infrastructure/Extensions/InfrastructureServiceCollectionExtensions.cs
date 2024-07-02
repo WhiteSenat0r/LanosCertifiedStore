@@ -1,9 +1,11 @@
-﻿using Application.Contracts.ServicesRelated.IdentityRelated;
+﻿using Application.Contracts.ServicesRelated;
+using Application.Contracts.ServicesRelated.IdentityRelated;
 using Application.Contracts.ServicesRelated.ImageService;
-using LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated;
-using LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated.JwtTokenRelated;
-using LanosCertifiedStore.InfrastructureLayer.Services.ImagesRelated;
-using LanosCertifiedStore.InfrastructureLayer.Services.ImagesRelated.Common;
+using LanosCertifiedStore.InfrastructureLayer.Services.Services;
+using LanosCertifiedStore.InfrastructureLayer.Services.Services.IdentityRelated;
+using LanosCertifiedStore.InfrastructureLayer.Services.Services.IdentityRelated.JwtTokenRelated;
+using LanosCertifiedStore.InfrastructureLayer.Services.Services.ImagesRelated;
+using LanosCertifiedStore.InfrastructureLayer.Services.Services.ImagesRelated.Common;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +21,7 @@ public static class InfrastructureServiceCollectionExtensions
         services.AddScoped<IImageService, ImageService>();
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
+        services.AddScoped<IVehicleBrandService, VehicleBrandService>();
         
         return services;
     }

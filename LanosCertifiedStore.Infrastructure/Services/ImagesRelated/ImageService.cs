@@ -2,11 +2,11 @@
 using Application.Core.Results;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
-using LanosCertifiedStore.InfrastructureLayer.Services.ImagesRelated.Common;
+using LanosCertifiedStore.InfrastructureLayer.Services.Services.ImagesRelated.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.ImagesRelated;
+namespace LanosCertifiedStore.InfrastructureLayer.Services.Services.ImagesRelated;
 
 internal class ImageService : IImageService
 {

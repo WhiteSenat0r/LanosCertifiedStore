@@ -1,12 +1,12 @@
 ﻿using Application.Contracts.ServicesRelated.IdentityRelated;
 using Application.Dtos.IdentityDtos.AuthenticationDtos;
-using Application.RequestParams;
+using Application.RequestParameters;
 using Domain.Entities.UserRelated;
-using LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated.JwtTokenRelated;
+using LanosCertifiedStore.InfrastructureLayer.Services.Services.IdentityRelated.JwtTokenRelated;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated;
+namespace LanosCertifiedStore.InfrastructureLayer.Services.Services.IdentityRelated;
 
 internal sealed class AuthenticationService(
     IPasswordHasher passwordHasher,

@@ -1,4 +1,4 @@
-﻿namespace LanosCertifiedStore.InfrastructureLayer.Services.IdentityRelated.JwtTokenRelated;
+﻿namespace LanosCertifiedStore.InfrastructureLayer.Services.Services.IdentityRelated.JwtTokenRelated;
 
 internal sealed class JwtTokenOptions
 {
