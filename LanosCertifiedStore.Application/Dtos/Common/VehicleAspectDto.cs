@@ -1,6 +1,8 @@
-﻿namespace Application.Dtos.Common;
+﻿using Domain.Contracts.Common;
 
-public abstract record VehicleAspectDto
+namespace Application.Dtos.Common;
+
+public abstract record VehicleAspectDto : IIdentifiable<Guid>
 {
     public Guid Id { get; init; }
     public string? Name { get; init; }
