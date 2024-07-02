@@ -7,28 +7,25 @@ namespace Persistence.Queries.Common.Extensions;
 
 internal static class QueryableExtensions
 {
-    public static IQueryable<TEntity> GetQueryWithAppliedFilters<TModel, TEntity>(
+    public static IQueryable<TEntity> GetQueryWithAppliedFilters<TEntity>(
         this IQueryable<TEntity> queryable,
-        IFilteringRequestParameters<TModel> filteringRequestParameters,
-        IQueryFilteringCriteriaSelector<TModel,TEntity> filteringCriteriaSelector)
-        where TEntity : class, IIdentifiable<Guid>
-        where TModel : class, IIdentifiable<Guid> =>
+        IFilteringRequestParameters<TEntity> filteringRequestParameters,
+        IQueryFilteringCriteriaSelector<TEntity> filteringCriteriaSelector)
+        where TEntity : class, IIdentifiable<Guid> =>
         queryable.Where(filteringCriteriaSelector.GetCriteria(filteringRequestParameters));
     
-    public static IQueryable<TEntity> GetQueryWithAppliedSelectionProfile<TModel, TEntity>(
+    public static IQueryable<TEntity> GetQueryWithAppliedSelectionProfile<TEntity>(
         this IQueryable<TEntity> queryable,
-        IFilteringRequestParameters<TModel> filteringRequestParameters,
-        IQueryProjectionProfileSelector<TModel, TEntity> projectionProfileSelector)
-        where TEntity : class, IIdentifiable<Guid>
-        where TModel : class, IIdentifiable<Guid> =>
+        IFilteringRequestParameters<TEntity> filteringRequestParameters,
+        IQueryProjectionProfileSelector<TEntity> projectionProfileSelector)
+        where TEntity : class, IIdentifiable<Guid> =>
         queryable.Select(projectionProfileSelector.GetProjectionProfile(filteringRequestParameters));
 
-    public static IQueryable<TEntity> GetQueryWithAppliedSortingSettings<TModel, TEntity>(
+    public static IQueryable<TEntity> GetQueryWithAppliedSortingSettings<TEntity>(
         this IQueryable<TEntity> queryable,
-        IFilteringRequestParameters<TModel> filteringRequestParameters,
-        IQuerySortingSettingsSelector<TModel, TEntity> sortingSettingsSelector)
+        IFilteringRequestParameters<TEntity> filteringRequestParameters,
+        IQuerySortingSettingsSelector<TEntity> sortingSettingsSelector)
         where TEntity : class, IIdentifiable<Guid>
-        where TModel : class, IIdentifiable<Guid>
     {
         var sortingSettings = sortingSettingsSelector.GetSortingSettings(filteringRequestParameters);
 
@@ -37,20 +34,12 @@ internal static class QueryableExtensions
             : queryable.OrderByDescending(sortingSettings.SortingSettings);
     }
     
-    public static IQueryable<TEntity> GetQueryWithAppliedPagination<TModel, TEntity>(
+    public static IQueryable<TEntity> GetQueryWithAppliedPagination<TEntity>(
         this IQueryable<TEntity> queryable,
         IQueryPaginator queryPaginator,
-        IFilteringRequestParameters<TModel> filteringRequestParameters)
-        where TEntity : class, IIdentifiable<Guid>
-        where TModel : class, IIdentifiable<Guid> =>
+        IFilteringRequestParameters<TEntity> filteringRequestParameters)
+        where TEntity : class, IIdentifiable<Guid> =>
         queryPaginator.ExecutePagination(
             queryable,
             filteringRequestParameters);
-    
-    public static IQueryable<TEntity> GetQueryWithAppliedTrackingSettings<TEntity>(
-        this IQueryable<TEntity> queryable, bool isTracked)
-        where TEntity : class, IIdentifiable<Guid> =>
-        isTracked
-            ? queryable.AsTracking()
-            : queryable.AsNoTracking();
 }

@@ -1,25 +1,24 @@
 ﻿using Application.Contracts.RequestRelated.QueryRelated;
 using Application.Shared.ResultRelated;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Domain.Contracts.Common;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.Queries.Common.Classes.QueryBaseRelated.Constants;
 using Persistence.Queries.Common.Contracts;
 using Persistence.Queries.Common.Extensions;
 
 namespace Persistence.Queries.Common.Classes.QueryBaseRelated;
 
-internal abstract class SingleQueryBase<TModel, TEntity, TDto>(
+public abstract class SingleQueryBase<TEntity, TDto>(
     ApplicationDatabaseContext context,
-    IQueryProjectionProfileSelector<TModel, TEntity> projectionProfileSelector,
-    IMapper mapper) : ISingleQuery<TModel, TModel>
-    where TModel : class, IIdentifiable<Guid>
+    IQueryProjectionProfileSelector<TEntity> projectionProfileSelector,
+    IMapper mapper)
     where TEntity : class, IIdentifiable<Guid>
-    where TDto : class
+    where TDto : class, IIdentifiable<Guid>
 {
-    public async Task<Result<TModel>> Execute<TRequestResult>(
-        IQueryRequest<TModel, TModel, TRequestResult> queryRequest,
+    public async Task<TDto?> Execute<TRequestResult>(
+        IQueryRequest<TEntity, TRequestResult> queryRequest,
         CancellationToken cancellationToken)
         where TRequestResult : notnull
     {
@@ -27,9 +26,8 @@ internal abstract class SingleQueryBase<TModel, TEntity, TDto>(
 
         queryable = queryable.GetQueryWithAppliedSelectionProfile(
             queryRequest.FilteringParameters, projectionProfileSelector);
-        queryable = queryable.GetQueryWithAppliedTrackingSettings(queryRequest.IsTracked);
 
-        var singleQueryRequest = (queryRequest as ISingleQueryRequest<TModel, TModel, Result<TDto>, TDto>)!;
+        var singleQueryRequest = (queryRequest as ISingleQueryRequest<TEntity, Result<TDto>>)!;
         var executionResult = await GetQueryResult(queryable, singleQueryRequest, cancellationToken);
 
         return executionResult;
@@ -42,19 +40,16 @@ internal abstract class SingleQueryBase<TModel, TEntity, TDto>(
         return dataSet.AsQueryable();
     }
     
-    private async Task<Result<TModel>> GetQueryResult<TRequestResult>(
+    private async Task<TDto?> GetQueryResult(
         IQueryable<TEntity> queryable,
-        ISingleQueryRequest<TModel, TModel, TRequestResult, TDto> queryRequest,
+        ISingleQueryRequest<TEntity, Result<TDto>> queryRequest,
         CancellationToken cancellationToken)
-        where TRequestResult : Result<TDto>
     {
-        var item = await queryable.SingleOrDefaultAsync(i => i.Id.Equals(queryRequest.ItemId),cancellationToken);
-        
-        if (item is null)
-            return Result<TModel>.Success(null!);
-            
-        var mappedItem = mapper.Map<TEntity, TModel>(item);
-        
-        return Result<TModel>.Success(mappedItem);
+        var item = await queryable
+            .ProjectTo<TDto>(mapper.ConfigurationProvider)
+            .AsNoTracking()
+            .SingleOrDefaultAsync(i => i.Id.Equals(queryRequest.ItemId),cancellationToken);
+
+        return item;
     }
 }

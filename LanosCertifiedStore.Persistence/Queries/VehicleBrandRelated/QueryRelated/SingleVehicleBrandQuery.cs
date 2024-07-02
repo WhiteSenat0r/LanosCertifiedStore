@@ -1,17 +1,14 @@
 ﻿using Application.Dtos.BrandDtos;
 using AutoMapper;
-using Domain.Models.VehicleRelated.Classes;
+using Domain.Entities.VehicleRelated;
 using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.Entities.VehicleRelated;
 using Persistence.Queries.Common.Classes.QueryBaseRelated;
 using Persistence.Queries.Common.Contracts;
 
 namespace Persistence.Queries.VehicleBrandRelated.QueryRelated;
 
-internal sealed class SingleVehicleBrandQuery(
-    ApplicationDatabaseContext context,
-    IQueryProjectionProfileSelector<VehicleBrand, VehicleBrandEntity> projectionProfileSelector,
-    IMapper mapper) : SingleQueryBase<VehicleBrand, VehicleBrandEntity, VehicleBrandDto>(
-    context,
-    projectionProfileSelector,
-    mapper);
+public sealed class SingleVehicleBrandQuery(
+    ApplicationDatabaseContext context, 
+    IQueryProjectionProfileSelector<VehicleBrand> projectionProfileSelector,
+    IMapper mapper) : 
+    SingleQueryBase<VehicleBrand, VehicleBrandDto>(context, projectionProfileSelector, mapper);

@@ -6,16 +6,15 @@ using Persistence.Queries.Common.Contracts;
 
 namespace Persistence.Queries.Common.Classes.SelectorBaseRelated;
 
-internal abstract class QueryFilteringCriteriaSelectorBase<TModel, TEntity> : 
-    IQueryFilteringCriteriaSelector<TModel, TEntity> 
-    where TModel : class, IIdentifiable<Guid> 
+internal abstract class QueryFilteringCriteriaSelectorBase<TEntity> : 
+    IQueryFilteringCriteriaSelector<TEntity>
     where TEntity : class, IIdentifiable<Guid>
 {
     private Expression<Func<TEntity, bool>> _filteringCriteriaExpression = 
         PredicateBuilder.New<TEntity>(true);
 
     public Expression<Func<TEntity, bool>> GetCriteria(
-        IFilteringRequestParameters<TModel>? filteringRequestParameters = null)
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters = null)
     {
         var aspects = GetAspectMappings(filteringRequestParameters!);
 
@@ -40,5 +39,5 @@ internal abstract class QueryFilteringCriteriaSelectorBase<TModel, TEntity> :
     }
 
     private protected abstract IReadOnlyCollection<(bool IsValid, Expression<Func<TEntity, bool>> Expression)> 
-        GetAspectMappings(IFilteringRequestParameters<TModel> filteringRequestParameters);
+        GetAspectMappings(IFilteringRequestParameters<TEntity> filteringRequestParameters);
 }

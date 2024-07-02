@@ -5,16 +5,15 @@ using Persistence.Queries.Common.Contracts;
 
 namespace Persistence.Queries.Common.Classes.SelectorBaseRelated;
 
-internal abstract class QuerySortingSettingsSelectorBase<TModel, TEntity> : 
-    IQuerySortingSettingsSelector<TModel, TEntity>
-    where TModel : class, IIdentifiable<Guid>
+internal abstract class QuerySortingSettingsSelectorBase<TEntity> : 
+    IQuerySortingSettingsSelector<TEntity>
     where TEntity : class, IIdentifiable<Guid>
 {
     private const string AscendingSuffix = "-asc";
     private const string DescendingSuffix = "-desc";
     
     public (bool IsAscending, Expression<Func<TEntity, object>> SortingSettings) GetSortingSettings(
-        IFilteringRequestParameters<TModel>? filteringRequestParameters = null)
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters = null)
     {
         var settings = GetMappedSortingExpressions();
         var sortingExpression = GetSortingExpression(filteringRequestParameters, settings);
@@ -31,7 +30,7 @@ internal abstract class QuerySortingSettingsSelectorBase<TModel, TEntity> :
         GetMappedSortingExpressions();
     
     private Expression<Func<TEntity, object>> GetSortingExpression(
-        IFilteringRequestParameters<TModel>? filteringRequestParameters,
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters,
         IReadOnlyDictionary<string, Expression<Func<TEntity, object>>> settings)
     {
         if (filteringRequestParameters is null ||
@@ -45,7 +44,7 @@ internal abstract class QuerySortingSettingsSelectorBase<TModel, TEntity> :
     }
 
     private bool ContainsSortingSuffix(
-        IFilteringRequestParameters<TModel>? filteringRequestParameters,
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters,
         string suffix) =>
         filteringRequestParameters is not null &&
         (!string.IsNullOrEmpty(filteringRequestParameters.SortingType) ||

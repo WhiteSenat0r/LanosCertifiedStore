@@ -4,9 +4,9 @@ using Domain.Contracts.Common;
 
 namespace Persistence.Queries.Common.Contracts;
 
-internal interface IQueryFilteringCriteriaSelector<TModel, TEntity>
+public interface IQueryFilteringCriteriaSelector<TEntity>
     where TEntity : class, IIdentifiable<Guid>
-    where TModel : class, IIdentifiable<Guid>
 {
-    Expression<Func<TEntity, bool>> GetCriteria(IFilteringRequestParameters<TModel>? filteringRequestParameters = null);
+    Expression<Func<TEntity, bool>> GetCriteria(
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters = null);
 }

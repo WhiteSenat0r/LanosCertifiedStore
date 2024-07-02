@@ -5,13 +5,12 @@ using Persistence.Queries.Common.Contracts;
 
 namespace Persistence.Queries.Common.Classes.SelectorBaseRelated;
 
-internal abstract class ProjectionProfileSelectorBase<TModel, TEntity> : 
-    IQueryProjectionProfileSelector<TModel, TEntity> 
-    where TModel : class, IIdentifiable<Guid>
+internal abstract class ProjectionProfileSelectorBase<TEntity> : 
+    IQueryProjectionProfileSelector<TEntity>
     where TEntity : class, IIdentifiable<Guid>
 {
     public Expression<Func<TEntity, TEntity>> GetProjectionProfile(
-        IFilteringRequestParameters<TModel>? filteringRequestParameters = null!)
+        IFilteringRequestParameters<TEntity>? filteringRequestParameters = null!)
     {
         return filteringRequestParameters is null 
             ? GetDefaultProfile() 
@@ -21,5 +20,5 @@ internal abstract class ProjectionProfileSelectorBase<TModel, TEntity> :
     private protected abstract Expression<Func<TEntity, TEntity>> GetDefaultProfile();
 
     private protected abstract Expression<Func<TEntity, TEntity>> GetRelevantProfile(
-        IFilteringRequestParameters<TModel> filteringRequestParameters);
+        IFilteringRequestParameters<TEntity> filteringRequestParameters);
 }

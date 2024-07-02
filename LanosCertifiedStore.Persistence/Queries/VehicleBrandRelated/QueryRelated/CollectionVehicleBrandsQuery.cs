@@ -1,19 +1,19 @@
-﻿using AutoMapper;
-using Domain.Models.VehicleRelated.Classes;
+﻿using Application.Dtos.BrandDtos;
+using AutoMapper;
+using Domain.Entities.VehicleRelated;
 using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.Entities.VehicleRelated;
 using Persistence.Queries.Common.Classes.QueryBaseRelated;
 using Persistence.Queries.Common.Contracts;
 
 namespace Persistence.Queries.VehicleBrandRelated.QueryRelated;
 
-internal sealed class CollectionVehicleBrandsQuery(
+public sealed class CollectionVehicleBrandsQuery(
     ApplicationDatabaseContext context,
-    IQueryProjectionProfileSelector<VehicleBrand, VehicleBrandEntity> projectionProfileSelector,
-    IQuerySortingSettingsSelector<VehicleBrand, VehicleBrandEntity> sortingSettingsSelector,
-    IQueryFilteringCriteriaSelector<VehicleBrand, VehicleBrandEntity> filteringCriteriaSelector,
+    IQueryProjectionProfileSelector<VehicleBrand> projectionProfileSelector,
+    IQuerySortingSettingsSelector<VehicleBrand> sortingSettingsSelector,
+    IQueryFilteringCriteriaSelector<VehicleBrand> filteringCriteriaSelector,
     IQueryPaginator queryPaginator,
-    IMapper mapper) : CollectionQueryBase<VehicleBrand, VehicleBrandEntity>(
+    IMapper mapper) : CollectionQueryBase<VehicleBrand, VehicleBrandDto>(
     context,
     projectionProfileSelector,
     sortingSettingsSelector,

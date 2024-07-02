@@ -1,24 +1,23 @@
 ﻿using System.Linq.Expressions;
 using Application.Contracts.RepositoryRelated.Common;
 using Application.Contracts.RequestParametersRelated;
-using Domain.Models.VehicleRelated.Classes;
-using Persistence.Entities.VehicleRelated;
+using Domain.Entities.VehicleRelated;
 using Persistence.Queries.Common.Classes.SelectorBaseRelated;
 
 namespace Persistence.Queries.VehicleBrandRelated.SelectorRelated;
 
 internal sealed class VehicleBrandsFilteringCriteriaSelector : 
-    QueryFilteringCriteriaSelectorBase<VehicleBrand, VehicleBrandEntity>
+    QueryFilteringCriteriaSelectorBase<VehicleBrand>
 {
     private protected override IReadOnlyCollection<(
         bool IsValid,
-        Expression<Func<VehicleBrandEntity, bool>> Expression)> GetAspectMappings(
+        Expression<Func<VehicleBrand, bool>> Expression)> GetAspectMappings(
         IFilteringRequestParameters<VehicleBrand> filteringRequestParameters)
     {
         var brandFilteringRequestParameters = 
             (filteringRequestParameters as IVehicleBrandFilteringRequestParameters)!;
 
-        return new List<(bool IsValid, Expression<Func<VehicleBrandEntity, bool>> Expression)>
+        return new List<(bool IsValid, Expression<Func<VehicleBrand, bool>> Expression)>
         {
             (
                 !string.IsNullOrEmpty(brandFilteringRequestParameters.Name),
