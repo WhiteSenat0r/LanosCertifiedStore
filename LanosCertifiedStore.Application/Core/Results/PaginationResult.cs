@@ -1,6 +1,6 @@
 ﻿namespace Application.Core.Results;
 
-public sealed class PaginationResult<T>
+public class PaginationResult<T>
 {
     public IReadOnlyCollection<T> Items { get; }
     public int CurrentPageItemsQuantity { get; }
