@@ -1,6 +1,6 @@
 ﻿namespace API.Controllers.VehicleRelated;
 
-// public sealed class VehiclesController : BaseEntityRelatedApiController
+// public sealed class VehiclesController : BaseModelRelatedApiController
 // {
 //     [HttpGet]
 //     [ProducesResponseType(typeof(PaginationResult<VehicleDto>), StatusCodes.Status200OK)]
@@ -17,7 +17,7 @@
 //     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
 //     public async Task<ActionResult<VehicleDto>> GetVehicle(Guid id)
 //     {
-//         return HandleResult(await Mediator.Send(new VehicleDetailsQuery(id)));
+//         return HandleResult(await Mediator.Send(new VehicleSingleQueryRequest(id)));
 //     }
 //     
 //     [HttpGet("countItems")]
@@ -27,7 +27,7 @@
 //     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
 //         [FromQuery] VehicleFilteringRequestParameters requestParameters)
 //     {
-//         return HandleResult(await Mediator.Send(new CountVehiclesQuery(requestParameters)));
+//         return HandleResult(await Mediator.Send(new CountVehiclesQueryRequest(requestParameters)));
 //     }
 //     
 //     [HttpGet("getPriceRange")]

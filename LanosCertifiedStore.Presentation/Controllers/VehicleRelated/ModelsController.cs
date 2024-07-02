@@ -1,6 +1,6 @@
 ﻿namespace API.Controllers.VehicleRelated;
 
-// public sealed class ModelsController : BaseEntityRelatedApiController
+// public sealed class ModelsController : BaseModelRelatedApiController
 // {
 //     [HttpGet]
 //     [ProducesResponseType(typeof(PaginationResult<ModelDto>), StatusCodes.Status200OK)]
@@ -16,7 +16,7 @@
 //     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
 //     public async Task<ActionResult> GetModel(Guid id)
 //     {
-//         return HandleResult(await Mediator.Send(new ModelDetailsQuery(id)));
+//         return HandleResult(await Mediator.Send(new ModelSingleQueryRequest(id)));
 //     }
 //     
 //     [HttpGet("countItems")]
@@ -26,7 +26,7 @@
 //     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
 //         [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
 //     {
-//         return HandleResult(await Mediator.Send(new CountModelsQuery(requestParameters)));
+//         return HandleResult(await Mediator.Send(new CountModelsQueryRequest(requestParameters)));
 //     }
 //
 //     [HttpPost]

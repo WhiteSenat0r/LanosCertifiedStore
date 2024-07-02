@@ -1,6 +1,6 @@
 ﻿namespace API.Controllers.LocationRelated;
 
-// public sealed class VehicleLocationAreasController : BaseEntityRelatedApiController
+// public sealed class VehicleLocationAreasController : BaseModelRelatedApiController
 // {
 //     [HttpGet]
 //     [ProducesResponseType(typeof(PaginationResult<AreaDto>), StatusCodes.Status200OK)]
@@ -18,7 +18,7 @@
 //     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
 //         [FromQuery] VehicleLocationAreaFilteringRequestParameters requestParameters)
 //     {
-//         return HandleResult(await Mediator.Send(new CountAreasQuery(requestParameters)));
+//         return HandleResult(await Mediator.Send(new CountAreasQueryRequest(requestParameters)));
 //     }
 //     
 //     // TODO Maybe add full CRUD in the future

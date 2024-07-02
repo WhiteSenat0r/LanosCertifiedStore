@@ -1,6 +1,6 @@
 ﻿namespace API.Controllers.TypeRelated;
 
-// public sealed class VehicleEngineTypesController : BaseEntityRelatedApiController
+// public sealed class VehicleEngineTypesController : BaseModelRelatedApiController
 // {
 //     [HttpGet]
 //     [ProducesResponseType(typeof(PaginationResult<VehicleEngineTypeDto>), StatusCodes.Status200OK)]
@@ -18,7 +18,7 @@
 //     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
 //         [FromQuery] VehicleEngineTypeFilteringRequestParameters requestParameters)
 //     {
-//         return HandleResult(await Mediator.Send(new CountEngineTypesQuery(requestParameters)));
+//         return HandleResult(await Mediator.Send(new CountEngineTypesQueryRequest(requestParameters)));
 //     }
 //
 //     [HttpPost]

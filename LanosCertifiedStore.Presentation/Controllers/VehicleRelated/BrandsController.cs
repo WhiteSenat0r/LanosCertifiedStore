@@ -1,45 +1,43 @@
 ﻿using API.Controllers.Common;
-using API.Responses;
-using Application.Commands.Brands.CreateBrand;
-using Application.Commands.Brands.DeleteBrand;
-using Application.Commands.Brands.UpdateBrand;
+using Application.CommandRequests.VehicleBrandsRelated.CreateVehicleBrandRelated;
+using Application.CommandRequests.VehicleBrandsRelated.DeleteBrand;
+using Application.CommandRequests.VehicleBrandsRelated.UpdateBrand;
 using Application.Core.Results;
 using Application.Dtos.BrandDtos;
 using Application.Dtos.Common;
-using Application.Queries.VehicleBrandsRelated.CountVehicleBrandsQueryRelated;
-using Application.Queries.VehicleBrandsRelated.ListVehicleBrandsQueryRelated;
-using Application.Queries.VehicleBrandsRelated.SingleVehicleBrandQueryRelated;
-using Application.RequestParams;
+using Application.QueryRequests.VehicleBrandsRelated.CollectionVehicleBrandsQueryRelated;
+using Application.QueryRequests.VehicleBrandsRelated.CountVehicleBrandsQueryRelated;
+using Application.QueryRequests.VehicleBrandsRelated.SingleVehicleBrandQueryRelated;
+using Application.RequestParameters;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.VehicleRelated;
 
-public sealed class BrandsController : BaseEntityRelatedApiController
+public sealed class BrandsController : BaseModelRelatedApiController
 {
     [HttpGet]
     [ProducesResponseType(typeof(PaginationResult<VehicleBrandDto>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<PaginationResult<VehicleBrandDto>>> GetBrands(
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters, bool isTracked)
     {
         return HandleResult(
-            await Mediator.Send(new CollectionVehicleBrandsQueryRequest(requestParameters, isTracked)));
+            await Mediator.Send(new CollectionVehicleBrandsQueryRequest(requestParameters)));
     }
     
     [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(VehicleBrandDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<VehicleBrandDto>> GetBrand(
-        Guid id, [FromQuery] bool isTracked)
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<VehicleBrandDto>> GetBrand(Guid id)
     {
-        return HandleResult(await Mediator.Send(new SingleVehicleBrandQueryRequest(id, isTracked)));
+        return HandleResult(await Mediator.Send(new SingleVehicleBrandQueryRequest(id)));
     }
     
     [HttpGet("countItems")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ItemsCountDto>> GetBrandsCount(
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
     {
@@ -47,17 +45,17 @@ public sealed class BrandsController : BaseEntityRelatedApiController
     }
 
     [HttpPost]
-    [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> CreateBrand([FromBody] CreateBrandCommand createCommand)
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> CreateBrand([FromBody] CreateVehicleBrandCommandRequest createVehicleCommandRequest)
     {
-        return HandleResult(await Mediator.Send(createCommand));
+        return HandleResult(await Mediator.Send(createVehicleCommandRequest));
     }
 
     [HttpPut]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> UpdateBrand([FromBody] UpdateBrandCommand updateCommand)
     {
@@ -66,7 +64,7 @@ public sealed class BrandsController : BaseEntityRelatedApiController
 
     [HttpDelete]
     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> DeleteBrand([FromBody] DeleteBrandCommand deleteCommand)
     {

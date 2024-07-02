@@ -1,6 +1,6 @@
 ﻿namespace API.Controllers.TypeRelated;
 
-// public sealed class VehicleDrivetrainTypesController : BaseEntityRelatedApiController
+// public sealed class VehicleDrivetrainTypesController : BaseModelRelatedApiController
 // {
 //     [HttpGet]
 //     [ProducesResponseType(typeof(PaginationResult<VehicleDrivetrainTypeDto>), StatusCodes.Status200OK)]
@@ -18,7 +18,7 @@
 //     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
 //         [FromQuery] VehicleDrivetrainTypeFilteringRequestParameters requestParameters)
 //     {
-//         return HandleResult(await Mediator.Send(new CountDrivetrainTypesQuery(requestParameters)));
+//         return HandleResult(await Mediator.Send(new CountDrivetrainTypesQueryRequest(requestParameters)));
 //     }
 //
 //     [HttpPost]

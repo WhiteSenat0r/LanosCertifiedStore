@@ -1,6 +1,6 @@
 ﻿namespace API.Controllers.TypeRelated;
 
-// public sealed class VehicleTypesController : BaseEntityRelatedApiController
+// public sealed class VehicleTypesController : BaseModelRelatedApiController
 // {
 //     [HttpGet]
 //     [ProducesResponseType(typeof(PaginationResult<VehicleTypeDto>), StatusCodes.Status200OK)]
@@ -18,7 +18,7 @@
 //     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
 //         [FromQuery] VehicleTypeFilteringRequestParameters requestParameters)
 //     {
-//         return HandleResult(await Mediator.Send(new CountTypesQuery(requestParameters)));
+//         return HandleResult(await Mediator.Send(new CountTypesQueryRequest(requestParameters)));
 //     }
 //
 //     [HttpPost]

@@ -1,6 +1,6 @@
 ﻿namespace API.Controllers.VehicleRelated;
 
-// public sealed class ColorsController : BaseEntityRelatedApiController
+// public sealed class ColorsController : BaseModelRelatedApiController
 // {
 //     [HttpGet]
 //     [ProducesResponseType(typeof(PaginationResult<VehicleColorDto>), StatusCodes.Status200OK)]
@@ -18,7 +18,7 @@
 //     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
 //         [FromQuery] VehicleColorFilteringRequestParameters requestParameters)
 //     {
-//         return HandleResult(await Mediator.Send(new CountColorsQuery(requestParameters)));
+//         return HandleResult(await Mediator.Send(new CountColorsQueryRequest(requestParameters)));
 //     }
 //
 //     [HttpPost]
