@@ -1,33 +1,32 @@
-﻿using Application.Shared;
+﻿using Application.Contracts.ServicesRelated.RequestRelated;
+using Application.Shared.ResultRelated;
 using MediatR;
 
 namespace Application.Behaviors;
 
-public class TransactionPipelineBehavior<TRequest, TResponse>() : IPipelineBehavior<TRequest, TResponse>
+public class TransactionPipelineBehavior<TRequest, TResponse>(
+    ITransactionService transactionService) : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
-    where TResponse : Result<Unit>
+    where TResponse : Result
 {
     public async Task<TResponse> Handle(
         TRequest request,
-        RequestHandlerDelegate<TResponse> next,
+        RequestHandlerDelegate<TResponse> executedAction,
         CancellationToken cancellationToken)
     {
-        // await unitOfWork.BeginTransactionAsync();
-        //
-        // var response = await next();
-        //
-        // switch (response.IsSuccess)
-        // {
-        //     case true:
-        //         await unitOfWork.CommitTransactionAsync();
-        //         break;
-        //     case false:
-        //         await unitOfWork.RollbackTransactionAsync();
-        //         break;
-        // }
-        //
-        // return response;
+        await transactionService.BeginTransaction(cancellationToken);
+        
+        var response = await executedAction();
 
-        throw new NotImplementedException();
+        if (!response.IsSuccess)
+        {
+            await transactionService.RollbackTransaction(cancellationToken);
+            
+            return response;
+        }
+
+        await transactionService.CommitTransaction(cancellationToken);
+        
+        return response;
     }
 }
