@@ -45,7 +45,7 @@ internal sealed class VehicleBrandService(
         var newVehicleBrand = new VehicleBrand(commandRequest.Name);
 
         await createCommand.Execute(newVehicleBrand, cancellationToken);
-        
+
         await saveChangesAction(cancellationToken);
 
         return newVehicleBrand.Id;

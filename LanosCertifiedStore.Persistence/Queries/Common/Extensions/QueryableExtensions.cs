@@ -1,6 +1,5 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
 using Domain.Contracts.Common;
-using Microsoft.EntityFrameworkCore;
 using Persistence.Queries.Common.Contracts;
 
 namespace Persistence.Queries.Common.Extensions;
