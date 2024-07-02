@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Application.Behaviors;
-using Application.Queries.VehicleBrandsRelated.ListVehicleBrandsQueryRelated;
+using Application.QueryRequests.VehicleBrandsRelated.CollectionVehicleBrandsQueryRelated;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,12 +1,13 @@
-﻿using Domain.Contracts.Common;
-using Domain.Models.VehicleRelated.Classes.Common.Classes;
+﻿using System.Linq.Expressions;
+using Domain.Contracts.Common;
 
-namespace Application.Helpers.ValidationRelated.Common.Contracts;
+namespace Application.Contracts.ValidationRelated;
 
-internal interface IValidationHelper
+public interface IValidationHelper
 {
-    Task<bool> IsAspectValueUnique<TMainAspect, TValue>(TValue value, string aspectName)
-        where TMainAspect : NamedVehicleAspect;
+    Task<bool> CheckAspectValueUniqueness<TMainAspect, TValue>(TValue value,
+        Expression<Func<TMainAspect, bool>> equalitySelector)
+        where TMainAspect : class, IIdentifiable<Guid>;
     
     Task<bool> CheckMainAspectPresence<TMainAspect>(Guid id)
         where TMainAspect : class, IIdentifiable<Guid>;

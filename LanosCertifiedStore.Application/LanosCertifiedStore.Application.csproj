@@ -20,7 +20,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Commands\Types\VehicleTypeRelated\" />
+      <Folder Include="CommandRequests\Types\VehicleTypeRelated\" />
+      <Folder Include="CommandRequests\VehicleBrandsRelated\Shared\ValidatorRelated\" />
     </ItemGroup>
 
     <ItemGroup>

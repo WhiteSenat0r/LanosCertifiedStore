@@ -1,8 +1,8 @@
 ﻿using Application.Contracts.RepositoryRelated.Common;
-using Application.RequestParams.Common.Enums;
+using Application.RequestParameters.Common.Enums;
 using Domain.Contracts.Common;
 
-namespace Application.RequestParams.Common.Classes;
+namespace Application.RequestParameters.Common.Classes;
 
 public abstract class BaseFilteringRequestParameters<TModel> : IFilteringRequestParameters<TModel> 
     where TModel : IIdentifiable<Guid>

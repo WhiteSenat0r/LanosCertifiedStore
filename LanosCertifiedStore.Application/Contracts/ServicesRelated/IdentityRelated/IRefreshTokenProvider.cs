@@ -1,4 +1,4 @@
-﻿using Domain.Models.IdentityRelated;
+﻿using Domain.Entities.IdentityRelated;
 
 namespace Application.Contracts.ServicesRelated.IdentityRelated;
 

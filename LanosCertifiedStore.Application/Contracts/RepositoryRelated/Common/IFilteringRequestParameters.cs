@@ -1,4 +1,4 @@
-﻿using Application.RequestParams.Common.Enums;
+﻿using Application.RequestParameters.Common.Enums;
 using Domain.Contracts.Common;
 
 namespace Application.Contracts.RepositoryRelated.Common;

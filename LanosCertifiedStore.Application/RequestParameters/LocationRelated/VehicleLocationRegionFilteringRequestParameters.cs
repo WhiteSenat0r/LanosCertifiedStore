@@ -1,9 +1,9 @@
 ﻿using Application.Contracts.RequestParametersRelated.LocationRelated;
 using Application.Enums.RequestParametersRelated.LocationRelated;
-using Application.RequestParams.Common.Classes;
+using Application.RequestParameters.Common.Classes;
 using Domain.Entities.VehicleRelated.LocationRelated;
 
-namespace Application.RequestParams.LocationRelated;
+namespace Application.RequestParameters.LocationRelated;
 
 public sealed class VehicleLocationRegionFilteringRequestParameters : 
     BaseFilteringRequestParameters<VehicleLocationRegion>,

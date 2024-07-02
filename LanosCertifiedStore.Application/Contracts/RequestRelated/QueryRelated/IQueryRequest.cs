@@ -4,11 +4,9 @@ using MediatR;
 
 namespace Application.Contracts.RequestRelated.QueryRelated;
 
-public interface IQueryRequest<TModel, TQueryResult, TRequestResult> : IRequest<TRequestResult>
-    where TModel : IIdentifiable<Guid>
-    where TQueryResult : notnull
+public interface IQueryRequest<TEntity, TRequestResult> : IRequest<TRequestResult>
+    where TEntity : class, IIdentifiable<Guid>
     where TRequestResult : notnull
 {
-    IFilteringRequestParameters<TModel> FilteringParameters { get; }
-    bool IsTracked { get; }
+    IFilteringRequestParameters<TEntity> FilteringParameters { get; }
 }

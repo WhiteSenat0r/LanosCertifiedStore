@@ -3,12 +3,10 @@ using Domain.Contracts.Common;
 
 namespace Application.Contracts.RequestRelated.QueryRelated;
 
-public interface ISingleQueryRequest<TModel, TQueryResult, TRequestResult, TDto> : 
-    IQueryRequest<TModel, TQueryResult, TRequestResult>
-    where TModel : class, IIdentifiable<Guid>
-    where TQueryResult : TModel
-    where TRequestResult : Result<TDto>
-    where TDto : class
+public interface ISingleQueryRequest<TEntity, TRequestResult> : 
+    IQueryRequest<TEntity, Result<TRequestResult>>
+    where TEntity : class, IIdentifiable<Guid>
+    where TRequestResult : class
 {
     Guid ItemId { get; }
 }

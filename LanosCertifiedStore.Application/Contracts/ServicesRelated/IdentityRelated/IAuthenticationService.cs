@@ -1,5 +1,5 @@
 ﻿using Application.Dtos.IdentityDtos.AuthenticationDtos;
-using Domain.Models.UserRelated;
+using Domain.Entities.UserRelated;
 using Microsoft.AspNetCore.Http;
 
 namespace Application.Contracts.ServicesRelated.IdentityRelated;

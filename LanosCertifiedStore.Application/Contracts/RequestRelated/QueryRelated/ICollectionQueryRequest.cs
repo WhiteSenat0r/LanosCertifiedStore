@@ -4,9 +4,8 @@ using Domain.Contracts.Common;
 
 namespace Application.Contracts.RequestRelated.QueryRelated;
 
-public interface ICollectionQueryRequest<TModel, TQueryResult, TRequestResult, TDto> :
-    IQueryRequest<TModel, TQueryResult, TRequestResult>
-    where TModel : IIdentifiable<Guid>
-    where TQueryResult : IReadOnlyCollection<TModel>
-    where TRequestResult : Result<PaginationResult<TDto>>
+public interface ICollectionQueryRequest<TEntity, TRequestResult, TDto> :
+    IQueryRequest<TEntity, Result<TRequestResult>>
+    where TEntity : class, IIdentifiable<Guid>
+    where TRequestResult : PaginationResult<TDto>
     where TDto : class;

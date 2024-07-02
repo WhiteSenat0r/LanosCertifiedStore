@@ -1,9 +1,9 @@
 ﻿using Application.Contracts.RequestParametersRelated;
 using Application.Enums.RequestParametersRelated;
-using Application.RequestParams.Common.Classes;
+using Application.RequestParameters.Common.Classes;
 using Domain.Entities.VehicleRelated;
 
-namespace Application.RequestParams;
+namespace Application.RequestParameters;
 
 public sealed class VehiclePriceFilteringRequestParameters : BaseFilteringRequestParameters<VehiclePrice>,
     IVehiclePriceFilteringRequestParameters

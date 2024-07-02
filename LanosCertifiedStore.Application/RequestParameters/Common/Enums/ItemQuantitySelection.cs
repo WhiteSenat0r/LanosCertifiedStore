@@ -1,4 +1,4 @@
-﻿namespace Application.RequestParams.Common.Enums;
+﻿namespace Application.RequestParameters.Common.Enums;
 
 public enum ItemQuantitySelection
 {

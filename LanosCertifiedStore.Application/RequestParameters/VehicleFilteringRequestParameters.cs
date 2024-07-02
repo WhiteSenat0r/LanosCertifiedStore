@@ -1,10 +1,10 @@
 ﻿using Application.Contracts.RequestParametersRelated;
 using Application.Enums.RequestParametersRelated;
-using Application.RequestParams.Common.Classes;
-using Application.RequestParams.Common.Enums;
+using Application.RequestParameters.Common.Classes;
+using Application.RequestParameters.Common.Enums;
 using Domain.Entities.VehicleRelated;
 
-namespace Application.RequestParams;
+namespace Application.RequestParameters;
 
 public sealed class VehicleFilteringRequestParameters(
     ItemQuantitySelection selectionProfile) : BaseFilteringRequestParameters<Vehicle>(),
