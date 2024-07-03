@@ -1,4 +1,5 @@
-﻿using Application.Dtos.BrandDtos;
+﻿using Application.Contracts.RequestRelated.QueryRelated;
+using Application.Dtos.BrandDtos;
 using AutoMapper;
 using Domain.Entities.VehicleRelated;
 using Persistence.Contexts.ApplicationDatabaseContext;
@@ -10,11 +11,20 @@ namespace Persistence.Queries.VehicleBrandRelated.QueryRelated;
 public sealed class CollectionVehicleBrandsQuery(
     ApplicationDatabaseContext context,
     IQuerySortingSettingsSelector<VehicleBrand> sortingSettingsSelector,
-    IQueryFilteringCriteriaSelector<VehicleBrand> filteringCriteriaSelector,
     IQueryPaginator queryPaginator,
-    IMapper mapper) : CollectionQueryBase<VehicleBrand, VehicleBrandDto>(
-    context,
-    sortingSettingsSelector,
-    filteringCriteriaSelector,
-    queryPaginator,
-    mapper);
+    IMapper mapper) : CollectionQueryBase<VehicleBrand, VehicleBrandDto>
+{
+    public override async Task<IReadOnlyCollection<VehicleBrandDto>> Execute<TRequestResult>(
+        IQueryRequest<VehicleBrand, TRequestResult> queryRequest, CancellationToken cancellationToken)
+    {
+        var queryable = GetDatabaseQueryable(context);
+
+        queryable = GetSortedQueryable(queryRequest, queryable, sortingSettingsSelector);
+
+        queryable = GetPaginatedQueryable(queryRequest, queryable, queryPaginator);
+
+        var executionResult = await GetQueryResult(queryable, mapper, cancellationToken);
+
+        return executionResult;
+    }
+}
