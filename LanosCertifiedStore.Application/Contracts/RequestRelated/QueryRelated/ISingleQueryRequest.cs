@@ -1,12 +1,10 @@
 ﻿using Application.Shared.ResultRelated;
-using Domain.Contracts.Common;
+using MediatR;
 
 namespace Application.Contracts.RequestRelated.QueryRelated;
 
-public interface ISingleQueryRequest<TEntity, TRequestResult> : 
-    IQueryRequest<TEntity, Result<TRequestResult>>
-    where TEntity : class, IIdentifiable<Guid>
-    where TRequestResult : class
+public interface ISingleQueryRequest<TRequestResult>
+    : IRequest<Result<TRequestResult>> where TRequestResult : class
 {
     Guid ItemId { get; }
 }

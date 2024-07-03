@@ -13,15 +13,13 @@ public abstract class SingleQueryBase<TEntity, TDto>(
     where TEntity : class, IIdentifiable<Guid>
     where TDto : class, IIdentifiable<Guid>
 {
-    public async Task<TDto?> Execute<TRequestResult>(
-        IQueryRequest<TEntity, TRequestResult> queryRequest,
+    public async Task<TDto?> Execute(
+        ISingleQueryRequest<TDto> queryRequest,
         CancellationToken cancellationToken)
-        where TRequestResult : notnull
     {
         var queryable = GetDatabaseQueryable();
 
-        var singleQueryRequest = (queryRequest as ISingleQueryRequest<TEntity, TDto>)!;
-        var executionResult = await GetQueryResult(queryable, singleQueryRequest, cancellationToken);
+        var executionResult = await GetQueryResult(queryable, queryRequest, cancellationToken);
 
         return executionResult;
     }
@@ -35,7 +33,7 @@ public abstract class SingleQueryBase<TEntity, TDto>(
 
     private async Task<TDto?> GetQueryResult(
         IQueryable<TEntity> queryable,
-        ISingleQueryRequest<TEntity, TDto> queryRequest,
+        ISingleQueryRequest<TDto> queryRequest,
         CancellationToken cancellationToken)
     {
         var item = await queryable
