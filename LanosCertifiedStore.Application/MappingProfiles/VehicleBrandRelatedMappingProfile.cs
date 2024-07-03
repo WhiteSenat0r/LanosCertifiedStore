@@ -9,5 +9,6 @@ public sealed class VehicleBrandRelatedMappingProfile : Profile
     public VehicleBrandRelatedMappingProfile()
     {
         CreateMap<VehicleBrand, VehicleBrandDto>();
+        CreateMap<VehicleBrand, SingleVehicleBrandDto>();
     }
 }
