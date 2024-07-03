@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  lanoscertifiedstore.presentation:
+    image: ${DOCKER_REGISTRY-}lanoscertifiedstorepresentation
+    build:
+      context: .
+      dockerfile: LanosCertifiedStore.Presentation/Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    depends_on:
+      - lanoscertifiedstore.database
+  
+  lanoscertifiedstore.database:
+    image: postgres
+    container_name: lsc_db
+    environment:
+      - POSTGRES_DB=LanosCertifiedStore
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/lsc_db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
