@@ -1,4 +1,5 @@
-﻿using Application.Shared.ResultRelated;
+﻿using System.Net;
+using Application.Shared.ResultRelated;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,20 +15,20 @@ public abstract class BaseApiController : ControllerBase
         HttpContext.RequestServices.GetService<IMediator>())!;
 
     private protected abstract ActionResult HandleResult<T>(Result<T> result);
-    
-    private protected static ProblemDetails CreateProblemDetails(
-        string title, int status, Error error, Error[]? errors) => new()
+
+    private protected static ProblemDetails CreateValidationProblemDetails(Error error,
+        Error[]? errors) => new()
     {
-        Title = title,
-        Status = status,
+        Title = "ValidationError",
+        Status = (int)HttpStatusCode.BadRequest,
         Detail = error.Message,
         Extensions = { { nameof(errors), errors } }
     };
-    
-    private protected static ProblemDetails CreateProblemDetails(string title, int status, Error error) => new()
+
+    private protected static ProblemDetails CreateNotFoundProblemDetails(Error error) => new()
     {
-        Title = title,
-        Status = status,
-        Detail = error.Message,
+        Title = error.Code,
+        Status = (int)HttpStatusCode.NotFound,
+        Detail = error.Message
     };
 }
