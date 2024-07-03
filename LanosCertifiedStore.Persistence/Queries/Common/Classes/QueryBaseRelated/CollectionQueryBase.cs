@@ -9,42 +9,54 @@ using Persistence.Queries.Common.Extensions;
 
 namespace Persistence.Queries.Common.Classes.QueryBaseRelated;
 
-public abstract class CollectionQueryBase<TEntity, TDto>(
-    ApplicationDatabaseContext context,
-    IQuerySortingSettingsSelector<TEntity> sortingSettingsSelector,
-    IQueryFilteringCriteriaSelector<TEntity> filteringCriteriaSelector,
-    IQueryPaginator queryPaginator,
-    IMapper mapper)
+public abstract class CollectionQueryBase<TEntity, TDto>
     where TEntity : class, IIdentifiable<Guid>
     where TDto : class
 {
-    public async Task<IReadOnlyCollection<TDto>> Execute<TRequestResult>(
+    public abstract Task<IReadOnlyCollection<TDto>> Execute<TRequestResult>(
         IQueryRequest<TEntity, TRequestResult> queryRequest,
         CancellationToken cancellationToken)
+        where TRequestResult : notnull;
+
+    private protected IQueryable<TEntity> GetPaginatedQueryable<TRequestResult>(
+        IQueryRequest<TEntity, TRequestResult> queryRequest,
+        IQueryable<TEntity> queryable,
+        IQueryPaginator queryPaginator) 
         where TRequestResult : notnull
     {
-        var queryable = GetDatabaseQueryable();
-
-        queryable = queryable.GetQueryWithAppliedFilters(queryRequest.FilteringParameters, filteringCriteriaSelector);
-        queryable = queryable.GetQueryWithAppliedSortingSettings(
-            queryRequest.FilteringParameters, sortingSettingsSelector);
-
-        queryable = queryable.GetQueryWithAppliedPagination(queryPaginator, queryRequest.FilteringParameters);
-
-        var executionResult = await GetQueryResult(queryable, cancellationToken);
-
-        return executionResult;
+        return queryable.GetQueryWithAppliedPagination(queryPaginator, queryRequest.FilteringParameters);
     }
 
-    private IQueryable<TEntity> GetDatabaseQueryable()
+    private protected IQueryable<TEntity> GetSortedQueryable<TRequestResult>(
+        IQueryRequest<TEntity, TRequestResult> queryRequest,
+        IQueryable<TEntity> queryable,
+        IQuerySortingSettingsSelector<TEntity> sortingSettingsSelector) 
+        where TRequestResult : notnull
+    {
+        return queryable.GetQueryWithAppliedSortingSettings(
+            queryRequest.FilteringParameters, sortingSettingsSelector);
+    }
+
+    private protected IQueryable<TEntity> GetFilteredQueryable<TRequestResult>(
+        IQueryRequest<TEntity, TRequestResult> queryRequest,
+        IQueryable<TEntity> queryable,
+        IQueryFilteringCriteriaSelector<TEntity> filteringCriteriaSelector)
+        where TRequestResult : notnull
+    {
+        return queryable.GetQueryWithAppliedFilters(
+            queryRequest.FilteringParameters, filteringCriteriaSelector!);
+    }
+
+    private protected IQueryable<TEntity> GetDatabaseQueryable(ApplicationDatabaseContext context)
     {
         var dataSet = context.Set<TEntity>();
 
         return dataSet.AsQueryable();
     }
 
-    private async Task<IReadOnlyCollection<TDto>> GetQueryResult(
+    private protected async Task<IReadOnlyCollection<TDto>> GetQueryResult(
         IQueryable<TEntity> queryable,
+        IMapper mapper,
         CancellationToken cancellationToken)
     {
         var items = await queryable
