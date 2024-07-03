@@ -21,7 +21,7 @@ public abstract class SingleQueryBase<TEntity, TDto>(
     {
         var queryable = GetDatabaseQueryable();
 
-        var singleQueryRequest = (queryRequest as ISingleQueryRequest<TEntity, Result<TDto>>)!;
+        var singleQueryRequest = (queryRequest as ISingleQueryRequest<TEntity, Result<TDto>>)!; // TODO fix transforming queryRequest value to null due to cast
         var executionResult = await GetQueryResult(queryable, singleQueryRequest, cancellationToken);
 
         return executionResult;

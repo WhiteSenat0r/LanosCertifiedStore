@@ -5,12 +5,16 @@ using MediatR;
 
 namespace Application.QueryRequests.VehicleBrandsRelated.SingleVehicleBrandQueryRelated;
 
-internal sealed class SingleVehicleBrandQueryRequestHandler(IVehicleBrandService vehicleBrandService) : 
-    IRequestHandler<SingleVehicleBrandQueryRequest, Result<VehicleBrandDto>>
+internal sealed class SingleVehicleBrandQueryRequestHandler(IVehicleBrandService vehicleBrandService) :
+    IRequestHandler<SingleVehicleBrandQueryRequest, Result<VehicleBrandWithRelatedModelsDto>>
 {
-    public Task<Result<VehicleBrandDto>> Handle(
+    public async Task<Result<VehicleBrandWithRelatedModelsDto>> Handle(
         SingleVehicleBrandQueryRequest request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var vehicleBrand = await vehicleBrandService.GetSingleVehicleBrand(request, cancellationToken);
+
+        return vehicleBrand is null
+            ? Result<VehicleBrandWithRelatedModelsDto>.Failure(Error.NotFound(request.ItemId))
+            : Result<VehicleBrandWithRelatedModelsDto>.Success(vehicleBrand);
     }
 }

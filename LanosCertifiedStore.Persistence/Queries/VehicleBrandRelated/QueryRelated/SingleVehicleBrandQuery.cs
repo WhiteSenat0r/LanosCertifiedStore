@@ -9,6 +9,6 @@ namespace Persistence.Queries.VehicleBrandRelated.QueryRelated;
 public sealed class SingleVehicleBrandQuery(
     ApplicationDatabaseContext context,
     IMapper mapper) :
-    SingleQueryBase<VehicleBrand, VehicleBrandDto>(
+    SingleQueryBase<VehicleBrand, VehicleBrandWithRelatedModelsDto>(
         context,
         mapper);

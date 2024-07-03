@@ -12,8 +12,7 @@ public interface IVehicleBrandService
     Task<IReadOnlyCollection<VehicleBrandDto>> GetVehicleBrandCollection(
         CollectionVehicleBrandsQueryRequest queryRequest,
         CancellationToken cancellationToken);
-    Task<VehicleBrandDto?> GetSingleVehicleBrand(
-        SingleVehicleBrandQueryRequest queryRequest,
+    Task<VehicleBrandWithRelatedModelsDto?> GetSingleVehicleBrand(SingleVehicleBrandQueryRequest queryRequest,
         CancellationToken cancellationToken);
     Task<ItemsCountDto> GetVehicleBrandsCount(
         CountVehicleBrandsQueryRequest queryRequest,
