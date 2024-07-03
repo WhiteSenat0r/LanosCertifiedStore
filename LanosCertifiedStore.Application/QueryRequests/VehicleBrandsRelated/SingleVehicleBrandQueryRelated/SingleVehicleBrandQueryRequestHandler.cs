@@ -14,7 +14,7 @@ internal sealed class SingleVehicleBrandQueryRequestHandler(IVehicleBrandService
         var brand = await vehicleBrandService.GetSingleVehicleBrand(request, cancellationToken);
 
         return brand is null
-            ? Result<SingleVehicleBrandDto>.Failure(Error.NotFound)
+            ? Result<SingleVehicleBrandDto>.Failure(Error.NotFound(request.ItemId))
             : Result<SingleVehicleBrandDto>.Success(brand);
     }
 }
