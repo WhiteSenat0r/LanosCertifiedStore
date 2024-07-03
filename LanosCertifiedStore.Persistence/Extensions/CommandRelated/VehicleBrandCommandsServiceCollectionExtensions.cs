@@ -8,7 +8,8 @@ internal static class VehicleBrandCommandsServiceCollectionExtensions
     public static IServiceCollection AddVehicleBrandCommandsRelatedServices(this IServiceCollection services)
     {
         services.AddTransient<CreateVehicleBrandCommand>();
-        
+        services.AddTransient<UpdateVehicleBrandCommand>();
+
         return services;
     }
 }

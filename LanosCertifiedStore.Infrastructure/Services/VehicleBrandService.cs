@@ -1,4 +1,5 @@
 ﻿using Application.CommandRequests.VehicleBrandsRelated.CreateVehicleBrandRelated;
+using Application.CommandRequests.VehicleBrandsRelated.UpdateBrand;
 using Application.Contracts.ServicesRelated;
 using Application.Dtos.BrandDtos;
 using Application.Dtos.Common;
@@ -16,8 +17,7 @@ internal sealed class VehicleBrandService(
     SingleVehicleBrandQuery singleQuery,
     CountVehicleBrandsQuery countQuery,
     CreateVehicleBrandCommand createCommand,
-    // IUpdateCommand<VehicleBrand> updateCommand,
-    // IDeleteCommand<VehicleBrand> deleteCommand,
+    UpdateVehicleBrandCommand updateVehicleBrandCommand,
     Func<CancellationToken, Task<int>> saveChangesAction) : IVehicleBrandService
 {
     public async Task<IReadOnlyCollection<VehicleBrandDto>> GetVehicleBrandCollection(
@@ -49,5 +49,12 @@ internal sealed class VehicleBrandService(
         await saveChangesAction(cancellationToken);
 
         return newVehicleBrand.Id;
+    }
+
+    public async Task UpdateVehicleBrand(UpdateVehicleBrandCommandRequest updateVehicleBrandCommandRequest,
+        CancellationToken cancellationToken)
+    {
+        await updateVehicleBrandCommand.Execute(updateVehicleBrandCommandRequest, cancellationToken);
+        await saveChangesAction(cancellationToken);
     }
 }
