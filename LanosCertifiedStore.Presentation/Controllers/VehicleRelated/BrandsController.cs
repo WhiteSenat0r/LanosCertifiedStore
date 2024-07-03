@@ -20,7 +20,9 @@ public sealed class BrandsController : BaseApiController
     public async Task<ActionResult<PaginationResult<VehicleBrandDto>>> GetBrands(
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
     {
-        return Ok(await Mediator.Send(new CollectionVehicleBrandsQueryRequest(requestParameters)));
+        var result = await Mediator.Send(new CollectionVehicleBrandsQueryRequest(requestParameters));
+        
+        return Ok(result.Value);
     }
 
     [HttpGet("{id:guid}", Name = "GetBrandById")]
@@ -43,7 +45,9 @@ public sealed class BrandsController : BaseApiController
     public async Task<ActionResult<ItemsCountDto>> GetBrandsCount(
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
     {
-        return Ok(await Mediator.Send(new CountVehicleBrandsQueryRequest(requestParameters)));
+        var result = await Mediator.Send(new CountVehicleBrandsQueryRequest(requestParameters));
+        
+        return Ok(result.Value);
     }
 
     [HttpPost]
