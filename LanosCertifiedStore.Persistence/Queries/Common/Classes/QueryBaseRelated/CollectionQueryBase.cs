@@ -47,11 +47,11 @@ public abstract class CollectionQueryBase<TEntity, TDto>(
         IQueryable<TEntity> queryable,
         CancellationToken cancellationToken)
     {
-        var items = queryable
+        var items = await queryable
             .AsNoTracking()
-            .ProjectTo<TDto>(mapper.ConfigurationProvider);
-        // .ToListAsync(cancellationToken);
+            .ProjectTo<TDto>(mapper.ConfigurationProvider)
+            .ToListAsync(cancellationToken);
 
-        return await items.ToListAsync(cancellationToken);
+        return items;
     }
 }
