@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.RequestRelated.QueryRelated;
-using Application.Shared.ResultRelated;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Domain.Contracts.Common;
