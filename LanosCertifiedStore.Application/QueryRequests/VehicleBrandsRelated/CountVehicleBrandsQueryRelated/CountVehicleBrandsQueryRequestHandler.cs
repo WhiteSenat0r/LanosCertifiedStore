@@ -5,12 +5,14 @@ using MediatR;
 
 namespace Application.QueryRequests.VehicleBrandsRelated.CountVehicleBrandsQueryRelated;
 
-internal sealed class CountVehicleBrandsQueryRequestRequestHandler(IVehicleBrandService vehicleBrandService) : 
+internal sealed class CountVehicleBrandsQueryRequestRequestHandler(IVehicleBrandService vehicleBrandService) :
     IRequestHandler<CountVehicleBrandsQueryRequest, Result<ItemsCountDto>>
 {
-    public Task<Result<ItemsCountDto>> Handle(
+    public async Task<Result<ItemsCountDto>> Handle(
         CountVehicleBrandsQueryRequest request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var count = await vehicleBrandService.GetVehicleBrandsCount(request, cancellationToken);
+
+        return Result<ItemsCountDto>.Success(count);
     }
 }
