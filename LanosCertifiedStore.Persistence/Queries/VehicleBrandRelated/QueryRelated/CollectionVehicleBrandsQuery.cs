@@ -9,13 +9,11 @@ namespace Persistence.Queries.VehicleBrandRelated.QueryRelated;
 
 public sealed class CollectionVehicleBrandsQuery(
     ApplicationDatabaseContext context,
-    IQueryProjectionProfileSelector<VehicleBrand> projectionProfileSelector,
     IQuerySortingSettingsSelector<VehicleBrand> sortingSettingsSelector,
     IQueryFilteringCriteriaSelector<VehicleBrand> filteringCriteriaSelector,
     IQueryPaginator queryPaginator,
     IMapper mapper) : CollectionQueryBase<VehicleBrand, VehicleBrandDto>(
     context,
-    projectionProfileSelector,
     sortingSettingsSelector,
     filteringCriteriaSelector,
     queryPaginator,

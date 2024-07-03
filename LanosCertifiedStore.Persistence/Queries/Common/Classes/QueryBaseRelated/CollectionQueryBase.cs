@@ -11,7 +11,6 @@ namespace Persistence.Queries.Common.Classes.QueryBaseRelated;
 
 public abstract class CollectionQueryBase<TEntity, TDto>(
     ApplicationDatabaseContext context,
-    IQueryProjectionProfileSelector<TEntity> projectionProfileSelector,
     IQuerySortingSettingsSelector<TEntity> sortingSettingsSelector,
     IQueryFilteringCriteriaSelector<TEntity> filteringCriteriaSelector,
     IQueryPaginator queryPaginator,
@@ -29,9 +28,6 @@ public abstract class CollectionQueryBase<TEntity, TDto>(
         queryable = queryable.GetQueryWithAppliedFilters(queryRequest.FilteringParameters, filteringCriteriaSelector);
         queryable = queryable.GetQueryWithAppliedSortingSettings(
             queryRequest.FilteringParameters, sortingSettingsSelector);
-
-        // queryable = queryable.GetQueryWithAppliedSelectionProfile(
-        //     queryRequest.FilteringParameters, projectionProfileSelector);  // TODO -- get rid of selection profiles functionality........
 
         queryable = queryable.GetQueryWithAppliedPagination(queryPaginator, queryRequest.FilteringParameters);
 
