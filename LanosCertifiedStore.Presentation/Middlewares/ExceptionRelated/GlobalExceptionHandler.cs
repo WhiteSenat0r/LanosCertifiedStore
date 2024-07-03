@@ -7,5 +7,4 @@ internal sealed class GlobalExceptionHandler(
     ILogger<GlobalExceptionHandler> logger) : ExceptionHandlerBase<Exception>(
     logger,
     HttpStatusCode.InternalServerError,
-    "InternalServerError",
-    "Unexpected error has occured!");
+    "InternalServerError");
