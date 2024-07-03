@@ -8,7 +8,7 @@ using Domain.Entities.VehicleRelated;
 namespace Application.QueryRequests.VehicleBrandsRelated.SingleVehicleBrandQueryRelated;
 
 public sealed record SingleVehicleBrandQueryRequest(
-    Guid ItemId) : ISingleQueryRequest<VehicleBrand, VehicleBrandDto>
+    Guid ItemId) : ISingleQueryRequest<VehicleBrand, SingleVehicleBrandDto>
 {
     public IFilteringRequestParameters<VehicleBrand> FilteringParameters => new VehicleBrandFilteringRequestParameters
     {

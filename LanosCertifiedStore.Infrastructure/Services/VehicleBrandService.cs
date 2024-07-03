@@ -26,7 +26,7 @@ internal sealed class VehicleBrandService(
         return await collectionQuery.Execute(queryRequest, cancellationToken);
     }
 
-    public async Task<VehicleBrandDto?> GetSingleVehicleBrand(
+    public async Task<SingleVehicleBrandDto?> GetSingleVehicleBrand(
         SingleVehicleBrandQueryRequest queryRequest, CancellationToken cancellationToken)
     {
         return await singleQuery.Execute(queryRequest, cancellationToken);
