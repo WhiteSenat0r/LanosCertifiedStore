@@ -22,7 +22,9 @@ public interface IVehicleBrandService
         CountVehicleBrandsQueryRequest queryRequest,
         CancellationToken cancellationToken);
 
-    Task<Guid> AddNewVehicleBrand(CreateVehicleBrandCommandRequest commandRequest, CancellationToken cancellationToken);
+    Task<Guid> AddNewVehicleBrand(
+        CreateVehicleBrandCommandRequest commandRequest, CancellationToken cancellationToken);
 
-    Task UpdateVehicleBrand(UpdateVehicleBrandCommandRequest updateVehicleBrandCommandRequest, CancellationToken cancellationToken);
+    Task UpdateVehicleBrand(
+        UpdateVehicleBrandCommandRequest updateVehicleBrandCommandRequest, CancellationToken cancellationToken);
 }
