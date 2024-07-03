@@ -11,7 +11,6 @@ internal static class VehicleBrandQueriesServiceCollectionExtensions
     public static IServiceCollection AddVehicleBrandQueriesRelatedServices(this IServiceCollection services)
     {
         services.AddTransient<IQuerySortingSettingsSelector<VehicleBrand>, VehicleBrandsSortingSettingsSelector>();
-        services.AddTransient<IQueryFilteringCriteriaSelector<VehicleBrand>, VehicleBrandsFilteringCriteriaSelector>();
 
         services.AddTransient<CollectionVehicleBrandsQuery>();
         services.AddTransient<SingleVehicleBrandQuery>();
