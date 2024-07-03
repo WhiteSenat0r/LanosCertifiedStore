@@ -31,7 +31,14 @@ public sealed class BrandsController : BaseModelRelatedApiController
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<VehicleBrandDto>> GetBrand(Guid id)
     {
-        return HandleResult(await Mediator.Send(new SingleVehicleBrandQueryRequest(id)));
+        var result = await Mediator.Send(new SingleVehicleBrandQueryRequest(id));
+
+        if (result.IsSuccess)
+        {
+            return Ok(result.Value);
+        }
+
+        return NotFound(CreateProblemDetails("Not Found", NotFound().StatusCode, result.Error!));
     }
 
     [HttpGet("countItems")]

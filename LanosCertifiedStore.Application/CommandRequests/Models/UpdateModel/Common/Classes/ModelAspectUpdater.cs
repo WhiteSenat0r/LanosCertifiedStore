@@ -25,7 +25,7 @@ internal sealed class ModelAspectUpdater
     {
         var multipleAspectMapping = ModelUpdateMappings<TAspect>.MultipleAspectMappings[typeof(TAspect)];
         var multipleAspectActionMapping = ModelUpdateMappings<TAspect>.MultipleAspectActionMappings[typeof(TAspect)];
-            
+
         return await TryUpdateRelatedAspects(
             model, multipleAspectMapping, multipleAspectActionMapping,
             repository, GetMultipleAspectIds<TAspect>(request));
@@ -37,7 +37,7 @@ internal sealed class ModelAspectUpdater
     {
         var singleAspectMapping = ModelUpdateMappings<TAspect>.SingleAspectMappings[typeof(TAspect)];
         var singleAspectActionMapping = ModelUpdateMappings<TAspect>.SingleAspectActionMappings[typeof(TAspect)];
-            
+
         return await TryUpdateRelatedSingleAspect(
             model, singleAspectMapping, singleAspectActionMapping,
             repository, GetSingleAspectId<TAspect>(request));
@@ -59,7 +59,7 @@ internal sealed class ModelAspectUpdater
         throw new InvalidOperationException(
             "ID can't be extracted due to the absence of the valid aspect type!");
     }
-    
+
     private IEnumerable<Guid> GetMultipleAspectIds<TAspect>(UpdateModelCommand request)
         where TAspect : class
     {
@@ -108,17 +108,17 @@ internal sealed class ModelAspectUpdater
 
             if (newAspect is null)
             {
-                return Result<Unit>.Failure(Error.NotFound);
+                return Result<Unit>.Failure(Error.NotFound(newAspectId));
             }
 
             newAspects.Add(newAspect);
         }
 
         updateAction(model, newAspects);
-        
+
         return Result<Unit>.Success(Unit.Value);
     }
-    
+
     private async Task<Result<Unit>> TryUpdateRelatedSingleAspect<TAspect>(
         VehicleModel model,
         Func<VehicleModel, TAspect> aspectSelector,
@@ -136,11 +136,11 @@ internal sealed class ModelAspectUpdater
 
         if (newAspect is null)
         {
-            return Result<Unit>.Failure(Error.NotFound);
+            return Result<Unit>.Failure(Error.NotFound(newAspectId));
         }
 
         updateAction(model, newAspect);
-        
+
         return Result<Unit>.Success(Unit.Value);
     }
 }
