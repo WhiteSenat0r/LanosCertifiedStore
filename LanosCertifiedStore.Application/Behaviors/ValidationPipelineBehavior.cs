@@ -15,7 +15,9 @@ public class ValidationPipelineBehavior<TRequest, TResponse>(
         CancellationToken cancellationToken)
     {
         if (!validators.Any())
+        {
             return await next();
+        }
 
         var errors = await GetValidationErrors(request, cancellationToken);
 

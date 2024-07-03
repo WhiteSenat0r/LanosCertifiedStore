@@ -20,7 +20,9 @@ internal class ImageService : IImageService
         IFormFile imageFile, string desiredPath)
     {
         if (IsInvalidPath(desiredPath))
+        {
             return new ImageResult("There is something wrong with your path!");
+        }
 
         await using var fileStream = imageFile.OpenReadStream();
 
@@ -43,7 +45,10 @@ internal class ImageService : IImageService
         {
             var result = await TryDeletePhotoAsync(id);
 
-            if (!result) return result;
+            if (!result)
+            {
+                return result;
+            }
         }
 
         _uploadedImagesIdBuffer.Clear();
@@ -54,7 +59,9 @@ internal class ImageService : IImageService
     private ImageResult GetRelevantImageResult(UploadResult imageUploadResult)
     {
         if (imageUploadResult.Error is not null)
+        {
             return InstantiateImageResult(imageUploadResult, false);
+        }
 
         _uploadedImagesIdBuffer.Add(imageUploadResult.PublicId);
 

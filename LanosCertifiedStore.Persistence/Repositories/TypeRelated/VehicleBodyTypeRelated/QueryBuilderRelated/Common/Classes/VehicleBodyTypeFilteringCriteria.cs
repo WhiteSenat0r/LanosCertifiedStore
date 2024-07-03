@@ -22,8 +22,10 @@ internal sealed class VehicleBodyTypeFilteringCriteria :
     private protected override void AddPredicateMethodsToList(
         IVehicleBodyTypeFilteringRequestParameters requestParameters)
     {
-        if (!string.IsNullOrEmpty(requestParameters.Name)) 
+        if (!string.IsNullOrEmpty(requestParameters.Name))
+        {
             PredicateDelegates.Add(GetNamePredicate);
+        }
     }
 
     private Expression<Func<VehicleBodyType, bool>> GetNamePredicate(

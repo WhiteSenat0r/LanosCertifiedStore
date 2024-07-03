@@ -19,7 +19,9 @@ internal abstract class QuerySortingSettingsSelectorBase<TEntity> :
         var sortingExpression = GetSortingExpression(filteringRequestParameters, settings);
 
         if (ContainsSortingSuffix(filteringRequestParameters, AscendingSuffix))
+        {
             return (true, sortingExpression);
+        }
 
         return ContainsSortingSuffix(filteringRequestParameters, DescendingSuffix)
             ? (false, sortingExpression)
@@ -36,7 +38,9 @@ internal abstract class QuerySortingSettingsSelectorBase<TEntity> :
         if (filteringRequestParameters is null ||
             string.IsNullOrEmpty(filteringRequestParameters.SortingType) ||
             string.IsNullOrWhiteSpace(filteringRequestParameters.SortingType))
+        {
             return settings[string.Empty];
+        }
 
         return !settings.TryGetValue(filteringRequestParameters.SortingType.ToLower(), out var expression)
             ? settings[string.Empty]

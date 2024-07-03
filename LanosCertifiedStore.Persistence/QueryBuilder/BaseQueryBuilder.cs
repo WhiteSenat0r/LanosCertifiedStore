@@ -108,10 +108,14 @@ internal abstract class BaseQueryBuilder<TSelectionProfile, TEntity, TDataModel,
         var sortingSettings = GetQuerySortingSettings(filteringRequestParameters);
         
         if (IsOrderedByAscending(sortingSettings))
+        {
             returnedQuery = returnedQuery.OrderBy(sortingSettings.OrderByAscendingExpression!);
+        }
         else if (IsOrderedByDescending(sortingSettings))
+        {
             returnedQuery = returnedQuery.OrderByDescending(sortingSettings.OrderByDescendingExpression!);
-        
+        }
+
         return returnedQuery;
     }
 

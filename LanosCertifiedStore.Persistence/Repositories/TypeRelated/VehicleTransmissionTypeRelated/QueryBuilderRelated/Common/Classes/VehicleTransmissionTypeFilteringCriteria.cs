@@ -25,8 +25,10 @@ internal sealed class VehicleTransmissionTypeFilteringCriteria :
     private protected override void AddPredicateMethodsToList(
         IVehicleTransmissionTypeFilteringRequestParameters requestParameters)
     {
-        if (!string.IsNullOrEmpty(requestParameters.Name)) 
+        if (!string.IsNullOrEmpty(requestParameters.Name))
+        {
             PredicateDelegates.Add(GetNamePredicate);
+        }
     }
 
     private Expression<Func<VehicleTransmissionType, bool>> GetNamePredicate(

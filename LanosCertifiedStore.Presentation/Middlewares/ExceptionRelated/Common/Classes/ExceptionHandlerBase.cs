@@ -16,8 +16,11 @@ internal abstract class ExceptionHandlerBase<TException>(
         Exception exception,
         CancellationToken cancellationToken)
     {
-        if (exception is not TException) return false;
-        
+        if (exception is not TException)
+        {
+            return false;
+        }
+
         logger.LogError(
             exception, "Exception occurred: {Message}", exception.Message);
 

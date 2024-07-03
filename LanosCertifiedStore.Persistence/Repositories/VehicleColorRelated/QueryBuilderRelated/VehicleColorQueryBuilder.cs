@@ -21,20 +21,26 @@ internal sealed class VehicleColorQueryBuilder(
         IFilteringRequestParameters<VehicleColor>? filteringRequestParameters)
     {
         if (string.IsNullOrEmpty(filteringRequestParameters!.SortingType))
+        {
             return new VehicleColorSortingSettings
             {
                 OrderByAscendingExpression = VehicleColorSortingTypes.Options["default"]
             };
+        }
 
         var settings = new VehicleColorSortingSettings();
 
         if (filteringRequestParameters.SortingType.Contains("-asc"))
+        {
             settings.OrderByAscendingExpression = VehicleColorSortingTypes.Options
                 [filteringRequestParameters.SortingType];
+        }
         else if (filteringRequestParameters.SortingType.Contains("-desc"))
+        {
             settings.OrderByDescendingExpression = VehicleColorSortingTypes.Options
                 [filteringRequestParameters.SortingType];
-        
+        }
+
         return settings;
     }
 }

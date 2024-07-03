@@ -21,20 +21,26 @@ internal sealed class VehiclePriceQueryBuilder(
         IFilteringRequestParameters<VehiclePrice>? filteringRequestParameters)
     {
         if (string.IsNullOrEmpty(filteringRequestParameters!.SortingType))
+        {
             return new VehiclePriceSortingSettings
             {
                 OrderByAscendingExpression = VehiclePriceSortingTypes.Options["default"]
             };
+        }
 
         var settings = new VehiclePriceSortingSettings();
 
         if (filteringRequestParameters.SortingType.Contains("-asc"))
+        {
             settings.OrderByAscendingExpression = VehiclePriceSortingTypes.Options
                 [filteringRequestParameters.SortingType];
+        }
         else if (filteringRequestParameters.SortingType.Contains("-desc"))
+        {
             settings.OrderByDescendingExpression = VehiclePriceSortingTypes.Options
                 [filteringRequestParameters.SortingType];
-        
+        }
+
         return settings;
     }
 }

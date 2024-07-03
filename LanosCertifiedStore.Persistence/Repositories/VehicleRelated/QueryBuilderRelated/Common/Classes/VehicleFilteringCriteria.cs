@@ -13,7 +13,9 @@ internal sealed class VehicleFilteringCriteria :
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters)
     {
         if (filteringRequestParameters is not IVehicleFilteringRequestParameters requestParameters)
+        {
             return GetPredicate();
+        }
 
         AddPredicateMethodsToList(requestParameters);
 
@@ -23,23 +25,35 @@ internal sealed class VehicleFilteringCriteria :
     private protected override void AddPredicateMethodsToList(
         IVehicleFilteringRequestParameters requestParameters)
     {
-        if (!string.IsNullOrEmpty(requestParameters.Brand)) 
+        if (!string.IsNullOrEmpty(requestParameters.Brand))
+        {
             PredicateDelegates.Add(GetBrandNamePredicate);
+        }
 
-        if (!string.IsNullOrEmpty(requestParameters.Model)) 
+        if (!string.IsNullOrEmpty(requestParameters.Model))
+        {
             PredicateDelegates.Add(GetModelNamePredicate);
-        
-        if (!string.IsNullOrEmpty(requestParameters.Type)) 
-            PredicateDelegates.Add(GetTypeNamePredicate);
-        
-        if (!string.IsNullOrEmpty(requestParameters.Color)) 
-            PredicateDelegates.Add(GetColorNamePredicate);
-        
-        if (requestParameters.LowerPriceLimit.HasValue) 
-            PredicateDelegates.Add(GetLowerPriceLimitPredicate);
+        }
 
-        if (requestParameters.UpperPriceLimit.HasValue) 
+        if (!string.IsNullOrEmpty(requestParameters.Type))
+        {
+            PredicateDelegates.Add(GetTypeNamePredicate);
+        }
+
+        if (!string.IsNullOrEmpty(requestParameters.Color))
+        {
+            PredicateDelegates.Add(GetColorNamePredicate);
+        }
+
+        if (requestParameters.LowerPriceLimit.HasValue)
+        {
+            PredicateDelegates.Add(GetLowerPriceLimitPredicate);
+        }
+
+        if (requestParameters.UpperPriceLimit.HasValue)
+        {
             PredicateDelegates.Add(GetUpperPriceLimitPredicate);
+        }
     }
 
     private Expression<Func<Vehicle, bool>> GetBrandNamePredicate(

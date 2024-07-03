@@ -21,9 +21,11 @@ internal class VehiclePriceSelectionProfiles :
         IQueryable<VehiclePrice> inputQueryable,
         IFilteringRequestParameters<VehiclePrice>? requestParameters = null)
     {
-        if (requestParameters is null) 
+        if (requestParameters is null)
+        {
             return _mappedProfiles[VehiclePriceSelectionProfile.Default](inputQueryable);
-        
+        }
+
         var brandRequestParams = requestParameters as IVehiclePriceFilteringRequestParameters;
 
         return _mappedProfiles[brandRequestParams!.SelectionProfile](inputQueryable);

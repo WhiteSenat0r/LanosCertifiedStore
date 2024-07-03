@@ -24,8 +24,10 @@ internal sealed class VehicleLocationTownFilteringCriteria :
     private protected override void AddPredicateMethodsToList(
         IVehicleLocationTownFilteringRequestParameters requestParameters)
     {
-        if (!string.IsNullOrEmpty(requestParameters.Name)) 
+        if (!string.IsNullOrEmpty(requestParameters.Name))
+        {
             PredicateDelegates.Add(GetNamePredicate);
+        }
     }
 
     private Expression<Func<VehicleLocationTown, bool>> GetNamePredicate(

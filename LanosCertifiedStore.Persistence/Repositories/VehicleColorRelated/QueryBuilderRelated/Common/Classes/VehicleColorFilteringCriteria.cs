@@ -13,7 +13,9 @@ internal sealed class VehicleColorFilteringCriteria :
         IFilteringRequestParameters<VehicleColor>? filteringRequestParameters)
     {
         if (filteringRequestParameters is not IVehicleColorFilteringRequestParameters requestParameters)
+        {
             return GetPredicate();
+        }
 
         AddPredicateMethodsToList(requestParameters);
         
@@ -23,8 +25,10 @@ internal sealed class VehicleColorFilteringCriteria :
     private protected override void AddPredicateMethodsToList(
         IVehicleColorFilteringRequestParameters requestParameters)
     {
-        if (!string.IsNullOrEmpty(requestParameters.Name)) 
+        if (!string.IsNullOrEmpty(requestParameters.Name))
+        {
             PredicateDelegates.Add(GetColorNamePredicate);
+        }
     }
     
     private Expression<Func<VehicleColor, bool>> GetColorNamePredicate(

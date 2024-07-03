@@ -21,20 +21,26 @@ internal sealed class VehicleEngineTypeQueryBuilder(
         IFilteringRequestParameters<VehicleEngineType>? filteringRequestParameters)
     {
         if (string.IsNullOrEmpty(filteringRequestParameters!.SortingType))
+        {
             return new VehicleEngineTypeSortingSettings
             {
                 OrderByAscendingExpression = VehicleEngineTypeSortingTypes.Options["default"]
             };
+        }
 
         var settings = new VehicleEngineTypeSortingSettings();
 
         if (filteringRequestParameters.SortingType.Contains("-asc"))
+        {
             settings.OrderByAscendingExpression = VehicleEngineTypeSortingTypes.Options
                 [filteringRequestParameters.SortingType];
+        }
         else if (filteringRequestParameters.SortingType.Contains("-desc"))
+        {
             settings.OrderByDescendingExpression = VehicleEngineTypeSortingTypes.Options
                 [filteringRequestParameters.SortingType];
-        
+        }
+
         return settings;
     }
 }

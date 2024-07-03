@@ -29,7 +29,9 @@ internal abstract class QueryFilteringCriteriaSelectorBase<TEntity> :
         foreach (var aspect in aspects)
         {
             if (aspect.IsValid)
+            {
                 AddFilteringCriteriaAspect(aspect.Expression);
+            }
         }
     }
 

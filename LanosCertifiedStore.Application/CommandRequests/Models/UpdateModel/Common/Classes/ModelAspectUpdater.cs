@@ -47,10 +47,14 @@ internal sealed class ModelAspectUpdater
         where TAspect : class
     {
         if (typeof(TAspect) == typeof(VehicleBrand))
+        {
             return request.BrandId;
-        
+        }
+
         if (typeof(TAspect) == typeof(VehicleType))
+        {
             return request.TypeId;
+        }
 
         throw new InvalidOperationException(
             "ID can't be extracted due to the absence of the valid aspect type!");
@@ -60,16 +64,24 @@ internal sealed class ModelAspectUpdater
         where TAspect : class
     {
         if (typeof(TAspect) == typeof(VehicleBodyType))
+        {
             return request.AvailableBodyTypeIds;
-        
+        }
+
         if (typeof(TAspect) == typeof(VehicleEngineType))
+        {
             return request.AvailableEngineTypeIds;
-        
+        }
+
         if (typeof(TAspect) == typeof(VehicleTransmissionType))
+        {
             return request.AvailableTransmissionTypeIds;
-        
+        }
+
         if (typeof(TAspect) == typeof(VehicleDrivetrainType))
+        {
             return request.AvailableDrivetrainTypeIds;
+        }
 
         throw new InvalidOperationException(
             "IDs can't be extracted due to the absence of the valid aspect type!");
@@ -84,7 +96,9 @@ internal sealed class ModelAspectUpdater
         where TAspect : class, IIdentifiable<Guid>
     {
         if (aspectSelector(model).All(a => newAspectIds.Contains(a.Id)))
+        {
             return Result<Unit>.Success(Unit.Value);
+        }
 
         var newAspects = new List<TAspect>();
 
@@ -92,8 +106,11 @@ internal sealed class ModelAspectUpdater
         {
             var newAspect = await repository().GetEntityByIdAsync(newAspectId);
 
-            if (newAspect is null) return Result<Unit>.Failure(Error.NotFound);
-            
+            if (newAspect is null)
+            {
+                return Result<Unit>.Failure(Error.NotFound);
+            }
+
             newAspects.Add(newAspect);
         }
 
@@ -110,11 +127,17 @@ internal sealed class ModelAspectUpdater
         Guid newAspectId)
         where TAspect : class, IIdentifiable<Guid>
     {
-        if (aspectSelector(model).Id.Equals(newAspectId)) return Result<Unit>.Success(Unit.Value);
-        
+        if (aspectSelector(model).Id.Equals(newAspectId))
+        {
+            return Result<Unit>.Success(Unit.Value);
+        }
+
         var newAspect = await repository().GetEntityByIdAsync(newAspectId);
 
-        if (newAspect is null) return Result<Unit>.Failure(Error.NotFound);
+        if (newAspect is null)
+        {
+            return Result<Unit>.Failure(Error.NotFound);
+        }
 
         updateAction(model, newAspect);
         

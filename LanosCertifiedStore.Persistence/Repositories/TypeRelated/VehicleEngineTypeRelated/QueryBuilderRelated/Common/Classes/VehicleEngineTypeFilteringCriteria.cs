@@ -23,8 +23,10 @@ internal sealed class VehicleEngineTypeFilteringCriteria :
     private protected override void AddPredicateMethodsToList(
         IVehicleEngineTypeFilteringRequestParameters requestParameters)
     {
-        if (!string.IsNullOrEmpty(requestParameters.Name)) 
+        if (!string.IsNullOrEmpty(requestParameters.Name))
+        {
             PredicateDelegates.Add(GetNamePredicate);
+        }
     }
 
     private Expression<Func<VehicleEngineType, bool>> GetNamePredicate(

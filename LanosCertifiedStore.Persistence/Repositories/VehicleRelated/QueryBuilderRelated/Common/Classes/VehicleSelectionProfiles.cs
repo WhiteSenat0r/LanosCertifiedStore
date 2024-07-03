@@ -25,7 +25,9 @@ internal class VehicleSelectionProfiles :
         IFilteringRequestParameters<Vehicle>? requestParameters = null)
     {
         if (requestParameters is null)
+        {
             return _mappedProfiles[VehicleSelectionProfile.Default](inputQueryable, null);
+        }
 
         var requestParams = requestParameters as IVehicleFilteringRequestParameters;
 

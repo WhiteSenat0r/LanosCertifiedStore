@@ -13,7 +13,9 @@ internal sealed class VehicleImageFilteringCriteria
         IFilteringRequestParameters<VehicleImage>? filteringRequestParameters)
     {
         if (filteringRequestParameters is not IVehicleImageFilteringRequestParameters requestParameters)
+        {
             return GetPredicate();
+        }
 
         AddPredicateMethodsToList(requestParameters);
 
@@ -23,8 +25,10 @@ internal sealed class VehicleImageFilteringCriteria
     private protected override void AddPredicateMethodsToList(
         IVehicleImageFilteringRequestParameters requestParameters)
     {
-        if (requestParameters.RelatedVehicleId.HasValue) 
+        if (requestParameters.RelatedVehicleId.HasValue)
+        {
             PredicateDelegates.Add(GetImageRelatedVehicleIdPredicate);
+        }
     }
     
     private Expression<Func<VehicleImage, bool>> GetImageRelatedVehicleIdPredicate(

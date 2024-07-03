@@ -50,7 +50,9 @@ internal abstract class GenericRepository<TSelectionProfile, TEntity, TDataModel
             entity => entity.Id.Equals(id));
         
         if (removedEntity is not null)
+        {
             Context.Set<TDataModel>().Remove(removedEntity);
+        }
     }
 
     public abstract Task<int> CountAsync(IFilteringRequestParameters<TEntity>? filteringRequestParameters = null!);

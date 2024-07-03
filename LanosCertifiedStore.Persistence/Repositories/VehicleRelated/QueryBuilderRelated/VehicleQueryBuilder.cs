@@ -27,8 +27,11 @@ internal sealed class VehicleQueryBuilder(
         var vehicles = dataModels.AsQueryable();
         vehicles = GetQueryWithAppliedFilters(filteringRequestParameters, vehicles);
 
-        if (vehicles.IsNullOrEmpty()) return Task.FromResult<IDictionary<string, decimal>>(range);
-        
+        if (vehicles.IsNullOrEmpty())
+        {
+            return Task.FromResult<IDictionary<string, decimal>>(range);
+        }
+
         vehicles = OrderQueryByPrice(vehicles);
         vehicles = GetQueryWithAddedSelects(filteringRequestParameters, vehicles);
         
@@ -41,20 +44,26 @@ internal sealed class VehicleQueryBuilder(
         IFilteringRequestParameters<Vehicle>? filteringRequestParameters)
     {
         if (string.IsNullOrEmpty(filteringRequestParameters!.SortingType))
+        {
             return new VehicleSortingSettings
             {
                 OrderByAscendingExpression = VehicleSortingTypes.Options["default"]
             };
+        }
 
         var settings = new VehicleSortingSettings();
 
         if (filteringRequestParameters.SortingType.Contains("-asc"))
+        {
             settings.OrderByAscendingExpression = VehicleSortingTypes.Options
                 [filteringRequestParameters.SortingType];
+        }
         else if (filteringRequestParameters.SortingType.Contains("-desc"))
+        {
             settings.OrderByDescendingExpression = VehicleSortingTypes.Options
                 [filteringRequestParameters.SortingType];
-        
+        }
+
         return settings;
     }
 

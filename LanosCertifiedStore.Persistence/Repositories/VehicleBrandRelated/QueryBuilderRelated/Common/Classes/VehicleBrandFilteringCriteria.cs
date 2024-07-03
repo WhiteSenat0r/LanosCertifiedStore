@@ -13,7 +13,9 @@ internal sealed class VehicleBrandFilteringCriteria
         IFilteringRequestParameters<VehicleBrand>? filteringRequestParameters)
     {
         if (filteringRequestParameters is not IVehicleBrandFilteringRequestParameters requestParameters)
+        {
             return GetPredicate();
+        }
 
         AddPredicateMethodsToList(requestParameters);
 
@@ -23,11 +25,15 @@ internal sealed class VehicleBrandFilteringCriteria
     private protected override void AddPredicateMethodsToList(
         IVehicleBrandFilteringRequestParameters requestParameters)
     {
-        if (!string.IsNullOrEmpty(requestParameters.Name)) 
+        if (!string.IsNullOrEmpty(requestParameters.Name))
+        {
             PredicateDelegates.Add(GetBrandNamePredicate);
+        }
 
-        if (!string.IsNullOrEmpty(requestParameters.ContainedModelName)) 
+        if (!string.IsNullOrEmpty(requestParameters.ContainedModelName))
+        {
             PredicateDelegates.Add(GetContainedModelNamePredicate);
+        }
     }
 
     private Expression<Func<VehicleBrand, bool>> GetContainedModelNamePredicate(

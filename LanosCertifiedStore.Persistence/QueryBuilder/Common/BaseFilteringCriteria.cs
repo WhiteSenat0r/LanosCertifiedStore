@@ -24,7 +24,10 @@ internal abstract class BaseFilteringCriteria<TEntity, TDataModel, TParamsType>
     private protected Expression<Func<TDataModel, bool>> GetPredicate(
         TParamsType? requestParameters = null!)
     {
-        if (PredicateDelegates.IsNullOrEmpty()) return QueryPredicate;
+        if (PredicateDelegates.IsNullOrEmpty())
+        {
+            return QueryPredicate;
+        }
 
         foreach (var predicateMethod in PredicateDelegates) 
             QueryPredicate = QueryPredicate.And(predicateMethod(requestParameters!));

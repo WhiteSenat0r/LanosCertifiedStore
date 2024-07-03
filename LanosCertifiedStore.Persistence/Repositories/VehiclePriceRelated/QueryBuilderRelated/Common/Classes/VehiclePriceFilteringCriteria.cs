@@ -13,7 +13,9 @@ internal sealed class VehiclePriceFilteringCriteria
         IFilteringRequestParameters<VehiclePrice>? filteringRequestParameters)
     {
         if (filteringRequestParameters is not IVehiclePriceFilteringRequestParameters requestParameters)
+        {
             return GetPredicate();
+        }
 
         AddPredicateMethodsToList(requestParameters);
 
@@ -23,11 +25,15 @@ internal sealed class VehiclePriceFilteringCriteria
     private protected override void AddPredicateMethodsToList(
         IVehiclePriceFilteringRequestParameters requestParameters)
     {
-        if (requestParameters.LowerPriceLimit.HasValue) 
+        if (requestParameters.LowerPriceLimit.HasValue)
+        {
             PredicateDelegates.Add(GetLowerLimitPredicate);
+        }
 
-        if (requestParameters.UpperPriceLimit.HasValue) 
+        if (requestParameters.UpperPriceLimit.HasValue)
+        {
             PredicateDelegates.Add(GetUpperLimitPredicate);
+        }
     }
 
     private Expression<Func<VehiclePrice, bool>> GetLowerLimitPredicate(

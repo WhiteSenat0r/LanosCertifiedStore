@@ -15,7 +15,9 @@ internal sealed class LoginCommandHandler(IAuthenticationService authenticationS
         var userLoginResult = await authenticationService.LoginAsync(request.LoginDto, request.HttpResponse);
 
         if (userLoginResult is null)
+        {
             return Result<UserDto>.Failure(new Error("Unauthorized", "Failed to login with provided credentials"));
+        }
 
         var userDto = mapper.Map<User, UserDto>(userLoginResult);
         

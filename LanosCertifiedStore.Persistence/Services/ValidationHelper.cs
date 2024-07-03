@@ -90,8 +90,11 @@ internal sealed class ValidationHelper(
         where TMainAspect : class, IIdentifiable<Guid> 
         where TSecondaryAspect : class, IIdentifiable<Guid>
     {
-        if (mainAspect is null) return false;
-        
+        if (mainAspect is null)
+        {
+            return false;
+        }
+
         return secondaryAspect is not null;
     }
 
@@ -107,8 +110,11 @@ internal sealed class ValidationHelper(
         mainAspectId = ids.Value.Item1;
         secondaryAspectId = ids.Value.Item2;
         
-        if (IsInvalidAspectId(mainAspectId)) return false;
-        
+        if (IsInvalidAspectId(mainAspectId))
+        {
+            return false;
+        }
+
         return !IsInvalidAspectId(secondaryAspectId);
     }
 
