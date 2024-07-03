@@ -22,6 +22,7 @@
     <ItemGroup>
       <Folder Include="Data\" />
       <Folder Include="Data\Migrations\" />
+      <Folder Include="Queries\VehicleColorRelated\" />
       <Folder Include="Repositories\VehicleRelated\QueryBuilderRelated\Common\" />
     </ItemGroup>
 
