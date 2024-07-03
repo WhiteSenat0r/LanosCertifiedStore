@@ -14,7 +14,6 @@ public abstract class BaseApiController : ControllerBase
     protected IMediator Mediator => (_mediator ??=
         HttpContext.RequestServices.GetService<IMediator>())!;
 
-    private protected abstract ActionResult HandleResult<T>(Result<T> result);
 
     private protected static ProblemDetails CreateValidationProblemDetails(Error error,
         Error[]? errors) => new()

@@ -9,12 +9,11 @@ using Application.QueryRequests.VehicleBrandsRelated.CollectionVehicleBrandsQuer
 using Application.QueryRequests.VehicleBrandsRelated.CountVehicleBrandsQueryRelated;
 using Application.QueryRequests.VehicleBrandsRelated.SingleVehicleBrandQueryRelated;
 using Application.RequestParameters;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.VehicleRelated;
 
-public sealed class BrandsController : BaseModelRelatedApiController
+public sealed class BrandsController : BaseApiController
 {
     [HttpGet]
     [ProducesResponseType(typeof(PaginationResult<VehicleBrandDto>), StatusCodes.Status200OK)]
@@ -77,7 +76,7 @@ public sealed class BrandsController : BaseModelRelatedApiController
 
         if (!result.IsSuccess)
         {
-            return NotFound(result.Error);
+            return NotFound(CreateNotFoundProblemDetails(result.Error!));
         }
 
         return NoContent();
