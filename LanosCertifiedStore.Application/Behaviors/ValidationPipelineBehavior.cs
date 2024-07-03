@@ -32,7 +32,7 @@ public class ValidationPipelineBehavior<TRequest, TResponse>(
     private bool AreErrorsPresent(Error[] errors)
     {
         const int emptyValue = 0;
-        
+
         return errors.Length != emptyValue;
     }
 
@@ -40,7 +40,7 @@ public class ValidationPipelineBehavior<TRequest, TResponse>(
     {
         var validationResults = await Task.WhenAll(
             validators.Select(validator => validator.ValidateAsync(request, cancellationToken)));
-        
+
         return validationResults
             .SelectMany(validationResult => validationResult.Errors)
             .Where(validationFailure => validationFailure is not null)
@@ -55,7 +55,7 @@ public class ValidationPipelineBehavior<TRequest, TResponse>(
         where TResult : Result
     {
         const int genericTypeArgumentIndex = 0;
-        
+
         var validationResult = typeof(ValidationResult<>)
             .GetGenericTypeDefinition()
             .MakeGenericType(typeof(TResult).GenericTypeArguments[genericTypeArgumentIndex])
