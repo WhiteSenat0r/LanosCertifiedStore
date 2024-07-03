@@ -21,7 +21,7 @@ public abstract class SingleQueryBase<TEntity, TDto>(
     {
         var queryable = GetDatabaseQueryable();
 
-        var singleQueryRequest = (queryRequest as ISingleQueryRequest<TEntity, Result<TDto>>)!;
+        var singleQueryRequest = (queryRequest as ISingleQueryRequest<TEntity, TDto>)!;
         var executionResult = await GetQueryResult(queryable, singleQueryRequest, cancellationToken);
 
         return executionResult;
@@ -36,7 +36,7 @@ public abstract class SingleQueryBase<TEntity, TDto>(
 
     private async Task<TDto?> GetQueryResult(
         IQueryable<TEntity> queryable,
-        ISingleQueryRequest<TEntity, Result<TDto>> queryRequest,
+        ISingleQueryRequest<TEntity, TDto> queryRequest,
         CancellationToken cancellationToken)
     {
         var item = await queryable
