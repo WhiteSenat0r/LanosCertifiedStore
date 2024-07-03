@@ -8,44 +8,39 @@ using Persistence.Queries.Common.Extensions;
 
 namespace Persistence.Queries.Common.Classes.QueryBaseRelated;
 
-public abstract class CountQueryBase<TEntity>(
-    ApplicationDatabaseContext context,
-    IQueryFilteringCriteriaSelector<TEntity> filteringCriteriaSelector)
+public abstract class CountQueryBase<TEntity>
     where TEntity : class, IIdentifiable<Guid>
 {
-    public async Task<ItemsCountDto> Execute<TRequestResult>(
+    public abstract Task<ItemsCountDto> Execute<TRequestResult>(
         IQueryRequest<TEntity, TRequestResult> queryRequest,
         CancellationToken cancellationToken)
+        where TRequestResult : notnull;
+    
+    private protected IQueryable<TEntity> GetFilteredQueryable<TRequestResult>(
+        IQueryRequest<TEntity, TRequestResult> queryRequest,
+        IQueryable<TEntity> queryable,
+        IQueryFilteringCriteriaSelector<TEntity> filteringCriteriaSelector)
         where TRequestResult : notnull
     {
-        var totalQueryable = GetDatabaseQueryable();
-        var filteredQueryable = totalQueryable;
-
-        filteredQueryable = filteredQueryable.GetQueryWithAppliedFilters(
-            queryRequest.FilteringParameters, filteringCriteriaSelector);
-
-        var executionResult = await GetQueryResult(totalQueryable, filteredQueryable, cancellationToken);
-
-        return executionResult;
+        return queryable.GetQueryWithAppliedFilters(
+            queryRequest.FilteringParameters, filteringCriteriaSelector!);
     }
 
-    private IQueryable<TEntity> GetDatabaseQueryable()
+    private protected IQueryable<TEntity> GetDatabaseQueryable(ApplicationDatabaseContext context)
     {
         var dataSet = context.Set<TEntity>();
-        
+
         return dataSet.AsQueryable();
     }
     
-    private async Task<ItemsCountDto> GetQueryResult(
+    private protected async Task<ItemsCountDto> GetQueryResult(
         IQueryable<TEntity> totalQueryable,
         IQueryable<TEntity> filteredQueryable,
         CancellationToken cancellationToken)
     {
-        var totalItemsCountTask = totalQueryable.CountAsync(cancellationToken);
-        var filteredItemsCountTask = filteredQueryable.CountAsync(cancellationToken);
+        var totalItemsCountTask = await totalQueryable.CountAsync(cancellationToken);
+        var filteredItemsCountTask = await filteredQueryable.CountAsync(cancellationToken);
 
-        var result = await Task.WhenAll([totalItemsCountTask, filteredItemsCountTask]);
-
-        return new ItemsCountDto(result.First(), result.Last());
+        return new ItemsCountDto(totalItemsCountTask, filteredItemsCountTask);
     }
 }
