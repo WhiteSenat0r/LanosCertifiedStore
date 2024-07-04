@@ -1,11 +1,12 @@
-﻿using Application.CommandRequests.VehicleBrandsRelated.UpdateBrand;
+﻿using Application.CommandRequests.VehicleBrandsRelated.UpdateVehicleBrandRelated;
 using Persistence.Contexts.ApplicationDatabaseContext;
 
 namespace Persistence.Commands.VehicleBrandRelated;
 
 public sealed class UpdateVehicleBrandCommand(ApplicationDatabaseContext context)
 {
-    public async Task Execute(UpdateVehicleBrandCommandRequest updateVehicleBrandCommandRequest, CancellationToken cancellationToken)
+    public async Task Execute(
+        UpdateVehicleBrandCommandRequest updateVehicleBrandCommandRequest)
     {
         var vehicleBrand = await context
             .VehiclesBrands
