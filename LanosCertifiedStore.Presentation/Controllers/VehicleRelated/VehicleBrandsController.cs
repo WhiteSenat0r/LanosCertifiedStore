@@ -1,6 +1,6 @@
 ﻿using API.Controllers.Common;
 using Application.CommandRequests.VehicleBrandsRelated.CreateVehicleBrandRelated;
-using Application.CommandRequests.VehicleBrandsRelated.UpdateBrand;
+using Application.CommandRequests.VehicleBrandsRelated.UpdateVehicleBrandRelated;
 using Application.Contracts.ValidationRelated;
 using Application.Core.Results;
 using Application.Dtos.BrandDtos;
@@ -13,7 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.VehicleRelated;
 
-public sealed class BrandsController : BaseApiController
+[Route("api/Brands")]
+public sealed class VehicleBrandsController : BaseApiController
 {
     [HttpGet]
     [ProducesResponseType(typeof(PaginationResult<VehicleBrandDto>), StatusCodes.Status200OK)]
@@ -40,7 +41,7 @@ public sealed class BrandsController : BaseApiController
         return NotFound(CreateNotFoundProblemDetails(result.Error!));
     }
 
-    [HttpGet("countItems")]
+    [HttpGet("CountItems")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
     public async Task<ActionResult<ItemsCountDto>> GetBrandsCount(
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
