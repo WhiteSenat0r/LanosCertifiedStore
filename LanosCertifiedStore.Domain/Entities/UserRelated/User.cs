@@ -13,7 +13,8 @@ public sealed class User : IIdentifiable<Guid>
     public string Email { get; set; } = default!;
     public string PasswordHash { get; set; } = default!;
     public ICollection<UserRole> Roles { get; set; } = [];
-    public ICollection<Vehicle> Vehicles { get; set; } = [];
+    // TODO Implement relationship later
+    // public ICollection<Vehicle> Vehicles { get; set; } = [];
 
     public User() { }
 
