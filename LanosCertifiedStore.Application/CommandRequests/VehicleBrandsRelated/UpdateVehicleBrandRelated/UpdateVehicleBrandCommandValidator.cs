@@ -5,11 +5,11 @@ using Domain.Constants.VehicleRelated;
 using Domain.Entities.VehicleRelated;
 using FluentValidation;
 
-namespace Application.CommandRequests.VehicleBrandsRelated.UpdateBrand;
+namespace Application.CommandRequests.VehicleBrandsRelated.UpdateVehicleBrandRelated;
 
-internal sealed class UpdateVehicleBrandCommandValidator : AbstractValidator<UpdateVehicleBrandCommandRequest>
+internal sealed class UpdateVehicleBrandCommandRequestValidator : AbstractValidator<UpdateVehicleBrandCommandRequest>
 {
-    public UpdateVehicleBrandCommandValidator(IValidationHelper validationHelper)
+    public UpdateVehicleBrandCommandRequestValidator(IValidationHelper validationHelper)
     {
         GetNameLengthValidationRule(x => x.UpdatedName);
 

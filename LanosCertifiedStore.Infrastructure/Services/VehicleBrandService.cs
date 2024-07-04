@@ -1,5 +1,5 @@
 ﻿using Application.CommandRequests.VehicleBrandsRelated.CreateVehicleBrandRelated;
-using Application.CommandRequests.VehicleBrandsRelated.UpdateBrand;
+using Application.CommandRequests.VehicleBrandsRelated.UpdateVehicleBrandRelated;
 using Application.Contracts.ServicesRelated;
 using Application.Dtos.BrandDtos;
 using Application.Dtos.Common;
@@ -7,6 +7,7 @@ using Application.QueryRequests.VehicleBrandsRelated.CollectionVehicleBrandsQuer
 using Application.QueryRequests.VehicleBrandsRelated.CountVehicleBrandsQueryRelated;
 using Application.QueryRequests.VehicleBrandsRelated.SingleVehicleBrandQueryRelated;
 using Domain.Entities.VehicleRelated;
+using Persistence.Commands.Common;
 using Persistence.Commands.VehicleBrandRelated;
 using Persistence.Queries.VehicleBrandRelated.QueryRelated;
 
@@ -18,7 +19,7 @@ internal sealed class VehicleBrandService(
     CountVehicleBrandsQuery countQuery,
     CreateVehicleBrandCommand createCommand,
     UpdateVehicleBrandCommand updateVehicleBrandCommand,
-    Func<CancellationToken, Task<int>> saveChangesAction) : IVehicleBrandService
+    SaveChangesCommand saveChangesCommand) : IVehicleBrandService
 {
     public async Task<IReadOnlyCollection<VehicleBrandDto>> GetVehicleBrandCollection(
         CollectionVehicleBrandsQueryRequest queryRequest, CancellationToken cancellationToken)
@@ -46,7 +47,7 @@ internal sealed class VehicleBrandService(
 
         await createCommand.Execute(newVehicleBrand, cancellationToken);
 
-        await saveChangesAction(cancellationToken);
+        await saveChangesCommand.Execute(cancellationToken);
 
         return newVehicleBrand.Id;
     }
@@ -54,7 +55,7 @@ internal sealed class VehicleBrandService(
     public async Task UpdateVehicleBrand(UpdateVehicleBrandCommandRequest updateVehicleBrandCommandRequest,
         CancellationToken cancellationToken)
     {
-        await updateVehicleBrandCommand.Execute(updateVehicleBrandCommandRequest, cancellationToken);
-        await saveChangesAction(cancellationToken);
+        await updateVehicleBrandCommand.Execute(updateVehicleBrandCommandRequest);
+        await saveChangesCommand.Execute(cancellationToken);
     }
 }

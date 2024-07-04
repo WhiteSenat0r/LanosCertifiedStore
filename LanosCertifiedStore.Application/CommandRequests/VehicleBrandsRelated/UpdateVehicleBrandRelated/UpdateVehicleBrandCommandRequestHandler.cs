@@ -2,7 +2,7 @@
 using Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.CommandRequests.VehicleBrandsRelated.UpdateBrand;
+namespace Application.CommandRequests.VehicleBrandsRelated.UpdateVehicleBrandRelated;
 
 internal sealed class UpdateVehicleBrandCommandRequestHandler(IVehicleBrandService brandService)
     : IRequestHandler<UpdateVehicleBrandCommandRequest, Result<Unit>>

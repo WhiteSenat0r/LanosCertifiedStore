@@ -35,10 +35,16 @@ public abstract class CountQueryBase<TEntity>
     
     private protected async Task<ItemsCountDto> GetQueryResult(
         IQueryable<TEntity> totalQueryable,
-        IQueryable<TEntity> filteredQueryable,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        IQueryable<TEntity>? filteredQueryable = null)
     {
         var totalItemsCountTask = await totalQueryable.CountAsync(cancellationToken);
+
+        if (filteredQueryable is null)
+        {
+            return new ItemsCountDto(totalItemsCountTask, totalItemsCountTask);
+        }
+        
         var filteredItemsCountTask = await filteredQueryable.CountAsync(cancellationToken);
 
         return new ItemsCountDto(totalItemsCountTask, filteredItemsCountTask);

@@ -11,6 +11,7 @@ internal static class QueriesServiceCollectionExtensions
         AddCommonServices(services);
         
         services.AddVehicleBrandQueriesRelatedServices();
+        services.AddVehicleTypeQueriesRelatedServices();
 
         return services;
     }
