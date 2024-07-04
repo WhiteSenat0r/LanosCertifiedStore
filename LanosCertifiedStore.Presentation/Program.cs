@@ -29,23 +29,10 @@ app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseExceptionHandler();
+app.UseStaticFiles();
 
 app.MapControllers();
 
-using var scope = app.Services.CreateScope();
-var services = scope.ServiceProvider;
-
-try
-{
-    var context = services.GetRequiredService<ApplicationDatabaseContext>();
-    await context.Database.MigrateAsync();
-    await SeedData.Seed(context);
-}
-
-catch (Exception ex)
-{
-    var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex, "An error occured during migration!");
-}
+await app.ExecuteMigration();
 
 app.Run();
