@@ -22,97 +22,7 @@ namespace Persistence.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Persistence.DataModels.IdentityRelated.RefreshTokenDataModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("ExpiryDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("RevocationDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RefreshTokens");
-                });
-
-            modelBuilder.Entity("Persistence.DataModels.UserRelated.UserDataModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(320)
-                        .HasColumnType("character varying(320)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Persistence.DataModels.UserRelated.UserRoleDataModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("cef82628-1117-478b-9e57-c61fa1f24a47"),
-                            Name = "User"
-                        },
-                        new
-                        {
-                            Id = new Guid("2d70b509-4928-4313-af38-0b9e72ea360f"),
-                            Name = "Administrator"
-                        });
-                });
-
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.LocationRelated.VehicleLocationAreaDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationArea", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -136,7 +46,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleLocationAreas");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.LocationRelated.VehicleLocationRegionDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationRegion", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -155,7 +65,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleLocationRegions");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.LocationRelated.VehicleLocationTownDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationTown", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -183,7 +93,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleLocationTowns");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleBodyTypeDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.TypeRelated.VehicleBodyType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -202,7 +112,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleBodyTypes");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleDrivetrainTypeDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.TypeRelated.VehicleDrivetrainType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -221,7 +131,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleDrivetrainTypes");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleEngineTypeDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.TypeRelated.VehicleEngineType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -240,7 +150,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleEngineTypes");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleTransmissionTypeDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.TypeRelated.VehicleTransmissionType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -259,7 +169,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleTransmissionTypes");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleTypeDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.TypeRelated.VehicleType", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -278,50 +188,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleTypes");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleBrandDataModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("VehiclesBrands");
-                });
-
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleColorDataModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("HexValue")
-                        .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("character varying(12)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("VehiclesColors");
-                });
-
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.Vehicle", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -374,9 +241,6 @@ namespace Persistence.Data.Migrations
                     b.Property<Guid>("TransmissionTypeId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("UserDataModelId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("VehicleTypeId")
                         .HasColumnType("uuid");
 
@@ -402,14 +266,55 @@ namespace Persistence.Data.Migrations
 
                     b.HasIndex("TransmissionTypeId");
 
-                    b.HasIndex("UserDataModelId");
-
                     b.HasIndex("VehicleTypeId");
 
                     b.ToTable("Vehicles");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleImageDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.VehicleBrand", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("VehiclesBrands");
+                });
+
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.VehicleColor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("HexValue")
+                        .IsRequired()
+                        .HasMaxLength(12)
+                        .HasColumnType("character varying(12)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("VehiclesColors");
+                });
+
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.VehicleImage", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -436,7 +341,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleImages");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleModelDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.VehicleModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -471,7 +376,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleModels");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehiclePriceDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.VehiclePrice", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -493,22 +398,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehiclePrices");
                 });
 
-            modelBuilder.Entity("UserDataModelUserRoleDataModel", b =>
-                {
-                    b.Property<Guid>("RolesId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UsersId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("RolesId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("UsersRoles", (string)null);
-                });
-
-            modelBuilder.Entity("VehicleBodyTypeDataModelVehicleModelDataModel", b =>
+            modelBuilder.Entity("VehicleBodyTypeVehicleModel", b =>
                 {
                     b.Property<Guid>("AvailableBodyTypesId")
                         .HasColumnType("uuid");
@@ -523,7 +413,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleBodyTypesVehicleModels", (string)null);
                 });
 
-            modelBuilder.Entity("VehicleDrivetrainTypeDataModelVehicleModelDataModel", b =>
+            modelBuilder.Entity("VehicleDrivetrainTypeVehicleModel", b =>
                 {
                     b.Property<Guid>("AvailableDrivetrainTypesId")
                         .HasColumnType("uuid");
@@ -538,7 +428,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleDrivetrainTypesVehicleModels", (string)null);
                 });
 
-            modelBuilder.Entity("VehicleEngineTypeDataModelVehicleModelDataModel", b =>
+            modelBuilder.Entity("VehicleEngineTypeVehicleModel", b =>
                 {
                     b.Property<Guid>("AvailableEngineTypesId")
                         .HasColumnType("uuid");
@@ -553,7 +443,7 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleEngineTypesVehicleModels", (string)null);
                 });
 
-            modelBuilder.Entity("VehicleModelDataModelVehicleTransmissionTypeDataModel", b =>
+            modelBuilder.Entity("VehicleModelVehicleTransmissionType", b =>
                 {
                     b.Property<Guid>("AvailableTransmissionTypesId")
                         .HasColumnType("uuid");
@@ -568,20 +458,9 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehicleTransmissionTypesVehicleModels", (string)null);
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.IdentityRelated.RefreshTokenDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationArea", b =>
                 {
-                    b.HasOne("Persistence.DataModels.UserRelated.UserDataModel", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.LocationRelated.VehicleLocationAreaDataModel", b =>
-                {
-                    b.HasOne("Persistence.DataModels.VehicleRelated.LocationRelated.VehicleLocationRegionDataModel", "LocationRegion")
+                    b.HasOne("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationRegion", "LocationRegion")
                         .WithMany("RelatedAreas")
                         .HasForeignKey("LocationRegionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -590,15 +469,15 @@ namespace Persistence.Data.Migrations
                     b.Navigation("LocationRegion");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.LocationRelated.VehicleLocationTownDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationTown", b =>
                 {
-                    b.HasOne("Persistence.DataModels.VehicleRelated.LocationRelated.VehicleLocationAreaDataModel", "LocationArea")
+                    b.HasOne("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationArea", "LocationArea")
                         .WithMany("RelatedTowns")
                         .HasForeignKey("LocationAreaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleRelated.LocationRelated.VehicleLocationRegionDataModel", "LocationRegion")
+                    b.HasOne("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationRegion", "LocationRegion")
                         .WithMany("RelatedTowns")
                         .HasForeignKey("LocationRegionId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -609,73 +488,69 @@ namespace Persistence.Data.Migrations
                     b.Navigation("LocationRegion");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.Vehicle", b =>
                 {
-                    b.HasOne("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleBodyTypeDataModel", "BodyType")
+                    b.HasOne("Domain.Entities.VehicleRelated.TypeRelated.VehicleBodyType", "BodyType")
                         .WithMany("Vehicles")
                         .HasForeignKey("BodyTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleBrandDataModel", "Brand")
+                    b.HasOne("Domain.Entities.VehicleRelated.VehicleBrand", "Brand")
                         .WithMany("Vehicles")
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleColorDataModel", "Color")
+                    b.HasOne("Domain.Entities.VehicleRelated.VehicleColor", "Color")
                         .WithMany("Vehicles")
                         .HasForeignKey("ColorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleDrivetrainTypeDataModel", "DrivetrainType")
+                    b.HasOne("Domain.Entities.VehicleRelated.TypeRelated.VehicleDrivetrainType", "DrivetrainType")
                         .WithMany("Vehicles")
                         .HasForeignKey("DrivetrainTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleEngineTypeDataModel", "EngineType")
+                    b.HasOne("Domain.Entities.VehicleRelated.TypeRelated.VehicleEngineType", "EngineType")
                         .WithMany("Vehicles")
                         .HasForeignKey("EngineTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleRelated.LocationRelated.VehicleLocationAreaDataModel", "LocationArea")
+                    b.HasOne("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationArea", "LocationArea")
                         .WithMany()
                         .HasForeignKey("LocationAreaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleRelated.LocationRelated.VehicleLocationRegionDataModel", "LocationRegion")
+                    b.HasOne("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationRegion", "LocationRegion")
                         .WithMany()
                         .HasForeignKey("LocationRegionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleRelated.LocationRelated.VehicleLocationTownDataModel", "LocationTown")
+                    b.HasOne("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationTown", "LocationTown")
                         .WithMany()
                         .HasForeignKey("LocationTownId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleModelDataModel", "Model")
+                    b.HasOne("Domain.Entities.VehicleRelated.VehicleModel", "Model")
                         .WithMany("Vehicles")
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleTransmissionTypeDataModel", "TransmissionType")
+                    b.HasOne("Domain.Entities.VehicleRelated.TypeRelated.VehicleTransmissionType", "TransmissionType")
                         .WithMany("Vehicles")
                         .HasForeignKey("TransmissionTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.UserRelated.UserDataModel", null)
-                        .WithMany("Vehicles")
-                        .HasForeignKey("UserDataModelId");
-
-                    b.HasOne("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleTypeDataModel", "VehicleType")
+                    b.HasOne("Domain.Entities.VehicleRelated.TypeRelated.VehicleType", "VehicleType")
                         .WithMany("Vehicles")
                         .HasForeignKey("VehicleTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -704,9 +579,9 @@ namespace Persistence.Data.Migrations
                     b.Navigation("VehicleType");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleImageDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.VehicleImage", b =>
                 {
-                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleDataModel", "Vehicle")
+                    b.HasOne("Domain.Entities.VehicleRelated.Vehicle", "Vehicle")
                         .WithMany("Images")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -715,15 +590,15 @@ namespace Persistence.Data.Migrations
                     b.Navigation("Vehicle");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleModelDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.VehicleModel", b =>
                 {
-                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleBrandDataModel", "VehicleBrand")
+                    b.HasOne("Domain.Entities.VehicleRelated.VehicleBrand", "VehicleBrand")
                         .WithMany("Models")
                         .HasForeignKey("VehicleBrandId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleTypeDataModel", "VehicleType")
+                    b.HasOne("Domain.Entities.VehicleRelated.TypeRelated.VehicleType", "VehicleType")
                         .WithMany("Models")
                         .HasForeignKey("VehicleTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -734,9 +609,9 @@ namespace Persistence.Data.Migrations
                     b.Navigation("VehicleType");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehiclePriceDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.VehiclePrice", b =>
                 {
-                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleDataModel", "Vehicle")
+                    b.HasOne("Domain.Entities.VehicleRelated.Vehicle", "Vehicle")
                         .WithMany("Prices")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -745,145 +620,125 @@ namespace Persistence.Data.Migrations
                     b.Navigation("Vehicle");
                 });
 
-            modelBuilder.Entity("UserDataModelUserRoleDataModel", b =>
+            modelBuilder.Entity("VehicleBodyTypeVehicleModel", b =>
                 {
-                    b.HasOne("Persistence.DataModels.UserRelated.UserRoleDataModel", null)
-                        .WithMany()
-                        .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Persistence.DataModels.UserRelated.UserDataModel", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("VehicleBodyTypeDataModelVehicleModelDataModel", b =>
-                {
-                    b.HasOne("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleBodyTypeDataModel", null)
+                    b.HasOne("Domain.Entities.VehicleRelated.TypeRelated.VehicleBodyType", null)
                         .WithMany()
                         .HasForeignKey("AvailableBodyTypesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleModelDataModel", null)
+                    b.HasOne("Domain.Entities.VehicleRelated.VehicleModel", null)
                         .WithMany()
                         .HasForeignKey("ModelsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("VehicleDrivetrainTypeDataModelVehicleModelDataModel", b =>
+            modelBuilder.Entity("VehicleDrivetrainTypeVehicleModel", b =>
                 {
-                    b.HasOne("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleDrivetrainTypeDataModel", null)
+                    b.HasOne("Domain.Entities.VehicleRelated.TypeRelated.VehicleDrivetrainType", null)
                         .WithMany()
                         .HasForeignKey("AvailableDrivetrainTypesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleModelDataModel", null)
+                    b.HasOne("Domain.Entities.VehicleRelated.VehicleModel", null)
                         .WithMany()
                         .HasForeignKey("ModelsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("VehicleEngineTypeDataModelVehicleModelDataModel", b =>
+            modelBuilder.Entity("VehicleEngineTypeVehicleModel", b =>
                 {
-                    b.HasOne("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleEngineTypeDataModel", null)
+                    b.HasOne("Domain.Entities.VehicleRelated.TypeRelated.VehicleEngineType", null)
                         .WithMany()
                         .HasForeignKey("AvailableEngineTypesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleModelDataModel", null)
+                    b.HasOne("Domain.Entities.VehicleRelated.VehicleModel", null)
                         .WithMany()
                         .HasForeignKey("ModelsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("VehicleModelDataModelVehicleTransmissionTypeDataModel", b =>
+            modelBuilder.Entity("VehicleModelVehicleTransmissionType", b =>
                 {
-                    b.HasOne("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleTransmissionTypeDataModel", null)
+                    b.HasOne("Domain.Entities.VehicleRelated.TypeRelated.VehicleTransmissionType", null)
                         .WithMany()
                         .HasForeignKey("AvailableTransmissionTypesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Persistence.DataModels.VehicleRelated.VehicleModelDataModel", null)
+                    b.HasOne("Domain.Entities.VehicleRelated.VehicleModel", null)
                         .WithMany()
                         .HasForeignKey("ModelsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.UserRelated.UserDataModel", b =>
-                {
-                    b.Navigation("Vehicles");
-                });
-
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.LocationRelated.VehicleLocationAreaDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationArea", b =>
                 {
                     b.Navigation("RelatedTowns");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.LocationRelated.VehicleLocationRegionDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationRegion", b =>
                 {
                     b.Navigation("RelatedAreas");
 
                     b.Navigation("RelatedTowns");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleBodyTypeDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.TypeRelated.VehicleBodyType", b =>
                 {
                     b.Navigation("Vehicles");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleDrivetrainTypeDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.TypeRelated.VehicleDrivetrainType", b =>
                 {
                     b.Navigation("Vehicles");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleEngineTypeDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.TypeRelated.VehicleEngineType", b =>
                 {
                     b.Navigation("Vehicles");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleTransmissionTypeDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.TypeRelated.VehicleTransmissionType", b =>
                 {
                     b.Navigation("Vehicles");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.TypeRelated.VehicleTypeDataModel", b =>
-                {
-                    b.Navigation("Models");
-
-                    b.Navigation("Vehicles");
-                });
-
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleBrandDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.TypeRelated.VehicleType", b =>
                 {
                     b.Navigation("Models");
 
                     b.Navigation("Vehicles");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleColorDataModel", b =>
-                {
-                    b.Navigation("Vehicles");
-                });
-
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.Vehicle", b =>
                 {
                     b.Navigation("Images");
 
                     b.Navigation("Prices");
                 });
 
-            modelBuilder.Entity("Persistence.DataModels.VehicleRelated.VehicleModelDataModel", b =>
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.VehicleBrand", b =>
+                {
+                    b.Navigation("Models");
+
+                    b.Navigation("Vehicles");
+                });
+
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.VehicleColor", b =>
+                {
+                    b.Navigation("Vehicles");
+                });
+
+            modelBuilder.Entity("Domain.Entities.VehicleRelated.VehicleModel", b =>
                 {
                     b.Navigation("Vehicles");
                 });
