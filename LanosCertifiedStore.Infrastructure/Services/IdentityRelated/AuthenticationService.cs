@@ -14,10 +14,10 @@ internal sealed class AuthenticationService(
 {
     public async Task<User?> LoginAsync(LoginDto loginDto, HttpResponse httpResponse)
     {
-        var filteringParamsForGettingUserByEmail = new UserFilteringRequestParameters
-        {
-            Email = loginDto.Email
-        };
+        // var filteringParamsForGettingUserByEmail = new UserFilteringRequestParameters
+        // {
+        //     Email = loginDto.Email
+        // };
 
         // var user = (await unitOfWork.RetrieveRepository<User>()
         //     .GetAllEntitiesAsync(filteringParamsForGettingUserByEmail)).SingleOrDefault();
