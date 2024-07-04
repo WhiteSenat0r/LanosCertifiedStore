@@ -16,10 +16,10 @@ internal sealed class UserRoleEntityConfiguration : IEntityTypeConfiguration<Use
 
         var roles = new List<UserRole>
         {
-            new((string)"User"),
-            new((string)"Administrator"),
+            new("User"),
+            new("Administrator")
         };
-
+        
         builder.HasData(roles);
     }
 }

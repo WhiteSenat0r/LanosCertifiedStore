@@ -21,9 +21,5 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.Email)
             .IsRequired()
             .HasMaxLength(320);
-
-        builder.HasMany(m => m.Roles)
-            .WithMany(r => r.Users)
-            .UsingEntity(join => join.ToTable("UsersRoles"));
     }
 }
