@@ -10,8 +10,7 @@ namespace Persistence.SeedingData;
 public static class SeedData
 {
     private const string SerializedLocationsFilePath =
-        "LanosCertifiedStore.Persistence/" +
-        "SeedingData/SerializedData/SerializedUkraineLocations.json";
+        "/app/wwwroot/Data/Json/SerializedUkraineLocations.json";
     
     public static async Task Seed(ApplicationDatabaseContext context)
     {
@@ -226,9 +225,7 @@ public static class SeedData
 
     private static async Task<Dictionary<string, Dictionary<string, List<string>>>?> GetLocationsData()
     {
-        var adjustedLocationsFilePath = $"{GetParentDirectory()}{SerializedLocationsFilePath}";
-        
-        var serializedLocationsData = await File.ReadAllTextAsync(adjustedLocationsFilePath);
+        var serializedLocationsData = await File.ReadAllTextAsync(SerializedLocationsFilePath);
         
         return JsonSerializer.Deserialize
             <Dictionary<string, Dictionary<string, List<string>>>>(serializedLocationsData);
@@ -246,8 +243,4 @@ public static class SeedData
 
         return mappedAreas;
     }
-
-    private static string GetParentDirectory() =>
-        Environment.CurrentDirectory.Replace('\\', '/')
-            .Remove(Environment.CurrentDirectory.LastIndexOf('\\') + 1);
 }
