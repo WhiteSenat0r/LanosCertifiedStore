@@ -1,4 +1,4 @@
-﻿namespace Application.QueryRequests.Types.VehicleBodyTypeRelated.CountBodyTypesQueryRelated;
+﻿namespace Application.QueryRequests.TypesRelated.VehicleBodyTypeRelated.CountBodyTypesQueryRelated;
 
 // TODO
 // internal sealed class CountBodyTypesQueryHandler(IUnitOfWork unitOfWork) : 

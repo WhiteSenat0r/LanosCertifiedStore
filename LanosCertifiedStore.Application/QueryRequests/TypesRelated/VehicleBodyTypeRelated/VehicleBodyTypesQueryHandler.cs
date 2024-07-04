@@ -1,4 +1,4 @@
-﻿namespace Application.QueryRequests.Types.VehicleBodyTypeRelated;
+﻿namespace Application.QueryRequests.TypesRelated.VehicleBodyTypeRelated;
 
 // TODO
 // internal sealed class VehicleBodyTypesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :

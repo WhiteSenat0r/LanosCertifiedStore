@@ -1,4 +1,4 @@
-﻿namespace Application.QueryRequests.Types.VehicleDrivetrainTypeRelated.CountTransmissionTypesQueryRelated;
+﻿namespace Application.QueryRequests.TypesRelated.VehicleDrivetrainTypeRelated.CountTransmissionTypesQueryRelated;
 
 // public sealed record CountDrivetrainTypesQueryRequest(
 //     IFilteringRequestParameters<VehicleDrivetrainType> RequestParameters) : 

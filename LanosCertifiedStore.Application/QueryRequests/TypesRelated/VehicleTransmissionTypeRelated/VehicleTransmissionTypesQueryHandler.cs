@@ -1,4 +1,4 @@
-﻿namespace Application.QueryRequests.Types.VehicleTransmissionTypeRelated;
+﻿namespace Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated;
 
 // TODO
 // internal sealed class VehicleTransmissionTypesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :

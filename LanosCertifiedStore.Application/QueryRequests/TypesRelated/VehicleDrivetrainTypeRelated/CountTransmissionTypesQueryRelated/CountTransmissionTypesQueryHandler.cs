@@ -1,4 +1,4 @@
-﻿namespace Application.QueryRequests.Types.VehicleDrivetrainTypeRelated.CountTransmissionTypesQueryRelated;
+﻿namespace Application.QueryRequests.TypesRelated.VehicleDrivetrainTypeRelated.CountTransmissionTypesQueryRelated;
 
 // TODO
 // internal sealed class CountDrivetrainTypesQueryHandler(IUnitOfWork unitOfWork) : 

@@ -1,4 +1,4 @@
-﻿namespace Application.QueryRequests.Types.VehicleEngineTypeRelated;
+﻿namespace Application.QueryRequests.TypesRelated.VehicleEngineTypeRelated;
 
 // TODO
 // public sealed record VehicleEngineTypesQuery(IFilteringRequestParameters<VehicleEngineType> RequestParameters) :
