@@ -7,7 +7,8 @@ namespace Application.CommandRequests.VehicleBrandsRelated.UpdateVehicleBrandRel
 internal sealed class UpdateVehicleBrandCommandRequestHandler(IVehicleBrandService brandService)
     : IRequestHandler<UpdateVehicleBrandCommandRequest, Result<Unit>>
 {
-    public async Task<Result<Unit>> Handle(UpdateVehicleBrandCommandRequest request, CancellationToken cancellationToken)
+    public async Task<Result<Unit>> Handle(UpdateVehicleBrandCommandRequest request,
+        CancellationToken cancellationToken)
     {
         try
         {
