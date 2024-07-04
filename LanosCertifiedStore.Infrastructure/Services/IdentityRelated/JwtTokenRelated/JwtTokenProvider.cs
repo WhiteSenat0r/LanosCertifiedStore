@@ -11,10 +11,11 @@ internal sealed class JwtTokenProvider(JwtTokenOptions tokenOptions) : IJwtProvi
 {
     public string Generate(User user)
     {
-        var claims = GetUserClaims(user);
-        var signingCredentials = GetSigningCredentials(tokenOptions);
-
-        return GetGeneratedTokenValue(tokenOptions, claims, signingCredentials);;
+        // var claims = GetUserClaims(user);
+        // var signingCredentials = GetSigningCredentials(tokenOptions);
+        //
+        // return GetGeneratedTokenValue(tokenOptions, claims, signingCredentials);;
+        throw new NotImplementedException();
     }
 
     private string GetGeneratedTokenValue(
@@ -42,16 +43,16 @@ internal sealed class JwtTokenProvider(JwtTokenOptions tokenOptions) : IJwtProvi
                 Encoding.UTF8.GetBytes(jwtTokenOptions.SecretKey)),
             SecurityAlgorithms.HmacSha256);
 
-    private IEnumerable<Claim> GetUserClaims(User user)
-    {
-        var claims = new List<Claim>
-        {
-            new(ClaimTypes.Name, user.FirstName + user.LastName),
-            new(ClaimTypes.Email, user.Email),
-        };
-        
-        claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.Name)));
-
-        return claims;
-    }
+    // private IEnumerable<Claim> GetUserClaims(User user)
+    // {
+    //     var claims = new List<Claim>
+    //     {
+    //         new(ClaimTypes.Name, user.FirstName + user.LastName),
+    //         new(ClaimTypes.Email, user.Email),
+    //     };
+    //     
+    //     claims.AddRange(user.Roles.Select(role => new Claim(ClaimTypes.Role, role.Name)));
+    //
+    //     return claims;
+    // }
 }
