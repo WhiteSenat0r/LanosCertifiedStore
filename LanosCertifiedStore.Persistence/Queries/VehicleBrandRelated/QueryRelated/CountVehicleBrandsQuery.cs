@@ -12,10 +12,8 @@ public sealed class CountVehicleBrandsQuery(ApplicationDatabaseContext context) 
         IQueryRequest<VehicleBrand, TRequestResult> queryRequest, CancellationToken cancellationToken)
     {
         var totalQueryable = GetDatabaseQueryable(context);
-        var filteredQueryable = totalQueryable;
 
-        var executionResult = await GetQueryResult(
-            totalQueryable, filteredQueryable, cancellationToken);
+        var executionResult = await GetQueryResult(totalQueryable, cancellationToken);
 
         return executionResult;
     }
