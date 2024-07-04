@@ -8,7 +8,7 @@ public class Error
         Message = message;
     }
 
-    public static Error NotFound(Guid resourceId) => new("NotFound", $"Resource with Id {resourceId} was not found");
+    public static Error NotFound(Guid resourceId) => new("NotFound", $"Resource with ID {resourceId} was not found!");
 
     public string Code { get; }
     public string Message { get; }
