@@ -17,13 +17,13 @@ public static class InfrastructureServiceCollectionExtensions
     {
         AddCloudinaryConfiguration(services, config);
         AddJwtOptionsConfiguration(services, config);
-        
+
         services.AddScoped<IImageService, ImageService>();
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<IVehicleBrandService, VehicleBrandService>();
         services.AddScoped<IVehicleTypeService, VehicleTypeService>();
-        
+
         return services;
     }
 

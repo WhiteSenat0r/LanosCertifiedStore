@@ -1,5 +1,3 @@
-version: '3.4'
-
 services:
   lanoscertifiedstore.presentation:
     image: ${DOCKER_REGISTRY-}lanoscertifiedstorepresentation
@@ -11,6 +9,10 @@ services:
       - "5001:5001"
     depends_on:
       - lanoscertifiedstore.database
+    develop:
+      watch:
+        - action: rebuild
+          path: .
   
   lanoscertifiedstore.database:
     image: postgres

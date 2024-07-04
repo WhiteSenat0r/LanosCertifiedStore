@@ -18,17 +18,17 @@ public sealed class VehicleTypesController : BaseApiController
         [FromQuery] VehicleTypeFilteringRequestParameters requestParameters)
     {
         var result = await Mediator.Send(new CollectionVehicleTypesQueryRequest(requestParameters));
-        
+
         return Ok(result.Value);
     }
-    
+
     [HttpGet("CountItems")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
         [FromQuery] VehicleTypeFilteringRequestParameters requestParameters)
     {
         var result = await Mediator.Send(new CountVehicleTypesQueryRequest(requestParameters));
-        
+
         return Ok(result.Value);
     }
 }
