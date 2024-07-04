@@ -25,3 +25,12 @@ services:
       - ./.containers/lsc_db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
+  lanoscertifiedstore.seq:
+    image: datalust/seq:latest
+    container_name: lsc_seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:5341
+      - 8081:80

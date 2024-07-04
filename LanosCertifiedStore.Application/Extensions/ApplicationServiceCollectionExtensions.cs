@@ -11,22 +11,19 @@ public static class ApplicationServiceCollectionExtensions
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(
-            typeof(CollectionVehicleBrandsQueryRequestHandler).Assembly));
+        services.AddMediatR(cfg =>
+        {
+            cfg.RegisterServicesFromAssembly(typeof(CollectionVehicleBrandsQueryRequestHandler).Assembly);
+
+            cfg.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
+            cfg.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
+            cfg.AddOpenBehavior(typeof(TransactionPipelineBehavior<,>));
+        });
+        
         services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-        AddTransactionRelatedServices(services);
-        AddValidationRelatedServices(services);
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), includeInternalTypes: true);
 
         return services;
-    }
-
-    private static void AddTransactionRelatedServices(IServiceCollection services) => 
-        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
-
-    private static void AddValidationRelatedServices(IServiceCollection services)
-    {
-        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(TransactionPipelineBehavior<,>));
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), includeInternalTypes: true);
     }
 }
