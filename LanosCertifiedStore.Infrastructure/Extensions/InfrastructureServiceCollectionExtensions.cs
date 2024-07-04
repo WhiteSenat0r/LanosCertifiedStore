@@ -22,6 +22,7 @@ public static class InfrastructureServiceCollectionExtensions
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<IAuthenticationService, AuthenticationService>();
         services.AddScoped<IVehicleBrandService, VehicleBrandService>();
+        services.AddScoped<IVehicleColorService, VehicleColorService>();
         services.AddScoped<IVehicleTypeService, VehicleTypeService>();
 
         return services;
