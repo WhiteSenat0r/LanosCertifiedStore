@@ -1,12 +1,15 @@
-﻿using Application.Contracts.RepositoryRelated.Common;
-using Application.Dtos.ColorDtos;
-using Domain.Entities.VehicleRelated;
+﻿using Application.Dtos.ColorDtos;
+using Application.Dtos.Common;
+using Application.QueryRequests.Colors.CollectionVehicleColorsQueryRequestRelated;
+using Application.QueryRequests.Colors.CountVehicleColorsQueryRequestRelated;
 
 namespace Application.Contracts.ServicesRelated;
 
 public interface IVehicleColorService
 {
-    // TODO Finish adding all methods, adjust signatures with command requests
-    Task<VehicleColorDto> GetVehicleColors(IFilteringRequestParameters<VehicleColor> filteringRequestParameters,
+    Task<IReadOnlyCollection<VehicleColorDto>> GetVehicleColors(CollectionVehicleColorsQueryRequest queryRequest,
+        CancellationToken cancellationToken);
+
+    Task<ItemsCountDto> GetVehicleColorsCount(CountVehicleColorsQueryRequest queryRequest,
         CancellationToken cancellationToken);
 }

@@ -9,9 +9,10 @@ internal static class QueriesServiceCollectionExtensions
     public static IServiceCollection AddQueryRelatedServices(this IServiceCollection services)
     {
         AddCommonServices(services);
-        
+
         services.AddVehicleBrandQueriesRelatedServices();
         services.AddVehicleTypeQueriesRelatedServices();
+        services.AddVehicleColorQueriesRelatedServices();
 
         return services;
     }
