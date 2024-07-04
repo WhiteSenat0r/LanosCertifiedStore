@@ -25,7 +25,7 @@
 //     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
 //     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
 //     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-//     public async Task<ActionResult> CreateType([FromBody] CreateEngineTypeCommand createCommand)
+//     public async Task<ActionResult> CreateVehicleTypeRelated([FromBody] CreateEngineTypeCommand createCommand)
 //     {
 //         return HandleResult(await Mediator.Send(createCommand));
 //     }
@@ -34,7 +34,7 @@
 //     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
 //     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
 //     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-//     public async Task<ActionResult> UpdateType([FromBody] UpdateEngineTypeCommand updateCommand)
+//     public async Task<ActionResult> UpdateVehicleTypeRelated([FromBody] UpdateEngineTypeCommand updateCommand)
 //     {
 //         return HandleResult(await Mediator.Send(updateCommand));
 //     }
