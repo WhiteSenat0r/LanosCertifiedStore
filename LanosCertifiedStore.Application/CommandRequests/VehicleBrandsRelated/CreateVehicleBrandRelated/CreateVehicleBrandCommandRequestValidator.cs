@@ -7,9 +7,9 @@ using FluentValidation;
 
 namespace Application.CommandRequests.VehicleBrandsRelated.CreateVehicleBrandRelated;
 
-internal sealed class CreateVehicleBrandCommandValidator : AbstractValidator<CreateVehicleBrandCommandRequest>
+internal sealed class CreateVehicleBrandCommandRequestValidator : AbstractValidator<CreateVehicleBrandCommandRequest>
 {
-    public CreateVehicleBrandCommandValidator(IValidationHelper validationHelper)
+    public CreateVehicleBrandCommandRequestValidator(IValidationHelper validationHelper)
     {
         GetNameLengthValidationRule(x => x.Name);
         GetNameUniquenessValidationRule(x => x.Name, validationHelper);
