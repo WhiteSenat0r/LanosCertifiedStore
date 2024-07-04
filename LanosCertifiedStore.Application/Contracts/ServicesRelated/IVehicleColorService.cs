@@ -6,6 +6,7 @@ namespace Application.Contracts.ServicesRelated;
 
 public interface IVehicleColorService
 {
+    // TODO Finish adding all methods, adjust signatures with command requests
     Task<VehicleColorDto> GetVehicleColors(IFilteringRequestParameters<VehicleColor> filteringRequestParameters,
         CancellationToken cancellationToken);
 }
