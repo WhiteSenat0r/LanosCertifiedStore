@@ -8,7 +8,7 @@ internal static class WebApplicationExtensions
 {
     public static async Task ExecuteMigration(this WebApplication application)
     {
-        if (application.Environment.IsDevelopment())
+        if (!application.Environment.IsDevelopment())
         {
             return;
         }
