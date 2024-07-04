@@ -1,5 +1,5 @@
 ﻿using Application.CommandRequests.VehicleBrandsRelated.CreateVehicleBrandRelated;
-using Application.CommandRequests.VehicleBrandsRelated.UpdateBrand;
+using Application.CommandRequests.VehicleBrandsRelated.UpdateVehicleBrandRelated;
 using Application.Dtos.BrandDtos;
 using Application.Dtos.Common;
 using Application.QueryRequests.VehicleBrandsRelated.CollectionVehicleBrandsQueryRelated;
