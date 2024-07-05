@@ -13,7 +13,7 @@ public sealed class ApplicationDatabaseContext(
 {
     internal DbSet<Vehicle> Vehicles { get; set; } = null!;
     internal DbSet<VehicleBrand> VehiclesBrands { get; set; } = null!;
-    internal DbSet<VehicleColor> VehiclesColors { get; set; } = null!;
+    internal DbSet<VehicleColor> VehicleColors { get; set; } = null!;
     internal DbSet<VehicleModel> VehicleModels { get; set; } = null!;
     internal DbSet<VehiclePrice> VehiclePrices { get; set; } = null!;
     internal DbSet<VehicleType> VehicleTypes { get; set; } = null!;
@@ -21,6 +21,7 @@ public sealed class ApplicationDatabaseContext(
     internal DbSet<VehicleEngineType> VehicleEngineTypes { get; set; } = null!;
     internal DbSet<VehicleDrivetrainType> VehicleDrivetrainTypes { get; set; } = null!;
     internal DbSet<VehicleTransmissionType> VehicleTransmissionTypes { get; set; } = null!;
+    internal DbSet<VehicleLocationTownType> VehicleLocationTownTypes { get; set; } = null!;
     internal DbSet<VehicleLocationTown> VehicleLocationTowns { get; set; } = null!;
     internal DbSet<VehicleLocationArea> VehicleLocationAreas { get; set; } = null!;
     internal DbSet<VehicleLocationRegion> VehicleLocationRegions { get; set; } = null!;
