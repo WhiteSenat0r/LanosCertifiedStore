@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.TypeRelated;
 
-[Route("api/[controller]")]
+[Route("api/Types")]
 public sealed class VehicleTypesController : BaseApiController
 {
     [HttpGet]
