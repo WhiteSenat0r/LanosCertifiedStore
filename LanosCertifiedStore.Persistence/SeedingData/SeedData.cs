@@ -54,7 +54,7 @@ public static class SeedData
     {
         var vehicles = SeedingData.SeedVehicles.GetVehicles(
             await context.VehicleTypes.AsNoTracking().ToListAsync(),
-            await context.VehiclesColors.AsNoTracking().ToListAsync(),
+            await context.VehicleColors.AsNoTracking().ToListAsync(),
             await context.VehiclesBrands.AsNoTracking().ToListAsync(),
             await context.VehicleModels.AsNoTracking().ToListAsync(),
             await context.VehicleBodyTypes.AsNoTracking().ToListAsync(),
@@ -94,7 +94,7 @@ public static class SeedData
         {
             foreach (var model in models)
             {
-                var insertedModel = new VehicleModel()
+                var insertedModel = new VehicleModel
                 {
                     Name = model.Name,
                     MinimalProductionYear = model.MinimalProductionYear,
@@ -122,13 +122,53 @@ public static class SeedData
     {
         var locationsData = await GetLocationsData();
 
+        // foreach (var region in locationsData!)
+        // {
+        //     var addedRegion = new VehicleLocationRegion(region.Key);
+        //     
+        //     await context.AddAsync(addedRegion);
+        //     await context.SaveChangesAsync();
+        //     
+        //     foreach (var area in region.Value)
+        //     {
+        //         var addedArea = new VehicleLocationArea(area.Key)
+        //         {
+        //             LocationRegionId = addedRegion.Id
+        //         };
+        //         
+        //         await context.AddAsync(addedRegion);
+        //         await context.SaveChangesAsync();
+        //
+        //         foreach (var town in area.Value)
+        //         {
+        //             var addedTown = new VehicleLocationTown(town)
+        //             {
+        //                 LocationRegionId = addedRegion.Id,
+        //                 LocationAreaId = addedArea.Id
+        //             };
+        //
+        //             var result = await context.Set<VehicleLocationTown>()
+        //                 .AsNoTracking()
+        //                 .FirstOrDefaultAsync(x => x.LocationAreaId.Equals(addedTown.LocationAreaId) &&
+        //                                           x.LocationRegionId.Equals(addedTown.LocationRegionId) &&
+        //                                           x.Name.Equals(addedTown.Name));
+        //
+        //             if (result is null)
+        //             {
+        //                 await context.AddAsync(addedTown);
+        //                 await context.SaveChangesAsync();
+        //             }
+        //         }
+        //     }
+        // }
+        
         var regions = SeedRegions.GetRegions(locationsData!.Keys);
         
         if (!await context.VehicleLocationRegions.AnyAsync())
         {
             await context.VehicleLocationRegions.AddRangeAsync(regions);
         }
-
+        
         var areaRegionDictionary = GetAreaRegionDictionary(regions, locationsData);
         
         var areas = SeedAreas.GetAreas(areaRegionDictionary, regions);
@@ -137,19 +177,29 @@ public static class SeedData
         {
             await context.VehicleLocationAreas.AddRangeAsync(areas);
         }
+        
+        var townTypes = new List<VehicleLocationTownType>
+        {
+            new("Місто"), new("Село"), new("Селище")
+        };
 
-        var towns = SeedTowns.GetTowns(regions, areas, locationsData);
+        if (!await context.VehicleLocationTownTypes.AnyAsync())
+        {
+            await context.AddRangeAsync(townTypes);
+        }
+        
+        var towns = SeedTowns.GetTowns(regions, areas, townTypes, locationsData);
         
         if (!await context.VehicleLocationTowns.AnyAsync())
         {
             await context.VehicleLocationTowns.AddRangeAsync(towns);
         }
-
+        
         if (context.ChangeTracker.HasChanges())
         {
             await context.SaveChangesAsync();
         }
-
+        
         context.ChangeTracker.Clear();
     }
 
@@ -207,9 +257,9 @@ public static class SeedData
     {
         var colors = SeedColors.GetColors();
         
-        if (!await context.VehiclesColors.AnyAsync())
+        if (!await context.VehicleColors.AnyAsync())
         {
-            await context.VehiclesColors.AddRangeAsync(colors);
+            await context.VehicleColors.AddRangeAsync(colors);
         }
     }
 
@@ -223,17 +273,18 @@ public static class SeedData
         }
     }
 
-    private static async Task<Dictionary<string, Dictionary<string, List<string>>>?> GetLocationsData()
+    private static async Task<Dictionary<string, Dictionary<string, List<KeyValuePair<string, string>>>>?> 
+        GetLocationsData()
     {
         var serializedLocationsData = await File.ReadAllTextAsync(SerializedLocationsFilePath);
         
         return JsonSerializer.Deserialize
-            <Dictionary<string, Dictionary<string, List<string>>>>(serializedLocationsData);
+            <Dictionary<string, Dictionary<string, List<KeyValuePair<string, string>>>>>(serializedLocationsData);
     }
 
     private static Dictionary<string, string> GetAreaRegionDictionary(
         List<VehicleLocationRegion> regions,
-        IReadOnlyDictionary<string, Dictionary<string, List<string>>> deserializedLocationsData)
+        Dictionary<string, Dictionary<string, List<KeyValuePair<string, string>>>> deserializedLocationsData)
     {
         var mappedAreas = new Dictionary<string, string>();
 
