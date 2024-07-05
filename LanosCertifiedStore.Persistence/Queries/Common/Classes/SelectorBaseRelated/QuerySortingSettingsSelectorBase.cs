@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using Application.Contracts.RepositoryRelated.Common;
+using Application.Contracts.Common;
 using Domain.Contracts.Common;
 using Persistence.Queries.Common.Contracts;
 
