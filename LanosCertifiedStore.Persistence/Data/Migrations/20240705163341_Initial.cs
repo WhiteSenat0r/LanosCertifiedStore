@@ -24,6 +24,19 @@ namespace Persistence.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "VehicleColors",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    HexValue = table.Column<string>(type: "character varying(12)", maxLength: 12, nullable: false),
+                    Name = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleColors", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "VehicleDrivetrainTypes",
                 columns: table => new
                 {
@@ -60,6 +73,18 @@ namespace Persistence.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "VehicleLocationTownTypes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_VehicleLocationTownTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "VehiclesBrands",
                 columns: table => new
                 {
@@ -69,19 +94,6 @@ namespace Persistence.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_VehiclesBrands", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VehiclesColors",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    HexValue = table.Column<string>(type: "character varying(12)", maxLength: 12, nullable: false),
-                    Name = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VehiclesColors", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -162,6 +174,8 @@ namespace Persistence.Data.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     LocationAreaId = table.Column<Guid>(type: "uuid", nullable: false),
                     LocationRegionId = table.Column<Guid>(type: "uuid", nullable: false),
+                    LocationTownTypeId = table.Column<Guid>(type: "uuid", nullable: false),
+                    LocationLocationTownTypeId = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false)
                 },
                 constraints: table =>
@@ -177,6 +191,12 @@ namespace Persistence.Data.Migrations
                         name: "FK_VehicleLocationTowns_VehicleLocationRegions_LocationRegionId",
                         column: x => x.LocationRegionId,
                         principalTable: "VehicleLocationRegions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_VehicleLocationTowns_VehicleLocationTownTypes_LocationLocat~",
+                        column: x => x.LocationLocationTownTypeId,
+                        principalTable: "VehicleLocationTownTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -309,6 +329,12 @@ namespace Persistence.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Vehicles_VehicleColors_ColorId",
+                        column: x => x.ColorId,
+                        principalTable: "VehicleColors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Vehicles_VehicleDrivetrainTypes_DrivetrainTypeId",
                         column: x => x.DrivetrainTypeId,
                         principalTable: "VehicleDrivetrainTypes",
@@ -360,12 +386,6 @@ namespace Persistence.Data.Migrations
                         name: "FK_Vehicles_VehiclesBrands_BrandId",
                         column: x => x.BrandId,
                         principalTable: "VehiclesBrands",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Vehicles_VehiclesColors_ColorId",
-                        column: x => x.ColorId,
-                        principalTable: "VehiclesColors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -423,6 +443,12 @@ namespace Persistence.Data.Migrations
                 column: "ModelsId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_VehicleColors_Name",
+                table: "VehicleColors",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_VehicleDrivetrainTypes_Name",
                 table: "VehicleDrivetrainTypes",
                 column: "Name",
@@ -472,6 +498,11 @@ namespace Persistence.Data.Migrations
                 column: "LocationAreaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_VehicleLocationTowns_LocationLocationTownTypeId",
+                table: "VehicleLocationTowns",
+                column: "LocationLocationTownTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_VehicleLocationTowns_LocationRegionId",
                 table: "VehicleLocationTowns",
                 column: "LocationRegionId");
@@ -479,6 +510,11 @@ namespace Persistence.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_VehicleLocationTowns_Name",
                 table: "VehicleLocationTowns",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VehicleLocationTownTypes_Name",
+                table: "VehicleLocationTownTypes",
                 column: "Name");
 
             migrationBuilder.CreateIndex(
@@ -564,12 +600,6 @@ namespace Persistence.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_VehiclesColors_Name",
-                table: "VehiclesColors",
-                column: "Name",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_VehicleTransmissionTypes_Name",
                 table: "VehicleTransmissionTypes",
                 column: "Name",
@@ -615,6 +645,9 @@ namespace Persistence.Data.Migrations
                 name: "VehicleBodyTypes");
 
             migrationBuilder.DropTable(
+                name: "VehicleColors");
+
+            migrationBuilder.DropTable(
                 name: "VehicleDrivetrainTypes");
 
             migrationBuilder.DropTable(
@@ -630,10 +663,10 @@ namespace Persistence.Data.Migrations
                 name: "VehicleTransmissionTypes");
 
             migrationBuilder.DropTable(
-                name: "VehiclesColors");
+                name: "VehicleLocationAreas");
 
             migrationBuilder.DropTable(
-                name: "VehicleLocationAreas");
+                name: "VehicleLocationTownTypes");
 
             migrationBuilder.DropTable(
                 name: "VehicleTypes");
