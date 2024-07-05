@@ -4,7 +4,7 @@ using Application.Core.Results;
 using Application.Dtos.ColorDtos;
 using Domain.Entities.VehicleRelated;
 
-namespace Application.QueryRequests.Colors.CollectionVehicleColorsQueryRequestRelated;
+namespace Application.QueryRequests.VehicleColorsRelated.CollectionVehicleColorsQueryRequestRelated;
 
 public sealed record CollectionVehicleColorsQueryRequest(
     IFilteringRequestParameters<VehicleColor> FilteringParameters) :

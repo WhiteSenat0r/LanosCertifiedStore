@@ -3,7 +3,7 @@ using Application.Dtos.Common;
 using Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.QueryRequests.Colors.CountVehicleColorsQueryRequestRelated;
+namespace Application.QueryRequests.VehicleColorsRelated.CountVehicleColorsQueryRequestRelated;
 
 internal sealed class CountVehicleColorsQueryRequestHandler(IVehicleColorService vehicleColorService)
     : IRequestHandler<CountVehicleColorsQueryRequest, Result<ItemsCountDto>>

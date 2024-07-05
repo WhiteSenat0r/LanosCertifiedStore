@@ -4,7 +4,7 @@ using Application.Dtos.ColorDtos;
 using Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.QueryRequests.Colors.CollectionVehicleColorsQueryRequestRelated;
+namespace Application.QueryRequests.VehicleColorsRelated.CollectionVehicleColorsQueryRequestRelated;
 
 internal sealed class CollectionVehicleColorsQueryRequestHandler(IVehicleColorService vehicleColorService) :
     IRequestHandler<CollectionVehicleColorsQueryRequest, Result<PaginationResult<VehicleColorDto>>>
