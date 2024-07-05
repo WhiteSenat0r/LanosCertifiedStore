@@ -9,7 +9,7 @@ public sealed class VehicleLocationTown : NamedVehicleAspect
     public Guid LocationRegionId { get; set; }
     public VehicleLocationRegion LocationRegion { get; set; } = null!;
     public Guid LocationTownTypeId { get; set; }
-    public VehicleLocationTownType LocationLocationTownType { get; set; } = null!;
+    public VehicleLocationTownType LocationTownType { get; set; } = null!;
     
     public VehicleLocationTown() { }
 

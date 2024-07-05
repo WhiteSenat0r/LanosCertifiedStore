@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Persistence.Contexts.ApplicationDatabaseContext;
@@ -11,9 +12,11 @@ using Persistence.Contexts.ApplicationDatabaseContext;
 namespace Persistence.Data.Migrations
 {
     [DbContext(typeof(ApplicationDatabaseContext))]
-    partial class ApplicationDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240705183007_UniqueIndexesRemovedFromLocationTables")]
+    partial class UniqueIndexesRemovedFromLocationTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,6 +75,9 @@ namespace Persistence.Data.Migrations
                     b.Property<Guid>("LocationAreaId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("LocationLocationTownTypeId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("LocationRegionId")
                         .HasColumnType("uuid");
 
@@ -87,9 +93,9 @@ namespace Persistence.Data.Migrations
 
                     b.HasIndex("LocationAreaId");
 
-                    b.HasIndex("LocationRegionId");
+                    b.HasIndex("LocationLocationTownTypeId");
 
-                    b.HasIndex("LocationTownTypeId");
+                    b.HasIndex("LocationRegionId");
 
                     b.HasIndex("Name");
 
@@ -498,23 +504,23 @@ namespace Persistence.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationTownType", "LocationLocationTownType")
+                        .WithMany("Towns")
+                        .HasForeignKey("LocationLocationTownTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationRegion", "LocationRegion")
                         .WithMany("RelatedTowns")
                         .HasForeignKey("LocationRegionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationTownType", "LocationTownType")
-                        .WithMany("Towns")
-                        .HasForeignKey("LocationTownTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("LocationArea");
 
-                    b.Navigation("LocationRegion");
+                    b.Navigation("LocationLocationTownType");
 
-                    b.Navigation("LocationTownType");
+                    b.Navigation("LocationRegion");
                 });
 
             modelBuilder.Entity("Domain.Entities.VehicleRelated.Vehicle", b =>

@@ -12,6 +12,6 @@ internal sealed class VehicleLocationRegionConfiguration : IEntityTypeConfigurat
             .IsRequired()
             .HasMaxLength(64);
 
-        builder.HasIndex(p => p.Name).IsUnique();
+        builder.HasIndex(p => p.Name);
     }
 }

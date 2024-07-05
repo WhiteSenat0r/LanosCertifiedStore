@@ -11,7 +11,7 @@ public static class SeedData
 {
     private const string SerializedLocationsFilePath =
         "/app/wwwroot/Data/Json/SerializedUkraineLocations.json";
-    
+
     public static async Task Seed(ApplicationDatabaseContext context)
     {
         await SeedVehicleTypes(context);
@@ -43,7 +43,7 @@ public static class SeedData
     private static async Task SeedImages(ApplicationDatabaseContext context, List<Vehicle> vehicles)
     {
         var images = SeedingData.SeedImages.GetImages(vehicles);
-        
+
         if (!await context.VehicleImages.AnyAsync())
         {
             await context.VehicleImages.AddRangeAsync(images);
@@ -73,7 +73,7 @@ public static class SeedData
         foreach (var vehicle in vehicles)
         {
             await context.Vehicles.AddAsync(vehicle);
-                
+
             await context.SaveChangesAsync();
         }
 
@@ -103,7 +103,7 @@ public static class SeedData
                 };
 
                 await context.AddAsync(insertedModel);
-                
+
                 await context.SaveChangesAsync();
 
                 insertedModel.AvailableBodyTypes = model.AvailableBodyTypes;
@@ -112,7 +112,7 @@ public static class SeedData
                 insertedModel.AvailableDrivetrainTypes = model.AvailableDrivetrainTypes;
 
                 context.Update(insertedModel);
-                
+
                 await context.SaveChangesAsync();
             }
         }
@@ -122,62 +122,22 @@ public static class SeedData
     {
         var locationsData = await GetLocationsData();
 
-        // foreach (var region in locationsData!)
-        // {
-        //     var addedRegion = new VehicleLocationRegion(region.Key);
-        //     
-        //     await context.AddAsync(addedRegion);
-        //     await context.SaveChangesAsync();
-        //     
-        //     foreach (var area in region.Value)
-        //     {
-        //         var addedArea = new VehicleLocationArea(area.Key)
-        //         {
-        //             LocationRegionId = addedRegion.Id
-        //         };
-        //         
-        //         await context.AddAsync(addedRegion);
-        //         await context.SaveChangesAsync();
-        //
-        //         foreach (var town in area.Value)
-        //         {
-        //             var addedTown = new VehicleLocationTown(town)
-        //             {
-        //                 LocationRegionId = addedRegion.Id,
-        //                 LocationAreaId = addedArea.Id
-        //             };
-        //
-        //             var result = await context.Set<VehicleLocationTown>()
-        //                 .AsNoTracking()
-        //                 .FirstOrDefaultAsync(x => x.LocationAreaId.Equals(addedTown.LocationAreaId) &&
-        //                                           x.LocationRegionId.Equals(addedTown.LocationRegionId) &&
-        //                                           x.Name.Equals(addedTown.Name));
-        //
-        //             if (result is null)
-        //             {
-        //                 await context.AddAsync(addedTown);
-        //                 await context.SaveChangesAsync();
-        //             }
-        //         }
-        //     }
-        // }
-        
         var regions = SeedRegions.GetRegions(locationsData!.Keys);
-        
+
         if (!await context.VehicleLocationRegions.AnyAsync())
         {
             await context.VehicleLocationRegions.AddRangeAsync(regions);
         }
-        
+
         var areaRegionDictionary = GetAreaRegionDictionary(regions, locationsData);
-        
+
         var areas = SeedAreas.GetAreas(areaRegionDictionary, regions);
-        
+
         if (!await context.VehicleLocationAreas.AnyAsync())
         {
             await context.VehicleLocationAreas.AddRangeAsync(areas);
         }
-        
+
         var townTypes = new List<VehicleLocationTownType>
         {
             new("Місто"), new("Село"), new("Селище")
@@ -187,26 +147,24 @@ public static class SeedData
         {
             await context.AddRangeAsync(townTypes);
         }
-        
+
         var towns = SeedTowns.GetTowns(regions, areas, townTypes, locationsData);
-        
+
         if (!await context.VehicleLocationTowns.AnyAsync())
         {
-            await context.VehicleLocationTowns.AddRangeAsync(towns);
+            await context.AddRangeAsync(towns);
         }
-        
+
         if (context.ChangeTracker.HasChanges())
         {
             await context.SaveChangesAsync();
         }
-        
-        context.ChangeTracker.Clear();
     }
 
     private static async Task SeedBrands(ApplicationDatabaseContext context)
     {
         var brands = SeedingData.SeedBrands.GetBrands();
-        
+
         if (!await context.VehiclesBrands.AnyAsync())
         {
             await context.VehiclesBrands.AddRangeAsync(brands);
@@ -216,7 +174,7 @@ public static class SeedData
     private static async Task SeedVehicleTransmissionTypes(ApplicationDatabaseContext context)
     {
         var transmissionTypes = TypeRelated.SeedVehicleTransmissionTypes.GetVehicleTransmissionTypes();
-        
+
         if (!await context.VehicleTransmissionTypes.AnyAsync())
         {
             await context.VehicleTransmissionTypes.AddRangeAsync(transmissionTypes);
@@ -226,7 +184,7 @@ public static class SeedData
     private static async Task SeedVehicleEngineTypes(ApplicationDatabaseContext context)
     {
         var engineTypes = TypeRelated.SeedVehicleEngineTypes.GetVehicleEngineTypes();
-        
+
         if (!await context.VehicleEngineTypes.AnyAsync())
         {
             await context.VehicleEngineTypes.AddRangeAsync(engineTypes);
@@ -236,7 +194,7 @@ public static class SeedData
     private static async Task SeedVehicleDrivetrainTypes(ApplicationDatabaseContext context)
     {
         var drivetrainTypes = TypeRelated.SeedVehicleDrivetrainTypes.GetVehicleDrivetrainTypes();
-        
+
         if (!await context.VehicleDrivetrainTypes.AnyAsync())
         {
             await context.VehicleDrivetrainTypes.AddRangeAsync(drivetrainTypes);
@@ -246,7 +204,7 @@ public static class SeedData
     private static async Task SeedVehicleBodyTypes(ApplicationDatabaseContext context)
     {
         var bodyTypes = TypeRelated.SeedVehicleBodyTypes.GetVehicleBodyTypes();
-        
+
         if (!await context.VehicleBodyTypes.AnyAsync())
         {
             await context.VehicleBodyTypes.AddRangeAsync(bodyTypes);
@@ -256,7 +214,7 @@ public static class SeedData
     private static async Task SeedVehicleColors(ApplicationDatabaseContext context)
     {
         var colors = SeedColors.GetColors();
-        
+
         if (!await context.VehicleColors.AnyAsync())
         {
             await context.VehicleColors.AddRangeAsync(colors);
@@ -266,18 +224,18 @@ public static class SeedData
     private static async Task SeedVehicleTypes(ApplicationDatabaseContext context)
     {
         var types = TypeRelated.SeedVehicleTypes.GetVehicleTypes();
-        
+
         if (!await context.VehicleTypes.AnyAsync())
         {
             await context.VehicleTypes.AddRangeAsync(types);
         }
     }
 
-    private static async Task<Dictionary<string, Dictionary<string, List<KeyValuePair<string, string>>>>?> 
+    private static async Task<Dictionary<string, Dictionary<string, List<KeyValuePair<string, string>>>>?>
         GetLocationsData()
     {
         var serializedLocationsData = await File.ReadAllTextAsync(SerializedLocationsFilePath);
-        
+
         return JsonSerializer.Deserialize
             <Dictionary<string, Dictionary<string, List<KeyValuePair<string, string>>>>>(serializedLocationsData);
     }
@@ -288,9 +246,9 @@ public static class SeedData
     {
         var mappedAreas = new Dictionary<string, string>();
 
-        foreach (var region in regions) 
-            foreach (var area in deserializedLocationsData[region.Name]) 
-                mappedAreas.Add(area.Key, region.Name);
+        foreach (var region in regions)
+        foreach (var area in deserializedLocationsData[region.Name])
+            mappedAreas.Add(area.Key, region.Name);
 
         return mappedAreas;
     }
