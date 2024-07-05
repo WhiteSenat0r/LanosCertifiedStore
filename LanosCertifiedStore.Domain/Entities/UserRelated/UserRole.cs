@@ -1,6 +1,4 @@
-﻿using Domain.Contracts.Common;
-
-namespace Domain.Entities.UserRelated;
+﻿namespace Domain.Entities.UserRelated;
 
 // TODO
 public class UserRole

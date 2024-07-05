@@ -18,6 +18,7 @@ public sealed class VehicleBrandsController : BaseApiController
 {
     [HttpGet]
     [ProducesResponseType(typeof(PaginationResult<VehicleBrandDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<PaginationResult<VehicleBrandDto>>> GetBrands(
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
     {
@@ -43,6 +44,7 @@ public sealed class VehicleBrandsController : BaseApiController
 
     [HttpGet("CountItems")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ItemsCountDto>> GetBrandsCount(
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
     {

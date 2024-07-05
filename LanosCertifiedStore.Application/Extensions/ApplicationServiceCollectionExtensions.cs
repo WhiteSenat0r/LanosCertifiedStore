@@ -2,7 +2,6 @@
 using Application.Behaviors;
 using Application.QueryRequests.VehicleBrandsRelated.CollectionVehicleBrandsQueryRelated;
 using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.Extensions;

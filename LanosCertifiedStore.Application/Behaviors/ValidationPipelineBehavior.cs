@@ -1,10 +1,12 @@
 ﻿using Application.Shared.ResultRelated;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Application.Behaviors;
 
 public class ValidationPipelineBehavior<TRequest, TResponse>(
+    ILogger<ValidationPipelineBehavior<TRequest, TResponse>> logger,
     IEnumerable<IValidator<TRequest>> validators) : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
     where TResponse : Result
@@ -21,12 +23,15 @@ public class ValidationPipelineBehavior<TRequest, TResponse>(
 
         var errors = await GetValidationErrors(request, cancellationToken);
 
-        if (AreErrorsPresent(errors))
+        if (!AreErrorsPresent(errors))
         {
-            return CreateValidationResult<TResponse>(errors);
+            return await next();
         }
 
-        return await next();
+        var validationResult = CreateValidationResult<TResponse>(errors);
+        
+        logger.LogError("Validation failures have occured: {@ValidationResult}", validationResult);
+        return validationResult;
     }
 
     private bool AreErrorsPresent(Error[] errors)

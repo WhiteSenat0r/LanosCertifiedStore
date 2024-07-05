@@ -1,4 +1,4 @@
-﻿using Application.Contracts.RepositoryRelated.Common;
+﻿using Application.Contracts.Common;
 using Domain.Contracts.Common;
 using Microsoft.EntityFrameworkCore;
 using Persistence.QueryBuilder.Common;

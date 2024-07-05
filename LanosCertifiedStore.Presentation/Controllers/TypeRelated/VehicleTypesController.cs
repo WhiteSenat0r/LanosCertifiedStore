@@ -9,11 +9,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.TypeRelated;
 
-[Route("api/[controller]")]
+[Route("api/Types")]
 public sealed class VehicleTypesController : BaseApiController
 {
     [HttpGet]
     [ProducesResponseType(typeof(PaginationResult<VehicleTypeDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<PaginationResult<VehicleTypeDto>>> GetTypes(
         [FromQuery] VehicleTypeFilteringRequestParameters requestParameters)
     {
@@ -24,6 +25,7 @@ public sealed class VehicleTypesController : BaseApiController
 
     [HttpGet("CountItems")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
         [FromQuery] VehicleTypeFilteringRequestParameters requestParameters)
     {
