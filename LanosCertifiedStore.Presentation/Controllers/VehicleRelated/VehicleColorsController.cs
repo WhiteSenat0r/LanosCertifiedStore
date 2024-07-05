@@ -14,6 +14,7 @@ public sealed class VehicleColorsController : BaseApiController
 {
     [HttpGet]
     [ProducesResponseType(typeof(PaginationResult<VehicleColorDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<PaginationResult<VehicleColorDto>>> GetColors(
         [FromQuery] VehicleColorFilteringRequestParameters requestParameters)
     {
@@ -21,8 +22,9 @@ public sealed class VehicleColorsController : BaseApiController
         return Ok(result.Value);
     }
 
-    [HttpGet("countItems")]
+    [HttpGet("CountItems")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
         [FromQuery] VehicleColorFilteringRequestParameters requestParameters)
     {
