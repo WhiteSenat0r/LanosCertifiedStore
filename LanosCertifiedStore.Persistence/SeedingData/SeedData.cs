@@ -159,6 +159,8 @@ public static class SeedData
         {
             await context.SaveChangesAsync();
         }
+        
+        context.ChangeTracker.Clear();
     }
 
     private static async Task SeedBrands(ApplicationDatabaseContext context)
