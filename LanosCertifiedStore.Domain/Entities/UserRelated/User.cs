@@ -1,8 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Domain.Contracts.Common;
-using Domain.Entities.VehicleRelated;
-
-namespace Domain.Entities.UserRelated;
+﻿namespace Domain.Entities.UserRelated;
 
 public sealed class User;
 // {

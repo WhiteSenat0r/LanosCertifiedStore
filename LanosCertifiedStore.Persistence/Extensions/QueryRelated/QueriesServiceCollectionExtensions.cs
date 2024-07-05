@@ -13,6 +13,7 @@ internal static class QueriesServiceCollectionExtensions
         services.AddVehicleBrandQueriesRelatedServices();
         services.AddVehicleTypeQueriesRelatedServices();
         services.AddVehicleColorQueriesRelatedServices();
+        services.AddVehicleBodyTypeQueriesRelatedServices();
 
         return services;
     }

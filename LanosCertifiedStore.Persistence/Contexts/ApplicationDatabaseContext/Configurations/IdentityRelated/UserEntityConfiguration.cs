@@ -1,8 +1,4 @@
-﻿using Domain.Entities.UserRelated;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.IdentityRelated;
+﻿namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.IdentityRelated;
 
 // TODO
 // internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>

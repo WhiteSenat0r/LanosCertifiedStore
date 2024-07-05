@@ -24,6 +24,7 @@ public static class InfrastructureServiceCollectionExtensions
         services.AddScoped<IVehicleBrandService, VehicleBrandService>();
         services.AddScoped<IVehicleColorService, VehicleColorService>();
         services.AddScoped<IVehicleTypeService, VehicleTypeService>();
+        services.AddScoped<IVehicleBodyTypeService, VehicleBodyTypeService>();
 
         return services;
     }
