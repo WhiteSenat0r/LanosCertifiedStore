@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.LocationRelated;
 
-internal sealed class VehicleLocationTownConfiguration : IEntityTypeConfiguration<VehicleLocationTown>
+internal sealed class VehicleLocationTownTypeConfiguration : IEntityTypeConfiguration<VehicleLocationTownType>
 {
-    public void Configure(EntityTypeBuilder<VehicleLocationTown> builder)
+    public void Configure(EntityTypeBuilder<VehicleLocationTownType> builder)
     {
         builder.Property(p => p.Name)
             .IsRequired()

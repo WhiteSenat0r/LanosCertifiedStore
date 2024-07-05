@@ -11,14 +11,6 @@ internal sealed class VehicleLocationAreaConfiguration : IEntityTypeConfiguratio
         builder.Property(p => p.Name)
             .IsRequired()
             .HasMaxLength(64);
-        
-        builder.HasOne(m => m.LocationRegion)
-            .WithMany(l => l.RelatedAreas)
-            .OnDelete(DeleteBehavior.Cascade);
-        
-        builder.HasMany(m => m.RelatedTowns)
-            .WithOne(l => l.LocationArea)
-            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasIndex(p => p.Name).IsUnique();
     }
