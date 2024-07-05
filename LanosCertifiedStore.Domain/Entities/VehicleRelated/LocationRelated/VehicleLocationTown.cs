@@ -8,6 +8,8 @@ public sealed class VehicleLocationTown : NamedVehicleAspect
     public VehicleLocationArea LocationArea { get; set; } = null!;
     public Guid LocationRegionId { get; set; }
     public VehicleLocationRegion LocationRegion { get; set; } = null!;
+    public Guid LocationTownTypeId { get; set; }
+    public VehicleLocationTownType LocationLocationTownType { get; set; } = null!;
     
     public VehicleLocationTown() { }
 
