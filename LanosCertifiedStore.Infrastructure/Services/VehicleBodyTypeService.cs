@@ -2,7 +2,7 @@
 using Application.Dtos.Common;
 using Application.Dtos.TypeDtos;
 using Application.QueryRequests.TypesRelated.VehicleBodyTypeRelated.CollectionVehicleBodyTypesQueryRelated;
-using Application.QueryRequests.TypesRelated.VehicleBodyTypeRelated.CountBodyTypesQueryRelated;
+using Application.QueryRequests.TypesRelated.VehicleBodyTypeRelated.CountVehicleBodyTypesQueryRelated;
 using Persistence.Queries.TypeRelated.VehicleBodyTypeRelated.QueryRelated;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.Services;

@@ -2,7 +2,7 @@
 using Application.Dtos.Common;
 using Application.Dtos.TypeDtos;
 using Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated.CollectionVehicleTransmissionTypesQueryRelated;
-using Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated.CountTransmissionTypesQueryRelated;
+using Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated.CountVehicleTransmissionTypesQueryRelated;
 using Persistence.Queries.TypeRelated.VehicleTransmissionTypeRelated.QueryRelated;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.Services;
