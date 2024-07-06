@@ -16,6 +16,7 @@ internal static class QueriesServiceCollectionExtensions
         services.AddVehicleBodyTypeQueriesRelatedServices();
         services.AddVehicleDriveTrainTypeQueriesRelatedServices();
         services.AddVehicleTransmissionTypeQueriesRelatedServices();
+        services.AddVehicleEngineTypeQueriesRelatedServices();
 
         return services;
     }
