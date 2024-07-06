@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.TypeRelated;
 
-[Route("api/drivetrainTypes")]
+[Route("api/DrivetrainTypes")]
 public sealed class VehicleDrivetrainTypesController : BaseApiController
 {
     [HttpGet]
@@ -25,7 +25,7 @@ public sealed class VehicleDrivetrainTypesController : BaseApiController
         return Ok(result.Value);
     }
 
-    [HttpGet("countItems")]
+    [HttpGet("CountItems")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(

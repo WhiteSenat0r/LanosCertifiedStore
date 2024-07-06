@@ -23,7 +23,7 @@ public sealed class VehicleBodyTypesController : BaseApiController
         return Ok(result.Value);
     }
 
-    [HttpGet("countItems")]
+    [HttpGet("CountItems")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
