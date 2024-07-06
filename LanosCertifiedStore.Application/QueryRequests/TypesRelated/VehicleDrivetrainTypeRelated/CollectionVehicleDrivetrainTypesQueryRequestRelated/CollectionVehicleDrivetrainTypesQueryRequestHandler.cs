@@ -15,7 +15,7 @@ internal sealed class CollectionVehicleDrivetrainTypesQueryRequestHandler(
         CollectionVehicleDrivetrainTypesQueryRequest request, CancellationToken cancellationToken)
     {
         var vehicleDriveTrainTypes = await vehicleDrivetrainTypeService
-            .GetVehicleTypeCollection(request, cancellationToken);
+            .GetVehicleDrivetrainTypeCollection(request, cancellationToken);
 
         var paginationResult = new PaginationResult<VehicleDrivetrainTypeDto>(
             vehicleDriveTrainTypes,

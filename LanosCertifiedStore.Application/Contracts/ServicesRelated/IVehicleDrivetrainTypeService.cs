@@ -9,7 +9,7 @@ namespace Application.Contracts.ServicesRelated;
 
 public interface IVehicleDrivetrainTypeService
 {
-    Task<IReadOnlyCollection<VehicleDrivetrainTypeDto>> GetVehicleTypeCollection(
+    Task<IReadOnlyCollection<VehicleDrivetrainTypeDto>> GetVehicleDrivetrainTypeCollection(
         CollectionVehicleDrivetrainTypesQueryRequest queryRequest,
         CancellationToken cancellationToken);
 
