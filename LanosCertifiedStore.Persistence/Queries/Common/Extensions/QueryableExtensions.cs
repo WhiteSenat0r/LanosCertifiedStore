@@ -10,8 +10,10 @@ internal static class QueryableExtensions
         this IQueryable<TEntity> queryable,
         IFilteringRequestParameters<TEntity> filteringRequestParameters,
         IQueryFilteringCriteriaSelector<TEntity> filteringCriteriaSelector)
-        where TEntity : class, IIdentifiable<Guid> =>
-        queryable.Where(filteringCriteriaSelector.GetCriteria(filteringRequestParameters));
+        where TEntity : class, IIdentifiable<Guid>
+    {
+        return queryable.Where(filteringCriteriaSelector.GetCriteria(filteringRequestParameters));
+    }
 
     public static IQueryable<TEntity> GetQueryWithAppliedSortingSettings<TEntity>(
         this IQueryable<TEntity> queryable,
@@ -30,8 +32,8 @@ internal static class QueryableExtensions
         this IQueryable<TEntity> queryable,
         IQueryPaginator queryPaginator,
         IFilteringRequestParameters<TEntity> filteringRequestParameters)
-        where TEntity : class, IIdentifiable<Guid> =>
-        queryPaginator.ExecutePagination(
-            queryable,
-            filteringRequestParameters);
+        where TEntity : class, IIdentifiable<Guid>
+    {
+        return queryPaginator.ExecutePagination(queryable, filteringRequestParameters);
+    }
 }
