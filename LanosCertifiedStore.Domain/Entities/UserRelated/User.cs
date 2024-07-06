@@ -12,7 +12,7 @@ public sealed class User;
 //     // TODO Implement relationship later
 //     // public ICollection<Vehicle> Vehicles { get; set; } = [];
 //
-//     public User() { }
+//     private User() { }
 //
 //     public User(string firstName, string lastName, string email, string passwordHash)
 //     {

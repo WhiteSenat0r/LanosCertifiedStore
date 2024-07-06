@@ -10,7 +10,7 @@ public sealed class VehiclePrice : IIdentifiable<Guid>
     public Guid VehicleId { get; set; }
     public Vehicle Vehicle { get; set; } = null!;
 
-    public VehiclePrice() { }
+    private VehiclePrice() { }
     
     public VehiclePrice(Guid vehicleId, decimal value)
     {
