@@ -7,9 +7,9 @@ namespace Application.Contracts.ServicesRelated;
 
 public interface IVehicleColorService
 {
-    Task<IReadOnlyCollection<VehicleColorDto>> GetVehicleColors(CollectionVehicleColorsQueryRequest queryRequest,
-        CancellationToken cancellationToken);
+    Task<IReadOnlyCollection<VehicleColorDto>> GetVehicleColorCollection(
+        CollectionVehicleColorsQueryRequest queryRequest, CancellationToken cancellationToken);
 
-    Task<ItemsCountDto> GetVehicleColorsCount(CountVehicleColorsQueryRequest queryRequest,
-        CancellationToken cancellationToken);
+    Task<ItemsCountDto> GetVehicleColorsCount(
+        CountVehicleColorsQueryRequest queryRequest, CancellationToken cancellationToken);
 }

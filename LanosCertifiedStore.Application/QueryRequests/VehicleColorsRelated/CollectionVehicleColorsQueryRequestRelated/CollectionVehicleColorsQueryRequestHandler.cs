@@ -12,7 +12,7 @@ internal sealed class CollectionVehicleColorsQueryRequestHandler(IVehicleColorSe
     public async Task<Result<PaginationResult<VehicleColorDto>>> Handle(CollectionVehicleColorsQueryRequest request,
         CancellationToken cancellationToken)
     {
-        var colors = await vehicleColorService.GetVehicleColors(request, cancellationToken);
+        var colors = await vehicleColorService.GetVehicleColorCollection(request, cancellationToken);
 
         return Result<PaginationResult<VehicleColorDto>>.Success(
             new PaginationResult<VehicleColorDto>(colors, request.FilteringParameters.PageIndex));
