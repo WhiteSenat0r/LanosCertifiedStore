@@ -1,7 +1,7 @@
 ﻿using Application.Dtos.Common;
 using Application.Dtos.TypeDtos;
 using Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated.CollectionVehicleTransmissionTypesQueryRelated;
-using Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated.CountTransmissionTypesQueryRelated;
+using Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated.CountVehicleTransmissionTypesQueryRelated;
 
 namespace Application.Contracts.ServicesRelated;
 

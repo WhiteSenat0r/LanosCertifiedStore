@@ -3,7 +3,7 @@ using Application.Dtos.Common;
 using Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated.CountTransmissionTypesQueryRelated;
+namespace Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated.CountVehicleTransmissionTypesQueryRelated;
 
 internal sealed class CountVehicleTransmissionTypesQueryRequestHandler(
     IVehicleTransmissionTypeService vehicleTransmissionTypeService) : 

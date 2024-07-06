@@ -2,7 +2,7 @@
 using Application.Contracts.RequestRelated.QueryRelated;
 using Domain.Entities.VehicleRelated.TypeRelated;
 
-namespace Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated.CountTransmissionTypesQueryRelated;
+namespace Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated.CountVehicleTransmissionTypesQueryRelated;
 
 public sealed record CountVehicleTransmissionTypesQueryRequest(
     IFilteringRequestParameters<VehicleTransmissionType> FilteringParameters) : 

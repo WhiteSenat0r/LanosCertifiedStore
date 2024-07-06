@@ -3,7 +3,7 @@ using Application.Dtos.Common;
 using Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.QueryRequests.TypesRelated.VehicleBodyTypeRelated.CountBodyTypesQueryRelated;
+namespace Application.QueryRequests.TypesRelated.VehicleBodyTypeRelated.CountVehicleBodyTypesQueryRelated;
 
 internal sealed class CountBodyTypesQueryHandler(IVehicleBodyTypeService vehicleBodyTypeService)
     : IRequestHandler<CountVehicleBodyTypesQueryRequest, Result<ItemsCountDto>>
