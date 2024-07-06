@@ -11,7 +11,7 @@ internal sealed class CountBodyTypesQueryHandler(IVehicleBodyTypeService vehicle
     public async Task<Result<ItemsCountDto>> Handle(CountVehicleBodyTypesQueryRequest request,
         CancellationToken cancellationToken)
     {
-        var itemsCountDto = await vehicleBodyTypeService.GetVehicleTypesCount(request, cancellationToken);
+        var itemsCountDto = await vehicleBodyTypeService.GetVehicleBodyTypesCount(request, cancellationToken);
 
         return Result<ItemsCountDto>.Success(itemsCountDto);
     }

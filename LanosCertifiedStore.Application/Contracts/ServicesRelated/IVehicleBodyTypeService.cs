@@ -11,7 +11,7 @@ public interface IVehicleBodyTypeService
         CollectionVehicleBodyTypesQueryRequest queryRequest,
         CancellationToken cancellationToken);
 
-    Task<ItemsCountDto> GetVehicleTypesCount(
+    Task<ItemsCountDto> GetVehicleBodyTypesCount(
         CountVehicleBodyTypesQueryRequest queryRequest,
         CancellationToken cancellationToken);
 }
