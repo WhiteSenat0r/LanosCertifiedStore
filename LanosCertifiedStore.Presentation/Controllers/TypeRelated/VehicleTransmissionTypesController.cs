@@ -1,49 +1,37 @@
-﻿namespace API.Controllers.TypeRelated;
+﻿using API.Controllers.Common;
+using Application.Core.Results;
+using Application.Dtos.Common;
+using Application.Dtos.TypeDtos;
+using Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated
+    .CollectionVehicleTransmissionTypesQueryRelated;
+using Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated.CountTransmissionTypesQueryRelated;
+using Application.RequestParameters.TypeRelated;
+using Microsoft.AspNetCore.Mvc;
 
-// public sealed class VehicleTransmissionTypesController : BaseModelRelatedApiController
-// {
-//     [HttpGet]
-//     [ProducesResponseType(typeof(PaginationResult<VehicleTransmissionTypeDto>), StatusCodes.Status200OK)]
-//     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-//     public async Task<ActionResult<PaginationResult<VehicleTransmissionTypeDto>>> GetTypes(
-//         [FromQuery] VehicleTransmissionTypeFilteringRequestParameters requestParameters)
-//     {
-//         return HandleResult(await Mediator.Send(new VehicleTransmissionTypesQuery(requestParameters)));
-//     }
-//     
-//     [HttpGet("countItems")]
-//     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
-//     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-//     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-//     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
-//         [FromQuery] VehicleTransmissionTypeFilteringRequestParameters requestParameters)
-//     {
-//         return HandleResult(await Mediator.Send(new CountTransmissionTypesQueryRequest(requestParameters)));
-//     }
-//
-//     [HttpPost]
-//     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
-//     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-//     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-//     public async Task<ActionResult> CreateVehicleTypeRelated([FromBody] CreateTransmissionTypeCommand createCommand)
-//     {
-//         return HandleResult(await Mediator.Send(createCommand));
-//     }
-//
-//     [HttpPut]
-//     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
-//     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-//     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-//     public async Task<ActionResult> UpdateVehicleTypeRelated([FromBody] UpdateTransmissionTypeCommand updateCommand)
-//     {
-//         return HandleResult(await Mediator.Send(updateCommand));
-//     }
-//
-//     [HttpDelete]
-//     [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
-//     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-//     public async Task<ActionResult> DeleteType([FromBody] DeleteTransmissionTypeCommand deleteCommand)
-//     {
-//         return HandleResult(await Mediator.Send(deleteCommand));
-//     }
-// }
+namespace API.Controllers.TypeRelated;
+
+[Route("api/TransmissionTypes")]
+public sealed class VehicleTransmissionTypesController : BaseApiController
+{
+    [HttpGet]
+    [ProducesResponseType(typeof(PaginationResult<VehicleTransmissionTypeDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<PaginationResult<VehicleTransmissionTypeDto>>> GetTypes(
+        [FromQuery] VehicleTransmissionTypeFilteringRequestParameters requestParameters)
+    {
+        var result = await Mediator.Send(new CollectionVehicleTransmissionTypesQueryRequest(requestParameters));
+
+        return Ok(result.Value);
+    }
+    
+    [HttpGet("CountItems")]
+    [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
+        [FromQuery] VehicleTransmissionTypeFilteringRequestParameters requestParameters)
+    {
+        var result = await Mediator.Send(new CountVehicleTransmissionTypesQueryRequest(requestParameters));
+
+        return Ok(result.Value);
+    }
+}
