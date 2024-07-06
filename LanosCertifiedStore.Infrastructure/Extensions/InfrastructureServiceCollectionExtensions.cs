@@ -1,11 +1,13 @@
 ﻿using Application.Contracts.ServicesRelated;
 using Application.Contracts.ServicesRelated.IdentityRelated;
 using Application.Contracts.ServicesRelated.ImageService;
+using Application.Contracts.ServicesRelated.LocationRelated;
 using LanosCertifiedStore.InfrastructureLayer.Services.Services;
 using LanosCertifiedStore.InfrastructureLayer.Services.Services.IdentityRelated;
 using LanosCertifiedStore.InfrastructureLayer.Services.Services.IdentityRelated.JwtTokenRelated;
 using LanosCertifiedStore.InfrastructureLayer.Services.Services.ImagesRelated;
 using LanosCertifiedStore.InfrastructureLayer.Services.Services.ImagesRelated.Common;
+using LanosCertifiedStore.InfrastructureLayer.Services.Services.LocationRelated;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -28,7 +30,10 @@ public static class InfrastructureServiceCollectionExtensions
         services.AddScoped<IVehicleDrivetrainTypeService, VehicleDrivetrainTypeService>();
         services.AddScoped<IVehicleTransmissionTypeService, VehicleTransmissionTypeService>();
         services.AddScoped<IVehicleEngineTypeService, VehicleEngineTypeService>();
-        
+
+        services.AddScoped<ILocationAreaService, LocationAreaService>();
+        services.AddScoped<ILocationRegionService, LocationRegionService>();
+
         return services;
     }
 

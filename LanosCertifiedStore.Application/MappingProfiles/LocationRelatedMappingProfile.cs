@@ -15,9 +15,8 @@ public sealed class LocationRelatedMappingProfile : Profile
 
     private void GetAreaInstanceMapping()
     {
-        CreateMap<VehicleLocationArea, AreaDto>()
-            .ForMember(d => d.RelatedRegion, o => o.MapFrom(x => x.LocationRegion.Name))
-            .ForMember(d => d.RelatedTowns, o => o.MapFrom(x => x.RelatedTowns.Select(t => t.Name)));
+        CreateMap<VehicleLocationArea, LocationAreaDto>()
+            .ForMember(d => d.RelatedRegion, o => o.MapFrom(x => x.LocationRegion.Name));
     }
     
     private void GetRegionInstanceMapping()
