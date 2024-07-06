@@ -7,7 +7,7 @@ public class UserRole
     // public string Name { get; set; } = default!;
     // public ICollection<User> Users { get; set; } = [];
     //
-    // public UserRole() { }
+    // private UserRole() { }
     //
     // public UserRole(string name) => Name = name;
     //
