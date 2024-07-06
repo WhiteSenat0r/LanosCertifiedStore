@@ -17,7 +17,7 @@ public sealed class VehicleModel : NamedVehicleAspect
     public ICollection<VehicleBodyType> AvailableBodyTypes { get; set; } = [];
     public ICollection<Vehicle> Vehicles { get; set; } = [];
 
-    private VehicleModel() { }
+    public VehicleModel() { }
 
     public VehicleModel(
         Guid vehicleBrandId,

@@ -37,7 +37,7 @@ public sealed class Vehicle : IIdentifiable<Guid>
     public ICollection<VehiclePrice> Prices { get; set; } = [];
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    private Vehicle() { }
+    public Vehicle() { }
     
     public Vehicle(
         Guid brandId,

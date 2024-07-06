@@ -7,7 +7,7 @@ public sealed class VehicleBrand : NamedVehicleAspect
     public ICollection<VehicleModel> Models { get; set; } = [];
     public ICollection<Vehicle> Vehicles { get; set; } = [];
     
-    private VehicleBrand() { }
+    public VehicleBrand() { }
 
     public VehicleBrand(string name) : base(name) { }
 }
