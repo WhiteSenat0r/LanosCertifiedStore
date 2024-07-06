@@ -11,7 +11,7 @@ internal sealed class VehicleColorService(
     CollectionVehicleColorsQuery collectionVehicleColorsQuery,
     CountVehicleColorsQuery countVehicleColorsQuery) : IVehicleColorService
 {
-    public async Task<IReadOnlyCollection<VehicleColorDto>> GetVehicleColors(
+    public async Task<IReadOnlyCollection<VehicleColorDto>> GetVehicleColorCollection(
         CollectionVehicleColorsQueryRequest queryRequest,
         CancellationToken cancellationToken)
     {

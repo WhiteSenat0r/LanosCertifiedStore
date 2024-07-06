@@ -18,7 +18,7 @@ internal sealed class VehicleBodyTypeService(
         return await collectionVehicleBodyTypesQuery.Execute(queryRequest, cancellationToken);
     }
 
-    public async Task<ItemsCountDto> GetVehicleTypesCount(CountVehicleBodyTypesQueryRequest queryRequest,
+    public async Task<ItemsCountDto> GetVehicleBodyTypesCount(CountVehicleBodyTypesQueryRequest queryRequest,
         CancellationToken cancellationToken)
     {
         return await countVehicleBodyTypesQuery.Execute(queryRequest, cancellationToken);

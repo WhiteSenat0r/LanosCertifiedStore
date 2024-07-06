@@ -13,7 +13,7 @@ internal sealed class VehicleDrivetrainTypeService(
     CountVehicleDrivetrainTypesQuery countVehicleDrivetrainTypesQuery,
     CollectionVehicleDrivetrainTypesQuery collectionVehicleDrivetrainTypesQuery) : IVehicleDrivetrainTypeService
 {
-    public async Task<IReadOnlyCollection<VehicleDrivetrainTypeDto>> GetVehicleTypeCollection(
+    public async Task<IReadOnlyCollection<VehicleDrivetrainTypeDto>> GetVehicleDrivetrainTypeCollection(
         CollectionVehicleDrivetrainTypesQueryRequest queryRequest,
         CancellationToken cancellationToken)
     {
