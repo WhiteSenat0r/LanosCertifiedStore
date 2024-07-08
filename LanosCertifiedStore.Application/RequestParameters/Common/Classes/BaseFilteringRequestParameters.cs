@@ -21,10 +21,10 @@ public abstract class BaseFilteringRequestParameters<TModel> : IFilteringRequest
     public ItemQuantitySelection ItemQuantity
     {
         get => MaxQuantityPerRequest;
-        set => MaxQuantityPerRequest = (int)value > (int)MaxQuantityPerRequest ? MaxQuantityPerRequest : value;
+        set => MaxQuantityPerRequest = (int)value > (int)MaxQuantityPerRequest ? value : MaxQuantityPerRequest;
     }
 
-    public ItemQuantitySelection MaxQuantityPerRequest { get; private set; } = ItemQuantitySelection.Hundred;
+    public ItemQuantitySelection MaxQuantityPerRequest { get; private set; } = ItemQuantitySelection.Ten;
 
     public string? SortingType { get; set; }
 }
