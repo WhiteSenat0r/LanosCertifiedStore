@@ -5,5 +5,5 @@ namespace Application.Contracts.RequestParametersRelated;
 
 public interface IVehicleModelFilteringRequestParameters : IFilteringRequestParameters<VehicleModel>
 {
-    string? ContainedBrandName { get; set; }
+    Guid? VehicleBrandId { get; }
 }

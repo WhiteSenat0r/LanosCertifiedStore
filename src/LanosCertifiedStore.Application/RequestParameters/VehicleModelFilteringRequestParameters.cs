@@ -7,5 +7,5 @@ namespace Application.RequestParameters;
 public sealed class VehicleModelFilteringRequestParameters : BaseFilteringRequestParameters<VehicleModel>,
     IVehicleModelFilteringRequestParameters
 {
-    public string? ContainedBrandName { get; set; }
+    public Guid? VehicleBrandId { get; init; }
 }
