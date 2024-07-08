@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.QueryRequests.VehicleBrandsRelated.CountVehicleBrandsQueryRelated;
 
-internal sealed class CountVehicleBrandsQueryRequestRequestHandler(IVehicleBrandService vehicleBrandService) :
+internal sealed class CountVehicleBrandsQueryRequestHandler(IVehicleBrandService vehicleBrandService) :
     IRequestHandler<CountVehicleBrandsQueryRequest, Result<ItemsCountDto>>
 {
     public async Task<Result<ItemsCountDto>> Handle(
