@@ -15,15 +15,12 @@ public sealed class LocationRelatedMappingProfile : Profile
 
     private void GetAreaInstanceMapping()
     {
-        CreateMap<VehicleLocationArea, LocationAreaDto>()
-            .ForMember(d => d.RelatedRegion, o => o.MapFrom(x => x.LocationRegion.Name));
+        CreateMap<VehicleLocationArea, LocationAreaDto>();
     }
     
     private void GetRegionInstanceMapping()
     {
-        CreateMap<VehicleLocationRegion, RegionDto>()
-            .ForMember(d => d.RelatedAreas, o => o.MapFrom(x => x.RelatedAreas.Select(a => a.Name)))
-            .ForMember(d => d.RelatedTowns, o => o.MapFrom(x => x.RelatedTowns.Select(t => t.Name)));
+        CreateMap<VehicleLocationRegion, LocationRegionDto>();
     }
     
     private void GetTownInstanceMapping()
