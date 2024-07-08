@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.QueryRequests.TypesRelated.VehicleTypeRelated.CollectionVehicleTypesQueryRelated;
 
-internal sealed class VehicleTypesQueryHandler(IVehicleTypeService vehicleTypeService) : 
+internal sealed class CollectionVehicleTypesQueryRequestHandler(IVehicleTypeService vehicleTypeService) : 
     IRequestHandler<CollectionVehicleTypesQueryRequest, Result<PaginationResult<VehicleTypeDto>>>
 {
     public async Task<Result<PaginationResult<VehicleTypeDto>>> Handle(
