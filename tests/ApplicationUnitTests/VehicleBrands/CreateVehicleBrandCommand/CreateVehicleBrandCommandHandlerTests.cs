@@ -1,9 +1,7 @@
 ﻿using Application.VehicleBrands;
 using Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
-using FluentAssertions;
-using NSubstitute;
 
-namespace ApplicationUnitTests.VehicleBrands;
+namespace ApplicationUnitTests.VehicleBrands.CreateVehicleBrandCommand;
 
 public sealed class CreateVehicleBrandCommandHandlerTests
 {
