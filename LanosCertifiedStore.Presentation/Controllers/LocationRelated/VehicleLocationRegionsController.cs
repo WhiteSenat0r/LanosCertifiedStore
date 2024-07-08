@@ -2,6 +2,7 @@
 using Application.Core.Results;
 using Application.Dtos.LocationDtos;
 using Application.QueryRequests.LocationsRelated.LocationRegionsRelated.CollectionLocationRegionsQueryRequestRelated;
+using Application.RequestParameters.Common.Enums;
 using Application.RequestParameters.LocationRelated;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ public sealed class VehicleLocationRegionsController : BaseApiController
         var result = await Mediator.Send(new CollectionLocationRegionsQueryRequest(
             new VehicleLocationRegionFilteringRequestParameters 
             {
+                ItemQuantity = ItemQuantitySelection.Fifty,
                 SortingType = sortingType ?? string.Empty
             }));
 
