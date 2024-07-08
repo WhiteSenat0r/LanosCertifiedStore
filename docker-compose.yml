@@ -3,7 +3,7 @@ services:
     image: ${DOCKER_REGISTRY-}lanoscertifiedstorepresentation
     build:
       context: .
-      dockerfile: LanosCertifiedStore.Presentation/Dockerfile
+      dockerfile: src/LanosCertifiedStore.Presentation/Dockerfile
     ports:
       - "5000:5000"
       - "5001:5001"
