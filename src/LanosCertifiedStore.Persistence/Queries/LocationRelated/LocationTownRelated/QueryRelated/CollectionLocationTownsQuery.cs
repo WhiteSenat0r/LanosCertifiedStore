@@ -1,5 +1,5 @@
-﻿using Application.Contracts.RequestRelated.QueryRelated;
-using Application.Dtos.LocationDtos;
+﻿using Application.LocationTowns.Dtos;
+using Application.Shared.RequestRelated.QueryRelated;
 using AutoMapper;
 using Domain.Entities.VehicleRelated.LocationRelated;
 using Persistence.Contexts.ApplicationDatabaseContext;

@@ -1,6 +1,6 @@
-﻿using Application.CommandRequests.VehicleBrandsRelated.UpdateVehicleBrandRelated;
-using Application.Contracts.ServicesRelated;
-using Application.Shared.ResultRelated;
+﻿using Application.Shared.ResultRelated;
+using Application.VehicleBrands;
+using Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
 using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;

@@ -1,7 +1,6 @@
-﻿using Application.Contracts.ServicesRelated;
-using Application.Dtos.Common;
-using Application.QueryRequests.VehicleBrandsRelated.CountVehicleBrandsQueryRelated;
-using Application.RequestParameters;
+﻿using Application.Shared.DtosRelated;
+using Application.VehicleBrands;
+using Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
 using FluentAssertions;
 using NSubstitute;
 

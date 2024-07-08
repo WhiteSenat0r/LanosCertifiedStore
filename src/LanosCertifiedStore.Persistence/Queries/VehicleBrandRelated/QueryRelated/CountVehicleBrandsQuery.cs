@@ -1,5 +1,5 @@
-﻿using Application.Contracts.RequestRelated.QueryRelated;
-using Application.Dtos.Common;
+﻿using Application.Shared.DtosRelated;
+using Application.Shared.RequestRelated.QueryRelated;
 using Domain.Entities.VehicleRelated;
 using Persistence.Contexts.ApplicationDatabaseContext;
 using Persistence.Queries.Common.Classes.QueryBaseRelated;

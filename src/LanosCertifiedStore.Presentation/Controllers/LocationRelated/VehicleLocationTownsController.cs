@@ -1,9 +1,9 @@
 ﻿using API.Controllers.Common;
-using Application.Dtos.Common;
-using Application.Dtos.LocationDtos;
-using Application.QueryRequests.LocationsRelated.LocationTownsRelated.CollectionLocationTownsQueryRequestRelated;
-using Application.QueryRequests.LocationsRelated.LocationTownsRelated.CountLocationTownsQueryRelated;
-using Application.RequestParameters.LocationRelated;
+using Application.LocationTowns;
+using Application.LocationTowns.Dtos;
+using Application.LocationTowns.Queries.LocationTownsRelated.CollectionLocationTownsQueryRequestRelated;
+using Application.LocationTowns.Queries.LocationTownsRelated.CountLocationTownsQueryRelated;
+using Application.Shared.DtosRelated;
 using Application.Shared.ResultRelated;
 using Microsoft.AspNetCore.Mvc;
 

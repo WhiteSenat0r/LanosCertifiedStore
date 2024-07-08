@@ -1,8 +1,6 @@
-﻿using Application.Contracts.ServicesRelated;
-using Application.Dtos.ColorDtos;
-using Application.QueryRequests.VehicleColorsRelated.CollectionVehicleColorsQueryRequestRelated;
-using Application.RequestParameters;
-using Application.Shared.ResultRelated;
+﻿using Application.Shared.ResultRelated;
+using Application.VehicleColors;
+using Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
 using FluentAssertions;
 using NSubstitute;
 

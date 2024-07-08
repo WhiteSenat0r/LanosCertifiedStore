@@ -1,6 +1,5 @@
-﻿using Application.Contracts.ServicesRelated;
-using Application.Dtos.TypeDtos;
-using Application.QueryRequests.TypesRelated.VehicleBodyTypeRelated.CollectionVehicleBodyTypesQueryRelated;
+﻿using Application.VehicleBodyTypes;
+using Application.VehicleBodyTypes.Queries.CollectionVehicleBodyTypesQueryRelated;
 using Persistence.Queries.TypeRelated.VehicleBodyTypeRelated.QueryRelated;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.Services;

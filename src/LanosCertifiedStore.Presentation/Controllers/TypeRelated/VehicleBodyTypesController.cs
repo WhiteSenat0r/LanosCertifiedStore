@@ -1,9 +1,8 @@
 ﻿using API.Controllers.Common;
-using Application.Dtos.TypeDtos;
-using Application.QueryRequests.TypesRelated.VehicleBodyTypeRelated.CollectionVehicleBodyTypesQueryRelated;
-using Application.RequestParameters.Common.Enums;
-using Application.RequestParameters.TypeRelated;
+using Application.Shared.RequestParamsRelated;
 using Application.Shared.ResultRelated;
+using Application.VehicleBodyTypes;
+using Application.VehicleBodyTypes.Queries.CollectionVehicleBodyTypesQueryRelated;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.TypeRelated;

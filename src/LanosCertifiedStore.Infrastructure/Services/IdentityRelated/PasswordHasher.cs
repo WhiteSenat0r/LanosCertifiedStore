@@ -1,4 +1,4 @@
-﻿using Application.Contracts.ServicesRelated.IdentityRelated;
+﻿using Application.Identity.ServicesContracts;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.Services.IdentityRelated;
 

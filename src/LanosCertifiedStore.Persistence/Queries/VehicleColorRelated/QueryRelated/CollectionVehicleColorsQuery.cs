@@ -1,5 +1,5 @@
-﻿using Application.Contracts.RequestRelated.QueryRelated;
-using Application.Dtos.ColorDtos;
+﻿using Application.Shared.RequestRelated.QueryRelated;
+using Application.VehicleColors;
 using AutoMapper;
 using Domain.Entities.VehicleRelated;
 using Persistence.Contexts.ApplicationDatabaseContext;

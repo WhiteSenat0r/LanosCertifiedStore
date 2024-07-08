@@ -1,4 +1,4 @@
-﻿using Application.Dtos.BrandDtos;
+﻿using Application.VehicleBrands.Dtos;
 using AutoMapper;
 using Domain.Entities.VehicleRelated;
 using Persistence.Contexts.ApplicationDatabaseContext;

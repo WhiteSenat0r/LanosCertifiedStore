@@ -1,9 +1,8 @@
 ﻿using API.Controllers.Common;
-using Application.Dtos.ColorDtos;
-using Application.QueryRequests.VehicleColorsRelated.CollectionVehicleColorsQueryRequestRelated;
-using Application.RequestParameters;
-using Application.RequestParameters.Common.Enums;
+using Application.Shared.RequestParamsRelated;
 using Application.Shared.ResultRelated;
+using Application.VehicleColors;
+using Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.VehicleRelated;

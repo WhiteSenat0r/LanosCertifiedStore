@@ -1,5 +1,5 @@
-﻿using Application.Contracts.RequestRelated.QueryRelated;
-using Application.Dtos.Common;
+﻿using Application.Shared.DtosRelated;
+using Application.Shared.RequestRelated.QueryRelated;
 using Domain.Contracts.Common;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;

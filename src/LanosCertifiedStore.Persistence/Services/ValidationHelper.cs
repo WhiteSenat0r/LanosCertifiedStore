@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using Application.Contracts.ValidationRelated;
+using Application.Shared.ValidationRelated;
 using Domain.Contracts.Common;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts.ApplicationDatabaseContext;

@@ -1,8 +1,6 @@
-﻿using Application.Contracts.ServicesRelated;
-using Application.Dtos.TypeDtos;
-using Application.QueryRequests.TypesRelated.VehicleEngineTypeRelated.CollectionVehicleEngineTypesQueryRelated;
-using Application.RequestParameters.TypeRelated;
-using Application.Shared.ResultRelated;
+﻿using Application.Shared.ResultRelated;
+using Application.VehicleEngineTypes;
+using Application.VehicleEngineTypes.Queries.CollectionVehicleEngineTypesQueryRelated;
 using FluentAssertions;
 using NSubstitute;
 

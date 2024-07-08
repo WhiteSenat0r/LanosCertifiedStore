@@ -1,4 +1,4 @@
-﻿using Application.Contracts.ServicesRelated.ImageService;
+﻿using Application.Images;
 using Application.Shared.ResultRelated;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;

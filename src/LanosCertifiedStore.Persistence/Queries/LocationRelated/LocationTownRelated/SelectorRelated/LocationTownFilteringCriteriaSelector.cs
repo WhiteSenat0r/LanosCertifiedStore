@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
-using Application.Contracts.Common;
-using Application.Contracts.RequestParametersRelated;
+using Application.LocationTowns;
+using Application.Shared.RequestParamsRelated;
 using Domain.Entities.VehicleRelated.LocationRelated;
 using Persistence.Queries.Common.Classes.SelectorBaseRelated;
 

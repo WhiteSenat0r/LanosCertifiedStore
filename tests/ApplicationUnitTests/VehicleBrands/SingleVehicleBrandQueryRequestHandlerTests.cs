@@ -1,7 +1,7 @@
-﻿using Application.Contracts.ServicesRelated;
-using Application.Dtos.BrandDtos;
-using Application.QueryRequests.VehicleBrandsRelated.SingleVehicleBrandQueryRelated;
-using Application.Shared.ResultRelated;
+﻿using Application.Shared.ResultRelated;
+using Application.VehicleBrands;
+using Application.VehicleBrands.Dtos;
+using Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
 using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;

@@ -1,6 +1,5 @@
-﻿using Application.Contracts.ServicesRelated;
-using Application.Dtos.ColorDtos;
-using Application.QueryRequests.VehicleColorsRelated.CollectionVehicleColorsQueryRequestRelated;
+﻿using Application.VehicleColors;
+using Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
 using Persistence.Queries.VehicleColorRelated.QueryRelated;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.Services;

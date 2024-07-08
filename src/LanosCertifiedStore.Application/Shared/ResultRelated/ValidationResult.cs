@@ -1,4 +1,4 @@
-﻿using Application.Contracts.ValidationRelated;
+﻿using Application.Shared.ValidationRelated;
 
 namespace Application.Shared.ResultRelated;
 

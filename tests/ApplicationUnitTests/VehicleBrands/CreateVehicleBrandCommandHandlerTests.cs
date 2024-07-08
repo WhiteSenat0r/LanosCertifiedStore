@@ -1,5 +1,5 @@
-﻿using Application.CommandRequests.VehicleBrandsRelated.CreateVehicleBrandRelated;
-using Application.Contracts.ServicesRelated;
+﻿using Application.VehicleBrands;
+using Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
 using FluentAssertions;
 using NSubstitute;
 

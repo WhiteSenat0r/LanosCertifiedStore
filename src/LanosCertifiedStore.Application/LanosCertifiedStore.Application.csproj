@@ -31,5 +31,25 @@
       <Compile Remove="Shared\ExceptionRelated\ApiException.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Identity\Commands\" />
+      <Folder Include="Identity\Dtos\" />
+      <Folder Include="Identity\Queries\" />
+      <Folder Include="Images\Commands\" />
+      <Folder Include="LocationRegions\Queries\" />
+      <Folder Include="LocationTowns\Queries\" />
+      <Folder Include="VehicleBodyTypes\Queries\" />
+      <Folder Include="VehicleBrands\Commands\" />
+      <Folder Include="VehicleBrands\Queries\" />
+      <Folder Include="VehicleColors\Queries\" />
+      <Folder Include="VehicleDrivetrainTypes\Queries\" />
+      <Folder Include="VehicleModels\Commands\" />
+      <Folder Include="VehicleModels\Queries\" />
+      <Folder Include="Vehicles\Commands\" />
+      <Folder Include="Vehicles\Queries\" />
+      <Folder Include="VehicleTransmissionTypes\Queries\" />
+      <Folder Include="VehicleTypes\Queries\" />
+    </ItemGroup>
+
 
 </Project>

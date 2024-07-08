@@ -1,6 +1,6 @@
-﻿using Application.Contracts.ServicesRelated.LocationRelated;
-using Application.Dtos.LocationDtos;
-using Application.QueryRequests.LocationsRelated.LocationRegionsRelated.CollectionLocationRegionsQueryRequestRelated;
+﻿using Application.LocationRegions;
+using Application.LocationRegions.Dtos;
+using Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
 using Persistence.Queries.LocationRelated.LocationRegionRelated.QueryRelated;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.Services.LocationRelated;

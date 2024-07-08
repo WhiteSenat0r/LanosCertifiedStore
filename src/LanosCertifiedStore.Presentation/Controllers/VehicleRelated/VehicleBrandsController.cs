@@ -1,14 +1,14 @@
 ﻿using API.Controllers.Common;
-using Application.CommandRequests.VehicleBrandsRelated.CreateVehicleBrandRelated;
-using Application.CommandRequests.VehicleBrandsRelated.UpdateVehicleBrandRelated;
-using Application.Contracts.ValidationRelated;
-using Application.Dtos.BrandDtos;
-using Application.Dtos.Common;
-using Application.QueryRequests.VehicleBrandsRelated.CollectionVehicleBrandsQueryRelated;
-using Application.QueryRequests.VehicleBrandsRelated.CountVehicleBrandsQueryRelated;
-using Application.QueryRequests.VehicleBrandsRelated.SingleVehicleBrandQueryRelated;
-using Application.RequestParameters;
+using Application.Shared.DtosRelated;
 using Application.Shared.ResultRelated;
+using Application.Shared.ValidationRelated;
+using Application.VehicleBrands;
+using Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
+using Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
+using Application.VehicleBrands.Dtos;
+using Application.VehicleBrands.Queries.CollectionVehicleBrandsQueryRelated;
+using Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
+using Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.VehicleRelated;

@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
-using Application.Contracts.Common;
-using Application.Contracts.RequestParametersRelated;
+using Application.Shared.RequestParamsRelated;
+using Application.Vehicles;
 using Domain.Entities.VehicleRelated;
 using Persistence.QueryBuilder.Common;
 

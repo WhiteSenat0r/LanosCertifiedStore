@@ -1,5 +1,5 @@
-﻿using Application.Contracts.RequestRelated.QueryRelated;
-using Application.Dtos.TypeDtos;
+﻿using Application.Shared.RequestRelated.QueryRelated;
+using Application.VehicleBodyTypes;
 using AutoMapper;
 using Domain.Entities.VehicleRelated.TypeRelated;
 using Persistence.Contexts.ApplicationDatabaseContext;

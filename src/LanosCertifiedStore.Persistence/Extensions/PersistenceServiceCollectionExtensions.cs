@@ -1,5 +1,5 @@
-﻿using Application.Contracts.ServicesRelated.RequestRelated;
-using Application.Contracts.ValidationRelated;
+﻿using Application.Shared;
+using Application.Shared.ValidationRelated;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

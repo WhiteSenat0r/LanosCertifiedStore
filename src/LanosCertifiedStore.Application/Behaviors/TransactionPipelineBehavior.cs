@@ -1,5 +1,5 @@
-﻿using Application.Contracts.RequestRelated;
-using Application.Contracts.ServicesRelated.RequestRelated;
+﻿using Application.Shared;
+using Application.Shared.RequestRelated;
 using Application.Shared.ResultRelated;
 using MediatR;
 

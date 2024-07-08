@@ -1,5 +1,5 @@
-﻿using Application.Contracts.RequestRelated.QueryRelated;
-using Application.Dtos.BrandDtos;
+﻿using Application.Shared.RequestRelated.QueryRelated;
+using Application.VehicleBrands.Dtos;
 using AutoMapper;
 using Domain.Entities.VehicleRelated;
 using Persistence.Contexts.ApplicationDatabaseContext;

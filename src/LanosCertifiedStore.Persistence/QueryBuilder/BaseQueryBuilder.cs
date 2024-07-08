@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Common;
+﻿using Application.Shared.RequestParamsRelated;
 using Domain.Contracts.Common;
 using Microsoft.EntityFrameworkCore;
 using Persistence.QueryBuilder.Common;

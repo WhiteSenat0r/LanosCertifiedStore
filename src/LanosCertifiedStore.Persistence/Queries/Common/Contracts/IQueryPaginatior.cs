@@ -1,4 +1,4 @@
-﻿using Application.Contracts.Common;
+﻿using Application.Shared.RequestParamsRelated;
 using Domain.Contracts.Common;
 
 namespace Persistence.Queries.Common.Contracts;
