@@ -2,4 +2,4 @@
 
 namespace Application.Dtos.ModelDtos;
 
-public record ModelDto : VehicleAspectDto;
+public record VehicleModelWithoutBrandNameDto : VehicleAspectDto;

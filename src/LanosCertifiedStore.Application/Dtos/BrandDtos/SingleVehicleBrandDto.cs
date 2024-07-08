@@ -3,4 +3,4 @@ using Application.Dtos.ModelDtos;
 
 namespace Application.Dtos.BrandDtos;
 
-public sealed record SingleVehicleBrandDto(IEnumerable<ModelDto>? Models) : VehicleAspectDto;
+public sealed record SingleVehicleBrandDto(IEnumerable<VehicleModelWithoutBrandNameDto>? Models) : VehicleAspectDto;

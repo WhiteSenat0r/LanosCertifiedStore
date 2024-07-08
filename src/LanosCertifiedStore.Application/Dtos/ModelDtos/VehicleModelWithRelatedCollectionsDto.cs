@@ -1,8 +1,9 @@
-﻿using Application.Dtos.TypeDtos;
+﻿using Application.Dtos.Common;
+using Application.Dtos.TypeDtos;
 
 namespace Application.Dtos.ModelDtos;
 
-public sealed record ModelWithRelatedCollectionsDto : ModelDto
+public sealed record VehicleModelWithRelatedCollectionsDto : VehicleAspectDto
 {
     public int? MinimalProductionYear { get; init; }
     public int? MaximumProductionYear { get; init; }

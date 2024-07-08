@@ -8,9 +8,12 @@ public sealed class VehicleModelRelatedMappingProfile : Profile
 {
     public VehicleModelRelatedMappingProfile()
     {
-        CreateMap<VehicleModel, ModelDto>();
+        CreateMap<VehicleModel, VehicleModelWithoutBrandNameDto>();
 
-        CreateMap<VehicleModel, ModelWithRelatedCollectionsDto>()
+        CreateMap<VehicleModel, VehicleModelDto>()
+            .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.VehicleBrand.Name));
+
+        CreateMap<VehicleModel, VehicleModelWithRelatedCollectionsDto>()
             .ForMember(d => d.VehicleBrand, o => o.MapFrom(s => s.VehicleBrand.Name))
             .ForMember(d => d.VehicleType, o => o.MapFrom(s => s.VehicleType.Name))
             .ForMember(d => d.AvailableBodyTypes, o => o.MapFrom(s => s.AvailableBodyTypes))

@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.Common;
 using Application.Contracts.RequestRelated.QueryRelated;
-using Application.Core.Results;
 using Application.Dtos.LocationDtos;
+using Application.Shared.ResultRelated;
 using Domain.Entities.VehicleRelated.LocationRelated;
 
 namespace Application.QueryRequests.LocationsRelated.LocationRegionsRelated.CollectionLocationRegionsQueryRequestRelated;
