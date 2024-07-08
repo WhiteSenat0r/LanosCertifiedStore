@@ -1,8 +1,6 @@
 ﻿using Application.Shared.ResultRelated;
 using Application.VehicleBrands;
 using Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
-using FluentAssertions;
-using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 
 namespace ApplicationUnitTests.VehicleBrands;

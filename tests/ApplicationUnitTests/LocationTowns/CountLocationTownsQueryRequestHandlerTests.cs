@@ -1,8 +1,6 @@
 ﻿using Application.LocationTowns;
 using Application.LocationTowns.Queries.LocationTownsRelated.CountLocationTownsQueryRelated;
 using Application.Shared.DtosRelated;
-using FluentAssertions;
-using NSubstitute;
 
 namespace ApplicationUnitTests.LocationTowns;
 

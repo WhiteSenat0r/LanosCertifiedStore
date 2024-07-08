@@ -1,8 +1,6 @@
 ﻿using Application.Shared.ResultRelated;
 using Application.VehicleTransmissionTypes;
 using Application.VehicleTransmissionTypes.Queries.CollectionVehicleTransmissionTypesQueryRelated;
-using FluentAssertions;
-using NSubstitute;
 
 namespace ApplicationUnitTests.VehicleTransmissionTypes;
 

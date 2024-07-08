@@ -1,8 +1,6 @@
 ﻿using Application.Shared.ResultRelated;
 using Application.VehicleEngineTypes;
 using Application.VehicleEngineTypes.Queries.CollectionVehicleEngineTypesQueryRelated;
-using FluentAssertions;
-using NSubstitute;
 
 namespace ApplicationUnitTests.VehicleEngineTypes;
 

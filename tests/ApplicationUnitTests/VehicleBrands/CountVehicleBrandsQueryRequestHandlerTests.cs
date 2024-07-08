@@ -1,8 +1,6 @@
 ﻿using Application.Shared.DtosRelated;
 using Application.VehicleBrands;
 using Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
-using FluentAssertions;
-using NSubstitute;
 
 namespace ApplicationUnitTests.VehicleBrands;
 

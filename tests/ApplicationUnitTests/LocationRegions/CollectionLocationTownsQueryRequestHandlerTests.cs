@@ -2,8 +2,6 @@
 using Application.LocationRegions.Dtos;
 using Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
 using Application.Shared.ResultRelated;
-using FluentAssertions;
-using NSubstitute;
 
 namespace ApplicationUnitTests.LocationRegions;
 

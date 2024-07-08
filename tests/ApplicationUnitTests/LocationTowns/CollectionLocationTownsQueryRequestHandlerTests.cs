@@ -2,8 +2,6 @@
 using Application.LocationTowns.Dtos;
 using Application.LocationTowns.Queries.LocationTownsRelated.CollectionLocationTownsQueryRequestRelated;
 using Application.Shared.ResultRelated;
-using FluentAssertions;
-using NSubstitute;
 
 namespace ApplicationUnitTests.LocationTowns;
 

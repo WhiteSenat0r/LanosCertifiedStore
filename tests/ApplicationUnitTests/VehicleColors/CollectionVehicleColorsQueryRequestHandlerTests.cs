@@ -1,8 +1,6 @@
 ﻿using Application.Shared.ResultRelated;
 using Application.VehicleColors;
 using Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
-using FluentAssertions;
-using NSubstitute;
 
 namespace ApplicationUnitTests.VehicleColors;
 

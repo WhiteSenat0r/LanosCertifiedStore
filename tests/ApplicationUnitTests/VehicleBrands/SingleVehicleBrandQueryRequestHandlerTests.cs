@@ -2,8 +2,6 @@
 using Application.VehicleBrands;
 using Application.VehicleBrands.Dtos;
 using Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
-using FluentAssertions;
-using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 
 namespace ApplicationUnitTests.VehicleBrands;
