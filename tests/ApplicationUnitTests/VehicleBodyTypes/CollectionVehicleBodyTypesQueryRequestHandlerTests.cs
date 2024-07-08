@@ -16,7 +16,7 @@ public sealed class CollectionVehicleBodyTypesQueryRequestHandlerTests
 
     public CollectionVehicleBodyTypesQueryRequestHandlerTests()
     {
-        _handler = new(_vehicleBodyTypeService);
+        _handler = new CollectionVehicleBodyTypesQueryRequestHandler(_vehicleBodyTypeService);
     }
 
     [Fact]
