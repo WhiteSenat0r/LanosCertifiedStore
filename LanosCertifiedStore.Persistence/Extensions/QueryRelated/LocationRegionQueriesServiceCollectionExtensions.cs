@@ -11,7 +11,7 @@ internal static class LocationRegionQueriesServiceCollectionExtensions
     public static IServiceCollection AddLocationRegionQueriesRelatedServices(this IServiceCollection services)
     {
         services.AddTransient<IQuerySortingSettingsSelector<VehicleLocationRegion>,
-            LocationRegionSortingSettingSelector>();
+            LocationRegionSortingSettingsSelector>();
         
         services.AddTransient<CollectionLocationRegionsQuery>();
             
