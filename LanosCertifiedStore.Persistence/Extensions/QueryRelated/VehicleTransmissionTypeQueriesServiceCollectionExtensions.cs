@@ -14,7 +14,6 @@ internal static class VehicleTransmissionTypeQueriesServiceCollectionExtensions
             VehicleTransmissionTypesSortingSettingsSelector>();
 
         services.AddTransient<CollectionVehicleTransmissionTypesQuery>();
-        services.AddTransient<CountVehicleTransmissionTypesQuery>();
 
         return services;
     }

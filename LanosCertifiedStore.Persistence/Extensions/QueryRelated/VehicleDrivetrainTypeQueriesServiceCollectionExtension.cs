@@ -14,7 +14,7 @@ internal static class VehicleDrivetrainTypeQueriesServiceCollectionExtension
             VehicleDrivetrainTypesSortingSettingsSelector>();
 
         services.AddTransient<CollectionVehicleDrivetrainTypesQuery>();
-        services.AddTransient<CountVehicleDrivetrainTypesQuery>();
+        
         return services;
     }
 }

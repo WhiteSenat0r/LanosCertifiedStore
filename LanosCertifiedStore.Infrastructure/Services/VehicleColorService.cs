@@ -1,26 +1,17 @@
 ﻿using Application.Contracts.ServicesRelated;
 using Application.Dtos.ColorDtos;
-using Application.Dtos.Common;
 using Application.QueryRequests.VehicleColorsRelated.CollectionVehicleColorsQueryRequestRelated;
-using Application.QueryRequests.VehicleColorsRelated.CountVehicleColorsQueryRequestRelated;
 using Persistence.Queries.VehicleColorRelated.QueryRelated;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.Services;
 
 internal sealed class VehicleColorService(
-    CollectionVehicleColorsQuery collectionVehicleColorsQuery,
-    CountVehicleColorsQuery countVehicleColorsQuery) : IVehicleColorService
+    CollectionVehicleColorsQuery collectionVehicleColorsQuery) : IVehicleColorService
 {
     public async Task<IReadOnlyCollection<VehicleColorDto>> GetVehicleColorCollection(
         CollectionVehicleColorsQueryRequest queryRequest,
         CancellationToken cancellationToken)
     {
         return await collectionVehicleColorsQuery.Execute(queryRequest, cancellationToken);
-    }
-
-    public async Task<ItemsCountDto> GetVehicleColorsCount(CountVehicleColorsQueryRequest queryRequest,
-        CancellationToken cancellationToken)
-    {
-        return await countVehicleColorsQuery.Execute(queryRequest, cancellationToken);
     }
 }

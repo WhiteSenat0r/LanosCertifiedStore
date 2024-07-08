@@ -13,7 +13,6 @@ internal static class VehicleColorQueriesServiceCollectionExtensions
         services.AddTransient<IQuerySortingSettingsSelector<VehicleColor>, VehicleColorsSortingSettingsSelector>();
 
         services.AddTransient<CollectionVehicleColorsQuery>();
-        services.AddTransient<CountVehicleColorsQuery>();
 
         return services;
     }

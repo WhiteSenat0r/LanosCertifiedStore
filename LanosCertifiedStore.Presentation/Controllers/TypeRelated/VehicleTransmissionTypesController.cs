@@ -4,7 +4,6 @@ using Application.Dtos.Common;
 using Application.Dtos.TypeDtos;
 using Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated
     .CollectionVehicleTransmissionTypesQueryRelated;
-using Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated.CountVehicleTransmissionTypesQueryRelated;
 using Application.RequestParameters.TypeRelated;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,15 +22,5 @@ public sealed class VehicleTransmissionTypesController : BaseApiController
 
         return Ok(result.Value);
     }
-    
-    [HttpGet("CountItems")]
-    [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
-        [FromQuery] VehicleTransmissionTypeFilteringRequestParameters requestParameters)
-    {
-        var result = await Mediator.Send(new CountVehicleTransmissionTypesQueryRequest(requestParameters));
 
-        return Ok(result.Value);
-    }
 }

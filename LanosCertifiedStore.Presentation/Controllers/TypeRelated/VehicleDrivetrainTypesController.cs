@@ -4,8 +4,6 @@ using Application.Dtos.Common;
 using Application.Dtos.TypeDtos;
 using Application.QueryRequests.TypesRelated.VehicleDrivetrainTypeRelated.
     CollectionVehicleDrivetrainTypesQueryRequestRelated;
-using
-    Application.QueryRequests.TypesRelated.VehicleDrivetrainTypeRelated.CountVehicleDrivetrainTypesQueryRequestRelated;
 using Application.RequestParameters.TypeRelated;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,17 +19,6 @@ public sealed class VehicleDrivetrainTypesController : BaseApiController
         [FromQuery] VehicleDrivetrainTypeFilteringRequestParameters requestParameters)
     {
         var result = await Mediator.Send(new CollectionVehicleDrivetrainTypesQueryRequest(requestParameters));
-
-        return Ok(result.Value);
-    }
-
-    [HttpGet("CountItems")]
-    [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
-        [FromQuery] VehicleDrivetrainTypeFilteringRequestParameters requestParameters)
-    {
-        var result = await Mediator.Send(new CountVehicleDrivetrainTypesQueryRequest(requestParameters));
 
         return Ok(result.Value);
     }

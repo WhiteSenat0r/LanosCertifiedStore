@@ -13,7 +13,6 @@ internal static class VehicleBodyTypeQueriesServiceCollectionExtensions
         services.AddTransient<IQuerySortingSettingsSelector<VehicleBodyType>, VehicleBodyTypesSortingSettingsSelector>();
 
         services.AddTransient<CollectionVehicleBodyTypesQuery>();
-        services.AddTransient<CountVehicleBodyTypesQuery>();
 
         return services;
     }
