@@ -2,4 +2,4 @@
 
 namespace Application.Dtos.LocationDtos;
 
-public sealed record LocationAreaDto : VehicleAspectDto;
+public sealed record LocationRegionDto : VehicleAspectDto;
