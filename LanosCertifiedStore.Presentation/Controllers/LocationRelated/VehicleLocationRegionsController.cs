@@ -1,25 +1,32 @@
-﻿namespace API.Controllers.LocationRelated;
+﻿using API.Controllers.Common;
+using Application.Core.Results;
+using Application.Dtos.LocationDtos;
+using Application.QueryRequests.LocationsRelated.LocationRegionsRelated.CollectionLocationRegionsQueryRequestRelated;
+using Application.RequestParameters.LocationRelated;
+using Microsoft.AspNetCore.Mvc;
 
-// public sealed class VehicleLocationRegionsController : BaseModelRelatedApiController
-// {
-//     [HttpGet]
-//     [ProducesResponseType(typeof(PaginationResult<RegionDto>), StatusCodes.Status200OK)]
-//     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-//     public async Task<ActionResult<PaginationResult<RegionDto>>> GetRegions(
-//         [FromQuery] VehicleLocationRegionFilteringRequestParameters requestParameters)
-//     {
-//         return HandleResult(await Mediator.Send(new VehicleLocationRegionsQuery(requestParameters)));
-//     }
-//     
-//     [HttpGet("countItems")]
-//     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
-//     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-//     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-//     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
-//         [FromQuery] VehicleLocationRegionFilteringRequestParameters requestParameters)
-//     {
-//         return HandleResult(await Mediator.Send(new CountRegionsQueryRequest(requestParameters)));
-//     }
-//     
-//     // TODO Maybe add full CRUD in the future
-// }
+namespace API.Controllers.LocationRelated;
+
+[Route("api/LocationRegions")]
+public sealed class VehicleLocationRegionsController : BaseApiController
+{
+    [HttpGet]
+    [ProducesResponseType(typeof(PaginationResult<LocationRegionDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<PaginationResult<LocationRegionDto>>> GetRegions(
+        [FromQuery] string? sortingType)
+    {
+        var result = await Mediator.Send(new CollectionLocationRegionsQueryRequest(
+            new VehicleLocationRegionFilteringRequestParameters 
+            {
+                SortingType = sortingType ?? string.Empty
+            }));
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(CreateNotFoundProblemDetails(result.Error!));
+        }
+
+        return Ok(result.Value);
+    }
+}
