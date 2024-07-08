@@ -30,8 +30,6 @@ public static class InfrastructureServiceCollectionExtensions
         services.AddScoped<IVehicleDrivetrainTypeService, VehicleDrivetrainTypeService>();
         services.AddScoped<IVehicleTransmissionTypeService, VehicleTransmissionTypeService>();
         services.AddScoped<IVehicleEngineTypeService, VehicleEngineTypeService>();
-
-        services.AddScoped<ILocationAreaService, LocationAreaService>();
         services.AddScoped<ILocationRegionService, LocationRegionService>();
 
         return services;

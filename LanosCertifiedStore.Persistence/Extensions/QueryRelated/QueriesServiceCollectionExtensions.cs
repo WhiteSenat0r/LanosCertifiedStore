@@ -17,7 +17,6 @@ internal static class QueriesServiceCollectionExtensions
         services.AddVehicleDriveTrainTypeQueriesRelatedServices();
         services.AddVehicleTransmissionTypeQueriesRelatedServices();
         services.AddVehicleEngineTypeQueriesRelatedServices();
-        services.AddLocationAreaQueriesRelatedServices();
         services.AddLocationRegionQueriesRelatedServices();
 
         return services;
