@@ -1,5 +1,5 @@
 ﻿using Application.Contracts.ServicesRelated.ImageService;
-using Application.Core.Results;
+using Application.Shared.ResultRelated;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using LanosCertifiedStore.InfrastructureLayer.Services.Services.ImagesRelated.Common;

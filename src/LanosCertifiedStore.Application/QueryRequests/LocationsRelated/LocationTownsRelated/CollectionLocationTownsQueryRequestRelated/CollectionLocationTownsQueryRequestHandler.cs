@@ -1,5 +1,4 @@
 ﻿using Application.Contracts.ServicesRelated.LocationRelated;
-using Application.Core.Results;
 using Application.Dtos.LocationDtos;
 using Application.Shared.ResultRelated;
 using MediatR;

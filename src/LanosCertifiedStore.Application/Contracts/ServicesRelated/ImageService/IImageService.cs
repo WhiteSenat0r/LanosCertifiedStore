@@ -1,4 +1,4 @@
-﻿using Application.Core.Results;
+﻿using Application.Shared.ResultRelated;
 using Microsoft.AspNetCore.Http;
 
 namespace Application.Contracts.ServicesRelated.ImageService;

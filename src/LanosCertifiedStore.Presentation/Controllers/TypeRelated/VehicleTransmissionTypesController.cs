@@ -1,10 +1,10 @@
 ﻿using API.Controllers.Common;
-using Application.Core.Results;
 using Application.Dtos.TypeDtos;
 using Application.QueryRequests.TypesRelated.VehicleTransmissionTypeRelated
     .CollectionVehicleTransmissionTypesQueryRelated;
 using Application.RequestParameters.Common.Enums;
 using Application.RequestParameters.TypeRelated;
+using Application.Shared.ResultRelated;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.TypeRelated;

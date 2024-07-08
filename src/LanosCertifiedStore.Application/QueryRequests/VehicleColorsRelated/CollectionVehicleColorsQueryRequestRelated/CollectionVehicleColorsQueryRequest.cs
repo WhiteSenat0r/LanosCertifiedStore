@@ -1,7 +1,7 @@
 ﻿using Application.Contracts.Common;
 using Application.Contracts.RequestRelated.QueryRelated;
-using Application.Core.Results;
 using Application.Dtos.ColorDtos;
+using Application.Shared.ResultRelated;
 using Domain.Entities.VehicleRelated;
 
 namespace Application.QueryRequests.VehicleColorsRelated.CollectionVehicleColorsQueryRequestRelated;

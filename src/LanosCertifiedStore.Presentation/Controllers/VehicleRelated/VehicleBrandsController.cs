@@ -2,13 +2,13 @@
 using Application.CommandRequests.VehicleBrandsRelated.CreateVehicleBrandRelated;
 using Application.CommandRequests.VehicleBrandsRelated.UpdateVehicleBrandRelated;
 using Application.Contracts.ValidationRelated;
-using Application.Core.Results;
 using Application.Dtos.BrandDtos;
 using Application.Dtos.Common;
 using Application.QueryRequests.VehicleBrandsRelated.CollectionVehicleBrandsQueryRelated;
 using Application.QueryRequests.VehicleBrandsRelated.CountVehicleBrandsQueryRelated;
 using Application.QueryRequests.VehicleBrandsRelated.SingleVehicleBrandQueryRelated;
 using Application.RequestParameters;
+using Application.Shared.ResultRelated;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.VehicleRelated;

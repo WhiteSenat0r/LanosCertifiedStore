@@ -1,9 +1,9 @@
 ﻿using API.Controllers.Common;
-using Application.Core.Results;
 using Application.Dtos.LocationDtos;
 using Application.QueryRequests.LocationsRelated.LocationRegionsRelated.CollectionLocationRegionsQueryRequestRelated;
 using Application.RequestParameters.Common.Enums;
 using Application.RequestParameters.LocationRelated;
+using Application.Shared.ResultRelated;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.LocationRelated;

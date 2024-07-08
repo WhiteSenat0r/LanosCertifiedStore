@@ -1,4 +1,4 @@
-﻿namespace Application.Core.Results;
+﻿namespace Application.Shared.ResultRelated;
 
 public class PaginationResult<T>
 {
