@@ -3,7 +3,7 @@ using Domain.Entities.VehicleRelated;
 
 namespace Application.VehicleColors;
 
-public sealed class VehicleColorRelatedMappingProfile : Profile
+internal sealed class VehicleColorRelatedMappingProfile : Profile
 {
     public VehicleColorRelatedMappingProfile()
     {

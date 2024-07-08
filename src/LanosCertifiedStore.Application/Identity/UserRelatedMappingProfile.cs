@@ -5,7 +5,7 @@ using Domain.Entities.UserRelated;
 
 namespace Application.Identity;
 
-public sealed class UserTypeRelatedMappingProfile : Profile
+internal sealed class UserTypeRelatedMappingProfile : Profile
 {
     public UserTypeRelatedMappingProfile()
     {
