@@ -4,7 +4,7 @@ using Persistence.Queries.Common.Classes.SelectorBaseRelated;
 
 namespace Persistence.Queries.LocationRelated.LocationRegionRelated.SelectorRelated;
 
-internal sealed class LocationRegionSortingSettingSelector : QuerySortingSettingsSelectorBase<VehicleLocationRegion>
+internal sealed class LocationRegionSortingSettingsSelector : QuerySortingSettingsSelectorBase<VehicleLocationRegion>
 {
     private protected override IReadOnlyDictionary<string, Expression<Func<VehicleLocationRegion, object>>>
         GetMappedSortingExpressions()
