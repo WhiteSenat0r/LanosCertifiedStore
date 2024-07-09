@@ -25,6 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\src\LanosCertifiedStore.Application\LanosCertifiedStore.Application.csproj" />
       <ProjectReference Include="..\..\src\LanosCertifiedStore.Domain\LanosCertifiedStore.Domain.csproj" />
     </ItemGroup>
 
