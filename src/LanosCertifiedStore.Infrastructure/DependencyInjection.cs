@@ -18,9 +18,9 @@ using LanosCertifiedStore.InfrastructureLayer.Services.Services.LocationRelated;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.Extensions;
+namespace LanosCertifiedStore.InfrastructureLayer.Services;
 
-public static class InfrastructureServiceCollectionExtensions
+public static class DependencyInjection
 {
     public static IServiceCollection AddExternalServices(this IServiceCollection services, IConfiguration config)
     {

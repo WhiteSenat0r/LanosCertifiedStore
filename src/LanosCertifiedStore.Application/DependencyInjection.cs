@@ -4,9 +4,9 @@ using Application.VehicleBrands.Queries.CollectionVehicleBrandsQueryRelated;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application.Extensions;
+namespace Application;
 
-public static class ApplicationServiceCollectionExtensions
+public static class DependencyInjection
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {

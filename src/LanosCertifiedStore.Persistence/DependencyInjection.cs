@@ -10,9 +10,9 @@ using Persistence.Queries.Common.Classes;
 using Persistence.Queries.Common.Contracts;
 using Persistence.Services;
 
-namespace Persistence.Extensions;
+namespace Persistence;
 
-public static class PersistenceServiceCollectionExtensions
+public static class DependencyInjection
 {
     public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration config)
     {

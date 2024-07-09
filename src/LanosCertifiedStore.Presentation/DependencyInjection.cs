@@ -1,8 +1,8 @@
 ﻿using API.Middlewares.ExceptionRelated;
 
-namespace API.Extensions;
+namespace API;
 
-internal static class ApiServiceCollectionExtensions
+internal static class DependencyInjection
 {
     public static IServiceCollection AddApiServices(this IServiceCollection services, IConfiguration config)
     {
