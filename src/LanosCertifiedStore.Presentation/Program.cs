@@ -1,8 +1,9 @@
+using API;
 using API.Extensions;
 using API.Middlewares;
-using Application.Extensions;
-using LanosCertifiedStore.InfrastructureLayer.Services.Extensions;
-using Persistence.Extensions;
+using Application;
+using LanosCertifiedStore.InfrastructureLayer.Services;
+using Persistence;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
