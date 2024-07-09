@@ -23,8 +23,8 @@ public static class PersistenceServiceCollectionExtensions
         });
 
         services.AddCommandsAndQueriesRelatedServices();
-        services.AddServicesForInterface(typeof(IQuerySortingSettingsSelector<>));
-        services.AddServicesForInterface(typeof(IQueryFilteringCriteriaSelector<>));
+        services.AddServicesForInterface(typeof(IQuerySortingSettingsSelector<>), ServiceLifetime.Transient);
+        services.AddServicesForInterface(typeof(IQueryFilteringCriteriaSelector<>), ServiceLifetime.Transient);
 
         services.AddCommonServices();
 
@@ -40,7 +40,10 @@ public static class PersistenceServiceCollectionExtensions
         return services;
     }
 
-    private static IServiceCollection AddServicesForInterface(this IServiceCollection services, Type interfaceType)
+    private static IServiceCollection AddServicesForInterface(
+        this IServiceCollection services,
+        Type interfaceType,
+        ServiceLifetime lifetime)
     {
         var assembly = Assembly.GetExecutingAssembly();
         var requests = GetClassesImplementingInterface(assembly, interfaceType);
@@ -49,7 +52,7 @@ public static class PersistenceServiceCollectionExtensions
             .Select(x =>
             {
                 var implementedInterfaceType = x.GetInterfaces().First();
-                return new ServiceDescriptor(implementedInterfaceType, x, ServiceLifetime.Transient);
+                return new ServiceDescriptor(implementedInterfaceType, x, lifetime);
             });
 
         services.TryAdd(serviceDescriptor);
