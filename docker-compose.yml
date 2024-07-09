@@ -8,14 +8,18 @@ services:
       - "5000:5000"
       - "5001:5001"
     depends_on:
-      - lanoscertifiedstore.database
-    develop:
-      watch:
-        - action: rebuild
-          path: .
+      lanoscertifiedstore.database:
+        condition: service_healthy
+        restart: true
   
   lanoscertifiedstore.database:
     image: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
     container_name: lsc_db
     environment:
       - POSTGRES_DB=LanosCertifiedStore
