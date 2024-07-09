@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
 
-internal sealed class CreateVehicleBrandCommandHandler(IVehicleBrandService vehicleBrandService) : 
+internal sealed class CreateVehicleBrandCommandRequestHandler(IVehicleBrandService vehicleBrandService) : 
     IRequestHandler<CreateVehicleBrandCommandRequest, Result<Guid>>
 {
     public async Task<Result<Guid>> Handle(

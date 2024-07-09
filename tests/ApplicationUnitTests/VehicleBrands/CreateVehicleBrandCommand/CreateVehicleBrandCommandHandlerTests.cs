@@ -3,22 +3,22 @@ using Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
 
 namespace ApplicationUnitTests.VehicleBrands.CreateVehicleBrandCommand;
 
-public sealed class CreateVehicleBrandCommandHandlerTests
+public sealed class CreateVehicleBrandCommandRequestHandlerTests
 {
     private readonly IVehicleBrandService _vehicleBrandService = Substitute.For<IVehicleBrandService>();
-    private readonly CreateVehicleBrandCommandHandler _handler;
+    private readonly CreateVehicleBrandCommandRequestHandler _requestHandler;
     private readonly CreateVehicleBrandCommandRequest _request = new("test brand");
 
-    public CreateVehicleBrandCommandHandlerTests()
+    public CreateVehicleBrandCommandRequestHandlerTests()
     {
-        _handler = new CreateVehicleBrandCommandHandler(_vehicleBrandService);
+        _requestHandler = new CreateVehicleBrandCommandRequestHandler(_vehicleBrandService);
     }
 
     [Fact]
     public async Task Handler_ShouldInvokeAddNewVehicleBrand_FromVehicleBrandService()
     {
         // Act
-        await _handler.Handle(_request, default);
+        await _requestHandler.Handle(_request, default);
 
         // Assert
         await _vehicleBrandService
@@ -36,7 +36,7 @@ public sealed class CreateVehicleBrandCommandHandlerTests
             .Returns(expectedId);
 
         // Act
-        var result = await _handler.Handle(_request, default);
+        var result = await _requestHandler.Handle(_request, default);
 
         // Assert
         result.IsSuccess
