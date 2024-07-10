@@ -10,40 +10,38 @@ internal sealed class ValidationHelper(
     ApplicationDatabaseContext context) : IValidationHelper
 {
     public async Task<bool> CheckAspectValueUniqueness<TMainAspect, TValue>(TValue value,
-        Expression<Func<TMainAspect, bool>> equalitySelector) 
+        Expression<Func<TMainAspect, bool>> equalitySelector)
         where TMainAspect : class, IIdentifiable<Guid>
     {
         var itemsCount = await context.Set<TMainAspect>().CountAsync(equalitySelector);
-        
+
         return itemsCount.Equals(0);
     }
 
     public async Task<bool> CheckMainAspectPresence<TMainAspect>(Guid id)
         where TMainAspect : class, IIdentifiable<Guid>
     {
-        var mainAspect = await context.Set<TMainAspect>().FindAsync(id);
-        
-        return mainAspect is not null;
+        return await context.Set<TMainAspect>().AnyAsync(aspect => aspect.Id == id);
     }
-    
+
     public async Task<(Guid? Id, bool IsSuccess)> CheckMainAspectPresence<TMainAspect>(IEnumerable<Guid> ids)
         where TMainAspect : class, IIdentifiable<Guid>
     {
         var set = context.Set<TMainAspect>();
-        
+
         foreach (var id in ids)
         {
-            var mainAspect = await set.FindAsync(id);
+            var existsById = await CheckMainAspectPresence<TMainAspect>(id);
 
-            if (mainAspect is null)
+            if (!existsById)
             {
                 return (id, false);
             }
         }
-        
+
         return (null, true);
     }
-    
+
     public async Task<bool> CheckSecondaryAspectPresence<TMainAspect, TSecondaryAspect>(
         (Guid?, Guid?)? ids,
         Func<TMainAspect, Guid> mainAspectIdSelector)
@@ -90,7 +88,7 @@ internal sealed class ValidationHelper(
 
     private bool AreExistingItems<TMainAspect, TSecondaryAspect>(
         TMainAspect? mainAspect, TSecondaryAspect? secondaryAspect)
-        where TMainAspect : class, IIdentifiable<Guid> 
+        where TMainAspect : class, IIdentifiable<Guid>
         where TSecondaryAspect : class, IIdentifiable<Guid>
     {
         if (mainAspect is null)
@@ -112,7 +110,7 @@ internal sealed class ValidationHelper(
 
         mainAspectId = ids.Value.Item1;
         secondaryAspectId = ids.Value.Item2;
-        
+
         if (IsInvalidAspectId(mainAspectId))
         {
             return false;
