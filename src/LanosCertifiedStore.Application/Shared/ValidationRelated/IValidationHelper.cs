@@ -12,7 +12,7 @@ public interface IValidationHelper
     Task<bool> CheckMainAspectPresence<TMainAspect>(Guid id)
         where TMainAspect : class, IIdentifiable<Guid>;
     
-    Task<bool> CheckMainAspectPresence<TMainAspect>(IEnumerable<Guid> ids)
+    Task<(Guid? Id, bool IsSuccess)> CheckMainAspectPresence<TMainAspect>(IEnumerable<Guid> ids)
         where TMainAspect : class, IIdentifiable<Guid>;
     
     Task<bool> CheckSecondaryAspectPresence<TMainAspect, TSecondaryAspect>(
