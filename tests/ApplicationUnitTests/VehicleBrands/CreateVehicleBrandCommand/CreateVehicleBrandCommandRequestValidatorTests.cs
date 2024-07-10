@@ -2,7 +2,6 @@
 using Application.Shared.ValidationRelated;
 using Application.VehicleBrands;
 using Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
-using Domain.Constants.VehicleRelated;
 using Domain.Entities.VehicleRelated;
 using FluentValidation.TestHelper;
 
@@ -49,7 +48,7 @@ public class CreateVehicleBrandCommandRequestValidatorTests
     public async Task Should_HaveError_WhenNameIsTooLong()
     {
         // Arrange
-        var model = new CreateVehicleBrandCommandRequest(new string('A', VehicleBrandConstants.MaximumNameLength + 1));
+        var model = new CreateVehicleBrandCommandRequest(new string('A', 65));
 
         // Act
         var result = await _validator.TestValidateAsync(model);
