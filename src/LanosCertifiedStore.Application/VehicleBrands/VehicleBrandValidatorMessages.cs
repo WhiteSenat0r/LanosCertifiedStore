@@ -1,11 +1,7 @@
-﻿using Domain.Constants.VehicleRelated;
+﻿namespace Application.VehicleBrands;
 
-namespace Application.VehicleBrands;
-
-public static class VehicleBrandValidatorMessages
+internal static class VehicleBrandValidatorMessages
 {
-    public static readonly string InvalidNameValue = 
-        $"Name must be greater than {VehicleBrandConstants.MinimalNameLength} characters" +
-        $" and less than {VehicleBrandConstants.MaximumNameLength}";
+    public const string InvalidNameValue = "Name must be greater than 2 characters and less than 64!";
     public const string AlreadyExistingNameValue = "Vehicle brand with such name already exists!";
 }
