@@ -7,6 +7,7 @@ using Application.VehicleBrands;
 using Application.VehicleColors;
 using Application.VehicleDrivetrainTypes;
 using Application.VehicleEngineTypes;
+using Application.VehicleModels;
 using Application.VehicleTransmissionTypes;
 using Application.VehicleTypes;
 using LanosCertifiedStore.InfrastructureLayer.Services.Services;
@@ -39,6 +40,7 @@ public static class DependencyInjection
         services.AddScoped<IVehicleEngineTypeService, VehicleEngineTypeService>();
         services.AddScoped<ILocationRegionService, LocationRegionService>();
         services.AddScoped<ILocationTownService, LocationTownService>();
+        services.AddScoped<IVehicleModelService, VehicleModelService>();
 
         return services;
     }
