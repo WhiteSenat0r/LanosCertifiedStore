@@ -1,6 +1,5 @@
 ﻿using System.Linq.Expressions;
 using Application.Shared.ValidationRelated;
-using Domain.Constants.VehicleRelated;
 using Domain.Entities.VehicleRelated;
 using FluentValidation;
 
@@ -19,8 +18,8 @@ internal sealed class UpdateVehicleBrandCommandRequestValidator : AbstractValida
     {
         RuleFor(expression)
             .NotEmpty()
-            .MinimumLength(VehicleBrandConstants.MinimalNameLength)
-            .MaximumLength(VehicleBrandConstants.MaximumNameLength)
+            .MinimumLength(2)
+            .MaximumLength(64)
             .WithMessage(VehicleBrandValidatorMessages.InvalidNameValue);
     }
 
