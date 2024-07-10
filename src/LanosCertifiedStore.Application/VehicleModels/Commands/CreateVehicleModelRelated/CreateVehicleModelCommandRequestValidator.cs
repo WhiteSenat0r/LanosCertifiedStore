@@ -93,7 +93,7 @@ internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValida
         RuleFor(expression)
             .MustAsync(async (_, id, context, _) =>
                 await ExistById<VehicleBrand>(validationHelper, id, context))
-            .WithMessage(VehicleModelValidatorMessages.InvalidBrandIdValue);
+            .WithMessage("Brand with ID {AspectId} does not exist!");
     }
 
     private void GetTypeValidationRules(IValidationHelper validationHelper)
@@ -103,7 +103,7 @@ internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValida
         RuleFor(expression)
             .MustAsync(async (_, id, context, _) =>
                 await ExistById<VehicleType>(validationHelper, id, context))
-            .WithMessage(VehicleModelValidatorMessages.InvalidTypeIdValue);
+            .WithMessage("Type with ID {AspectId} does not exist!");
     }
 
     private void GetProductionYearValidationRules()
