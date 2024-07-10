@@ -8,7 +8,9 @@ internal sealed class VehicleBrandRelatedMappingProfile : Profile
 {
     public VehicleBrandRelatedMappingProfile()
     {
-        CreateMap<VehicleBrand, VehicleBrandDto>();
-        CreateMap<VehicleBrand, SingleVehicleBrandDto>();
+        CreateMap<VehicleBrand, VehicleBrandDto>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
+        CreateMap<VehicleBrand, SingleVehicleBrandDto>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
     }
 }
