@@ -27,8 +27,6 @@ internal sealed class ValidationHelper(
     public async Task<(Guid? Id, bool IsSuccess)> CheckMainAspectPresence<TMainAspect>(IEnumerable<Guid> ids)
         where TMainAspect : class, IIdentifiable<Guid>
     {
-        var set = context.Set<TMainAspect>();
-
         foreach (var id in ids)
         {
             var existsById = await CheckMainAspectPresence<TMainAspect>(id);
