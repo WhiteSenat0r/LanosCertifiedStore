@@ -7,6 +7,6 @@ internal sealed class VehicleTypesRelatedMappingProfile : Profile
 {
     public VehicleTypesRelatedMappingProfile()
     {
-        CreateMap<VehicleType, VehicleTypeDto>();
+        CreateMap<VehicleType, VehicleTypeDto>().ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
     }
 }

@@ -43,8 +43,6 @@
       <Folder Include="VehicleBrands\Queries\" />
       <Folder Include="VehicleColors\Queries\" />
       <Folder Include="VehicleDrivetrainTypes\Queries\" />
-      <Folder Include="VehicleModels\Commands\" />
-      <Folder Include="VehicleModels\Queries\" />
       <Folder Include="Vehicles\Commands\" />
       <Folder Include="Vehicles\Queries\" />
       <Folder Include="VehicleTransmissionTypes\Queries\" />
