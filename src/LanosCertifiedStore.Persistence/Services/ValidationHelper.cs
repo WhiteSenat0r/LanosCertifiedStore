@@ -21,24 +21,27 @@ internal sealed class ValidationHelper(
     public async Task<bool> CheckMainAspectPresence<TMainAspect>(Guid id)
         where TMainAspect : class, IIdentifiable<Guid>
     {
-        throw new NotImplementedException();
-        // var mainAspect = await unitOfWork.RetrieveRepository<TMainAspect>().GetEntityByIdAsync(id);
-        //
-        // return mainAspect is not null;
+        var mainAspect = await context.Set<TMainAspect>().FindAsync(id);
+        
+        return mainAspect is not null;
     }
     
-    public async Task<bool> CheckMainAspectPresence<TMainAspect>(IEnumerable<Guid> ids)
+    public async Task<(Guid? Id, bool IsSuccess)> CheckMainAspectPresence<TMainAspect>(IEnumerable<Guid> ids)
         where TMainAspect : class, IIdentifiable<Guid>
     {
-        // foreach (var id in ids)
-        // {
-        //     var mainAspect = await unitOfWork.RetrieveRepository<TMainAspect>().GetEntityByIdAsync(id);
-        //
-        //     if (mainAspect is null) return false;
-        // }
-        //
-        // return true;
-        throw new NotImplementedException();
+        var set = context.Set<TMainAspect>();
+        
+        foreach (var id in ids)
+        {
+            var mainAspect = await set.FindAsync(id);
+
+            if (mainAspect is null)
+            {
+                return (id, false);
+            }
+        }
+        
+        return (null, true);
     }
     
     public async Task<bool> CheckSecondaryAspectPresence<TMainAspect, TSecondaryAspect>(
