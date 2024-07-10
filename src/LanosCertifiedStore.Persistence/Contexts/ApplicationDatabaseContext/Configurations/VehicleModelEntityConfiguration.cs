@@ -17,6 +17,6 @@ internal sealed class VehicleModelConfiguration : IEntityTypeConfiguration<Vehic
             .HasForeignKey(vm => vm.VehicleBrandId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasIndex(p => p.Name).IsUnique();
+        builder.HasIndex(p => new { p.Name, p.VehicleBrandId }).IsUnique();
     }
 }
