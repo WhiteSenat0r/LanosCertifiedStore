@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Application.Shared.ValidationRelated;
+using Domain.Contracts.Common;
 using Domain.Entities.VehicleRelated;
 using Domain.Entities.VehicleRelated.TypeRelated;
 using FluentValidation;
@@ -20,17 +21,17 @@ internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValida
         GetEngineTypesValidationRules(validationHelper);
         GetProductionYearValidationRules();
     }
-    
+
     private void GetNameValidationRules(IValidationHelper validationHelper)
     {
         Expression<Func<CreateVehicleModelCommandRequest, string>> expression = x => x.Name;
-        
+
         RuleFor(expression)
             .NotEmpty()
             .MinimumLength(2)
             .MaximumLength(64)
             .WithMessage(VehicleModelValidatorMessages.InvalidNameValue);
-        
+
         RuleFor(expression)
             .MustAsync(async (name, _) =>
             {
@@ -40,125 +41,83 @@ internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValida
             })
             .WithMessage(VehicleModelValidatorMessages.AlreadyExistingNameValue);
     }
-    
+
     private void GetBodyTypesValidationRules(IValidationHelper validationHelper)
     {
-        Expression<Func<CreateVehicleModelCommandRequest, IEnumerable<Guid>>> expression = 
+        Expression<Func<CreateVehicleModelCommandRequest, IEnumerable<Guid>>> expression =
             x => x.AvailableBodyTypesIds;
 
-        var possibleNotFoundAspectId = string.Empty;
-
         RuleFor(expression)
-            .MustAsync(async (ids, _) =>
-            {
-                var checkResult = await validationHelper.CheckMainAspectPresence<VehicleBodyType>(ids);
-
-                if (!checkResult.IsSuccess)
-                {
-                    possibleNotFoundAspectId = checkResult.Id!.Value.ToString();
-                }
-
-                return checkResult.IsSuccess;
-            })
-            .WithMessage($"Body type with ID {possibleNotFoundAspectId} does not exist!");
+            .MustAsync(async (_, ids, context, _) =>
+                await ExistByIds<VehicleBodyType>(validationHelper, ids, context))
+            .WithMessage("Body type with ID {AspectId} does not exist!");
     }
-    
+
     private void GetEngineTypesValidationRules(IValidationHelper validationHelper)
     {
-        Expression<Func<CreateVehicleModelCommandRequest, IEnumerable<Guid>>> expression = 
+        Expression<Func<CreateVehicleModelCommandRequest, IEnumerable<Guid>>> expression =
             x => x.AvailableEngineTypesIds;
 
-        var possibleNotFoundAspectId = string.Empty;
-
         RuleFor(expression)
-            .MustAsync(async (ids, _) =>
-            {
-                var checkResult = await validationHelper.CheckMainAspectPresence<VehicleEngineType>(ids);
-
-                if (!checkResult.IsSuccess)
-                {
-                    possibleNotFoundAspectId = checkResult.Id!.Value.ToString();
-                }
-
-                return checkResult.IsSuccess;
-            })
-            .WithMessage($"Engine type with ID {possibleNotFoundAspectId} does not exist!");
+            .MustAsync(async (_, ids, context, _) =>
+                await ExistByIds<VehicleEngineType>(validationHelper, ids, context))
+            .WithMessage("Engine type with ID {AspectId} does not exist!");
     }
-    
+
     private void GetDrivetrainTypesValidationRules(IValidationHelper validationHelper)
     {
-        Expression<Func<CreateVehicleModelCommandRequest, IEnumerable<Guid>>> expression = 
+        Expression<Func<CreateVehicleModelCommandRequest, IEnumerable<Guid>>> expression =
             x => x.AvailableDrivetrainTypesIds;
 
-        var possibleNotFoundAspectId = string.Empty;
-
         RuleFor(expression)
-            .MustAsync(async (ids, _) =>
-            {
-                var checkResult = await validationHelper.CheckMainAspectPresence<VehicleEngineType>(ids);
-
-                if (!checkResult.IsSuccess)
-                {
-                    possibleNotFoundAspectId = checkResult.Id!.Value.ToString();
-                }
-
-                return checkResult.IsSuccess;
-            })
-            .WithMessage($"Drivetrain type with ID {possibleNotFoundAspectId} does not exist!");
+            .MustAsync(async (_, ids, context, _) =>
+                await ExistByIds<VehicleDrivetrainType>(validationHelper, ids, context))
+            .WithMessage("Drivetrain type with ID {AspectId} does not exist!");
     }
-    
+
     private void GetTransmissionTypesValidationRules(IValidationHelper validationHelper)
     {
-        Expression<Func<CreateVehicleModelCommandRequest, IEnumerable<Guid>>> expression = 
+        Expression<Func<CreateVehicleModelCommandRequest, IEnumerable<Guid>>> expression =
             x => x.AvailableTransmissionTypesIds;
 
-        var possibleNotFoundAspectId = string.Empty;
-
         RuleFor(expression)
-            .MustAsync(async (ids, _) =>
-            {
-                var checkResult = await validationHelper.CheckMainAspectPresence<VehicleTransmissionType>(ids);
-
-                if (!checkResult.IsSuccess)
-                {
-                    possibleNotFoundAspectId = checkResult.Id!.Value.ToString();
-                }
-
-                return checkResult.IsSuccess;
-            })
-            .WithMessage($"Transmission type with ID {possibleNotFoundAspectId} does not exist!");
+            .MustAsync(async (_, ids, context, _) =>
+                await ExistByIds<VehicleTransmissionType>(validationHelper, ids, context))
+            .WithMessage("Transmission type with ID {AspectId} does not exist!");
     }
-    
+
     private void GetBrandValidationRules(IValidationHelper validationHelper)
     {
         Expression<Func<CreateVehicleModelCommandRequest, Guid>> expression = x => x.BrandId;
-        
+
         RuleFor(expression)
-            .MustAsync(async (id, _) => await validationHelper.CheckMainAspectPresence<VehicleBrand>(id))
+            .MustAsync(async (_, id, context, _) =>
+                await ExistById<VehicleBrand>(validationHelper, id, context))
             .WithMessage(VehicleModelValidatorMessages.InvalidBrandIdValue);
     }
-    
+
     private void GetTypeValidationRules(IValidationHelper validationHelper)
     {
         Expression<Func<CreateVehicleModelCommandRequest, Guid>> expression = x => x.TypeId;
-        
+
         RuleFor(expression)
-            .MustAsync(async (id, _) => await validationHelper.CheckMainAspectPresence<VehicleType>(id))
+            .MustAsync(async (_, id, context, _) =>
+                await ExistById<VehicleType>(validationHelper, id, context))
             .WithMessage(VehicleModelValidatorMessages.InvalidTypeIdValue);
     }
-    
+
     private void GetProductionYearValidationRules()
     {
-        Expression<Func<CreateVehicleModelCommandRequest, int>> minimalProductionYearExpression = 
+        Expression<Func<CreateVehicleModelCommandRequest, int>> minimalProductionYearExpression =
             x => x.MinimalProductionYear;
-        
-        Expression<Func<CreateVehicleModelCommandRequest, int>> maximumProductionYearExpression = 
+
+        Expression<Func<CreateVehicleModelCommandRequest, int>> maximumProductionYearExpression =
             x => x.MaximumProductionYear ?? default;
-        
+
         RuleFor(minimalProductionYearExpression)
             .GreaterThanOrEqualTo(1900)
             .WithMessage(VehicleModelValidatorMessages.InvalidMinimalProductionYearValue);
-        
+
         RuleFor(minimalProductionYearExpression)
             .LessThanOrEqualTo(maximumProductionYearExpression)
             .When(p => p.MaximumProductionYear.HasValue)
@@ -168,5 +127,37 @@ internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValida
             .GreaterThanOrEqualTo(minimalProductionYearExpression)
             .When(p => p.MaximumProductionYear.HasValue)
             .WithMessage(VehicleModelValidatorMessages.TooSmallMaximumProductionYearValue);
+    }
+
+    private static async Task<bool> ExistByIds<TEntity>(
+        IValidationHelper validationHelper,
+        IEnumerable<Guid> ids,
+        ValidationContext<CreateVehicleModelCommandRequest> context)
+        where TEntity : class, IIdentifiable<Guid>
+    {
+        var checkResult = await validationHelper.CheckMainAspectPresence<TEntity>(ids);
+
+        if (!checkResult.IsSuccess)
+        {
+            context.MessageFormatter.AppendArgument("AspectId", checkResult.Id);
+        }
+
+        return checkResult.IsSuccess;
+    }
+
+    private static async Task<bool> ExistById<TEntity>(
+        IValidationHelper validationHelper,
+        Guid id,
+        ValidationContext<CreateVehicleModelCommandRequest> context)
+        where TEntity : class, IIdentifiable<Guid>
+    {
+        var checkResult = await validationHelper.CheckMainAspectPresence<TEntity>(id);
+
+        if (!checkResult)
+        {
+            context.MessageFormatter.AppendArgument("AspectId", id);
+        }
+
+        return checkResult;
     }
 }
