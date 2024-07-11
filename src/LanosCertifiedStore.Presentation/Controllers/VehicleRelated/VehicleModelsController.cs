@@ -4,6 +4,7 @@ using Application.Shared.ResultRelated;
 using Application.Shared.ValidationRelated;
 using Application.VehicleModels;
 using Application.VehicleModels.Commands.CreateVehicleModelRelated;
+using Application.VehicleModels.Commands.UpdateVehicleModelRelated;
 using Application.VehicleModels.Dtos;
 using Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
 using Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
@@ -82,5 +83,27 @@ public sealed class VehicleModelsController : BaseApiController
         }
 
         return CreatedAtRoute("GetBrandById", new { id = result.Value }, result.Value);
+    }
+    
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> UpdateModel(
+        [FromBody] UpdateVehicleModelCommandRequest updateVehicleModelCommandRequest)
+    {
+        var result = await Mediator.Send(updateVehicleModelCommandRequest);
+
+        if (result is IValidationResult validationResult)
+        {
+            return BadRequest(CreateValidationProblemDetails(result.Error!, validationResult.Errors));
+        }
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(CreateNotFoundProblemDetails(result.Error!));
+        }
+
+        return NoContent();
     }
 }

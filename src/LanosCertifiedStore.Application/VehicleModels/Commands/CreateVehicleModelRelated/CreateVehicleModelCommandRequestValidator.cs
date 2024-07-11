@@ -7,7 +7,6 @@ using FluentValidation;
 
 namespace Application.VehicleModels.Commands.CreateVehicleModelRelated;
 
-// TODO Fix empty IDs
 internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValidator<CreateVehicleModelCommandRequest>
 {
     public CreateVehicleModelCommandRequestValidator(IValidationHelper validationHelper)
@@ -48,20 +47,30 @@ internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValida
             x => x.AvailableBodyTypesIds;
 
         RuleFor(expression)
+            .NotNull()
+            .NotEmpty()
+            .WithMessage(VehicleModelValidatorMessages.EmptyBodyTypeCollection);
+
+        RuleFor(expression)
             .MustAsync(async (_, ids, context, _) =>
                 await ExistByIds<VehicleBodyType>(validationHelper, ids, context))
-            .WithMessage("Body type with ID {AspectId} does not exist!");
+            .WithMessage(VehicleModelValidatorMessages.NonExistingBodyType);
     }
 
     private void GetEngineTypesValidationRules(IValidationHelper validationHelper)
     {
         Expression<Func<CreateVehicleModelCommandRequest, IEnumerable<Guid>>> expression =
             x => x.AvailableEngineTypesIds;
+        
+        RuleFor(expression)
+            .NotNull()
+            .NotEmpty()
+            .WithMessage(VehicleModelValidatorMessages.EmptyEngineTypeCollection);
 
         RuleFor(expression)
             .MustAsync(async (_, ids, context, _) =>
                 await ExistByIds<VehicleEngineType>(validationHelper, ids, context))
-            .WithMessage("Engine type with ID {AspectId} does not exist!");
+            .WithMessage(VehicleModelValidatorMessages.NonExistingEngineType);
     }
 
     private void GetDrivetrainTypesValidationRules(IValidationHelper validationHelper)
@@ -70,9 +79,14 @@ internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValida
             x => x.AvailableDrivetrainTypesIds;
 
         RuleFor(expression)
+            .NotNull()
+            .NotEmpty()
+            .WithMessage(VehicleModelValidatorMessages.EmptyDrivetrainTypeCollection);
+        
+        RuleFor(expression)
             .MustAsync(async (_, ids, context, _) =>
                 await ExistByIds<VehicleDrivetrainType>(validationHelper, ids, context))
-            .WithMessage("Drivetrain type with ID {AspectId} does not exist!");
+            .WithMessage(VehicleModelValidatorMessages.NonExistingDrivetrainType);
     }
 
     private void GetTransmissionTypesValidationRules(IValidationHelper validationHelper)
@@ -81,9 +95,14 @@ internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValida
             x => x.AvailableTransmissionTypesIds;
 
         RuleFor(expression)
+            .NotNull()
+            .NotEmpty()
+            .WithMessage(VehicleModelValidatorMessages.EmptyTransmissionTypeCollection);
+        
+        RuleFor(expression)
             .MustAsync(async (_, ids, context, _) =>
                 await ExistByIds<VehicleTransmissionType>(validationHelper, ids, context))
-            .WithMessage("Transmission type with ID {AspectId} does not exist!");
+            .WithMessage(VehicleModelValidatorMessages.NonExistingTransmissionType);
     }
 
     private void GetBrandValidationRules(IValidationHelper validationHelper)
@@ -92,7 +111,8 @@ internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValida
 
         RuleFor(expression)
             .MustAsync(async (_, id, context, _) =>
-                await ExistById<VehicleBrand>(validationHelper, id, context));
+                await ExistById<VehicleBrand>(validationHelper, id, context))
+            .WithMessage(VehicleModelValidatorMessages.InvalidBrandIdValue);
     }
 
     private void GetTypeValidationRules(IValidationHelper validationHelper)
@@ -102,7 +122,7 @@ internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValida
         RuleFor(expression)
             .MustAsync(async (_, id, context, _) =>
                 await ExistById<VehicleType>(validationHelper, id, context))
-            .WithMessage("Type with ID {AspectId} does not exist!");
+            .WithMessage(VehicleModelValidatorMessages.InvalidTypeIdValue);
     }
 
     private void GetProductionYearValidationRules()
@@ -128,7 +148,7 @@ internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValida
             .WithMessage(VehicleModelValidatorMessages.TooSmallMaximumProductionYearValue);
     }
 
-    private static async Task<bool> ExistByIds<TEntity>(
+    private async Task<bool> ExistByIds<TEntity>(
         IValidationHelper validationHelper,
         IEnumerable<Guid> ids,
         ValidationContext<CreateVehicleModelCommandRequest> context)
@@ -144,7 +164,7 @@ internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValida
         return checkResult.IsSuccess;
     }
 
-    private static async Task<bool> ExistById<TEntity>(
+    private async Task<bool> ExistById<TEntity>(
         IValidationHelper validationHelper,
         Guid id,
         ValidationContext<CreateVehicleModelCommandRequest> context)

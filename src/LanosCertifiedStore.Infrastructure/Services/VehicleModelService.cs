@@ -1,6 +1,7 @@
 ﻿using Application.Shared.DtosRelated;
 using Application.VehicleModels;
 using Application.VehicleModels.Commands.CreateVehicleModelRelated;
+using Application.VehicleModels.Commands.UpdateVehicleModelRelated;
 using Application.VehicleModels.Dtos;
 using Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
 using Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
@@ -18,6 +19,7 @@ internal sealed class VehicleModelService(
     SingleVehicleModelQuery singleVehicleModelQuery,
     CountVehicleModelsQuery countVehicleModelsQuery,
     CreateVehicleModelCommand createVehicleModelCommand,
+    UpdateVehicleModelCommand updateVehicleModelCommand,
     SaveChangesCommand saveChangesCommand) : IVehicleModelService
 {
     public async Task<IReadOnlyCollection<VehicleModelDto>> GetVehicleModelCollection(
@@ -56,5 +58,14 @@ internal sealed class VehicleModelService(
         await saveChangesCommand.Execute(cancellationToken);
 
         return result;
+    }
+
+    public async Task UpdateVehicleModel(
+        UpdateVehicleModelCommandRequest request,
+        CancellationToken cancellationToken)
+    {
+        await updateVehicleModelCommand.Execute(request);
+        
+        await saveChangesCommand.Execute(cancellationToken);
     }
 }

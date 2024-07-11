@@ -1,5 +1,6 @@
 ﻿using Application.Shared.DtosRelated;
 using Application.VehicleModels.Commands.CreateVehicleModelRelated;
+using Application.VehicleModels.Commands.UpdateVehicleModelRelated;
 using Application.VehicleModels.Dtos;
 using Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
 using Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
@@ -27,4 +28,6 @@ public interface IVehicleModelService
         CancellationToken cancellationToken);
 
     Task<Guid> AddNewVehicleModel(CreateVehicleModelCommandRequest request, CancellationToken cancellationToken);
+    
+    Task UpdateVehicleModel(UpdateVehicleModelCommandRequest request, CancellationToken cancellationToken);
 }
