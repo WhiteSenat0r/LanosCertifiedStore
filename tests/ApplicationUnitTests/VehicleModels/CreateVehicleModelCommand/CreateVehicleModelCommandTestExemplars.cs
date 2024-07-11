@@ -1,8 +1,8 @@
 ﻿using Application.VehicleModels.Commands.CreateVehicleModelRelated;
 
-namespace ApplicationUnitTests.VehicleModels;
+namespace ApplicationUnitTests.VehicleModels.CreateVehicleModelCommand;
 
-internal static class VehicleModelTestExemplars
+internal static class CreateVehicleModelCommandTestExemplars
 {
     public static CreateVehicleModelCommandRequest Regular()
     {

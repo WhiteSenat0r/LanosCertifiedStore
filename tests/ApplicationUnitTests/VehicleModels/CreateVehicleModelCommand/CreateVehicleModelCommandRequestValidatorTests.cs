@@ -6,7 +6,7 @@ using Domain.Entities.VehicleRelated;
 using Domain.Entities.VehicleRelated.TypeRelated;
 using FluentValidation.TestHelper;
 
-namespace ApplicationUnitTests.VehicleModels;
+namespace ApplicationUnitTests.VehicleModels.CreateVehicleModelCommand;
 
 public sealed class CreateVehicleModelCommandRequestValidatorTests
 {
@@ -22,7 +22,7 @@ public sealed class CreateVehicleModelCommandRequestValidatorTests
     public async Task Should_HaveError_WhenNameIsEmpty()
     {
         // Arrange
-        var model = VehicleModelTestExemplars.WithEmptyName();
+        var model = CreateVehicleModelCommandTestExemplars.WithEmptyName();
 
         // Act
         var result = await _validator.TestValidateAsync(model);
@@ -35,7 +35,7 @@ public sealed class CreateVehicleModelCommandRequestValidatorTests
     public async Task Should_HaveError_WhenNameIsTooShort()
     {
         // Arrange
-        var model = VehicleModelTestExemplars.WithTooShortName();
+        var model = CreateVehicleModelCommandTestExemplars.WithTooShortName();
 
         // Act
         var result = await _validator.TestValidateAsync(model);
@@ -48,7 +48,7 @@ public sealed class CreateVehicleModelCommandRequestValidatorTests
     public async Task Should_HaveError_WhenNameIsTooLong()
     {
         // Arrange
-        var model = VehicleModelTestExemplars.WithTooLongName();
+        var model = CreateVehicleModelCommandTestExemplars.WithTooLongName();
 
         // Act
         var result = await _validator.TestValidateAsync(model);
@@ -61,7 +61,7 @@ public sealed class CreateVehicleModelCommandRequestValidatorTests
     public async Task Should_HaveError_WhenNameIsNotUnique()
     {
         // Arrange
-        var model = VehicleModelTestExemplars.Regular();
+        var model = CreateVehicleModelCommandTestExemplars.Regular();
 
         _validationHelper
             .CheckAspectValueUniqueness(Arg.Any<string>(), Arg.Any<Expression<Func<VehicleModel, bool>>>())
@@ -79,7 +79,7 @@ public sealed class CreateVehicleModelCommandRequestValidatorTests
     public async Task Should_HaveError_WhenAnyOfTransmissionTypesDoesNotExist()
     {
         // Arrange
-        var model = VehicleModelTestExemplars.Regular();
+        var model = CreateVehicleModelCommandTestExemplars.Regular();
 
         _validationHelper
             .CheckMainAspectPresence<VehicleTransmissionType>(Arg.Any<IEnumerable<Guid>>())
@@ -96,7 +96,7 @@ public sealed class CreateVehicleModelCommandRequestValidatorTests
     public async Task Should_HaveError_WhenAnyOfBodyTypesDoesNotExist()
     {
         // Arrange
-        var model = VehicleModelTestExemplars.Regular();
+        var model = CreateVehicleModelCommandTestExemplars.Regular();
 
         _validationHelper
             .CheckMainAspectPresence<VehicleBodyType>(Arg.Any<IEnumerable<Guid>>())
@@ -113,7 +113,7 @@ public sealed class CreateVehicleModelCommandRequestValidatorTests
     public async Task Should_HaveError_WhenAnyOfDrivetrainTypesDoesNotExist()
     {
         // Arrange
-        var model = VehicleModelTestExemplars.Regular();
+        var model = CreateVehicleModelCommandTestExemplars.Regular();
 
         _validationHelper
             .CheckMainAspectPresence<VehicleDrivetrainType>(Arg.Any<IEnumerable<Guid>>())
@@ -130,7 +130,7 @@ public sealed class CreateVehicleModelCommandRequestValidatorTests
     public async Task Should_HaveError_WhenAnyOfEngineTypesDoesNotExist()
     {
         // Arrange
-        var model = VehicleModelTestExemplars.Regular();
+        var model = CreateVehicleModelCommandTestExemplars.Regular();
 
         _validationHelper
             .CheckMainAspectPresence<VehicleEngineType>(Arg.Any<IEnumerable<Guid>>())
@@ -147,7 +147,7 @@ public sealed class CreateVehicleModelCommandRequestValidatorTests
     public async Task Should_HaveError_BrandDoesNotExist()
     {
         // Arrange
-        var model = VehicleModelTestExemplars.Regular();
+        var model = CreateVehicleModelCommandTestExemplars.Regular();
 
         _validationHelper
             .CheckMainAspectPresence<VehicleBrand>(Arg.Any<Guid>())
@@ -164,7 +164,7 @@ public sealed class CreateVehicleModelCommandRequestValidatorTests
     public async Task Should_HaveError_TypeDoesNotExist()
     {
         // Arrange
-        var model = VehicleModelTestExemplars.Regular();
+        var model = CreateVehicleModelCommandTestExemplars.Regular();
 
         _validationHelper
             .CheckMainAspectPresence<VehicleType>(Arg.Any<Guid>())
@@ -184,7 +184,7 @@ public sealed class CreateVehicleModelCommandRequestValidatorTests
         int minimalProductionYear,
         int maximumProductionYear)
     {
-        var model = VehicleModelTestExemplars.WithProductionYears(minimalProductionYear, maximumProductionYear);
+        var model = CreateVehicleModelCommandTestExemplars.WithProductionYears(minimalProductionYear, maximumProductionYear);
 
         var result = await _validator.TestValidateAsync(model);
 

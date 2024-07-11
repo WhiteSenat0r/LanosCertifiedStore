@@ -1,13 +1,13 @@
 ﻿using Application.VehicleModels;
 using Application.VehicleModels.Commands.CreateVehicleModelRelated;
 
-namespace ApplicationUnitTests.VehicleModels;
+namespace ApplicationUnitTests.VehicleModels.CreateVehicleModelCommand;
 
 public sealed class CreateVehicleModelCommandHandlerTests
 {
     private readonly IVehicleModelService _vehicleModelService = Substitute.For<IVehicleModelService>();
     private readonly CreateVehicleModelCommandRequestHandler _requestHandler;
-    private readonly CreateVehicleModelCommandRequest _request = VehicleModelTestExemplars.Regular();
+    private readonly CreateVehicleModelCommandRequest _request = CreateVehicleModelCommandTestExemplars.Regular();
 
     public CreateVehicleModelCommandHandlerTests()
     {
