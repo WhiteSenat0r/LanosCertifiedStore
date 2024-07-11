@@ -12,12 +12,10 @@ public sealed class PersistenceTests
     public void QueriesNames_Should_EndWithQuery()
     {
         var types = Types.InAssembly(PersistenceAssembly)
-            .That()
-            .Inherit(typeof(CollectionQueryBase<,>))
-            .Or()
-            .Inherit(typeof(CountQueryBase<>))
-            .Or()
-            .Inherit(typeof(SingleQueryBase<,>))
+            .That().AreNotAbstract()
+            .And().Inherit(typeof(CollectionQueryBase<,>))
+            .Or().Inherit(typeof(CountQueryBase<>))
+            .Or().Inherit(typeof(SingleQueryBase<,>))
             .GetTypes()
             .Where(type => !type.Name.EndsWith("Query"));
 
