@@ -72,9 +72,10 @@ public sealed class VehicleBrandsController : BaseApiController
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> UpdateBrand([FromBody] UpdateVehicleBrandCommandRequest updateVehicleCommandRequest)
+    public async Task<ActionResult> UpdateBrand(
+        [FromBody] UpdateVehicleBrandCommandRequest updateVehicleBrandCommandRequest)
     {
-        var result = await Mediator.Send(updateVehicleCommandRequest);
+        var result = await Mediator.Send(updateVehicleBrandCommandRequest);
 
         if (result is IValidationResult validationResult)
         {
