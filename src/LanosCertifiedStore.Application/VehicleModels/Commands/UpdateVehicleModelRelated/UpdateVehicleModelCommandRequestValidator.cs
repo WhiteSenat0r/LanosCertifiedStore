@@ -80,7 +80,7 @@ internal sealed class UpdateVehicleModelCommandRequestValidator : AbstractValida
             .WithMessage(VehicleModelValidatorMessages.NonExistingTransmissionType);
     }
 
-    private async Task<bool> ExistByIds<TEntity>(
+    private static async Task<bool> ExistByIds<TEntity>(
         IValidationHelper validationHelper,
         IEnumerable<Guid> ids,
         ValidationContext<UpdateVehicleModelCommandRequest> context)
@@ -94,21 +94,5 @@ internal sealed class UpdateVehicleModelCommandRequestValidator : AbstractValida
         }
 
         return checkResult.IsSuccess;
-    }
-
-    private async Task<bool> ExistById<TEntity>(
-        IValidationHelper validationHelper,
-        Guid id,
-        ValidationContext<UpdateVehicleModelCommandRequest> context)
-        where TEntity : class, IIdentifiable<Guid>
-    {
-        var checkResult = await validationHelper.CheckMainAspectPresence<TEntity>(id);
-
-        if (!checkResult)
-        {
-            context.MessageFormatter.AppendArgument("AspectId", id);
-        }
-
-        return checkResult;
     }
 }
