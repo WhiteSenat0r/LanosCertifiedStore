@@ -35,7 +35,7 @@ internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValida
         RuleFor(expression)
             .MustAsync(async (name, _) =>
             {
-                Expression<Func<VehicleBrand, bool>> equalityExpression = brand => brand.Name.Equals(name);
+                Expression<Func<VehicleModel, bool>> equalityExpression = model => model.Name.Equals(name);
 
                 return await validationHelper.CheckAspectValueUniqueness(name, equalityExpression);
             })
@@ -92,8 +92,7 @@ internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValida
 
         RuleFor(expression)
             .MustAsync(async (_, id, context, _) =>
-                await ExistById<VehicleBrand>(validationHelper, id, context))
-            .WithMessage("Brand with ID {AspectId} does not exist!");
+                await ExistById<VehicleBrand>(validationHelper, id, context));
     }
 
     private void GetTypeValidationRules(IValidationHelper validationHelper)
