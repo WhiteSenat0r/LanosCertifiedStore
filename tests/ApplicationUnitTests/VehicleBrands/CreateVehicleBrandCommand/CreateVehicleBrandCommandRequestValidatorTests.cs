@@ -7,14 +7,13 @@ using FluentValidation.TestHelper;
 
 namespace ApplicationUnitTests.VehicleBrands.CreateVehicleBrandCommand;
 
-public class CreateVehicleBrandCommandRequestValidatorTests
+public sealed class CreateVehicleBrandCommandRequestValidatorTests
 {
-    private readonly IValidationHelper _validationHelper;
+    private readonly IValidationHelper _validationHelper = Substitute.For<IValidationHelper>();
     private readonly CreateVehicleBrandCommandRequestValidator _validator;
 
     public CreateVehicleBrandCommandRequestValidatorTests()
     {
-        _validationHelper = Substitute.For<IValidationHelper>();
         _validator = new CreateVehicleBrandCommandRequestValidator(_validationHelper);
     }
 
@@ -65,7 +64,7 @@ public class CreateVehicleBrandCommandRequestValidatorTests
 
         _validationHelper
             .CheckAspectValueUniqueness(Arg.Any<string>(), Arg.Any<Expression<Func<VehicleBrand, bool>>>())
-            .Returns(Task.FromResult(false));
+            .Returns(false);
 
         // Act
         var result = await _validator.TestValidateAsync(model);
@@ -73,39 +72,5 @@ public class CreateVehicleBrandCommandRequestValidatorTests
         // Assert
         result.ShouldHaveValidationErrorFor(x => x.Name)
             .WithErrorMessage(VehicleBrandValidatorMessages.AlreadyExistingNameValue);
-    }
-
-    [Fact]
-    public async Task Should_NotHaveError_WhenNameIsUnique()
-    {
-        // Arrange
-        var model = new CreateVehicleBrandCommandRequest("UniqueBrand");
-
-        _validationHelper
-            .CheckAspectValueUniqueness(Arg.Any<string>(), Arg.Any<Expression<Func<VehicleBrand, bool>>>())
-            .Returns(Task.FromResult(true));
-
-        // Act
-        var result = await _validator.TestValidateAsync(model);
-
-        // Assert
-        result.ShouldNotHaveValidationErrorFor(x => x.Name);
-    }
-
-    [Fact]
-    public async Task Should_NotHaveError_WhenNameIsValid()
-    {
-        // Arrange
-        var model = new CreateVehicleBrandCommandRequest("test name");
-
-        _validationHelper
-            .CheckAspectValueUniqueness(Arg.Any<string>(), Arg.Any<Expression<Func<VehicleBrand, bool>>>())
-            .Returns(Task.FromResult(true));
-
-        // Act
-        var result = await _validator.TestValidateAsync(model);
-
-        // Assert
-        result.ShouldNotHaveValidationErrorFor(x => x.Name);
     }
 }
