@@ -32,7 +32,7 @@ public sealed class CollectionVehicleModelsQueryRequestHandlerTests
     public async Task Handler_ShouldReturnCollectionOfVehicleModels()
     {
         // Arrange
-        List<VehicleModelDto> expectedTypes =
+        List<VehicleModelDto> expectedModels =
         [
             new VehicleModelDto { Id = Guid.NewGuid(), Name = "Легковик" },
             new VehicleModelDto { Id = Guid.NewGuid(), Name = "Вантажівка" },
@@ -40,11 +40,11 @@ public sealed class CollectionVehicleModelsQueryRequestHandlerTests
         ];
 
         var expectedResult = new PaginationResult<VehicleModelDto>(
-            expectedTypes,
+            expectedModels,
             _request.FilteringParameters.PageIndex);
 
         _vehicleModelService.GetVehicleModelCollection(_request, default)
-            .Returns(expectedTypes);
+            .Returns(expectedModels);
 
         // Act
         var result = await _handler.Handle(_request, default);
