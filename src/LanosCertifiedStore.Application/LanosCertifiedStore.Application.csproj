@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Application</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\LanosCertifiedStore.Domain\LanosCertifiedStore.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+      <PackageReference Include="FluentValidation" Version="11.9.0" />
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+      <PackageReference Include="MediatR" Version="12.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+      <PackageReference Include="Serilog" Version="3.1.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>ApplicationUnitTests</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Shared\ExceptionRelated\ApiException.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Identity\Commands\" />
+      <Folder Include="Identity\Dtos\" />
+      <Folder Include="Identity\Queries\" />
+      <Folder Include="Images\Commands\" />
+      <Folder Include="LocationRegions\Queries\" />
+      <Folder Include="LocationTowns\Queries\" />
+      <Folder Include="VehicleBodyTypes\Queries\" />
+      <Folder Include="VehicleBrands\Commands\" />
+      <Folder Include="VehicleBrands\Queries\" />
+      <Folder Include="VehicleColors\Queries\" />
+      <Folder Include="VehicleDrivetrainTypes\Queries\" />
+      <Folder Include="Vehicles\Commands\" />
+      <Folder Include="Vehicles\Queries\" />
+      <Folder Include="VehicleTransmissionTypes\Queries\" />
+      <Folder Include="VehicleTypes\Queries\" />
+    </ItemGroup>
+
+
+</Project>

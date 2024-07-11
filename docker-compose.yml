@@ -1,0 +1,40 @@
+services:
+  lanoscertifiedstore.presentation:
+    image: ${DOCKER_REGISTRY-}lanoscertifiedstorepresentation
+    build:
+      context: .
+      dockerfile: src/LanosCertifiedStore.Presentation/Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    depends_on:
+      lanoscertifiedstore.database:
+        condition: service_healthy
+        restart: true
+  
+  lanoscertifiedstore.database:
+    image: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    container_name: lsc_db
+    environment:
+      - POSTGRES_DB=LanosCertifiedStore
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./.containers/lsc_db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  lanoscertifiedstore.seq:
+    image: datalust/seq:latest
+    container_name: lsc_seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:5341
+      - 8081:80
