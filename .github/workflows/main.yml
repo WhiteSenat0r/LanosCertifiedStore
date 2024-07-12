@@ -22,7 +22,7 @@ jobs:
         run: dotnet restore ./LanosCertifiedStore.sln
 
       - name: Build
-        run: dotnet build ./LanosCertifiedStore.sln--no-restore
+        run: dotnet build ./LanosCertifiedStore.sln --no-restore
 
       - name: Test
         run: dotnet test ./LanosCertifiedStore.sln --no-build
