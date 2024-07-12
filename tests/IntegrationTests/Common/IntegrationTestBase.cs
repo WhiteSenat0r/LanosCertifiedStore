@@ -2,14 +2,15 @@
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Contexts.ApplicationDatabaseContext;
 
-namespace IntegrationTests;
+namespace IntegrationTests.Common;
 
-public abstract class BaseIntegrationTest : IClassFixture<IntegrationTestsWebApplicationFactory>
+public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApplicationFactory>
 {
     private readonly IServiceScope _scope;
     private protected readonly ISender Sender;
     private protected readonly ApplicationDatabaseContext Context;
-    public BaseIntegrationTest(IntegrationTestsWebApplicationFactory factory)
+
+    private protected IntegrationTestBase(IntegrationTestsWebApplicationFactory factory)
     {
         _scope = factory.Services.CreateScope();
         Sender = _scope.ServiceProvider.GetRequiredService<ISender>();

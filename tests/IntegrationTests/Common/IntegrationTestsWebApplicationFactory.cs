@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Testcontainers.PostgreSql;
 
-namespace IntegrationTests;
+namespace IntegrationTests.Common;
 
 public sealed class IntegrationTestsWebApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
