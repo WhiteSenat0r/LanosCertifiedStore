@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IntegrationTests.VehicleBrands;
 
-public sealed class VehicleBrandCommandIntegrationTests(
+public sealed class VehicleBrandCommandsIntegrationTests(
     IntegrationTestsWebApplicationFactory factory) : IntegrationTestBase(factory)
 {
     [Fact]
-    public async Task CreateVehicleBrandCommandRequestHandler_ShouldAddNewBrand_IfRequestIsValid()
+    public async Task Send_CreateRequest_Should_AddNewBrandIfRequestIsValid()
     {
         // Arrange
         const string newBrandName = "Name";
@@ -21,16 +21,21 @@ public sealed class VehicleBrandCommandIntegrationTests(
         var createdBrand = await Context.FindAsync<VehicleBrand>(response.Value);
 
         // Assert
-        response.Error.Should().BeNull();
-        response.IsSuccess.Should().BeTrue();
-        response.Value.Should().NotBeEmpty();
-        
-        createdBrand.Should().NotBeNull();
-        createdBrand!.Name.Should().Be(newBrandName);
+        response.Error
+            .Should().BeNull();
+        response.IsSuccess
+            .Should().BeTrue();
+        response.Value
+            .Should().NotBeEmpty();
+
+        createdBrand
+            .Should().NotBeNull();
+        createdBrand!.Name
+            .Should().Be(newBrandName);
     }
-    
+
     [Fact]
-    public async Task UpdateVehicleBrandCommandRequestHandler_ShouldUpdateExistingBrand_IfRequestIsValid()
+    public async Task Send_UpdateRequest_Should_UpdateExistingBrandIfRequestIsValid()
     {
         // Arrange
         var brand = await Context.Set<VehicleBrand>().FirstAsync();
@@ -42,16 +47,21 @@ public sealed class VehicleBrandCommandIntegrationTests(
         var updatedBrand = await Context.FindAsync<VehicleBrand>(brand.Id);
 
         // Assert
-        response.Error.Should().BeNull();
-        response.IsSuccess.Should().BeTrue();
-        
-        updatedBrand.Should().NotBeNull();
-        updatedBrand!.Name.Should().NotBe(previousName);
-        updatedBrand!.Name.Should().Be(brand.Id.ToString());
+        response.Error
+            .Should().BeNull();
+        response.IsSuccess
+            .Should().BeTrue();
+
+        updatedBrand
+            .Should().NotBeNull();
+        updatedBrand!.Name
+            .Should().NotBe(previousName);
+        updatedBrand!.Name
+            .Should().Be(brand.Id.ToString());
     }
-    
+
     [Fact]
-    public async Task UpdateVehicleBrandCommandRequestHandler_ShouldNotUpdate_NonExistingBrand()
+    public async Task UpdateVehicleBrandCommandRequestHandler_Should_NotUpdateNonExistingBrand()
     {
         // Arrange
         var commandRequest = new UpdateVehicleBrandCommandRequest(Guid.Empty, string.Empty);
@@ -60,7 +70,9 @@ public sealed class VehicleBrandCommandIntegrationTests(
         var response = await Sender.Send(commandRequest);
 
         // Assert
-        response.Error.Should().NotBeNull();
-        response.IsSuccess.Should().NotBe(true);
+        response.Error
+            .Should().NotBeNull();
+        response.IsSuccess
+            .Should().NotBe(true);
     }
 }
