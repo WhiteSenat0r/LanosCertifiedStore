@@ -5,5 +5,4 @@ using Domain.Entities.VehicleRelated;
 namespace Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
 
 public sealed record CountVehicleBrandsQueryRequest(
-    IFilteringRequestParameters<VehicleBrand> FilteringParameters) : 
-    ICountQueryRequest<VehicleBrand>;
+    IFilteringRequestParameters<VehicleBrand> FilteringParameters) : ICountQueryRequest<VehicleBrand>;
