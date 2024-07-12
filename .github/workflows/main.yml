@@ -1,0 +1,28 @@
+name: Run Tests 🚀
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.107'
+
+      - name: Restore
+        run: dotnet restore ./Products.Api.sln
+
+      - name: Build
+        run: dotnet build ./Products.Api.sln --no-restore
+
+      - name: Test
+        run: dotnet test ./Products.Api.sln --no-build
