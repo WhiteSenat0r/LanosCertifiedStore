@@ -10,13 +10,12 @@ namespace IntegrationTests.VehicleBrands;
 public sealed class VehicleBrandCommandIntegrationTests(
     IntegrationTestsWebApplicationFactory factory) : IntegrationTestBase(factory)
 {
-    private const string NewBrandName = "Name";
-    
     [Fact]
     public async Task CreateVehicleBrandCommandRequestHandler_ShouldAddNewBrand_IfRequestIsValid()
     {
         // Arrange
-        var commandRequest = new CreateVehicleBrandCommandRequest(NewBrandName);
+        const string newBrandName = "Name";
+        var commandRequest = new CreateVehicleBrandCommandRequest(newBrandName);
 
         // Act
         var response = await Sender.Send(commandRequest);
@@ -28,14 +27,15 @@ public sealed class VehicleBrandCommandIntegrationTests(
         response.Value.Should().NotBeEmpty();
         
         createdBrand.Should().NotBeNull();
-        createdBrand!.Name.Should().Be(NewBrandName);
+        createdBrand!.Name.Should().Be(newBrandName);
     }
     
     [Fact]
     public async Task UpdateVehicleBrandCommandRequestHandler_ShouldUpdateExistingBrand_IfRequestIsValid()
     {
         // Arrange
-        var brand = await Context.Set<VehicleBrand>().SingleAsync(b => b.Name.Equals(NewBrandName));
+        var brand = await Context.Set<VehicleBrand>().FirstAsync();
+        var previousName = new string(brand.Name);
         var commandRequest = new UpdateVehicleBrandCommandRequest(brand.Id, brand.Id.ToString());
 
         // Act
@@ -47,14 +47,15 @@ public sealed class VehicleBrandCommandIntegrationTests(
         response.IsSuccess.Should().BeTrue();
         
         updatedBrand.Should().NotBeNull();
-        updatedBrand!.Name.Should().NotBe(NewBrandName);
+        updatedBrand!.Name.Should().NotBe(previousName);
+        updatedBrand!.Name.Should().Be(brand.Id.ToString());
     }
     
     [Fact]
     public async Task UpdateVehicleBrandCommandRequestHandler_ShouldNotUpdate_NonExistingBrand()
     {
         // Arrange
-        var commandRequest = new UpdateVehicleBrandCommandRequest(Guid.Empty, NewBrandName);
+        var commandRequest = new UpdateVehicleBrandCommandRequest(Guid.Empty, string.Empty);
 
         // Act
         var response = await Sender.Send(commandRequest);
