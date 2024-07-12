@@ -19,10 +19,10 @@ jobs:
           dotnet-version: '8.0.107'
 
       - name: Restore
-        run: dotnet restore ./Products.Api.sln
+        run: dotnet restore ./LanosCertifiedStore.sln
 
       - name: Build
-        run: dotnet build ./Products.Api.sln --no-restore
+        run: dotnet build ./LanosCertifiedStore.sln--no-restore
 
       - name: Test
-        run: dotnet test ./Products.Api.sln --no-build
+        run: dotnet test ./LanosCertifiedStore.sln --no-build
