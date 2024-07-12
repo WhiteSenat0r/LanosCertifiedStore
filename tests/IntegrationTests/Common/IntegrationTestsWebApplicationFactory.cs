@@ -12,8 +12,7 @@ public sealed class IntegrationTestsWebApplicationFactory : WebApplicationFactor
         .WithUsername("postgres")
         .WithPassword("postgres")
         .Build();
-
-
+    
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         Environment.SetEnvironmentVariable(
