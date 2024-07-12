@@ -42,3 +42,6 @@ app.MapControllers();
 await app.ExecuteMigration();
 
 app.Run();
+
+// For integration testing purposes
+public partial class Program;
