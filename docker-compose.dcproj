@@ -5,6 +5,8 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
     <ProjectGuid>c568e5fa-6f14-400e-a9ab-1c2e37c956d0</ProjectGuid>
+    <Configurations>Debug;Release</Configurations>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
