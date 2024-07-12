@@ -1,11 +1,9 @@
 ﻿using Application.Shared.RequestParamsRelated;
-using Application.Shared.ResultRelated;
 using Application.VehicleBrands;
 using Application.VehicleBrands.Queries.CollectionVehicleBrandsQueryRelated;
 using Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
 using Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
 using Domain.Entities.VehicleRelated;
-using FluentAssertions;
 using IntegrationTests.Common;
 using Microsoft.EntityFrameworkCore;
 

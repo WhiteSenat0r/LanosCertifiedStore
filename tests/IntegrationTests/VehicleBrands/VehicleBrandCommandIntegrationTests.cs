@@ -1,7 +1,6 @@
 ﻿using Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
 using Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
 using Domain.Entities.VehicleRelated;
-using FluentAssertions;
 using IntegrationTests.Common;
 using Microsoft.EntityFrameworkCore;
 
