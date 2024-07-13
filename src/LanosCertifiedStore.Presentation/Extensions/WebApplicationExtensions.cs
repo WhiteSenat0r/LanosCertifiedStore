@@ -20,7 +20,7 @@ internal static class WebApplicationExtensions
         {
             var context = services.GetRequiredService<ApplicationDatabaseContext>();
             await context.Database.MigrateAsync();
-            await SeedData.Seed(context);
+            await SeedData.Seed(context, application.Environment.WebRootPath);
         }
 
         catch (Exception ex)

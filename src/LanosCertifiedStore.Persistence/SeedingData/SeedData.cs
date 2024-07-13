@@ -9,11 +9,12 @@ namespace Persistence.SeedingData;
 
 public static class SeedData
 {
-    private const string SerializedLocationsFilePath =
-        "/app/wwwroot/Data/Json/SerializedUkraineLocations.json";
+    private static string _serializedLocationsFilePath = "Data/Json/SerializedUkraineLocations.json";
 
-    public static async Task Seed(ApplicationDatabaseContext context)
+    public static async Task Seed(ApplicationDatabaseContext context, string staticDataPath)
     {
+        _serializedLocationsFilePath = string.Join('/', [staticDataPath, _serializedLocationsFilePath]);
+        
         await SeedVehicleTypes(context);
         await SeedVehicleColors(context);
         await SeedVehicleBodyTypes(context);
@@ -236,7 +237,7 @@ public static class SeedData
     private static async Task<Dictionary<string, Dictionary<string, List<KeyValuePair<string, string>>>>?>
         GetLocationsData()
     {
-        var serializedLocationsData = await File.ReadAllTextAsync(SerializedLocationsFilePath);
+        var serializedLocationsData = await File.ReadAllTextAsync(_serializedLocationsFilePath);
 
         return JsonSerializer.Deserialize
             <Dictionary<string, Dictionary<string, List<KeyValuePair<string, string>>>>>(serializedLocationsData);
