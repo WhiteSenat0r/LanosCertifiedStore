@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace IntegrationTests.LocationTowns;
 
-// TODO Fix count test issue
 public sealed class LocationTownQueriesIntegrationTests(
     IntegrationTestsWebApplicationFactory factory) : IntegrationTestBase(factory)
 {
