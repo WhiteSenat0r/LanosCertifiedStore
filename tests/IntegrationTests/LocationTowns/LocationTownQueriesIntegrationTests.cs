@@ -6,6 +6,7 @@ using Application.Shared.RequestParamsRelated;
 using Domain.Entities.VehicleRelated.LocationRelated;
 using IntegrationTests.Common;
 using Microsoft.EntityFrameworkCore;
+using Persistence.SeedingData;
 
 namespace IntegrationTests.LocationTowns;
 
@@ -45,7 +46,6 @@ public sealed class LocationTownQueriesIntegrationTests(
     [Fact]
     public async Task Send_CountRequest_ShouldReturn_TotalAndFilteredTownsCount()
     {
-        // Arrange
         var locationRegion = await Context.Set<VehicleLocationRegion>().FirstAsync();
         var locationTownType = await Context.Set<VehicleLocationTownType>().FirstAsync();
         

@@ -11,7 +11,7 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
     private protected readonly ISender Sender;
     private protected readonly ApplicationDatabaseContext Context;
 
-    protected const string CollectionName = "Integration tests collection";
+    private const string CollectionName = "Integration tests collection";
     private protected IntegrationTestBase(IntegrationTestsWebApplicationFactory factory)
     {
         _scope = factory.Services.CreateScope();

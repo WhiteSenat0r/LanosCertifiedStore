@@ -1,4 +1,5 @@
-﻿using Application.LocationRegions;
+﻿using System.Globalization;
+using Application.LocationRegions;
 using Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
 using Application.Shared.RequestParamsRelated;
 using IntegrationTests.Common;
@@ -31,7 +32,8 @@ public sealed class LocationRegionQueriesIntegrationTests(
             .Should().BeTrue();
 
         regions
-            .Should().BeInAscendingOrder(b => b.Name);
+            .Should().BeInAscendingOrder(b => b.Name,
+                StringComparer.Create(new CultureInfo("uk-UA"), ignoreCase: true));
         regions.Count
             .Should().BeLessOrEqualTo((int)ItemQuantitySelection.Ten);
     }
