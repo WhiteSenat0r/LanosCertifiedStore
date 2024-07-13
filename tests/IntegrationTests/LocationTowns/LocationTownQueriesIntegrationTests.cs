@@ -6,11 +6,9 @@ using Application.Shared.RequestParamsRelated;
 using Domain.Entities.VehicleRelated.LocationRelated;
 using IntegrationTests.Common;
 using Microsoft.EntityFrameworkCore;
-using Persistence.SeedingData;
 
 namespace IntegrationTests.LocationTowns;
 
-// TODO Fix count test issue
 public sealed class LocationTownQueriesIntegrationTests(
     IntegrationTestsWebApplicationFactory factory) : IntegrationTestBase(factory)
 {
