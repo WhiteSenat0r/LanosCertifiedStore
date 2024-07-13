@@ -12,7 +12,7 @@ internal static class WebApplicationExtensions
         {
             return;
         }
-            
+
         using var scope = application.Services.CreateScope();
         var services = scope.ServiceProvider;
 
@@ -20,7 +20,8 @@ internal static class WebApplicationExtensions
         {
             var context = services.GetRequiredService<ApplicationDatabaseContext>();
             await context.Database.MigrateAsync();
-            await SeedData.Seed(context);
+            var seedData = new SeedData(application.Environment.WebRootPath, context);
+            await seedData.Seed();
         }
 
         catch (Exception ex)

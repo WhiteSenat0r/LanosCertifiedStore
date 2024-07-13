@@ -4,11 +4,11 @@ using MediatR;
 
 namespace Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
 
-internal sealed class CollectionVehicleBrandlessModelsQueryRequestHandler(IVehicleModelService vehicleModelService) : 
-    IRequestHandler<CollectionVehicleBrandlessModelsQueryRequest, Result<PaginationResult<VehicleModelWithoutBrandNameDto>>>
+internal sealed class CollectionBrandlessVehicleModelsQueryRequestHandler(IVehicleModelService vehicleModelService) : 
+    IRequestHandler<CollectionBrandlessVehicleModelsQueryRequest, Result<PaginationResult<VehicleModelWithoutBrandNameDto>>>
 {
     public async Task<Result<PaginationResult<VehicleModelWithoutBrandNameDto>>> Handle(
-        CollectionVehicleBrandlessModelsQueryRequest request, CancellationToken cancellationToken)
+        CollectionBrandlessVehicleModelsQueryRequest request, CancellationToken cancellationToken)
     {
         var brands = await vehicleModelService.GetVehicleBrandlessModelCollection(request, cancellationToken);
 
