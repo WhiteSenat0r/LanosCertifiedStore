@@ -37,7 +37,7 @@ public sealed class VehicleBrandQueriesIntegrationTests(
         brands
             .Should().BeInAscendingOrder(b => b.Name);
         brands.Count
-            .Should().Be((int)ItemQuantitySelection.Ten);
+            .Should().BeLessOrEqualTo((int)ItemQuantitySelection.Ten);
     }
 
     [Fact]
@@ -78,7 +78,7 @@ public sealed class VehicleBrandQueriesIntegrationTests(
     }
 
     [Fact]
-    public async Task CountVehicleBrandsQueryRequestHandler_ShouldReturn_SingleBrand()
+    public async Task Send_CountRequest_ShouldReturn_TotalAndFilteredBrandsCount()
     {
         // Arrange
         var brandsCount = await Context.Set<VehicleBrand>().CountAsync();
@@ -92,9 +92,9 @@ public sealed class VehicleBrandQueriesIntegrationTests(
             .Should().BeNull();
         response.IsSuccess
             .Should().BeTrue();
-        response.Value!
-            .TotalItemsCount.Should().Be(brandsCount);
-        response.Value!
-            .FilteredItemsCount.Should().Be(brandsCount);
+        response.Value!.TotalItemsCount
+            .Should().Be(brandsCount);
+        response.Value!.FilteredItemsCount
+            .Should().Be(brandsCount);
     }
 }

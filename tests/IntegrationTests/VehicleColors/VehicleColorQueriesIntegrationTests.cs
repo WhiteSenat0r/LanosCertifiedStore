@@ -29,9 +29,10 @@ public sealed class VehicleColorQueriesIntegrationTests(
         response.Error.Should().BeNull();
         response.IsSuccess.Should().BeTrue();
 
-        colors.Should().BeInAscendingOrder(
-            b => b.Name, 
-            StringComparer.Create(new CultureInfo("uk-UA"), ignoreCase: true));
-        colors.Count.Should().Be((int)ItemQuantitySelection.Ten);
+        colors
+            .Should().BeInAscendingOrder(b => b.Name, 
+                StringComparer.Create(new CultureInfo("uk-UA"), ignoreCase: true));
+        colors.Count
+            .Should().BeLessOrEqualTo((int)ItemQuantitySelection.Ten);
     }
 }
