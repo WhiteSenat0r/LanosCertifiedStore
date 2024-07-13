@@ -10,20 +10,21 @@ namespace IntegrationTests.VehicleModels;
 public sealed class VehicleModelQueriesIntegrationTests(
     IntegrationTestsWebApplicationFactory factory) : IntegrationTestBase(factory)
 {
-    /* TODO THIS DOESN'T WORK YET BECAUSE OF EXCEPTION THROWN IN SEEDING
-        LOCATION ARE NOT BEING SEEDED SINCE FILE CAN'T BE ACCESSED (COOL)
-         AND BECAUSE OF THAT SeedBrands() DOESN'T EVEN TRIGGER
-    */
     [Fact]
     public async Task Send_CollectionRequest_Should_ReturnCollectionOfModels()
     {
         // Arrange
+        var brandId = (await Context.Set<VehicleBrand>().FirstAsync()).Id;
+
         var modelsCount = await Context
             .Set<VehicleModel>()
+            .Where(x => x.VehicleBrandId == brandId)
             .ToListAsync();
+
 
         var filteringRequestParameters = new VehicleModelFilteringRequestParameters
         {
+            VehicleBrandId = brandId,
             SortingType = "name-asc",
             PageIndex = 1
         };
