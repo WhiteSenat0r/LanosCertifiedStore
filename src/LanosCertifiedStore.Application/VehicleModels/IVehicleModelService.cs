@@ -16,7 +16,7 @@ public interface IVehicleModelService
         CancellationToken cancellationToken);
 
     Task<IReadOnlyCollection<VehicleModelWithoutBrandNameDto>> GetVehicleBrandlessModelCollection(
-        CollectionVehicleBrandlessModelsQueryRequest queryRequest,
+        CollectionBrandlessVehicleModelsQueryRequest queryRequest,
         CancellationToken cancellationToken);
 
     Task<SingleVehicleModelDto?> GetSingleVehicleModel(

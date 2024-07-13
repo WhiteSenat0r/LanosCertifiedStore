@@ -34,7 +34,7 @@ public sealed class VehicleModelsController : BaseApiController
     public async Task<ActionResult<PaginationResult<VehicleModelDto>>> GetBrandlessModels(
         [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
     {
-        var result = await Mediator.Send(new CollectionVehicleBrandlessModelsQueryRequest(requestParameters));
+        var result = await Mediator.Send(new CollectionBrandlessVehicleModelsQueryRequest(requestParameters));
         
         return Ok(result.Value);
     }

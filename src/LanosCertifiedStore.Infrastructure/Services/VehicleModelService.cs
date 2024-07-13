@@ -30,7 +30,7 @@ internal sealed class VehicleModelService(
     }
 
     public async Task<IReadOnlyCollection<VehicleModelWithoutBrandNameDto>> GetVehicleBrandlessModelCollection(
-        CollectionVehicleBrandlessModelsQueryRequest queryRequest,
+        CollectionBrandlessVehicleModelsQueryRequest queryRequest,
         CancellationToken cancellationToken)
     {
         return await collectionBrandlessVehicleModelsQuery.Execute(queryRequest, cancellationToken);

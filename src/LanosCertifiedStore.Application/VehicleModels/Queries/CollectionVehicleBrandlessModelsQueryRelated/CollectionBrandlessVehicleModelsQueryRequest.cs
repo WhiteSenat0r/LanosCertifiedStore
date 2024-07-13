@@ -6,6 +6,6 @@ using Domain.Entities.VehicleRelated;
 
 namespace Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
 
-public sealed record CollectionVehicleBrandlessModelsQueryRequest(
+public sealed record CollectionBrandlessVehicleModelsQueryRequest(
     IFilteringRequestParameters<VehicleModel> FilteringParameters) : 
     ICollectionQueryRequest<VehicleModel, PaginationResult<VehicleModelWithoutBrandNameDto>, VehicleModelWithoutBrandNameDto>;
