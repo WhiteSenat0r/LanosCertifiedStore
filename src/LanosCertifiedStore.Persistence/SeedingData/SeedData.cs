@@ -7,41 +7,49 @@ using Persistence.SeedingData.LocationRelated;
 
 namespace Persistence.SeedingData;
 
-public static class SeedData
+public sealed class SeedData
 {
-    private static string _serializedLocationsFilePath = "Data/Json/SerializedUkraineLocations.json";
+    private readonly ApplicationDatabaseContext _context;
+    private readonly string _serializedLocationsFilePath = string.Empty;
 
-    public static async Task Seed(ApplicationDatabaseContext context, string staticDataPath)
+    public SeedData(string staticDataPath, ApplicationDatabaseContext context)
     {
-        _serializedLocationsFilePath = string.Join('/', [staticDataPath, _serializedLocationsFilePath]);
-        
-        await SeedVehicleTypes(context);
-        await SeedVehicleColors(context);
-        await SeedVehicleBodyTypes(context);
-        await SeedVehicleDrivetrainTypes(context);
-        await SeedVehicleEngineTypes(context);
-        await SeedVehicleTransmissionTypes(context);
-        await SeedBrands(context);
-
-        if (context.ChangeTracker.HasChanges())
+        _context = context;
+        if (string.IsNullOrEmpty(_serializedLocationsFilePath))
         {
-            await context.SaveChangesAsync();
-        }
-
-        await SeedLocations(context);
-        await SeedModels(context);
-
-        var vehicles = await SeedVehicles(context);
-
-        await SeedImages(context, vehicles);
-
-        if (context.ChangeTracker.HasChanges())
-        {
-            await context.SaveChangesAsync();
+            _serializedLocationsFilePath = $"{staticDataPath}/Data/Json/SerializedUkraineLocations.json";
         }
     }
 
-    private static async Task SeedImages(ApplicationDatabaseContext context, List<Vehicle> vehicles)
+    public async Task Seed()
+    {
+        await SeedVehicleTypes(_context);
+        await SeedVehicleColors(_context);
+        await SeedVehicleBodyTypes(_context);
+        await SeedVehicleDrivetrainTypes(_context);
+        await SeedVehicleEngineTypes(_context);
+        await SeedVehicleTransmissionTypes(_context);
+        await SeedBrands(_context);
+
+        if (_context.ChangeTracker.HasChanges())
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        await SeedLocations(_context);
+        await SeedModels(_context);
+
+        var vehicles = await SeedVehicles(_context);
+
+        await SeedImages(_context, vehicles);
+
+        if (_context.ChangeTracker.HasChanges())
+        {
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    private async Task SeedImages(ApplicationDatabaseContext context, List<Vehicle> vehicles)
     {
         var images = SeedingData.SeedImages.GetImages(vehicles);
 
@@ -51,7 +59,7 @@ public static class SeedData
         }
     }
 
-    private static async Task<List<Vehicle>> SeedVehicles(ApplicationDatabaseContext context)
+    private async Task<List<Vehicle>> SeedVehicles(ApplicationDatabaseContext context)
     {
         var vehicles = SeedingData.SeedVehicles.GetVehicles(
             await context.VehicleTypes.AsNoTracking().ToListAsync(),
@@ -81,7 +89,7 @@ public static class SeedData
         return vehicles;
     }
 
-    private static async Task SeedModels(ApplicationDatabaseContext context)
+    private async Task SeedModels(ApplicationDatabaseContext context)
     {
         var models = SeedingData.SeedModels.GetModels(
             await context.VehiclesBrands.AsNoTracking().ToListAsync(),
@@ -119,7 +127,7 @@ public static class SeedData
         }
     }
 
-    private static async Task SeedLocations(ApplicationDatabaseContext context)
+    private async Task SeedLocations(ApplicationDatabaseContext context)
     {
         var locationsData = await GetLocationsData();
 
@@ -160,11 +168,11 @@ public static class SeedData
         {
             await context.SaveChangesAsync();
         }
-        
+
         context.ChangeTracker.Clear();
     }
 
-    private static async Task SeedBrands(ApplicationDatabaseContext context)
+    private async Task SeedBrands(ApplicationDatabaseContext context)
     {
         var brands = SeedingData.SeedBrands.GetBrands();
 
@@ -174,7 +182,7 @@ public static class SeedData
         }
     }
 
-    private static async Task SeedVehicleTransmissionTypes(ApplicationDatabaseContext context)
+    private async Task SeedVehicleTransmissionTypes(ApplicationDatabaseContext context)
     {
         var transmissionTypes = TypeRelated.SeedVehicleTransmissionTypes.GetVehicleTransmissionTypes();
 
@@ -184,7 +192,7 @@ public static class SeedData
         }
     }
 
-    private static async Task SeedVehicleEngineTypes(ApplicationDatabaseContext context)
+    private async Task SeedVehicleEngineTypes(ApplicationDatabaseContext context)
     {
         var engineTypes = TypeRelated.SeedVehicleEngineTypes.GetVehicleEngineTypes();
 
@@ -194,7 +202,7 @@ public static class SeedData
         }
     }
 
-    private static async Task SeedVehicleDrivetrainTypes(ApplicationDatabaseContext context)
+    private async Task SeedVehicleDrivetrainTypes(ApplicationDatabaseContext context)
     {
         var drivetrainTypes = TypeRelated.SeedVehicleDrivetrainTypes.GetVehicleDrivetrainTypes();
 
@@ -204,7 +212,7 @@ public static class SeedData
         }
     }
 
-    private static async Task SeedVehicleBodyTypes(ApplicationDatabaseContext context)
+    private async Task SeedVehicleBodyTypes(ApplicationDatabaseContext context)
     {
         var bodyTypes = TypeRelated.SeedVehicleBodyTypes.GetVehicleBodyTypes();
 
@@ -214,7 +222,7 @@ public static class SeedData
         }
     }
 
-    private static async Task SeedVehicleColors(ApplicationDatabaseContext context)
+    private async Task SeedVehicleColors(ApplicationDatabaseContext context)
     {
         var colors = SeedColors.GetColors();
 
@@ -224,7 +232,7 @@ public static class SeedData
         }
     }
 
-    private static async Task SeedVehicleTypes(ApplicationDatabaseContext context)
+    private async Task SeedVehicleTypes(ApplicationDatabaseContext context)
     {
         var types = TypeRelated.SeedVehicleTypes.GetVehicleTypes();
 
@@ -234,7 +242,7 @@ public static class SeedData
         }
     }
 
-    private static async Task<Dictionary<string, Dictionary<string, List<KeyValuePair<string, string>>>>?>
+    private async Task<Dictionary<string, Dictionary<string, List<KeyValuePair<string, string>>>>?>
         GetLocationsData()
     {
         var serializedLocationsData = await File.ReadAllTextAsync(_serializedLocationsFilePath);
@@ -243,7 +251,7 @@ public static class SeedData
             <Dictionary<string, Dictionary<string, List<KeyValuePair<string, string>>>>>(serializedLocationsData);
     }
 
-    private static Dictionary<string, string> GetAreaRegionDictionary(
+    private Dictionary<string, string> GetAreaRegionDictionary(
         List<VehicleLocationRegion> regions,
         Dictionary<string, Dictionary<string, List<KeyValuePair<string, string>>>> deserializedLocationsData)
     {
