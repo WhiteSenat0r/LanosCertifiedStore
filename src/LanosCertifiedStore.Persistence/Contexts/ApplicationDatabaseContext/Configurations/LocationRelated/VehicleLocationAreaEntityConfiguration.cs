@@ -13,5 +13,6 @@ internal sealed class VehicleLocationAreaConfiguration : IEntityTypeConfiguratio
             .HasMaxLength(64);
 
         builder.HasIndex(p => p.Name);
+        builder.ToTable("VehicleLocationAreas", DatabaseSchemas.LocationsSchema);
     }
 }

@@ -13,5 +13,6 @@ internal sealed class VehicleLocationTownTypeConfiguration : IEntityTypeConfigur
             .HasMaxLength(64);
 
         builder.HasIndex(p => p.Name);
+        builder.ToTable("VehicleLocationTownTypes", DatabaseSchemas.LocationsSchema);
     }
 }

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations;
+namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.VehicleRelated;
 
 internal sealed class VehicleBrandEntityConfiguration : IEntityTypeConfiguration<VehicleBrand>
 {
@@ -13,5 +13,6 @@ internal sealed class VehicleBrandEntityConfiguration : IEntityTypeConfiguration
             .HasMaxLength(64);
 
         builder.HasIndex(p => p.Name).IsUnique();
+        builder.ToTable("VehicleBrands", DatabaseSchemas.VehiclesSchema);
     }
 }

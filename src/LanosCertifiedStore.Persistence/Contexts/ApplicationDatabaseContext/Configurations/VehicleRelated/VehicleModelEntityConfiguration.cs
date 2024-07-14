@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations;
+namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.VehicleRelated;
 
 internal sealed class VehicleModelConfiguration : IEntityTypeConfiguration<VehicleModel>
 {
@@ -18,5 +18,7 @@ internal sealed class VehicleModelConfiguration : IEntityTypeConfiguration<Vehic
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasIndex(p => new { p.Name, p.VehicleBrandId }).IsUnique();
+        builder.ToTable("VehicleModels", DatabaseSchemas.VehiclesSchema);
+
     }
 }

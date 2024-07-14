@@ -1,23 +1,27 @@
-﻿namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.IdentityRelated;
+﻿using Domain.Entities.UserRelated;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-// TODO
-// internal sealed class UserRoleEntityConfiguration : IEntityTypeConfiguration<UserRole>
-// {
-//     public void Configure(EntityTypeBuilder<UserRole> builder)
-//     {
-//         builder.HasIndex(x => x.Name).IsUnique();
-//
-//         builder.Property(x => x.Name)
-//             .IsRequired()
-//             .HasMaxLength(64);
-//
-//         var roles = new List<UserRole>
-//         {
-//             new("Користувач"),
-//             new("Адміністратор")
-//         };
-//         
-//         builder.HasData(roles);
-//         builder.ToTable("UserRoles");
-//     }
-// }
+namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.IdentityRelated;
+
+internal sealed class UserRoleEntityConfiguration : IEntityTypeConfiguration<UserRole>
+{
+    public void Configure(EntityTypeBuilder<UserRole> builder)
+    {
+        builder.HasIndex(x => x.Name).IsUnique();
+
+        builder.Property(x => x.Name)
+            .IsRequired()
+            .HasMaxLength(64);
+
+        var roles = new List<UserRole>
+        {
+            new(Guid.NewGuid(), "Користувач"),
+            new(Guid.NewGuid(), "Менеджер"),
+            new(Guid.NewGuid(), "Адміністратор")
+        };
+
+        builder.HasData(roles);
+        builder.ToTable("UserRoles", DatabaseSchemas.IdentitySchema);
+    }
+}

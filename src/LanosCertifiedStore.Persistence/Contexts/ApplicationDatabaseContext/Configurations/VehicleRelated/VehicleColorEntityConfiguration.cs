@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations;
+namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.VehicleRelated;
 
 internal sealed class VehicleColorEntityConfiguration : IEntityTypeConfiguration<VehicleColor>
 {
@@ -21,5 +21,6 @@ internal sealed class VehicleColorEntityConfiguration : IEntityTypeConfiguration
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasIndex(p => p.Name).IsUnique();
+        builder.ToTable("VehicleColors", DatabaseSchemas.VehiclesSchema);
     }
 }

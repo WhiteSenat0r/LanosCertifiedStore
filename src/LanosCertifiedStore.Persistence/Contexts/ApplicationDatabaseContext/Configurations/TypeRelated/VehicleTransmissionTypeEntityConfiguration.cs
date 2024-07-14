@@ -11,7 +11,7 @@ internal sealed class VehicleTransmissionTypeConfiguration : IEntityTypeConfigur
         builder.Property(p => p.Name)
             .IsRequired()
             .HasMaxLength(64);
-        
+
         builder.HasMany(m => m.Vehicles)
             .WithOne(v => v.TransmissionType)
             .OnDelete(DeleteBehavior.Cascade);
@@ -19,7 +19,8 @@ internal sealed class VehicleTransmissionTypeConfiguration : IEntityTypeConfigur
         builder.HasMany(m => m.Models)
             .WithMany(x => x.AvailableTransmissionTypes)
             .UsingEntity(join => join.ToTable("VehicleTransmissionTypesVehicleModels"));
-        
+
         builder.HasIndex(p => p.Name).IsUnique();
+        builder.ToTable("VehicleTransmissionTypes", DatabaseSchemas.VehiclesSchema);
     }
 }

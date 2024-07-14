@@ -21,5 +21,7 @@ internal sealed class VehicleTypeConfiguration : IEntityTypeConfiguration<Vehicl
             .OnDelete(DeleteBehavior.Cascade);
         
         builder.HasIndex(p => p.Name).IsUnique();
+        builder.ToTable("VehicleTypes", DatabaseSchemas.VehiclesSchema);
+
     }
 }
