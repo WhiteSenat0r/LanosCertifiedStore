@@ -11,8 +11,10 @@ public sealed class VehicleImage : IIdentifiable<Guid>
     public Guid VehicleId { get; set; }
     public Vehicle Vehicle { get; set; } = null!;
 
-    public VehicleImage() { }
-    
+    public VehicleImage()
+    {
+    }
+
     public VehicleImage(Guid vehicleId, string cloudImageId, string imageUrl, bool isMainImage)
     {
         VehicleId = vehicleId;
