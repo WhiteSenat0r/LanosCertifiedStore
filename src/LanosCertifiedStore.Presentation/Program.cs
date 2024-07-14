@@ -34,6 +34,7 @@ app.UseSerilogRequestLogging();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseExceptionHandler();
 app.UseStaticFiles();
 
@@ -44,4 +45,7 @@ await app.ExecuteMigration();
 app.Run();
 
 // For integration testing purposes
-public partial class Program;
+namespace API
+{
+    public partial class Program;
+}

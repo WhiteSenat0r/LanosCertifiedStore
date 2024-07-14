@@ -1,24 +1,30 @@
-﻿namespace Domain.Entities.UserRelated;
+﻿using Domain.Entities.VehicleRelated;
+using Microsoft.AspNetCore.Identity;
 
-public sealed class User;
-// {
-//     public Guid Id { get; init; } = Guid.NewGuid();
-//     public string FirstName { get; set; } = default!;
-//     public string LastName { get; set; } = default!;
-//     [EmailAddress(ErrorMessage = "Property must be of email type!")]
-//     public string Email { get; set; } = default!;
-//     public string PasswordHash { get; set; } = default!;
-//     public ICollection<UserRole> Roles { get; set; } = [];
-//     // TODO Implement relationship later
-//     // public ICollection<Vehicle> Vehicles { get; set; } = [];
-//
-//     public User() { }
-//
-//     public User(string firstName, string lastName, string email, string passwordHash)
-//     {
-//         FirstName = firstName;
-//         LastName = lastName;
-//         Email = email;
-//         PasswordHash = passwordHash;
-//     }
-// }
+namespace Domain.Entities.UserRelated;
+
+public sealed class User : IdentityUser<Guid>
+{
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+
+    public ICollection<Vehicle> Vehicles { get; set; } = [];
+
+    public User()
+    {
+    }
+
+    public User(
+        string email,
+        string firstName,
+        string lastName,
+        string phoneNumber
+    )
+    {
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+        UserName = email;
+        PhoneNumber = phoneNumber;
+    }
+}

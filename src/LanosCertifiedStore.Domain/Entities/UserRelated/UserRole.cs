@@ -1,15 +1,20 @@
-﻿namespace Domain.Entities.UserRelated;
+﻿using Microsoft.AspNetCore.Identity;
 
-// TODO
-public class UserRole
+namespace Domain.Entities.UserRelated;
+
+public class UserRole : IdentityRole<Guid>
 {
-    // public Guid Id { get; init; } = Guid.NewGuid();
-    // public string Name { get; set; } = default!;
-    // public ICollection<User> Users { get; set; } = [];
-    //
-    // public UserRole() { }
-    //
-    // public UserRole(string name) => Name = name;
-    //
-    // public override string ToString() => Name;
+    public ICollection<User> Users { get; set; } = [];
+
+    public UserRole()
+    {
+    }
+
+    public UserRole(Guid id, string name)
+    {
+        Id = id;
+        Name = name;
+    }
+
+    public override string ToString() => Name;
 }
