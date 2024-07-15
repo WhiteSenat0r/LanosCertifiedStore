@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.UserRelated;
 
-public class UserRole : IdentityRole<Guid>
+public sealed class UserRole : IdentityRole<Guid>
 {
     public ICollection<User> Users { get; set; } = [];
 

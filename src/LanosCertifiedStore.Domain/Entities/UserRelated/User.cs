@@ -10,16 +10,13 @@ public sealed class User : IdentityUser<Guid>
 
     public ICollection<Vehicle> Vehicles { get; set; } = [];
 
-    public User()
-    {
-    }
+    public User() { }
 
     public User(
         string email,
         string firstName,
         string lastName,
-        string phoneNumber
-    )
+        string phoneNumber)
     {
         FirstName = firstName;
         LastName = lastName;
