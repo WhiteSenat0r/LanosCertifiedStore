@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.VehicleRelated.LocationRelated;
 
-public sealed class VehicleLocationArea : NamedVehicleAspect
+public sealed class VehicleLocationArea : NamedAspect
 {
     public ICollection<VehicleLocationTown> RelatedTowns { get; set; } = [];
     public Guid LocationRegionId { get; set; }

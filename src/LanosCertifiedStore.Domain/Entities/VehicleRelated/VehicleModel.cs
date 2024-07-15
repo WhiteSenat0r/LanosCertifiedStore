@@ -3,7 +3,7 @@ using Domain.Entities.VehicleRelated.TypeRelated;
 
 namespace Domain.Entities.VehicleRelated;
 
-public sealed class VehicleModel : NamedVehicleAspect
+public sealed class VehicleModel : NamedAspect
 {
     public int MinimalProductionYear { get; set; }
     public int? MaximumProductionYear { get; set; }

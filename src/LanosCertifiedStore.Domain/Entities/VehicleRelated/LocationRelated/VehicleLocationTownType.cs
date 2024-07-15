@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.VehicleRelated.LocationRelated;
 
-public sealed class VehicleLocationTownType : NamedVehicleAspect
+public sealed class VehicleLocationTownType : NamedAspect
 {
     public ICollection<VehicleLocationTown> Towns { get; init; } = [];
     

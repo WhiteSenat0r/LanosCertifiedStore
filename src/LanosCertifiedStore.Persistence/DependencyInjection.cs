@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using Application.Shared;
 using Application.Shared.ValidationRelated;
-using Domain.Entities.UserRelated;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,10 +30,6 @@ public static class DependencyInjection
 
         services.AddScoped<ITransactionService, TransactionService>();
         services.AddScoped<IValidationHelper, ValidationHelper>();
-
-        services.AddIdentityCore<User>()
-            .AddEntityFrameworkStores<ApplicationDatabaseContext>();
-
 
         return services;
     }
