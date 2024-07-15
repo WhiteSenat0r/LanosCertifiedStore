@@ -564,7 +564,7 @@ internal static class SeedModels
     private static List<T> GetItemsWithParticularValues<T>(
         IEnumerable<T> collection,
         IEnumerable<string> nameValues,
-        bool skipMode = false) where T : NamedVehicleAspect =>
+        bool skipMode = false) where T : NamedAspect =>
         skipMode
             ? collection.Where(item => !nameValues.Contains(item.Name)).ToList()
             : collection.Where(item => nameValues.Contains(item.Name)).ToList();

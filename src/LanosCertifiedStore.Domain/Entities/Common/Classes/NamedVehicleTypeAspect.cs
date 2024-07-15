@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.Common.Classes;
 
-public abstract class NamedVehicleTypeAspect : NamedVehicleAspect
+public abstract class NamedVehicleTypeAspect : NamedAspect
 {
     public ICollection<VehicleModel> Models { get; set; } = [];
     public ICollection<Vehicle> Vehicles { get; set; } = [];

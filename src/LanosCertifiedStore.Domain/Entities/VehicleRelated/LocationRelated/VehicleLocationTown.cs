@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.VehicleRelated.LocationRelated;
 
-public sealed class VehicleLocationTown : NamedVehicleAspect
+public sealed class VehicleLocationTown : NamedAspect
 {
     public Guid LocationAreaId { get; set; }
     public VehicleLocationArea LocationArea { get; set; } = null!;

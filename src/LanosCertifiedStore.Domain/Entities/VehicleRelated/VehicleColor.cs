@@ -2,7 +2,7 @@
 
 namespace Domain.Entities.VehicleRelated;
 
-public sealed class VehicleColor : NamedVehicleAspect
+public sealed class VehicleColor : NamedAspect
 {
     public string HexValue { get; set; } = null!;
     public ICollection<Vehicle> Vehicles { get; set; } = [];
