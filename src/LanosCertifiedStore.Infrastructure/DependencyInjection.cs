@@ -9,10 +9,11 @@ using Application.VehicleEngineTypes;
 using Application.VehicleModels;
 using Application.VehicleTransmissionTypes;
 using Application.VehicleTypes;
-using LanosCertifiedStore.InfrastructureLayer.Services.Services;
-using LanosCertifiedStore.InfrastructureLayer.Services.Services.ImagesRelated;
-using LanosCertifiedStore.InfrastructureLayer.Services.Services.ImagesRelated.Common;
-using LanosCertifiedStore.InfrastructureLayer.Services.Services.LocationRelated;
+using LanosCertifiedStore.InfrastructureLayer.Services.Authentication;
+using LanosCertifiedStore.InfrastructureLayer.Services.Images;
+using LanosCertifiedStore.InfrastructureLayer.Services.Locations;
+using LanosCertifiedStore.InfrastructureLayer.Services.Vehicles;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -35,6 +36,13 @@ public static class DependencyInjection
         services.AddScoped<ILocationRegionService, LocationRegionService>();
         services.AddScoped<ILocationTownService, LocationTownService>();
         services.AddScoped<IVehicleModelService, VehicleModelService>();
+
+        services
+            .AddAuthentication()
+            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme);
+
+        services.Configure<AuthenticationOptions>(config.GetSection("Authentication"));
+        services.ConfigureOptions<JwtBearerOptionsSetup>();
 
         return services;
     }
