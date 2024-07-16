@@ -32,9 +32,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Identity\Commands\" />
-      <Folder Include="Identity\Dtos\" />
-      <Folder Include="Identity\Queries\" />
       <Folder Include="Images\Commands\" />
       <Folder Include="LocationRegions\Queries\" />
       <Folder Include="LocationTowns\Queries\" />
