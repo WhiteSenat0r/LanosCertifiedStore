@@ -2,7 +2,7 @@
 using Application.VehicleTransmissionTypes.Queries.CollectionVehicleTransmissionTypesQueryRelated;
 using Persistence.Queries.TypeRelated.VehicleTransmissionTypeRelated.QueryRelated;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.Services;
+namespace LanosCertifiedStore.InfrastructureLayer.Services.Vehicles;
 
 internal sealed class VehicleTransmissionTypeService(
     CollectionVehicleTransmissionTypesQuery collectionVehicleTransmissionTypesQuery) : IVehicleTransmissionTypeService
