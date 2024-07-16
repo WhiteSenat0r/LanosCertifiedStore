@@ -10,6 +10,7 @@ public sealed class User : IIdentifiable<Guid>
     public string LastName { get; set; } = null!;
     public string PhoneNumber { get; set; } = null!;
     public string Email { get; set; } = null!;
+    public string IdentityId { get; set; } = null!;
     public ICollection<Vehicle> Vehicles { get; set; } = [];
 
     public User() { }
