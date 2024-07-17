@@ -12,7 +12,7 @@ internal class ImageService : IImageService
     private readonly ICloudinary _cloudinarySource;
     private readonly ICollection<string> _uploadedImagesIdBuffer = new List<string>();
 
-    public ImageService(IOptions<CloudinarySettings> cloudinaryOptions) =>
+    public ImageService(IOptions<CloudinaryOptions> cloudinaryOptions) =>
         _cloudinarySource = InstantiateCloudinarySource(cloudinaryOptions);
 
     public async Task<ImageResult> UploadImageAsync(
@@ -84,7 +84,7 @@ internal class ImageService : IImageService
             Transformation = new Transformation().Width(1920).Height(1080).Crop("fill")
         };
 
-    private ICloudinary InstantiateCloudinarySource(IOptions<CloudinarySettings> cloudinaryOptions)
+    private ICloudinary InstantiateCloudinarySource(IOptions<CloudinaryOptions> cloudinaryOptions)
     {
         var cloudinaryAccount = new Account(
             cloudinaryOptions.Value.CloudName,
