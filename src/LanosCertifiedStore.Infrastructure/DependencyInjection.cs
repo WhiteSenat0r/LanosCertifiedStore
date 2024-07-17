@@ -13,16 +13,13 @@ using LanosCertifiedStore.InfrastructureLayer.Services.Authentication;
 using LanosCertifiedStore.InfrastructureLayer.Services.Images;
 using LanosCertifiedStore.InfrastructureLayer.Services.Locations;
 using LanosCertifiedStore.InfrastructureLayer.Services.Vehicles;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddExternalServices(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddExternalServices(this IServiceCollection services)
     {
         AddImageRelatedServices(services);
         AddVehicleRelatedServices(services);
@@ -36,7 +33,6 @@ public static class DependencyInjection
     private static void AddAuthenticationRelatedServices(IServiceCollection services)
     {
         services.AddAuthorization();
-
         services.AddAuthentication().AddJwtBearer();
         services.AddHttpContextAccessor();
         services.ConfigureOptions<JwtBearerConfigureOptions>();
@@ -44,7 +40,6 @@ public static class DependencyInjection
 
     private static void AddImageRelatedServices(IServiceCollection services)
     {
-        services.AddSingleton<IConfigureOptions<CloudinaryOptions>, CloudinaryConfigureOptions>();
         services.ConfigureOptions<CloudinaryConfigureOptions>();
         services.AddScoped<IImageService, ImageService>();
     }
