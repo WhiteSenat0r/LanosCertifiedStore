@@ -302,9 +302,8 @@
         }
       ],
       "security-admin-console": [],
-      "lsc-auth-client": [],
       "admin-cli": [],
-      "lsc-admin-client": [],
+      "lsc-public-auth-client": [],
       "account-console": [],
       "broker": [
         {
@@ -404,7 +403,8 @@
           "containerId": "773bd271-88de-43d4-b68e-325af3050cdf",
           "attributes": {}
         }
-      ]
+      ],
+      "lsc-confidential-auth-client": []
     }
   },
   "groups": [],
@@ -461,12 +461,12 @@
   "users": [
     {
       "id": "3538994f-b095-45f6-8f98-a95dd61b84c1",
-      "username": "service-account-lsc-admin-client",
+      "username": "service-account-lsc-confidential-auth-client",
       "emailVerified": false,
       "createdTimestamp": 1689227091368,
       "enabled": true,
       "totp": false,
-      "serviceAccountClientId": "lsc-admin-client",
+      "serviceAccountClientId": "lsc-confidential-auth-client",
       "disableableCredentialTypes": [],
       "requiredActions": [],
       "realmRoles": [
@@ -681,24 +681,27 @@
     },
     {
       "id": "c6bfa492-b859-47b2-96e0-18b0ad6c9b6d",
-      "clientId": "lsc-admin-client",
-      "rootUrl": "http://localhost:18080/",
-      "adminUrl": "http://localhost:18080/",
+      "clientId": "lsc-confidential-auth-client",
+      "name": "${lcs_confidential_authentication_client}",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
       "surrogateAuthRequired": false,
       "enabled": true,
-      "alwaysDisplayInConsole": false,
+      "alwaysDisplayInConsole": true,
       "clientAuthenticatorType": "client-secret",
-      "secret": "**********",
+      "secret": "3E3yvXaYppoYBF3Ir6DgtEzADKKzSurZ",
       "redirectUris": [
-        "http://localhost:18080/*"
+        ""
       ],
       "webOrigins": [
-        "http://localhost:18080"
+        ""
       ],
       "notBefore": 0,
       "bearerOnly": false,
       "consentRequired": false,
-      "standardFlowEnabled": false,
+      "standardFlowEnabled": true,
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": true,
@@ -709,10 +712,10 @@
         "id.token.as.detached.signature": "false",
         "saml.assertion.signature": "false",
         "access.token.lifespan": "600",
+        "client.secret.creation.time": "1721197119",
         "saml.force.post.binding": "false",
         "saml.multivalued.roles": "false",
         "saml.encrypt": "false",
-        "post.logout.redirect.uris": "+",
         "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.revoke.offline.tokens": "false",
         "saml.server.signature": "false",
@@ -799,34 +802,32 @@
     },
     {
       "id": "59327369-c4e0-4354-9de4-3194af25fd9d",
-      "clientId": "lsc-auth-client",
-      "name": "",
+      "clientId": "lsc-public-auth-client",
+      "name": "${lcs_public_authentication_client}",
       "description": "",
-      "rootUrl": "http://localhost:18080/",
+      "rootUrl": "",
       "adminUrl": "",
       "baseUrl": "",
       "surrogateAuthRequired": false,
       "enabled": true,
-      "alwaysDisplayInConsole": false,
+      "alwaysDisplayInConsole": true,
       "clientAuthenticatorType": "client-secret",
-      "secret": "3E3yvXaYppoYBF3Ir6DgtEzADKKzSurZ",
       "redirectUris": [],
       "webOrigins": [],
       "notBefore": 0,
       "bearerOnly": false,
       "consentRequired": false,
-      "standardFlowEnabled": false,
+      "standardFlowEnabled": true,
       "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": false,
-      "publicClient": false,
+      "publicClient": true,
       "frontchannelLogout": false,
       "protocol": "openid-connect",
       "attributes": {
         "access.token.lifespan": "600",
         "saml.force.post.binding": "false",
         "saml.multivalued.roles": "false",
-        "post.logout.redirect.uris": "+",
         "oauth2.device.authorization.grant.enabled": "false",
         "use.jwks.url": "false",
         "backchannel.logout.revoke.offline.tokens": "false",
@@ -1612,14 +1613,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "oidc-sha256-pairwise-sub-mapper",
-            "oidc-address-mapper",
-            "saml-role-list-mapper",
-            "oidc-usermodel-attribute-mapper",
-            "oidc-full-name-mapper",
             "oidc-usermodel-property-mapper",
+            "saml-role-list-mapper",
             "saml-user-attribute-mapper",
-            "saml-user-property-mapper"
+            "saml-user-property-mapper",
+            "oidc-sha256-pairwise-sub-mapper",
+            "oidc-full-name-mapper",
+            "oidc-address-mapper",
+            "oidc-usermodel-attribute-mapper"
           ]
         }
       },
@@ -1664,13 +1665,13 @@
         "config": {
           "allowed-protocol-mapper-types": [
             "saml-role-list-mapper",
-            "saml-user-property-mapper",
-            "oidc-full-name-mapper",
             "oidc-address-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
             "saml-user-attribute-mapper",
+            "oidc-usermodel-property-mapper",
+            "oidc-full-name-mapper",
             "oidc-usermodel-attribute-mapper",
-            "oidc-usermodel-property-mapper"
+            "saml-user-property-mapper",
+            "oidc-sha256-pairwise-sub-mapper"
           ]
         }
       },
