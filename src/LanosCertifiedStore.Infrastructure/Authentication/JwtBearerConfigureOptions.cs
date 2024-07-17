@@ -11,10 +11,12 @@ internal sealed class JwtBearerConfigureOptions(IConfiguration configuration) : 
     public void Configure(JwtBearerOptions options)
     {
         configuration.GetSection(AuthenticationSectionName).Bind(options);
+        options.UseSecurityTokenValidators = true;
     }
 
     public void Configure(string? name, JwtBearerOptions options)
     {
         Configure(options);
+        options.UseSecurityTokenValidators = true;
     }
 }

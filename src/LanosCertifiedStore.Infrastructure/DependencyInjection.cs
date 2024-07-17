@@ -35,9 +35,9 @@ public static class DependencyInjection
 
     private static void AddAuthenticationRelatedServices(IServiceCollection services)
     {
-        services
-            .AddAuthentication()
-            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme);
+        services.AddAuthorization();
+
+        services.AddAuthentication().AddJwtBearer();
         services.AddHttpContextAccessor();
         services.ConfigureOptions<JwtBearerConfigureOptions>();
     }
