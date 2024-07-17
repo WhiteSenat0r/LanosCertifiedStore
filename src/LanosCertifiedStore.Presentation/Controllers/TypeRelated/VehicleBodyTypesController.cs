@@ -3,12 +3,10 @@ using Application.Shared.RequestParamsRelated;
 using Application.Shared.ResultRelated;
 using Application.VehicleBodyTypes;
 using Application.VehicleBodyTypes.Queries.CollectionVehicleBodyTypesQueryRelated;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.TypeRelated;
 
-[Authorize]
 [Route("api/BodyTypes")]
 public sealed class VehicleBodyTypesController : BaseApiController
 {
