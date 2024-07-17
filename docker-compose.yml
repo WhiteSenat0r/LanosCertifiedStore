@@ -43,6 +43,7 @@ services:
       - ./.files/lsc-realm-export.json:/opt/keycloak/data/import/realm.json
     ports:
       - 18080:8080
+      - 9000:9000
 
 
   lanoscertifiedstore.seq:
