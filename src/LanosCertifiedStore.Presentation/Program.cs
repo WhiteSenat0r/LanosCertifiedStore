@@ -16,7 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddApiServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
-builder.Services.AddExternalServices(builder.Configuration);
+builder.Services.AddExternalServices();
 
 var app = builder.Build();
 
