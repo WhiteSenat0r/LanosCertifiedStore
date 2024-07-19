@@ -23,7 +23,7 @@ public sealed class VehicleModelsController : BaseApiController
     public async Task<ActionResult<PaginationResult<VehicleModelDto>>> GetModels(
         [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
     {
-        var result = await Mediator.Send(new CollectionVehicleModelsQueryRequest(requestParameters));
+        var result = await Sender.Send(new CollectionVehicleModelsQueryRequest(requestParameters));
         
         return Ok(result.Value);
     }
@@ -34,7 +34,7 @@ public sealed class VehicleModelsController : BaseApiController
     public async Task<ActionResult<PaginationResult<VehicleModelDto>>> GetBrandlessModels(
         [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
     {
-        var result = await Mediator.Send(new CollectionBrandlessVehicleModelsQueryRequest(requestParameters));
+        var result = await Sender.Send(new CollectionBrandlessVehicleModelsQueryRequest(requestParameters));
         
         return Ok(result.Value);
     }
@@ -44,7 +44,7 @@ public sealed class VehicleModelsController : BaseApiController
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<SingleVehicleModelDto>> GetModel(Guid id)
     {
-        var result = await Mediator.Send(new SingleVehicleModelQueryRequest(id));
+        var result = await Sender.Send(new SingleVehicleModelQueryRequest(id));
 
         if (result.IsSuccess)
         {
@@ -60,7 +60,7 @@ public sealed class VehicleModelsController : BaseApiController
     public async Task<ActionResult<ItemsCountDto>> GetModelsCount(
         [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
     {
-        var result = await Mediator.Send(new CountVehicleModelsQueryRequest(requestParameters));
+        var result = await Sender.Send(new CountVehicleModelsQueryRequest(requestParameters));
         
         return Ok(result.Value);
     }
@@ -70,7 +70,7 @@ public sealed class VehicleModelsController : BaseApiController
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> CreateBrand([FromBody] CreateVehicleModelCommandRequest createVehicleCommandRequest)
     {
-        var result = await Mediator.Send(createVehicleCommandRequest);
+        var result = await Sender.Send(createVehicleCommandRequest);
 
         if (result is IValidationResult validationResult)
         {
@@ -92,7 +92,7 @@ public sealed class VehicleModelsController : BaseApiController
     public async Task<ActionResult> UpdateModel(
         [FromBody] UpdateVehicleModelCommandRequest updateVehicleModelCommandRequest)
     {
-        var result = await Mediator.Send(updateVehicleModelCommandRequest);
+        var result = await Sender.Send(updateVehicleModelCommandRequest);
 
         if (result is IValidationResult validationResult)
         {

@@ -18,7 +18,7 @@ public sealed class VehicleLocationTownsController : BaseApiController
     public async Task<ActionResult<PaginationResult<LocationTownDto>>> GetTowns(
         [FromQuery] VehicleLocationTownFilteringRequestParameters requestParameters)
     {
-        var result = await Mediator.Send(new CollectionLocationTownsQueryRequest(requestParameters));
+        var result = await Sender.Send(new CollectionLocationTownsQueryRequest(requestParameters));
 
         if (!result.IsSuccess)
         {
@@ -34,7 +34,7 @@ public sealed class VehicleLocationTownsController : BaseApiController
     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
         [FromQuery] VehicleLocationTownFilteringRequestParameters requestParameters)
     {
-        var result = await Mediator.Send(new CountLocationTownsQueryRequest(requestParameters));
+        var result = await Sender.Send(new CountLocationTownsQueryRequest(requestParameters));
 
         return Ok(result.Value);
     }

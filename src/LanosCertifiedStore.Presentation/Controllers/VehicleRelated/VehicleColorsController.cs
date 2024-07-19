@@ -16,7 +16,7 @@ public sealed class VehicleColorsController : BaseApiController
     public async Task<ActionResult<PaginationResult<VehicleColorDto>>> GetColors(
         [FromQuery] string? sortingType)
     {
-        var result = await Mediator.Send(new CollectionVehicleColorsQueryRequest(
+        var result = await Sender.Send(new CollectionVehicleColorsQueryRequest(
             new VehicleColorFilteringRequestParameters
             {
                 ItemQuantity = ItemQuantitySelection.Fifty,

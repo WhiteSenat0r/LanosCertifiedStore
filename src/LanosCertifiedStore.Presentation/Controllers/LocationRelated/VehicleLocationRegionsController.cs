@@ -17,7 +17,7 @@ public sealed class VehicleLocationRegionsController : BaseApiController
     public async Task<ActionResult<PaginationResult<LocationRegionDto>>> GetRegions(
         [FromQuery] string? sortingType)
     {
-        var result = await Mediator.Send(new CollectionLocationRegionsQueryRequest(
+        var result = await Sender.Send(new CollectionLocationRegionsQueryRequest(
             new VehicleLocationRegionFilteringRequestParameters 
             {
                 ItemQuantity = ItemQuantitySelection.Fifty,

@@ -16,7 +16,7 @@ public sealed class VehicleTransmissionTypesController : BaseApiController
     public async Task<ActionResult<PaginationResult<VehicleTransmissionTypeDto>>> GetTypes(
         [FromQuery] string? sortingType)
     {
-        var result = await Mediator.Send(new CollectionVehicleTransmissionTypesQueryRequest(
+        var result = await Sender.Send(new CollectionVehicleTransmissionTypesQueryRequest(
             new VehicleTransmissionTypeFilteringRequestParameters
             {
                 ItemQuantity = ItemQuantitySelection.TwentyFive,

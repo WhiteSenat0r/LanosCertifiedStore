@@ -8,10 +8,10 @@ namespace API.Controllers.Common;
 [ApiController]
 public abstract class BaseApiController : ControllerBase
 {
-    private IMediator? _mediator;
+    private ISender? _sender;
 
-    protected IMediator Mediator => (_mediator ??=
-        HttpContext.RequestServices.GetService<IMediator>())!;
+    protected ISender Sender => (_sender ??=
+        HttpContext.RequestServices.GetService<ISender>())!;
 
 
     private protected static ProblemDetails CreateValidationProblemDetails(Error error,
