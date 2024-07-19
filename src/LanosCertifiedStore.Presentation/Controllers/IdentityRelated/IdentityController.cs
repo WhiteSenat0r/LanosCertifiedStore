@@ -1,6 +1,8 @@
-﻿using System.Xml.XPath;
+﻿using System.Net;
+using System.Xml.XPath;
 using API.Controllers.Common;
 using Application.Identity.Commands.RegisterUserCommandRequestRelated;
+using Application.Shared.ResultRelated;
 using Application.Shared.ValidationRelated;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,16 +16,22 @@ public sealed class IdentityController : BaseApiController
     {
         var result = await Sender.Send(registerUserCommandRequest);
 
+        if (result.IsSuccess)
+        {
+            return Ok(result.Value);
+        }
+
         if (result is IValidationResult validationResult)
         {
             return BadRequest(CreateValidationProblemDetails(result.Error!, validationResult.Errors));
         }
 
-        if (!result.IsSuccess)
+        var problemDetails = new ProblemDetails
         {
-            return BadRequest(result.Error);
-        }
-
-        return Ok(result.Value);
+            Title = result.Error!.Code,
+            Status = (int)HttpStatusCode.BadRequest,
+            Detail = result.Error.Message,
+        };
+        return BadRequest(problemDetails);
     }
 }
