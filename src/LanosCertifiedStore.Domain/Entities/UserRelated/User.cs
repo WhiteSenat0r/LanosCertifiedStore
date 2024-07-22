@@ -25,6 +25,5 @@ public sealed class User : IIdentifiable<Guid>
         LastName = lastName;
         Email = email;
         PhoneNumber = phoneNumber;
-        IdentityId = identityId;
     }
 }
