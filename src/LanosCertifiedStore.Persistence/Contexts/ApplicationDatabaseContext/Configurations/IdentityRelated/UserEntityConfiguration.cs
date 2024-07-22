@@ -15,6 +15,12 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.LastName)
             .IsRequired()
             .HasMaxLength(32);
+
+        builder.HasIndex(x => x.Email)
+            .IsUnique();
+        
+        builder.HasIndex(x => x.IdentityId)
+            .IsUnique();
         
         builder.ToTable("Users", DatabaseSchemas.IdentitySchema);
     }

@@ -19,11 +19,13 @@ public sealed class User : IIdentifiable<Guid>
         string email,
         string firstName,
         string lastName,
-        string phoneNumber)
+        string phoneNumber,
+        string identityId)
     {
         FirstName = firstName;
         LastName = lastName;
         Email = email;
         PhoneNumber = phoneNumber;
+        IdentityId = identityId;
     }
 }

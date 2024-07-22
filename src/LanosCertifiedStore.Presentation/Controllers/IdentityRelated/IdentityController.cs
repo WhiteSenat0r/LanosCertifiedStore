@@ -1,39 +1,37 @@
-﻿// using API.Controllers.Common;
-// using API.Responses;
-// using Application.CommandRequests.Identity.Authentication.AuthenticationStatus;
-// using Application.CommandRequests.Identity.Authentication.Login;
-// using Application.CommandRequests.Identity.Authentication.Register;
-// using Application.Dtos.IdentityDtos.AuthenticationDtos;
-// using Microsoft.AspNetCore.Mvc;
-//
-// namespace API.Controllers.IdentityRelated;
-//
-// public sealed class IdentityController : BaseIdentityRelatedController
-// {
-//     [HttpPost("login")]
-//     [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
-//     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-//     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status401Unauthorized)]
-//     public async Task<ActionResult<UserDto>> Login([FromBody] LoginDto loginDto)
-//     {
-//         return HandleResult(await Mediator.Send(new LoginCommand(loginDto, Response)));
-//     }
-//     
-//     [HttpGet("authenticationStatus")]
-//     [ProducesResponseType(typeof(Dictionary<string, bool>), StatusCodes.Status200OK)]
-//     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-//     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status401Unauthorized)]
-//     public async Task<ActionResult<Dictionary<string, bool>>> GetAuthenticationStatus()
-//     {
-//         return HandleResult(await Mediator.Send(new AuthenticationStatusCommand(Request)));
-//     }
-//
-//     [HttpPost("register")]
-//     [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
-//     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-//     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status401Unauthorized)]
-//     public async Task<ActionResult<UserDto>> Register([FromBody] RegisterDto registerDto)
-//     {
-//         return HandleResult(await Mediator.Send(new RegisterCommand(registerDto)));
-//     }
-// }
+﻿using System.Net;
+using System.Xml.XPath;
+using API.Controllers.Common;
+using Application.Identity.Commands.RegisterUserCommandRequestRelated;
+using Application.Shared.ResultRelated;
+using Application.Shared.ValidationRelated;
+using Microsoft.AspNetCore.Mvc;
+
+namespace API.Controllers.IdentityRelated;
+
+[Route("api/identity")]
+public sealed class IdentityController : BaseApiController
+{
+    [HttpPost("register")]
+    public async Task<ActionResult<Guid>> RegisterUser(RegisterUserCommandRequest registerUserCommandRequest)
+    {
+        var result = await Sender.Send(registerUserCommandRequest);
+
+        if (result.IsSuccess)
+        {
+            return Ok(result.Value);
+        }
+
+        if (result is IValidationResult validationResult)
+        {
+            return BadRequest(CreateValidationProblemDetails(result.Error!, validationResult.Errors));
+        }
+
+        var problemDetails = new ProblemDetails
+        {
+            Title = result.Error!.Code,
+            Status = (int)HttpStatusCode.BadRequest,
+            Detail = result.Error.Message,
+        };
+        return BadRequest(problemDetails);
+    }
+}

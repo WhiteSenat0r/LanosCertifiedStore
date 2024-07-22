@@ -1,4 +1,5 @@
-﻿using Application.Images;
+﻿using Application.Identity;
+using Application.Images;
 using Application.LocationRegions;
 using Application.LocationTowns;
 using Application.VehicleBodyTypes;
@@ -10,32 +11,53 @@ using Application.VehicleModels;
 using Application.VehicleTransmissionTypes;
 using Application.VehicleTypes;
 using LanosCertifiedStore.InfrastructureLayer.Services.Authentication;
+using LanosCertifiedStore.InfrastructureLayer.Services.Authentication.KeyCloak;
 using LanosCertifiedStore.InfrastructureLayer.Services.Images;
 using LanosCertifiedStore.InfrastructureLayer.Services.Locations;
+using LanosCertifiedStore.InfrastructureLayer.Services.Users;
 using LanosCertifiedStore.InfrastructureLayer.Services.Vehicles;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddExternalServices(this IServiceCollection services)
+    public static IServiceCollection AddExternalServices(this IServiceCollection services, IConfiguration configuration)
     {
         AddImageRelatedServices(services);
         AddVehicleRelatedServices(services);
         AddTypeRelatedServices(services);
         AddLocationRelatedServices(services);
-        AddAuthenticationRelatedServices(services);
+        AddAuthenticationRelatedServices(services, configuration);
 
         return services;
     }
 
-    private static void AddAuthenticationRelatedServices(IServiceCollection services)
+    private static void AddAuthenticationRelatedServices(IServiceCollection services, IConfiguration configuration)
     {
         services.AddAuthorization();
         services.AddAuthentication().AddJwtBearer();
         services.AddHttpContextAccessor();
         services.ConfigureOptions<JwtBearerConfigureOptions>();
+
+        const string keyCloakSectionName = "KeyCloak";
+        services.Configure<KeyCloakOptions>(configuration.GetSection(keyCloakSectionName));
+        services.AddTransient<KeyCloakAuthDelegatingHandler>();
+
+        services.AddHttpClient<KeyCloakClient>((serviceProvider, httpClient) =>
+        {
+            var keyCloakOptions = serviceProvider
+                .GetRequiredService<IOptions<KeyCloakOptions>>()
+                .Value;
+
+            httpClient.BaseAddress = new Uri(keyCloakOptions.AdminUrl);
+        })
+        .AddHttpMessageHandler<KeyCloakAuthDelegatingHandler>();
+
+        services.AddScoped<IUserService, UserService>();
+        services.AddTransient<IIdentityProviderService, IdentityProviderService>();
     }
 
     private static void AddImageRelatedServices(IServiceCollection services)

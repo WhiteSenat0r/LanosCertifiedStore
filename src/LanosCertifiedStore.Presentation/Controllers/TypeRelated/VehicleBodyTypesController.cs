@@ -15,7 +15,7 @@ public sealed class VehicleBodyTypesController : BaseApiController
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<PaginationResult<VehicleBodyTypeDto>>> GetTypes([FromQuery] string? sortingType)
     {
-        var result = await Mediator.Send(new CollectionVehicleBodyTypesQueryRequest(
+        var result = await Sender.Send(new CollectionVehicleBodyTypesQueryRequest(
             new VehicleBodyTypeFilteringRequestParameters
             {
                 ItemQuantity = ItemQuantitySelection.TwentyFive,

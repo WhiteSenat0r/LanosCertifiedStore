@@ -22,7 +22,7 @@ public sealed class VehicleBrandsController : BaseApiController
     public async Task<ActionResult<PaginationResult<VehicleBrandDto>>> GetBrands(
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
     {
-        var result = await Mediator.Send(new CollectionVehicleBrandsQueryRequest(requestParameters));
+        var result = await Sender.Send(new CollectionVehicleBrandsQueryRequest(requestParameters));
         
         return Ok(result.Value);
     }
@@ -32,7 +32,7 @@ public sealed class VehicleBrandsController : BaseApiController
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<SingleVehicleBrandDto>> GetBrand(Guid id)
     {
-        var result = await Mediator.Send(new SingleVehicleBrandQueryRequest(id));
+        var result = await Sender.Send(new SingleVehicleBrandQueryRequest(id));
 
         if (result.IsSuccess)
         {
@@ -48,7 +48,7 @@ public sealed class VehicleBrandsController : BaseApiController
     public async Task<ActionResult<ItemsCountDto>> GetBrandsCount(
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
     {
-        var result = await Mediator.Send(new CountVehicleBrandsQueryRequest(requestParameters));
+        var result = await Sender.Send(new CountVehicleBrandsQueryRequest(requestParameters));
         
         return Ok(result.Value);
     }
@@ -58,7 +58,7 @@ public sealed class VehicleBrandsController : BaseApiController
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> CreateBrand([FromBody] CreateVehicleBrandCommandRequest createVehicleCommandRequest)
     {
-        var result = await Mediator.Send(createVehicleCommandRequest);
+        var result = await Sender.Send(createVehicleCommandRequest);
 
         if (result is IValidationResult validationResult)
         {
@@ -75,7 +75,7 @@ public sealed class VehicleBrandsController : BaseApiController
     public async Task<ActionResult> UpdateBrand(
         [FromBody] UpdateVehicleBrandCommandRequest updateVehicleBrandCommandRequest)
     {
-        var result = await Mediator.Send(updateVehicleBrandCommandRequest);
+        var result = await Sender.Send(updateVehicleBrandCommandRequest);
 
         if (result is IValidationResult validationResult)
         {
