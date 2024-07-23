@@ -41,7 +41,8 @@ services:
     volumes:
       - ./.containers/identity:/opt/keycloak/data
       - ./.files/keycloak/realms/lsc-realm-export.json:/opt/keycloak/data/import/realm.json
-      - ./.files/keycloak/themes/keywind.jar:/opt/keycloak/providers/keywind.jar
+      - ./.files/keycloak/themes/lsc-theme.jar:/opt/keycloak/providers/lsc-theme.jar
+      - ./.files/keycloak/validators/unique-attribute-validator.jar:/opt/keycloak/providers/unique-attribute-validator.jar
     ports:
       - 18080:8080
       - 9000:9000
