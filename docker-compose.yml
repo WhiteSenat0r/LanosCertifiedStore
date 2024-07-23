@@ -38,12 +38,16 @@ services:
       - KC_HEALTH_ENABLED=true
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_HTTPS_CERTIFICATE_FILE=/opt/keycloak/certs/localhost_cert.pem
+      - KC_HTTPS_CERTIFICATE_KEY_FILE=/opt/keycloak/certs/localhost_key.pem
     volumes:
       - ./.containers/identity:/opt/keycloak/data
       - ./.files/keycloak/realms/lsc-realm-export.json:/opt/keycloak/data/import/realm.json
       - ./.files/keycloak/themes/keywind.jar:/opt/keycloak/providers/keywind.jar
+      - ./.certs:/opt/keycloak/certs
     ports:
       - 18080:8080
+      - 8843:8443
       - 9000:9000
     healthcheck:
       test: [ 
