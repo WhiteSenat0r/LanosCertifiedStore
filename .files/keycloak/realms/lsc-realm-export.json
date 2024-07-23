@@ -1594,7 +1594,7 @@
   "adminEventsDetailsEnabled": false,
   "identityProviders": [
     {
-      "alias": "Google",
+      "alias": "google",
       "internalId": "605a6ee4-3718-41cd-a5c9-4bca53cc1b1c",
       "providerId": "google",
       "enabled": true,
