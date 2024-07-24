@@ -21,8 +21,7 @@ internal sealed class RegisterUserCommandRequestHandler(
             request.Email,
             request.FirstName,
             request.LastName,
-            request.PhoneNumber,
-            result.Value!);
+            request.PhoneNumber);
 
         await userService.AddAsync(user, cancellationToken);
 

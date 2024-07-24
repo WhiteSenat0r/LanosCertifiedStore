@@ -8,20 +8,11 @@ internal sealed class UserRoleEntityConfiguration : IEntityTypeConfiguration<Use
 {
     public void Configure(EntityTypeBuilder<UserRole> builder)
     {
-        builder.HasIndex(x => x.Name).IsUnique();
+        builder.HasKey(x => x.Name);
 
-        builder.Property(x => x.Name)
-            .IsRequired()
-            .HasMaxLength(64);
+        builder.Property(x => x.Name).HasMaxLength(64);
 
-        var roles = new List<UserRole>
-        {
-            new(Guid.NewGuid(), "Користувач"),
-            new(Guid.NewGuid(), "Менеджер"),
-            new(Guid.NewGuid(), "Адміністратор")
-        };
-
-        builder.HasData(roles);
+        builder.HasData(UserRole.User, UserRole.Manager, UserRole.Administrator);
         builder.ToTable("UserRoles", DatabaseSchemas.IdentitySchema);
     }
 }

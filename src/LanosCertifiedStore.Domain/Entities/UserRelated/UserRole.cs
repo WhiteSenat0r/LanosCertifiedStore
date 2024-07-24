@@ -2,17 +2,23 @@
 
 namespace Domain.Entities.UserRelated;
 
-public sealed class UserRole : NamedAspect
+public sealed class UserRole
 {
-    public ICollection<User> Users { get; set; } = [];
+    public static readonly UserRole Administrator = new("Administrator");
+    public static readonly UserRole Manager = new("Manager");
+    public static readonly UserRole User = new("User");
 
-    public UserRole() { }
-
-    public UserRole(Guid id, string name)
+    public UserRole()
     {
-        Id = id;
+    }
+
+    public UserRole(string name)
+    {
         Name = name;
     }
+
+    public string Name { get; init; }
+    public ICollection<User> Users { get; set; } = [];
 
     public override string ToString() => Name;
 }
