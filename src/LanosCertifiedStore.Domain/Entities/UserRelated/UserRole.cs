@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using Domain.Entities.Common.Classes;
-
-namespace Domain.Entities.UserRelated;
+﻿namespace Domain.Entities.UserRelated;
 
 public sealed class UserRole
 {

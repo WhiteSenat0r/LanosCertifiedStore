@@ -1,8 +1,6 @@
 ﻿using System.Net;
-using System.Xml.XPath;
 using API.Controllers.Common;
 using Application.Identity.Commands.RegisterUserCommandRequestRelated;
-using Application.Shared.ResultRelated;
 using Application.Shared.ValidationRelated;
 using Microsoft.AspNetCore.Mvc;
 

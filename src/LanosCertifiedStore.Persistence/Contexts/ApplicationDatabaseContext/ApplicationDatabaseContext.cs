@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using Domain.Entities.UserRelated;
 using Domain.Entities.VehicleRelated;
 using Domain.Entities.VehicleRelated.LocationRelated;
 using Domain.Entities.VehicleRelated.TypeRelated;
