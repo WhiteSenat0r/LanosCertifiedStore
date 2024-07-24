@@ -20,8 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data\" />
-      <Folder Include="Data\Migrations\" />
       <Folder Include="Extensions\" />
       <Folder Include="Repositories\VehicleRelated\QueryBuilderRelated\Common\" />
     </ItemGroup>

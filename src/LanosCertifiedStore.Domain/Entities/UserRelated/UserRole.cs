@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Common.Classes;
+﻿using System.Collections;
+using Domain.Entities.Common.Classes;
 
 namespace Domain.Entities.UserRelated;
 
@@ -18,7 +19,6 @@ public sealed class UserRole
     }
 
     public string Name { get; init; }
-    public ICollection<User> Users { get; set; } = [];
-
+    public ICollection<User> Users { get; init; } = [];
     public override string ToString() => Name;
 }

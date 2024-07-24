@@ -8,7 +8,7 @@ internal sealed class PermissionEntityConfiguration : IEntityTypeConfiguration<P
 {
     public void Configure(EntityTypeBuilder<Permission> builder)
     {
-        builder.ToTable("permissions", DatabaseSchemas.IdentitySchema);
+        builder.ToTable("Permissions", DatabaseSchemas.IdentitySchema);
 
         builder.HasKey(p => p.Code);
 
@@ -35,7 +35,7 @@ internal sealed class PermissionEntityConfiguration : IEntityTypeConfiguration<P
             .WithMany()
             .UsingEntity(joinBuilder =>
                 {
-                    joinBuilder.ToTable("RolePermissions");
+                    joinBuilder.ToTable("RolePermissions", DatabaseSchemas.IdentitySchema);
 
                     joinBuilder.HasData(
                         // User
@@ -75,7 +75,7 @@ internal sealed class PermissionEntityConfiguration : IEntityTypeConfiguration<P
     {
         return new
         {
-            RoleName = role.Name,
+            UserRoleName = role.Name,
             PermissionCode = permission.Code
         };
     }

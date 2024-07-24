@@ -22,83 +22,110 @@ namespace Persistence.Data.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.Entities.UserRelated.Permission", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
+
+                    b.HasKey("Code");
+
+                    b.ToTable("Permissions", "identity");
+
+                    b.HasData(
+                        new
+                        {
+                            Code = "users:read"
+                        },
+                        new
+                        {
+                            Code = "users:list"
+                        },
+                        new
+                        {
+                            Code = "users:create"
+                        },
+                        new
+                        {
+                            Code = "users:update"
+                        },
+                        new
+                        {
+                            Code = "users:change-role"
+                        },
+                        new
+                        {
+                            Code = "users:delete"
+                        },
+                        new
+                        {
+                            Code = "vehicles:create"
+                        },
+                        new
+                        {
+                            Code = "vehicles:update"
+                        },
+                        new
+                        {
+                            Code = "vehicles:delete"
+                        },
+                        new
+                        {
+                            Code = "brands:create"
+                        },
+                        new
+                        {
+                            Code = "brands:update"
+                        },
+                        new
+                        {
+                            Code = "models:create"
+                        },
+                        new
+                        {
+                            Code = "models:update"
+                        });
+                });
+
             modelBuilder.Entity("Domain.Entities.UserRelated.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("UserRoleName")
                         .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
-
-                    b.Property<string>("IdentityId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid?>("UserRoleId")
-                        .HasColumnType("uuid");
+                        .HasColumnType("character varying(64)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("IdentityId")
-                        .IsUnique();
-
-                    b.HasIndex("UserRoleId");
+                    b.HasIndex("UserRoleName");
 
                     b.ToTable("Users", "identity");
                 });
 
             modelBuilder.Entity("Domain.Entities.UserRelated.UserRole", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasKey("Name");
 
                     b.ToTable("UserRoles", "identity");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b11031d0-5f28-42b3-a799-9416aa0a52d4"),
-                            Name = "Користувач"
+                            Name = "User"
                         },
                         new
                         {
-                            Id = new Guid("e18ff0c0-8be7-4d7d-8e9c-056a59f9e467"),
-                            Name = "Менеджер"
+                            Name = "Manager"
                         },
                         new
                         {
-                            Id = new Guid("f2f99306-a798-43be-a8d3-4aa9d5656e1d"),
-                            Name = "Адміністратор"
+                            Name = "Administrator"
                         });
                 });
 
@@ -502,6 +529,148 @@ namespace Persistence.Data.Migrations
                     b.ToTable("VehiclePrices", "vehicles");
                 });
 
+            modelBuilder.Entity("PermissionUserRole", b =>
+                {
+                    b.Property<string>("PermissionCode")
+                        .HasColumnType("character varying(64)");
+
+                    b.Property<string>("UserRoleName")
+                        .HasColumnType("character varying(64)");
+
+                    b.HasKey("PermissionCode", "UserRoleName");
+
+                    b.HasIndex("UserRoleName");
+
+                    b.ToTable("RolePermissions", "identity");
+
+                    b.HasData(
+                        new
+                        {
+                            PermissionCode = "users:read",
+                            UserRoleName = "User"
+                        },
+                        new
+                        {
+                            PermissionCode = "vehicles:create",
+                            UserRoleName = "User"
+                        },
+                        new
+                        {
+                            PermissionCode = "users:read",
+                            UserRoleName = "Manager"
+                        },
+                        new
+                        {
+                            PermissionCode = "users:list",
+                            UserRoleName = "Manager"
+                        },
+                        new
+                        {
+                            PermissionCode = "users:create",
+                            UserRoleName = "Manager"
+                        },
+                        new
+                        {
+                            PermissionCode = "users:update",
+                            UserRoleName = "Manager"
+                        },
+                        new
+                        {
+                            PermissionCode = "users:delete",
+                            UserRoleName = "Manager"
+                        },
+                        new
+                        {
+                            PermissionCode = "vehicles:create",
+                            UserRoleName = "Manager"
+                        },
+                        new
+                        {
+                            PermissionCode = "vehicles:update",
+                            UserRoleName = "Manager"
+                        },
+                        new
+                        {
+                            PermissionCode = "brands:create",
+                            UserRoleName = "Manager"
+                        },
+                        new
+                        {
+                            PermissionCode = "brands:update",
+                            UserRoleName = "Manager"
+                        },
+                        new
+                        {
+                            PermissionCode = "models:create",
+                            UserRoleName = "Manager"
+                        },
+                        new
+                        {
+                            PermissionCode = "models:update",
+                            UserRoleName = "Manager"
+                        },
+                        new
+                        {
+                            PermissionCode = "users:read",
+                            UserRoleName = "Administrator"
+                        },
+                        new
+                        {
+                            PermissionCode = "users:list",
+                            UserRoleName = "Administrator"
+                        },
+                        new
+                        {
+                            PermissionCode = "users:create",
+                            UserRoleName = "Administrator"
+                        },
+                        new
+                        {
+                            PermissionCode = "users:update",
+                            UserRoleName = "Administrator"
+                        },
+                        new
+                        {
+                            PermissionCode = "users:change-role",
+                            UserRoleName = "Administrator"
+                        },
+                        new
+                        {
+                            PermissionCode = "users:delete",
+                            UserRoleName = "Administrator"
+                        },
+                        new
+                        {
+                            PermissionCode = "vehicles:create",
+                            UserRoleName = "Administrator"
+                        },
+                        new
+                        {
+                            PermissionCode = "vehicles:update",
+                            UserRoleName = "Administrator"
+                        },
+                        new
+                        {
+                            PermissionCode = "brands:create",
+                            UserRoleName = "Administrator"
+                        },
+                        new
+                        {
+                            PermissionCode = "brands:update",
+                            UserRoleName = "Administrator"
+                        },
+                        new
+                        {
+                            PermissionCode = "models:create",
+                            UserRoleName = "Administrator"
+                        },
+                        new
+                        {
+                            PermissionCode = "models:update",
+                            UserRoleName = "Administrator"
+                        });
+                });
+
             modelBuilder.Entity("VehicleBodyTypeVehicleModel", b =>
                 {
                     b.Property<Guid>("AvailableBodyTypesId")
@@ -564,9 +733,13 @@ namespace Persistence.Data.Migrations
 
             modelBuilder.Entity("Domain.Entities.UserRelated.User", b =>
                 {
-                    b.HasOne("Domain.Entities.UserRelated.UserRole", null)
+                    b.HasOne("Domain.Entities.UserRelated.UserRole", "UserRole")
                         .WithMany("Users")
-                        .HasForeignKey("UserRoleId");
+                        .HasForeignKey("UserRoleName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserRole");
                 });
 
             modelBuilder.Entity("Domain.Entities.VehicleRelated.LocationRelated.VehicleLocationArea", b =>
@@ -741,6 +914,21 @@ namespace Persistence.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("PermissionUserRole", b =>
+                {
+                    b.HasOne("Domain.Entities.UserRelated.Permission", null)
+                        .WithMany()
+                        .HasForeignKey("PermissionCode")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.UserRelated.UserRole", null)
+                        .WithMany()
+                        .HasForeignKey("UserRoleName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("VehicleBodyTypeVehicleModel", b =>

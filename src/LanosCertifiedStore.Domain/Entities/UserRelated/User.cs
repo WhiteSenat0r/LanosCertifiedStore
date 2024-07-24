@@ -5,28 +5,17 @@ namespace Domain.Entities.UserRelated;
 
 public sealed class User : IIdentifiable<Guid>
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
-    public string FirstName { get; set; } = null!;
-    public string LastName { get; set; } = null!;
-    public string PhoneNumber { get; set; } = null!;
-    public string Email { get; set; } = null!;
-    public UserRole Role { get; init; }
+    public Guid Id { get; set; } 
+    public UserRole UserRole { get; init; }
     public ICollection<Vehicle> Vehicles { get; set; } = [];
 
     public User()
     {
     }
 
-    public User(
-        string email,
-        string firstName,
-        string lastName,
-        string phoneNumber)
+    public User(Guid id)
     {
-        FirstName = firstName;
-        LastName = lastName;
-        Email = email;
-        PhoneNumber = phoneNumber;
-        Role = UserRole.User;
+        Id = id;
+        UserRole = UserRole.User;
     }
 }
