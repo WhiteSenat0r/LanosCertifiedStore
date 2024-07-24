@@ -1,6 +1,6 @@
 ﻿using Domain.Entities.UserRelated;
 
-namespace Application.Identity;
+namespace Application.Users;
 
 public interface IUserService
 {
