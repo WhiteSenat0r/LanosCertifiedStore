@@ -11,7 +11,8 @@ internal sealed class CollectionVehicleColorsQueryRequestHandler(IVehicleColorSe
     {
         var colors = await vehicleColorService.GetVehicleColorCollection(request, cancellationToken);
 
-        return Result<PaginationResult<VehicleColorDto>>.Success(
-            new PaginationResult<VehicleColorDto>(colors, request.FilteringParameters.PageIndex));
+        var paginationResult = new PaginationResult<VehicleColorDto>(colors, request.FilteringParameters.PageIndex);
+        
+        return paginationResult;
     }
 }

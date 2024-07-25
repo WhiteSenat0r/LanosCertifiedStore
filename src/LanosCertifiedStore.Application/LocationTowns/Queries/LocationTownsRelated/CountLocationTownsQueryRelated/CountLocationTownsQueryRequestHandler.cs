@@ -12,6 +12,6 @@ internal sealed class CountLocationTownsQueryRequestHandler(ILocationTownService
     {
         var count = await locationTownService.GetLocationTownsCount(request, cancellationToken);
 
-        return Result<ItemsCountDto>.Success(count);
+        return count;
     }
 }

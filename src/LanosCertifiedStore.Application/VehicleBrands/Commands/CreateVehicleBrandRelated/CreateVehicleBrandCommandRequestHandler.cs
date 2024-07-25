@@ -12,6 +12,6 @@ internal sealed class CreateVehicleBrandCommandRequestHandler(IVehicleBrandServi
     {
         var createdBrandId = await vehicleBrandService.AddNewVehicleBrand(request, cancellationToken);
 
-        return Result<Guid>.Success(createdBrandId);
+        return createdBrandId;
     }
 }

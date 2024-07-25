@@ -14,7 +14,7 @@ internal sealed class UpdateVehicleModelCommandRequestHandler(IVehicleModelServi
         {
             await vehicleModelService.UpdateVehicleModel(request, cancellationToken);
         
-            return Result<Unit>.Success(Unit.Value);
+            return Unit.Value;
         }
         catch (KeyNotFoundException e)
         {

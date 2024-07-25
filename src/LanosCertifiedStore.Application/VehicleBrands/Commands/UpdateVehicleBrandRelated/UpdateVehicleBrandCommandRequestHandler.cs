@@ -12,7 +12,7 @@ internal sealed class UpdateVehicleBrandCommandRequestHandler(IVehicleBrandServi
         try
         {
             await brandService.UpdateVehicleBrand(request, cancellationToken);
-            return Result<Unit>.Success(Unit.Value);
+            return Unit.Value;
         }
         catch (KeyNotFoundException)
         {

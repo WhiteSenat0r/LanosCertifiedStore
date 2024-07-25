@@ -12,6 +12,6 @@ internal sealed class CreateVehicleModelCommandRequestHandler(IVehicleModelServi
     {
         var createdModelId = await vehicleModelService.AddNewVehicleModel(request, cancellationToken);
 
-        return Result<Guid>.Success(createdModelId);
+        return createdModelId;
     }
 }

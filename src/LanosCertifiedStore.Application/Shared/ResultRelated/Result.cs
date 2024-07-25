@@ -30,4 +30,6 @@ public class Result<T> : Result
     {
         return new Result<T>(default, false, error);
     }
+    
+    public static implicit operator Result<T>(T value) => Success(value);
 }

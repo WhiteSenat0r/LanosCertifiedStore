@@ -12,6 +12,6 @@ internal sealed class CountVehicleBrandsQueryRequestHandler(IVehicleBrandService
     {
         var count = await vehicleBrandService.GetVehicleBrandsCount(request, cancellationToken);
 
-        return Result<ItemsCountDto>.Success(count);
+        return count;
     }
 }

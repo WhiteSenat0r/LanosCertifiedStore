@@ -14,6 +14,6 @@ internal sealed class CollectionVehicleBodyTypesQueryRequestHandler(IVehicleBody
         var paginationResult =
             new PaginationResult<VehicleBodyTypeDto>(bodyTypes, request.FilteringParameters.PageIndex);
 
-        return Result<PaginationResult<VehicleBodyTypeDto>>.Success(paginationResult);
+        return paginationResult;
     }
 }

@@ -18,6 +18,6 @@ internal sealed class CollectionLocationTownsQueryRequestHandler(
             locationRegions,
             request.FilteringParameters.PageIndex);
 
-        return Result<PaginationResult<LocationRegionDto>>.Success(paginationResult);
+        return paginationResult;
     }
 }
