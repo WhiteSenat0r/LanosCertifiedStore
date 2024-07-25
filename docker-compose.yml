@@ -33,7 +33,7 @@ services:
       - "5432:5432"
   
   lanoscertifiedstore.identity:
-    image: quay.io/keycloak/keycloak:latest
+    image: quay.io/keycloak/keycloak:25.0.1
     container_name: lsc_identity
     command: start-dev --import-realm
     environment:
@@ -42,7 +42,7 @@ services:
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_HTTPS_CERTIFICATE_FILE=/opt/keycloak/certs/localhost_cert.pem
       - KC_HTTPS_CERTIFICATE_KEY_FILE=/opt/keycloak/certs/localhost_key.pem
-      - API_REGISTRATION_MESSAGE_ENDPOINT=https://host.docker.internal:5001/api/identity/testc
+      - API_REGISTRATION_MESSAGE_ENDPOINT=https://host.docker.internal:5001/api/identity/addUserFromProvider
     volumes:
       - ./.containers/identity:/opt/keycloak/data
       - ./.files/keycloak/realms/lsc-realm-export.json:/opt/keycloak/data/import/realm.json
