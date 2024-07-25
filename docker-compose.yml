@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   lanoscertifiedstore.presentation:
     image: ${DOCKER_REGISTRY-}lanoscertifiedstorepresentation
@@ -29,7 +31,7 @@ services:
       - ./.containers/lsc_db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-        
+  
   lanoscertifiedstore.identity:
     image: quay.io/keycloak/keycloak:latest
     container_name: lsc_identity
@@ -40,19 +42,21 @@ services:
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_HTTPS_CERTIFICATE_FILE=/opt/keycloak/certs/localhost_cert.pem
       - KC_HTTPS_CERTIFICATE_KEY_FILE=/opt/keycloak/certs/localhost_key.pem
+      - API_REGISTRATION_MESSAGE_ENDPOINT=https://host.docker.internal:5001/api/identity/testc
     volumes:
       - ./.containers/identity:/opt/keycloak/data
       - ./.files/keycloak/realms/lsc-realm-export.json:/opt/keycloak/data/import/realm.json
       - ./.files/keycloak/themes/lsc-theme.jar:/opt/keycloak/providers/lsc-theme.jar
       - ./.files/keycloak/validators/unique-attribute-validator.jar:/opt/keycloak/providers/unique-attribute-validator.jar
+      - ./.files/keycloak/listeners/custom-event-listener.jar:/opt/keycloak/providers/custom-event-listener.jar
       - ./.certs:/opt/keycloak/certs
     ports:
       - 18080:8080
       - 8843:8443
       - 9000:9000
     healthcheck:
-      test: [ 
-        "CMD-SHELL",   
+      test: [
+        "CMD-SHELL",
         "exec 3<>/dev/tcp/127.0.0.1/9000;echo -e 'GET /health/ready HTTP/1.1\r\nhost: 
         http://localhost\r\nConnection: close\r\n\r\n' >&3;if [ $? -eq 0 ]; 
         then echo 'Healthcheck Successful';exit 0;else echo 'Healthcheck Failed';exit 1;fi;"
@@ -60,6 +64,8 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   lanoscertifiedstore.seq:
     image: datalust/seq:latest
