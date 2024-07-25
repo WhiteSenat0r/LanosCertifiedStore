@@ -1,6 +1,5 @@
 ﻿using API.Controllers.Common;
 using Application.Identity.Commands.RegisterUserCommandRequestRelated;
-using LanosCertifiedStore.InfrastructureLayer.Services.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.IdentityRelated;
@@ -8,17 +7,17 @@ namespace API.Controllers.IdentityRelated;
 [Route("api/identity")]
 public sealed class IdentityController : BaseApiController
 {
-    [HttpPost("testc")]
-    public async Task<ActionResult> TestC([FromQuery] string id)
+    [HttpPost("addUserFromProvider")]
+    public async Task<ActionResult<Guid>> AddUserFromIdentityProvider([FromQuery] string id)
     {
-        return Ok();
-    }
+        var isSuccessfulIdParse = Guid.TryParse(id, out var parsedId);
 
-    [HttpPost("register")]
-    public async Task<ActionResult<Guid>> AddUserFromIdentityProvider(
-        AddUserFromProviderCommandRequest addUserFromProviderCommandRequest)
-    {
-        var result = await Sender.Send(addUserFromProviderCommandRequest);
+        if (!isSuccessfulIdParse)
+        {
+            return BadRequest("ID is not valid!");
+        }
+        
+        var result = await Sender.Send(new AddUserFromProviderCommandRequest(parsedId));
 
         if (result.IsSuccess)
         {
