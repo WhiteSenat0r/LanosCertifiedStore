@@ -8,5 +8,6 @@ public sealed class AddUserCommand(ApplicationDatabaseContext context)
     public async Task Execute(User user)
     {
         await context.AddAsync(user);
+        context.Attach(user.UserRole);
     }
 }
