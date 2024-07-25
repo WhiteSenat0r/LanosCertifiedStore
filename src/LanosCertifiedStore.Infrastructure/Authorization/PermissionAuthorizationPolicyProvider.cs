@@ -3,7 +3,6 @@ using Microsoft.Extensions.Options;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.Authorization;
 
-// TODO Resolve authorization issue
 internal sealed class PermissionAuthorizationPolicyProvider(
     IOptions<AuthorizationOptions> options) : DefaultAuthorizationPolicyProvider(options)
 {

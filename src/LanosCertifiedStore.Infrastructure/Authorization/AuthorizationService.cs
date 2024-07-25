@@ -5,7 +5,6 @@ using Persistence.Contexts.ApplicationDatabaseContext;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.Authorization;
 
-// TODO Resolve authorization issue
 internal sealed class AuthorizationService(ApplicationDatabaseContext context) : IAuthorizationService
 {
     public async Task<HashSet<string>> GetUserPermissionsAsync(

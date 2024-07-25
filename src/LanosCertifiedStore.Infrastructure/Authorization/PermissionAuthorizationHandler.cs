@@ -5,7 +5,6 @@ using IAuthorizationService = Application.Users.IAuthorizationService;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.Authorization;
 
-// TODO Resolve authorization issue
 public sealed class PermissionAuthorizationHandler(
     IServiceProvider serviceProvider) : AuthorizationHandler<PermissionRequirement>
 {

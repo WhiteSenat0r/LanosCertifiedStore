@@ -2,7 +2,6 @@
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.Authorization.Claims;
 
-// TODO Resolve authorization issue
 public static class ClaimPrincipalExtensions
 {
     public static Guid GetSubClaim(this ClaimsPrincipal? principal)

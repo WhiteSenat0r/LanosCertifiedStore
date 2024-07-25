@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.Authorization.Claims;
 
-// TODO Resolve authorization issue
 internal sealed class CustomClaimsTransformation(IServiceProvider serviceProvider) : IClaimsTransformation
 {
     public async Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
