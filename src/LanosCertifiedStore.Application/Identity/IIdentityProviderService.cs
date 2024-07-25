@@ -6,6 +6,6 @@ namespace Application.Identity;
 public interface IIdentityProviderService
 {
     Task<Result<string>> RegisterAsync(
-        RegisterUserCommandRequest commandRequest,
+        AddUserFromProviderCommandRequest fromProviderCommandRequest,
         CancellationToken cancellationToken = default);
 }

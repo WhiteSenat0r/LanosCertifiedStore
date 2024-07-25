@@ -18,6 +18,6 @@ internal sealed class CollectionVehicleDrivetrainTypesQueryRequestHandler(
             vehicleDriveTrainTypes,
             request.FilteringParameters.PageIndex);
 
-        return Result<PaginationResult<VehicleDrivetrainTypeDto>>.Success(paginationResult);
+        return paginationResult;
     }
 }

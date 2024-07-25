@@ -12,7 +12,8 @@ internal sealed class CollectionVehicleModelsQueryRequestHandler(IVehicleModelSe
     {
         var brands = await vehicleModelService.GetVehicleModelCollection(request, cancellationToken);
 
-        return Result<PaginationResult<VehicleModelDto>>.Success(
-            new PaginationResult<VehicleModelDto>(brands, request.FilteringParameters.PageIndex));
+        var paginationResult = new PaginationResult<VehicleModelDto>(brands, request.FilteringParameters.PageIndex);
+        
+        return paginationResult;
     }
 }
