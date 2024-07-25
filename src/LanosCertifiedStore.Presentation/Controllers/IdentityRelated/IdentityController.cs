@@ -12,11 +12,10 @@ namespace API.Controllers.IdentityRelated;
 [Route("api/identity")]
 public sealed class IdentityController : BaseApiController
 {
-    [HttpGet("dummy")]
-    [HasAccessPermission("users:read")]
-    public async Task<ActionResult<string>> Foo()
+    [HttpPost("testc")]
+    public async Task<ActionResult> TestC([FromQuery] string id)
     {
-        return Ok("NIGGER");
+        return Ok();
     }
     
     [HttpPost("register")]
