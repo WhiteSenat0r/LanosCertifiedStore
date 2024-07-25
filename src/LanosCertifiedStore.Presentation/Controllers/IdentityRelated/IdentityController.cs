@@ -1,10 +1,6 @@
-﻿using System.Net;
-using API.Controllers.Common;
+﻿using API.Controllers.Common;
 using Application.Identity.Commands.RegisterUserCommandRequestRelated;
-using Application.Shared.ValidationRelated;
-using Domain.Entities.UserRelated;
 using LanosCertifiedStore.InfrastructureLayer.Services.Authorization;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.IdentityRelated;
@@ -18,28 +14,18 @@ public sealed class IdentityController : BaseApiController
     {
         return Ok("NIGGER");
     }
-    
+
     [HttpPost("register")]
-    public async Task<ActionResult<Guid>> RegisterUser(RegisterUserCommandRequest registerUserCommandRequest)
+    public async Task<ActionResult<Guid>> AddUserFromIdentityProvider(
+        AddUserFromProviderCommandRequest addUserFromProviderCommandRequest)
     {
-        var result = await Sender.Send(registerUserCommandRequest);
+        var result = await Sender.Send(addUserFromProviderCommandRequest);
 
         if (result.IsSuccess)
         {
-            return Ok(result.Value);
+            return Created();
         }
 
-        if (result is IValidationResult validationResult)
-        {
-            return BadRequest(CreateValidationProblemDetails(result.Error!, validationResult.Errors));
-        }
-
-        var problemDetails = new ProblemDetails
-        {
-            Title = result.Error!.Code,
-            Status = (int)HttpStatusCode.BadRequest,
-            Detail = result.Error.Message,
-        };
-        return BadRequest(problemDetails);
+        return BadRequest(result.Error);
     }
 }

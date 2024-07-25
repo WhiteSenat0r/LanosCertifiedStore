@@ -11,7 +11,7 @@ internal sealed class IdentityProviderService(
     ILogger<IdentityProviderService> logger) : IIdentityProviderService
 {
     public async Task<Result<string>> RegisterAsync(
-        RegisterUserCommandRequest commandRequest,
+        AddUserFromProviderCommandRequest fromProviderCommandRequest,
         CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
