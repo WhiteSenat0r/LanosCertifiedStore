@@ -15,7 +15,9 @@ internal static class DependencyInjection
             opt.AddPolicy("CorsPolicy",
                 policy =>
                 {
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins(config["ClientUrl"]!);
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins(
+                        config["ClientUrl"]!,
+                        config.GetSection("Keycloak")["BaseMessagingUrl"]!);
                 });
         });
         
