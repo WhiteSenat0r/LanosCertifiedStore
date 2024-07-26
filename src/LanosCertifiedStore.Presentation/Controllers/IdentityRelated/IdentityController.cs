@@ -1,4 +1,7 @@
 ﻿using LanosCertifiedStore.Application.Identity.Commands.AddUserFromProviderCommandRequestRelated;
+using LanosCertifiedStore.Application.Identity.Commands.UpdateUserDataCommandRequestRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Infrastructure.Services.Authorization;
 using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +21,7 @@ public sealed class IdentityController : BaseApiController
         {
             return BadRequest("ID is not valid!");
         }
-        
+
         var result = await Sender.Send(new AddUserFromProviderCommandRequest(parsedId));
 
         if (result.IsSuccess)
@@ -27,5 +30,19 @@ public sealed class IdentityController : BaseApiController
         }
 
         return BadRequest(result.Error);
+    }
+
+    [HasAccessPermission("users:update")]
+    [HttpPut("updateUserData")]
+    public async Task<ActionResult> UpdateUserData(UpdateUserDataCommandRequest request)
+    {
+        var result = await Sender.Send(request);
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(CreateNotFoundProblemDetails(result.Error!));
+        }
+
+        return NoContent();
     }
 }

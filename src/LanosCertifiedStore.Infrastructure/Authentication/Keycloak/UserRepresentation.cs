@@ -3,9 +3,6 @@
 internal sealed record UserRepresentation(
     string Username,
     string Email,
-    // string PhoneNumber,
+    Dictionary<string, string> Attributes,
     string FirstName,
-    string LastName,
-    bool EmailVerified,
-    bool Enabled,
-    CredentialRepresentation[] Credentials);
+    string LastName);

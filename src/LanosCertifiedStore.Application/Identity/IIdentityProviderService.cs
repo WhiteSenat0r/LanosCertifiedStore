@@ -1,11 +1,11 @@
-﻿using LanosCertifiedStore.Application.Identity.Commands.AddUserFromProviderCommandRequestRelated;
+﻿using LanosCertifiedStore.Application.Identity.Commands.UpdateUserDataCommandRequestRelated;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 
 namespace LanosCertifiedStore.Application.Identity;
 
 public interface IIdentityProviderService
 {
-    Task<Result<string>> RegisterAsync(
-        AddUserFromProviderCommandRequest fromProviderCommandRequest,
+    Task<Result> UpdateUserDataAsync(
+        UpdateUserDataCommandRequest request,
         CancellationToken cancellationToken = default);
 }
