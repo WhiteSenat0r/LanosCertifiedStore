@@ -1,6 +1,6 @@
-﻿using Application.Shared.RequestRelated;
+﻿using LanosCertifiedStore.Application.Shared.RequestRelated;
 
-namespace Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
+namespace LanosCertifiedStore.Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
 
 public sealed record CreateVehicleBrandCommandRequest(
     string Name) : ICommandRequest<Guid>;

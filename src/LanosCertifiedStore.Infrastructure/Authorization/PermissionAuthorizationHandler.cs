@@ -1,9 +1,9 @@
-﻿using LanosCertifiedStore.InfrastructureLayer.Services.Authorization.Claims;
+﻿using LanosCertifiedStore.Infrastructure.Services.Authorization.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
-using IAuthorizationService = Application.Users.IAuthorizationService;
+using IAuthorizationService = LanosCertifiedStore.Application.Users.IAuthorizationService;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.Authorization;
+namespace LanosCertifiedStore.Infrastructure.Services.Authorization;
 
 public sealed class PermissionAuthorizationHandler(
     IServiceProvider serviceProvider) : AuthorizationHandler<PermissionRequirement>

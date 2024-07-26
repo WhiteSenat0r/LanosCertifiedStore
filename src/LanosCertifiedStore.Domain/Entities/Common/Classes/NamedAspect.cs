@@ -1,6 +1,6 @@
-﻿using Domain.Contracts.Common;
+﻿using LanosCertifiedStore.Domain.Contracts.Common;
 
-namespace Domain.Entities.Common.Classes;
+namespace LanosCertifiedStore.Domain.Entities.Common.Classes;
 
 public abstract class NamedAspect : IIdentifiable<Guid>
 {

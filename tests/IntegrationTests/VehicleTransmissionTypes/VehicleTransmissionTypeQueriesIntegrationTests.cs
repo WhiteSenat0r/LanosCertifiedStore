@@ -1,7 +1,7 @@
-﻿using Application.Shared.RequestParamsRelated;
-using Application.VehicleTransmissionTypes;
-using Application.VehicleTransmissionTypes.Queries.CollectionVehicleTransmissionTypesQueryRelated;
-using IntegrationTests.Common;
+﻿using IntegrationTests.Common;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.VehicleTransmissionTypes;
+using LanosCertifiedStore.Application.VehicleTransmissionTypes.Queries.CollectionVehicleTransmissionTypesQueryRelated;
 
 namespace IntegrationTests.VehicleTransmissionTypes;
 

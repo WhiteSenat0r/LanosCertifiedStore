@@ -1,7 +1,7 @@
 ﻿using System.Net;
-using API.Middlewares.ExceptionRelated.Common.Classes;
+using LanosCertifiedStore.Presentation.Middlewares.ExceptionRelated.Common.Classes;
 
-namespace API.Middlewares.ExceptionRelated;
+namespace LanosCertifiedStore.Presentation.Middlewares.ExceptionRelated;
 
 internal sealed class GlobalExceptionHandler(
     ILogger<GlobalExceptionHandler> logger) : ExceptionHandlerBase<Exception>(

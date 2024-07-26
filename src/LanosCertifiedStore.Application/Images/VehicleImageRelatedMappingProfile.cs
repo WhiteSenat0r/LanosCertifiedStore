@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-namespace Application.Images;
+namespace LanosCertifiedStore.Application.Images;
 
 internal sealed class VehicleImageRelatedMappingProfile : Profile
 {

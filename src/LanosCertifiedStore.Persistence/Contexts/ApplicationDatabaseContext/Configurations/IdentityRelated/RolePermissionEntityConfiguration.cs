@@ -1,8 +1,8 @@
-﻿using Domain.Entities.UserRelated;
+﻿using LanosCertifiedStore.Domain.Entities.UserRelated;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.IdentityRelated;
+namespace LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext.Configurations.IdentityRelated;
 
 internal sealed class RolePermissionEntityConfiguration : IEntityTypeConfiguration<RolePermission>
 {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-namespace Application.VehicleColors;
+namespace LanosCertifiedStore.Application.VehicleColors;
 
 internal sealed class VehicleColorRelatedMappingProfile : Profile
 {

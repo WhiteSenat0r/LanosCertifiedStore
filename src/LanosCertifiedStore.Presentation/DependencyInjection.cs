@@ -1,6 +1,6 @@
-﻿using API.Middlewares.ExceptionRelated;
+﻿using LanosCertifiedStore.Presentation.Middlewares.ExceptionRelated;
 
-namespace API;
+namespace LanosCertifiedStore.Presentation;
 
 internal static class DependencyInjection
 {

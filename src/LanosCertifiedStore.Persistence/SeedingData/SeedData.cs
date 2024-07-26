@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
-using Domain.Entities.VehicleRelated;
-using Domain.Entities.VehicleRelated.LocationRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
+using LanosCertifiedStore.Persistence.SeedingData.LocationRelated;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.SeedingData.LocationRelated;
 
-namespace Persistence.SeedingData;
+namespace LanosCertifiedStore.Persistence.SeedingData;
 
 public sealed class SeedData
 {

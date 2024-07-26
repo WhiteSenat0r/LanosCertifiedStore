@@ -1,4 +1,4 @@
-﻿namespace Application.Images.Commands.AddImageToVehicle;
+﻿namespace LanosCertifiedStore.Application.Images.Commands.AddImageToVehicle;
 
 // TODO
 // public class AddImageToVehicleCommandValidator : AbstractValidator<AddImageToVehicleCommand>

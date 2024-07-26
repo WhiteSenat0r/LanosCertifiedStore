@@ -1,4 +1,4 @@
-﻿using Application.VehicleModels.Commands.CreateVehicleModelRelated;
+﻿using LanosCertifiedStore.Application.VehicleModels.Commands.CreateVehicleModelRelated;
 
 namespace ApplicationUnitTests.VehicleModels.CreateVehicleModelCommand;
 

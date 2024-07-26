@@ -1,13 +1,13 @@
-﻿using Application.Shared.DtosRelated;
-using Application.VehicleModels.Commands.CreateVehicleModelRelated;
-using Application.VehicleModels.Commands.UpdateVehicleModelRelated;
-using Application.VehicleModels.Dtos;
-using Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
-using Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
-using Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
-using Application.VehicleModels.Queries.SingleVehicleModelQueryRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.VehicleModels.Commands.CreateVehicleModelRelated;
+using LanosCertifiedStore.Application.VehicleModels.Commands.UpdateVehicleModelRelated;
+using LanosCertifiedStore.Application.VehicleModels.Dtos;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
+using LanosCertifiedStore.Application.VehicleModels.Queries.SingleVehicleModelQueryRelated;
 
-namespace Application.VehicleModels;
+namespace LanosCertifiedStore.Application.VehicleModels;
 
 public interface IVehicleModelService
 {

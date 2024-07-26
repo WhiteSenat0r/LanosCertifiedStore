@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
-using Domain.Entities.VehicleRelated.TypeRelated;
-using Persistence.Queries.Common.Classes.SelectorBaseRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
+using LanosCertifiedStore.Persistence.Queries.Common.Classes.SelectorBaseRelated;
 
-namespace Persistence.Queries.TypeRelated.VehicleTransmissionTypeRelated.SelectorRelated;
+namespace LanosCertifiedStore.Persistence.Queries.TypeRelated.VehicleTransmissionTypeRelated.SelectorRelated;
 
 internal sealed class VehicleTransmissionTypesSortingSettingsSelector : 
     QuerySortingSettingsSelectorBase<VehicleTransmissionType>

@@ -1,12 +1,12 @@
 ﻿using System.Globalization;
-using Application.Shared.ResultRelated;
-using Application.VehicleModels;
-using Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
-using Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
-using Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
-using Application.VehicleModels.Queries.SingleVehicleModelQueryRelated;
-using Domain.Entities.VehicleRelated;
 using IntegrationTests.Common;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.VehicleModels;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
+using LanosCertifiedStore.Application.VehicleModels.Queries.SingleVehicleModelQueryRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntegrationTests.VehicleModels;

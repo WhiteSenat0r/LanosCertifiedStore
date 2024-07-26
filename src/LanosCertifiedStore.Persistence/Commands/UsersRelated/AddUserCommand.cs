@@ -1,7 +1,7 @@
-﻿using Domain.Entities.UserRelated;
-using Persistence.Contexts.ApplicationDatabaseContext;
+﻿using LanosCertifiedStore.Domain.Entities.UserRelated;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 
-namespace Persistence.Commands.UsersRelated;
+namespace LanosCertifiedStore.Persistence.Commands.UsersRelated;
 
 public sealed class AddUserCommand(ApplicationDatabaseContext context)
 {

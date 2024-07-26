@@ -1,4 +1,4 @@
-﻿namespace Application.Images.Commands.SetVehicleMainImage;
+﻿namespace LanosCertifiedStore.Application.Images.Commands.SetVehicleMainImage;
 
 // TODO
 // internal sealed class SetVehicleMainImageCommandHandler

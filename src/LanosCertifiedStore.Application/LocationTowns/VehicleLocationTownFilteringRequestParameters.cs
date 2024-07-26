@@ -1,7 +1,7 @@
-﻿using Application.Shared.RequestParamsRelated;
-using Domain.Entities.VehicleRelated.LocationRelated;
+﻿using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
 
-namespace Application.LocationTowns;
+namespace LanosCertifiedStore.Application.LocationTowns;
 
 public sealed class VehicleLocationTownFilteringRequestParameters : 
     BaseFilteringRequestParameters<VehicleLocationTown>, ILocationTownFilteringRequestParameters

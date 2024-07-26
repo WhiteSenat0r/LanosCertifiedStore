@@ -1,8 +1,8 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
-namespace Application.Images.Commands.AddImageToVehicle;
+namespace LanosCertifiedStore.Application.Images.Commands.AddImageToVehicle;
 
 public sealed record AddImageToVehicleCommand(
     Guid VehicleId,

@@ -1,7 +1,7 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.Shared.RequestRelated.QueryRelated;
+namespace LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
 
 public interface ISingleQueryRequest<TRequestResult>
     : IRequest<Result<TRequestResult>> where TRequestResult : class

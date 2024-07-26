@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
-using Domain.Entities.VehicleRelated.LocationRelated;
-using Persistence.Queries.Common.Classes.SelectorBaseRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
+using LanosCertifiedStore.Persistence.Queries.Common.Classes.SelectorBaseRelated;
 
-namespace Persistence.Queries.LocationRelated.LocationTownRelated.SelectorRelated;
+namespace LanosCertifiedStore.Persistence.Queries.LocationRelated.LocationTownRelated.SelectorRelated;
 
 internal sealed class LocationTownSortingSettingsSelector : QuerySortingSettingsSelectorBase<VehicleLocationTown>
 {

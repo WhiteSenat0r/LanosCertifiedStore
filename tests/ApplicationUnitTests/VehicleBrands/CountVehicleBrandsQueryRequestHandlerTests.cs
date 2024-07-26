@@ -1,6 +1,6 @@
-﻿using Application.Shared.DtosRelated;
-using Application.VehicleBrands;
-using Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.VehicleBrands;
+using LanosCertifiedStore.Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
 
 namespace ApplicationUnitTests.VehicleBrands;
 

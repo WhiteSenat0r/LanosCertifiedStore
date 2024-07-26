@@ -1,9 +1,9 @@
-﻿using Application.Shared.RequestParamsRelated;
-using Application.Shared.RequestRelated.QueryRelated;
-using Application.Shared.ResultRelated;
-using Domain.Entities.VehicleRelated.TypeRelated;
+﻿using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 
-namespace Application.VehicleDrivetrainTypes.Queries.CollectionVehicleDrivetrainTypesQueryRequestRelated;
+namespace LanosCertifiedStore.Application.VehicleDrivetrainTypes.Queries.CollectionVehicleDrivetrainTypesQueryRequestRelated;
 
 public sealed record CollectionVehicleDrivetrainTypesQueryRequest(
     IFilteringRequestParameters<VehicleDrivetrainType> FilteringParameters) :

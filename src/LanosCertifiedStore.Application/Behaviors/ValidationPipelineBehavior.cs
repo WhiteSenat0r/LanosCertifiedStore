@@ -1,9 +1,9 @@
-﻿using Application.Shared.ResultRelated;
-using FluentValidation;
+﻿using FluentValidation;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace Application.Behaviors;
+namespace LanosCertifiedStore.Application.Behaviors;
 
 public class ValidationPipelineBehavior<TRequest, TResponse>(
     ILogger<ValidationPipelineBehavior<TRequest, TResponse>> logger,

@@ -1,8 +1,8 @@
-﻿using Application.VehicleModels.Dtos;
-using AutoMapper;
-using Domain.Entities.VehicleRelated;
+﻿using AutoMapper;
+using LanosCertifiedStore.Application.VehicleModels.Dtos;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-namespace Application.VehicleModels;
+namespace LanosCertifiedStore.Application.VehicleModels;
 
 internal sealed class VehicleModelRelatedMappingProfile : Profile
 {

@@ -1,4 +1,4 @@
-﻿using Application.VehicleModels.Commands.UpdateVehicleModelRelated;
+﻿using LanosCertifiedStore.Application.VehicleModels.Commands.UpdateVehicleModelRelated;
 
 namespace ApplicationUnitTests.VehicleModels.UpdateVehicleModelCommand;
 

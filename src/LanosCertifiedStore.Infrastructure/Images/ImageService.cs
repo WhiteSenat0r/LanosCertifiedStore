@@ -1,11 +1,11 @@
-﻿using Application.Images;
-using Application.Shared.ResultRelated;
-using CloudinaryDotNet;
+﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using LanosCertifiedStore.Application.Images;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.Images;
+namespace LanosCertifiedStore.Infrastructure.Services.Images;
 
 internal class ImageService : IImageService
 {

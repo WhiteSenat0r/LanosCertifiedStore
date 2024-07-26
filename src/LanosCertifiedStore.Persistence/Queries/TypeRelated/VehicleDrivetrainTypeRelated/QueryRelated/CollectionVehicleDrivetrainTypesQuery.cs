@@ -1,12 +1,12 @@
-﻿using Application.Shared.RequestRelated.QueryRelated;
-using Application.VehicleDrivetrainTypes;
-using AutoMapper;
-using Domain.Entities.VehicleRelated.TypeRelated;
-using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.Queries.Common.Classes.QueryBaseRelated;
-using Persistence.Queries.Common.Contracts;
+﻿using AutoMapper;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Application.VehicleDrivetrainTypes;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
+using LanosCertifiedStore.Persistence.Queries.Common.Classes.QueryBaseRelated;
+using LanosCertifiedStore.Persistence.Queries.Common.Contracts;
 
-namespace Persistence.Queries.TypeRelated.VehicleDrivetrainTypeRelated.QueryRelated;
+namespace LanosCertifiedStore.Persistence.Queries.TypeRelated.VehicleDrivetrainTypeRelated.QueryRelated;
 
 public sealed class CollectionVehicleDrivetrainTypesQuery(
     ApplicationDatabaseContext context,

@@ -1,6 +1,6 @@
-﻿using Application.Shared.RequestRelated.QueryRelated;
-using Application.VehicleBrands.Dtos;
+﻿using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Dtos;
 
-namespace Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
+namespace LanosCertifiedStore.Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
 
 public sealed record SingleVehicleBrandQueryRequest(Guid ItemId) : ISingleQueryRequest<SingleVehicleBrandDto>;

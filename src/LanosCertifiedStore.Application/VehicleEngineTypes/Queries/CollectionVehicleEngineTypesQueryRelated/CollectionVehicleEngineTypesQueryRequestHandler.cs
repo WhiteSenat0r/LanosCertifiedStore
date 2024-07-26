@@ -1,7 +1,7 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.VehicleEngineTypes.Queries.CollectionVehicleEngineTypesQueryRelated;
+namespace LanosCertifiedStore.Application.VehicleEngineTypes.Queries.CollectionVehicleEngineTypesQueryRelated;
 
 internal sealed class CollectionVehicleEngineTypesQueryRequestHandler(
     IVehicleEngineTypeService vehicleEngineTypeService)

@@ -1,6 +1,6 @@
-﻿using Application.Shared.ValidationRelated;
+﻿using LanosCertifiedStore.Application.Shared.ValidationRelated;
 
-namespace Application.Shared.ResultRelated;
+namespace LanosCertifiedStore.Application.Shared.ResultRelated;
 
 public sealed class ValidationResult<TValue> : Result<TValue>, IValidationResult
 {

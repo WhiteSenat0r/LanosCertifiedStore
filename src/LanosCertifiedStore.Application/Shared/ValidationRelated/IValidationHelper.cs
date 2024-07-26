@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
-using Domain.Contracts.Common;
+using LanosCertifiedStore.Domain.Contracts.Common;
 
-namespace Application.Shared.ValidationRelated;
+namespace LanosCertifiedStore.Application.Shared.ValidationRelated;
 
 public interface IValidationHelper
 {

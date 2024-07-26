@@ -1,7 +1,7 @@
-﻿using Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
-using Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
-using Domain.Entities.VehicleRelated;
-using IntegrationTests.Common;
+﻿using IntegrationTests.Common;
+using LanosCertifiedStore.Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntegrationTests.VehicleBrands;

@@ -1,8 +1,8 @@
 ﻿using System.Globalization;
-using Application.LocationRegions;
-using Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
-using Application.Shared.RequestParamsRelated;
 using IntegrationTests.Common;
+using LanosCertifiedStore.Application.LocationRegions;
+using LanosCertifiedStore.Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
 
 namespace IntegrationTests.LocationRegions;
 

@@ -1,11 +1,11 @@
-﻿using Application.Shared.RequestRelated.QueryRelated;
-using AutoMapper;
+﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Domain.Contracts.Common;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Domain.Contracts.Common;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Contexts.ApplicationDatabaseContext;
 
-namespace Persistence.Queries.Common.Classes.QueryBaseRelated;
+namespace LanosCertifiedStore.Persistence.Queries.Common.Classes.QueryBaseRelated;
 
 public abstract class SingleQueryBase<TEntity, TDto>(
     ApplicationDatabaseContext context,

@@ -1,7 +1,7 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using Microsoft.AspNetCore.Http;
 
-namespace Application.Images;
+namespace LanosCertifiedStore.Application.Images;
 
 public interface IImageService
 {

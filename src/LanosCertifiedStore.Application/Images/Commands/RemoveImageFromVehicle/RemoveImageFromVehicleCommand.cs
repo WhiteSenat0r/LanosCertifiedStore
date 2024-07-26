@@ -1,6 +1,6 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.Images.Commands.RemoveImageFromVehicle;
+namespace LanosCertifiedStore.Application.Images.Commands.RemoveImageFromVehicle;
 
 public record RemoveImageFromVehicleCommand(Guid VehicleId, Guid ImageId) : IRequest<Result<Unit>>;

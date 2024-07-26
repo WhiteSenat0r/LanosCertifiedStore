@@ -1,7 +1,7 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.VehicleBodyTypes.Queries.CollectionVehicleBodyTypesQueryRelated;
+namespace LanosCertifiedStore.Application.VehicleBodyTypes.Queries.CollectionVehicleBodyTypesQueryRelated;
 
 internal sealed class CollectionVehicleBodyTypesQueryRequestHandler(IVehicleBodyTypeService vehicleBodyTypeService)
     : IRequestHandler<CollectionVehicleBodyTypesQueryRequest, Result<PaginationResult<VehicleBodyTypeDto>>>

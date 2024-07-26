@@ -1,4 +1,4 @@
-﻿namespace Application.Vehicles.Commands.Common;
+﻿namespace LanosCertifiedStore.Application.Vehicles.Commands.Common;
 
 // TODO
 // internal abstract class ActionVehicleCommandHandlerBase<TResult>(

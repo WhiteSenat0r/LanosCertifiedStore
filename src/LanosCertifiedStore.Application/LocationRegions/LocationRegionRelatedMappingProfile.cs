@@ -1,8 +1,8 @@
-﻿using Application.LocationRegions.Dtos;
-using AutoMapper;
-using Domain.Entities.VehicleRelated.LocationRelated;
+﻿using AutoMapper;
+using LanosCertifiedStore.Application.LocationRegions.Dtos;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
 
-namespace Application.LocationRegions;
+namespace LanosCertifiedStore.Application.LocationRegions;
 
 internal sealed class LocationRegionRelatedMappingProfile : Profile
 {

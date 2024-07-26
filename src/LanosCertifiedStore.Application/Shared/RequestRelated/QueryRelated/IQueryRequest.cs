@@ -1,8 +1,8 @@
-﻿using Application.Shared.RequestParamsRelated;
-using Domain.Contracts.Common;
+﻿using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Domain.Contracts.Common;
 using MediatR;
 
-namespace Application.Shared.RequestRelated.QueryRelated;
+namespace LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
 
 public interface IQueryRequest<TEntity, TRequestResult> : IRequest<TRequestResult>
     where TEntity : class, IIdentifiable<Guid>

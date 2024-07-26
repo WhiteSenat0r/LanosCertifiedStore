@@ -1,6 +1,6 @@
-﻿using Domain.Entities.Common.Classes;
+﻿using LanosCertifiedStore.Domain.Entities.Common.Classes;
 
-namespace Domain.Entities.VehicleRelated;
+namespace LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
 public sealed class VehicleBrand : NamedAspect
 {

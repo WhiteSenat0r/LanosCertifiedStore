@@ -1,11 +1,11 @@
-﻿using API.Controllers.Common;
-using Application.Shared.RequestParamsRelated;
-using Application.Shared.ResultRelated;
-using Application.VehicleBodyTypes;
-using Application.VehicleBodyTypes.Queries.CollectionVehicleBodyTypesQueryRelated;
+﻿using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.VehicleBodyTypes;
+using LanosCertifiedStore.Application.VehicleBodyTypes.Queries.CollectionVehicleBodyTypesQueryRelated;
+using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.TypeRelated;
+namespace LanosCertifiedStore.Presentation.Controllers.TypeRelated;
 
 [Route("api/BodyTypes")]
 public sealed class VehicleBodyTypesController : BaseApiController

@@ -1,17 +1,17 @@
-﻿using Application.Shared.DtosRelated;
-using Application.VehicleBrands;
-using Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
-using Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
-using Application.VehicleBrands.Dtos;
-using Application.VehicleBrands.Queries.CollectionVehicleBrandsQueryRelated;
-using Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
-using Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
-using Domain.Entities.VehicleRelated;
-using Persistence.Commands.Common;
-using Persistence.Commands.VehicleBrandRelated;
-using Persistence.Queries.VehicleBrandRelated.QueryRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.VehicleBrands;
+using LanosCertifiedStore.Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Dtos;
+using LanosCertifiedStore.Application.VehicleBrands.Queries.CollectionVehicleBrandsQueryRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Persistence.Commands.Common;
+using LanosCertifiedStore.Persistence.Commands.VehicleBrandRelated;
+using LanosCertifiedStore.Persistence.Queries.VehicleBrandRelated.QueryRelated;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.Vehicles;
+namespace LanosCertifiedStore.Infrastructure.Services.Vehicles;
 
 internal sealed class VehicleBrandService(
     CollectionVehicleBrandsQuery collectionQuery,

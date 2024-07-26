@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using Domain.Entities.VehicleRelated;
-using Domain.Entities.VehicleRelated.LocationRelated;
-using Domain.Entities.VehicleRelated.TypeRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 using Microsoft.EntityFrameworkCore;
 
-namespace Persistence.Contexts.ApplicationDatabaseContext;
+namespace LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 
 public sealed class ApplicationDatabaseContext(
     DbContextOptions<ApplicationDatabaseContext> options) : DbContext(options)

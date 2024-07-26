@@ -1,10 +1,10 @@
 ﻿using System.Globalization;
-using Application.LocationTowns;
-using Application.LocationTowns.Queries.LocationTownsRelated.CollectionLocationTownsQueryRequestRelated;
-using Application.LocationTowns.Queries.LocationTownsRelated.CountLocationTownsQueryRelated;
-using Application.Shared.RequestParamsRelated;
-using Domain.Entities.VehicleRelated.LocationRelated;
 using IntegrationTests.Common;
+using LanosCertifiedStore.Application.LocationTowns;
+using LanosCertifiedStore.Application.LocationTowns.Queries.LocationTownsRelated.CollectionLocationTownsQueryRequestRelated;
+using LanosCertifiedStore.Application.LocationTowns.Queries.LocationTownsRelated.CountLocationTownsQueryRelated;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntegrationTests.LocationTowns;

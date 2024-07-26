@@ -1,8 +1,8 @@
-﻿using Application.LocationRegions.Dtos;
-using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.LocationRegions.Dtos;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
+namespace LanosCertifiedStore.Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
 
 internal sealed class CollectionLocationTownsQueryRequestHandler(
     ILocationRegionService locationRegionService) :

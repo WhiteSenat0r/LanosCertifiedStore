@@ -1,4 +1,4 @@
-﻿namespace Application.Shared.ResultRelated;
+﻿namespace LanosCertifiedStore.Application.Shared.ResultRelated;
 
 public class Result
 {

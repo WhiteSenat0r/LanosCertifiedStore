@@ -1,9 +1,9 @@
 ﻿using System.Net;
-using Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.Common;
+namespace LanosCertifiedStore.Presentation.Controllers.Common;
 
 [ApiController]
 public abstract class BaseApiController : ControllerBase

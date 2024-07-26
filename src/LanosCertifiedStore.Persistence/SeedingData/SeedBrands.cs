@@ -1,6 +1,6 @@
-﻿using Domain.Entities.VehicleRelated;
+﻿using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-namespace Persistence.SeedingData;
+namespace LanosCertifiedStore.Persistence.SeedingData;
 
 internal static class SeedBrands
 {

@@ -1,6 +1,6 @@
-﻿using MediatR;
+﻿using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence.Contexts.ApplicationDatabaseContext;
 
 namespace IntegrationTests.Common;
 

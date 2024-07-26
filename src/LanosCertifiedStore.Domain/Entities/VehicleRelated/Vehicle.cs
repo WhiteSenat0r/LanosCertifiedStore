@@ -1,8 +1,8 @@
-﻿using Domain.Contracts.Common;
-using Domain.Entities.VehicleRelated.LocationRelated;
-using Domain.Entities.VehicleRelated.TypeRelated;
+﻿using LanosCertifiedStore.Domain.Contracts.Common;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 
-namespace Domain.Entities.VehicleRelated;
+namespace LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
 public sealed class Vehicle : IIdentifiable<Guid>
 {

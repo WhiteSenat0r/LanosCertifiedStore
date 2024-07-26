@@ -1,6 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 
-namespace Domain.Entities.UserRelated;
+namespace LanosCertifiedStore.Domain.Entities.UserRelated;
 
 public sealed class Permission
 {

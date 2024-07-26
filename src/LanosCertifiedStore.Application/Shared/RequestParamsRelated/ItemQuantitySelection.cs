@@ -1,4 +1,4 @@
-﻿namespace Application.Shared.RequestParamsRelated;
+﻿namespace LanosCertifiedStore.Application.Shared.RequestParamsRelated;
 
 public enum ItemQuantitySelection
 {

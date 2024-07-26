@@ -1,17 +1,17 @@
-﻿using API.Controllers.Common;
-using Application.Shared.DtosRelated;
-using Application.Shared.ResultRelated;
-using Application.Shared.ValidationRelated;
-using Application.VehicleBrands;
-using Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
-using Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
-using Application.VehicleBrands.Dtos;
-using Application.VehicleBrands.Queries.CollectionVehicleBrandsQueryRelated;
-using Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
-using Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.Shared.ValidationRelated;
+using LanosCertifiedStore.Application.VehicleBrands;
+using LanosCertifiedStore.Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Dtos;
+using LanosCertifiedStore.Application.VehicleBrands.Queries.CollectionVehicleBrandsQueryRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
+using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.VehicleRelated;
+namespace LanosCertifiedStore.Presentation.Controllers.VehicleRelated;
 
 [Route("api/Brands")]
 public sealed class VehicleBrandsController : BaseApiController

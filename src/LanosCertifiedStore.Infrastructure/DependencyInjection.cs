@@ -1,30 +1,30 @@
-﻿using Application.Identity;
-using Application.Images;
-using Application.LocationRegions;
-using Application.LocationTowns;
-using Application.Users;
-using Application.VehicleBodyTypes;
-using Application.VehicleBrands;
-using Application.VehicleColors;
-using Application.VehicleDrivetrainTypes;
-using Application.VehicleEngineTypes;
-using Application.VehicleModels;
-using Application.VehicleTransmissionTypes;
-using Application.VehicleTypes;
-using LanosCertifiedStore.InfrastructureLayer.Services.Authentication;
-using LanosCertifiedStore.InfrastructureLayer.Services.Authentication.KeyCloak;
-using LanosCertifiedStore.InfrastructureLayer.Services.Authorization;
-using LanosCertifiedStore.InfrastructureLayer.Services.Images;
-using LanosCertifiedStore.InfrastructureLayer.Services.Locations;
-using LanosCertifiedStore.InfrastructureLayer.Services.Users;
-using LanosCertifiedStore.InfrastructureLayer.Services.Vehicles;
+﻿using LanosCertifiedStore.Application.Identity;
+using LanosCertifiedStore.Application.Images;
+using LanosCertifiedStore.Application.LocationRegions;
+using LanosCertifiedStore.Application.LocationTowns;
+using LanosCertifiedStore.Application.Users;
+using LanosCertifiedStore.Application.VehicleBodyTypes;
+using LanosCertifiedStore.Application.VehicleBrands;
+using LanosCertifiedStore.Application.VehicleColors;
+using LanosCertifiedStore.Application.VehicleDrivetrainTypes;
+using LanosCertifiedStore.Application.VehicleEngineTypes;
+using LanosCertifiedStore.Application.VehicleModels;
+using LanosCertifiedStore.Application.VehicleTransmissionTypes;
+using LanosCertifiedStore.Application.VehicleTypes;
+using LanosCertifiedStore.Infrastructure.Services.Authentication;
+using LanosCertifiedStore.Infrastructure.Services.Authentication.Keycloak;
+using LanosCertifiedStore.Infrastructure.Services.Authorization;
+using LanosCertifiedStore.Infrastructure.Services.Images;
+using LanosCertifiedStore.Infrastructure.Services.Locations;
+using LanosCertifiedStore.Infrastructure.Services.Users;
+using LanosCertifiedStore.Infrastructure.Services.Vehicles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using IAuthorizationService = Application.Users.IAuthorizationService;
+using IAuthorizationService = LanosCertifiedStore.Application.Users.IAuthorizationService;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services;
+namespace LanosCertifiedStore.Infrastructure.Services;
 
 public static class DependencyInjection
 {

@@ -1,18 +1,18 @@
-﻿using API.Controllers.Common;
-using Application.Shared.DtosRelated;
-using Application.Shared.ResultRelated;
-using Application.Shared.ValidationRelated;
-using Application.VehicleModels;
-using Application.VehicleModels.Commands.CreateVehicleModelRelated;
-using Application.VehicleModels.Commands.UpdateVehicleModelRelated;
-using Application.VehicleModels.Dtos;
-using Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
-using Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
-using Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
-using Application.VehicleModels.Queries.SingleVehicleModelQueryRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.Shared.ValidationRelated;
+using LanosCertifiedStore.Application.VehicleModels;
+using LanosCertifiedStore.Application.VehicleModels.Commands.CreateVehicleModelRelated;
+using LanosCertifiedStore.Application.VehicleModels.Commands.UpdateVehicleModelRelated;
+using LanosCertifiedStore.Application.VehicleModels.Dtos;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
+using LanosCertifiedStore.Application.VehicleModels.Queries.SingleVehicleModelQueryRelated;
+using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.VehicleRelated;
+namespace LanosCertifiedStore.Presentation.Controllers.VehicleRelated;
 
 [Route("api/Models")]
 public sealed class VehicleModelsController : BaseApiController

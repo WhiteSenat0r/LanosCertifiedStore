@@ -1,4 +1,4 @@
-﻿namespace Application.Vehicles.Dtos;
+﻿namespace LanosCertifiedStore.Application.Vehicles.Dtos;
 
 public sealed class PriceDto
 {

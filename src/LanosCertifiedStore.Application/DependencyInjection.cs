@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using Application.Behaviors;
-using Application.VehicleBrands.Queries.CollectionVehicleBrandsQueryRelated;
 using FluentValidation;
+using LanosCertifiedStore.Application.Behaviors;
+using LanosCertifiedStore.Application.VehicleBrands.Queries.CollectionVehicleBrandsQueryRelated;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Application;
+namespace LanosCertifiedStore.Application;
 
 public static class DependencyInjection
 {

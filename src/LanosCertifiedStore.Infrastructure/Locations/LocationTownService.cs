@@ -1,11 +1,11 @@
-﻿using Application.LocationTowns;
-using Application.LocationTowns.Dtos;
-using Application.LocationTowns.Queries.LocationTownsRelated.CollectionLocationTownsQueryRequestRelated;
-using Application.LocationTowns.Queries.LocationTownsRelated.CountLocationTownsQueryRelated;
-using Application.Shared.DtosRelated;
-using Persistence.Queries.LocationRelated.LocationTownRelated.QueryRelated;
+﻿using LanosCertifiedStore.Application.LocationTowns;
+using LanosCertifiedStore.Application.LocationTowns.Dtos;
+using LanosCertifiedStore.Application.LocationTowns.Queries.LocationTownsRelated.CollectionLocationTownsQueryRequestRelated;
+using LanosCertifiedStore.Application.LocationTowns.Queries.LocationTownsRelated.CountLocationTownsQueryRelated;
+using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Persistence.Queries.LocationRelated.LocationTownRelated.QueryRelated;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.Locations;
+namespace LanosCertifiedStore.Infrastructure.Services.Locations;
 
 internal sealed class LocationTownService(
     CollectionLocationTownsQuery collectionQuery,

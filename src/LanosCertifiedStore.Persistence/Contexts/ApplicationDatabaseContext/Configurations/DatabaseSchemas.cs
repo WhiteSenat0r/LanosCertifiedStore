@@ -1,4 +1,4 @@
-﻿namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations;
+﻿namespace LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext.Configurations;
 
 internal sealed class DatabaseSchemas
 {

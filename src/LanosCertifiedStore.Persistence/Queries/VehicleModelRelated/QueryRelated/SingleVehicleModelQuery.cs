@@ -1,10 +1,10 @@
-﻿using Application.VehicleModels.Dtos;
-using AutoMapper;
-using Domain.Entities.VehicleRelated;
-using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.Queries.Common.Classes.QueryBaseRelated;
+﻿using AutoMapper;
+using LanosCertifiedStore.Application.VehicleModels.Dtos;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
+using LanosCertifiedStore.Persistence.Queries.Common.Classes.QueryBaseRelated;
 
-namespace Persistence.Queries.VehicleModelRelated.QueryRelated;
+namespace LanosCertifiedStore.Persistence.Queries.VehicleModelRelated.QueryRelated;
 
 public sealed class SingleVehicleModelQuery(
     ApplicationDatabaseContext context,

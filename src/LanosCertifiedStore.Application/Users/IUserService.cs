@@ -1,6 +1,6 @@
-﻿using Domain.Entities.UserRelated;
+﻿using LanosCertifiedStore.Domain.Entities.UserRelated;
 
-namespace Application.Users;
+namespace LanosCertifiedStore.Application.Users;
 
 public interface IUserService
 {

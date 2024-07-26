@@ -1,7 +1,7 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
+namespace LanosCertifiedStore.Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
 
 internal sealed class CollectionVehicleColorsQueryRequestHandler(IVehicleColorService vehicleColorService) :
     IRequestHandler<CollectionVehicleColorsQueryRequest, Result<PaginationResult<VehicleColorDto>>>

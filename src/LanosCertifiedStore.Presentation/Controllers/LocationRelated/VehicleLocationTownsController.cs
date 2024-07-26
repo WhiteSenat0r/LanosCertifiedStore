@@ -1,13 +1,13 @@
-﻿using API.Controllers.Common;
-using Application.LocationTowns;
-using Application.LocationTowns.Dtos;
-using Application.LocationTowns.Queries.LocationTownsRelated.CollectionLocationTownsQueryRequestRelated;
-using Application.LocationTowns.Queries.LocationTownsRelated.CountLocationTownsQueryRelated;
-using Application.Shared.DtosRelated;
-using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.LocationTowns;
+using LanosCertifiedStore.Application.LocationTowns.Dtos;
+using LanosCertifiedStore.Application.LocationTowns.Queries.LocationTownsRelated.CollectionLocationTownsQueryRequestRelated;
+using LanosCertifiedStore.Application.LocationTowns.Queries.LocationTownsRelated.CountLocationTownsQueryRelated;
+using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.LocationRelated;
+namespace LanosCertifiedStore.Presentation.Controllers.LocationRelated;
 
 [Route("api/LocationTowns")]
 public sealed class VehicleLocationTownsController : BaseApiController

@@ -1,9 +1,9 @@
-﻿using API.Controllers.Common;
-using Application.Identity.Commands.RegisterUserCommandRequestRelated;
+﻿using LanosCertifiedStore.Application.Identity.Commands.RegisterUserCommandRequestRelated;
+using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.IdentityRelated;
+namespace LanosCertifiedStore.Presentation.Controllers.IdentityRelated;
 
 [Route("api/identity")]
 public sealed class IdentityController : BaseApiController

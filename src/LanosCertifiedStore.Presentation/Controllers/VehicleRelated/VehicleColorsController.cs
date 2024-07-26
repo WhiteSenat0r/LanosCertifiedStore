@@ -1,11 +1,11 @@
-﻿using API.Controllers.Common;
-using Application.Shared.RequestParamsRelated;
-using Application.Shared.ResultRelated;
-using Application.VehicleColors;
-using Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
+﻿using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.VehicleColors;
+using LanosCertifiedStore.Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
+using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.VehicleRelated;
+namespace LanosCertifiedStore.Presentation.Controllers.VehicleRelated;
 
 [Route("api/Colors")]
 public sealed class VehicleColorsController : BaseApiController

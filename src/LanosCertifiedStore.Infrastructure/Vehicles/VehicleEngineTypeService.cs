@@ -1,8 +1,8 @@
-﻿using Application.VehicleEngineTypes;
-using Application.VehicleEngineTypes.Queries.CollectionVehicleEngineTypesQueryRelated;
-using Persistence.Queries.TypeRelated.VehicleEngineTypeRelated.QueryRelated;
+﻿using LanosCertifiedStore.Application.VehicleEngineTypes;
+using LanosCertifiedStore.Application.VehicleEngineTypes.Queries.CollectionVehicleEngineTypesQueryRelated;
+using LanosCertifiedStore.Persistence.Queries.TypeRelated.VehicleEngineTypeRelated.QueryRelated;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.Vehicles;
+namespace LanosCertifiedStore.Infrastructure.Services.Vehicles;
 
 internal sealed class VehicleEngineTypeService(
     CollectionVehicleEngineTypesQuery collectionVehicleEngineTypesQuery) : IVehicleEngineTypeService

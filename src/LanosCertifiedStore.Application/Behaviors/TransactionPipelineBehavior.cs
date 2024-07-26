@@ -1,9 +1,9 @@
-﻿using Application.Shared;
-using Application.Shared.RequestRelated;
-using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared;
+using LanosCertifiedStore.Application.Shared.RequestRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.Behaviors;
+namespace LanosCertifiedStore.Application.Behaviors;
 
 public class TransactionPipelineBehavior<TRequest, TResponse>(
     ITransactionService transactionService) : IPipelineBehavior<TRequest, TResponse>

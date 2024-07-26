@@ -1,11 +1,11 @@
 ﻿using System.Linq.Expressions;
-using Application.Shared.ValidationRelated;
-using Domain.Contracts.Common;
-using Domain.Entities.VehicleRelated;
-using Domain.Entities.VehicleRelated.TypeRelated;
 using FluentValidation;
+using LanosCertifiedStore.Application.Shared.ValidationRelated;
+using LanosCertifiedStore.Domain.Contracts.Common;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 
-namespace Application.VehicleModels.Commands.CreateVehicleModelRelated;
+namespace LanosCertifiedStore.Application.VehicleModels.Commands.CreateVehicleModelRelated;
 
 internal sealed class CreateVehicleModelCommandRequestValidator : AbstractValidator<CreateVehicleModelCommandRequest>
 {

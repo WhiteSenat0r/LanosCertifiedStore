@@ -1,6 +1,6 @@
-﻿using Domain.Entities.VehicleRelated;
+﻿using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-namespace Domain.Entities.Common.Classes;
+namespace LanosCertifiedStore.Domain.Entities.Common.Classes;
 
 public abstract class NamedVehicleTypeAspect : NamedAspect
 {

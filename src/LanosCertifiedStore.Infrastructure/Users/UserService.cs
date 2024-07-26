@@ -1,9 +1,9 @@
-﻿using Application.Users;
-using Domain.Entities.UserRelated;
-using Persistence.Commands.Common;
-using Persistence.Commands.UsersRelated;
+﻿using LanosCertifiedStore.Application.Users;
+using LanosCertifiedStore.Domain.Entities.UserRelated;
+using LanosCertifiedStore.Persistence.Commands.Common;
+using LanosCertifiedStore.Persistence.Commands.UsersRelated;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.Users;
+namespace LanosCertifiedStore.Infrastructure.Services.Users;
 
 internal sealed class UserService(
     AddUserCommand addUserCommand,

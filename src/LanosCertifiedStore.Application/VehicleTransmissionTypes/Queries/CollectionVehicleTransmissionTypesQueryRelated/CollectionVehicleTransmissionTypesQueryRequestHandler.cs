@@ -1,7 +1,7 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.VehicleTransmissionTypes.Queries.CollectionVehicleTransmissionTypesQueryRelated;
+namespace LanosCertifiedStore.Application.VehicleTransmissionTypes.Queries.CollectionVehicleTransmissionTypesQueryRelated;
 
 internal sealed class CollectionVehicleTransmissionTypesQueryRequestHandler(
     IVehicleTransmissionTypeService vehicleTransmissionTypeService) :

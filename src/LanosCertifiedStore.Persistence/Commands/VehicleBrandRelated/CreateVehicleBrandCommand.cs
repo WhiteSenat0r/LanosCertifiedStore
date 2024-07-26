@@ -1,7 +1,7 @@
-﻿using Domain.Entities.VehicleRelated;
-using Persistence.Contexts.ApplicationDatabaseContext;
+﻿using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 
-namespace Persistence.Commands.VehicleBrandRelated;
+namespace LanosCertifiedStore.Persistence.Commands.VehicleBrandRelated;
 
 public sealed class CreateVehicleBrandCommand(ApplicationDatabaseContext context)
 {

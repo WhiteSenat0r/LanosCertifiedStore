@@ -1,9 +1,9 @@
-﻿using Application.LocationRegions;
-using Application.LocationRegions.Dtos;
-using Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
-using Persistence.Queries.LocationRelated.LocationRegionRelated.QueryRelated;
+﻿using LanosCertifiedStore.Application.LocationRegions;
+using LanosCertifiedStore.Application.LocationRegions.Dtos;
+using LanosCertifiedStore.Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
+using LanosCertifiedStore.Persistence.Queries.LocationRelated.LocationRegionRelated.QueryRelated;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.Locations;
+namespace LanosCertifiedStore.Infrastructure.Services.Locations;
 
 internal sealed class LocationRegionService(CollectionLocationRegionsQuery collectionQuery) : ILocationRegionService
 {

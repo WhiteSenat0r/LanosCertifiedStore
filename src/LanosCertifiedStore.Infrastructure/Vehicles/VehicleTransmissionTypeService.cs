@@ -1,8 +1,8 @@
-﻿using Application.VehicleTransmissionTypes;
-using Application.VehicleTransmissionTypes.Queries.CollectionVehicleTransmissionTypesQueryRelated;
-using Persistence.Queries.TypeRelated.VehicleTransmissionTypeRelated.QueryRelated;
+﻿using LanosCertifiedStore.Application.VehicleTransmissionTypes;
+using LanosCertifiedStore.Application.VehicleTransmissionTypes.Queries.CollectionVehicleTransmissionTypesQueryRelated;
+using LanosCertifiedStore.Persistence.Queries.TypeRelated.VehicleTransmissionTypeRelated.QueryRelated;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.Vehicles;
+namespace LanosCertifiedStore.Infrastructure.Services.Vehicles;
 
 internal sealed class VehicleTransmissionTypeService(
     CollectionVehicleTransmissionTypesQuery collectionVehicleTransmissionTypesQuery) : IVehicleTransmissionTypeService

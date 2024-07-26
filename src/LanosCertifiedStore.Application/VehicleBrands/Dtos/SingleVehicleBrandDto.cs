@@ -1,6 +1,6 @@
-﻿using Application.Shared.DtosRelated;
-using Application.VehicleModels.Dtos;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.VehicleModels.Dtos;
 
-namespace Application.VehicleBrands.Dtos;
+namespace LanosCertifiedStore.Application.VehicleBrands.Dtos;
 
 public sealed record SingleVehicleBrandDto(IEnumerable<VehicleModelWithoutBrandNameDto>? Models) : VehicleAspectDto;

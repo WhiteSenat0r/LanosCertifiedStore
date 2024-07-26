@@ -1,16 +1,16 @@
 ﻿using System.Reflection;
-using Application.Shared;
-using Application.Shared.ValidationRelated;
+using LanosCertifiedStore.Application.Shared;
+using LanosCertifiedStore.Application.Shared.ValidationRelated;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
+using LanosCertifiedStore.Persistence.Queries.Common.Classes;
+using LanosCertifiedStore.Persistence.Queries.Common.Contracts;
+using LanosCertifiedStore.Persistence.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.Queries.Common.Classes;
-using Persistence.Queries.Common.Contracts;
-using Persistence.Services;
 
-namespace Persistence;
+namespace LanosCertifiedStore.Persistence;
 
 public static class DependencyInjection
 {

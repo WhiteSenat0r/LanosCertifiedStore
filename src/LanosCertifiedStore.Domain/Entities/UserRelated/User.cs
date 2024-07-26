@@ -1,7 +1,7 @@
-﻿using Domain.Contracts.Common;
-using Domain.Entities.VehicleRelated;
+﻿using LanosCertifiedStore.Domain.Contracts.Common;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-namespace Domain.Entities.UserRelated;
+namespace LanosCertifiedStore.Domain.Entities.UserRelated;
 
 public sealed class User : IIdentifiable<Guid>
 {

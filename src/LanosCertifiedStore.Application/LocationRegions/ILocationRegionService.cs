@@ -1,7 +1,7 @@
-﻿using Application.LocationRegions.Dtos;
-using Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
+﻿using LanosCertifiedStore.Application.LocationRegions.Dtos;
+using LanosCertifiedStore.Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
 
-namespace Application.LocationRegions;
+namespace LanosCertifiedStore.Application.LocationRegions;
 
 public interface ILocationRegionService
 {

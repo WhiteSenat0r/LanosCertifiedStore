@@ -1,7 +1,7 @@
-﻿using Application.Identity.Commands.RegisterUserCommandRequestRelated;
-using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Identity.Commands.RegisterUserCommandRequestRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 
-namespace Application.Identity;
+namespace LanosCertifiedStore.Application.Identity;
 
 public interface IIdentityProviderService
 {

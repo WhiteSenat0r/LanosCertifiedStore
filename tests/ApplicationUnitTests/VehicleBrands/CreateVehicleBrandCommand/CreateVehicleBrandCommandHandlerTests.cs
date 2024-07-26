@@ -1,5 +1,5 @@
-﻿using Application.VehicleBrands;
-using Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
+﻿using LanosCertifiedStore.Application.VehicleBrands;
+using LanosCertifiedStore.Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
 
 namespace ApplicationUnitTests.VehicleBrands.CreateVehicleBrandCommand;
 

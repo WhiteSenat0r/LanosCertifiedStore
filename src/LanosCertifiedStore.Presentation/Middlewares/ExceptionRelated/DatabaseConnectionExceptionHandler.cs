@@ -1,8 +1,8 @@
 ﻿using System.Net;
-using API.Middlewares.ExceptionRelated.Common.Classes;
+using LanosCertifiedStore.Presentation.Middlewares.ExceptionRelated.Common.Classes;
 using Npgsql;
 
-namespace API.Middlewares.ExceptionRelated;
+namespace LanosCertifiedStore.Presentation.Middlewares.ExceptionRelated;
 
 internal sealed class DatabaseConnectionExceptionHandler(
     ILogger<DatabaseConnectionExceptionHandler> logger) : ExceptionHandlerBase<NpgsqlException>(

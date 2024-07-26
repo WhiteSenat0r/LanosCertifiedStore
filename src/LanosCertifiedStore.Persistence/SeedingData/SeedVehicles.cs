@@ -1,8 +1,8 @@
-﻿using Domain.Entities.VehicleRelated;
-using Domain.Entities.VehicleRelated.LocationRelated;
-using Domain.Entities.VehicleRelated.TypeRelated;
+﻿using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 
-namespace Persistence.SeedingData;
+namespace LanosCertifiedStore.Persistence.SeedingData;
 
 internal static class SeedVehicles
 {

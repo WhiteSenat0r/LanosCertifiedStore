@@ -1,8 +1,8 @@
-﻿using Application.Shared.RequestParamsRelated;
-using Application.Shared.RequestRelated.QueryRelated;
-using Domain.Entities.VehicleRelated;
+﻿using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-namespace Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
+namespace LanosCertifiedStore.Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
 
 public sealed record CountVehicleModelsQueryRequest(
     IFilteringRequestParameters<VehicleModel> FilteringParameters) : 

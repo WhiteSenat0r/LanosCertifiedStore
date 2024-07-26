@@ -1,8 +1,8 @@
 ﻿using System.Globalization;
-using Application.Shared.RequestParamsRelated;
-using Application.VehicleColors;
-using Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
 using IntegrationTests.Common;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.VehicleColors;
+using LanosCertifiedStore.Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
 
 namespace IntegrationTests.VehicleColors;
 

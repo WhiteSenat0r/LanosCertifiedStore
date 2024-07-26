@@ -1,6 +1,6 @@
-﻿using Application.VehicleDrivetrainTypes.Queries.CollectionVehicleDrivetrainTypesQueryRequestRelated;
+﻿using LanosCertifiedStore.Application.VehicleDrivetrainTypes.Queries.CollectionVehicleDrivetrainTypesQueryRequestRelated;
 
-namespace Application.VehicleDrivetrainTypes;
+namespace LanosCertifiedStore.Application.VehicleDrivetrainTypes;
 
 public interface IVehicleDrivetrainTypeService
 {

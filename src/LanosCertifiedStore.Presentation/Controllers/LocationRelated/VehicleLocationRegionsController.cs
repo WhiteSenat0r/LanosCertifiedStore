@@ -1,12 +1,12 @@
-﻿using API.Controllers.Common;
-using Application.LocationRegions;
-using Application.LocationRegions.Dtos;
-using Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
-using Application.Shared.RequestParamsRelated;
-using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.LocationRegions;
+using LanosCertifiedStore.Application.LocationRegions.Dtos;
+using LanosCertifiedStore.Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.LocationRelated;
+namespace LanosCertifiedStore.Presentation.Controllers.LocationRelated;
 
 [Route("api/LocationRegions")]
 public sealed class VehicleLocationRegionsController : BaseApiController

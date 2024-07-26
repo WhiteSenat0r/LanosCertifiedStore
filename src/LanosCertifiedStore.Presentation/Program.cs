@@ -1,9 +1,9 @@
-using API;
-using API.Extensions;
-using API.Middlewares;
-using Application;
-using LanosCertifiedStore.InfrastructureLayer.Services;
-using Persistence;
+using LanosCertifiedStore.Application;
+using LanosCertifiedStore.Infrastructure.Services;
+using LanosCertifiedStore.Persistence;
+using LanosCertifiedStore.Presentation;
+using LanosCertifiedStore.Presentation.Extensions;
+using LanosCertifiedStore.Presentation.Middlewares;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,7 +45,7 @@ await app.ExecuteMigration();
 app.Run();
 
 // For integration testing purposes
-namespace API
+namespace LanosCertifiedStore.Presentation
 {
     public partial class Program;
 }

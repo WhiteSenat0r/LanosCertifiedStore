@@ -1,4 +1,4 @@
-﻿namespace Application.Images.Commands.RemoveImageFromVehicle;
+﻿namespace LanosCertifiedStore.Application.Images.Commands.RemoveImageFromVehicle;
 
 // TODO
 // internal sealed class RemoveImageFromVehicleCommandHandler : 

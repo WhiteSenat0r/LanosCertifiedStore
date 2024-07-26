@@ -1,7 +1,7 @@
-﻿using Application.Shared.RequestParamsRelated;
-using Application.VehicleDrivetrainTypes;
-using Application.VehicleDrivetrainTypes.Queries.CollectionVehicleDrivetrainTypesQueryRequestRelated;
-using IntegrationTests.Common;
+﻿using IntegrationTests.Common;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.VehicleDrivetrainTypes;
+using LanosCertifiedStore.Application.VehicleDrivetrainTypes.Queries.CollectionVehicleDrivetrainTypesQueryRequestRelated;
 
 namespace IntegrationTests.VehicleDrivetrainTypes;
 

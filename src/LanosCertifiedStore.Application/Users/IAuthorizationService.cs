@@ -1,4 +1,4 @@
-﻿namespace Application.Users;
+﻿namespace LanosCertifiedStore.Application.Users;
 
 public interface IAuthorizationService
 {

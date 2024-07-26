@@ -1,8 +1,8 @@
-﻿using Application.VehicleColors;
-using Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
-using Persistence.Queries.VehicleColorRelated.QueryRelated;
+﻿using LanosCertifiedStore.Application.VehicleColors;
+using LanosCertifiedStore.Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
+using LanosCertifiedStore.Persistence.Queries.VehicleColorRelated.QueryRelated;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.Vehicles;
+namespace LanosCertifiedStore.Infrastructure.Services.Vehicles;
 
 internal sealed class VehicleColorService(
     CollectionVehicleColorsQuery collectionVehicleColorsQuery) : IVehicleColorService

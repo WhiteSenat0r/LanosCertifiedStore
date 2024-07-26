@@ -1,9 +1,9 @@
 ﻿using System.Linq.Expressions;
-using Application.Shared.ValidationRelated;
-using Domain.Entities.VehicleRelated;
 using FluentValidation;
+using LanosCertifiedStore.Application.Shared.ValidationRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-namespace Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
+namespace LanosCertifiedStore.Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
 
 internal sealed class UpdateVehicleBrandCommandRequestValidator : AbstractValidator<UpdateVehicleBrandCommandRequest>
 {

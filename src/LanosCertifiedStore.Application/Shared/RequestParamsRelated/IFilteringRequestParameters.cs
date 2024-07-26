@@ -1,6 +1,6 @@
-﻿using Domain.Contracts.Common;
+﻿using LanosCertifiedStore.Domain.Contracts.Common;
 
-namespace Application.Shared.RequestParamsRelated;
+namespace LanosCertifiedStore.Application.Shared.RequestParamsRelated;
 
 public interface IFilteringRequestParameters<TModel>
     where TModel : IIdentifiable<Guid>

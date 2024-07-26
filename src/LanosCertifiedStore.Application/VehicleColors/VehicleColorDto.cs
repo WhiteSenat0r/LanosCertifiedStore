@@ -1,5 +1,5 @@
-﻿using Application.Shared.DtosRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
 
-namespace Application.VehicleColors;
+namespace LanosCertifiedStore.Application.VehicleColors;
 
 public sealed record VehicleColorDto(string HexValue) : VehicleAspectDto;

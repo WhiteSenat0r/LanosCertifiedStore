@@ -1,12 +1,12 @@
-﻿using Application.Shared.DtosRelated;
-using Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
-using Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
-using Application.VehicleBrands.Dtos;
-using Application.VehicleBrands.Queries.CollectionVehicleBrandsQueryRelated;
-using Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
-using Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Dtos;
+using LanosCertifiedStore.Application.VehicleBrands.Queries.CollectionVehicleBrandsQueryRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
 
-namespace Application.VehicleBrands;
+namespace LanosCertifiedStore.Application.VehicleBrands;
 
 public interface IVehicleBrandService
 {

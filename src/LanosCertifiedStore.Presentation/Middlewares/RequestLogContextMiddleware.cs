@@ -1,6 +1,6 @@
 ﻿using Serilog.Context;
 
-namespace API.Middlewares;
+namespace LanosCertifiedStore.Presentation.Middlewares;
 
 internal sealed class RequestLogContextMiddleware(RequestDelegate next)
 {

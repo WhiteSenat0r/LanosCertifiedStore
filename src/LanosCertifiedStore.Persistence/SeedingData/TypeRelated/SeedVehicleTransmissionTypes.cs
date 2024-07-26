@@ -1,6 +1,6 @@
-﻿using Domain.Entities.VehicleRelated.TypeRelated;
+﻿using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 
-namespace Persistence.SeedingData.TypeRelated;
+namespace LanosCertifiedStore.Persistence.SeedingData.TypeRelated;
 
 internal static class SeedVehicleTransmissionTypes
 {

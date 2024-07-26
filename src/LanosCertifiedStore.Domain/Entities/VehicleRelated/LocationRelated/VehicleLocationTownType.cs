@@ -1,6 +1,6 @@
-﻿using Domain.Entities.Common.Classes;
+﻿using LanosCertifiedStore.Domain.Entities.Common.Classes;
 
-namespace Domain.Entities.VehicleRelated.LocationRelated;
+namespace LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
 
 public sealed class VehicleLocationTownType : NamedAspect
 {

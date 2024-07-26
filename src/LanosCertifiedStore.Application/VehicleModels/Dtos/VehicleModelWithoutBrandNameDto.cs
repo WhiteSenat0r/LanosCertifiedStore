@@ -1,5 +1,5 @@
-﻿using Application.Shared.DtosRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
 
-namespace Application.VehicleModels.Dtos;
+namespace LanosCertifiedStore.Application.VehicleModels.Dtos;
 
 public record VehicleModelWithoutBrandNameDto : VehicleAspectDto;

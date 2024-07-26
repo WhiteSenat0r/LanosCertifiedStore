@@ -1,4 +1,4 @@
-﻿namespace Application.Vehicles.Commands.DeleteVehicle;
+﻿namespace LanosCertifiedStore.Application.Vehicles.Commands.DeleteVehicle;
 
 // TODO
 // internal sealed class DeleteVehicleCommandHandler 

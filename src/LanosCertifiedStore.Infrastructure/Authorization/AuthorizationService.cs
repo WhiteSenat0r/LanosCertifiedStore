@@ -1,9 +1,9 @@
-﻿using Application.Users;
-using Domain.Entities.UserRelated;
+﻿using LanosCertifiedStore.Application.Users;
+using LanosCertifiedStore.Domain.Entities.UserRelated;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Contexts.ApplicationDatabaseContext;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.Authorization;
+namespace LanosCertifiedStore.Infrastructure.Services.Authorization;
 
 internal sealed class AuthorizationService(ApplicationDatabaseContext context) : IAuthorizationService
 {

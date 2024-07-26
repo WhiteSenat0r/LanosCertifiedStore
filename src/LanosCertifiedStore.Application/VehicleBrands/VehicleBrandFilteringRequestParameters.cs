@@ -1,6 +1,6 @@
-﻿using Application.Shared.RequestParamsRelated;
-using Domain.Entities.VehicleRelated;
+﻿using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-namespace Application.VehicleBrands;
+namespace LanosCertifiedStore.Application.VehicleBrands;
 
 public sealed class VehicleBrandFilteringRequestParameters : BaseFilteringRequestParameters<VehicleBrand>;

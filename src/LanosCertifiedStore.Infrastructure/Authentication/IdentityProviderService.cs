@@ -1,10 +1,10 @@
-﻿using Application.Identity;
-using Application.Identity.Commands.RegisterUserCommandRequestRelated;
-using Application.Shared.ResultRelated;
-using LanosCertifiedStore.InfrastructureLayer.Services.Authentication.KeyCloak;
+﻿using LanosCertifiedStore.Application.Identity;
+using LanosCertifiedStore.Application.Identity.Commands.RegisterUserCommandRequestRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Infrastructure.Services.Authentication.Keycloak;
 using Microsoft.Extensions.Logging;
 
-namespace LanosCertifiedStore.InfrastructureLayer.Services.Authentication;
+namespace LanosCertifiedStore.Infrastructure.Services.Authentication;
 
 internal sealed class IdentityProviderService(
     KeycloakClient keycloakClient,

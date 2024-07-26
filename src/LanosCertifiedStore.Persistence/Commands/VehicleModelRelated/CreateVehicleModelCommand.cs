@@ -1,10 +1,10 @@
-﻿using Application.VehicleModels.Commands.CreateVehicleModelRelated;
-using Domain.Contracts.Common;
-using Domain.Entities.VehicleRelated;
-using Domain.Entities.VehicleRelated.TypeRelated;
-using Persistence.Contexts.ApplicationDatabaseContext;
+﻿using LanosCertifiedStore.Application.VehicleModels.Commands.CreateVehicleModelRelated;
+using LanosCertifiedStore.Domain.Contracts.Common;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 
-namespace Persistence.Commands.VehicleModelRelated;
+namespace LanosCertifiedStore.Persistence.Commands.VehicleModelRelated;
 
 public sealed class CreateVehicleModelCommand(ApplicationDatabaseContext context)
 {

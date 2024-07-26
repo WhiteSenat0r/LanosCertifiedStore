@@ -1,9 +1,9 @@
-﻿using Application.Shared.ResultRelated;
-using Application.Users;
-using Domain.Entities.UserRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.Users;
+using LanosCertifiedStore.Domain.Entities.UserRelated;
 using MediatR;
 
-namespace Application.Identity.Commands.RegisterUserCommandRequestRelated;
+namespace LanosCertifiedStore.Application.Identity.Commands.RegisterUserCommandRequestRelated;
 
 internal sealed class AddUserFromProviderCommandRequestHandler(IUserService userService)
     : IRequestHandler<AddUserFromProviderCommandRequest, Result<Guid>>

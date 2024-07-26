@@ -1,7 +1,7 @@
-﻿using Application.Shared.RequestRelated;
+﻿using LanosCertifiedStore.Application.Shared.RequestRelated;
 using MediatR;
 
-namespace Application.VehicleModels.Commands.UpdateVehicleModelRelated;
+namespace LanosCertifiedStore.Application.VehicleModels.Commands.UpdateVehicleModelRelated;
 
 public sealed record UpdateVehicleModelCommandRequest(
     Guid Id,

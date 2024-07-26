@@ -1,8 +1,8 @@
-﻿using Domain.Entities.VehicleRelated;
+﻿using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.VehicleRelated;
+namespace LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext.Configurations.VehicleRelated;
 
 internal sealed class VehicleBrandEntityConfiguration : IEntityTypeConfiguration<VehicleBrand>
 {

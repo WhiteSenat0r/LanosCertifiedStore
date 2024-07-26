@@ -1,8 +1,8 @@
-﻿using Application.VehicleModels.Commands.CreateVehicleModelRelated;
-using Application.VehicleModels.Commands.UpdateVehicleModelRelated;
-using Domain.Entities.VehicleRelated;
-using Domain.Entities.VehicleRelated.TypeRelated;
-using IntegrationTests.Common;
+﻿using IntegrationTests.Common;
+using LanosCertifiedStore.Application.VehicleModels.Commands.CreateVehicleModelRelated;
+using LanosCertifiedStore.Application.VehicleModels.Commands.UpdateVehicleModelRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntegrationTests.VehicleModels;

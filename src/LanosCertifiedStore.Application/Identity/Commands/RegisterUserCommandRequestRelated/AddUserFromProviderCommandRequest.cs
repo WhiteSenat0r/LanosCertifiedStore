@@ -1,5 +1,5 @@
-﻿using Application.Shared.RequestRelated;
+﻿using LanosCertifiedStore.Application.Shared.RequestRelated;
 
-namespace Application.Identity.Commands.RegisterUserCommandRequestRelated;
+namespace LanosCertifiedStore.Application.Identity.Commands.RegisterUserCommandRequestRelated;
 
 public sealed record AddUserFromProviderCommandRequest(Guid UserId) : ICommandRequest<Guid>;

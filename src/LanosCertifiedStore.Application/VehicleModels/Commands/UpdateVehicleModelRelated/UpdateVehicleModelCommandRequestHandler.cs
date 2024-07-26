@@ -1,7 +1,7 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.VehicleModels.Commands.UpdateVehicleModelRelated;
+namespace LanosCertifiedStore.Application.VehicleModels.Commands.UpdateVehicleModelRelated;
 
 internal sealed class UpdateVehicleModelCommandRequestHandler(IVehicleModelService vehicleModelService) : 
     IRequestHandler<UpdateVehicleModelCommandRequest, Result<Unit>>

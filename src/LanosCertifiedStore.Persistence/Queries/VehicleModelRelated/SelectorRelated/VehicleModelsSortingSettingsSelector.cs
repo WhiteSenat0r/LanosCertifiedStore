@@ -1,8 +1,8 @@
 ﻿using System.Linq.Expressions;
-using Domain.Entities.VehicleRelated;
-using Persistence.Queries.Common.Classes.SelectorBaseRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Persistence.Queries.Common.Classes.SelectorBaseRelated;
 
-namespace Persistence.Queries.VehicleModelRelated.SelectorRelated;
+namespace LanosCertifiedStore.Persistence.Queries.VehicleModelRelated.SelectorRelated;
 
 internal sealed class VehicleModelsSortingSettingsSelector : QuerySortingSettingsSelectorBase<VehicleModel>
 {

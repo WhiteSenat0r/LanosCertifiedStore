@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
-using Application.Shared.ValidationRelated;
-using Domain.Contracts.Common;
-using Domain.Entities.VehicleRelated.TypeRelated;
 using FluentValidation;
+using LanosCertifiedStore.Application.Shared.ValidationRelated;
+using LanosCertifiedStore.Domain.Contracts.Common;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 
-namespace Application.VehicleModels.Commands.UpdateVehicleModelRelated;
+namespace LanosCertifiedStore.Application.VehicleModels.Commands.UpdateVehicleModelRelated;
 
 internal sealed class UpdateVehicleModelCommandRequestValidator : AbstractValidator<UpdateVehicleModelCommandRequest>
 {

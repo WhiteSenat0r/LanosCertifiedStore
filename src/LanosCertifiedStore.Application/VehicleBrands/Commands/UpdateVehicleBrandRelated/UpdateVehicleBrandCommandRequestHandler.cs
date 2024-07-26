@@ -1,7 +1,7 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
+namespace LanosCertifiedStore.Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
 
 internal sealed class UpdateVehicleBrandCommandRequestHandler(IVehicleBrandService brandService)
     : IRequestHandler<UpdateVehicleBrandCommandRequest, Result<Unit>>

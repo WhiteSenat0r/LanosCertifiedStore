@@ -1,9 +1,9 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Serilog.Context;
 
-namespace Application.Behaviors;
+namespace LanosCertifiedStore.Application.Behaviors;
 
 internal sealed class RequestLoggingPipelineBehavior<TRequest, TResponse>(
     ILogger<RequestLoggingPipelineBehavior<TRequest, TResponse>> logger)

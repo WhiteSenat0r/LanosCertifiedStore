@@ -1,9 +1,9 @@
-﻿using Application.Shared.RequestParamsRelated;
-using Application.Shared.RequestRelated.QueryRelated;
-using Application.Shared.ResultRelated;
-using Domain.Entities.VehicleRelated;
+﻿using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-namespace Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
+namespace LanosCertifiedStore.Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
 
 public sealed record CollectionVehicleColorsQueryRequest(
     IFilteringRequestParameters<VehicleColor> FilteringParameters) :

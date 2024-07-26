@@ -1,6 +1,6 @@
-﻿using Domain.Entities.VehicleRelated.LocationRelated;
+﻿using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
 
-namespace Persistence.SeedingData.LocationRelated;
+namespace LanosCertifiedStore.Persistence.SeedingData.LocationRelated;
 
 internal static class SeedRegions
 {

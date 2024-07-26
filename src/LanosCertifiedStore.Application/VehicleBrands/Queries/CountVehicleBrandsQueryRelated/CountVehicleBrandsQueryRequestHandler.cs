@@ -1,8 +1,8 @@
-﻿using Application.Shared.DtosRelated;
-using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
+namespace LanosCertifiedStore.Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
 
 internal sealed class CountVehicleBrandsQueryRequestHandler(IVehicleBrandService vehicleBrandService) :
     IRequestHandler<CountVehicleBrandsQueryRequest, Result<ItemsCountDto>>

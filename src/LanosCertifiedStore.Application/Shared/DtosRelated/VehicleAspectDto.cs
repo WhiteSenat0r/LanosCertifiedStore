@@ -1,6 +1,6 @@
-﻿using Domain.Contracts.Common;
+﻿using LanosCertifiedStore.Domain.Contracts.Common;
 
-namespace Application.Shared.DtosRelated;
+namespace LanosCertifiedStore.Application.Shared.DtosRelated;
 
 public abstract record VehicleAspectDto : IIdentifiable<Guid>
 {

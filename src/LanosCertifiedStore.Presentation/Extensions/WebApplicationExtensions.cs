@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.SeedingData;
+﻿using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
+using LanosCertifiedStore.Persistence.SeedingData;
+using Microsoft.EntityFrameworkCore;
 
-namespace API.Extensions;
+namespace LanosCertifiedStore.Presentation.Extensions;
 
 internal static class WebApplicationExtensions
 {

@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
-using Application.LocationTowns;
-using Application.Shared.RequestParamsRelated;
-using Domain.Entities.VehicleRelated.LocationRelated;
-using Persistence.Queries.Common.Classes.SelectorBaseRelated;
+using LanosCertifiedStore.Application.LocationTowns;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
+using LanosCertifiedStore.Persistence.Queries.Common.Classes.SelectorBaseRelated;
 
-namespace Persistence.Queries.LocationRelated.LocationTownRelated.SelectorRelated;
+namespace LanosCertifiedStore.Persistence.Queries.LocationRelated.LocationTownRelated.SelectorRelated;
 
 internal sealed class LocationTownFilteringCriteriaSelector : QueryFilteringCriteriaSelectorBase<VehicleLocationTown>
 {

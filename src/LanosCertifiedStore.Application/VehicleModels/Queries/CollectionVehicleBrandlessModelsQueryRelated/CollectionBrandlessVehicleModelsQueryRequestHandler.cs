@@ -1,8 +1,8 @@
-﻿using Application.Shared.ResultRelated;
-using Application.VehicleModels.Dtos;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.VehicleModels.Dtos;
 using MediatR;
 
-namespace Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
+namespace LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
 
 internal sealed class CollectionBrandlessVehicleModelsQueryRequestHandler(IVehicleModelService vehicleModelService) :
     IRequestHandler<CollectionBrandlessVehicleModelsQueryRequest,

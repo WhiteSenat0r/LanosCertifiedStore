@@ -1,11 +1,11 @@
-﻿using Application.Shared.DtosRelated;
-using Application.Shared.RequestRelated.QueryRelated;
-using Domain.Entities.VehicleRelated;
-using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.Queries.Common.Classes.QueryBaseRelated;
-using Persistence.Queries.Common.Contracts;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
+using LanosCertifiedStore.Persistence.Queries.Common.Classes.QueryBaseRelated;
+using LanosCertifiedStore.Persistence.Queries.Common.Contracts;
 
-namespace Persistence.Queries.VehicleModelRelated.QueryRelated;
+namespace LanosCertifiedStore.Persistence.Queries.VehicleModelRelated.QueryRelated;
 
 public sealed class CountVehicleModelsQuery(
     ApplicationDatabaseContext context,

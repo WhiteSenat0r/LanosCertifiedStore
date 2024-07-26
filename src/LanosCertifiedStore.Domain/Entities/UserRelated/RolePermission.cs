@@ -1,4 +1,4 @@
-﻿namespace Domain.Entities.UserRelated;
+﻿namespace LanosCertifiedStore.Domain.Entities.UserRelated;
 
 public sealed class RolePermission
 {
