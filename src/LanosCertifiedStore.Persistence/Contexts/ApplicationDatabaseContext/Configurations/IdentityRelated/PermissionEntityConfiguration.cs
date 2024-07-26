@@ -20,7 +20,6 @@ internal sealed class PermissionEntityConfiguration : IEntityTypeConfiguration<P
             Permission.CreateUser,
             Permission.UpdateUser,
             Permission.ChangeUserRole,
-            Permission.DeleteUser,
             Permission.CreateVehicles,
             Permission.UpdateVehicles,
             Permission.DeleteVehicles,

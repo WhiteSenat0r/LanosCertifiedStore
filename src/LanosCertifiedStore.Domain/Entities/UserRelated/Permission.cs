@@ -10,7 +10,6 @@ public sealed class Permission
     public static readonly Permission CreateUser = new("users:create");
     public static readonly Permission UpdateUser = new("users:update");
     public static readonly Permission ChangeUserRole = new("users:change-role");
-    public static readonly Permission DeleteUser = new("users:delete");
 
     // Vehicles
     public static readonly Permission CreateVehicles = new("vehicles:create");
