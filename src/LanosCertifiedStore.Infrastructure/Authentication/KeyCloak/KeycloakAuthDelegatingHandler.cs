@@ -4,9 +4,9 @@ using Microsoft.Extensions.Options;
 
 namespace LanosCertifiedStore.InfrastructureLayer.Services.Authentication.KeyCloak;
 
-internal sealed class KeyCloakAuthDelegatingHandler(IOptions<KeyCloakOptions> options) : DelegatingHandler
+internal sealed class KeycloakAuthDelegatingHandler(IOptions<KeycloakOptions> options) : DelegatingHandler
 {
-    private readonly KeyCloakOptions _options = options.Value;
+    private readonly KeycloakOptions _options = options.Value;
 
     protected override async Task<HttpResponseMessage> SendAsync(
         HttpRequestMessage request,
@@ -14,7 +14,7 @@ internal sealed class KeyCloakAuthDelegatingHandler(IOptions<KeyCloakOptions> op
     {
         var authToken = await GetAuthorizationToken(cancellationToken);
 
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", authToken.AcessToken);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", authToken.AccessToken);
 
         var httpResponseMessage = await base.SendAsync(request, cancellationToken);
 
@@ -23,7 +23,7 @@ internal sealed class KeyCloakAuthDelegatingHandler(IOptions<KeyCloakOptions> op
         return httpResponseMessage;
     }
 
-    private async Task<AuthToken> GetAuthorizationToken(CancellationToken cancellationToken)
+    private async Task<KeycloakAdminAuthToken> GetAuthorizationToken(CancellationToken cancellationToken)
     {
         var authRequestParams = new Dictionary<string, string>
         {
@@ -43,6 +43,6 @@ internal sealed class KeyCloakAuthDelegatingHandler(IOptions<KeyCloakOptions> op
 
         authorizationResponse.EnsureSuccessStatusCode();
 
-        return (await authorizationResponse.Content.ReadFromJsonAsync<AuthToken>(cancellationToken))!;
+        return (await authorizationResponse.Content.ReadFromJsonAsync<KeycloakAdminAuthToken>(cancellationToken))!;
     }
 }

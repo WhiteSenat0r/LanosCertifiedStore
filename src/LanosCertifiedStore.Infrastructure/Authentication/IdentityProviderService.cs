@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 namespace LanosCertifiedStore.InfrastructureLayer.Services.Authentication;
 
 internal sealed class IdentityProviderService(
-    KeyCloakClient keyCloakClient,
+    KeycloakClient keycloakClient,
     ILogger<IdentityProviderService> logger) : IIdentityProviderService
 {
     public async Task<Result<string>> RegisterAsync(
