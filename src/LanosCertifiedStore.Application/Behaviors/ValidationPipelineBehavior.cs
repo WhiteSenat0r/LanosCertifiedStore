@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using LanosCertifiedStore.Application.Shared.RequestRelated;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -8,7 +9,7 @@ namespace LanosCertifiedStore.Application.Behaviors;
 public class ValidationPipelineBehavior<TRequest, TResponse>(
     ILogger<ValidationPipelineBehavior<TRequest, TResponse>> logger,
     IEnumerable<IValidator<TRequest>> validators) : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : IRequest<TResponse>
+    where TRequest : ICommandRequestBase
     where TResponse : Result
 {
     public async Task<TResponse> Handle(

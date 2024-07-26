@@ -12,7 +12,7 @@ public class Result
             return new Result(true, default!);
         }
 
-        return new Result(false, default!);
+        return new Result(false, error);
     }
 
     protected Result(bool isSuccess, Error error)

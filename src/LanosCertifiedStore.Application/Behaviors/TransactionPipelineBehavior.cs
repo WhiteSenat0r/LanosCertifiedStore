@@ -7,7 +7,7 @@ namespace LanosCertifiedStore.Application.Behaviors;
 
 public class TransactionPipelineBehavior<TRequest, TResponse>(
     ITransactionService transactionService) : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : ICommandRequest<TResponse>
+    where TRequest : ICommandRequestBase
     where TResponse : Result
 {
     public async Task<TResponse> Handle(

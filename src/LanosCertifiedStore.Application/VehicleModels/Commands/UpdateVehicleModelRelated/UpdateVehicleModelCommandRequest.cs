@@ -9,4 +9,4 @@ public sealed record UpdateVehicleModelCommandRequest(
     IEnumerable<Guid> AvailableEngineTypesIds,
     IEnumerable<Guid> AvailableTransmissionTypesIds,
     IEnumerable<Guid> AvailableDrivetrainTypesIds,
-    IEnumerable<Guid> AvailableBodyTypesIds) : ICommandRequest<Unit>;
+    IEnumerable<Guid> AvailableBodyTypesIds) : ICommandRequest;
