@@ -1,4 +1,4 @@
-﻿using LanosCertifiedStore.Application.Identity.Commands.RegisterUserCommandRequestRelated;
+﻿using LanosCertifiedStore.Application.Identity.Commands.AddUserFromProviderCommandRequestRelated;
 using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

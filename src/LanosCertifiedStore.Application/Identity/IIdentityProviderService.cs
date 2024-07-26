@@ -1,4 +1,4 @@
-﻿using LanosCertifiedStore.Application.Identity.Commands.RegisterUserCommandRequestRelated;
+﻿using LanosCertifiedStore.Application.Identity.Commands.AddUserFromProviderCommandRequestRelated;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 
 namespace LanosCertifiedStore.Application.Identity;

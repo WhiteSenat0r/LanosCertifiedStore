@@ -1,5 +1,5 @@
 ﻿using LanosCertifiedStore.Application.Identity;
-using LanosCertifiedStore.Application.Identity.Commands.RegisterUserCommandRequestRelated;
+using LanosCertifiedStore.Application.Identity.Commands.AddUserFromProviderCommandRequestRelated;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Infrastructure.Services.Authentication.Keycloak;
 using Microsoft.Extensions.Logging;

@@ -3,7 +3,7 @@ using LanosCertifiedStore.Application.Users;
 using LanosCertifiedStore.Domain.Entities.UserRelated;
 using MediatR;
 
-namespace LanosCertifiedStore.Application.Identity.Commands.RegisterUserCommandRequestRelated;
+namespace LanosCertifiedStore.Application.Identity.Commands.AddUserFromProviderCommandRequestRelated;
 
 internal sealed class AddUserFromProviderCommandRequestHandler(IUserService userService)
     : IRequestHandler<AddUserFromProviderCommandRequest, Result<Guid>>
