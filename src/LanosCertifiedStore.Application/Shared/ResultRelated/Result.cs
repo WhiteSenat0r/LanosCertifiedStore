@@ -9,7 +9,7 @@ public class Result
     {
         if (error == Error.None)
         {
-            return new Result(true, default!);
+            return new Result(true, error);
         }
 
         return new Result(false, error);
@@ -34,7 +34,7 @@ public class Result
 
 public class Result<T> : Result
 {
-    protected Result(T? value, bool isSuccess, Error? error) : base(isSuccess, error)
+    protected Result(T? value, bool isSuccess, Error error) : base(isSuccess, error)
     {
         Value = value;
     }
@@ -43,7 +43,7 @@ public class Result<T> : Result
 
     public static Result<T> Success(T value)
     {
-        return new Result<T>(value, true, default);
+        return new Result<T>(value, true, Error.None);
     }
 
     public static Result<T> Failure(Error error)
