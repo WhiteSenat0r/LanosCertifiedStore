@@ -1,5 +1,6 @@
 ﻿using API.Controllers.Common;
 using Application.Identity.Commands.RegisterUserCommandRequestRelated;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.IdentityRelated;
@@ -7,6 +8,7 @@ namespace API.Controllers.IdentityRelated;
 [Route("api/identity")]
 public sealed class IdentityController : BaseApiController
 {
+    [AllowAnonymous]
     [HttpPost("addUserFromProvider")]
     public async Task<ActionResult<Guid>> AddUserFromIdentityProvider([FromQuery] string id)
     {
