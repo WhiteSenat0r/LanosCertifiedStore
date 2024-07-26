@@ -8,7 +8,8 @@ namespace Application.Identity.Commands.RegisterUserCommandRequestRelated;
 internal sealed class AddUserFromProviderCommandRequestHandler(IUserService userService)
     : IRequestHandler<AddUserFromProviderCommandRequest, Result<Guid>>
 {
-    public async Task<Result<Guid>> Handle(AddUserFromProviderCommandRequest request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(
+        AddUserFromProviderCommandRequest request, CancellationToken cancellationToken)
     {
         var user = new User(request.UserId);
 

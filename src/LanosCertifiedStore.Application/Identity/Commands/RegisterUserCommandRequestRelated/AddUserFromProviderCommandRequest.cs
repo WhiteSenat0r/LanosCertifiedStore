@@ -2,5 +2,4 @@
 
 namespace Application.Identity.Commands.RegisterUserCommandRequestRelated;
 
-public sealed record AddUserFromProviderCommandRequest(
-    Guid UserId) : ICommandRequest<Guid>;
+public sealed record AddUserFromProviderCommandRequest(Guid UserId) : ICommandRequest<Guid>;

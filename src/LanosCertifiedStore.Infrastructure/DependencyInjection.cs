@@ -47,18 +47,18 @@ public static class DependencyInjection
         services.ConfigureOptions<JwtBearerConfigureOptions>();
 
         const string keyCloakSectionName = "KeyCloak";
-        services.Configure<KeyCloakOptions>(configuration.GetSection(keyCloakSectionName));
-        services.AddTransient<KeyCloakAuthDelegatingHandler>();
+        services.Configure<KeycloakOptions>(configuration.GetSection(keyCloakSectionName));
+        services.AddTransient<KeycloakAuthDelegatingHandler>();
 
-        services.AddHttpClient<KeyCloakClient>((serviceProvider, httpClient) =>
+        services.AddHttpClient<KeycloakClient>((serviceProvider, httpClient) =>
         {
             var keyCloakOptions = serviceProvider
-                .GetRequiredService<IOptions<KeyCloakOptions>>()
+                .GetRequiredService<IOptions<KeycloakOptions>>()
                 .Value;
 
             httpClient.BaseAddress = new Uri(keyCloakOptions.AdminUrl);
         })
-        .AddHttpMessageHandler<KeyCloakAuthDelegatingHandler>();
+        .AddHttpMessageHandler<KeycloakAuthDelegatingHandler>();
 
         services.AddScoped<IUserService, UserService>();
         services.AddTransient<IIdentityProviderService, IdentityProviderService>();
