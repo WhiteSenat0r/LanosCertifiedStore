@@ -9,6 +9,7 @@ using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleBra
 using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
 using LanosCertifiedStore.Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
 using LanosCertifiedStore.Application.VehicleModels.Queries.SingleVehicleModelQueryRelated;
+using LanosCertifiedStore.Infrastructure.Services.Authorization;
 using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,10 +25,10 @@ public sealed class VehicleModelsController : BaseApiController
         [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
     {
         var result = await Sender.Send(new CollectionVehicleModelsQueryRequest(requestParameters));
-        
+
         return Ok(result.Value);
     }
-    
+
     [HttpGet("Brandless")]
     [ProducesResponseType(typeof(PaginationResult<VehicleModelDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -35,7 +36,7 @@ public sealed class VehicleModelsController : BaseApiController
         [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
     {
         var result = await Sender.Send(new CollectionBrandlessVehicleModelsQueryRequest(requestParameters));
-        
+
         return Ok(result.Value);
     }
 
@@ -61,11 +62,12 @@ public sealed class VehicleModelsController : BaseApiController
         [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
     {
         var result = await Sender.Send(new CountVehicleModelsQueryRequest(requestParameters));
-        
+
         return Ok(result.Value);
     }
-    
+
     [HttpPost]
+    [HasAccessPermission("models:create")]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> CreateBrand([FromBody] CreateVehicleModelCommandRequest createVehicleCommandRequest)
@@ -84,8 +86,9 @@ public sealed class VehicleModelsController : BaseApiController
 
         return CreatedAtRoute("GetBrandById", new { id = result.Value }, result.Value);
     }
-    
+
     [HttpPut]
+    [HasAccessPermission("models:update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]

@@ -8,6 +8,7 @@ using LanosCertifiedStore.Application.VehicleBrands.Dtos;
 using LanosCertifiedStore.Application.VehicleBrands.Queries.CollectionVehicleBrandsQueryRelated;
 using LanosCertifiedStore.Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
 using LanosCertifiedStore.Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
+using LanosCertifiedStore.Infrastructure.Services.Authorization;
 using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +24,7 @@ public sealed class VehicleBrandsController : BaseApiController
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
     {
         var result = await Sender.Send(new CollectionVehicleBrandsQueryRequest(requestParameters));
-        
+
         return Ok(result.Value);
     }
 
@@ -49,11 +50,12 @@ public sealed class VehicleBrandsController : BaseApiController
         [FromQuery] VehicleBrandFilteringRequestParameters requestParameters)
     {
         var result = await Sender.Send(new CountVehicleBrandsQueryRequest(requestParameters));
-        
+
         return Ok(result.Value);
     }
 
     [HttpPost]
+    [HasAccessPermission("brands:create")]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> CreateBrand([FromBody] CreateVehicleBrandCommandRequest createVehicleCommandRequest)
@@ -69,6 +71,7 @@ public sealed class VehicleBrandsController : BaseApiController
     }
 
     [HttpPut]
+    [HasAccessPermission("brands:update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
