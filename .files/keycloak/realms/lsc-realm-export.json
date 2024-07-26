@@ -718,7 +718,7 @@
       "frontchannelLogout": false,
       "protocol": "openid-connect",
       "attributes": {
-        "access.token.lifespan": "600",
+        "access.token.lifespan": "60",
         "saml.force.post.binding": "false",
         "saml.multivalued.roles": "false",
         "post.logout.redirect.uris": "+",
