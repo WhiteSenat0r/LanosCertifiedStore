@@ -10,3 +10,6 @@ public interface IQueryRequest<TEntity, TRequestResult> : IRequest<TRequestResul
 {
     IFilteringRequestParameters<TEntity> FilteringParameters { get; }
 }
+
+public interface IQueryRequest<TRequestResult> : IRequest<TRequestResult> 
+    where TRequestResult : notnull;

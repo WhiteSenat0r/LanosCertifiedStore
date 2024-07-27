@@ -1,5 +1,4 @@
 ﻿using LanosCertifiedStore.Application.Shared.RequestRelated;
-using MediatR;
 
 namespace LanosCertifiedStore.Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
 
