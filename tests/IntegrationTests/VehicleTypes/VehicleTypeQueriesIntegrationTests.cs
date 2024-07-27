@@ -1,5 +1,6 @@
 ﻿using IntegrationTests.Common;
 using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Application.VehicleTypes;
 using LanosCertifiedStore.Application.VehicleTypes.Queries.CollectionVehicleTypesQueryRelated;
 
@@ -26,7 +27,7 @@ public sealed class VehicleTypeQueriesIntegrationTests(
 
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
 

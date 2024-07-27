@@ -1,4 +1,5 @@
 ﻿using IntegrationTests.Common;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Application.VehicleModels.Commands.CreateVehicleModelRelated;
 using LanosCertifiedStore.Application.VehicleModels.Commands.UpdateVehicleModelRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated;
@@ -24,7 +25,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
 
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
         response.Value
@@ -78,7 +79,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
         
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
         newUpdatedModel.AvailableEngineTypes

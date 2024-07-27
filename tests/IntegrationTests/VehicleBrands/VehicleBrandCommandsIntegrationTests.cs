@@ -1,4 +1,5 @@
 ﻿using IntegrationTests.Common;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
 using LanosCertifiedStore.Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated;
@@ -22,7 +23,7 @@ public sealed class VehicleBrandCommandsIntegrationTests(
 
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
         response.Value
@@ -48,7 +49,7 @@ public sealed class VehicleBrandCommandsIntegrationTests(
 
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
 

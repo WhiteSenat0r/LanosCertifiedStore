@@ -4,6 +4,7 @@ using LanosCertifiedStore.Application.LocationTowns;
 using LanosCertifiedStore.Application.LocationTowns.Queries.LocationTownsRelated.CollectionLocationTownsQueryRequestRelated;
 using LanosCertifiedStore.Application.LocationTowns.Queries.LocationTownsRelated.CountLocationTownsQueryRelated;
 using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,7 +31,7 @@ public sealed class LocationTownQueriesIntegrationTests(
 
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
 
@@ -65,7 +66,7 @@ public sealed class LocationTownQueriesIntegrationTests(
 
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
         response.Value!.TotalItemsCount
