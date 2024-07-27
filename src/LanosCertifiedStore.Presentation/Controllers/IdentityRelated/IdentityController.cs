@@ -1,6 +1,6 @@
 ﻿using LanosCertifiedStore.Application.Identity.Commands.AddUserFromProviderCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Commands.UpdateUserDataCommandRequestRelated;
-using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.Identity.Queries.GetUserDataQueryRequestRelated;
 using LanosCertifiedStore.Infrastructure.Services.Authorization;
 using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Authorization;
@@ -30,6 +30,20 @@ public sealed class IdentityController : BaseApiController
         }
 
         return BadRequest(result.Error);
+    }
+    
+    [HasAccessPermission("users:read")]
+    [HttpGet("getUserData/{id:guid}")]
+    public async Task<ActionResult> GetUserData(Guid id)
+    {
+        var result = await Sender.Send(new GetUserDataQueryRequest(id));
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(CreateNotFoundProblemDetails(result.Error!));
+        }
+
+        return Ok(result.Value);
     }
 
     [HasAccessPermission("users:update")]
