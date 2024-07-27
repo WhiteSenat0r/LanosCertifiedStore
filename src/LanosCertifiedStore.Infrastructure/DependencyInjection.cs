@@ -12,7 +12,7 @@ using LanosCertifiedStore.Application.VehicleModels;
 using LanosCertifiedStore.Application.VehicleTransmissionTypes;
 using LanosCertifiedStore.Application.VehicleTypes;
 using LanosCertifiedStore.Infrastructure.Services.Authentication;
-using LanosCertifiedStore.Infrastructure.Services.Authentication.Keycloak;
+using LanosCertifiedStore.Infrastructure.Services.Authentication.KeyCloak;
 using LanosCertifiedStore.Infrastructure.Services.Authorization;
 using LanosCertifiedStore.Infrastructure.Services.Images;
 using LanosCertifiedStore.Infrastructure.Services.Locations;

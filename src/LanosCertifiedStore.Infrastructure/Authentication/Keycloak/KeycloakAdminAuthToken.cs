@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Authentication.Keycloak;
+namespace LanosCertifiedStore.Infrastructure.Services.Authentication.KeyCloak;
 
 internal sealed class KeycloakAdminAuthToken
 {
