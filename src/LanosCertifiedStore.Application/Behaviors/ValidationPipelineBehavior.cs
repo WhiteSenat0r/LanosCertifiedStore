@@ -30,12 +30,12 @@ public class ValidationPipelineBehavior<TRequest, TResponse>(
         }
 
         var validationResult = CreateValidationResult<TResponse>(errors);
-        
+
         logger.LogError("Validation failures have occured: {@ValidationResult}", validationResult);
         return validationResult;
     }
 
-    private bool AreErrorsPresent(Error[] errors)
+    private static bool AreErrorsPresent(Error[] errors)
     {
         const int emptyValue = 0;
 
@@ -57,15 +57,20 @@ public class ValidationPipelineBehavior<TRequest, TResponse>(
             .ToArray();
     }
 
-    private TResult CreateValidationResult<TResult>(Error[] errors)
+    private static TResult CreateValidationResult<TResult>(Error[] errors)
         where TResult : Result
     {
+        if (typeof(TResult) == typeof(Result))
+        {
+            return (ValidationResult.WithErrors(errors) as TResult)!;
+        }
+
         const int genericTypeArgumentIndex = 0;
 
         var validationResult = typeof(ValidationResult<>)
             .GetGenericTypeDefinition()
             .MakeGenericType(typeof(TResult).GenericTypeArguments[genericTypeArgumentIndex])
-            .GetMethod(nameof(ValidationResult<TResult>.WithErrors))!
+            .GetMethod(nameof(ValidationResult.WithErrors))!
             .Invoke(null, [errors])!;
 
         return (TResult)validationResult;
