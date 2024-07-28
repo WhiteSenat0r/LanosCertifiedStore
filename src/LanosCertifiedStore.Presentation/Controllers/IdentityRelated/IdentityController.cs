@@ -63,8 +63,7 @@ public sealed class IdentityController : BaseApiController
     }
 
     [HttpPut("updateSelf")]
-    public async Task<ActionResult> UpdateSelf(
-        UpdateUserSelfCommandRequest request)
+    public async Task<ActionResult> UpdateSelf(UpdateUserSelfCommandRequest request)
     {
         var result = await Sender.Send(request);
 
@@ -75,7 +74,7 @@ public sealed class IdentityController : BaseApiController
 
         return NoContent();
     }
-
+    
     [HasAccessPermission("users:change-role")]
     [HttpPut("changeUserRole/{userId:guid}")]
     public async Task<ActionResult> UpdateUserRole(
