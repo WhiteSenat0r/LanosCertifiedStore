@@ -1,6 +1,7 @@
 ﻿using LanosCertifiedStore.Application.Identity.Commands.AddUserFromProviderCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Commands.UpdateUserDataCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Commands.UpdateUserSelfCommandRequestRelated;
+using LanosCertifiedStore.Application.Identity.Commands.UserEmailUpdateCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Queries.GetUserDataQueryRequestRelated;
 using LanosCertifiedStore.Infrastructure.Authorization;
 using LanosCertifiedStore.Presentation.Controllers.Common;
@@ -63,6 +64,20 @@ public sealed class IdentityController : BaseApiController
 
     [HttpPut("updateSelf")]
     public async Task<ActionResult> UpdateSelf(UpdateUserSelfCommandRequest request)
+    {
+        var result = await Sender.Send(request);
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(CreateNotFoundProblemDetails(result.Error!));
+        }
+
+        return NoContent();
+    }
+    
+    // TODO Fix mailing
+    [HttpPut("updateEmail")]
+    public async Task<ActionResult> UpdateEmail(UserEmailUpdateCommandRequest request)
     {
         var result = await Sender.Send(request);
 
