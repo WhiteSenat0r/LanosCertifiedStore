@@ -8,7 +8,13 @@ internal sealed class UpdateUserDataCommandRequestHandler(IIdentityProviderServi
 {
     public async Task<Result> Handle(UpdateUserDataCommandRequest request, CancellationToken cancellationToken)
     {
-        var result = await identityProviderService.UpdateUserDataAsync(request, cancellationToken);
+        var result = await identityProviderService.UpdateUserDataAsync(
+            request.Id,
+            request.PhoneNumber,
+            request.Email,
+            request.FirstName,
+            request.LastName,
+            cancellationToken);
 
         return result;
     }

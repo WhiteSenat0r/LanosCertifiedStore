@@ -1,6 +1,7 @@
 ﻿using LanosCertifiedStore.Application.Identity;
 using LanosCertifiedStore.Application.Identity.Commands.AddUserFromProviderCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Commands.UpdateUserDataCommandRequestRelated;
+using LanosCertifiedStore.Application.Identity.Commands.UpdateUserSelfCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Queries.GetUserDataQueryRequestRelated;
 using LanosCertifiedStore.Infrastructure.Authorization;
 using LanosCertifiedStore.Presentation.Controllers.Common;
@@ -63,19 +64,8 @@ public sealed class IdentityController : BaseApiController
 
     [HttpPut("updateSelf")]
     public async Task<ActionResult> UpdateSelf(
-        string phoneNumber,
-        string email,
-        string firstName,
-        string lastName,
-        [FromServices] IUserContext userContext)
+        UpdateUserSelfCommandRequest request)
     {
-        var request = new UpdateUserDataCommandRequest(
-            userContext.UserId,
-            phoneNumber,
-            email,
-            firstName,
-            lastName);
-
         var result = await Sender.Send(request);
 
         if (!result.IsSuccess)
