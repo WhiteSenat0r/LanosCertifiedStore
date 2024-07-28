@@ -1,7 +1,5 @@
 ﻿using System.Net;
-using AutoMapper;
 using LanosCertifiedStore.Application.Identity;
-using LanosCertifiedStore.Application.Identity.Commands.UpdateUserDataCommandRequestRelated;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 using Microsoft.Extensions.Logging;
@@ -25,7 +23,7 @@ internal sealed class IdentityProviderService(
                 userDataRepresentation.FirstName,
                 userDataRepresentation.LastName,
                 userDataRepresentation.Email,
-                userDataRepresentation.Attributes.PhoneNumber.FirstOrDefault(),
+                userDataRepresentation.Attributes?.PhoneNumber.FirstOrDefault(),
                 userDataRepresentation.EmailVerified,
                 userDataRepresentation.FederatedIdentities,
                 userDataRepresentation.CreatedTimestamp);
@@ -34,9 +32,9 @@ internal sealed class IdentityProviderService(
         }
         catch (HttpRequestException e) when (e.StatusCode is HttpStatusCode.NotFound)
         {
-            const string userWithProvidedItWasNotFound = "User with provided it was not found!";
-            logger.LogError(e, userWithProvidedItWasNotFound);
-            return Result<UserDataDto>.Failure(Error.NotFound(userId));
+            var error = Error.NotFound(userId);
+            logger.LogError(e, error.Message);
+            return Result<UserDataDto>.Failure(error);
         }
     }
 
@@ -68,8 +66,9 @@ internal sealed class IdentityProviderService(
         }
         catch (HttpRequestException e) when (e.StatusCode is HttpStatusCode.NotFound)
         {
-            logger.LogError(e, "User with provided it was not found!");
-            return Result.Create(Error.NotFound(id));
+            var error = Error.NotFound(id);
+            logger.LogError(e, error.Message);
+            return Result.Create(error);
         }
     }
 }
