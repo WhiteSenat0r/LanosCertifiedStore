@@ -8,8 +8,12 @@ public interface IIdentityProviderService
     Task<Result<UserDataDto>> GetUserDataAsync(
         Guid userId,
         CancellationToken cancellationToken = default);
-    
+
     Task<Result> UpdateUserDataAsync(
-        UpdateUserDataCommandRequest request,
+        Guid id,
+        string phoneNumber,
+        string email,
+        string firstName,
+        string lastName,
         CancellationToken cancellationToken = default);
 }
