@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using LanosCertifiedStore.Application.Identity;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
-using LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
+using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
 using Microsoft.Extensions.Logging;
 
 namespace LanosCertifiedStore.Infrastructure.Authentication;
@@ -33,20 +33,23 @@ internal sealed class IdentityProviderService(
         catch (HttpRequestException e) when (e.StatusCode is HttpStatusCode.NotFound)
         {
             var error = Error.NotFound(userId);
+            
             logger.LogError(e, error.Message);
+            
             return Result<UserDataDto>.Failure(error);
         }
     }
 
     public async Task<Result> UpdateUserDataAsync(
-        Guid id,
+        Guid userId,
         string phoneNumber,
         string email,
         string firstName,
         string lastName,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken = default,
+        bool emailVerified = true)
     {
-        var attributes = new Dictionary<string, string>()
+        var attributes = new Dictionary<string, string>
         {
             { "phoneNumber", phoneNumber }
         };
@@ -54,6 +57,7 @@ internal sealed class IdentityProviderService(
         var userRepresentation = new UserRepresentation(
             Username: email,
             Email: email,
+            EmailVerified: emailVerified,
             Attributes: attributes,
             firstName,
             lastName
@@ -61,14 +65,78 @@ internal sealed class IdentityProviderService(
 
         try
         {
-            await keycloakClient.UpdateUserDataAsync(id, userRepresentation, cancellationToken);
+            await keycloakClient.UpdateUserDataAsync(userId, userRepresentation, cancellationToken);
             return Result.Create(Error.None);
         }
         catch (HttpRequestException e) when (e.StatusCode is HttpStatusCode.NotFound)
         {
-            var error = Error.NotFound(id);
+            var error = Error.NotFound(userId);
+            
             logger.LogError(e, error.Message);
+            
             return Result.Create(error);
+        }
+    }
+
+    public async Task<Result> UpdateUserEmailAsync(
+        Guid userId,
+        string newEmail,
+        CancellationToken cancellationToken)
+    {
+        var userRepresentationResult = await GetSuitableEmailUserRepresentation(userId, newEmail, cancellationToken);
+
+        if (!userRepresentationResult.IsSuccess)
+        {
+            return Result.Create(userRepresentationResult.Error!);
+        }
+
+        await keycloakClient.UpdateUserDataAsync(
+            userId,
+            userRepresentationResult.Value!,
+            cancellationToken);
+        
+        await keycloakClient.SendUserActionRelatedEmailAsync(
+            userId,
+            KeycloakExecuteEmailActions.VerifyEmail(),
+            cancellationToken);
+
+        await keycloakClient.ClearUserSessionsAsync(userId, cancellationToken);
+        
+        return Result.Create(Error.None);
+    }
+
+    private async Task<Result<UserRepresentation>> GetSuitableEmailUserRepresentation(
+        Guid userId,
+        string newEmail,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            var userDataRepresentation = await keycloakClient.GetUserDataAsync(userId, cancellationToken);
+
+            var attributes = new Dictionary<string, string>
+            {
+                { "phoneNumber", userDataRepresentation.Attributes!.PhoneNumber.FirstOrDefault()! }
+            };
+
+            var userRepresentation = new UserRepresentation(
+                Username: newEmail,
+                Email: newEmail,
+                EmailVerified: false,
+                Attributes: attributes,
+                userDataRepresentation.FirstName,
+                userDataRepresentation.LastName
+            );
+
+            return userRepresentation;
+        }
+        catch (HttpRequestException e) when (e.StatusCode is HttpStatusCode.NotFound)
+        {
+            var error = Error.NotFound(userId);
+            
+            logger.LogError(e, error.Message);
+            
+            return Result<UserRepresentation>.Failure(error);
         }
     }
 }

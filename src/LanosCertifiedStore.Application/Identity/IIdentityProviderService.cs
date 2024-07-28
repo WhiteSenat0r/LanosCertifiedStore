@@ -9,10 +9,16 @@ public interface IIdentityProviderService
         CancellationToken cancellationToken = default);
 
     Task<Result> UpdateUserDataAsync(
-        Guid id,
+        Guid userId,
         string phoneNumber,
         string email,
         string firstName,
         string lastName,
+        CancellationToken cancellationToken = default,
+        bool emailVerified = true);
+
+    Task<Result> UpdateUserEmailAsync(
+        Guid userId,
+        string newEmail,
         CancellationToken cancellationToken = default);
 }
