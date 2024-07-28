@@ -30,6 +30,7 @@ public sealed class VehicleLocationTownsController : BaseApiController
         return Ok(result.Value);
     }
     
+    [AllowAnonymous]
     [HttpGet("CountItems")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
