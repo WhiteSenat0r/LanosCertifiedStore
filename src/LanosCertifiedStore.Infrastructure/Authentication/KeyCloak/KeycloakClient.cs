@@ -7,7 +7,7 @@ internal sealed class KeycloakClient(HttpClient httpClient)
 {
     private const string BaseRequestUri = "users";
 
-    internal async Task<UserDataDto> GetUserDataAsync(
+    internal async Task<UserDataRepresentation> GetUserDataAsync(
         Guid userId,
         CancellationToken cancellationToken = default)
     {
@@ -17,7 +17,7 @@ internal sealed class KeycloakClient(HttpClient httpClient)
 
         httpResponseMessage.EnsureSuccessStatusCode();
 
-        return (await httpResponseMessage.Content.ReadFromJsonAsync<UserDataDto>(cancellationToken))!;
+        return (await httpResponseMessage.Content.ReadFromJsonAsync<UserDataRepresentation>(cancellationToken))!;
     }
     
     internal async Task UpdateUserDataAsync(
