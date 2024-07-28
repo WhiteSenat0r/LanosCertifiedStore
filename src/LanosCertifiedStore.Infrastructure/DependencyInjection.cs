@@ -51,19 +51,20 @@ public static class DependencyInjection
         services.AddTransient<KeycloakAuthDelegatingHandler>();
 
         services.AddHttpClient<KeycloakClient>((serviceProvider, httpClient) =>
-        {
-            var keyCloakOptions = serviceProvider
-                .GetRequiredService<IOptions<KeycloakOptions>>()
-                .Value;
+            {
+                var keyCloakOptions = serviceProvider
+                    .GetRequiredService<IOptions<KeycloakOptions>>()
+                    .Value;
 
-            httpClient.BaseAddress = new Uri(keyCloakOptions.AdminUrl);
-        })
-        .AddHttpMessageHandler<KeycloakAuthDelegatingHandler>();
+                httpClient.BaseAddress = new Uri(keyCloakOptions.AdminUrl);
+            })
+            .AddHttpMessageHandler<KeycloakAuthDelegatingHandler>();
 
         services.AddScoped<IUserService, UserService>();
         services.AddTransient<IIdentityProviderService, IdentityProviderService>();
+        services.AddScoped<IUserContext, UserContext>();
     }
-    
+
     private static void AddAuthorizationRelatedServices(IServiceCollection services)
     {
         services.AddAuthorization();
