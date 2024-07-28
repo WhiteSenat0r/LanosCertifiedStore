@@ -6,5 +6,6 @@ public sealed record UpdateUserDataCommandRequest(
     Guid Id,
     string PhoneNumber,
     string Email,
+    bool EmailVerified,
     string FirstName,
     string LastName) : ICommandRequest;
