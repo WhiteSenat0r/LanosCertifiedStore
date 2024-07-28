@@ -3,6 +3,7 @@ using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Application.VehicleBodyTypes;
 using LanosCertifiedStore.Application.VehicleBodyTypes.Queries.CollectionVehicleBodyTypesQueryRelated;
 using LanosCertifiedStore.Presentation.Controllers.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanosCertifiedStore.Presentation.Controllers.TypeRelated;
@@ -10,6 +11,7 @@ namespace LanosCertifiedStore.Presentation.Controllers.TypeRelated;
 [Route("api/BodyTypes")]
 public sealed class VehicleBodyTypesController : BaseApiController
 {
+    [AllowAnonymous]
     [HttpGet]
     [ProducesResponseType(typeof(PaginationResult<VehicleBodyTypeDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]

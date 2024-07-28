@@ -3,6 +3,7 @@ using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Application.VehicleDrivetrainTypes;
 using LanosCertifiedStore.Application.VehicleDrivetrainTypes.Queries.CollectionVehicleDrivetrainTypesQueryRequestRelated;
 using LanosCertifiedStore.Presentation.Controllers.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanosCertifiedStore.Presentation.Controllers.TypeRelated;
@@ -10,6 +11,7 @@ namespace LanosCertifiedStore.Presentation.Controllers.TypeRelated;
 [Route("api/DrivetrainTypes")]
 public sealed class VehicleDrivetrainTypesController : BaseApiController
 {
+    [AllowAnonymous]
     [HttpGet]
     [ProducesResponseType(typeof(PaginationResult<VehicleDrivetrainTypeDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]

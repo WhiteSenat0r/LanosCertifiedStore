@@ -11,6 +11,7 @@ using LanosCertifiedStore.Application.VehicleModels.Queries.CountVehicleModelsQu
 using LanosCertifiedStore.Application.VehicleModels.Queries.SingleVehicleModelQueryRelated;
 using LanosCertifiedStore.Infrastructure.Authorization;
 using LanosCertifiedStore.Presentation.Controllers.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanosCertifiedStore.Presentation.Controllers.VehicleRelated;
@@ -18,6 +19,7 @@ namespace LanosCertifiedStore.Presentation.Controllers.VehicleRelated;
 [Route("api/Models")]
 public sealed class VehicleModelsController : BaseApiController
 {
+    [AllowAnonymous]
     [HttpGet]
     [ProducesResponseType(typeof(PaginationResult<VehicleModelDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -29,6 +31,7 @@ public sealed class VehicleModelsController : BaseApiController
         return Ok(result.Value);
     }
 
+    [AllowAnonymous]
     [HttpGet("Brandless")]
     [ProducesResponseType(typeof(PaginationResult<VehicleModelDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -55,6 +58,7 @@ public sealed class VehicleModelsController : BaseApiController
         return NotFound(CreateNotFoundProblemDetails(result.Error!));
     }
 
+    [AllowAnonymous]
     [HttpGet("CountItems")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]

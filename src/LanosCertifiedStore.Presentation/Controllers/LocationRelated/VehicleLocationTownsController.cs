@@ -5,6 +5,7 @@ using LanosCertifiedStore.Application.LocationTowns.Queries.LocationTownsRelated
 using LanosCertifiedStore.Application.Shared.DtosRelated;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Presentation.Controllers.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanosCertifiedStore.Presentation.Controllers.LocationRelated;
@@ -12,6 +13,7 @@ namespace LanosCertifiedStore.Presentation.Controllers.LocationRelated;
 [Route("api/LocationTowns")]
 public sealed class VehicleLocationTownsController : BaseApiController
 {
+    [AllowAnonymous]
     [HttpGet]
     [ProducesResponseType(typeof(PaginationResult<LocationTownDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
