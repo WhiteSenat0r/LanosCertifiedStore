@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using AutoMapper;
 using LanosCertifiedStore.Application.Identity;
 using LanosCertifiedStore.Application.Identity.Commands.UpdateUserDataCommandRequestRelated;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
@@ -17,8 +18,19 @@ internal sealed class IdentityProviderService(
     {
         try
         {
-            var result = await keycloakClient.GetUserDataAsync(userId, cancellationToken);
-            return Result<UserDataDto>.Success(result);
+            var userDataRepresentation = await keycloakClient.GetUserDataAsync(userId, cancellationToken);
+            
+            var userDataDto = new UserDataDto(
+                userDataRepresentation.Id,
+                userDataRepresentation.FirstName,
+                userDataRepresentation.LastName,
+                userDataRepresentation.Email,
+                userDataRepresentation.Attributes.PhoneNumber.FirstOrDefault(),
+                userDataRepresentation.EmailVerified,
+                userDataRepresentation.FederatedIdentities,
+                userDataRepresentation.CreatedTimestamp);
+            
+            return userDataDto;
         }
         catch (HttpRequestException e) when (e.StatusCode is HttpStatusCode.NotFound)
         {
@@ -29,31 +41,35 @@ internal sealed class IdentityProviderService(
     }
 
     public async Task<Result> UpdateUserDataAsync(
-        UpdateUserDataCommandRequest request,
+        Guid id,
+        string phoneNumber,
+        string email,
+        string firstName,
+        string lastName,
         CancellationToken cancellationToken = default)
     {
         var attributes = new Dictionary<string, string>()
         {
-            { "phoneNumber", request.PhoneNumber }
+            { "phoneNumber", phoneNumber }
         };
 
         var userRepresentation = new UserRepresentation(
-            Username: request.Email,
-            Email: request.Email,
+            Username: email,
+            Email: email,
             Attributes: attributes,
-            request.FirstName,
-            request.LastName
+            firstName,
+            lastName
         );
 
         try
         {
-            await keycloakClient.UpdateUserDataAsync(request.Id, userRepresentation, cancellationToken);
+            await keycloakClient.UpdateUserDataAsync(id, userRepresentation, cancellationToken);
             return Result.Create(Error.None);
         }
         catch (HttpRequestException e) when (e.StatusCode is HttpStatusCode.NotFound)
         {
             logger.LogError(e, "User with provided it was not found!");
-            return Result.Create(Error.NotFound(request.Id));
+            return Result.Create(Error.NotFound(id));
         }
     }
 }
