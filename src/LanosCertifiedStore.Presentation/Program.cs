@@ -4,6 +4,8 @@ using LanosCertifiedStore.Persistence;
 using LanosCertifiedStore.Presentation;
 using LanosCertifiedStore.Presentation.Extensions;
 using LanosCertifiedStore.Presentation.Middlewares;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +14,11 @@ builder.Host.UseSerilog((context, loggerConfig) =>
     loggerConfig.ReadFrom.Configuration(context.Configuration));
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers(opt =>
+{
+    var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+    opt.Filters.Add(new AuthorizeFilter(policy));
+});
 builder.Services.AddApiServices(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
