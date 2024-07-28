@@ -7,9 +7,9 @@ internal sealed record UserDataRepresentation(
     string FirstName,
     string LastName,
     string Email,
-    Attributes Attributes,
+    UserDataAttributes? Attributes,
     bool EmailVerified,
     List<FederatedIdentityDto> FederatedIdentities,
     long CreatedTimestamp);
 
-internal sealed record Attributes(List<string> PhoneNumber);
+internal sealed record UserDataAttributes(List<string> PhoneNumber);
