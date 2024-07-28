@@ -9,7 +9,7 @@ using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleBra
 using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
 using LanosCertifiedStore.Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
 using LanosCertifiedStore.Application.VehicleModels.Queries.SingleVehicleModelQueryRelated;
-using LanosCertifiedStore.Infrastructure.Services.Authorization;
+using LanosCertifiedStore.Infrastructure.Authorization;
 using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Mvc;
 

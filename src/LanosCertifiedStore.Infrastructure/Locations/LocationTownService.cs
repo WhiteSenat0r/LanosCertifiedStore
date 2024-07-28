@@ -5,7 +5,7 @@ using LanosCertifiedStore.Application.LocationTowns.Queries.LocationTownsRelated
 using LanosCertifiedStore.Application.Shared.DtosRelated;
 using LanosCertifiedStore.Persistence.Queries.LocationRelated.LocationTownRelated.QueryRelated;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Locations;
+namespace LanosCertifiedStore.Infrastructure.Locations;
 
 internal sealed class LocationTownService(
     CollectionLocationTownsQuery collectionQuery,

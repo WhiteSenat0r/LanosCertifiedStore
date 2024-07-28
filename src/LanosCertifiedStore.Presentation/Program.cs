@@ -1,5 +1,5 @@
 using LanosCertifiedStore.Application;
-using LanosCertifiedStore.Infrastructure.Services;
+using LanosCertifiedStore.Infrastructure;
 using LanosCertifiedStore.Persistence;
 using LanosCertifiedStore.Presentation;
 using LanosCertifiedStore.Presentation.Extensions;

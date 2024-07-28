@@ -11,7 +11,7 @@ using LanosCertifiedStore.Persistence.Commands.Common;
 using LanosCertifiedStore.Persistence.Commands.VehicleBrandRelated;
 using LanosCertifiedStore.Persistence.Queries.VehicleBrandRelated.QueryRelated;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Vehicles;
+namespace LanosCertifiedStore.Infrastructure.Vehicles;
 
 internal sealed class VehicleBrandService(
     CollectionVehicleBrandsQuery collectionQuery,

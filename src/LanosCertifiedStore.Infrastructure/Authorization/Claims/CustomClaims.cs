@@ -1,4 +1,4 @@
-﻿namespace LanosCertifiedStore.Infrastructure.Services.Authorization.Claims;
+﻿namespace LanosCertifiedStore.Infrastructure.Authorization.Claims;
 
 public static class CustomClaims
 {

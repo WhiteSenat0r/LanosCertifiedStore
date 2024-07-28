@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Authentication;
+namespace LanosCertifiedStore.Infrastructure.Authentication;
 
 internal sealed class JwtBearerConfigureOptions(IConfiguration configuration) : IConfigureNamedOptions<JwtBearerOptions>
 {

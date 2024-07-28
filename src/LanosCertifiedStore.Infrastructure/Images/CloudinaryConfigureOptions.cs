@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Images;
+namespace LanosCertifiedStore.Infrastructure.Images;
 
 internal sealed class CloudinaryConfigureOptions(IConfiguration configuration) : IConfigureNamedOptions<CloudinaryOptions>
 {

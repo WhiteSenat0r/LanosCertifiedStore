@@ -3,11 +3,10 @@ using LanosCertifiedStore.Application.Identity;
 using LanosCertifiedStore.Application.Identity.Commands.UpdateUserDataCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Queries.GetUserDataQueryRequestRelated;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
-using LanosCertifiedStore.Infrastructure.Services.Authentication.Keycloak;
-using LanosCertifiedStore.Infrastructure.Services.Authentication.KeyCloak;
+using LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 using Microsoft.Extensions.Logging;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Authentication;
+namespace LanosCertifiedStore.Infrastructure.Authentication;
 
 internal sealed class IdentityProviderService(
     KeycloakClient keycloakClient,

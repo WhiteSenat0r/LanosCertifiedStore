@@ -3,7 +3,7 @@ using LanosCertifiedStore.Domain.Entities.UserRelated;
 using LanosCertifiedStore.Persistence.Commands.Common;
 using LanosCertifiedStore.Persistence.Commands.UsersRelated;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Users;
+namespace LanosCertifiedStore.Infrastructure.Users;
 
 internal sealed class UserService(
     AddUserCommand addUserCommand,

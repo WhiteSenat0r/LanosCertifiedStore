@@ -3,7 +3,7 @@ using LanosCertifiedStore.Application.LocationRegions.Dtos;
 using LanosCertifiedStore.Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
 using LanosCertifiedStore.Persistence.Queries.LocationRelated.LocationRegionRelated.QueryRelated;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Locations;
+namespace LanosCertifiedStore.Infrastructure.Locations;
 
 internal sealed class LocationRegionService(CollectionLocationRegionsQuery collectionQuery) : ILocationRegionService
 {

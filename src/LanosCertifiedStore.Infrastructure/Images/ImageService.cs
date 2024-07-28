@@ -5,7 +5,7 @@ using LanosCertifiedStore.Application.Shared.ResultRelated;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Images;
+namespace LanosCertifiedStore.Infrastructure.Images;
 
 internal class ImageService : IImageService
 {

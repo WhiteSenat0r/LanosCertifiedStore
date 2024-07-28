@@ -2,7 +2,7 @@
 using LanosCertifiedStore.Application.VehicleDrivetrainTypes.Queries.CollectionVehicleDrivetrainTypesQueryRequestRelated;
 using LanosCertifiedStore.Persistence.Queries.TypeRelated.VehicleDrivetrainTypeRelated.QueryRelated;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Vehicles;
+namespace LanosCertifiedStore.Infrastructure.Vehicles;
 
 internal sealed class VehicleDrivetrainTypeService(
     CollectionVehicleDrivetrainTypesQuery collectionVehicleDrivetrainTypesQuery) : IVehicleDrivetrainTypeService

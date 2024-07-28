@@ -1,7 +1,7 @@
 ﻿using LanosCertifiedStore.Application.Identity.Commands.AddUserFromProviderCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Commands.UpdateUserDataCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Queries.GetUserDataQueryRequestRelated;
-using LanosCertifiedStore.Infrastructure.Services.Authorization;
+using LanosCertifiedStore.Infrastructure.Authorization;
 using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

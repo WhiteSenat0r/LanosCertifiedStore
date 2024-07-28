@@ -1,4 +1,4 @@
-﻿namespace LanosCertifiedStore.Infrastructure.Services.Authentication.Keycloak;
+﻿namespace LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 
 internal sealed record UserRepresentation(
     string Username,

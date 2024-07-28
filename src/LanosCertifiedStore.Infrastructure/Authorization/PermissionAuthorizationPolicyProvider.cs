@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Authorization;
+namespace LanosCertifiedStore.Infrastructure.Authorization;
 
 internal sealed class PermissionAuthorizationPolicyProvider(
     IOptions<AuthorizationOptions> options) : DefaultAuthorizationPolicyProvider(options)

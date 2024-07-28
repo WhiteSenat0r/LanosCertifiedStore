@@ -3,7 +3,7 @@ using LanosCertifiedStore.Application.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Authorization.Claims;
+namespace LanosCertifiedStore.Infrastructure.Authorization.Claims;
 
 internal sealed class CustomClaimsTransformation(IServiceProvider serviceProvider) : IClaimsTransformation
 {

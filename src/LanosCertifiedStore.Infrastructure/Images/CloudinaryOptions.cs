@@ -1,4 +1,4 @@
-﻿namespace LanosCertifiedStore.Infrastructure.Services.Images;
+﻿namespace LanosCertifiedStore.Infrastructure.Images;
 
 internal sealed record CloudinaryOptions
 {

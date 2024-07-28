@@ -3,7 +3,7 @@ using LanosCertifiedStore.Domain.Entities.UserRelated;
 using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Authorization;
+namespace LanosCertifiedStore.Infrastructure.Authorization;
 
 internal sealed class AuthorizationService(ApplicationDatabaseContext context) : IAuthorizationService
 {

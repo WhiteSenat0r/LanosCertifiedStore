@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Authorization.Claims;
+namespace LanosCertifiedStore.Infrastructure.Authorization.Claims;
 
 public static class ClaimPrincipalExtensions
 {

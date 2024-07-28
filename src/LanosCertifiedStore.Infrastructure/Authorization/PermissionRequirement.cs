@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Authorization;
+namespace LanosCertifiedStore.Infrastructure.Authorization;
 
 public sealed class PermissionRequirement(string permission) : IAuthorizationRequirement
 {

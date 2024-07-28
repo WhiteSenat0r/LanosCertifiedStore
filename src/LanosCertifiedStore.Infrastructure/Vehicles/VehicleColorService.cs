@@ -2,7 +2,7 @@
 using LanosCertifiedStore.Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
 using LanosCertifiedStore.Persistence.Queries.VehicleColorRelated.QueryRelated;
 
-namespace LanosCertifiedStore.Infrastructure.Services.Vehicles;
+namespace LanosCertifiedStore.Infrastructure.Vehicles;
 
 internal sealed class VehicleColorService(
     CollectionVehicleColorsQuery collectionVehicleColorsQuery) : IVehicleColorService

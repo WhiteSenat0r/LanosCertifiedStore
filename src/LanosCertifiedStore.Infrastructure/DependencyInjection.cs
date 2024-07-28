@@ -11,20 +11,20 @@ using LanosCertifiedStore.Application.VehicleEngineTypes;
 using LanosCertifiedStore.Application.VehicleModels;
 using LanosCertifiedStore.Application.VehicleTransmissionTypes;
 using LanosCertifiedStore.Application.VehicleTypes;
-using LanosCertifiedStore.Infrastructure.Services.Authentication;
-using LanosCertifiedStore.Infrastructure.Services.Authentication.KeyCloak;
-using LanosCertifiedStore.Infrastructure.Services.Authorization;
-using LanosCertifiedStore.Infrastructure.Services.Images;
-using LanosCertifiedStore.Infrastructure.Services.Locations;
-using LanosCertifiedStore.Infrastructure.Services.Users;
-using LanosCertifiedStore.Infrastructure.Services.Vehicles;
+using LanosCertifiedStore.Infrastructure.Authentication;
+using LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
+using LanosCertifiedStore.Infrastructure.Authorization;
+using LanosCertifiedStore.Infrastructure.Images;
+using LanosCertifiedStore.Infrastructure.Locations;
+using LanosCertifiedStore.Infrastructure.Users;
+using LanosCertifiedStore.Infrastructure.Vehicles;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using IAuthorizationService = LanosCertifiedStore.Application.Users.IAuthorizationService;
 
-namespace LanosCertifiedStore.Infrastructure.Services;
+namespace LanosCertifiedStore.Infrastructure;
 
 public static class DependencyInjection
 {
