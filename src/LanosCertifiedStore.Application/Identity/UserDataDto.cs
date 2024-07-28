@@ -5,7 +5,7 @@ public sealed record UserDataDto(
     string FirstName,
     string LastName,
     string Email,
-    string PhoneNumber,
+    string? PhoneNumber,
     bool EmailVerified,
     List<FederatedIdentityDto> FederatedIdentities,
     long CreatedTimestamp);
