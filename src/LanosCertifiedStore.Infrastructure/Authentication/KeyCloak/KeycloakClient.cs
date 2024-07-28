@@ -1,5 +1,4 @@
 ﻿using System.Net.Http.Json;
-using LanosCertifiedStore.Application.Identity;
 
 namespace LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 
