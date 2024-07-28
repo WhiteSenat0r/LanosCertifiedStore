@@ -35,7 +35,7 @@ public sealed class SingleVehicleModelQueryRequestHandlerTests
     public async Task Handler_ShouldReturnVehicleModel_IfExists()
     {
         // Arrange
-        var expectedModel = new SingleVehicleModelDto() { Id = Guid.NewGuid(), Name = "Легковик" };
+        var expectedModel = new SingleVehicleModelDto { Id = Guid.NewGuid(), Name = "Легковик" };
 
         _vehicleModelService.GetSingleVehicleModel(_request, default)
             .Returns(expectedModel);
