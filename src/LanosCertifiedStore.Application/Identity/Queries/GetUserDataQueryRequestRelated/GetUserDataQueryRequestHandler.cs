@@ -8,7 +8,7 @@ internal sealed class GetUserDataQueryRequestHandler(IIdentityProviderService id
 {
     public async Task<Result<UserDataDto>> Handle(GetUserDataQueryRequest request, CancellationToken cancellationToken)
     {
-        var result = await identityProviderService.GetUserDataAsync(request, cancellationToken);
+        var result = await identityProviderService.GetUserDataAsync(request.Id, cancellationToken);
 
         return result;
     }

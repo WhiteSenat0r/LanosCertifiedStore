@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using LanosCertifiedStore.Application.Identity;
 using LanosCertifiedStore.Application.Identity.Commands.UpdateUserDataCommandRequestRelated;
-using LanosCertifiedStore.Application.Identity.Queries.GetUserDataQueryRequestRelated;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 using Microsoft.Extensions.Logging;
@@ -13,19 +12,19 @@ internal sealed class IdentityProviderService(
     ILogger<IdentityProviderService> logger) : IIdentityProviderService
 {
     public async Task<Result<UserDataDto>> GetUserDataAsync(
-        GetUserDataQueryRequest request,
+        Guid userId,
         CancellationToken cancellationToken = default)
     {
         try
         {
-            var result = await keycloakClient.GetUserDataAsync(request.Id, cancellationToken);
+            var result = await keycloakClient.GetUserDataAsync(userId, cancellationToken);
             return Result<UserDataDto>.Success(result);
         }
         catch (HttpRequestException e) when (e.StatusCode is HttpStatusCode.NotFound)
         {
             const string userWithProvidedItWasNotFound = "User with provided it was not found!";
             logger.LogError(e, userWithProvidedItWasNotFound);
-            return Result<UserDataDto>.Failure(new Error("IdentityDataReceival", userWithProvidedItWasNotFound));
+            return Result<UserDataDto>.Failure(Error.NotFound(userId));
         }
     }
 
