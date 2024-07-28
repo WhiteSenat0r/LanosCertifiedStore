@@ -1,4 +1,5 @@
 ﻿using LanosCertifiedStore.Application.Identity.Commands.AddUserFromProviderCommandRequestRelated;
+using LanosCertifiedStore.Application.Identity.Commands.ChangeUserRoleCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Commands.UpdateUserDataCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Commands.UpdateUserSelfCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Commands.UserEmailUpdateCommandRequestRelated;
@@ -65,6 +66,24 @@ public sealed class IdentityController : BaseApiController
     [HttpPut("updateSelf")]
     public async Task<ActionResult> UpdateSelf(UpdateUserSelfCommandRequest request)
     {
+        var result = await Sender.Send(request);
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(CreateNotFoundProblemDetails(result.Error!));
+        }
+
+        return NoContent();
+    }
+    
+    [HasAccessPermission("users:change-role")]
+    [HttpPut("changeUserRole/{userId:guid}")]
+    public async Task<ActionResult> UpdateUserRole(
+        [FromRoute] Guid userId,
+        [FromBody] string roleCode)
+    {
+        var request = new ChangeUserRoleCommandRequest(userId, roleCode);
+
         var result = await Sender.Send(request);
 
         if (!result.IsSuccess)

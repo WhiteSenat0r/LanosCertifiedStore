@@ -5,8 +5,8 @@ namespace LanosCertifiedStore.Domain.Entities.UserRelated;
 
 public sealed class User : IIdentifiable<Guid>
 {
-    public Guid Id { get; set; } 
-    public UserRole UserRole { get; init; }
+    public Guid Id { get; init; } 
+    public UserRole UserRole { get; set; }
     public ICollection<Vehicle> Vehicles { get; set; } = [];
 
     public User()
