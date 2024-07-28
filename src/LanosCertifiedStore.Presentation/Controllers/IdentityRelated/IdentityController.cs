@@ -1,4 +1,5 @@
-﻿using LanosCertifiedStore.Application.Identity.Commands.AddUserFromProviderCommandRequestRelated;
+﻿using LanosCertifiedStore.Application.Identity;
+using LanosCertifiedStore.Application.Identity.Commands.AddUserFromProviderCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Commands.UpdateUserDataCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Queries.GetUserDataQueryRequestRelated;
 using LanosCertifiedStore.Infrastructure.Authorization;
@@ -31,7 +32,7 @@ public sealed class IdentityController : BaseApiController
 
         return BadRequest(result.Error);
     }
-    
+
     [HasAccessPermission("users:read")]
     [HttpGet("getUserData/{id:guid}")]
     public async Task<ActionResult> GetUserData(Guid id)
@@ -50,6 +51,31 @@ public sealed class IdentityController : BaseApiController
     [HttpPut("updateUserData")]
     public async Task<ActionResult> UpdateUserData(UpdateUserDataCommandRequest request)
     {
+        var result = await Sender.Send(request);
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(CreateNotFoundProblemDetails(result.Error!));
+        }
+
+        return NoContent();
+    }
+
+    [HttpPut("updateSelf")]
+    public async Task<ActionResult> UpdateSelf(
+        string phoneNumber,
+        string email,
+        string firstName,
+        string lastName,
+        [FromServices] IUserContext userContext)
+    {
+        var request = new UpdateUserDataCommandRequest(
+            userContext.UserId,
+            phoneNumber,
+            email,
+            firstName,
+            lastName);
+
         var result = await Sender.Send(request);
 
         if (!result.IsSuccess)
