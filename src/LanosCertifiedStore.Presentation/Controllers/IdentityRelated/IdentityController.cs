@@ -94,7 +94,6 @@ public sealed class IdentityController : BaseApiController
         return NoContent();
     }
     
-    // TODO Fix mailing
     [HttpPut("updateEmail")]
     public async Task<ActionResult> UpdateEmail(UserEmailUpdateCommandRequest request)
     {
