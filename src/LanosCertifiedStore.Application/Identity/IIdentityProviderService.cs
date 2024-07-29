@@ -15,7 +15,8 @@ public interface IIdentityProviderService
         string firstName,
         string lastName,
         CancellationToken cancellationToken = default,
-        bool emailVerified = true);
+        bool emailVerified = true,
+        List<string>? requiredActions = null!);
 
     Task<Result> UpdateUserEmailAsync(
         Guid userId,

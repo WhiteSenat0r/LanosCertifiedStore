@@ -47,7 +47,8 @@ internal sealed class IdentityProviderService(
         string firstName,
         string lastName,
         CancellationToken cancellationToken = default,
-        bool emailVerified = true)
+        bool emailVerified = true,
+        List<string>? requiredActions = null!)
     {
         var attributes = new Dictionary<string, string>
         {
@@ -59,8 +60,9 @@ internal sealed class IdentityProviderService(
             Email: email,
             EmailVerified: emailVerified,
             Attributes: attributes,
-            firstName,
-            lastName
+            FirstName: firstName,
+            LastName: lastName,
+            RequiredActions: requiredActions ?? []
         );
 
         try
@@ -83,21 +85,19 @@ internal sealed class IdentityProviderService(
         string newEmail,
         CancellationToken cancellationToken)
     {
-        var userRepresentationResult = await GetSuitableEmailUserRepresentation(userId, newEmail, cancellationToken);
-
+        var userRepresentationResult = await GetSuitableEmailUpdateUserRepresentation(
+            userId,
+            newEmail,
+            cancellationToken);
+        
         if (!userRepresentationResult.IsSuccess)
         {
             return Result.Create(userRepresentationResult.Error!);
         }
-
+        
         await keycloakClient.UpdateUserDataAsync(
             userId,
             userRepresentationResult.Value!,
-            cancellationToken);
-        
-        await keycloakClient.SendUserActionRelatedEmailAsync(
-            userId,
-            KeycloakExecuteEmailActions.VerifyEmail(),
             cancellationToken);
 
         await keycloakClient.ClearUserSessionsAsync(userId, cancellationToken);
@@ -105,7 +105,7 @@ internal sealed class IdentityProviderService(
         return Result.Create(Error.None);
     }
 
-    private async Task<Result<UserRepresentation>> GetSuitableEmailUserRepresentation(
+    private async Task<Result<UserRepresentation>> GetSuitableEmailUpdateUserRepresentation(
         Guid userId,
         string newEmail,
         CancellationToken cancellationToken)
@@ -124,8 +124,9 @@ internal sealed class IdentityProviderService(
                 Email: newEmail,
                 EmailVerified: false,
                 Attributes: attributes,
-                userDataRepresentation.FirstName,
-                userDataRepresentation.LastName
+                FirstName: userDataRepresentation.FirstName,
+                LastName: userDataRepresentation.LastName,
+                RequiredActions: KeycloakRequiredActions.GetVerifyEmailCode()
             );
 
             return userRepresentation;
