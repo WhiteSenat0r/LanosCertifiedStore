@@ -6,4 +6,5 @@ internal sealed record UserRepresentation(
     bool EmailVerified,
     Dictionary<string, string> Attributes,
     string FirstName,
-    string LastName);
+    string LastName,
+    List<string> RequiredActions = null!);
