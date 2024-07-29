@@ -1,9 +1,8 @@
 ﻿using System.Net.Http.Json;
-using Microsoft.Extensions.Configuration;
 
 namespace LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
 
-internal sealed class KeycloakClient(HttpClient httpClient, IConfiguration configuration)
+internal sealed class KeycloakClient(HttpClient httpClient)
 {
     private const string BaseRequestUri = "users";
 
@@ -42,26 +41,6 @@ internal sealed class KeycloakClient(HttpClient httpClient, IConfiguration confi
         var requestUri = BaseRequestUri + "/" + userId + "/logout";
 
         var httpResponseMessage = await httpClient.PostAsync(requestUri, null, cancellationToken);
-
-        httpResponseMessage.EnsureSuccessStatusCode();
-    }
-    
-    // TODO fix issue with mailing
-    internal async Task SendUserActionRelatedEmailAsync(
-        Guid userId,
-        KeycloakExecuteEmailActions emailAction,
-        CancellationToken cancellationToken = default)
-    {
-        var clientUrl = configuration["ClientUrl"];
-        var clientId = configuration.GetSection("Keycloak")["ConfidentialClientId"];
-        
-        var requestUri = 
-            BaseRequestUri + "/" + userId + $"/execute-actions-email?client_id={clientId}&redirect_uri={clientUrl}";
-
-        var httpResponseMessage = await httpClient.PutAsJsonAsync(
-            requestUri,
-            emailAction,
-            cancellationToken);
 
         httpResponseMessage.EnsureSuccessStatusCode();
     }
