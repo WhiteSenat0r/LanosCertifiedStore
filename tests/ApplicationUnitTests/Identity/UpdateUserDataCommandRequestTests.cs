@@ -16,13 +16,21 @@ public sealed class UpdateUserDataCommandRequestTests
             Guid.NewGuid(),
             "+38925620136",
             "test@test.com",
+            true,
             "first",
             "last");
 
         var handler = new UpdateUserDataCommandRequestHandler(_identityProviderService);
         
-        _identityProviderService.UpdateUserDataAsync(Arg.Any<Guid>(), Arg.Any<string>(), Arg.Any<string>(),
-                Arg.Any<string>(), Arg.Any<string>(), Arg.Any<CancellationToken>())
+        _identityProviderService.UpdateUserDataAsync(
+                Arg.Any<Guid>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<string>(),
+                Arg.Any<CancellationToken>(),
+                Arg.Any<bool>(),
+                Arg.Any<List<string>>())
             .Returns(Result.Create(Error.None));
         
         // Act
