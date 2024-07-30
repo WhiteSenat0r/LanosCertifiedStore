@@ -1,6 +1,6 @@
 ﻿namespace LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
 
-internal sealed record UserRepresentation(
+internal record UserRepresentation(
     string Username,
     string Email,
     bool EmailVerified,
