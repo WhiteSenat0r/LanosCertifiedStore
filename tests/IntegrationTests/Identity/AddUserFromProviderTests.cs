@@ -10,7 +10,7 @@ public sealed class AddUserFromProviderTests(
     IntegrationTestsWebApplicationFactory factory) : IntegrationTestBase(factory)
 {
     [Fact]
-    public async Task Send_AddUserRequest_Should_CreateNewUserAndAddToDatabase()
+    public async Task Send_Should_CreateNewUserAndAddToDatabase()
     {
         // Arrange
         var userId = Guid.NewGuid();
