@@ -18,7 +18,7 @@ public sealed class UserEmailUpdateCommandRequestTests
     {
         // Arrange
         _userContext.UserId.Returns(_userId);
-        
+
         _identityProviderService.GetUserDataAsync(_userId)
             .Returns(Result<UserDataDto>.Success(GetUserDataDto()));
 
@@ -49,10 +49,10 @@ public sealed class UserEmailUpdateCommandRequestTests
             .Returns(Result<UserDataDto>.Success(userDataDto));
 
         var handler = new UserEmailUpdateCommandRequestHandler(_identityProviderService, _userContext);
-        
+
         // Act
         var result = await handler.Handle(_request, default);
-        
+
         // Assert
         result.IsSuccess
             .Should().BeFalse();
@@ -61,22 +61,43 @@ public sealed class UserEmailUpdateCommandRequestTests
     }
 
     [Fact]
+    public async Task Handle_Should_ReturnError_IfGetUserDataAsyncReturnsError()
+    {
+        // Arrange
+        _userContext.UserId.Returns(_userId);
+
+        _identityProviderService.GetUserDataAsync(_userId)
+            .Returns(Result<UserDataDto>.Failure(Error.NotFound(_userId)));
+
+        var handler = new UserEmailUpdateCommandRequestHandler(_identityProviderService, _userContext);
+
+        // Act
+        var result = await handler.Handle(_request, default);
+
+        // Assert
+        result.IsSuccess
+            .Should().BeFalse();
+        result.Error
+            .Should().BeEquivalentTo(Error.NotFound(_userId));
+    }
+
+    [Fact]
     public async Task Handle_Should_ReturnSuccessResult_IfEverythingIsValid()
     {
         // Arrange
         _userContext.UserId.Returns(_userId);
-        
+
         _identityProviderService.GetUserDataAsync(_userId)
             .Returns(Result<UserDataDto>.Success(GetUserDataDto()));
-        
+
         _identityProviderService.UpdateUserEmailAsync(_userId, NewEmail)
             .Returns(Result.Create(Error.None));
-        
+
         var handler = new UserEmailUpdateCommandRequestHandler(_identityProviderService, _userContext);
-        
+
         // Act
         var result = await handler.Handle(_request, default);
-        
+
         // Assert
         result.IsSuccess
             .Should().BeTrue();
