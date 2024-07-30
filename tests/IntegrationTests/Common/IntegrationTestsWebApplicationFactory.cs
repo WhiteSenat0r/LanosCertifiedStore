@@ -1,4 +1,6 @@
-﻿using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+﻿using System.Net;
+using DotNet.Testcontainers.Builders;
+using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
 using LanosCertifiedStore.Presentation;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -36,6 +38,10 @@ public sealed class IntegrationTestsWebApplicationFactory : WebApplicationFactor
             new FileInfo("keycloak/listeners/custom-event-listener.jar"),
             new FileInfo("/opt/keycloak/providers/custom-event-listener.jar"))
         .WithCommand("--import-realm")
+        .WithWaitStrategy(Wait.ForUnixContainer().UntilHttpRequestIsSucceeded(r => r
+            .ForPath("/realms/master")
+            .ForPort(8080)
+            .ForStatusCode(HttpStatusCode.OK)))
         .Build();
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
