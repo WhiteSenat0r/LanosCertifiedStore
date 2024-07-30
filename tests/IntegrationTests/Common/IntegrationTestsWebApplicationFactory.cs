@@ -1,10 +1,12 @@
-﻿using LanosCertifiedStore.Presentation;
+﻿using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+using LanosCertifiedStore.Presentation;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Testcontainers.Keycloak;
 using Testcontainers.PostgreSql;
 
 namespace IntegrationTests.Common;
@@ -18,6 +20,14 @@ public sealed class IntegrationTestsWebApplicationFactory : WebApplicationFactor
         .WithPassword("postgres")
         .Build();
 
+    private readonly KeycloakContainer _keycloakContainer = new KeycloakBuilder()
+        .WithImage("quay.io/keycloak/keycloak:25.0.1")
+        .WithResourceMapping(
+            new FileInfo("/.files/keycloak/realms/lsc-realm-export.json"),
+            new FileInfo("/opt/keycloak/data/import/realm.json"))
+        .WithCommand("--import-realm")
+        .Build();
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         Environment.SetEnvironmentVariable(
@@ -25,17 +35,38 @@ public sealed class IntegrationTestsWebApplicationFactory : WebApplicationFactor
             _dbContainer.GetConnectionString()
         );
 
-        // Silence logging for integration tests
-        builder.ConfigureTestServices(services => services.AddSingleton<ILoggerFactory, NullLoggerFactory>());
+        var keycloakAddress = _keycloakContainer.GetBaseAddress();
+        var keycloakRealmUrl = $"{keycloakAddress}realms/lsc";
+        
+        Environment.SetEnvironmentVariable(
+            "Authentication:MetadataAddress",
+            $"{keycloakRealmUrl}/.well-known/openid-configuration");
+        
+        Environment.SetEnvironmentVariable(
+            "Authentication:TokenValidationParameters:ValidIssuer",
+            keycloakRealmUrl);
+        
+        builder.ConfigureTestServices(services =>
+        {
+            // Silence logging for integration tests
+            services.AddSingleton<ILoggerFactory, NullLoggerFactory>();
+            services.Configure<KeycloakOptions>(options =>
+            {
+                options.AdminUrl = $"{keycloakAddress}/admin/realms/lsc/";
+                options.TokenUrl = $"{keycloakRealmUrl}/protocol/openid-connect/token";
+            });
+        });
     }
 
-    public Task InitializeAsync()
+    public async Task InitializeAsync()
     {
-        return _dbContainer.StartAsync();
+        await _dbContainer.StartAsync();
+        await _keycloakContainer.StartAsync();
     }
 
-    public new Task DisposeAsync()
+    public new async Task DisposeAsync()
     {
-        return _dbContainer.StopAsync();
+        await _dbContainer.StopAsync();
+        await _keycloakContainer.StopAsync();
     }
 }
