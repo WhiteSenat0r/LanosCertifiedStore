@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using LanosCertifiedStore.Application.Identity;
+using LanosCertifiedStore.Application.Identity.Dtos;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
 using Microsoft.Extensions.Logging;
@@ -17,7 +18,7 @@ internal sealed class IdentityProviderService(
         try
         {
             var userDataRepresentation = await keycloakClient.GetUserDataAsync(userId, cancellationToken);
-            
+
             var userDataDto = new UserDataDto(
                 userDataRepresentation.Id,
                 userDataRepresentation.FirstName,
@@ -27,15 +28,15 @@ internal sealed class IdentityProviderService(
                 userDataRepresentation.EmailVerified,
                 userDataRepresentation.FederatedIdentities,
                 userDataRepresentation.CreatedTimestamp);
-            
+
             return userDataDto;
         }
         catch (HttpRequestException e) when (e.StatusCode is HttpStatusCode.NotFound)
         {
             var error = Error.NotFound(userId);
-            
+
             logger.LogError(e, error.Message);
-            
+
             return Result<UserDataDto>.Failure(error);
         }
     }
@@ -73,9 +74,9 @@ internal sealed class IdentityProviderService(
         catch (HttpRequestException e) when (e.StatusCode is HttpStatusCode.NotFound)
         {
             var error = Error.NotFound(userId);
-            
+
             logger.LogError(e, error.Message);
-            
+
             return Result.Create(error);
         }
     }
@@ -89,20 +90,44 @@ internal sealed class IdentityProviderService(
             userId,
             newEmail,
             cancellationToken);
-        
+
         if (!userRepresentationResult.IsSuccess)
         {
             return Result.Create(userRepresentationResult.Error!);
         }
-        
+
         await keycloakClient.UpdateUserDataAsync(
             userId,
             userRepresentationResult.Value!,
             cancellationToken);
 
         await keycloakClient.ClearUserSessionsAsync(userId, cancellationToken);
-        
+
         return Result.Create(Error.None);
+    }
+
+    public async Task<Result> ResetUserPassword(Guid id, CancellationToken cancellationToken = default)
+    {
+        var userRepresentation = new UserRepresentation(
+            null!,
+            null!,
+            true,
+            null!,
+            null!,
+            null!,
+            RequiredActions: KeycloakRequiredActions.GetUpdatePasswordCode());
+
+        try
+        {
+            await keycloakClient.UpdateUserDataAsync(id, userRepresentation, cancellationToken);
+            await keycloakClient.ClearUserSessionsAsync(id, cancellationToken);
+
+            return Result.Create(Error.None);
+        }
+        catch (HttpRequestException e)
+        {
+            return Result.Create(IdentityErrors.ResetPasswordError);
+        }
     }
 
     private async Task<Result<UserRepresentation>> GetSuitableEmailUpdateUserRepresentation(
@@ -134,9 +159,9 @@ internal sealed class IdentityProviderService(
         catch (HttpRequestException e) when (e.StatusCode is HttpStatusCode.NotFound)
         {
             var error = Error.NotFound(userId);
-            
+
             logger.LogError(e, error.Message);
-            
+
             return Result<UserRepresentation>.Failure(error);
         }
     }

@@ -1,4 +1,5 @@
-﻿using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+﻿using LanosCertifiedStore.Application.Identity.Dtos;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 
 namespace LanosCertifiedStore.Application.Identity.Queries.GetUserDataQueryRequestRelated;

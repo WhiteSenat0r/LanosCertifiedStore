@@ -20,8 +20,7 @@ internal sealed class UserEmailUpdateCommandRequestHandler(
 
         if (userDataResult.Value!.Email.Equals(request.NewEmail))
         {
-            return Result.Create(
-                new Error("SameEmailUpdate", "Current email address is identical to the new one!"));
+            return Result.Create(IdentityErrors.SameEmailError);
         }
         
         var result = await identityService.UpdateUserEmailAsync(

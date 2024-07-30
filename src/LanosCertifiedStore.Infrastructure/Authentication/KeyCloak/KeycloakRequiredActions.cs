@@ -9,6 +9,6 @@ internal static class KeycloakRequiredActions
     
     public static List<string> GetUpdatePasswordCode()
     {
-        return ["VERIFY_EMAIL"];
+        return ["UPDATE_PASSWORD"];
     }
 }

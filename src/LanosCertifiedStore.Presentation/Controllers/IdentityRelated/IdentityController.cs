@@ -1,5 +1,6 @@
 ﻿using LanosCertifiedStore.Application.Identity.Commands.AddUserFromProviderCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Commands.ChangeUserRoleCommandRequestRelated;
+using LanosCertifiedStore.Application.Identity.Commands.ResetPasswordCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Commands.UpdateUserDataCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Commands.UpdateUserSelfCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Commands.UserEmailUpdateCommandRequestRelated;
@@ -75,7 +76,7 @@ public sealed class IdentityController : BaseApiController
 
         return NoContent();
     }
-    
+
     [HasAccessPermission("users:change-role")]
     [HttpPut("changeUserRole/{userId:guid}")]
     public async Task<ActionResult> UpdateUserRole(
@@ -93,7 +94,7 @@ public sealed class IdentityController : BaseApiController
 
         return NoContent();
     }
-    
+
     [HttpPut("updateEmail")]
     public async Task<ActionResult> UpdateEmail(UserEmailUpdateCommandRequest request)
     {
@@ -102,6 +103,19 @@ public sealed class IdentityController : BaseApiController
         if (!result.IsSuccess)
         {
             return NotFound(CreateNotFoundProblemDetails(result.Error!));
+        }
+
+        return NoContent();
+    }
+
+    [HttpPut("resetPassword")]
+    public async Task<ActionResult> ResetPassword()
+    {
+        var result = await Sender.Send(new ResetPasswordCommandRequest());
+
+        if (!result.IsSuccess)
+        {
+            return BadRequest(result.Error);
         }
 
         return NoContent();

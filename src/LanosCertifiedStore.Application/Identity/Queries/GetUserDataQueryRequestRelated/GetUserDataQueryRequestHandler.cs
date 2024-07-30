@@ -1,4 +1,5 @@
-﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Identity.Dtos;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
 namespace LanosCertifiedStore.Application.Identity.Queries.GetUserDataQueryRequestRelated;

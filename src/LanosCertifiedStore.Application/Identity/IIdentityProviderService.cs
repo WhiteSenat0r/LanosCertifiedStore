@@ -1,4 +1,5 @@
-﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Identity.Dtos;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 
 namespace LanosCertifiedStore.Application.Identity;
 
@@ -22,4 +23,6 @@ public interface IIdentityProviderService
         Guid userId,
         string newEmail,
         CancellationToken cancellationToken = default);
+
+    Task<Result> ResetUserPassword(Guid id, CancellationToken cancellationToken = default);
 }

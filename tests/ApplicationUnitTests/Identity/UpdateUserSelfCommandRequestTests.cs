@@ -1,5 +1,6 @@
 ﻿using LanosCertifiedStore.Application.Identity;
 using LanosCertifiedStore.Application.Identity.Commands.UpdateUserSelfCommandRequestRelated;
+using LanosCertifiedStore.Application.Identity.Dtos;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 
 namespace ApplicationUnitTests.Identity;

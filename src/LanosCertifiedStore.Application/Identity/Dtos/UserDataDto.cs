@@ -1,4 +1,4 @@
-﻿namespace LanosCertifiedStore.Application.Identity;
+﻿namespace LanosCertifiedStore.Application.Identity.Dtos;
 
 public sealed record UserDataDto(
     string Id,
