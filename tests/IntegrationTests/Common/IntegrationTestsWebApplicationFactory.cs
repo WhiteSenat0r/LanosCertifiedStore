@@ -22,9 +22,19 @@ public sealed class IntegrationTestsWebApplicationFactory : WebApplicationFactor
 
     private readonly KeycloakContainer _keycloakContainer = new KeycloakBuilder()
         .WithImage("quay.io/keycloak/keycloak:25.0.1")
+        .WithEnvironment("DB_VENDOR", "h2")
         .WithResourceMapping(
-            new FileInfo("/.files/keycloak/realms/lsc-realm-export.json"),
+            new FileInfo("keycloak/realms/lsc-realm-export.json"),
             new FileInfo("/opt/keycloak/data/import/realm.json"))
+        .WithResourceMapping(
+            new FileInfo("keycloak/themes/lsc-theme.jar"),
+            new FileInfo("/opt/keycloak/providers/lsc-theme.jar"))
+        .WithResourceMapping(
+            new FileInfo("keycloak/validators/unique-attribute-validator.jar"),
+            new FileInfo("/opt/keycloak/providers/unique-attribute-validator.jar"))
+        .WithResourceMapping(
+            new FileInfo("keycloak/listeners/custom-event-listener.jar"),
+            new FileInfo("/opt/keycloak/providers/custom-event-listener.jar"))
         .WithCommand("--import-realm")
         .Build();
 
@@ -37,15 +47,15 @@ public sealed class IntegrationTestsWebApplicationFactory : WebApplicationFactor
 
         var keycloakAddress = _keycloakContainer.GetBaseAddress();
         var keycloakRealmUrl = $"{keycloakAddress}realms/lsc";
-        
+
         Environment.SetEnvironmentVariable(
             "Authentication:MetadataAddress",
             $"{keycloakRealmUrl}/.well-known/openid-configuration");
-        
+
         Environment.SetEnvironmentVariable(
             "Authentication:TokenValidationParameters:ValidIssuer",
             keycloakRealmUrl);
-        
+
         builder.ConfigureTestServices(services =>
         {
             // Silence logging for integration tests
