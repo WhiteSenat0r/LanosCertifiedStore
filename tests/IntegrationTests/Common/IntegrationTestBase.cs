@@ -11,7 +11,7 @@ namespace IntegrationTests.Common;
 [Collection(CollectionName)]
 public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApplicationFactory>, IDisposable
 {
-    private readonly IServiceScope _scope;
+    private protected readonly IServiceScope Scope;
     private protected readonly ISender Sender;
     private protected readonly ApplicationDatabaseContext Context;
     private protected readonly HttpClient HttpClient;
@@ -20,16 +20,16 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
     private const string CollectionName = "Integration tests collection";
     private protected IntegrationTestBase(IntegrationTestsWebApplicationFactory factory)
     {
-        _scope = factory.Services.CreateScope();
-        Sender = _scope.ServiceProvider.GetRequiredService<ISender>();
-        Context = _scope.ServiceProvider.GetRequiredService<ApplicationDatabaseContext>();
+        Scope = factory.Services.CreateScope();
+        Sender = Scope.ServiceProvider.GetRequiredService<ISender>();
+        Context = Scope.ServiceProvider.GetRequiredService<ApplicationDatabaseContext>();
         HttpClient = factory.CreateClient();
-        KeycloakOptions = _scope.ServiceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
+        KeycloakOptions = Scope.ServiceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
     }
 
     public void Dispose()
     {
-        _scope.Dispose();
+        Scope.Dispose();
         Context.Dispose();
     }
     
@@ -47,6 +47,32 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
         };
 
         using var authRequestContent = new FormUrlEncodedContent(authRequestParameters);
+
+        using var authRequest = new HttpRequestMessage(HttpMethod.Post, new Uri(KeycloakOptions.TokenUrl));
+        authRequest.Content = authRequestContent;
+
+        using var authorizationResponse = await client.SendAsync(authRequest);
+
+        authorizationResponse.EnsureSuccessStatusCode();
+        
+        var authToken = await authorizationResponse.Content.ReadFromJsonAsync<AuthToken>();
+
+        return authToken!.AccessToken;
+    }
+    
+    protected async Task<string> GetConfidentialAccessTokenAsync()
+    {
+        using var client = new HttpClient();
+
+        var authRequestParams = new Dictionary<string, string>
+        {
+            { "client_id", KeycloakOptions.ConfidentialClientId },
+            { "client_secret", KeycloakOptions.ConfidentialClientSecret },
+            { "scope", "openid" },
+            { "grant_type", "client_credentials" }
+        };
+
+        using var authRequestContent = new FormUrlEncodedContent(authRequestParams);
 
         using var authRequest = new HttpRequestMessage(HttpMethod.Post, new Uri(KeycloakOptions.TokenUrl));
         authRequest.Content = authRequestContent;

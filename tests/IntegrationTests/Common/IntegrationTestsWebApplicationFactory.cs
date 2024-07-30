@@ -67,7 +67,7 @@ public sealed class IntegrationTestsWebApplicationFactory : WebApplicationFactor
             services.AddSingleton<ILoggerFactory, NullLoggerFactory>();
             services.Configure<KeycloakOptions>(options =>
             {
-                options.AdminUrl = $"{keycloakAddress}/admin/realms/lsc/";
+                options.AdminUrl = $"{keycloakAddress}admin/realms/lsc/";
                 options.TokenUrl = $"{keycloakRealmUrl}/protocol/openid-connect/token";
             });
         });
