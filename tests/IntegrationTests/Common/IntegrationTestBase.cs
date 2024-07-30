@@ -1,6 +1,10 @@
-﻿using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
+﻿using System.Net.Http.Json;
+using System.Text.Json.Serialization;
+using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace IntegrationTests.Common;
 
@@ -10,6 +14,8 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
     private readonly IServiceScope _scope;
     private protected readonly ISender Sender;
     private protected readonly ApplicationDatabaseContext Context;
+    private protected readonly HttpClient HttpClient;
+    private protected readonly KeycloakOptions KeycloakOptions;
 
     private const string CollectionName = "Integration tests collection";
     private protected IntegrationTestBase(IntegrationTestsWebApplicationFactory factory)
@@ -17,11 +23,46 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
         _scope = factory.Services.CreateScope();
         Sender = _scope.ServiceProvider.GetRequiredService<ISender>();
         Context = _scope.ServiceProvider.GetRequiredService<ApplicationDatabaseContext>();
+        HttpClient = factory.CreateClient();
+        KeycloakOptions = _scope.ServiceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
     }
 
     public void Dispose()
     {
         _scope.Dispose();
         Context.Dispose();
+    }
+    
+    protected async Task<string> GetAccessTokenAsync(string email, string password)
+    {
+        using var client = new HttpClient();
+
+        var authRequestParameters = new KeyValuePair<string, string>[]
+        {
+            new("client_id", KeycloakOptions.PublicClientId),
+            new("scope", "openid"),
+            new("grant_type", "password"),
+            new("username", email),
+            new("password", password)
+        };
+
+        using var authRequestContent = new FormUrlEncodedContent(authRequestParameters);
+
+        using var authRequest = new HttpRequestMessage(HttpMethod.Post, new Uri(KeycloakOptions.TokenUrl));
+        authRequest.Content = authRequestContent;
+
+        using var authorizationResponse = await client.SendAsync(authRequest);
+
+        authorizationResponse.EnsureSuccessStatusCode();
+        
+        var authToken = await authorizationResponse.Content.ReadFromJsonAsync<AuthToken>();
+
+        return authToken!.AccessToken;
+    }
+    
+    private sealed class AuthToken
+    {
+        [JsonPropertyName("access_token")]
+        public string AccessToken { get; init; } = null!;
     }
 }
