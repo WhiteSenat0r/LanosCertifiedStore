@@ -24,7 +24,6 @@ public sealed class IntegrationTestsWebApplicationFactory : WebApplicationFactor
 
     private readonly KeycloakContainer _keycloakContainer = new KeycloakBuilder()
         .WithImage("quay.io/keycloak/keycloak:25.0.1")
-        .WithEnvironment("DB_VENDOR", "h2")
         .WithResourceMapping(
             new FileInfo("keycloak/realms/lsc-realm-export.json"),
             new FileInfo("/opt/keycloak/data/import/realm.json"))
