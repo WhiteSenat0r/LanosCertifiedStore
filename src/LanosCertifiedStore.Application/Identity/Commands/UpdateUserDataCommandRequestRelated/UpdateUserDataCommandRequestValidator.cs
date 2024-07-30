@@ -22,6 +22,5 @@ internal sealed class UpdateUserDataCommandRequestValidator : AbstractValidator<
             .NotEmpty()
             .MinimumLength(2)
             .MaximumLength(64);
-
     }
 }
