@@ -1,4 +1,4 @@
-﻿using LanosCertifiedStore.Application.Identity;
+﻿using LanosCertifiedStore.Application.Identity.Dtos;
 
 namespace LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
 
