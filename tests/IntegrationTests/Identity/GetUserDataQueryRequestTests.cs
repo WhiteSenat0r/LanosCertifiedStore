@@ -44,7 +44,7 @@ public sealed class GetUserDataQueryRequestTests(
     }
 
     [Fact]
-    public async Task GetUserDataEndpoint_Should_ReturnUnauthorized_IfTokenIsNotPresent()
+    public async Task Endpoint_Should_ReturnUnauthorized_IfTokenIsNotPresent()
     {
         var id = Guid.NewGuid();
         var responseMessage = await HttpClient.GetAsync($"api/identity/getUserData/{id}");
