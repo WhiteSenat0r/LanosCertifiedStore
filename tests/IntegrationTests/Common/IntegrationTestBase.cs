@@ -1,5 +1,6 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json.Serialization;
+using Bogus;
 using IntegrationTests.Identity;
 using LanosCertifiedStore.Domain.Entities.UserRelated;
 using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
@@ -16,6 +17,8 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
     private const string CollectionName = "Integration tests collection";
     private readonly IServiceScope _scope;
 
+
+    private protected Faker Faker = new();
     private protected readonly ISender Sender;
     private protected readonly ApplicationDatabaseContext Context;
     private protected readonly HttpClient HttpClient;

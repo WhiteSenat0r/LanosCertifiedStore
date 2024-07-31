@@ -30,10 +30,11 @@ public sealed class GetUserDataQueryRequestTests(
     {
         // Arrange
         var userRepresentation = await RegisterUserOnKeycloakAndAddToDb(
-            TestExemplars.UserEmail,
-            TestExemplars.Password,
-            TestExemplars.PhoneNumber1,
+            Faker.Internet.Email(),
+            Faker.Internet.Password(),
+            Faker.Phone.PhoneNumber(),
             UserRole.User);
+
         // Act
         var result = await Sender.Send(new GetUserDataQueryRequest(userRepresentation.Id!));
 
