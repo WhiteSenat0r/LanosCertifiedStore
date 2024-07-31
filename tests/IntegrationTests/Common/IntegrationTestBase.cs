@@ -56,9 +56,9 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
         {
             UserRole = role
         };
-
-        await Context.Set<User>().AddAsync(user);
+        
         Context.Attach(role);
+        await Context.Set<User>().AddAsync(user);
         await Context.SaveChangesAsync();
 
         return userRepresentation with
