@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using IntegrationTests.Common;
 using LanosCertifiedStore.Application.Identity.Commands.ChangeUserRoleCommandRequestRelated;
@@ -17,7 +18,12 @@ public sealed class ChangeUserRoleCommandRequestTests(IntegrationTestsWebApplica
     {
         // Arrange
         var expectedRole = UserRole.Manager;
-        var userRepresentation = await RegisterUserOnKeycloakAndAddToDb(UserRole.User);
+        var userRepresentation = await RegisterUserOnKeycloakAndAddToDb(
+            Faker.Internet.Email(),
+            Faker.Internet.Password(),
+            Faker.Phone.UkrainianPhoneNumber(),
+            UserRole.User);
+
         var request = new ChangeUserRoleCommandRequest(userRepresentation.Id, expectedRole.Name);
 
         // Act
@@ -28,7 +34,7 @@ public sealed class ChangeUserRoleCommandRequestTests(IntegrationTestsWebApplica
             .AsNoTracking()
             .FirstOrDefaultAsync(u => u.Id == userRepresentation.Id);
 
-        // Arrange
+        // Assert
         result.Error
             .Should().Be(Error.None);
         user!.UserRole!.Name
@@ -36,20 +42,57 @@ public sealed class ChangeUserRoleCommandRequestTests(IntegrationTestsWebApplica
     }
 
     [Fact]
-    public async Task Endpoint_Should_ReturnForbidden_IfDoesNotHavePermission()
+    public async Task Endpoint_Should_ReturnNoContent_IfSenderHasPermission_AndRequestIsValid()
     {
         // Arrange
         var adminUser = await RegisterUserOnKeycloakAndAddToDb(
-            "admin@test.com",
+            Faker.Internet.Email(),
+            Faker.Internet.Password(),
+            Faker.Phone.UkrainianPhoneNumber(),
             UserRole.Administrator);
-        var userToUpdate = await RegisterUserOnKeycloakAndAddToDb(UserRole.User);
 
-        var token = await GetAccessTokenAsync(userToUpdate.Email, userToUpdate.Credentials.First().Value);
+        var userToUpdate = await RegisterUserOnKeycloakAndAddToDb(
+            Faker.Internet.Email(),
+            Faker.Internet.Password(),
+            Faker.Phone.UkrainianPhoneNumber(),
+            UserRole.User);
+        
+        var token = await GetAccessTokenAsync(adminUser.Email, adminUser.Credentials.First().Value);
+
+        HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+            JwtBearerDefaults.AuthenticationScheme,
+            token);
+
+        // Act
+        var response = await HttpClient.PutAsJsonAsync(
+            $"api/identity/changeUserRole/{userToUpdate.Id}",
+            UserRole.Manager.Name);
+
+        // Assert
+        response.StatusCode
+            .Should().Be(HttpStatusCode.NoContent);
+    }
+
+    [Fact]
+    public async Task Endpoint_Should_ReturnForbidden_IfSenderDoesNotHavePermission()
+    {
+        var user = await RegisterUserOnKeycloakAndAddToDb(
+            Faker.Internet.Email(),
+            Faker.Internet.Password(),
+            Faker.Phone.UkrainianPhoneNumber(),
+            UserRole.User);
+        
+        var token = await GetAccessTokenAsync(user.Email, user.Credentials.First().Value);
+        
         HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
             JwtBearerDefaults.AuthenticationScheme,
             token);
         
-        // Act
-        var response = await HttpClient.PutAsJsonAsync()
+        var response = await HttpClient.PutAsJsonAsync(
+            $"api/identity/changeUserRole/{user.Id}",
+            UserRole.Manager.Name);
+
+        response.StatusCode
+            .Should().Be(HttpStatusCode.Forbidden);
     }
 }
