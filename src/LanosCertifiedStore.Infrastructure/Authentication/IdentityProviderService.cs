@@ -93,7 +93,7 @@ internal sealed class IdentityProviderService(
 
         if (!userRepresentationResult.IsSuccess)
         {
-            return Result.Create(userRepresentationResult.Error!);
+            return userRepresentationResult;
         }
 
         await keycloakClient.UpdateUserDataAsync(
@@ -124,7 +124,7 @@ internal sealed class IdentityProviderService(
 
             return Result.Create(Error.None);
         }
-        catch (HttpRequestException e)
+        catch (HttpRequestException)
         {
             return Result.Create(IdentityErrors.ResetPasswordError);
         }
