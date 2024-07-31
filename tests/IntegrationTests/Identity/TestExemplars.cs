@@ -4,25 +4,25 @@ namespace IntegrationTests.Identity;
 
 internal static class TestExemplars
 {
-    private const string Email = "test@test.com";
-    private const string Password = "123";
-
-    internal static UserRepresentationWithPasswordAndId GetCorrectUserRepresentationWithPasswordAndId()
+    internal static UserRepresentationWithPasswordAndId GetCorrectUserRepresentationWithPasswordAndId(
+        string email,
+        string password,
+        string phoneNumber)
     {
         var attributes = new Dictionary<string, string>
         {
-            { "phoneNumber", "+380123456789" }
+            { "phoneNumber", phoneNumber }
         };
 
         return new UserRepresentationWithPasswordAndId(
             default,
-            Email,
-            Email,
+            email,
+            email,
             true,
             true,
             attributes,
             "test",
             "test",
-            [new CredentialRepresentation("password", Password, false)]);
+            [new CredentialRepresentation("password", password, false)]);
     }
 }

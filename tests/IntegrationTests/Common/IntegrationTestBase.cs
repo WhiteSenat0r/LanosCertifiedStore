@@ -38,9 +38,14 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
         Context.Dispose();
     }
 
-    internal async Task<UserRepresentationWithPasswordAndId> RegisterUserOnKeycloakAndAddToDb(UserRole role)
+    internal async Task<UserRepresentationWithPasswordAndId> RegisterUserOnKeycloakAndAddToDb(
+        string email,
+        string password,
+        string phoneNumber,
+        UserRole role)
     {
-        var userRepresentation = TestExemplars.GetCorrectUserRepresentationWithPasswordAndId();
+        var userRepresentation = TestExemplars
+            .GetCorrectUserRepresentationWithPasswordAndId(email, password, phoneNumber);
 
         var userId = Guid.Parse(await KeycloakClient.RegisterUserAsync(userRepresentation));
 
