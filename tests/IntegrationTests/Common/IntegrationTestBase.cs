@@ -18,7 +18,7 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
     private readonly IServiceScope _scope;
 
 
-    private protected readonly Faker Faker = new("uk");
+    private protected static readonly Faker Faker = new("uk");
     private protected readonly ISender Sender;
     private protected readonly ApplicationDatabaseContext Context;
     private protected readonly HttpClient HttpClient;
