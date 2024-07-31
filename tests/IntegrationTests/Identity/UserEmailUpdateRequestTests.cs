@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using IntegrationTests.Common;
 using LanosCertifiedStore.Application.Identity.Commands.UserEmailUpdateCommandRequestRelated;
+using LanosCertifiedStore.Application.Shared.ValidationRelated;
 using LanosCertifiedStore.Domain.Entities.UserRelated;
 using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -65,6 +66,21 @@ public sealed class UserEmailUpdateRequestTests(
             .Any(ra => ra.Equals(KeycloakRequiredActions.GetVerifyEmailCode().First()))
             .Should().BeTrue();
     }
+
+    [Fact]
+    public async Task Send_Should_ReturnValidationError_IfEmailIsInvalid()
+    {
+        // Arrange
+        var request = new UserEmailUpdateCommandRequest("test");
+        
+        // Act
+        var result = (IValidationResult)await Sender.Send(request);
+        
+        // Assert
+        (result.Errors.Length != 0)
+            .Should().BeTrue();
+    }
+
 
     [Fact]
     public async Task Endpoint_Should_ReturnUnauthorized_IfTokenIsNotPresent()
