@@ -1,5 +1,7 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json.Serialization;
+using IntegrationTests.Identity;
+using LanosCertifiedStore.Domain.Entities.UserRelated;
 using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
 using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 using MediatR;
@@ -34,6 +36,27 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
     {
         _scope.Dispose();
         Context.Dispose();
+    }
+
+    internal async Task<UserRepresentationWithPasswordAndId> RegisterUserOnKeycloakAndAddToDb(UserRole role)
+    {
+        var userRepresentation = TestExemplars.GetCorrectUserRepresentationWithPasswordAndId();
+
+        var userId = Guid.Parse(await KeycloakClient.RegisterUserAsync(userRepresentation));
+
+        var user = new User(userId)
+        {
+            UserRole = role
+        };
+
+        await Context.Set<User>().AddAsync(user);
+        Context.Attach(role);
+        await Context.SaveChangesAsync();
+
+        return userRepresentation with
+        {
+            Id = userId
+        };
     }
 
     protected async Task<string> GetAccessTokenAsync(string email, string password)

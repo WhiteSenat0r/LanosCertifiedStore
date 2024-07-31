@@ -2,7 +2,7 @@
 using IntegrationTests.Common;
 using LanosCertifiedStore.Application.Identity.Queries.GetUserDataQueryRequestRelated;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
-using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+using LanosCertifiedStore.Domain.Entities.UserRelated;
 
 namespace IntegrationTests.Identity;
 
@@ -29,10 +29,10 @@ public sealed class GetUserDataQueryRequestTests(
     public async Task Send_Should_ReturnSuccessResult_IfUserExists()
     {
         // Arrange
-        var user = await RegisterNewUser();
+        var userRepresentation = await RegisterUserOnKeycloakAndAddToDb(UserRole.User);
 
         // Act
-        var result = await Sender.Send(new GetUserDataQueryRequest((Guid)user.Id!));
+        var result = await Sender.Send(new GetUserDataQueryRequest((Guid)userRepresentation.Id!));
 
         // Assert
         result.Error
@@ -40,7 +40,7 @@ public sealed class GetUserDataQueryRequestTests(
         result.Value
             .Should().NotBeNull();
         result.Value!.Email
-            .Should().Be(user.Email);
+            .Should().Be(userRepresentation.Email);
     }
 
     [Fact]
@@ -52,17 +52,5 @@ public sealed class GetUserDataQueryRequestTests(
         // Assert
         responseMessage.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
-
-
-    private async Task<UserRepresentationWithPasswordAndId> RegisterNewUser()
-    {
-        var user = TestExemplars.GetCorrectUserRepresentationWithPasswordAndId();
-
-        var userId = Guid.Parse(await KeycloakClient.RegisterUserAsync(user));
-
-        return user with
-        {
-            Id = userId
-        };
-    }
+    
 }
