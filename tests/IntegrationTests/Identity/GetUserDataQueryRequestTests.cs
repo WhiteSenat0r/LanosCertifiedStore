@@ -30,9 +30,9 @@ public sealed class GetUserDataQueryRequestTests(
     {
         // Arrange
         var userRepresentation = await RegisterUserOnKeycloakAndAddToDb(
-            "test@test.com",
-            "123",
-            "+380123456789",
+            TestExemplars.UserEmail,
+            TestExemplars.Password,
+            TestExemplars.PhoneNumber1,
             UserRole.User);
 
         // Act
