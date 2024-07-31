@@ -11,28 +11,31 @@ namespace IntegrationTests.Common;
 [Collection(CollectionName)]
 public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApplicationFactory>, IDisposable
 {
-    private protected readonly IServiceScope Scope;
+    private const string CollectionName = "Integration tests collection";
+    private readonly IServiceScope _scope;
+
     private protected readonly ISender Sender;
     private protected readonly ApplicationDatabaseContext Context;
     private protected readonly HttpClient HttpClient;
+    private protected readonly KeycloakClient KeycloakClient;
     private protected readonly KeycloakOptions KeycloakOptions;
 
-    private const string CollectionName = "Integration tests collection";
     private protected IntegrationTestBase(IntegrationTestsWebApplicationFactory factory)
     {
-        Scope = factory.Services.CreateScope();
-        Sender = Scope.ServiceProvider.GetRequiredService<ISender>();
-        Context = Scope.ServiceProvider.GetRequiredService<ApplicationDatabaseContext>();
+        _scope = factory.Services.CreateScope();
+        Sender = _scope.ServiceProvider.GetRequiredService<ISender>();
+        Context = _scope.ServiceProvider.GetRequiredService<ApplicationDatabaseContext>();
         HttpClient = factory.CreateClient();
-        KeycloakOptions = Scope.ServiceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
+        KeycloakClient = factory.Services.GetRequiredService<KeycloakClient>();
+        KeycloakOptions = _scope.ServiceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
     }
 
     public void Dispose()
     {
-        Scope.Dispose();
+        _scope.Dispose();
         Context.Dispose();
     }
-    
+
     protected async Task<string> GetAccessTokenAsync(string email, string password)
     {
         using var client = new HttpClient();
@@ -47,48 +50,18 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
         };
 
         using var authRequestContent = new FormUrlEncodedContent(authRequestParameters);
-
         using var authRequest = new HttpRequestMessage(HttpMethod.Post, new Uri(KeycloakOptions.TokenUrl));
         authRequest.Content = authRequestContent;
 
         using var authorizationResponse = await client.SendAsync(authRequest);
-
         authorizationResponse.EnsureSuccessStatusCode();
-        
-        var authToken = await authorizationResponse.Content.ReadFromJsonAsync<AuthToken>();
 
+        var authToken = await authorizationResponse.Content.ReadFromJsonAsync<AuthToken>();
         return authToken!.AccessToken;
     }
-    
-    protected async Task<string> GetConfidentialAccessTokenAsync()
-    {
-        using var client = new HttpClient();
 
-        var authRequestParams = new Dictionary<string, string>
-        {
-            { "client_id", KeycloakOptions.ConfidentialClientId },
-            { "client_secret", KeycloakOptions.ConfidentialClientSecret },
-            { "scope", "openid" },
-            { "grant_type", "client_credentials" }
-        };
-
-        using var authRequestContent = new FormUrlEncodedContent(authRequestParams);
-
-        using var authRequest = new HttpRequestMessage(HttpMethod.Post, new Uri(KeycloakOptions.TokenUrl));
-        authRequest.Content = authRequestContent;
-
-        using var authorizationResponse = await client.SendAsync(authRequest);
-
-        authorizationResponse.EnsureSuccessStatusCode();
-        
-        var authToken = await authorizationResponse.Content.ReadFromJsonAsync<AuthToken>();
-
-        return authToken!.AccessToken;
-    }
-    
     private sealed class AuthToken
     {
-        [JsonPropertyName("access_token")]
-        public string AccessToken { get; init; } = null!;
+        [JsonPropertyName("access_token")] public string AccessToken { get; init; } = null!;
     }
 }
