@@ -6,10 +6,11 @@ internal sealed class UpdateUserSelfCommandRequestValidator : AbstractValidator<
 {
     public UpdateUserSelfCommandRequestValidator()
     {
+        const string phoneNumberRegex = @"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$";
+
         RuleFor(x => x.PhoneNumber)
             .NotEmpty()
-            .MinimumLength(4)
-            .MaximumLength(32);
+            .Matches(phoneNumberRegex);
 
         RuleFor(x => x.FirstName)
             .NotEmpty()

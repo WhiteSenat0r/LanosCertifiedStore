@@ -5,6 +5,7 @@ using LanosCertifiedStore.Application.Identity.Commands.UpdateUserDataCommandReq
 using LanosCertifiedStore.Application.Identity.Commands.UpdateUserSelfCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Commands.UserEmailUpdateCommandRequestRelated;
 using LanosCertifiedStore.Application.Identity.Queries.GetUserDataQueryRequestRelated;
+using LanosCertifiedStore.Application.Shared.ValidationRelated;
 using LanosCertifiedStore.Infrastructure.Authorization;
 using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Authorization;
@@ -61,6 +62,11 @@ public sealed class IdentityController : BaseApiController
             return NotFound(CreateNotFoundProblemDetails(result.Error!));
         }
 
+        if (result is IValidationResult validationResult)
+        {
+            return BadRequest(CreateValidationProblemDetails(result.Error!, validationResult.Errors));
+        }
+
         return NoContent();
     }
 
@@ -69,6 +75,11 @@ public sealed class IdentityController : BaseApiController
     {
         var result = await Sender.Send(request);
 
+        if (result is IValidationResult validationResult)
+        {
+            return BadRequest(CreateValidationProblemDetails(result.Error!, validationResult.Errors));
+        }
+        
         if (!result.IsSuccess)
         {
             return NotFound(CreateNotFoundProblemDetails(result.Error!));
