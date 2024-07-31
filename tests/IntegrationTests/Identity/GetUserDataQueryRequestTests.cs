@@ -34,7 +34,6 @@ public sealed class GetUserDataQueryRequestTests(
             TestExemplars.Password,
             TestExemplars.PhoneNumber1,
             UserRole.User);
-
         // Act
         var result = await Sender.Send(new GetUserDataQueryRequest(userRepresentation.Id!));
 
@@ -56,4 +55,5 @@ public sealed class GetUserDataQueryRequestTests(
         // Assert
         responseMessage.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
+    
 }
