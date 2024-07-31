@@ -10,6 +10,7 @@ internal sealed record UserDataRepresentation(
     UserDataAttributes? Attributes,
     bool EmailVerified,
     List<FederatedIdentityDto> FederatedIdentities,
-    long CreatedTimestamp);
+    long CreatedTimestamp,
+    List<string> RequiredActions);
 
 internal sealed record UserDataAttributes(List<string> PhoneNumber);
