@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LanosCertifiedStore.Presentation.Controllers.LocationRelated;
 
-[Route("api/LocationTowns")]
+[Route("api/location-towns")]
 public sealed class VehicleLocationTownsController : BaseApiController
 {
     [AllowAnonymous]
@@ -29,9 +29,9 @@ public sealed class VehicleLocationTownsController : BaseApiController
 
         return Ok(result.Value);
     }
-    
+
     [AllowAnonymous]
-    [HttpGet("CountItems")]
+    [HttpGet("count")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ItemsCountDto>> GetItemsCount(

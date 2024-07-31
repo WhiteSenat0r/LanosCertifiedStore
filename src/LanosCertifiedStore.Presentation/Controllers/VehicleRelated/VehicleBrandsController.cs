@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LanosCertifiedStore.Presentation.Controllers.VehicleRelated;
 
-[Route("api/Brands")]
+[Route("api/brands")]
 public sealed class VehicleBrandsController : BaseApiController
 {
     [AllowAnonymous]
@@ -29,7 +29,7 @@ public sealed class VehicleBrandsController : BaseApiController
 
         return Ok(result.Value);
     }
-    
+
     [HttpGet("{id:guid}", Name = "GetBrandById")]
     [ProducesResponseType(typeof(SingleVehicleBrandDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
@@ -46,7 +46,7 @@ public sealed class VehicleBrandsController : BaseApiController
     }
 
     [AllowAnonymous]
-    [HttpGet("CountItems")]
+    [HttpGet("count")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ItemsCountDto>> GetBrandsCount(
@@ -73,15 +73,21 @@ public sealed class VehicleBrandsController : BaseApiController
         return CreatedAtRoute("GetBrandById", new { id = result.Value }, result.Value);
     }
 
-    [HttpPut]
+    [HttpPut("{id:guid}")]
     [HasAccessPermission("brands:update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> UpdateBrand(
-        [FromBody] UpdateVehicleBrandCommandRequest updateVehicleBrandCommandRequest)
+        Guid id,
+        [FromBody] UpdateVehicleBrandCommandRequest request)
     {
-        var result = await Sender.Send(updateVehicleBrandCommandRequest);
+        request = request with
+        {
+            Id = id
+        };
+        
+        var result = await Sender.Send(request);
 
         if (result is IValidationResult validationResult)
         {

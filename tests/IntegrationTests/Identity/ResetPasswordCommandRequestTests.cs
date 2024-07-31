@@ -30,7 +30,7 @@ public sealed class ResetPasswordCommandRequestTests(
 
         // Act
         var response = await HttpClient.PutAsync(
-            "api/identity/resetPassword", null);
+            "api/identity/password", null);
 
         // Assert
         response.StatusCode
@@ -56,7 +56,7 @@ public sealed class ResetPasswordCommandRequestTests(
             token);
 
         // Act
-        await HttpClient.PutAsJsonAsync("api/identity/resetPassword", request);
+        await HttpClient.PutAsJsonAsync("api/identity/password", request);
         var userRepresentation = await KeycloakClient.GetUserDataAsync(user.Id);
 
         // Assert
@@ -69,7 +69,7 @@ public sealed class ResetPasswordCommandRequestTests(
     public async Task Endpoint_Should_ReturnUnauthorized_IfTokenIsNotPresent()
     {
         // Act
-        var responseMessage = await HttpClient.PutAsync($"api/identity/resetPassword", null);
+        var responseMessage = await HttpClient.PutAsync($"api/identity/password", null);
 
         // Assert
         responseMessage.StatusCode.Should().Be(HttpStatusCode.Unauthorized);

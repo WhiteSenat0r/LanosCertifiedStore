@@ -66,7 +66,7 @@ public sealed class UpdateUserCommandRequestTests(
 
         // Act
         var response = await HttpClient.PutAsJsonAsync(
-            $"api/identity/updateUserData",
+            $"api/identity/{user.Id}",
             request);
         
         var updatedUser = await KeycloakClient.GetUserDataAsync(user.Id);
@@ -102,7 +102,7 @@ public sealed class UpdateUserCommandRequestTests(
 
         // Act
         var response = await HttpClient.PutAsync(
-            $"api/identity/updateUserData",
+            $"api/identity/{user.Id}",
             null);
 
         response.StatusCode

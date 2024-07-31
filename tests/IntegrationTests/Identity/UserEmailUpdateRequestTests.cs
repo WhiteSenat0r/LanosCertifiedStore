@@ -32,7 +32,7 @@ public sealed class UserEmailUpdateRequestTests(
             token);
 
         // Act
-        var response = await HttpClient.PutAsJsonAsync("api/identity/updateEmail", request);
+        var response = await HttpClient.PutAsJsonAsync("api/identity/email", request);
 
         // Assert
         response.StatusCode
@@ -58,7 +58,7 @@ public sealed class UserEmailUpdateRequestTests(
             token);
 
         // Act
-        await HttpClient.PutAsJsonAsync("api/identity/updateEmail", request);
+        await HttpClient.PutAsJsonAsync("api/identity/email", request);
         var userRepresentation = await KeycloakClient.GetUserDataAsync(user.Id);
 
         // Assert
@@ -86,7 +86,7 @@ public sealed class UserEmailUpdateRequestTests(
     public async Task Endpoint_Should_ReturnUnauthorized_IfTokenIsNotPresent()
     {
         // Act
-        var responseMessage = await HttpClient.PutAsync($"api/identity/updateEmail", null);
+        var responseMessage = await HttpClient.PutAsync($"api/identity/email", null);
 
         // Assert
         responseMessage.StatusCode.Should().Be(HttpStatusCode.Unauthorized);

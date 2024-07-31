@@ -17,7 +17,7 @@ namespace LanosCertifiedStore.Presentation.Controllers.IdentityRelated;
 public sealed class IdentityController : BaseApiController
 {
     [AllowAnonymous]
-    [HttpPost("addUserFromProvider")]
+    [HttpPost]
     public async Task<ActionResult<Guid>> AddUserFromIdentityProvider([FromQuery] string id)
     {
         var isSuccessfulIdParse = Guid.TryParse(id, out var parsedId);
@@ -38,7 +38,7 @@ public sealed class IdentityController : BaseApiController
     }
 
     [HasAccessPermission("users:read")]
-    [HttpGet("getUserData/{id:guid}")]
+    [HttpGet("{id:guid}")]
     public async Task<ActionResult> GetUserData(Guid id)
     {
         var result = await Sender.Send(new GetUserDataQueryRequest(id));
@@ -52,9 +52,14 @@ public sealed class IdentityController : BaseApiController
     }
 
     [HasAccessPermission("users:update")]
-    [HttpPut("updateUserData")]
-    public async Task<ActionResult> UpdateUserData(UpdateUserDataCommandRequest request)
+    [HttpPut("{id:guid}")]
+    public async Task<ActionResult> UpdateUserData(Guid id, UpdateUserDataCommandRequest request)
     {
+        request = request with
+        {
+            Id = id
+        };
+        
         var result = await Sender.Send(request);
 
         if (!result.IsSuccess)
@@ -70,7 +75,7 @@ public sealed class IdentityController : BaseApiController
         return NoContent();
     }
 
-    [HttpPut("updateSelf")]
+    [HttpPut]
     public async Task<ActionResult> UpdateSelf(UpdateUserSelfCommandRequest request)
     {
         var result = await Sender.Send(request);
@@ -79,7 +84,7 @@ public sealed class IdentityController : BaseApiController
         {
             return BadRequest(CreateValidationProblemDetails(result.Error!, validationResult.Errors));
         }
-        
+
         if (!result.IsSuccess)
         {
             return NotFound(CreateNotFoundProblemDetails(result.Error!));
@@ -89,7 +94,7 @@ public sealed class IdentityController : BaseApiController
     }
 
     [HasAccessPermission("users:change-role")]
-    [HttpPut("changeUserRole/{userId:guid}")]
+    [HttpPut("{userId:guid}/role")]
     public async Task<ActionResult> UpdateUserRole(
         [FromRoute] Guid userId,
         [FromBody] string roleCode)
@@ -106,7 +111,7 @@ public sealed class IdentityController : BaseApiController
         return NoContent();
     }
 
-    [HttpPut("updateEmail")]
+    [HttpPut("email")]
     public async Task<ActionResult> UpdateEmail(UserEmailUpdateCommandRequest request)
     {
         var result = await Sender.Send(request);
@@ -119,7 +124,7 @@ public sealed class IdentityController : BaseApiController
         return NoContent();
     }
 
-    [HttpPut("resetPassword")]
+    [HttpPut("password")]
     public async Task<ActionResult> ResetPassword()
     {
         var result = await Sender.Send(new ResetPasswordCommandRequest());

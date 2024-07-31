@@ -65,7 +65,7 @@ public sealed class ChangeUserRoleCommandRequestTests(IntegrationTestsWebApplica
 
         // Act
         var response = await HttpClient.PutAsJsonAsync(
-            $"api/identity/changeUserRole/{userToUpdate.Id}",
+            $"api/identity/{userToUpdate.Id}/role",
             UserRole.Manager.Name);
 
         // Assert
@@ -89,7 +89,7 @@ public sealed class ChangeUserRoleCommandRequestTests(IntegrationTestsWebApplica
             token);
         
         var response = await HttpClient.PutAsJsonAsync(
-            $"api/identity/changeUserRole/{user.Id}",
+            $"api/identity/{user.Id}/role",
             UserRole.Manager.Name);
 
         response.StatusCode

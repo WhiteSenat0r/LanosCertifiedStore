@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LanosCertifiedStore.Presentation.Controllers.TypeRelated;
 
-[Route("api/BodyTypes")]
+[Route("api/body-types")]
 public sealed class VehicleBodyTypesController : BaseApiController
 {
     [AllowAnonymous]

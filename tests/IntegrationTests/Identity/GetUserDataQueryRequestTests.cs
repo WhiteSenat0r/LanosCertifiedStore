@@ -54,7 +54,7 @@ public sealed class GetUserDataQueryRequestTests(
         var id = Guid.NewGuid();
         
         // Act
-        var responseMessage = await HttpClient.GetAsync($"api/identity/getUserData/{id}");
+        var responseMessage = await HttpClient.GetAsync($"api/identity/{id}");
 
         // Assert
         responseMessage.StatusCode.Should().Be(HttpStatusCode.Unauthorized);

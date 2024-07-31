@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LanosCertifiedStore.Presentation.Controllers.LocationRelated;
 
-[Route("api/LocationRegions")]
+[Route("api/location-regions")]
 public sealed class VehicleLocationRegionsController : BaseApiController
 {
     [AllowAnonymous]

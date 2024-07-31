@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LanosCertifiedStore.Presentation.Controllers.VehicleRelated;
 
-[Route("api/Models")]
+[Route("api/models")]
 public sealed class VehicleModelsController : BaseApiController
 {
     [AllowAnonymous]
@@ -32,7 +32,7 @@ public sealed class VehicleModelsController : BaseApiController
     }
 
     [AllowAnonymous]
-    [HttpGet("Brandless")]
+    [HttpGet("brandless")]
     [ProducesResponseType(typeof(PaginationResult<VehicleModelDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<PaginationResult<VehicleModelDto>>> GetBrandlessModels(
@@ -59,7 +59,7 @@ public sealed class VehicleModelsController : BaseApiController
     }
 
     [AllowAnonymous]
-    [HttpGet("CountItems")]
+    [HttpGet("count")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ItemsCountDto>> GetModelsCount(
@@ -91,15 +91,21 @@ public sealed class VehicleModelsController : BaseApiController
         return CreatedAtRoute("GetBrandById", new { id = result.Value }, result.Value);
     }
 
-    [HttpPut]
+    [HttpPut("{id:guid}")]
     [HasAccessPermission("models:update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> UpdateModel(
-        [FromBody] UpdateVehicleModelCommandRequest updateVehicleModelCommandRequest)
+        Guid id,
+        [FromBody] UpdateVehicleModelCommandRequest request)
     {
-        var result = await Sender.Send(updateVehicleModelCommandRequest);
+        request = request with
+        {
+            Id = id
+        };
+        
+        var result = await Sender.Send(request);
 
         if (result is IValidationResult validationResult)
         {

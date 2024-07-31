@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LanosCertifiedStore.Presentation.Controllers.VehicleRelated;
 
-[Route("api/Colors")]
+[Route("api/colors")]
 public sealed class VehicleColorsController : BaseApiController
 {
     [AllowAnonymous]
@@ -24,6 +24,7 @@ public sealed class VehicleColorsController : BaseApiController
                 ItemQuantity = ItemQuantitySelection.Fifty,
                 SortingType = sortingType ?? string.Empty
             }));
+        
         return Ok(result.Value);
     }
 }

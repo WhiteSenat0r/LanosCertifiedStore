@@ -60,7 +60,7 @@ public sealed class UpdateUserSelfCommandRequestTests(
             token);
 
         // Act
-        var responseMessage = await HttpClient.PutAsJsonAsync("api/identity/updateSelf", request);
+        var responseMessage = await HttpClient.PutAsJsonAsync("api/identity", request);
         var updatedUser = await KeycloakClient.GetUserDataAsync(user.Id);
 
         // Assert
@@ -79,7 +79,7 @@ public sealed class UpdateUserSelfCommandRequestTests(
     public async Task Endpoint_Should_ReturnUnauthorized_IfTokenIsNotPresent()
     {
         // Act
-        var responseMessage = await HttpClient.PutAsync("api/identity/updateSelf", null);
+        var responseMessage = await HttpClient.PutAsync("api/identity", null);
 
         // Assert
         responseMessage.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
