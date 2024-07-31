@@ -29,7 +29,11 @@ public sealed class GetUserDataQueryRequestTests(
     public async Task Send_Should_ReturnSuccessResult_IfUserExists()
     {
         // Arrange
-        var userRepresentation = await RegisterUserOnKeycloakAndAddToDb(UserRole.User);
+        var userRepresentation = await RegisterUserOnKeycloakAndAddToDb(
+            "test@test.com",
+            "123",
+            "+380123456789",
+            UserRole.User);
 
         // Act
         var result = await Sender.Send(new GetUserDataQueryRequest(userRepresentation.Id!));
@@ -52,5 +56,4 @@ public sealed class GetUserDataQueryRequestTests(
         // Assert
         responseMessage.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
-    
 }
