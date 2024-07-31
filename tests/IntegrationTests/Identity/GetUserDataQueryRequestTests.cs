@@ -32,7 +32,7 @@ public sealed class GetUserDataQueryRequestTests(
         var userRepresentation = await RegisterUserOnKeycloakAndAddToDb(
             Faker.Internet.Email(),
             Faker.Internet.Password(),
-            Faker.Phone.PhoneNumber(),
+            Faker.Phone.UkrainianPhoneNumber(),
             UserRole.User);
 
         // Act

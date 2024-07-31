@@ -18,6 +18,8 @@ internal sealed class KeycloakAuthDelegatingHandler(IOptions<KeycloakOptions> op
 
         var httpResponseMessage = await base.SendAsync(request, cancellationToken);
 
+        var httpResponseContent = await httpResponseMessage.Content.ReadAsStringAsync(); 
+
         httpResponseMessage.EnsureSuccessStatusCode();
 
         return httpResponseMessage;
