@@ -1,4 +1,5 @@
-﻿using IntegrationTests.Common;
+﻿using System.Net;
+using IntegrationTests.Common;
 using LanosCertifiedStore.Application.Identity.Queries.GetUserDataQueryRequestRelated;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
@@ -40,6 +41,16 @@ public sealed class GetUserDataQueryRequestTests(
             .Should().NotBeNull();
         result.Value!.Email
             .Should().Be(user.Email);
+    }
+
+    [Fact]
+    public async Task GetUserDataEndpoint_Should_ReturnUnauthorized_IfTokenIsNotPresent()
+    {
+        var id = Guid.NewGuid();
+        var responseMessage = await HttpClient.GetAsync($"api/identity/getUserData/{id}");
+
+        // Assert
+        responseMessage.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
 
 
