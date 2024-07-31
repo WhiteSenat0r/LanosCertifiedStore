@@ -20,7 +20,7 @@ internal record UserRepresentation(
 /// <param name="Enabled">Specifies whether the user account is enabled.</param>
 /// <param name="Credentials">A list of credential representations for the user, such as passwords or other authentication methods.</param>
 internal sealed record UserRepresentationWithPasswordAndId(
-    Guid? Id,
+    Guid Id,
     string Username,
     string Email,
     bool EmailVerified,

@@ -15,7 +15,7 @@ internal static class TestExemplars
         };
 
         return new UserRepresentationWithPasswordAndId(
-            null,
+            default,
             Email,
             Email,
             true,

@@ -32,7 +32,7 @@ public sealed class GetUserDataQueryRequestTests(
         var userRepresentation = await RegisterUserOnKeycloakAndAddToDb(UserRole.User);
 
         // Act
-        var result = await Sender.Send(new GetUserDataQueryRequest((Guid)userRepresentation.Id!));
+        var result = await Sender.Send(new GetUserDataQueryRequest(userRepresentation.Id!));
 
         // Assert
         result.Error
