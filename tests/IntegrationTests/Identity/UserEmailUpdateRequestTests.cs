@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace IntegrationTests.Identity;
 
-public sealed class UserUpdateEmailRequestTests(
+public sealed class UserEmailUpdateRequestTests(
     IntegrationTestsWebApplicationFactory factory) : IntegrationTestBase(factory)
 {
     [Fact]
