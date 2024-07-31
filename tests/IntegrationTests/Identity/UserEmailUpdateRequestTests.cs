@@ -72,10 +72,10 @@ public sealed class UserEmailUpdateRequestTests(
     {
         // Arrange
         var request = new UserEmailUpdateCommandRequest("test");
-        
+
         // Act
         var result = (IValidationResult)await Sender.Send(request);
-        
+
         // Assert
         (result.Errors.Length != 0)
             .Should().BeTrue();
