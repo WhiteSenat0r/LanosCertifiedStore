@@ -47,7 +47,7 @@ services:
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_HTTPS_CERTIFICATE_FILE=/opt/keycloak/certs/localhost_cert.pem
       - KC_HTTPS_CERTIFICATE_KEY_FILE=/opt/keycloak/certs/localhost_key.pem
-      - API_REGISTRATION_MESSAGE_ENDPOINT=https://host.docker.internal:5001/api/identity/addUserFromProvider
+      - API_REGISTRATION_MESSAGE_ENDPOINT=https://host.docker.internal:5001/api/identity
     volumes:
       - ./.containers/identity:/opt/keycloak/data
       - ./.files/keycloak/realms/lsc-realm-export.json:/opt/keycloak/data/import/realm.json
