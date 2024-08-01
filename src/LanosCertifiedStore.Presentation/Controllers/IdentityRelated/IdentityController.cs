@@ -17,6 +17,7 @@ namespace LanosCertifiedStore.Presentation.Controllers.IdentityRelated;
 public sealed class IdentityController : BaseApiController
 {
     [AllowAnonymous]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [HttpPost]
     public async Task<ActionResult<Guid>> AddUserFromIdentityProvider([FromQuery] string id)
     {
