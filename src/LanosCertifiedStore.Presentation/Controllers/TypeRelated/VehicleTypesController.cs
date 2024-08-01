@@ -12,6 +12,7 @@ namespace LanosCertifiedStore.Presentation.Controllers.TypeRelated;
 public sealed class VehicleTypesController : BaseApiController
 {
     [AllowAnonymous]
+    [HttpGet]
     [ProducesResponseType(typeof(PaginationResult<VehicleTypeDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<PaginationResult<VehicleTypeDto>>> GetTypes([FromQuery] string? sortingType)
