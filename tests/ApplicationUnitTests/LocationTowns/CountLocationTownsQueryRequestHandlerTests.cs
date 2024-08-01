@@ -1,6 +1,6 @@
-﻿using Application.LocationTowns;
-using Application.LocationTowns.Queries.LocationTownsRelated.CountLocationTownsQueryRelated;
-using Application.Shared.DtosRelated;
+﻿using LanosCertifiedStore.Application.LocationTowns;
+using LanosCertifiedStore.Application.LocationTowns.Queries.LocationTownsRelated.CountLocationTownsQueryRelated;
+using LanosCertifiedStore.Application.Shared.DtosRelated;
 
 namespace ApplicationUnitTests.LocationTowns;
 

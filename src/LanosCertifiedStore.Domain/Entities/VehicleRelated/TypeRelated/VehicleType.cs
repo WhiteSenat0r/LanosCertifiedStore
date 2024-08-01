@@ -1,6 +1,6 @@
-﻿using Domain.Entities.Common.Classes;
+﻿using LanosCertifiedStore.Domain.Entities.Common.Classes;
 
-namespace Domain.Entities.VehicleRelated.TypeRelated;
+namespace LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 
 public sealed class VehicleType : NamedVehicleTypeAspect
 {

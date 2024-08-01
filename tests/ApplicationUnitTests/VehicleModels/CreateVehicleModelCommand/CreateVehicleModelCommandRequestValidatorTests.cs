@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
-using Application.Shared.ValidationRelated;
-using Application.VehicleModels;
-using Application.VehicleModels.Commands.CreateVehicleModelRelated;
-using Domain.Entities.VehicleRelated;
-using Domain.Entities.VehicleRelated.TypeRelated;
 using FluentValidation.TestHelper;
+using LanosCertifiedStore.Application.Shared.ValidationRelated;
+using LanosCertifiedStore.Application.VehicleModels;
+using LanosCertifiedStore.Application.VehicleModels.Commands.CreateVehicleModelRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 
 namespace ApplicationUnitTests.VehicleModels.CreateVehicleModelCommand;
 

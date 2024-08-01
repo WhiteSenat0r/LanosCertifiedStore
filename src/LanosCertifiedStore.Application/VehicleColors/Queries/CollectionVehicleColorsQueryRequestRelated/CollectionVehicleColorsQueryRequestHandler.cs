@@ -1,7 +1,7 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
+namespace LanosCertifiedStore.Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
 
 internal sealed class CollectionVehicleColorsQueryRequestHandler(IVehicleColorService vehicleColorService) :
     IRequestHandler<CollectionVehicleColorsQueryRequest, Result<PaginationResult<VehicleColorDto>>>
@@ -11,7 +11,8 @@ internal sealed class CollectionVehicleColorsQueryRequestHandler(IVehicleColorSe
     {
         var colors = await vehicleColorService.GetVehicleColorCollection(request, cancellationToken);
 
-        return Result<PaginationResult<VehicleColorDto>>.Success(
-            new PaginationResult<VehicleColorDto>(colors, request.FilteringParameters.PageIndex));
+        var paginationResult = new PaginationResult<VehicleColorDto>(colors, request.FilteringParameters.PageIndex);
+        
+        return paginationResult;
     }
 }

@@ -1,6 +1,6 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 
-namespace Application.Shared.ValidationRelated;
+namespace LanosCertifiedStore.Application.Shared.ValidationRelated;
 
 public interface IValidationResult
 {

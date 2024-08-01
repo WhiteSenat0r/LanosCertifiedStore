@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
-using Application.Shared.RequestParamsRelated;
-using Application.VehicleModels;
-using Domain.Entities.VehicleRelated;
-using Persistence.Queries.Common.Classes.SelectorBaseRelated;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.VehicleModels;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Persistence.Queries.Common.Classes.SelectorBaseRelated;
 
-namespace Persistence.Queries.VehicleModelRelated.SelectorRelated;
+namespace LanosCertifiedStore.Persistence.Queries.VehicleModelRelated.SelectorRelated;
 
 internal sealed class VehicleModelsFilteringCriteriaSelector : QueryFilteringCriteriaSelectorBase<VehicleModel>
 {

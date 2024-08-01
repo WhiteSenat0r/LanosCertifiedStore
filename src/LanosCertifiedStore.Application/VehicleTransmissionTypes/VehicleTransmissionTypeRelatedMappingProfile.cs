@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Domain.Entities.VehicleRelated.TypeRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 
-namespace Application.VehicleTransmissionTypes;
+namespace LanosCertifiedStore.Application.VehicleTransmissionTypes;
 
 internal sealed class VehicleTransmissionTypeRelatedMappingProfile : Profile
 {

@@ -1,4 +1,4 @@
-﻿namespace Application.VehicleBrands;
+﻿namespace LanosCertifiedStore.Application.VehicleBrands;
 
 internal static class VehicleBrandValidatorMessages
 {

@@ -1,7 +1,7 @@
-﻿using Application.Shared.ResultRelated;
-using Application.VehicleModels;
-using Application.VehicleModels.Dtos;
-using Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.VehicleModels;
+using LanosCertifiedStore.Application.VehicleModels.Dtos;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
 
 namespace ApplicationUnitTests.VehicleModels;
 

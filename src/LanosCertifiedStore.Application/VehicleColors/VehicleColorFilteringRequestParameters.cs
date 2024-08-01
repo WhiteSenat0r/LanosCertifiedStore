@@ -1,6 +1,6 @@
-﻿using Application.Shared.RequestParamsRelated;
-using Domain.Entities.VehicleRelated;
+﻿using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-namespace Application.VehicleColors;
+namespace LanosCertifiedStore.Application.VehicleColors;
 
 public sealed class VehicleColorFilteringRequestParameters : BaseFilteringRequestParameters<VehicleColor>;

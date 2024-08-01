@@ -1,9 +1,9 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.VehicleTypes.Queries.CollectionVehicleTypesQueryRelated;
+namespace LanosCertifiedStore.Application.VehicleTypes.Queries.CollectionVehicleTypesQueryRelated;
 
-internal sealed class CollectionVehicleTypesQueryRequestHandler(IVehicleTypeService vehicleTypeService) : 
+internal sealed class CollectionVehicleTypesQueryRequestHandler(IVehicleTypeService vehicleTypeService) :
     IRequestHandler<CollectionVehicleTypesQueryRequest, Result<PaginationResult<VehicleTypeDto>>>
 {
     public async Task<Result<PaginationResult<VehicleTypeDto>>> Handle(
@@ -11,7 +11,8 @@ internal sealed class CollectionVehicleTypesQueryRequestHandler(IVehicleTypeServ
     {
         var types = await vehicleTypeService.GetVehicleTypeCollection(request, cancellationToken);
 
-        return Result<PaginationResult<VehicleTypeDto>>.Success(
-            new PaginationResult<VehicleTypeDto>(types, request.FilteringParameters.PageIndex));
+        var paginationResult = new PaginationResult<VehicleTypeDto>(types, request.FilteringParameters.PageIndex);
+
+        return paginationResult;
     }
 }

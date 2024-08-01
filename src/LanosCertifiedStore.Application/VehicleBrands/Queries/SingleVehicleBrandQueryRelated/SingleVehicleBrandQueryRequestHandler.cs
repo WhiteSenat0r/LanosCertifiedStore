@@ -1,8 +1,8 @@
-﻿using Application.Shared.ResultRelated;
-using Application.VehicleBrands.Dtos;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Dtos;
 using MediatR;
 
-namespace Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
+namespace LanosCertifiedStore.Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
 
 internal sealed class SingleVehicleBrandQueryRequestHandler(IVehicleBrandService vehicleBrandService) : 
     IRequestHandler<SingleVehicleBrandQueryRequest, Result<SingleVehicleBrandDto>>

@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Domain.Contracts.Common;
+using LanosCertifiedStore.Domain.Contracts.Common;
 
 namespace ArchitectureTests.Domain;
 

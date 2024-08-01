@@ -1,11 +1,11 @@
-﻿using Application.VehicleModels.Commands.UpdateVehicleModelRelated;
-using Domain.Contracts.Common;
-using Domain.Entities.VehicleRelated;
-using Domain.Entities.VehicleRelated.TypeRelated;
+﻿using LanosCertifiedStore.Application.VehicleModels.Commands.UpdateVehicleModelRelated;
+using LanosCertifiedStore.Domain.Contracts.Common;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Contexts.ApplicationDatabaseContext;
 
-namespace Persistence.Commands.VehicleModelRelated;
+namespace LanosCertifiedStore.Persistence.Commands.VehicleModelRelated;
 
 public sealed class UpdateVehicleModelCommand(ApplicationDatabaseContext context)
 {

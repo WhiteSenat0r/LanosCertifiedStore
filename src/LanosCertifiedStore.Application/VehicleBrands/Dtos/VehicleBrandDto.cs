@@ -1,5 +1,5 @@
-﻿using Application.Shared.DtosRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
 
-namespace Application.VehicleBrands.Dtos;
+namespace LanosCertifiedStore.Application.VehicleBrands.Dtos;
 
 public sealed record VehicleBrandDto : VehicleAspectDto;

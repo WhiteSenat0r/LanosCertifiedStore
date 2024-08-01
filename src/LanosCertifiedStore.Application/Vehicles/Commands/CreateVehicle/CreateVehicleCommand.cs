@@ -1,8 +1,8 @@
-﻿using Application.Shared.ResultRelated;
-using Application.Vehicles.Commands.Common;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.Vehicles.Commands.Common;
 using MediatR;
 
-namespace Application.Vehicles.Commands.CreateVehicle;
+namespace LanosCertifiedStore.Application.Vehicles.Commands.CreateVehicle;
 
 public record CreateVehicleCommand(
     Guid ModelId,

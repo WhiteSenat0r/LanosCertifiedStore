@@ -1,4 +1,4 @@
-﻿namespace API.Controllers.Common;
+﻿namespace LanosCertifiedStore.Presentation.Controllers.Common;
 
 // public abstract class BaseIdentityRelatedController : BaseApiController
 // {

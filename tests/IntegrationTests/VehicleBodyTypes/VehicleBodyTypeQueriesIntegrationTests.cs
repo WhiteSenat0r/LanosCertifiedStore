@@ -1,7 +1,8 @@
-﻿using Application.Shared.RequestParamsRelated;
-using Application.VehicleBodyTypes;
-using Application.VehicleBodyTypes.Queries.CollectionVehicleBodyTypesQueryRelated;
-using IntegrationTests.Common;
+﻿using IntegrationTests.Common;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.VehicleBodyTypes;
+using LanosCertifiedStore.Application.VehicleBodyTypes.Queries.CollectionVehicleBodyTypesQueryRelated;
 
 namespace IntegrationTests.VehicleBodyTypes;
 
@@ -26,7 +27,7 @@ public sealed class VehicleBodyTypeQueriesIntegrationTests(
 
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
 

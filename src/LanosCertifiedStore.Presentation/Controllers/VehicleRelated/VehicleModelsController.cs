@@ -1,41 +1,45 @@
-﻿using API.Controllers.Common;
-using Application.Shared.DtosRelated;
-using Application.Shared.ResultRelated;
-using Application.Shared.ValidationRelated;
-using Application.VehicleModels;
-using Application.VehicleModels.Commands.CreateVehicleModelRelated;
-using Application.VehicleModels.Commands.UpdateVehicleModelRelated;
-using Application.VehicleModels.Dtos;
-using Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
-using Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
-using Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
-using Application.VehicleModels.Queries.SingleVehicleModelQueryRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.Shared.ValidationRelated;
+using LanosCertifiedStore.Application.VehicleModels;
+using LanosCertifiedStore.Application.VehicleModels.Commands.CreateVehicleModelRelated;
+using LanosCertifiedStore.Application.VehicleModels.Commands.UpdateVehicleModelRelated;
+using LanosCertifiedStore.Application.VehicleModels.Dtos;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
+using LanosCertifiedStore.Application.VehicleModels.Queries.SingleVehicleModelQueryRelated;
+using LanosCertifiedStore.Infrastructure.Authorization;
+using LanosCertifiedStore.Presentation.Controllers.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.VehicleRelated;
+namespace LanosCertifiedStore.Presentation.Controllers.VehicleRelated;
 
-[Route("api/Models")]
+[Route("api/models")]
 public sealed class VehicleModelsController : BaseApiController
 {
+    [AllowAnonymous]
     [HttpGet]
     [ProducesResponseType(typeof(PaginationResult<VehicleModelDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<PaginationResult<VehicleModelDto>>> GetModels(
         [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
     {
-        var result = await Mediator.Send(new CollectionVehicleModelsQueryRequest(requestParameters));
-        
+        var result = await Sender.Send(new CollectionVehicleModelsQueryRequest(requestParameters));
+
         return Ok(result.Value);
     }
-    
-    [HttpGet("Brandless")]
+
+    [AllowAnonymous]
+    [HttpGet("brandless")]
     [ProducesResponseType(typeof(PaginationResult<VehicleModelDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<PaginationResult<VehicleModelDto>>> GetBrandlessModels(
         [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
     {
-        var result = await Mediator.Send(new CollectionBrandlessVehicleModelsQueryRequest(requestParameters));
-        
+        var result = await Sender.Send(new CollectionBrandlessVehicleModelsQueryRequest(requestParameters));
+
         return Ok(result.Value);
     }
 
@@ -44,7 +48,7 @@ public sealed class VehicleModelsController : BaseApiController
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<SingleVehicleModelDto>> GetModel(Guid id)
     {
-        var result = await Mediator.Send(new SingleVehicleModelQueryRequest(id));
+        var result = await Sender.Send(new SingleVehicleModelQueryRequest(id));
 
         if (result.IsSuccess)
         {
@@ -54,23 +58,25 @@ public sealed class VehicleModelsController : BaseApiController
         return NotFound(CreateNotFoundProblemDetails(result.Error!));
     }
 
-    [HttpGet("CountItems")]
+    [AllowAnonymous]
+    [HttpGet("count")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ItemsCountDto>> GetModelsCount(
         [FromQuery] VehicleModelFilteringRequestParameters requestParameters)
     {
-        var result = await Mediator.Send(new CountVehicleModelsQueryRequest(requestParameters));
-        
+        var result = await Sender.Send(new CountVehicleModelsQueryRequest(requestParameters));
+
         return Ok(result.Value);
     }
-    
+
     [HttpPost]
+    [HasAccessPermission("models:create")]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> CreateBrand([FromBody] CreateVehicleModelCommandRequest createVehicleCommandRequest)
     {
-        var result = await Mediator.Send(createVehicleCommandRequest);
+        var result = await Sender.Send(createVehicleCommandRequest);
 
         if (result is IValidationResult validationResult)
         {
@@ -84,15 +90,22 @@ public sealed class VehicleModelsController : BaseApiController
 
         return CreatedAtRoute("GetBrandById", new { id = result.Value }, result.Value);
     }
-    
-    [HttpPut]
+
+    [HttpPut("{id:guid}")]
+    [HasAccessPermission("models:update")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> UpdateModel(
-        [FromBody] UpdateVehicleModelCommandRequest updateVehicleModelCommandRequest)
+        Guid id,
+        [FromBody] UpdateVehicleModelCommandRequest request)
     {
-        var result = await Mediator.Send(updateVehicleModelCommandRequest);
+        request = request with
+        {
+            Id = id
+        };
+        
+        var result = await Sender.Send(request);
 
         if (result is IValidationResult validationResult)
         {

@@ -1,12 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <RootNamespace>Application</RootNamespace>
-    </PropertyGroup>
-
     <ItemGroup>
       <ProjectReference Include="..\LanosCertifiedStore.Domain\LanosCertifiedStore.Domain.csproj" />
     </ItemGroup>
@@ -32,9 +25,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Identity\Commands\" />
-      <Folder Include="Identity\Dtos\" />
-      <Folder Include="Identity\Queries\" />
       <Folder Include="Images\Commands\" />
       <Folder Include="LocationRegions\Queries\" />
       <Folder Include="LocationTowns\Queries\" />

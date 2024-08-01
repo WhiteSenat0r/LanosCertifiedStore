@@ -1,6 +1,6 @@
-﻿using Application.Images;
+﻿using LanosCertifiedStore.Application.Images;
 
-namespace Application.Vehicles.Dtos;
+namespace LanosCertifiedStore.Application.Vehicles.Dtos;
 
 public sealed record VehicleDto
 {

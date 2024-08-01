@@ -1,18 +1,18 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
+namespace LanosCertifiedStore.Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
 
 internal sealed class UpdateVehicleBrandCommandRequestHandler(IVehicleBrandService brandService)
-    : IRequestHandler<UpdateVehicleBrandCommandRequest, Result<Unit>>
+    : IRequestHandler<UpdateVehicleBrandCommandRequest, Result>
 {
-    public async Task<Result<Unit>> Handle(UpdateVehicleBrandCommandRequest request,
+    public async Task<Result> Handle(UpdateVehicleBrandCommandRequest request,
         CancellationToken cancellationToken)
     {
         try
         {
             await brandService.UpdateVehicleBrand(request, cancellationToken);
-            return Result<Unit>.Success(Unit.Value);
+            return Result.Create(Error.None);
         }
         catch (KeyNotFoundException)
         {

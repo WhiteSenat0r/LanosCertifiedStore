@@ -1,12 +1,12 @@
 ﻿using System.Globalization;
-using Application.Shared.ResultRelated;
-using Application.VehicleModels;
-using Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
-using Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
-using Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
-using Application.VehicleModels.Queries.SingleVehicleModelQueryRelated;
-using Domain.Entities.VehicleRelated;
 using IntegrationTests.Common;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.VehicleModels;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
+using LanosCertifiedStore.Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
+using LanosCertifiedStore.Application.VehicleModels.Queries.SingleVehicleModelQueryRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntegrationTests.VehicleModels;
@@ -42,7 +42,7 @@ public sealed class VehicleModelQueriesIntegrationTests(
 
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
 
@@ -81,7 +81,7 @@ public sealed class VehicleModelQueriesIntegrationTests(
 
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
 
@@ -110,7 +110,7 @@ public sealed class VehicleModelQueriesIntegrationTests(
         result.IsSuccess
             .Should().BeTrue();
         result.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
 
         result.Value!.Name
             .Should().Be(vehicleModel.Name);
@@ -142,7 +142,7 @@ public sealed class VehicleModelQueriesIntegrationTests(
     {
         // Arrange
         var brandId = (await Context.Set<VehicleBrand>().FirstAsync()).Id;
-        
+
         var totalModelsCount = await Context
             .Set<VehicleModel>()
             .CountAsync();
@@ -151,7 +151,7 @@ public sealed class VehicleModelQueriesIntegrationTests(
             .Set<VehicleModel>()
             .Where(m => m.VehicleBrandId == brandId)
             .CountAsync();
-        
+
         var filteringRequestParameters = new VehicleModelFilteringRequestParameters
         {
             VehicleBrandId = brandId,
@@ -163,12 +163,12 @@ public sealed class VehicleModelQueriesIntegrationTests(
 
         // Act
         var result = await Sender.Send(request);
-        
+
         // Assert
         result.IsSuccess
             .Should().BeTrue();
         result.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
 
         result.Value!.FilteredItemsCount
             .Should().Be(filteredModelsCount);

@@ -1,10 +1,10 @@
 ﻿using System.Linq.Expressions;
-using Application.Shared.ValidationRelated;
-using Domain.Contracts.Common;
+using LanosCertifiedStore.Application.Shared.ValidationRelated;
+using LanosCertifiedStore.Domain.Contracts.Common;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Contexts.ApplicationDatabaseContext;
 
-namespace Persistence.Services;
+namespace LanosCertifiedStore.Persistence.Services;
 
 internal sealed class ValidationHelper(
     ApplicationDatabaseContext context) : IValidationHelper

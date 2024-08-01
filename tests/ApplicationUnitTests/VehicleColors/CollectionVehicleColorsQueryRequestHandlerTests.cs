@@ -1,6 +1,6 @@
-﻿using Application.Shared.ResultRelated;
-using Application.VehicleColors;
-using Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.VehicleColors;
+using LanosCertifiedStore.Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
 
 namespace ApplicationUnitTests.VehicleColors;
 

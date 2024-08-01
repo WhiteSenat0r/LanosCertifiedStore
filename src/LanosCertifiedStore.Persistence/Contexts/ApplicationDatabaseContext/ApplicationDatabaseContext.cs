@@ -1,10 +1,10 @@
 ﻿using System.Reflection;
-using Domain.Entities.VehicleRelated;
-using Domain.Entities.VehicleRelated.LocationRelated;
-using Domain.Entities.VehicleRelated.TypeRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 using Microsoft.EntityFrameworkCore;
 
-namespace Persistence.Contexts.ApplicationDatabaseContext;
+namespace LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 
 public sealed class ApplicationDatabaseContext(
     DbContextOptions<ApplicationDatabaseContext> options) : DbContext(options)
@@ -24,9 +24,6 @@ public sealed class ApplicationDatabaseContext(
     internal DbSet<VehicleLocationArea> VehicleLocationAreas { get; set; } = null!;
     internal DbSet<VehicleLocationRegion> VehicleLocationRegions { get; set; } = null!;
     internal DbSet<VehicleImage> VehicleImages { get; set; } = null!;
-    // internal DbSet<User> Users { get; set; } = null!;
-    // internal DbSet<UserRole> Roles { get; set; } = null!;
-    // internal DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

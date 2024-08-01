@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Middlewares.ExceptionRelated.Common.Classes;
+namespace LanosCertifiedStore.Presentation.Middlewares.ExceptionRelated.Common.Classes;
 
 internal abstract class ExceptionHandlerBase<TException>(
     ILogger<ExceptionHandlerBase<TException>> logger,

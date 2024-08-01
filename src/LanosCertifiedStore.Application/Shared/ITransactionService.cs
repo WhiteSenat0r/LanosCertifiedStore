@@ -1,4 +1,4 @@
-﻿namespace Application.Shared;
+﻿namespace LanosCertifiedStore.Application.Shared;
 
 public interface ITransactionService
 {

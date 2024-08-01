@@ -1,23 +1,25 @@
-﻿using API.Controllers.Common;
-using Application.LocationRegions;
-using Application.LocationRegions.Dtos;
-using Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
-using Application.Shared.RequestParamsRelated;
-using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.LocationRegions;
+using LanosCertifiedStore.Application.LocationRegions.Dtos;
+using LanosCertifiedStore.Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Presentation.Controllers.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.LocationRelated;
+namespace LanosCertifiedStore.Presentation.Controllers.LocationRelated;
 
-[Route("api/LocationRegions")]
+[Route("api/location-regions")]
 public sealed class VehicleLocationRegionsController : BaseApiController
 {
+    [AllowAnonymous]
     [HttpGet]
     [ProducesResponseType(typeof(PaginationResult<LocationRegionDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<PaginationResult<LocationRegionDto>>> GetRegions(
         [FromQuery] string? sortingType)
     {
-        var result = await Mediator.Send(new CollectionLocationRegionsQueryRequest(
+        var result = await Sender.Send(new CollectionLocationRegionsQueryRequest(
             new VehicleLocationRegionFilteringRequestParameters 
             {
                 ItemQuantity = ItemQuantitySelection.Fifty,

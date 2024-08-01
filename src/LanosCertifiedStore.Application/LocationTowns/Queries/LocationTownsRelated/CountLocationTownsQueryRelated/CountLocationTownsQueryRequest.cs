@@ -1,8 +1,8 @@
-﻿using Application.Shared.RequestParamsRelated;
-using Application.Shared.RequestRelated.QueryRelated;
-using Domain.Entities.VehicleRelated.LocationRelated;
+﻿using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
 
-namespace Application.LocationTowns.Queries.LocationTownsRelated.CountLocationTownsQueryRelated;
+namespace LanosCertifiedStore.Application.LocationTowns.Queries.LocationTownsRelated.CountLocationTownsQueryRelated;
 
 public sealed record CountLocationTownsQueryRequest(
     IFilteringRequestParameters<VehicleLocationTown> FilteringParameters) : 

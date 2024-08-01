@@ -1,6 +1,6 @@
-﻿using Application.VehicleBodyTypes.Queries.CollectionVehicleBodyTypesQueryRelated;
+﻿using LanosCertifiedStore.Application.VehicleBodyTypes.Queries.CollectionVehicleBodyTypesQueryRelated;
 
-namespace Application.VehicleBodyTypes;
+namespace LanosCertifiedStore.Application.VehicleBodyTypes;
 
 public interface IVehicleBodyTypeService
 {

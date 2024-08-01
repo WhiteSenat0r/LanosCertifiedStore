@@ -1,4 +1,4 @@
-﻿namespace Application.Vehicles.Queries.VehicleDetailsQueryRelated;
+﻿namespace LanosCertifiedStore.Application.Vehicles.Queries.VehicleDetailsQueryRelated;
 
 // TODO
 // internal sealed class VehicleDetailsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :

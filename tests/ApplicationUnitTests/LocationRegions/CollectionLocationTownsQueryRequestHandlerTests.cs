@@ -1,7 +1,7 @@
-﻿using Application.LocationRegions;
-using Application.LocationRegions.Dtos;
-using Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
-using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.LocationRegions;
+using LanosCertifiedStore.Application.LocationRegions.Dtos;
+using LanosCertifiedStore.Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 
 namespace ApplicationUnitTests.LocationRegions;
 

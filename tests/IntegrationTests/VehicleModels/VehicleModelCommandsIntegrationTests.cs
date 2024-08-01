@@ -1,8 +1,9 @@
-﻿using Application.VehicleModels.Commands.CreateVehicleModelRelated;
-using Application.VehicleModels.Commands.UpdateVehicleModelRelated;
-using Domain.Entities.VehicleRelated;
-using Domain.Entities.VehicleRelated.TypeRelated;
-using IntegrationTests.Common;
+﻿using IntegrationTests.Common;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.VehicleModels.Commands.CreateVehicleModelRelated;
+using LanosCertifiedStore.Application.VehicleModels.Commands.UpdateVehicleModelRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntegrationTests.VehicleModels;
@@ -24,7 +25,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
 
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
         response.Value
@@ -78,7 +79,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
         
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
         newUpdatedModel.AvailableEngineTypes

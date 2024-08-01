@@ -1,12 +1,12 @@
-﻿using Application.Shared.DtosRelated;
-using Application.Shared.RequestRelated.QueryRelated;
-using Domain.Contracts.Common;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Domain.Contracts.Common;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
+using LanosCertifiedStore.Persistence.Queries.Common.Contracts;
+using LanosCertifiedStore.Persistence.Queries.Common.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.Queries.Common.Contracts;
-using Persistence.Queries.Common.Extensions;
 
-namespace Persistence.Queries.Common.Classes.QueryBaseRelated;
+namespace LanosCertifiedStore.Persistence.Queries.Common.Classes.QueryBaseRelated;
 
 public abstract class CountQueryBase<TEntity>
     where TEntity : class, IIdentifiable<Guid>

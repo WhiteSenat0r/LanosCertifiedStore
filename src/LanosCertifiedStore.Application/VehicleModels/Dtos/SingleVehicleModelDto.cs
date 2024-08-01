@@ -1,10 +1,10 @@
-﻿using Application.Shared.DtosRelated;
-using Application.VehicleBodyTypes;
-using Application.VehicleDrivetrainTypes;
-using Application.VehicleEngineTypes;
-using Application.VehicleTransmissionTypes;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.VehicleBodyTypes;
+using LanosCertifiedStore.Application.VehicleDrivetrainTypes;
+using LanosCertifiedStore.Application.VehicleEngineTypes;
+using LanosCertifiedStore.Application.VehicleTransmissionTypes;
 
-namespace Application.VehicleModels.Dtos;
+namespace LanosCertifiedStore.Application.VehicleModels.Dtos;
 
 public sealed record SingleVehicleModelDto : VehicleAspectDto
 {

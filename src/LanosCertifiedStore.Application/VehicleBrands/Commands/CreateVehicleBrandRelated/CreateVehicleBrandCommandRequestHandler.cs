@@ -1,7 +1,7 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
+namespace LanosCertifiedStore.Application.VehicleBrands.Commands.CreateVehicleBrandRelated;
 
 internal sealed class CreateVehicleBrandCommandRequestHandler(IVehicleBrandService vehicleBrandService) : 
     IRequestHandler<CreateVehicleBrandCommandRequest, Result<Guid>>
@@ -12,6 +12,6 @@ internal sealed class CreateVehicleBrandCommandRequestHandler(IVehicleBrandServi
     {
         var createdBrandId = await vehicleBrandService.AddNewVehicleBrand(request, cancellationToken);
 
-        return Result<Guid>.Success(createdBrandId);
+        return createdBrandId;
     }
 }

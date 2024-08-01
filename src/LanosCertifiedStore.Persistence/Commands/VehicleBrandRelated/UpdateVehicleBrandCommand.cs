@@ -1,7 +1,7 @@
-﻿using Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
-using Persistence.Contexts.ApplicationDatabaseContext;
+﻿using LanosCertifiedStore.Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 
-namespace Persistence.Commands.VehicleBrandRelated;
+namespace LanosCertifiedStore.Persistence.Commands.VehicleBrandRelated;
 
 public sealed class UpdateVehicleBrandCommand(ApplicationDatabaseContext context)
 {

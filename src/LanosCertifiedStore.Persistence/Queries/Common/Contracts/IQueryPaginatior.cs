@@ -1,7 +1,7 @@
-﻿using Application.Shared.RequestParamsRelated;
-using Domain.Contracts.Common;
+﻿using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Domain.Contracts.Common;
 
-namespace Persistence.Queries.Common.Contracts;
+namespace LanosCertifiedStore.Persistence.Queries.Common.Contracts;
 
 public interface IQueryPaginator
 {

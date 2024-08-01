@@ -1,7 +1,7 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.VehicleEngineTypes.Queries.CollectionVehicleEngineTypesQueryRelated;
+namespace LanosCertifiedStore.Application.VehicleEngineTypes.Queries.CollectionVehicleEngineTypesQueryRelated;
 
 internal sealed class CollectionVehicleEngineTypesQueryRequestHandler(
     IVehicleEngineTypeService vehicleEngineTypeService)
@@ -15,6 +15,6 @@ internal sealed class CollectionVehicleEngineTypesQueryRequestHandler(
         var paginationResult =
             new PaginationResult<VehicleEngineTypeDto>(bodyTypes, request.FilteringParameters.PageIndex);
 
-        return Result<PaginationResult<VehicleEngineTypeDto>>.Success(paginationResult);
+        return paginationResult;
     }
 }

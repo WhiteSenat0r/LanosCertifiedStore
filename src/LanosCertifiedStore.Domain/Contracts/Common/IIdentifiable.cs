@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Domain.Contracts.Common;
+namespace LanosCertifiedStore.Domain.Contracts.Common;
 
 public interface IIdentifiable<TKey> where TKey : struct
 {

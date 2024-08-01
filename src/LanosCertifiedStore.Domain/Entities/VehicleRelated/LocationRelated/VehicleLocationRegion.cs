@@ -1,8 +1,8 @@
-﻿using Domain.Entities.Common.Classes;
+﻿using LanosCertifiedStore.Domain.Entities.Common.Classes;
 
-namespace Domain.Entities.VehicleRelated.LocationRelated;
+namespace LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
 
-public sealed class VehicleLocationRegion : NamedVehicleAspect
+public sealed class VehicleLocationRegion : NamedAspect
 {
     public ICollection<VehicleLocationArea> RelatedAreas { get; set; } = [];
     public ICollection<VehicleLocationTown> RelatedTowns { get; set; } = [];

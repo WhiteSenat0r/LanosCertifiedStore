@@ -1,7 +1,7 @@
-﻿using Application.Shared.RequestParamsRelated;
-using Domain.Entities.VehicleRelated.TypeRelated;
+﻿using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 
-namespace Application.VehicleTransmissionTypes;
+namespace LanosCertifiedStore.Application.VehicleTransmissionTypes;
 
 public sealed class VehicleTransmissionTypeFilteringRequestParameters : 
     BaseFilteringRequestParameters<VehicleTransmissionType>;

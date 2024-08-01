@@ -1,7 +1,7 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.VehicleModels.Commands.CreateVehicleModelRelated;
+namespace LanosCertifiedStore.Application.VehicleModels.Commands.CreateVehicleModelRelated;
 
 internal sealed class CreateVehicleModelCommandRequestHandler(IVehicleModelService vehicleModelService) :
     IRequestHandler<CreateVehicleModelCommandRequest, Result<Guid>>
@@ -12,6 +12,6 @@ internal sealed class CreateVehicleModelCommandRequestHandler(IVehicleModelServi
     {
         var createdModelId = await vehicleModelService.AddNewVehicleModel(request, cancellationToken);
 
-        return Result<Guid>.Success(createdModelId);
+        return createdModelId;
     }
 }

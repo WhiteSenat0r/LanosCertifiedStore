@@ -1,9 +1,9 @@
-﻿using Application.LocationTowns.Dtos;
-using Application.LocationTowns.Queries.LocationTownsRelated.CollectionLocationTownsQueryRequestRelated;
-using Application.LocationTowns.Queries.LocationTownsRelated.CountLocationTownsQueryRelated;
-using Application.Shared.DtosRelated;
+﻿using LanosCertifiedStore.Application.LocationTowns.Dtos;
+using LanosCertifiedStore.Application.LocationTowns.Queries.LocationTownsRelated.CollectionLocationTownsQueryRequestRelated;
+using LanosCertifiedStore.Application.LocationTowns.Queries.LocationTownsRelated.CountLocationTownsQueryRelated;
+using LanosCertifiedStore.Application.Shared.DtosRelated;
 
-namespace Application.LocationTowns;
+namespace LanosCertifiedStore.Application.LocationTowns;
 
 public interface ILocationTownService
 {

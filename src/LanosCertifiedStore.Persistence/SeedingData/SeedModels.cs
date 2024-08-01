@@ -1,8 +1,8 @@
-﻿using Domain.Entities.Common.Classes;
-using Domain.Entities.VehicleRelated;
-using Domain.Entities.VehicleRelated.TypeRelated;
+﻿using LanosCertifiedStore.Domain.Entities.Common.Classes;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 
-namespace Persistence.SeedingData;
+namespace LanosCertifiedStore.Persistence.SeedingData;
 
 internal static class SeedModels
 {
@@ -564,7 +564,7 @@ internal static class SeedModels
     private static List<T> GetItemsWithParticularValues<T>(
         IEnumerable<T> collection,
         IEnumerable<string> nameValues,
-        bool skipMode = false) where T : NamedVehicleAspect =>
+        bool skipMode = false) where T : NamedAspect =>
         skipMode
             ? collection.Where(item => !nameValues.Contains(item.Name)).ToList()
             : collection.Where(item => nameValues.Contains(item.Name)).ToList();

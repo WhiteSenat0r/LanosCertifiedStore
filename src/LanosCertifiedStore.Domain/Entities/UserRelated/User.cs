@@ -1,24 +1,21 @@
-﻿namespace Domain.Entities.UserRelated;
+﻿using LanosCertifiedStore.Domain.Contracts.Common;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-public sealed class User;
-// {
-//     public Guid Id { get; init; } = Guid.NewGuid();
-//     public string FirstName { get; set; } = default!;
-//     public string LastName { get; set; } = default!;
-//     [EmailAddress(ErrorMessage = "Property must be of email type!")]
-//     public string Email { get; set; } = default!;
-//     public string PasswordHash { get; set; } = default!;
-//     public ICollection<UserRole> Roles { get; set; } = [];
-//     // TODO Implement relationship later
-//     // public ICollection<Vehicle> Vehicles { get; set; } = [];
-//
-//     public User() { }
-//
-//     public User(string firstName, string lastName, string email, string passwordHash)
-//     {
-//         FirstName = firstName;
-//         LastName = lastName;
-//         Email = email;
-//         PasswordHash = passwordHash;
-//     }
-// }
+namespace LanosCertifiedStore.Domain.Entities.UserRelated;
+
+public sealed class User : IIdentifiable<Guid>
+{
+    public Guid Id { get; init; } 
+    public UserRole UserRole { get; set; }
+    public ICollection<Vehicle> Vehicles { get; set; } = [];
+
+    public User()
+    {
+    }
+
+    public User(Guid id)
+    {
+        Id = id;
+        UserRole = UserRole.User;
+    }
+}

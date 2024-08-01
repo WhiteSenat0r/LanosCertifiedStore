@@ -1,6 +1,6 @@
-﻿using Persistence.Contexts.ApplicationDatabaseContext;
+﻿using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 
-namespace Persistence.Commands.Common;
+namespace LanosCertifiedStore.Persistence.Commands.Common;
 
 public class SaveChangesCommand(ApplicationDatabaseContext context)
 {

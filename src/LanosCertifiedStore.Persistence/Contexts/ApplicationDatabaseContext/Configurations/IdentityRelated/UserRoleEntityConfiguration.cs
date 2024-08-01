@@ -1,23 +1,18 @@
-﻿namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.IdentityRelated;
+﻿using LanosCertifiedStore.Domain.Entities.UserRelated;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-// TODO
-// internal sealed class UserRoleEntityConfiguration : IEntityTypeConfiguration<UserRole>
-// {
-//     public void Configure(EntityTypeBuilder<UserRole> builder)
-//     {
-//         builder.HasIndex(x => x.Name).IsUnique();
-//
-//         builder.Property(x => x.Name)
-//             .IsRequired()
-//             .HasMaxLength(64);
-//
-//         var roles = new List<UserRole>
-//         {
-//             new("Користувач"),
-//             new("Адміністратор")
-//         };
-//         
-//         builder.HasData(roles);
-//         builder.ToTable("UserRoles");
-//     }
-// }
+namespace LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext.Configurations.IdentityRelated;
+
+internal sealed class UserRoleEntityConfiguration : IEntityTypeConfiguration<UserRole>
+{
+    public void Configure(EntityTypeBuilder<UserRole> builder)
+    {
+        builder.HasKey(x => x.Name);
+        
+        builder.Property(x => x.Name).HasMaxLength(64);
+        
+        builder.HasData(UserRole.User, UserRole.Manager, UserRole.Administrator);
+        builder.ToTable("UserRoles", DatabaseSchemas.IdentitySchema);
+    }
+}

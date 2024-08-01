@@ -1,15 +1,21 @@
-﻿namespace Domain.Entities.UserRelated;
+﻿namespace LanosCertifiedStore.Domain.Entities.UserRelated;
 
-// TODO
-public class UserRole
+public sealed class UserRole
 {
-    // public Guid Id { get; init; } = Guid.NewGuid();
-    // public string Name { get; set; } = default!;
-    // public ICollection<User> Users { get; set; } = [];
-    //
-    // public UserRole() { }
-    //
-    // public UserRole(string name) => Name = name;
-    //
-    // public override string ToString() => Name;
+    public static readonly UserRole Administrator = new("Administrator");
+    public static readonly UserRole Manager = new("Manager");
+    public static readonly UserRole User = new("User");
+
+    public UserRole()
+    {
+    }
+
+    public UserRole(string name)
+    {
+        Name = name;
+    }
+
+    public string Name { get; init; }
+    public ICollection<User> Users { get; init; } = [];
+    public override string ToString() => Name;
 }

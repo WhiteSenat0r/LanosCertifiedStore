@@ -1,8 +1,8 @@
-﻿using Domain.Entities.VehicleRelated.LocationRelated;
+﻿using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Persistence.Contexts.ApplicationDatabaseContext.Configurations.LocationRelated;
+namespace LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext.Configurations.LocationRelated;
 
 internal sealed class VehicleLocationAreaConfiguration : IEntityTypeConfiguration<VehicleLocationArea>
 {
@@ -13,5 +13,6 @@ internal sealed class VehicleLocationAreaConfiguration : IEntityTypeConfiguratio
             .HasMaxLength(64);
 
         builder.HasIndex(p => p.Name);
+        builder.ToTable("VehicleLocationAreas", DatabaseSchemas.LocationsSchema);
     }
 }

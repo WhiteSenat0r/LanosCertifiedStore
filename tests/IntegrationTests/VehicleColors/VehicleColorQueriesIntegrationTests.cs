@@ -1,8 +1,9 @@
 ﻿using System.Globalization;
-using Application.Shared.RequestParamsRelated;
-using Application.VehicleColors;
-using Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
 using IntegrationTests.Common;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.VehicleColors;
+using LanosCertifiedStore.Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
 
 namespace IntegrationTests.VehicleColors;
 
@@ -26,7 +27,8 @@ public sealed class VehicleColorQueriesIntegrationTests(
         var colors = response.Value!.Items;
 
         // Assert
-        response.Error.Should().BeNull();
+        response.Error.Should()
+.Be(Error.None);
         response.IsSuccess.Should().BeTrue();
 
         colors

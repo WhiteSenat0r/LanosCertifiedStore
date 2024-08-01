@@ -1,8 +1,8 @@
-﻿using Application.Shared.DtosRelated;
-using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
+namespace LanosCertifiedStore.Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
 
 internal sealed class CountVehicleModelsQueryRequestHandler(IVehicleModelService vehicleModelService) :
     IRequestHandler<CountVehicleModelsQueryRequest, Result<ItemsCountDto>>
@@ -12,6 +12,6 @@ internal sealed class CountVehicleModelsQueryRequestHandler(IVehicleModelService
     {
         var count = await vehicleModelService.GetVehicleModelsCount(request, cancellationToken);
 
-        return Result<ItemsCountDto>.Success(count);
+        return count;
     }
 }

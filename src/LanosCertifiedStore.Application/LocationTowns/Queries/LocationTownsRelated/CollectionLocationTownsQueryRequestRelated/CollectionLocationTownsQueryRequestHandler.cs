@@ -1,8 +1,8 @@
-﻿using Application.LocationTowns.Dtos;
-using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.LocationTowns.Dtos;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.LocationTowns.Queries.LocationTownsRelated.CollectionLocationTownsQueryRequestRelated;
+namespace LanosCertifiedStore.Application.LocationTowns.Queries.LocationTownsRelated.CollectionLocationTownsQueryRequestRelated;
 
 internal sealed class CollectionLocationTownsQueryRequestHandler(
     ILocationTownService locationTownService) :
@@ -18,6 +18,6 @@ internal sealed class CollectionLocationTownsQueryRequestHandler(
             locationTowns,
             request.FilteringParameters.PageIndex);
 
-        return Result<PaginationResult<LocationTownDto>>.Success(paginationResult);
+        return paginationResult;
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Application.Vehicles.Queries.VehiclePriceRangeQueryRelated;
+﻿namespace LanosCertifiedStore.Application.Vehicles.Queries.VehiclePriceRangeQueryRelated;
 
 // TODO
 // internal sealed class VehiclePriceRangeQueryHandler(IUnitOfWork unitOfWork) :

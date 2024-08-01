@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using Application.Shared.RequestRelated;
-using Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Application.Shared.RequestRelated;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
 using MediatR;
 
 namespace ArchitectureTests.Application;

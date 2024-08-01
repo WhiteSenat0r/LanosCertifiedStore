@@ -1,4 +1,4 @@
-﻿namespace Application.Vehicles.Commands.CreateVehicle;
+﻿namespace LanosCertifiedStore.Application.Vehicles.Commands.CreateVehicle;
 
 // TODO
 // internal sealed class CreateVehicleCommandHandler : ActionVehicleCommandHandlerBase<Guid>,

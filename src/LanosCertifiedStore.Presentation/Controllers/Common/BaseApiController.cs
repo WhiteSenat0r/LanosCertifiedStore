@@ -1,17 +1,17 @@
 ﻿using System.Net;
-using Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.Common;
+namespace LanosCertifiedStore.Presentation.Controllers.Common;
 
 [ApiController]
 public abstract class BaseApiController : ControllerBase
 {
-    private IMediator? _mediator;
+    private ISender? _sender;
 
-    protected IMediator Mediator => (_mediator ??=
-        HttpContext.RequestServices.GetService<IMediator>())!;
+    protected ISender Sender => (_sender ??=
+        HttpContext.RequestServices.GetService<ISender>())!;
 
 
     private protected static ProblemDetails CreateValidationProblemDetails(Error error,

@@ -1,8 +1,8 @@
-﻿using Application.Shared.ResultRelated;
-using Application.Vehicles.Commands.Common;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.Vehicles.Commands.Common;
 using MediatR;
 
-namespace Application.Vehicles.Commands.UpdateVehicle;
+namespace LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicle;
 
 public record UpdateVehicleCommand(
     Guid Id,

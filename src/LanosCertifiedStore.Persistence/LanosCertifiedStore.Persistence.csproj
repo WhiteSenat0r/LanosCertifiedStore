@@ -4,7 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>Persistence</RootNamespace>
+        <RootNamespace>LanosCertifiedStore.Persistence</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,15 +15,12 @@
     <ItemGroup>
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
       <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="8.1.5" />
-      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.6.3" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.0.1" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Data\" />
-      <Folder Include="Data\Migrations\" />
       <Folder Include="Extensions\" />
-      <Folder Include="Repositories\VehicleRelated\QueryBuilderRelated\Common\" />
     </ItemGroup>
 
     <ItemGroup>

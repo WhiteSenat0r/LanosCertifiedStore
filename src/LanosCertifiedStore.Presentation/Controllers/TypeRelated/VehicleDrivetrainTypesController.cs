@@ -1,22 +1,25 @@
-﻿using API.Controllers.Common;
-using Application.Shared.RequestParamsRelated;
-using Application.Shared.ResultRelated;
-using Application.VehicleDrivetrainTypes;
-using Application.VehicleDrivetrainTypes.Queries.CollectionVehicleDrivetrainTypesQueryRequestRelated;
+﻿using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.VehicleDrivetrainTypes;
+using LanosCertifiedStore.Application.VehicleDrivetrainTypes.Queries.CollectionVehicleDrivetrainTypesQueryRequestRelated;
+using LanosCertifiedStore.Presentation.Controllers.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API.Controllers.TypeRelated;
+namespace LanosCertifiedStore.Presentation.Controllers.TypeRelated;
 
-[Route("api/DrivetrainTypes")]
+
+[Route("api/drivetrain-types")]
 public sealed class VehicleDrivetrainTypesController : BaseApiController
 {
+    [AllowAnonymous]
     [HttpGet]
     [ProducesResponseType(typeof(PaginationResult<VehicleDrivetrainTypeDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<PaginationResult<VehicleDrivetrainTypeDto>>> GetTypes(
         [FromQuery] string? sortingType)
     {
-        var result = await Mediator.Send(new CollectionVehicleDrivetrainTypesQueryRequest(
+        var result = await Sender.Send(new CollectionVehicleDrivetrainTypesQueryRequest(
             new VehicleDrivetrainTypeFilteringRequestParameters
             {
                 ItemQuantity = ItemQuantitySelection.TwentyFive,

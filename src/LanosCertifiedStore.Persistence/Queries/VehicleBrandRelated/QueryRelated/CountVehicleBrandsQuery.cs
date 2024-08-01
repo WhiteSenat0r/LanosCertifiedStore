@@ -1,10 +1,10 @@
-﻿using Application.Shared.DtosRelated;
-using Application.Shared.RequestRelated.QueryRelated;
-using Domain.Entities.VehicleRelated;
-using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.Queries.Common.Classes.QueryBaseRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
+using LanosCertifiedStore.Persistence.Queries.Common.Classes.QueryBaseRelated;
 
-namespace Persistence.Queries.VehicleBrandRelated.QueryRelated;
+namespace LanosCertifiedStore.Persistence.Queries.VehicleBrandRelated.QueryRelated;
 
 public sealed class CountVehicleBrandsQuery(ApplicationDatabaseContext context) : CountQueryBase<VehicleBrand>
 {

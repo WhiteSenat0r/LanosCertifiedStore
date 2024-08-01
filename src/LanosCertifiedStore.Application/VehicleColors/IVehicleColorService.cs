@@ -1,6 +1,6 @@
-﻿using Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
+﻿using LanosCertifiedStore.Application.VehicleColors.Queries.CollectionVehicleColorsQueryRequestRelated;
 
-namespace Application.VehicleColors;
+namespace LanosCertifiedStore.Application.VehicleColors;
 
 public interface IVehicleColorService
 {

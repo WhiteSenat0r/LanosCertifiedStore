@@ -1,4 +1,4 @@
-﻿namespace Application.Vehicles.Commands.UpdateVehicle;
+﻿namespace LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicle;
 
 // TODO
 // internal sealed class UpdateVehicleCommandHandler : 

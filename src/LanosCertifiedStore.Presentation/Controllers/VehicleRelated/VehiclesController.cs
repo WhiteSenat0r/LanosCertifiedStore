@@ -1,4 +1,4 @@
-﻿namespace API.Controllers.VehicleRelated;
+﻿namespace LanosCertifiedStore.Presentation.Controllers.VehicleRelated;
 
 // public sealed class VehiclesController : BaseModelRelatedApiController
 // {

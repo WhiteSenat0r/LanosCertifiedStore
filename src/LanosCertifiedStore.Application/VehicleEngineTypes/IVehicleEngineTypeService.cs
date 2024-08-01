@@ -1,6 +1,6 @@
-﻿using Application.VehicleEngineTypes.Queries.CollectionVehicleEngineTypesQueryRelated;
+﻿using LanosCertifiedStore.Application.VehicleEngineTypes.Queries.CollectionVehicleEngineTypesQueryRelated;
 
-namespace Application.VehicleEngineTypes;
+namespace LanosCertifiedStore.Application.VehicleEngineTypes;
 
 public interface IVehicleEngineTypeService
 {

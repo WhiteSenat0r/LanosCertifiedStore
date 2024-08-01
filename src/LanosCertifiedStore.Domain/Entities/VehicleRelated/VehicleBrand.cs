@@ -1,8 +1,8 @@
-﻿using Domain.Entities.Common.Classes;
+﻿using LanosCertifiedStore.Domain.Entities.Common.Classes;
 
-namespace Domain.Entities.VehicleRelated;
+namespace LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-public sealed class VehicleBrand : NamedVehicleAspect
+public sealed class VehicleBrand : NamedAspect
 {
     public ICollection<VehicleModel> Models { get; set; } = [];
     public ICollection<Vehicle> Vehicles { get; set; } = [];

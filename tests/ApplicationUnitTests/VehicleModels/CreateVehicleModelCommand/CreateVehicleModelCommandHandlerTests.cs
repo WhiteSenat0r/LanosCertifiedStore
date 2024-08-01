@@ -1,5 +1,5 @@
-﻿using Application.VehicleModels;
-using Application.VehicleModels.Commands.CreateVehicleModelRelated;
+﻿using LanosCertifiedStore.Application.VehicleModels;
+using LanosCertifiedStore.Application.VehicleModels.Commands.CreateVehicleModelRelated;
 
 namespace ApplicationUnitTests.VehicleModels.CreateVehicleModelCommand;
 

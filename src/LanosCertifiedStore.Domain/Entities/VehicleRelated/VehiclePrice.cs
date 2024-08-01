@@ -1,6 +1,6 @@
-﻿using Domain.Contracts.Common;
+﻿using LanosCertifiedStore.Domain.Contracts.Common;
 
-namespace Domain.Entities.VehicleRelated;
+namespace LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
 public sealed class VehiclePrice : IIdentifiable<Guid>
 {

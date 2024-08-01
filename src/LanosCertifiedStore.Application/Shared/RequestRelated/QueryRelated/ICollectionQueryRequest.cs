@@ -1,7 +1,7 @@
-﻿using Application.Shared.ResultRelated;
-using Domain.Contracts.Common;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Domain.Contracts.Common;
 
-namespace Application.Shared.RequestRelated.QueryRelated;
+namespace LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
 
 public interface ICollectionQueryRequest<TEntity, TRequestResult, TDto> :
     IQueryRequest<TEntity, Result<TRequestResult>>

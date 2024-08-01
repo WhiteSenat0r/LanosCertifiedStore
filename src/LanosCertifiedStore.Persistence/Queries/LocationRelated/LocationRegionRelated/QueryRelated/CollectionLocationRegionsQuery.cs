@@ -1,12 +1,12 @@
-﻿using Application.LocationRegions.Dtos;
-using Application.Shared.RequestRelated.QueryRelated;
-using AutoMapper;
-using Domain.Entities.VehicleRelated.LocationRelated;
-using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.Queries.Common.Classes.QueryBaseRelated;
-using Persistence.Queries.Common.Contracts;
+﻿using AutoMapper;
+using LanosCertifiedStore.Application.LocationRegions.Dtos;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
+using LanosCertifiedStore.Persistence.Queries.Common.Classes.QueryBaseRelated;
+using LanosCertifiedStore.Persistence.Queries.Common.Contracts;
 
-namespace Persistence.Queries.LocationRelated.LocationRegionRelated.QueryRelated;
+namespace LanosCertifiedStore.Persistence.Queries.LocationRelated.LocationRegionRelated.QueryRelated;
 
 public sealed class CollectionLocationRegionsQuery(
     ApplicationDatabaseContext context,

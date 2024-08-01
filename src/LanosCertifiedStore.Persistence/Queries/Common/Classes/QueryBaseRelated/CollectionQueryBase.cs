@@ -1,13 +1,13 @@
-﻿using Application.Shared.RequestRelated.QueryRelated;
-using AutoMapper;
+﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Domain.Contracts.Common;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Domain.Contracts.Common;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
+using LanosCertifiedStore.Persistence.Queries.Common.Contracts;
+using LanosCertifiedStore.Persistence.Queries.Common.Extensions;
 using Microsoft.EntityFrameworkCore;
-using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.Queries.Common.Contracts;
-using Persistence.Queries.Common.Extensions;
 
-namespace Persistence.Queries.Common.Classes.QueryBaseRelated;
+namespace LanosCertifiedStore.Persistence.Queries.Common.Classes.QueryBaseRelated;
 
 public abstract class CollectionQueryBase<TEntity, TDto>
     where TEntity : class, IIdentifiable<Guid>

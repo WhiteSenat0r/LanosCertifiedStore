@@ -1,4 +1,4 @@
-﻿namespace Application.Vehicles.Queries.CountVehiclesQueryRelated;
+﻿namespace LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
 
 // TODO
 // internal sealed class CountVehiclesQueryHandler(IUnitOfWork unitOfWork) : 

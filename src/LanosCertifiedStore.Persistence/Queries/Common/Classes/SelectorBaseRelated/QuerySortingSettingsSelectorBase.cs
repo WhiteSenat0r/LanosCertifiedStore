@@ -1,9 +1,9 @@
 ﻿using System.Linq.Expressions;
-using Application.Shared.RequestParamsRelated;
-using Domain.Contracts.Common;
-using Persistence.Queries.Common.Contracts;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Domain.Contracts.Common;
+using LanosCertifiedStore.Persistence.Queries.Common.Contracts;
 
-namespace Persistence.Queries.Common.Classes.SelectorBaseRelated;
+namespace LanosCertifiedStore.Persistence.Queries.Common.Classes.SelectorBaseRelated;
 
 internal abstract class QuerySortingSettingsSelectorBase<TEntity> :
     IQuerySortingSettingsSelector<TEntity>

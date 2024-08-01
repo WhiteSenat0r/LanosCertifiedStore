@@ -1,4 +1,4 @@
-﻿namespace Application.Vehicles.Queries.VehiclesQueryRelated;
+﻿namespace LanosCertifiedStore.Application.Vehicles.Queries.VehiclesQueryRelated;
 
 // public sealed record VehiclesQueryRequest(
 //     IVehicleFilteringRequestParameters RequestParameters, bool IsTracked) : 

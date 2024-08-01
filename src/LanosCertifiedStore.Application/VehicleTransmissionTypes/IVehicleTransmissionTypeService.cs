@@ -1,6 +1,6 @@
-﻿using Application.VehicleTransmissionTypes.Queries.CollectionVehicleTransmissionTypesQueryRelated;
+﻿using LanosCertifiedStore.Application.VehicleTransmissionTypes.Queries.CollectionVehicleTransmissionTypesQueryRelated;
 
-namespace Application.VehicleTransmissionTypes;
+namespace LanosCertifiedStore.Application.VehicleTransmissionTypes;
 
 public interface IVehicleTransmissionTypeService
 {

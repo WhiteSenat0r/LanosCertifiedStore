@@ -1,8 +1,8 @@
-﻿using Domain.Entities.Common.Classes;
+﻿using LanosCertifiedStore.Domain.Entities.Common.Classes;
 
-namespace Domain.Entities.VehicleRelated;
+namespace LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-public sealed class VehicleColor : NamedVehicleAspect
+public sealed class VehicleColor : NamedAspect
 {
     public string HexValue { get; set; } = null!;
     public ICollection<Vehicle> Vehicles { get; set; } = [];

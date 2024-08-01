@@ -1,4 +1,4 @@
-﻿namespace Application.Images;
+﻿namespace LanosCertifiedStore.Application.Images;
 
 public sealed record ImageDto
 {

@@ -1,6 +1,6 @@
-﻿using Application.Shared.RequestRelated;
+﻿using LanosCertifiedStore.Application.Shared.RequestRelated;
 
-namespace Application.VehicleModels.Commands.CreateVehicleModelRelated;
+namespace LanosCertifiedStore.Application.VehicleModels.Commands.CreateVehicleModelRelated;
 
 public sealed record CreateVehicleModelCommandRequest(
     string Name,

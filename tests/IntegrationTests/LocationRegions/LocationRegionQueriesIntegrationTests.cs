@@ -1,8 +1,9 @@
 ﻿using System.Globalization;
-using Application.LocationRegions;
-using Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
-using Application.Shared.RequestParamsRelated;
 using IntegrationTests.Common;
+using LanosCertifiedStore.Application.LocationRegions;
+using LanosCertifiedStore.Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 
 namespace IntegrationTests.LocationRegions;
 
@@ -27,7 +28,7 @@ public sealed class LocationRegionQueriesIntegrationTests(
 
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
 

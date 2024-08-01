@@ -1,7 +1,7 @@
-﻿using Application.Shared;
-using Persistence.Contexts.ApplicationDatabaseContext;
+﻿using LanosCertifiedStore.Application.Shared;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 
-namespace Persistence.Services;
+namespace LanosCertifiedStore.Persistence.Services;
 
 internal sealed class TransactionService(ApplicationDatabaseContext context) : ITransactionService
 {

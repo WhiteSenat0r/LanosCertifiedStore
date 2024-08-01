@@ -1,7 +1,6 @@
-﻿using Application.Shared.RequestRelated;
-using MediatR;
+﻿using LanosCertifiedStore.Application.Shared.RequestRelated;
 
-namespace Application.VehicleModels.Commands.UpdateVehicleModelRelated;
+namespace LanosCertifiedStore.Application.VehicleModels.Commands.UpdateVehicleModelRelated;
 
 public sealed record UpdateVehicleModelCommandRequest(
     Guid Id,
@@ -9,4 +8,4 @@ public sealed record UpdateVehicleModelCommandRequest(
     IEnumerable<Guid> AvailableEngineTypesIds,
     IEnumerable<Guid> AvailableTransmissionTypesIds,
     IEnumerable<Guid> AvailableDrivetrainTypesIds,
-    IEnumerable<Guid> AvailableBodyTypesIds) : ICommandRequest<Unit>;
+    IEnumerable<Guid> AvailableBodyTypesIds) : ICommandRequest;

@@ -1,5 +1,5 @@
-﻿using Application.Shared.DtosRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
 
-namespace Application.LocationRegions.Dtos;
+namespace LanosCertifiedStore.Application.LocationRegions.Dtos;
 
 public sealed record LocationAreaDto : VehicleAspectDto;

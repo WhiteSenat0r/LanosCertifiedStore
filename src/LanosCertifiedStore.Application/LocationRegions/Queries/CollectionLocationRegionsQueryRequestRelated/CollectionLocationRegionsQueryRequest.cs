@@ -1,10 +1,10 @@
-﻿using Application.LocationRegions.Dtos;
-using Application.Shared.RequestParamsRelated;
-using Application.Shared.RequestRelated.QueryRelated;
-using Application.Shared.ResultRelated;
-using Domain.Entities.VehicleRelated.LocationRelated;
+﻿using LanosCertifiedStore.Application.LocationRegions.Dtos;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
 
-namespace Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
+namespace LanosCertifiedStore.Application.LocationRegions.Queries.CollectionLocationRegionsQueryRequestRelated;
 
 public sealed record CollectionLocationRegionsQueryRequest(
     IFilteringRequestParameters<VehicleLocationRegion> FilteringParameters)

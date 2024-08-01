@@ -1,12 +1,12 @@
-﻿using Application.Shared.RequestRelated.QueryRelated;
-using Application.VehicleBodyTypes;
-using AutoMapper;
-using Domain.Entities.VehicleRelated.TypeRelated;
-using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.Queries.Common.Classes.QueryBaseRelated;
-using Persistence.Queries.Common.Contracts;
+﻿using AutoMapper;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Application.VehicleBodyTypes;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
+using LanosCertifiedStore.Persistence.Queries.Common.Classes.QueryBaseRelated;
+using LanosCertifiedStore.Persistence.Queries.Common.Contracts;
 
-namespace Persistence.Queries.TypeRelated.VehicleBodyTypeRelated.QueryRelated;
+namespace LanosCertifiedStore.Persistence.Queries.TypeRelated.VehicleBodyTypeRelated.QueryRelated;
 
 public sealed class CollectionVehicleBodyTypesQuery(
     IQuerySortingSettingsSelector<VehicleBodyType> sortingSettingsSelector,

@@ -1,10 +1,11 @@
-﻿using Application.Shared.RequestParamsRelated;
-using Application.VehicleBrands;
-using Application.VehicleBrands.Queries.CollectionVehicleBrandsQueryRelated;
-using Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
-using Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
-using Domain.Entities.VehicleRelated;
-using IntegrationTests.Common;
+﻿using IntegrationTests.Common;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.VehicleBrands;
+using LanosCertifiedStore.Application.VehicleBrands.Queries.CollectionVehicleBrandsQueryRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Queries.CountVehicleBrandsQueryRelated;
+using LanosCertifiedStore.Application.VehicleBrands.Queries.SingleVehicleBrandQueryRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntegrationTests.VehicleBrands;
@@ -30,7 +31,7 @@ public sealed class VehicleBrandQueriesIntegrationTests(
 
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
 
@@ -52,7 +53,7 @@ public sealed class VehicleBrandQueriesIntegrationTests(
 
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
         response.Value!.Id
@@ -89,7 +90,7 @@ public sealed class VehicleBrandQueriesIntegrationTests(
 
         // Assert
         response.Error
-            .Should().BeNull();
+            .Should().Be(Error.None);
         response.IsSuccess
             .Should().BeTrue();
         response.Value!.TotalItemsCount

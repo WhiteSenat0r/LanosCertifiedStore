@@ -1,12 +1,12 @@
-﻿using Application.Shared.RequestRelated.QueryRelated;
-using Application.VehicleColors;
-using AutoMapper;
-using Domain.Entities.VehicleRelated;
-using Persistence.Contexts.ApplicationDatabaseContext;
-using Persistence.Queries.Common.Classes.QueryBaseRelated;
-using Persistence.Queries.Common.Contracts;
+﻿using AutoMapper;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Application.VehicleColors;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
+using LanosCertifiedStore.Persistence.Queries.Common.Classes.QueryBaseRelated;
+using LanosCertifiedStore.Persistence.Queries.Common.Contracts;
 
-namespace Persistence.Queries.VehicleColorRelated.QueryRelated;
+namespace LanosCertifiedStore.Persistence.Queries.VehicleColorRelated.QueryRelated;
 
 public sealed class CollectionVehicleColorsQuery(
     ApplicationDatabaseContext context,

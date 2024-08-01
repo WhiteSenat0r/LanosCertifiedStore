@@ -1,7 +1,7 @@
-﻿using Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace Application.VehicleTransmissionTypes.Queries.CollectionVehicleTransmissionTypesQueryRelated;
+namespace LanosCertifiedStore.Application.VehicleTransmissionTypes.Queries.CollectionVehicleTransmissionTypesQueryRelated;
 
 internal sealed class CollectionVehicleTransmissionTypesQueryRequestHandler(
     IVehicleTransmissionTypeService vehicleTransmissionTypeService) :
@@ -19,6 +19,6 @@ internal sealed class CollectionVehicleTransmissionTypesQueryRequestHandler(
             vehicleDriveTrainTypes,
             request.FilteringParameters.PageIndex);
 
-        return Result<PaginationResult<VehicleTransmissionTypeDto>>.Success(paginationResult);
+        return paginationResult;
     }
 }

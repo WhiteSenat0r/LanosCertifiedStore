@@ -1,6 +1,6 @@
-﻿using Application.Shared.ResultRelated;
-using Application.VehicleBrands;
-using Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.VehicleBrands;
+using LanosCertifiedStore.Application.VehicleBrands.Commands.UpdateVehicleBrandRelated;
 using NSubstitute.ExceptionExtensions;
 
 namespace ApplicationUnitTests.VehicleBrands;
