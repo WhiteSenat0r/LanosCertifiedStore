@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace Persistence.Data.Migrations
+namespace LanosCertifiedStore.Persistence.Data.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -169,8 +169,8 @@ namespace Persistence.Data.Migrations
                 schema: "identity",
                 columns: table => new
                 {
-                    PermissionCode = table.Column<string>(type: "character varying(64)", nullable: false),
-                    UserRoleName = table.Column<string>(type: "character varying(64)", nullable: false)
+                    UserRoleName = table.Column<string>(type: "character varying(64)", nullable: false),
+                    PermissionCode = table.Column<string>(type: "character varying(64)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -419,8 +419,6 @@ namespace Persistence.Data.Migrations
                     Mileage = table.Column<int>(type: "integer", nullable: false),
                     ProductionYear = table.Column<int>(type: "integer", nullable: false),
                     LocationTownId = table.Column<Guid>(type: "uuid", nullable: false),
-                    LocationAreaId = table.Column<Guid>(type: "uuid", nullable: false),
-                    LocationRegionId = table.Column<Guid>(type: "uuid", nullable: false),
                     BrandId = table.Column<Guid>(type: "uuid", nullable: false),
                     ModelId = table.Column<Guid>(type: "uuid", nullable: false),
                     ColorId = table.Column<Guid>(type: "uuid", nullable: false),
@@ -429,18 +427,19 @@ namespace Persistence.Data.Migrations
                     EngineTypeId = table.Column<Guid>(type: "uuid", nullable: false),
                     TransmissionTypeId = table.Column<Guid>(type: "uuid", nullable: false),
                     DrivetrainTypeId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: true)
+                    OwnerId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Vehicles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Vehicles_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Vehicles_Users_OwnerId",
+                        column: x => x.OwnerId,
                         principalSchema: "identity",
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Vehicles_VehicleBodyTypes_BodyTypeId",
                         column: x => x.BodyTypeId,
@@ -474,20 +473,6 @@ namespace Persistence.Data.Migrations
                         column: x => x.EngineTypeId,
                         principalSchema: "vehicles",
                         principalTable: "VehicleEngineTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Vehicles_VehicleLocationAreas_LocationAreaId",
-                        column: x => x.LocationAreaId,
-                        principalSchema: "locations",
-                        principalTable: "VehicleLocationAreas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Vehicles_VehicleLocationRegions_LocationRegionId",
-                        column: x => x.LocationRegionId,
-                        principalSchema: "locations",
-                        principalTable: "VehicleLocationRegions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -577,7 +562,6 @@ namespace Persistence.Data.Migrations
                     "models:update",
                     "users:change-role",
                     "users:create",
-                    "users:delete",
                     "users:list",
                     "users:read",
                     "users:update",
@@ -614,8 +598,6 @@ namespace Persistence.Data.Migrations
                     { "users:change-role", "Administrator" },
                     { "users:create", "Administrator" },
                     { "users:create", "Manager" },
-                    { "users:delete", "Administrator" },
-                    { "users:delete", "Manager" },
                     { "users:list", "Administrator" },
                     { "users:list", "Manager" },
                     { "users:read", "Administrator" },
@@ -799,18 +781,6 @@ namespace Persistence.Data.Migrations
                 column: "EngineTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Vehicles_LocationAreaId",
-                schema: "vehicles",
-                table: "Vehicles",
-                column: "LocationAreaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Vehicles_LocationRegionId",
-                schema: "vehicles",
-                table: "Vehicles",
-                column: "LocationRegionId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_LocationTownId",
                 schema: "vehicles",
                 table: "Vehicles",
@@ -823,16 +793,16 @@ namespace Persistence.Data.Migrations
                 column: "ModelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Vehicles_OwnerId",
+                schema: "vehicles",
+                table: "Vehicles",
+                column: "OwnerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_TransmissionTypeId",
                 schema: "vehicles",
                 table: "Vehicles",
                 column: "TransmissionTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Vehicles_UserId",
-                schema: "vehicles",
-                table: "Vehicles",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_VehicleTypeId",

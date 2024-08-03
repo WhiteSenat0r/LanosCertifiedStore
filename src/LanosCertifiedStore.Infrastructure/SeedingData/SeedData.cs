@@ -58,7 +58,7 @@ public sealed class SeedData
 
     private async Task<IReadOnlyCollection<User>> SeedUsers()
     {
-        var userRepresentations = new List<KeyValuePair<UserRepresentationWithPasswordAndId, string>>
+        var userRepresentations = new List<KeyValuePair<UserRepresentationWithPasswordAndId, UserRole>>
         {
             new(new(
                     Guid.NewGuid(),
@@ -73,7 +73,7 @@ public sealed class SeedData
                     "John",
                     "Doe",
                     [new CredentialRepresentation("password", "Adm!_pass2024", false)]),
-                "Administrator"),
+                UserRole.Administrator),
             new(new(
                 Guid.NewGuid(),
                 "manager@lsc.com",
@@ -86,7 +86,7 @@ public sealed class SeedData
                 },
                 "Jane",
                 "Doe",
-                [new CredentialRepresentation("password", "Mng!_pass2024", false)]), "Manager"),
+                [new CredentialRepresentation("password", "Mng!_pass2024", false)]), UserRole.Manager),
             new(new(
                 Guid.NewGuid(),
                 "user@lsc.com",
@@ -99,7 +99,7 @@ public sealed class SeedData
                 },
                 "Jack",
                 "Doe",
-                [new CredentialRepresentation("password", "Usr!_pass2024", false)]), "User")
+                [new CredentialRepresentation("password", "Usr!_pass2024", false)]), UserRole.User)
         };
 
         var users = new List<User>();
@@ -110,8 +110,7 @@ public sealed class SeedData
 
             var createdUser = new User(Guid.Parse(id))
             {
-                UserRole = userRepresentation.Value.Equals("Administrator") ? UserRole.Administrator :
-                    userRepresentation.Value.Equals("Manager") ? UserRole.Manager : UserRole.User
+                UserRole = userRepresentation.Value
             };
             
             await _context.Set<User>().AddAsync(createdUser);
@@ -145,7 +144,8 @@ public sealed class SeedData
             await context.Set<VehicleTransmissionType>().AsNoTracking().ToListAsync(),
             await context.Set<VehicleLocationRegion>().AsNoTracking().ToListAsync(),
             await context.Set<VehicleLocationArea>().AsNoTracking().ToListAsync(),
-            await context.Set<VehicleLocationTown>().AsNoTracking().ToListAsync());
+            await context.Set<VehicleLocationTown>().AsNoTracking().ToListAsync(),
+            await context.Set<User>().AsNoTracking().ToListAsync());
 
         if (await context.Set<Vehicle>().AnyAsync())
         {

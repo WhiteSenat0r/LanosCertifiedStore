@@ -1,4 +1,5 @@
 ﻿using LanosCertifiedStore.Domain.Contracts.Common;
+using LanosCertifiedStore.Domain.Entities.UserRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 
@@ -31,6 +32,8 @@ public sealed class Vehicle : IIdentifiable<Guid>
     public VehicleDrivetrainType DrivetrainType { get; set; } = null!;
     public ICollection<VehicleImage> Images { get; set; } = [];
     public ICollection<VehiclePrice> Prices { get; set; } = [];
+    public Guid OwnerId { get; set; }
+    public User Owner { get; set; } = null!;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
     public Vehicle() { }
@@ -45,6 +48,7 @@ public sealed class Vehicle : IIdentifiable<Guid>
         Guid transmissionTypeId,
         Guid colorId,
         Guid locationTownId,
+        Guid ownerId,
         decimal price,
         double displacement,
         string description,
@@ -60,6 +64,7 @@ public sealed class Vehicle : IIdentifiable<Guid>
         TransmissionTypeId = transmissionTypeId;
         ColorId = colorId;
         LocationTownId = locationTownId;
+        OwnerId = ownerId;
         Displacement = displacement;
         Prices.Add(new VehiclePrice(Id, price));
         Description = description;
