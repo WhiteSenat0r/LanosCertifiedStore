@@ -9,6 +9,7 @@ using LanosCertifiedStore.Application.VehicleColors;
 using LanosCertifiedStore.Application.VehicleDrivetrainTypes;
 using LanosCertifiedStore.Application.VehicleEngineTypes;
 using LanosCertifiedStore.Application.VehicleModels;
+using LanosCertifiedStore.Application.Vehicles;
 using LanosCertifiedStore.Application.VehicleTransmissionTypes;
 using LanosCertifiedStore.Application.VehicleTypes;
 using LanosCertifiedStore.Infrastructure.Authentication;
@@ -84,6 +85,7 @@ public static class DependencyInjection
 
     private static void AddVehicleRelatedServices(IServiceCollection services)
     {
+        services.AddScoped<IVehicleService, VehicleService>();
         services.AddScoped<IVehicleBrandService, VehicleBrandService>();
         services.AddScoped<IVehicleColorService, VehicleColorService>();
         services.AddScoped<IVehicleModelService, VehicleModelService>();
