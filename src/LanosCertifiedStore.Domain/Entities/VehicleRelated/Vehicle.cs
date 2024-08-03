@@ -13,10 +13,6 @@ public sealed class Vehicle : IIdentifiable<Guid>
     public int ProductionYear { get; set; }
     public Guid LocationTownId { get; set; }
     public VehicleLocationTown LocationTown { get; set; } = null!;
-    public Guid LocationAreaId { get; set; }
-    public VehicleLocationArea LocationArea { get; set; } = null!;
-    public Guid LocationRegionId { get; set; }
-    public VehicleLocationRegion LocationRegion { get; set; } = null!;
     public Guid BrandId { get; set; }
     public VehicleBrand Brand { get; set; } = null!;
     public Guid ModelId { get; set; }
@@ -49,8 +45,6 @@ public sealed class Vehicle : IIdentifiable<Guid>
         Guid transmissionTypeId,
         Guid colorId,
         Guid locationTownId,
-        Guid locationAreaId,
-        Guid locationRegionId,
         decimal price,
         double displacement,
         string description,
@@ -66,8 +60,6 @@ public sealed class Vehicle : IIdentifiable<Guid>
         TransmissionTypeId = transmissionTypeId;
         ColorId = colorId;
         LocationTownId = locationTownId;
-        LocationAreaId = locationAreaId;
-        LocationRegionId = locationRegionId;
         Displacement = displacement;
         Prices.Add(new VehiclePrice(Id, price));
         Description = description;

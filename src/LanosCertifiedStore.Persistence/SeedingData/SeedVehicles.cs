@@ -28,8 +28,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Гібридний (HEV)")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Варіатор")).Id,
             colorId: colors.First(x => x.Name.Equals("Чорний")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Київ")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Київ")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Київ")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Київ")).Id)
@@ -49,8 +47,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Бензиновий")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Автомат")).Id,
             colorId: colors.First(x => x.Name.Equals("Білий")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Київська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Бучанський")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Ірпінь")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Бучанський")).Id)
@@ -70,8 +66,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Бензиновий")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Автомат")).Id,
             colorId: colors.First(x => x.Name.Equals("Жовтий")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Київська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Бучанський")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Ірпінь")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Бучанський")).Id)
@@ -91,8 +85,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Дизельний")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Автомат")).Id,
             colorId: colors.First(x => x.Name.Equals("Синій")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Рівненська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Рівненський")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Рівне")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Рівненський")).Id)
@@ -112,8 +104,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Бензиновий")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Автомат")).Id,
             colorId: colors.First(x => x.Name.Equals("Білий")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Рівненська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Рівненський")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Олександрія")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Рівненський")).Id)
@@ -133,8 +123,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Бензиновий")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Робот")).Id,
             colorId: colors.First(x => x.Name.Equals("Чорний")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Волинська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Ковельський")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Ковель")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Ковельський")).Id)
@@ -154,8 +142,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Бензиновий")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Робот")).Id,
             colorId: colors.First(x => x.Name.Equals("Сірий")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Волинська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Луцький")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Луцьк")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Луцький")).Id)
@@ -175,8 +161,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Гібридний (HEV)")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Автомат")).Id,
             colorId: colors.First(x => x.Name.Equals("Червоний")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Хмельницька")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Хмельницький")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Хмельницький")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Хмельницький")).Id)
@@ -196,8 +180,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Бензиновий")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Робот")).Id,
             colorId: colors.First(x => x.Name.Equals("Білий")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Дніпропетровська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Дніпровський")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Дніпро")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Дніпровський")).Id)
@@ -217,8 +199,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Бензиновий")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Робот")).Id,
             colorId: colors.First(x => x.Name.Equals("Чорний")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Дніпропетровська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Дніпровський")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Дніпро")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Дніпровський")).Id)
@@ -238,8 +218,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Бензиновий")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Робот")).Id,
             colorId: colors.First(x => x.Name.Equals("Чорний")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Чернівецька")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Чернівецький")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Чернівці")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Чернівецький")).Id)
@@ -259,8 +237,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Дизельний")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Механіка")).Id,
             colorId: colors.First(x => x.Name.Equals("Сріблястий")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Житомирська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Житомирський")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Житомир")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Житомирський")).Id)
@@ -280,8 +256,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Бензиновий")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Робот")).Id,
             colorId: colors.First(x => x.Name.Equals("Синій")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Житомирська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Коростенський")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Коростень")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Коростенський")).Id)
@@ -301,8 +275,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Дизельний")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Робот")).Id,
             colorId: colors.First(x => x.Name.Equals("Індиґо")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Рівненська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Рівненський")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Рівне")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Рівненський")).Id)
@@ -322,8 +294,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Бензиновий / газовий (пропан-бутан)")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Механіка")).Id,
             colorId: colors.First(x => x.Name.Equals("Білий")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Рівненська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Рівненський")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Рівне")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Рівненський")).Id)
@@ -343,8 +313,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Гібридний (HEV)")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Робот")).Id,
             colorId: colors.First(x => x.Name.Equals("Червоний")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Київ")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Київ")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Київ")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Київ")).Id)
@@ -364,8 +332,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Дизельний")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Механіка")).Id,
             colorId: colors.First(x => x.Name.Equals("Сірий")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Полтавська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Полтавський")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Полтава")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Полтавський")).Id)
@@ -385,8 +351,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Бензиновий")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Автомат")).Id,
             colorId: colors.First(x => x.Name.Equals("Сірий")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Черкаська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Черкаський")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Черкаси")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Черкаський")).Id)
@@ -406,8 +370,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Бензиновий")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Автомат")).Id,
             colorId: colors.First(x => x.Name.Equals("Червоний")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Черкаська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Черкаський")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Черкаси")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Черкаський")).Id)
@@ -427,8 +389,6 @@ internal static class SeedVehicles
             engineTypeId: engineTypes.Single(e => e.Name.Equals("Бензиновий")).Id,
             transmissionTypeId: transmissionTypes.Single(t => t.Name.Equals("Автомат")).Id,
             colorId: colors.First(x => x.Name.Equals("Білий")).Id,
-            locationRegionId: regions.Single(r => r.Name.Equals("Харківська")).Id,
-            locationAreaId: areas.Single(a => a.Name.Equals("Харківський")).Id,
             locationTownId: towns.Single(
                 t => t.Name.Equals("Харків")
                      && t.LocationAreaId.Equals(areas.Single(a => a.Name.Equals("Харківський")).Id)
