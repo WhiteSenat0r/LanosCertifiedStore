@@ -1,5 +1,5 @@
-﻿using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
-using LanosCertifiedStore.Persistence.SeedingData;
+﻿using LanosCertifiedStore.Infrastructure.SeedingData;
+using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 using Microsoft.EntityFrameworkCore;
 
 namespace LanosCertifiedStore.Presentation.Extensions;
@@ -20,7 +20,7 @@ internal static class WebApplicationExtensions
         {
             var context = services.GetRequiredService<ApplicationDatabaseContext>();
             await context.Database.MigrateAsync();
-            var seedData = new SeedData(application.Environment.WebRootPath, context);
+            var seedData = new SeedData(application.Environment.WebRootPath, context, services);
             await seedData.Seed();
         }
 
