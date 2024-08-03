@@ -36,7 +36,7 @@ public sealed class SeedData
         await SeedVehicleEngineTypes(_context);
         await SeedVehicleTransmissionTypes(_context);
         await SeedBrands(_context);
-        var users = await SeedUsers();
+        await SeedUsers();
 
         if (_context.ChangeTracker.HasChanges())
         {
@@ -56,7 +56,7 @@ public sealed class SeedData
         }
     }
 
-    private async Task<IReadOnlyCollection<User>> SeedUsers()
+    private async Task SeedUsers()
     {
         var userRepresentations = new List<KeyValuePair<UserRepresentationWithPasswordAndId, UserRole>>
         {
@@ -102,8 +102,6 @@ public sealed class SeedData
                 [new CredentialRepresentation("password", "Usr!_pass2024", false)]), UserRole.User)
         };
 
-        var users = new List<User>();
-        
         foreach (var userRepresentation in userRepresentations)
         {
             var id = await _keycloakClient.RegisterUserAsync(userRepresentation.Key);
@@ -115,10 +113,7 @@ public sealed class SeedData
             
             await _context.Set<User>().AddAsync(createdUser);
             _context.Attach(createdUser.UserRole);
-            users.Add(createdUser);
         }
-
-        return users;
     }
 
     private async Task SeedImages(ApplicationDatabaseContext context, List<Vehicle> vehicles)
