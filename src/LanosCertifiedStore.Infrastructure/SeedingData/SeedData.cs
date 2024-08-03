@@ -1,20 +1,26 @@
 ﻿using System.Text.Json;
+using LanosCertifiedStore.Domain.Entities.UserRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
+using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+using LanosCertifiedStore.Infrastructure.SeedingData.LocationRelated;
 using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
-using LanosCertifiedStore.Persistence.SeedingData.LocationRelated;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace LanosCertifiedStore.Persistence.SeedingData;
+namespace LanosCertifiedStore.Infrastructure.SeedingData;
 
 public sealed class SeedData
 {
+    private readonly KeycloakClient _keycloakClient;
     private readonly ApplicationDatabaseContext _context;
     private readonly string _serializedLocationsFilePath = string.Empty;
 
-    public SeedData(string staticDataPath, ApplicationDatabaseContext context)
+    public SeedData(string staticDataPath, ApplicationDatabaseContext context, IServiceProvider serviceProvider)
     {
         _context = context;
+        _keycloakClient = serviceProvider.GetService<KeycloakClient>()!;
         if (string.IsNullOrEmpty(_serializedLocationsFilePath))
         {
             _serializedLocationsFilePath = $"{staticDataPath}/Data/Json/SerializedUkraineLocations.json";
@@ -30,6 +36,7 @@ public sealed class SeedData
         await SeedVehicleEngineTypes(_context);
         await SeedVehicleTransmissionTypes(_context);
         await SeedBrands(_context);
+        var users = await SeedUsers();
 
         if (_context.ChangeTracker.HasChanges())
         {
@@ -49,39 +56,105 @@ public sealed class SeedData
         }
     }
 
+    private async Task<IReadOnlyCollection<User>> SeedUsers()
+    {
+        var userRepresentations = new List<KeyValuePair<UserRepresentationWithPasswordAndId, string>>
+        {
+            new(new(
+                    Guid.NewGuid(),
+                    "admin@lsc.com",
+                    "admin@lsc.com",
+                    true,
+                    true,
+                    new Dictionary<string, string>
+                    {
+                        { "phoneNumber", "+380671234567" }
+                    },
+                    "John",
+                    "Doe",
+                    [new CredentialRepresentation("password", "Adm!_pass2024", false)]),
+                "Administrator"),
+            new(new(
+                Guid.NewGuid(),
+                "manager@lsc.com",
+                "manager@lsc.com",
+                true,
+                true,
+                new Dictionary<string, string>
+                {
+                    { "phoneNumber", "+380681234567" }
+                },
+                "Jane",
+                "Doe",
+                [new CredentialRepresentation("password", "Mng!_pass2024", false)]), "Manager"),
+            new(new(
+                Guid.NewGuid(),
+                "user@lsc.com",
+                "user@lsc.com",
+                true,
+                true,
+                new Dictionary<string, string>
+                {
+                    { "phoneNumber", "+380981234567" }
+                },
+                "Jack",
+                "Doe",
+                [new CredentialRepresentation("password", "Usr!_pass2024", false)]), "User")
+        };
+
+        var users = new List<User>();
+        
+        foreach (var userRepresentation in userRepresentations)
+        {
+            var id = await _keycloakClient.RegisterUserAsync(userRepresentation.Key);
+
+            var createdUser = new User(Guid.Parse(id))
+            {
+                UserRole = userRepresentation.Value.Equals("Administrator") ? UserRole.Administrator :
+                    userRepresentation.Value.Equals("Manager") ? UserRole.Manager : UserRole.User
+            };
+            
+            await _context.Set<User>().AddAsync(createdUser);
+            _context.Attach(createdUser.UserRole);
+            users.Add(createdUser);
+        }
+
+        return users;
+    }
+
     private async Task SeedImages(ApplicationDatabaseContext context, List<Vehicle> vehicles)
     {
         var images = SeedingData.SeedImages.GetImages(vehicles);
 
-        if (!await context.VehicleImages.AnyAsync())
+        if (!await context.Set<VehicleImage>().AnyAsync())
         {
-            await context.VehicleImages.AddRangeAsync(images);
+            await context.Set<VehicleImage>().AddRangeAsync(images);
         }
     }
 
     private async Task<List<Vehicle>> SeedVehicles(ApplicationDatabaseContext context)
     {
         var vehicles = SeedingData.SeedVehicles.GetVehicles(
-            await context.VehicleTypes.AsNoTracking().ToListAsync(),
-            await context.VehicleColors.AsNoTracking().ToListAsync(),
-            await context.VehiclesBrands.AsNoTracking().ToListAsync(),
-            await context.VehicleModels.AsNoTracking().ToListAsync(),
-            await context.VehicleBodyTypes.AsNoTracking().ToListAsync(),
-            await context.VehicleDrivetrainTypes.AsNoTracking().ToListAsync(),
-            await context.VehicleEngineTypes.AsNoTracking().ToListAsync(),
-            await context.VehicleTransmissionTypes.AsNoTracking().ToListAsync(),
-            await context.VehicleLocationRegions.AsNoTracking().ToListAsync(),
-            await context.VehicleLocationAreas.AsNoTracking().ToListAsync(),
-            await context.VehicleLocationTowns.AsNoTracking().ToListAsync());
+            await context.Set<VehicleType>().AsNoTracking().ToListAsync(),
+            await context.Set<VehicleColor>().AsNoTracking().ToListAsync(),
+            await context.Set<VehicleBrand>().AsNoTracking().ToListAsync(),
+            await context.Set<VehicleModel>().AsNoTracking().ToListAsync(),
+            await context.Set<VehicleBodyType>().AsNoTracking().ToListAsync(),
+            await context.Set<VehicleDrivetrainType>().AsNoTracking().ToListAsync(),
+            await context.Set<VehicleEngineType>().AsNoTracking().ToListAsync(),
+            await context.Set<VehicleTransmissionType>().AsNoTracking().ToListAsync(),
+            await context.Set<VehicleLocationRegion>().AsNoTracking().ToListAsync(),
+            await context.Set<VehicleLocationArea>().AsNoTracking().ToListAsync(),
+            await context.Set<VehicleLocationTown>().AsNoTracking().ToListAsync());
 
-        if (await context.Vehicles.AnyAsync())
+        if (await context.Set<Vehicle>().AnyAsync())
         {
             return vehicles;
         }
 
         foreach (var vehicle in vehicles)
         {
-            await context.Vehicles.AddAsync(vehicle);
+            await context.Set<Vehicle>().AddAsync(vehicle);
 
             await context.SaveChangesAsync();
         }
@@ -92,14 +165,14 @@ public sealed class SeedData
     private async Task SeedModels(ApplicationDatabaseContext context)
     {
         var models = SeedingData.SeedModels.GetModels(
-            await context.VehiclesBrands.AsNoTracking().ToListAsync(),
-            await context.VehicleTypes.AsNoTracking().ToListAsync(),
-            await context.VehicleEngineTypes.AsNoTracking().ToListAsync(),
-            await context.VehicleBodyTypes.AsNoTracking().ToListAsync(),
-            await context.VehicleDrivetrainTypes.AsNoTracking().ToListAsync(),
-            await context.VehicleTransmissionTypes.AsNoTracking().ToListAsync());
+            await context.Set<VehicleBrand>().AsNoTracking().ToListAsync(),
+            await context.Set<VehicleType>().AsNoTracking().ToListAsync(),
+            await context.Set<VehicleEngineType>().AsNoTracking().ToListAsync(),
+            await context.Set<VehicleBodyType>().AsNoTracking().ToListAsync(),
+            await context.Set<VehicleDrivetrainType>().AsNoTracking().ToListAsync(),
+            await context.Set<VehicleTransmissionType>().AsNoTracking().ToListAsync());
 
-        if (!await context.VehicleModels.AnyAsync())
+        if (!await context.Set<VehicleModel>().AnyAsync())
         {
             foreach (var model in models)
             {
@@ -133,18 +206,18 @@ public sealed class SeedData
 
         var regions = SeedRegions.GetRegions(locationsData!.Keys);
 
-        if (!await context.VehicleLocationRegions.AnyAsync())
+        if (!await context.Set<VehicleLocationRegion>().AnyAsync())
         {
-            await context.VehicleLocationRegions.AddRangeAsync(regions);
+            await context.Set<VehicleLocationRegion>().AddRangeAsync(regions);
         }
 
         var areaRegionDictionary = GetAreaRegionDictionary(regions, locationsData);
 
         var areas = SeedAreas.GetAreas(areaRegionDictionary, regions);
 
-        if (!await context.VehicleLocationAreas.AnyAsync())
+        if (!await context.Set<VehicleLocationArea>().AnyAsync())
         {
-            await context.VehicleLocationAreas.AddRangeAsync(areas);
+            await context.Set<VehicleLocationArea>().AddRangeAsync(areas);
         }
 
         var townTypes = new List<VehicleLocationTownType>
@@ -152,14 +225,14 @@ public sealed class SeedData
             new("Місто"), new("Село"), new("Селище")
         };
 
-        if (!await context.VehicleLocationTownTypes.AnyAsync())
+        if (!await context.Set<VehicleLocationTownType>().AnyAsync())
         {
             await context.AddRangeAsync(townTypes);
         }
 
         var towns = SeedTowns.GetTowns(regions, areas, townTypes, locationsData);
 
-        if (!await context.VehicleLocationTowns.AnyAsync())
+        if (!await context.Set<VehicleLocationTown>().AnyAsync())
         {
             await context.AddRangeAsync(towns);
         }
@@ -176,9 +249,9 @@ public sealed class SeedData
     {
         var brands = SeedingData.SeedBrands.GetBrands();
 
-        if (!await context.VehiclesBrands.AnyAsync())
+        if (!await context.Set<VehicleBrand>().AnyAsync())
         {
-            await context.VehiclesBrands.AddRangeAsync(brands);
+            await context.Set<VehicleBrand>().AddRangeAsync(brands);
         }
     }
 
@@ -186,9 +259,9 @@ public sealed class SeedData
     {
         var transmissionTypes = TypeRelated.SeedVehicleTransmissionTypes.GetVehicleTransmissionTypes();
 
-        if (!await context.VehicleTransmissionTypes.AnyAsync())
+        if (!await context.Set<VehicleTransmissionType>().AnyAsync())
         {
-            await context.VehicleTransmissionTypes.AddRangeAsync(transmissionTypes);
+            await context.Set<VehicleTransmissionType>().AddRangeAsync(transmissionTypes);
         }
     }
 
@@ -196,9 +269,9 @@ public sealed class SeedData
     {
         var engineTypes = TypeRelated.SeedVehicleEngineTypes.GetVehicleEngineTypes();
 
-        if (!await context.VehicleEngineTypes.AnyAsync())
+        if (!await context.Set<VehicleEngineType>().AnyAsync())
         {
-            await context.VehicleEngineTypes.AddRangeAsync(engineTypes);
+            await context.Set<VehicleEngineType>().AddRangeAsync(engineTypes);
         }
     }
 
@@ -206,9 +279,9 @@ public sealed class SeedData
     {
         var drivetrainTypes = TypeRelated.SeedVehicleDrivetrainTypes.GetVehicleDrivetrainTypes();
 
-        if (!await context.VehicleDrivetrainTypes.AnyAsync())
+        if (!await context.Set<VehicleDrivetrainType>().AnyAsync())
         {
-            await context.VehicleDrivetrainTypes.AddRangeAsync(drivetrainTypes);
+            await context.Set<VehicleDrivetrainType>().AddRangeAsync(drivetrainTypes);
         }
     }
 
@@ -216,9 +289,9 @@ public sealed class SeedData
     {
         var bodyTypes = TypeRelated.SeedVehicleBodyTypes.GetVehicleBodyTypes();
 
-        if (!await context.VehicleBodyTypes.AnyAsync())
+        if (!await context.Set<VehicleBodyType>().AnyAsync())
         {
-            await context.VehicleBodyTypes.AddRangeAsync(bodyTypes);
+            await context.Set<VehicleBodyType>().AddRangeAsync(bodyTypes);
         }
     }
 
@@ -226,9 +299,9 @@ public sealed class SeedData
     {
         var colors = SeedColors.GetColors();
 
-        if (!await context.VehicleColors.AnyAsync())
+        if (!await context.Set<VehicleColor>().AnyAsync())
         {
-            await context.VehicleColors.AddRangeAsync(colors);
+            await context.Set<VehicleColor>().AddRangeAsync(colors);
         }
     }
 
@@ -236,9 +309,9 @@ public sealed class SeedData
     {
         var types = TypeRelated.SeedVehicleTypes.GetVehicleTypes();
 
-        if (!await context.VehicleTypes.AnyAsync())
+        if (!await context.Set<VehicleType>().AnyAsync())
         {
-            await context.VehicleTypes.AddRangeAsync(types);
+            await context.Set<VehicleType>().AddRangeAsync(types);
         }
     }
 
