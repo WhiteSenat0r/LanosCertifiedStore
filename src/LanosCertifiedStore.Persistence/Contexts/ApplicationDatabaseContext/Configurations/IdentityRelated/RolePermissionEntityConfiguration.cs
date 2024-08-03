@@ -8,7 +8,7 @@ internal sealed class RolePermissionEntityConfiguration : IEntityTypeConfigurati
 {
     public void Configure(EntityTypeBuilder<RolePermission> builder)
     {
-        builder.ToTable("RolePermissions", DatabaseSchemas.IdentitySchema);
+        builder.ToTable(DatabaseConstants.Tables.RolePermissions, DatabaseConstants.Schemas.IdentitySchema);
 
         builder.HasKey(rp => new { rp.PermissionCode, rp.UserRoleName });
 

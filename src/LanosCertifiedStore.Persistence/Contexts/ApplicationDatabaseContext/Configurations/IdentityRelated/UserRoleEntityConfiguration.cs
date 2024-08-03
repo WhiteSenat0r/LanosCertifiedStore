@@ -13,6 +13,6 @@ internal sealed class UserRoleEntityConfiguration : IEntityTypeConfiguration<Use
         builder.Property(x => x.Name).HasMaxLength(64);
         
         builder.HasData(UserRole.User, UserRole.Manager, UserRole.Administrator);
-        builder.ToTable("UserRoles", DatabaseSchemas.IdentitySchema);
+        builder.ToTable(DatabaseConstants.Tables.UserRoles, DatabaseConstants.Schemas.IdentitySchema);
     }
 }

@@ -21,6 +21,6 @@ internal sealed class VehicleBodyTypeConfiguration : IEntityTypeConfiguration<Ve
             .UsingEntity(join => join.ToTable("VehicleBodyTypesVehicleModels"));
 
         builder.HasIndex(p => p.Name).IsUnique();
-        builder.ToTable("VehicleBodyTypes", DatabaseSchemas.VehiclesSchema);
+        builder.ToTable(DatabaseConstants.Tables.VehicleBodyTypes, DatabaseConstants.Schemas.VehiclesSchema);
     }
 }

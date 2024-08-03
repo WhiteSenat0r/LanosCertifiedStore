@@ -18,7 +18,6 @@ internal sealed class VehicleModelConfiguration : IEntityTypeConfiguration<Vehic
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasIndex(p => new { p.Name, p.VehicleBrandId }).IsUnique();
-        builder.ToTable("VehicleModels", DatabaseSchemas.VehiclesSchema);
-
+        builder.ToTable(DatabaseConstants.Tables.VehicleModels, DatabaseConstants.Schemas.VehiclesSchema);
     }
 }

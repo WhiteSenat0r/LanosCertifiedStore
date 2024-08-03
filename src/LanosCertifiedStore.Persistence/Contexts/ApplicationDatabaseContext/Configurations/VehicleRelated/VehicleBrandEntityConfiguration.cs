@@ -13,6 +13,6 @@ internal sealed class VehicleBrandEntityConfiguration : IEntityTypeConfiguration
             .HasMaxLength(64);
 
         builder.HasIndex(p => p.Name).IsUnique();
-        builder.ToTable("VehicleBrands", DatabaseSchemas.VehiclesSchema);
+        builder.ToTable(DatabaseConstants.Tables.VehicleBrands, DatabaseConstants.Schemas.VehiclesSchema);
     }
 }

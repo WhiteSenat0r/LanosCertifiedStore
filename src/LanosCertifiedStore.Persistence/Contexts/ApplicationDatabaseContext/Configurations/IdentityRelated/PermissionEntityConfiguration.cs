@@ -8,7 +8,7 @@ internal sealed class PermissionEntityConfiguration : IEntityTypeConfiguration<P
 {
     public void Configure(EntityTypeBuilder<Permission> builder)
     {
-        builder.ToTable("Permissions", DatabaseSchemas.IdentitySchema);
+        builder.ToTable(DatabaseConstants.Tables.Permissions, DatabaseConstants.Schemas.IdentitySchema);
 
         builder.HasKey(p => p.Code);
 

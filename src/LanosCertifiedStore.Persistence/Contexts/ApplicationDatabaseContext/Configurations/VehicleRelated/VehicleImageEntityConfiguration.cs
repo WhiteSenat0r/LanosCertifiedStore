@@ -8,6 +8,6 @@ internal sealed class VehicleImageEntityConfiguration : IEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<VehicleImage> builder)
     {
-        builder.ToTable("VehicleImages", DatabaseSchemas.VehiclesSchema);
+        builder.ToTable(DatabaseConstants.Tables.VehicleImages, DatabaseConstants.Schemas.VehiclesSchema);
     }
 }

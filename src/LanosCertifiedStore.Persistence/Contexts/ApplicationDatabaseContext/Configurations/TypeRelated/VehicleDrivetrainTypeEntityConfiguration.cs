@@ -21,6 +21,6 @@ internal sealed class VehicleDrivetrainTypeConfiguration : IEntityTypeConfigurat
             .UsingEntity(join => join.ToTable("VehicleDrivetrainTypesVehicleModels"));
 
         builder.HasIndex(p => p.Name).IsUnique();
-        builder.ToTable("VehicleDrivetrainTypes", DatabaseSchemas.VehiclesSchema);
+        builder.ToTable(DatabaseConstants.Tables.VehicleDrivetrainTypes, DatabaseConstants.Schemas.VehiclesSchema);
     }
 }

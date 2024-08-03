@@ -8,6 +8,6 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.ToTable("Users", DatabaseSchemas.IdentitySchema);
+        builder.ToTable(DatabaseConstants.Tables.Users, DatabaseConstants.Schemas.IdentitySchema);
     }
 }

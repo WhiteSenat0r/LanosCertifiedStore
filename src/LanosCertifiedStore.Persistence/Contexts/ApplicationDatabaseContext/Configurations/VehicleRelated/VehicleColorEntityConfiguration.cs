@@ -21,6 +21,6 @@ internal sealed class VehicleColorEntityConfiguration : IEntityTypeConfiguration
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasIndex(p => p.Name).IsUnique();
-        builder.ToTable("VehicleColors", DatabaseSchemas.VehiclesSchema);
+        builder.ToTable(DatabaseConstants.Tables.VehicleColors, DatabaseConstants.Schemas.VehiclesSchema);
     }
 }

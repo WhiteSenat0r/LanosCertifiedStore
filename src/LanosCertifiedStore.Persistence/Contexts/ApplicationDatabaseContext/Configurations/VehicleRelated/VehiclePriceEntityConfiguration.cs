@@ -12,6 +12,6 @@ internal sealed class VehiclePriceEntityConfiguration : IEntityTypeConfiguration
             .HasColumnType("decimal(10,2)")
             .IsRequired();
 
-        builder.ToTable("VehiclePrices", DatabaseSchemas.VehiclesSchema);
+        builder.ToTable(DatabaseConstants.Tables.VehiclePrices, DatabaseConstants.Schemas.VehiclesSchema);
     }
 }
