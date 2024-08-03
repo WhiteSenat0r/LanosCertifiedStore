@@ -102,17 +102,20 @@ public sealed class SeedData
                 [new CredentialRepresentation("password", "Usr!_pass2024", false)]), UserRole.User)
         };
 
-        foreach (var userRepresentation in userRepresentations)
+        if (!await _context.Set<User>().AnyAsync())
         {
-            var id = await _keycloakClient.RegisterUserAsync(userRepresentation.Key);
-
-            var createdUser = new User(Guid.Parse(id))
+            foreach (var userRepresentation in userRepresentations)
             {
-                UserRole = userRepresentation.Value
-            };
-            
-            await _context.Set<User>().AddAsync(createdUser);
-            _context.Attach(createdUser.UserRole);
+                var id = await _keycloakClient.RegisterUserAsync(userRepresentation.Key);
+
+                var createdUser = new User(Guid.Parse(id))
+                {
+                    UserRole = userRepresentation.Value
+                };
+
+                await _context.Set<User>().AddAsync(createdUser);
+                _context.Attach(createdUser.UserRole);
+            }
         }
     }
 
