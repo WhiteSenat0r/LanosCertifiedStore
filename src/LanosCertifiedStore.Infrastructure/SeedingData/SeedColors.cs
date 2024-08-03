@@ -1,6 +1,6 @@
 ﻿using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-namespace LanosCertifiedStore.Persistence.SeedingData;
+namespace LanosCertifiedStore.Infrastructure.SeedingData;
 
 internal static class SeedColors
 {

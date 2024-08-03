@@ -2,7 +2,7 @@
 using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
 
-namespace LanosCertifiedStore.Persistence.SeedingData;
+namespace LanosCertifiedStore.Infrastructure.SeedingData;
 
 internal static class SeedModels
 {

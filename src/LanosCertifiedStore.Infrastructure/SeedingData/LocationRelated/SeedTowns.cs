@@ -1,6 +1,6 @@
 ﻿using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
 
-namespace LanosCertifiedStore.Persistence.SeedingData.LocationRelated;
+namespace LanosCertifiedStore.Infrastructure.SeedingData.LocationRelated;
 
 internal static class SeedTowns
 {
