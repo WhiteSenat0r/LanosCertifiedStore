@@ -1,5 +1,4 @@
-﻿using Bogus;
-using Bogus.DataSets;
+﻿using Bogus.DataSets;
 
 namespace IntegrationTests.Common;
 

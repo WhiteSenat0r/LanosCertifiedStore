@@ -1,6 +1,4 @@
-﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
-using LanosCertifiedStore.Application.Vehicles.Commands.Common;
-using MediatR;
+﻿using LanosCertifiedStore.Application.Shared.RequestRelated;
 
 namespace LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicle;
 
@@ -19,4 +17,4 @@ public record UpdateVehicleCommand(
     double Displacement,
     decimal Price,
     int ProductionYear,
-    int Mileage) : IActionVehicleCommandBase, IRequest<Result<Unit>>;
+    int Mileage) : ICommandRequest;
