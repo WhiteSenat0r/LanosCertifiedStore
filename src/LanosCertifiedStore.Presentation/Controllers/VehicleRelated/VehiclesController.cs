@@ -1,9 +1,12 @@
-﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Application.Shared.ValidationRelated;
 using LanosCertifiedStore.Application.Vehicles;
 using LanosCertifiedStore.Application.Vehicles.Commands.CreateVehicle;
 using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
+using LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
+using LanosCertifiedStore.Application.Vehicles.Queries.SingleVehicleQueryRequestRelated;
 using LanosCertifiedStore.Infrastructure.Authorization;
 using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Authorization;
@@ -21,7 +24,7 @@ public sealed class VehiclesController : BaseApiController
         [FromQuery] VehicleFilteringRequestParameters requestParameters)
     {
         var result = await Sender.Send(new CollectionVehiclesQueryRequest(requestParameters));
-        
+
         return Ok(result.Value);
     }
 
@@ -31,19 +34,27 @@ public sealed class VehiclesController : BaseApiController
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
     public async Task<ActionResult<SingleVehicleDto>> GetVehicle(Guid id)
     {
-        throw new NotImplementedException();
+        var result = await Sender.Send(new SingleVehicleQueryRequest(id));
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(CreateNotFoundProblemDetails(result.Error!));
+        }
+
+        return Ok(result.Value);
     }
-    //
-    // [HttpGet("countItems")]
-    // [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
-    // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    // [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    // public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
-    //     [FromQuery] VehicleFilteringRequestParameters requestParameters)
-    // {
-    //     return HandleResult(await Mediator.Send(new CountVehiclesQueryRequest(requestParameters)));
-    // }
-    //
+    
+    [AllowAnonymous]
+    [HttpGet("count")]
+    [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
+    public async Task<ActionResult<ItemsCountDto>> GetItemsCount(
+        [FromQuery] VehicleFilteringRequestParameters requestParameters)
+    {
+        var result = await Sender.Send(new CountVehiclesQueryRequest(requestParameters));
+
+        return Ok(result.Value);
+    }
+
     // [HttpGet("getPriceRange")]
     // [ProducesResponseType(typeof(Dictionary<string, decimal>), StatusCodes.Status200OK)]
     // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
