@@ -1,8 +1,12 @@
-﻿using LanosCertifiedStore.Application.Shared.ValidationRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.Shared.ValidationRelated;
+using LanosCertifiedStore.Application.Vehicles;
 using LanosCertifiedStore.Application.Vehicles.Commands.CreateVehicle;
 using LanosCertifiedStore.Application.Vehicles.Dtos;
+using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
 using LanosCertifiedStore.Infrastructure.Authorization;
 using LanosCertifiedStore.Presentation.Controllers.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanosCertifiedStore.Presentation.Controllers.VehicleRelated;
@@ -10,20 +14,22 @@ namespace LanosCertifiedStore.Presentation.Controllers.VehicleRelated;
 [Route("api/vehicles")]
 public sealed class VehiclesController : BaseApiController
 {
-    // [HttpGet]
-    // [ProducesResponseType(typeof(PaginationResult<VehicleDto>), StatusCodes.Status200OK)]
-    // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    // public async Task<ActionResult<PaginationResult<VehicleDto>>> GetVehicles(
-    //     [FromQuery] VehicleFilteringRequestParameters requestParameters)
-    // {
-    //     return HandleResult(await Mediator.Send(new VehiclesQuery(requestParameters)));
-    // }
-    //
+    [AllowAnonymous]
+    [HttpGet]
+    [ProducesResponseType(typeof(PaginationResult<VehicleDto>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<PaginationResult<VehicleDto>>> GetVehicles(
+        [FromQuery] VehicleFilteringRequestParameters requestParameters)
+    {
+        var result = await Sender.Send(new CollectionVehiclesQueryRequest(requestParameters));
+        
+        return Ok(result.Value);
+    }
+
+    [AllowAnonymous]
     [HttpGet("{id:guid}", Name = "GetVehicleById")]
-    // [ProducesResponseType(typeof(VehicleDto), StatusCodes.Status200OK)]
-    // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-    // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<VehicleDto>> GetVehicle(Guid id)
+    [ProducesResponseType(typeof(SingleVehicleDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<SingleVehicleDto>> GetVehicle(Guid id)
     {
         throw new NotImplementedException();
     }
