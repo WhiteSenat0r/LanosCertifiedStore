@@ -3,6 +3,7 @@ using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.SingleVehicleQueryRequestRelated;
+using LanosCertifiedStore.Application.Vehicles.Queries.VehiclePriceRangeQueryRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
 namespace LanosCertifiedStore.Application.Vehicles;
@@ -21,5 +22,9 @@ public interface IVehicleService
 
     Task<ItemsCountDto> GetVehiclesCount(
         CountVehiclesQueryRequest request,
+        CancellationToken cancellationToken = default);
+
+    Task<PriceRangeDto> GetPriceRange(
+        VehiclePriceRangeQueryRequest request,
         CancellationToken cancellationToken = default);
 }

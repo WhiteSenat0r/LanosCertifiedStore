@@ -7,6 +7,7 @@ using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.SingleVehicleQueryRequestRelated;
+using LanosCertifiedStore.Application.Vehicles.Queries.VehiclePriceRangeQueryRelated;
 using LanosCertifiedStore.Infrastructure.Authorization;
 using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Authorization;
@@ -43,7 +44,7 @@ public sealed class VehiclesController : BaseApiController
 
         return Ok(result.Value);
     }
-    
+
     [AllowAnonymous]
     [HttpGet("count")]
     [ProducesResponseType(typeof(ItemsCountDto), StatusCodes.Status200OK)]
@@ -55,15 +56,16 @@ public sealed class VehiclesController : BaseApiController
         return Ok(result.Value);
     }
 
-    // [HttpGet("getPriceRange")]
-    // [ProducesResponseType(typeof(Dictionary<string, decimal>), StatusCodes.Status200OK)]
-    // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    // [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    // public async Task<ActionResult<Dictionary<string, decimal>>> GetPriceRange(
-    //     [FromQuery] VehicleFilteringRequestParameters requestParameters)
-    // {
-    //     return HandleResult(await Mediator.Send(new VehiclePriceRangeQuery(requestParameters)));
-    // }
+    [AllowAnonymous]
+    [HttpGet("price-range")]
+    [ProducesResponseType(typeof(PriceRangeDto), StatusCodes.Status200OK)]
+    public async Task<ActionResult<PriceRangeDto>> GetPriceRange(
+        [FromQuery] VehicleFilteringRequestParameters requestParameters)
+    {
+        var result = await Sender.Send(new VehiclePriceRangeQueryRequest(requestParameters));
+
+        return Ok(result.Value);
+    }
 
     [HasAccessPermission("vehicles:create")]
     [HttpPost]

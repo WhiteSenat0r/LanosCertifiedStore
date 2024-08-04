@@ -4,6 +4,7 @@ using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.SingleVehicleQueryRequestRelated;
+using LanosCertifiedStore.Application.Vehicles.Queries.VehiclePriceRangeQueryRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 using LanosCertifiedStore.Persistence.Commands.Common;
 using LanosCertifiedStore.Persistence.Commands.VehicleRelated;
@@ -16,6 +17,7 @@ internal sealed class VehicleService(
     CollectionVehiclesQuery collectionVehiclesQuery,
     SingleVehicleQuery singleVehicleQuery,
     CountVehiclesQuery countVehiclesQuery,
+    PriceRangeQuery priceRangeQuery,
     SaveChangesCommand saveChangesCommand) : IVehicleService
 {
     public async Task AddAsync(Vehicle vehicle, CancellationToken cancellationToken)
@@ -43,5 +45,10 @@ internal sealed class VehicleService(
         CancellationToken cancellationToken = default)
     {
         return await countVehiclesQuery.Execute(request, cancellationToken);
+    }
+
+    public async Task<PriceRangeDto> GetPriceRange(VehiclePriceRangeQueryRequest request, CancellationToken cancellationToken = default)
+    {
+        return await priceRangeQuery.Execute(request.RequestParameters, cancellationToken);
     }
 }
