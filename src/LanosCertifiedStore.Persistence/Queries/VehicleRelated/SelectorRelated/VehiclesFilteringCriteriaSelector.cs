@@ -54,6 +54,16 @@ internal sealed class VehiclesFilteringCriteriaSelector : QueryFilteringCriteria
             (
                 IsValidAspectId(castedParams.OwnerId),
                 vehicle => vehicle.OwnerId.Equals(castedParams.OwnerId!.Value)
+            ),
+            (
+                castedParams.LowerPriceLimit.HasValue,
+                vehicle => vehicle.Prices.OrderByDescending(p => p.IssueDate).First().Value >=
+                           castedParams.LowerPriceLimit!.Value
+            ),
+            (
+                castedParams.UpperPriceLimit.HasValue,
+                vehicle => vehicle.Prices.OrderByDescending(p => p.IssueDate).First().Value <=
+                           castedParams.UpperPriceLimit!.Value
             )
         ];
     }
