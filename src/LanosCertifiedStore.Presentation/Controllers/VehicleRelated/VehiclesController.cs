@@ -84,6 +84,7 @@ public sealed class VehiclesController : BaseApiController
         return CreatedAtRoute("GetVehicleById", new { id = result.Value }, result.Value);
     }
 
+    // TODO implement safety checks for if user actually owns the vehicle he is trying to update.
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -118,7 +119,7 @@ public sealed class VehiclesController : BaseApiController
     // [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     // [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    // [HttpPost("addImage")]
+    // [HttpPost("images")]
     // public async Task<ActionResult> AddImageToVehicle([FromForm] AddImageToVehicleCommand addImageToVehicleCommand)
     // {
     //     return HandleResult(await Mediator.Send(addImageToVehicleCommand));
@@ -126,7 +127,7 @@ public sealed class VehiclesController : BaseApiController
     //
     // [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    // [HttpDelete("deleteImage")]
+    // [HttpDelete("images")]
     // public async Task<ActionResult> DeleteImageFromVehicle(
     //     [FromBody] RemoveImageFromVehicleCommand removeImageFromVehicleCommand)
     // {
@@ -135,7 +136,7 @@ public sealed class VehiclesController : BaseApiController
     //
     // [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    // [HttpPost("setMainImage")]
+    // [HttpPost("images/main")]
     // public async Task<ActionResult> SetVehicleMainImage(
     //     [FromBody] SetVehicleMainImageCommand setVehicleMainImageCommand)
     // {
