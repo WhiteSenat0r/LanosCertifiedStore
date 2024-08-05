@@ -22,4 +22,21 @@ public sealed class PersistenceTests
         types.Should()
             .BeEmpty();
     }
+
+    [Fact]
+    public void CommandsAndQueries_Should_HavePublicMethodExecute()
+    {
+        var types = Types.InAssembly(PersistenceAssembly)
+            .That().AreNotAbstract()
+            .And().HaveNameEndingWith("Command")
+            .Or().HaveNameEndingWith("Query")
+            .GetTypes();
+
+        var typesWithoutExecuteMethod = types
+            .Where(t => t.GetMethod("Execute") is null).ToList();
+
+        typesWithoutExecuteMethod
+            .Should().BeEmpty();
+
+    }
 }
