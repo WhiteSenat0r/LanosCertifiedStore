@@ -3,6 +3,7 @@ using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Application.Shared.ValidationRelated;
 using LanosCertifiedStore.Application.Vehicles;
 using LanosCertifiedStore.Application.Vehicles.Commands.CreateVehicle;
+using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicle;
 using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
@@ -83,15 +84,29 @@ public sealed class VehiclesController : BaseApiController
         return CreatedAtRoute("GetVehicleById", new { id = result.Value }, result.Value);
     }
 
-    // [HttpPut]
-    // [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
-    // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    // [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    // public async Task<ActionResult> UpdateVehicle([FromBody] UpdateVehicleCommand updateVehicleCommand)
-    // {
-    //     return HandleResult(await Mediator.Send(updateVehicleCommand));
-    // }
-    //
+    [HttpPut("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+    public async Task<ActionResult> UpdateVehicle(Guid id, [FromBody] UpdateVehicleCommandRequest request)
+    {
+        request = request with { Id = id };
+
+        var result = await Sender.Send(request);
+
+        if (result is IValidationResult validationResult)
+        {
+            return BadRequest(CreateValidationProblemDetails(result.Error!, validationResult.Errors));
+        }
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(CreateNotFoundProblemDetails(result.Error!));
+        }
+
+        return NoContent();
+    }
+
     // [HttpDelete]
     // [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]

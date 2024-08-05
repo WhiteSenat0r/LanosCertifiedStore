@@ -1,4 +1,5 @@
 ﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicle;
 using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
@@ -27,4 +28,6 @@ public interface IVehicleService
     Task<PriceRangeDto> GetPriceRange(
         VehiclePriceRangeQueryRequest request,
         CancellationToken cancellationToken = default);
+
+    Task UpdateVehicle(UpdateVehicleCommandRequest request, CancellationToken cancellationToken = default);
 }

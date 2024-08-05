@@ -2,16 +2,13 @@
 
 namespace LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicle;
 
-public record UpdateVehicleCommand(
+public record UpdateVehicleCommandRequest(
     Guid Id,
-    Guid ModelId,
     Guid ColorId,
     Guid BodyTypeId,
     Guid EngineTypeId,
     Guid TransmissionTypeId,
     Guid DrivetrainTypeId,
-    Guid LocationRegionId,
-    Guid LocationAreaId,
     Guid LocationTownId,
     string Description,
     double Displacement,
