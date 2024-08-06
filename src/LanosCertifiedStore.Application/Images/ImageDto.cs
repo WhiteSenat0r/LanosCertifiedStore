@@ -2,7 +2,7 @@
 
 public sealed record ImageDto
 {
-    public Guid Id { get; init; }
+    public string CloudImageId { get; init; }
     public string? ImageUrl { get; init; }
     public bool IsMainImage { get; init; }
 }

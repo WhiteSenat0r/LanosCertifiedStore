@@ -8,6 +8,7 @@ internal sealed class VehicleImageEntityConfiguration : IEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<VehicleImage> builder)
     {
+        builder.HasKey(i => i.CloudImageId);
         builder.ToTable(DatabaseConstants.Tables.VehicleImages, DatabaseConstants.Schemas.VehiclesSchema);
     }
 }

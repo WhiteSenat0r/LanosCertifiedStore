@@ -1,10 +1,7 @@
-﻿using LanosCertifiedStore.Domain.Contracts.Common;
+﻿namespace LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
-namespace LanosCertifiedStore.Domain.Entities.VehicleRelated;
-
-public sealed class VehicleImage : IIdentifiable<Guid>
+public sealed class VehicleImage
 {
-    public Guid Id { get; set; } = Guid.NewGuid();
     public string CloudImageId { get; set; } = null!;
     public string ImageUrl { get; set; } = null!;
     public bool IsMainImage { get; set; }
