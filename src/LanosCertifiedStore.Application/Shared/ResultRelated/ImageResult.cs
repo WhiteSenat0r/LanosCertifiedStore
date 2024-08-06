@@ -1,6 +1,6 @@
 ﻿namespace LanosCertifiedStore.Application.Shared.ResultRelated;
 
-public record ImageResult
+public sealed record ImageResult
 {
     public string? ImageId { get; private init; }
     public string? ImageUrl { get; private init; }
