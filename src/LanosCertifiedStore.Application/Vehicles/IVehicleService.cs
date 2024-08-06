@@ -1,5 +1,5 @@
 ﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
-using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicle;
+using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicleCommandRequestRelated;
 using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
@@ -29,5 +29,11 @@ public interface IVehicleService
         VehiclePriceRangeQueryRequest request,
         CancellationToken cancellationToken = default);
 
+    Task<bool> ExistsById(Guid id, CancellationToken cancellationToken = default);
+
     Task UpdateVehicle(UpdateVehicleCommandRequest request, CancellationToken cancellationToken = default);
+
+    Task AddImagesToVehicle(Guid vehicleId, List<VehicleImage> images, CancellationToken cancellationToken = default);
+
+    Task DeleteVehicle(Guid id, CancellationToken cancellationToken = default);
 }

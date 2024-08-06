@@ -1,6 +1,6 @@
 ﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
 using LanosCertifiedStore.Application.Vehicles;
-using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicle;
+using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicleCommandRequestRelated;
 using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
@@ -16,10 +16,13 @@ namespace LanosCertifiedStore.Infrastructure.Vehicles;
 internal sealed class VehicleService(
     CreateVehicleCommand createVehicleCommand,
     UpdateVehicleCommand updateVehicleCommand,
+    DeleteVehicleCommand deleteVehicleCommand,
+    AddImagesToVehicleCommand addImagesToVehicleCommand,
     CollectionVehiclesQuery collectionVehiclesQuery,
     SingleVehicleQuery singleVehicleQuery,
     CountVehiclesQuery countVehiclesQuery,
     PriceRangeQuery priceRangeQuery,
+    VehicleExistsByIdQuery vehicleExistsByIdQuery,
     SaveChangesCommand saveChangesCommand) : IVehicleService
 {
     public async Task AddAsync(Vehicle vehicle, CancellationToken cancellationToken)
@@ -56,9 +59,28 @@ internal sealed class VehicleService(
         return await priceRangeQuery.Execute(request.RequestParameters, cancellationToken);
     }
 
+    public async Task<bool> ExistsById(Guid id, CancellationToken cancellationToken = default)
+    {
+        return await vehicleExistsByIdQuery.Execute(id, cancellationToken);
+    }
+
     public async Task UpdateVehicle(UpdateVehicleCommandRequest request, CancellationToken cancellationToken = default)
     {
         await updateVehicleCommand.Execute(request);
         await saveChangesCommand.Execute(cancellationToken);
+    }
+
+    public async Task AddImagesToVehicle(
+        Guid vehicleId,
+        List<VehicleImage> images,
+        CancellationToken cancellationToken = default)
+    {
+        await addImagesToVehicleCommand.Execute(vehicleId, images, cancellationToken);
+        await saveChangesCommand.Execute(cancellationToken);
+    }
+
+    public async Task DeleteVehicle(Guid id, CancellationToken cancellationToken = default)
+    {
+        await deleteVehicleCommand.Execute(id, cancellationToken);
     }
 }

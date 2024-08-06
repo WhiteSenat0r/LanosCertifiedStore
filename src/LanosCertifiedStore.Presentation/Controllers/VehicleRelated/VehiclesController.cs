@@ -1,9 +1,11 @@
-﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+﻿using LanosCertifiedStore.Application.Images.Commands.AddImageToVehicle;
+using LanosCertifiedStore.Application.Shared.DtosRelated;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Application.Shared.ValidationRelated;
 using LanosCertifiedStore.Application.Vehicles;
-using LanosCertifiedStore.Application.Vehicles.Commands.CreateVehicle;
-using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicle;
+using LanosCertifiedStore.Application.Vehicles.Commands.CreateVehicleCommandRequestRelated;
+using LanosCertifiedStore.Application.Vehicles.Commands.DeleteVehicleCommandRequestRelated;
+using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicleCommandRequestRelated;
 using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
@@ -108,23 +110,44 @@ public sealed class VehiclesController : BaseApiController
         return NoContent();
     }
 
-    // [HttpDelete]
-    // [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
-    // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    // public async Task<ActionResult> DeleteVehicle([FromBody] DeleteVehicleCommand deleteVehicleCommand)
-    // {
-    //     return HandleResult(await Mediator.Send(deleteVehicleCommand));
-    // }
-    //
-    // [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
-    // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-    // [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    // [HttpPost("images")]
-    // public async Task<ActionResult> AddImageToVehicle([FromForm] AddImageToVehicleCommand addImageToVehicleCommand)
-    // {
-    //     return HandleResult(await Mediator.Send(addImageToVehicleCommand));
-    // }
-    //
+    [HttpDelete("{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> DeleteVehicle(Guid id)
+    {
+        var result = await Sender.Send(new DeleteVehicleCommandRequest(id));
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(CreateNotFoundProblemDetails(result.Error!));
+        }
+
+        return NoContent();
+    }
+
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Error), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    [HttpPost("{id:guid}/images")]
+    public async Task<ActionResult> AddImageToVehicle(Guid id, List<IFormFile> images)
+    {
+        var request = new AddImagesToVehicleCommandRequest(id, images);
+
+        var result = await Sender.Send(request);
+
+        if (result is IValidationResult validationResult)
+        {
+            return BadRequest(CreateValidationProblemDetails(result.Error!, validationResult.Errors));
+        }
+
+        if (result.Error == Error.None)
+        {
+            return Ok();
+        }
+
+        return Ok(result.Error);
+    }
+
     // [ProducesResponseType(typeof(Unit), StatusCodes.Status200OK)]
     // [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     // [HttpDelete("images")]
