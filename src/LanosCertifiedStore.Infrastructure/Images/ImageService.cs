@@ -26,7 +26,7 @@ internal class ImageService : IImageService
         await using var fileStream = imageFile.OpenReadStream();
 
         var uploadResult = await _cloudinarySource.UploadAsync(
-            GeImageUploadParameters(imageFile, fileStream, desiredPath));
+            GetImageUploadParameters(imageFile, fileStream, desiredPath));
 
         return GetRelevantImageResult(uploadResult);
     }
@@ -75,7 +75,7 @@ internal class ImageService : IImageService
             : new ImageResult(imageUploadResult.Error.Message);
     }
 
-    private ImageUploadParams GeImageUploadParameters(
+    private ImageUploadParams GetImageUploadParameters(
         IFormFile imageFile, Stream fileStream, string? desiredPath) =>
         new()
         {
