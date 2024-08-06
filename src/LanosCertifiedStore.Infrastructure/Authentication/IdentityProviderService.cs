@@ -2,7 +2,7 @@
 using LanosCertifiedStore.Application.Identity;
 using LanosCertifiedStore.Application.Identity.Dtos;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
-using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+using LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 using Microsoft.Extensions.Logging;
 
 namespace LanosCertifiedStore.Infrastructure.Authentication;

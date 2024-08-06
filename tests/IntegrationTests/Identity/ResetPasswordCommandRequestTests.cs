@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 using IntegrationTests.Common;
 using LanosCertifiedStore.Application.Identity.Commands.ResetPasswordCommandRequestRelated;
 using LanosCertifiedStore.Domain.Entities.UserRelated;
-using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+using LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace IntegrationTests.Identity;

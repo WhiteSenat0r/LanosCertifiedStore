@@ -1,4 +1,4 @@
-﻿namespace LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+﻿namespace LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 
 public sealed class KeycloakOptions
 {

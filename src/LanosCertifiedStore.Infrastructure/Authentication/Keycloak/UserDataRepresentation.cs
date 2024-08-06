@@ -1,6 +1,6 @@
 ﻿using LanosCertifiedStore.Application.Identity.Dtos;
 
-namespace LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+namespace LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 
 internal sealed record UserDataRepresentation(
     string Id,

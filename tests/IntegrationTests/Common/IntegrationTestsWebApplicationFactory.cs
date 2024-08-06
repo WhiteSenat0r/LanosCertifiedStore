@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using DotNet.Testcontainers.Builders;
-using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+using LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 using LanosCertifiedStore.Presentation;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;

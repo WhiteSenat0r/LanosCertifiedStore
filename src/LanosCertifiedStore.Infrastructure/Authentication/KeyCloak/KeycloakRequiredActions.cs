@@ -1,4 +1,4 @@
-﻿namespace LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+﻿namespace LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 
 internal static class KeycloakRequiredActions
 {

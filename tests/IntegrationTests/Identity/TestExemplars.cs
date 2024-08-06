@@ -1,4 +1,4 @@
-﻿using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+﻿using LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 
 namespace IntegrationTests.Identity;
 

@@ -3,7 +3,7 @@ using LanosCertifiedStore.Domain.Entities.UserRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
-using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+using LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 using LanosCertifiedStore.Infrastructure.SeedingData.LocationRelated;
 using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 using Microsoft.EntityFrameworkCore;

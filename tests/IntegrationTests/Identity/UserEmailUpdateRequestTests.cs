@@ -5,7 +5,7 @@ using IntegrationTests.Common;
 using LanosCertifiedStore.Application.Identity.Commands.UserEmailUpdateCommandRequestRelated;
 using LanosCertifiedStore.Application.Shared.ValidationRelated;
 using LanosCertifiedStore.Domain.Entities.UserRelated;
-using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+using LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace IntegrationTests.Identity;

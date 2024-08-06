@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using Bogus;
 using IntegrationTests.Identity;
 using LanosCertifiedStore.Domain.Entities.UserRelated;
-using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+using LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

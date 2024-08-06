@@ -2,7 +2,7 @@
 using System.Net.Http.Json;
 using Microsoft.Extensions.Options;
 
-namespace LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+namespace LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 
 internal sealed class KeycloakAuthDelegatingHandler(IOptions<KeycloakOptions> options) : DelegatingHandler
 {

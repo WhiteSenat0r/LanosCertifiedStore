@@ -13,7 +13,7 @@ using LanosCertifiedStore.Application.Vehicles;
 using LanosCertifiedStore.Application.VehicleTransmissionTypes;
 using LanosCertifiedStore.Application.VehicleTypes;
 using LanosCertifiedStore.Infrastructure.Authentication;
-using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+using LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 using LanosCertifiedStore.Infrastructure.Authorization;
 using LanosCertifiedStore.Infrastructure.Authorization.Claims;
 using LanosCertifiedStore.Infrastructure.Images;

@@ -1,6 +1,6 @@
 ﻿using System.Net.Http.Json;
 
-namespace LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
+namespace LanosCertifiedStore.Infrastructure.Authentication.Keycloak;
 
 internal sealed class KeycloakClient(HttpClient httpClient)
 {
