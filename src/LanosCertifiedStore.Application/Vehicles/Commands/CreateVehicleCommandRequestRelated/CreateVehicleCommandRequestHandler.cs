@@ -3,7 +3,7 @@ using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 using MediatR;
 
-namespace LanosCertifiedStore.Application.Vehicles.Commands.CreateVehicle;
+namespace LanosCertifiedStore.Application.Vehicles.Commands.CreateVehicleCommandRequestRelated;
 
 internal sealed class CreateVehicleCommandHandler(
     IVehicleService vehicleService,

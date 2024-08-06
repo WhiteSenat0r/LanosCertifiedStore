@@ -1,6 +1,6 @@
 ﻿using LanosCertifiedStore.Application.Shared.RequestRelated;
 
-namespace LanosCertifiedStore.Application.Vehicles.Commands.CreateVehicle;
+namespace LanosCertifiedStore.Application.Vehicles.Commands.CreateVehicleCommandRequestRelated;
 
 public sealed record CreateVehicleCommandRequest(
     Guid BrandId,
