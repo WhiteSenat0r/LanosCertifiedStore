@@ -1,7 +1,7 @@
 ﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
 using MediatR;
 
-namespace LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicle;
+namespace LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicleCommandRequestRelated;
 
 internal sealed class UpdateVehicleCommandHandler(IVehicleService vehicleService)
     : IRequestHandler<UpdateVehicleCommandRequest, Result>

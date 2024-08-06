@@ -1,6 +1,6 @@
 ﻿using LanosCertifiedStore.Application.Shared.RequestRelated;
 
-namespace LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicle;
+namespace LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicleCommandRequestRelated;
 
 public record UpdateVehicleCommandRequest(
     Guid Id,

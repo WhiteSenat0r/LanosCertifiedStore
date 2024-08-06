@@ -1,4 +1,4 @@
-﻿using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicle;
+﻿using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicleCommandRequestRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 using Microsoft.EntityFrameworkCore;

@@ -1,4 +1,4 @@
-﻿namespace LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicle;
+﻿namespace LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicleCommandRequestRelated;
 
 // TODO
 // internal sealed class UpdateVehicleCommandValidator : AbstractValidator<UpdateVehicleCommand>
