@@ -34,7 +34,6 @@
       <Folder Include="VehicleColors\Queries\" />
       <Folder Include="VehicleDrivetrainTypes\Queries\" />
       <Folder Include="Vehicles\Commands\" />
-      <Folder Include="Vehicles\Queries\" />
       <Folder Include="VehicleTransmissionTypes\Queries\" />
       <Folder Include="VehicleTypes\Queries\" />
     </ItemGroup>

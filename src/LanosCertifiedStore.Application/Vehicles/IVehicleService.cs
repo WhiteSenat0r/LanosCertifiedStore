@@ -3,6 +3,7 @@ using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicleCommandRequ
 using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
+using LanosCertifiedStore.Application.Vehicles.Queries.SearchVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.SingleVehicleQueryRequestRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.VehiclePriceRangeQueryRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated;
@@ -28,6 +29,11 @@ public interface IVehicleService
     Task<PriceRangeDto> GetPriceRange(
         VehiclePriceRangeQueryRequest request,
         CancellationToken cancellationToken = default);
+
+    Task<IReadOnlyCollection<SearchVehicleDto>> FindRelevantVehicles(
+        SearchVehiclesQueryRequest request,
+        CancellationToken cancellationToken
+    );
 
     Task<bool> ExistsById(Guid id, CancellationToken cancellationToken = default);
 

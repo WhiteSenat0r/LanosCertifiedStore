@@ -3,6 +3,7 @@ using LanosCertifiedStore.Application.Images.Commands.AddImageToVehicleCommandRe
 using LanosCertifiedStore.Application.Images.Commands.RemoveImageFromVehicleCommandRequestRelated;
 using LanosCertifiedStore.Application.Images.Commands.SetVehicleMainImageCommandRequestRelated;
 using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Application.Shared.ValidationRelated;
 using LanosCertifiedStore.Application.Vehicles;
@@ -12,6 +13,7 @@ using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicleCommandRequ
 using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
+using LanosCertifiedStore.Application.Vehicles.Queries.SearchVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.SingleVehicleQueryRequestRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.VehiclePriceRangeQueryRelated;
 using LanosCertifiedStore.Infrastructure.Authorization;
@@ -31,6 +33,24 @@ public sealed class VehiclesController : BaseApiController
         [FromQuery] VehicleFilteringRequestParameters requestParameters)
     {
         var result = await Sender.Send(new CollectionVehiclesQueryRequest(requestParameters));
+
+        return Ok(result.Value);
+    }
+    
+    [AllowAnonymous]
+    [HttpGet("find")]
+    [ProducesResponseType(typeof(PaginationResult<SearchVehicleDto>), StatusCodes.Status200OK)]
+    public async Task<ActionResult<PaginationResult<SearchVehicleDto>>> SearchVehicles(
+        [FromQuery] string searchTerm)
+    {
+        var requestParameters = new VehicleFilteringRequestParameters
+        {
+            ItemQuantity = ItemQuantitySelection.Ten,
+            PageIndex = 1,
+            SearchTerm = searchTerm,
+        };
+        
+        var result = await Sender.Send(new SearchVehiclesQueryRequest(requestParameters));
 
         return Ok(result.Value);
     }

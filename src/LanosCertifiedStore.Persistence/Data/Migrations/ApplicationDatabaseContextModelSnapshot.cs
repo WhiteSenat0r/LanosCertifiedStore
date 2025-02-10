@@ -489,6 +489,10 @@ namespace LanosCertifiedStore.Persistence.Data.Migrations
                     b.Property<int>("ProductionYear")
                         .HasColumnType("integer");
 
+                    b.Property<string>("SearchableData")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<Guid>("TransmissionTypeId")
                         .HasColumnType("uuid");
 
@@ -517,6 +521,11 @@ namespace LanosCertifiedStore.Persistence.Data.Migrations
                     b.HasIndex("ModelId");
 
                     b.HasIndex("OwnerId");
+
+                    b.HasIndex("SearchableData")
+                        .HasAnnotation("Npgsql:TsVectorConfig", "ukrainian");
+
+                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("SearchableData"), "GIN");
 
                     b.HasIndex("TransmissionTypeId");
 

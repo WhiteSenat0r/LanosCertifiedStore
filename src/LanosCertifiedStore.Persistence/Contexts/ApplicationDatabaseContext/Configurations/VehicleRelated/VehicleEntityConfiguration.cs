@@ -11,7 +11,7 @@ internal sealed class VehicleEntityConfiguration : IEntityTypeConfiguration<Vehi
         builder.Property(x => x.Description)
             .IsRequired()
             .HasMaxLength(2048);
-        
+
         builder.Property(v => v.Vincode)
             .IsRequired()
             .HasMaxLength(17);

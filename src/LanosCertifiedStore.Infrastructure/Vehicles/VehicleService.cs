@@ -4,6 +4,7 @@ using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicleCommandRequ
 using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
+using LanosCertifiedStore.Application.Vehicles.Queries.SearchVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.SingleVehicleQueryRequestRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.VehiclePriceRangeQueryRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated;
@@ -25,6 +26,7 @@ internal sealed class VehicleService(
     CountVehiclesQuery countVehiclesQuery,
     PriceRangeQuery priceRangeQuery,
     VehicleExistsByIdQuery vehicleExistsByIdQuery,
+    SearchVehiclesQuery searchVehiclesQuery,
     SaveChangesCommand saveChangesCommand) : IVehicleService
 {
     public async Task AddAsync(Vehicle vehicle, CancellationToken cancellationToken)
@@ -59,6 +61,13 @@ internal sealed class VehicleService(
         CancellationToken cancellationToken = default)
     {
         return await priceRangeQuery.Execute(request.RequestParameters, cancellationToken);
+    }
+
+    public async Task<IReadOnlyCollection<SearchVehicleDto>> FindRelevantVehicles(
+        SearchVehiclesQueryRequest request,
+        CancellationToken cancellationToken)
+    {
+        return await searchVehiclesQuery.Execute(request, cancellationToken);
     }
 
     public async Task<bool> ExistsById(Guid id, CancellationToken cancellationToken = default)

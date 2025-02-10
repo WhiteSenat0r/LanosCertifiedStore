@@ -11,6 +11,7 @@ internal sealed class VehicleRelatedMappingProfile : Profile
         GetVehicleInstanceMapping();
         GetSingleVehicleDtoInstanceMapping();
         GetVehicleDtoInstanceMapping();
+        GetSearchVehicleDtoInstanceMapping();
     }
 
     private void GetSingleVehicleDtoInstanceMapping()
@@ -51,5 +52,14 @@ internal sealed class VehicleRelatedMappingProfile : Profile
             .ForMember(d => d.LocationTownName, o => o.MapFrom(s => s.LocationTown.Name))
             .ForMember(d => d.EngineType, o => o.MapFrom(s => s.EngineType.Name))
             .ForMember(d => d.BodyType, o => o.MapFrom(s => s.BodyType.Name));
+    }
+    
+    private void GetSearchVehicleDtoInstanceMapping()
+    {
+        CreateMap<Vehicle, SearchVehicleDto>()
+            .ForMember(d => d.MainImageUrl, o => o.MapFrom(s => s.Images.Count != 0
+                ? s.Images.FirstOrDefault(i => i.IsMainImage)!.ImageUrl
+                : null))
+            .ForMember(d => d.FullName, o => o.MapFrom(s => $"{s.Brand.Name} {s.Model.Name} {s.ProductionYear}"));
     }
 }

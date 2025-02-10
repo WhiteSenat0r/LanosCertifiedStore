@@ -20,5 +20,6 @@ public sealed class VehicleFilteringRequestParameters : BaseFilteringRequestPara
     public Guid? OwnerId { get; set; }
     public decimal? LowerPriceLimit { get; set; }
     public decimal? UpperPriceLimit { get; set; }
-    public int? ProductionYear { get; init; }
+    public int? ProductionYear { get; set; }
+    public string SearchTerm { get; set; } = null!;
 }
