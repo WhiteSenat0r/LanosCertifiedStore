@@ -13,8 +13,8 @@ internal sealed class AddImagesToVehicleCommandRequestValidator : AbstractValida
             .NotEmpty()
             .ForEach(image => image.Must(IsImageFile));
 
-        RuleFor(x => x.Images.Select(i => i.Length))
-            .ForEach(i => i.GreaterThan(MinimalFileSize));
+        RuleForEach(x => x.Images)
+            .Must(image => image.Length > MinimalFileSize);
 
         RuleFor(x => x.VehicleId)
             .NotEmpty();
