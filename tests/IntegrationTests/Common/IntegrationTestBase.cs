@@ -1,11 +1,15 @@
 ﻿using System.Net.Http.Json;
+using System.Reflection;
+using System.Security.Claims;
 using System.Text.Json.Serialization;
 using Bogus;
 using IntegrationTests.Identity;
+using LanosCertifiedStore.Application.Identity;
 using LanosCertifiedStore.Domain.Entities.UserRelated;
 using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
 using LanosCertifiedStore.Persistence.Contexts.ApplicationDatabaseContext;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
@@ -16,9 +20,9 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
 {
     private const string CollectionName = "Integration tests collection";
     private readonly IServiceScope _scope;
-
-
+    
     private protected static readonly Faker Faker = new("uk");
+    private protected readonly IUserContext UserContext;
     private protected readonly ISender Sender;
     private protected readonly ApplicationDatabaseContext Context;
     private protected readonly HttpClient HttpClient;
@@ -28,6 +32,8 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
     private protected IntegrationTestBase(IntegrationTestsWebApplicationFactory factory)
     {
         _scope = factory.Services.CreateScope();
+        UserContext = _scope.ServiceProvider.GetRequiredService<IUserContext>();
+        SetUserContextId(Guid.NewGuid());
         Sender = _scope.ServiceProvider.GetRequiredService<ISender>();
         Context = _scope.ServiceProvider.GetRequiredService<ApplicationDatabaseContext>();
         HttpClient = factory.CreateClient();
@@ -58,6 +64,8 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
         };
         
         Context.Attach(role);
+        SetUserContextId(userId);
+        
         await Context.Set<User>().AddAsync(user);
         await Context.SaveChangesAsync();
 
@@ -89,6 +97,26 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
 
         var authToken = await authorizationResponse.Content.ReadFromJsonAsync<AuthToken>();
         return authToken!.AccessToken;
+    }
+    
+    private void SetUserContextId(Guid userId)
+    {
+        var httpContextAccessorField = UserContext.GetType()
+            .GetFields(BindingFlags.NonPublic | BindingFlags.Instance)
+            .First(f => f.FieldType == typeof(IHttpContextAccessor));
+    
+        var httpContextAccessor = (IHttpContextAccessor)httpContextAccessorField.GetValue(UserContext)!;
+    
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+            new Claim("sub", userId.ToString())
+        };
+        var identity = new ClaimsIdentity(claims, "Bearer");
+        var principal = new ClaimsPrincipal(identity);
+    
+        httpContextAccessor.HttpContext ??= new DefaultHttpContext();
+        httpContextAccessor.HttpContext.User = principal;
     }
 
     private sealed class AuthToken
