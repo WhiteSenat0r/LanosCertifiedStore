@@ -3,17 +3,12 @@ using CloudinaryDotNet.Actions;
 using LanosCertifiedStore.Application.Images;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
 
 namespace LanosCertifiedStore.Infrastructure.Images;
 
-internal class ImageService : IImageService
+internal class ImageService(ICloudinary cloudinarySource) : IImageService
 {
-    private readonly ICloudinary _cloudinarySource;
     private readonly ICollection<string> _uploadedImagesIdBuffer = new List<string>();
-
-    public ImageService(IOptions<CloudinaryOptions> cloudinaryOptions) =>
-        _cloudinarySource = InstantiateCloudinarySource(cloudinaryOptions);
 
     public async Task<ImageResult> UploadImageAsync(
         IFormFile imageFile, string desiredPath)
@@ -25,7 +20,7 @@ internal class ImageService : IImageService
 
         await using var fileStream = imageFile.OpenReadStream();
 
-        var uploadResult = await _cloudinarySource.UploadAsync(
+        var uploadResult = await cloudinarySource.UploadAsync(
             GetImageUploadParameters(imageFile, fileStream, desiredPath));
 
         return GetRelevantImageResult(uploadResult);
@@ -33,7 +28,7 @@ internal class ImageService : IImageService
 
     public async Task<bool> TryDeletePhotoAsync(string imageId)
     {
-        var deletionResult = await _cloudinarySource.DestroyAsync(new DeletionParams(imageId));
+        var deletionResult = await cloudinarySource.DestroyAsync(new DeletionParams(imageId));
 
         return await Task.FromResult(deletionResult.Result.Equals("ok"));
     }
@@ -83,17 +78,6 @@ internal class ImageService : IImageService
             Folder = desiredPath,
             Transformation = new Transformation().Width(1920).Height(1080).Crop("fill")
         };
-
-    private ICloudinary InstantiateCloudinarySource(IOptions<CloudinaryOptions> cloudinaryOptions)
-    {
-        var cloudinaryAccount = new Account(
-            cloudinaryOptions.Value.CloudName,
-            cloudinaryOptions.Value.ApiKey,
-            cloudinaryOptions.Value.ApiSecret
-        );
-
-        return new Cloudinary(cloudinaryAccount);
-    }
 
     private bool IsInvalidPath(string path) =>
         string.IsNullOrEmpty(path) || string.IsNullOrWhiteSpace(path) || !path.Contains('/');

@@ -1,4 +1,5 @@
-﻿using LanosCertifiedStore.Application.Identity;
+﻿using CloudinaryDotNet;
+using LanosCertifiedStore.Application.Identity;
 using LanosCertifiedStore.Application.Images;
 using LanosCertifiedStore.Application.LocationRegions;
 using LanosCertifiedStore.Application.LocationTowns;
@@ -16,6 +17,7 @@ using LanosCertifiedStore.Infrastructure.Authentication;
 using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
 using LanosCertifiedStore.Infrastructure.Authorization;
 using LanosCertifiedStore.Infrastructure.Authorization.Claims;
+using LanosCertifiedStore.Infrastructure.Health;
 using LanosCertifiedStore.Infrastructure.Images;
 using LanosCertifiedStore.Infrastructure.Locations;
 using LanosCertifiedStore.Infrastructure.Users;
@@ -24,6 +26,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
 using IAuthorizationService = LanosCertifiedStore.Application.Users.IAuthorizationService;
 
@@ -39,6 +42,10 @@ public static class DependencyInjection
         AddLocationRelatedServices(services);
         AddAuthenticationRelatedServices(services, configuration);
         AddAuthorizationRelatedServices(services);
+
+        services.AddHealthChecks()
+            .AddCheck<CloudinaryHealthCheck>("cloudinary", HealthStatus.Unhealthy)
+            .AddNpgSql(configuration.GetConnectionString("PostgreSqlConnection")!);
 
         return services;
     }
@@ -80,6 +87,19 @@ public static class DependencyInjection
     private static void AddImageRelatedServices(IServiceCollection services)
     {
         services.ConfigureOptions<CloudinaryConfigureOptions>();
+        services.AddScoped<ICloudinary>(sp =>
+        {
+            var cloudinaryOptions = sp.GetRequiredService<IOptions<CloudinaryOptions>>();
+
+            var cloudinaryAccount = new Account(
+                cloudinaryOptions.Value.CloudName,
+                cloudinaryOptions.Value.ApiKey,
+                cloudinaryOptions.Value.ApiSecret
+            );
+
+            return new Cloudinary(cloudinaryAccount);
+        });
+        
         services.AddScoped<IImageService, ImageService>();
     }
 
