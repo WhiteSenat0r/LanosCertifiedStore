@@ -1,3 +1,4 @@
+using HealthChecks.UI.Client;
 using LanosCertifiedStore.Application;
 using LanosCertifiedStore.Infrastructure;
 using LanosCertifiedStore.Persistence;
@@ -5,6 +6,7 @@ using LanosCertifiedStore.Presentation;
 using LanosCertifiedStore.Presentation.Extensions;
 using LanosCertifiedStore.Presentation.Middlewares;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Serilog;
 
@@ -35,6 +37,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("CorsPolicy");
 
+app.MapHealthChecks("api/health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 app.UseMiddleware<RequestLogContextMiddleware>();
 app.UseSerilogRequestLogging();
 
