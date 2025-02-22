@@ -1,18 +1,10 @@
-﻿using System.Globalization;
-using IntegrationTests.Common;
+﻿using IntegrationTests.Common;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
-using LanosCertifiedStore.Application.VehicleModels;
-using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleBrandlessModelsQueryRelated;
-using LanosCertifiedStore.Application.VehicleModels.Queries.CollectionVehicleModelsQueryRelated;
-using LanosCertifiedStore.Application.VehicleModels.Queries.CountVehicleModelsQueryRelated;
-using LanosCertifiedStore.Application.VehicleModels.Queries.SingleVehicleModelQueryRelated;
 using LanosCertifiedStore.Application.Vehicles;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.SearchVehiclesQueryRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.VehiclePriceRangeQueryRelated;
-using LanosCertifiedStore.Domain.Entities.VehicleRelated;
-using Microsoft.EntityFrameworkCore;
 
 namespace IntegrationTests.Vehicle;
 
@@ -126,7 +118,7 @@ public sealed class VehicleQueriesIntegrationTests(
     public async Task Send_SearchVehiclesQueryRequest_Should_ReturnRelevantVehicles()
     {
         // Arrange
-        var filteringParameters = new VehicleFilteringRequestParameters
+        var filteringParameters = new SearchVehicleFilteringRequestParameters
         {
             SearchTerm = "Volkswagen"
         };

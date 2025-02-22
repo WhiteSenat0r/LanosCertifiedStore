@@ -3,7 +3,7 @@ using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
 namespace LanosCertifiedStore.Application.Vehicles;
 
-public sealed class VehicleFilteringRequestParameters : BaseFilteringRequestParameters<Vehicle>,
+public class VehicleFilteringRequestParameters : BaseFilteringRequestParameters<Vehicle>,
     IVehicleFilteringRequestParameters
 {
     public Guid? BrandId { get; set; }
@@ -21,5 +21,4 @@ public sealed class VehicleFilteringRequestParameters : BaseFilteringRequestPara
     public decimal? LowerPriceLimit { get; set; }
     public decimal? UpperPriceLimit { get; set; }
     public int? ProductionYear { get; set; }
-    public string SearchTerm { get; set; } = null!;
 }

@@ -43,7 +43,7 @@ public sealed class VehiclesController : BaseApiController
     public async Task<ActionResult<PaginationResult<SearchVehicleDto>>> SearchVehicles(
         [FromQuery] string searchTerm)
     {
-        var requestParameters = new VehicleFilteringRequestParameters
+        var requestParameters = new SearchVehicleFilteringRequestParameters
         {
             ItemQuantity = ItemQuantitySelection.Ten,
             PageIndex = 1,

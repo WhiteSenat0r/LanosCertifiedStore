@@ -4,7 +4,6 @@ using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Application.Vehicles;
 using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.SingleVehicleQueryRequestRelated;
-using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 
 namespace ApplicationUnitTests.Images.SetVehicleMainImageCommand;
 
