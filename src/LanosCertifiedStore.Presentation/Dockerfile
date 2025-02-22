@@ -9,6 +9,7 @@ EXPOSE 5001
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+COPY ./Directory.Build.props ./ 
 COPY ["src/LanosCertifiedStore.Presentation/LanosCertifiedStore.Presentation.csproj", "src/LanosCertifiedStore.Presentation/"]
 COPY ["src/LanosCertifiedStore.Application/LanosCertifiedStore.Application.csproj", "src/LanosCertifiedStore.Application/"]
 COPY ["src/LanosCertifiedStore.Domain/LanosCertifiedStore.Domain.csproj", "src/LanosCertifiedStore.Domain/"]
