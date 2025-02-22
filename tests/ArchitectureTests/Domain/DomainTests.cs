@@ -30,4 +30,20 @@ public sealed class DomainTests
 
         failingTypes.Should().BeEmpty();
     }
+
+    [Fact]
+    public void Domain_Should_NotHaveReferencesToOtherProjects()
+    {
+        var result = Types
+            .InAssembly(DomainAssembly)
+            .ShouldNot()
+            .HaveDependencyOnAny(
+                "LanosCertifiedStore.Application",
+                "LanosCertifiedStore.Infrastructure",
+                "LanosCertifiedStore.Persistence",
+                "LanosCertifiedStore.Presentation")
+            .GetResult();
+
+        result.IsSuccessful.Should().BeTrue();
+    }
 }

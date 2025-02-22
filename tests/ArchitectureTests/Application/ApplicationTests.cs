@@ -46,6 +46,22 @@ public sealed class ApplicationTests
         handlerTypes.Should().BeEmpty();
     }
 
+    [Fact]
+    public void Application_Should_NotHaveReferencesToOtherProjects()
+    {
+        var result = Types
+            .InAssembly(ApplicationAssembly)
+            .ShouldNot()
+            .HaveDependencyOnAny(
+                "LanosCertifiedStore.Domain",
+                "LanosCertifiedStore.Infrastructure",
+                "LanosCertifiedStore.Persistence",
+                "LanosCertifiedStore.Presentation")
+            .GetResult();
+
+        result.IsSuccessful.Should().BeTrue();
+    }
+
     private static IEnumerable<Type> GetTypesImplementingInterfaceNotEndingWith(Type interfaceType, string endsWith)
     {
         return Types.InAssembly(ApplicationAssembly)

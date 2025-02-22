@@ -24,6 +24,7 @@
       <ProjectReference Include="..\..\src\LanosCertifiedStore.Application\LanosCertifiedStore.Application.csproj" />
       <ProjectReference Include="..\..\src\LanosCertifiedStore.Domain\LanosCertifiedStore.Domain.csproj" />
       <ProjectReference Include="..\..\src\LanosCertifiedStore.Persistence\LanosCertifiedStore.Persistence.csproj" />
+      <ProjectReference Include="..\..\src\LanosCertifiedStore.Presentation\LanosCertifiedStore.Presentation.csproj" />
     </ItemGroup>
 
 </Project>
