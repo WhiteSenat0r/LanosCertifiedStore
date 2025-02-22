@@ -40,7 +40,7 @@ app.UseCors("CorsPolicy");
 app.MapHealthChecks("api/health", new HealthCheckOptions
 {
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-});
+}); 
 app.UseMiddleware<RequestLogContextMiddleware>();
 app.UseSerilogRequestLogging();
 

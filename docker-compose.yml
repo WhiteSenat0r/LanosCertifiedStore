@@ -12,6 +12,7 @@ services:
       - ASPNETCORE_URLS=https://+:5001;http://+:5000
       - ASPNETCORE_Kestrel__Certificates__Default__Password=password
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://lanoscertifiedstore.dashboard:18889
     volumes:
       - ~/.aspnet/https:/https:ro
     depends_on:
@@ -75,8 +76,16 @@ services:
   lanoscertifiedstore.seq:
     image: datalust/seq:latest
     container_name: lsc_seq
+    volumes:
+      - ./.containers/seq:/data
     environment:
       - ACCEPT_EULA=Y
     ports:
       - "5341:5341"
       - "8081:80"
+  
+  lanoscertifiedstore.dashboard:
+    image: mcr.microsoft.com/dotnet/nightly/aspire-dashboard:latest
+    container_name: lsc_dashboard
+    ports:
+      - 18888:18888
