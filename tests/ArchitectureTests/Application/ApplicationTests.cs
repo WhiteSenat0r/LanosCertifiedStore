@@ -53,7 +53,6 @@ public sealed class ApplicationTests
             .InAssembly(ApplicationAssembly)
             .ShouldNot()
             .HaveDependencyOnAny(
-                "LanosCertifiedStore.Domain",
                 "LanosCertifiedStore.Infrastructure",
                 "LanosCertifiedStore.Persistence",
                 "LanosCertifiedStore.Presentation")
