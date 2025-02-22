@@ -22,7 +22,7 @@ public sealed class SearchVehiclesQuery(
         CancellationToken cancellationToken)
     {
         var queryable = GetDatabaseQueryable(context);
-        var searchTerm = (queryRequest.FilteringParameters as IVehicleFilteringRequestParameters)!.SearchTerm;
+        var searchTerm = (queryRequest.FilteringParameters as ISearchVehicleFilteringRequestParameters)!.SearchTerm;
 
         var rankedVehicles = SearchRelevantVehicles(queryable, searchTerm);
         var paginatedVehicles = GetPaginatedQueryable(queryRequest, rankedVehicles, queryPaginator);

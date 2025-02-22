@@ -20,5 +20,4 @@ public interface IVehicleFilteringRequestParameters : IFilteringRequestParameter
     decimal? LowerPriceLimit { get; set; }
     decimal? UpperPriceLimit { get; set; }
     public int? ProductionYear { get; set; }
-    public string SearchTerm { get; set; }
 }
