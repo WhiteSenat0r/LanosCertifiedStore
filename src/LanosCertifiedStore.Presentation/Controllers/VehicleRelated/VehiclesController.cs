@@ -41,12 +41,14 @@ public sealed class VehiclesController : BaseApiController
     [HttpGet("find")]
     [ProducesResponseType(typeof(PaginationResult<SearchVehicleDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<PaginationResult<SearchVehicleDto>>> SearchVehicles(
-        [FromQuery] string searchTerm)
+        [FromQuery] string searchTerm,
+        ItemQuantitySelection itemQuantity = ItemQuantitySelection.Ten,
+        int pageIndex = 1)
     {
         var requestParameters = new SearchVehicleFilteringRequestParameters
         {
-            ItemQuantity = ItemQuantitySelection.Ten,
-            PageIndex = 1,
+            ItemQuantity = itemQuantity,
+            PageIndex = pageIndex,
             SearchTerm = searchTerm,
         };
         

@@ -60,6 +60,7 @@ internal sealed class VehicleRelatedMappingProfile : Profile
             .ForMember(d => d.MainImageUrl, o => o.MapFrom(s => s.Images.Count != 0
                 ? s.Images.FirstOrDefault(i => i.IsMainImage)!.ImageUrl
                 : null))
+            .ForMember(d => d.Price, o => o.MapFrom(s => s.Prices.OrderByDescending(p => p.IssueDate).First().Value))
             .ForMember(d => d.FullName, o => o.MapFrom(s => $"{s.Brand.Name} {s.Model.Name} {s.ProductionYear}"));
     }
 }

@@ -35,8 +35,8 @@ public sealed class SearchVehiclesQuery(
     private IQueryable<Vehicle> SearchRelevantVehicles(IQueryable<Vehicle> queryable, string searchTerm)
     {
         var tokens = Regex.Split(searchTerm.ToLower(), @"[\s,.;:\-\|]+")
-            .Where(token => !string.IsNullOrEmpty(token))
-            .ToList();
+                    .Where(token => !string.IsNullOrEmpty(token))
+                    .ToList();
 
         var predicate = PredicateBuilder.New<Vehicle>();
 

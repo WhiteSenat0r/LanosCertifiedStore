@@ -2,6 +2,8 @@
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=ApplicationUnitTests_003B_002A_003B_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=ArchitectureTests_003B_002A_003B_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=IntegrationTests_003B_002A_003B_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=LanosCertifiedStore_002EApplication_003B_002A_003BLanosCertifiedStore_002EApplication_002EVehicles_002EDtos_002E_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=LanosCertifiedStore_002EApplication_003B_002A_003BLanosCertifiedStore_002EApplication_002EVehicles_002EVehicleFilteringRequestParameters_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=LanosCertifiedStore_002EDomain_003B_002A_003B_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=LanosCertifiedStore_002EInfrastructure_003B_002A_003BLanosCertifiedStore_002EInfrastructure_002EImages_002E_002A_003B_002A/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/Environment/Filtering/ExcludeCoverageFilters/=LanosCertifiedStore_002EInfrastructure_003B_002A_003BLanosCertifiedStore_002EInfrastructure_002EVehicles_002EVehicleService_003BAddImagesToVehicle/@EntryIndexedValue">True</s:Boolean>
