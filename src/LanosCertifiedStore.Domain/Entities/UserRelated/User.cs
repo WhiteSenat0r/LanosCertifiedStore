@@ -7,6 +7,8 @@ public sealed class User : IIdentifiable<Guid>
 {
     public Guid Id { get; init; } 
     public UserRole UserRole { get; set; }
+    public Guid WishlistId { get; set; }
+    public UserWishlist Wishlist { get; set; } = null!;
     public ICollection<Vehicle> Vehicles { get; set; } = [];
 
     public User()

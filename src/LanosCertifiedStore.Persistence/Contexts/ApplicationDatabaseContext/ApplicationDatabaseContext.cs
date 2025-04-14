@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using LanosCertifiedStore.Domain.Entities.UserRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated.LocationRelated;
 using LanosCertifiedStore.Domain.Entities.VehicleRelated.TypeRelated;
@@ -24,6 +25,7 @@ public sealed class ApplicationDatabaseContext(
     internal DbSet<VehicleLocationArea> VehicleLocationAreas { get; set; } = null!;
     internal DbSet<VehicleLocationRegion> VehicleLocationRegions { get; set; } = null!;
     internal DbSet<VehicleImage> VehicleImages { get; set; } = null!;
+    internal DbSet<UserWishlist> Wishlists { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

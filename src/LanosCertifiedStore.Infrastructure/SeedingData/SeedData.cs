@@ -107,13 +107,16 @@ public sealed class SeedData
             foreach (var userRepresentation in userRepresentations)
             {
                 var id = await _keycloakClient.RegisterUserAsync(userRepresentation.Key);
-
-                var createdUser = new User(Guid.Parse(id))
+                var userId = Guid.Parse(id);
+                var userWishlist = new UserWishlist(userId);
+                var createdUser = new User(userId)
                 {
-                    UserRole = userRepresentation.Value
+                    UserRole = userRepresentation.Value,
+                    WishlistId = userWishlist.Id
                 };
 
                 await _context.Set<User>().AddAsync(createdUser);
+                await _context.Set<UserWishlist>().AddAsync(userWishlist);
                 _context.Attach(createdUser.UserRole);
             }
         }

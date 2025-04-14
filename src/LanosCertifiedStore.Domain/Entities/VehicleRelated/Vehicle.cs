@@ -33,6 +33,7 @@ public sealed class Vehicle : IIdentifiable<Guid>
     public VehicleDrivetrainType DrivetrainType { get; set; } = null!;
     public ICollection<VehicleImage> Images { get; set; } = [];
     public ICollection<VehiclePrice> Prices { get; set; } = [];
+    public ICollection<UserWishlist> Wishlists { get; set; } = [];
     public Guid OwnerId { get; set; }
     public User Owner { get; set; } = null!;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

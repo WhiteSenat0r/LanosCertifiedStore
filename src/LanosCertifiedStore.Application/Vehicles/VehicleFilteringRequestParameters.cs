@@ -6,14 +6,14 @@ namespace LanosCertifiedStore.Application.Vehicles;
 public class VehicleFilteringRequestParameters : BaseFilteringRequestParameters<Vehicle>,
     IVehicleFilteringRequestParameters
 {
-    public Guid? BrandId { get; set; }
-    public Guid? ModelId { get; set; }
-    public Guid? TypeId { get; set; }
-    public Guid? EngineTypeId { get; set; }
-    public Guid? DrivetrainTypeId { get; set; }
-    public Guid? TransmissionTypeId { get; set; }
-    public Guid? BodyTypeId { get; set; }
-    public Guid? ColorId { get; set; }
+    public List<Guid> BrandIds { get; set; } = [];
+    public List<Guid> ModelIds { get; set; } = [];
+    public List<Guid> TypeIds { get; set; } = [];
+    public List<Guid> EngineTypeIds { get; set; } = [];
+    public List<Guid> DrivetrainTypeIds { get; set; } = [];
+    public List<Guid> TransmissionTypeIds { get; set; } = [];
+    public List<Guid> BodyTypeIds { get; set; } = [];
+    public List<Guid> ColorIds { get; set; } = [];
     public Guid? LocationRegionAreaId { get; set; }
     public Guid? LocationAreaId { get; set; }
     public Guid? LocationTownId { get; set; }

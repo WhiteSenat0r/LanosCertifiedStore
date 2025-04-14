@@ -30,5 +30,7 @@ internal static class DatabaseConstants
         public const string RolePermissions = "RolePermissions";
         public const string Users = "Users";
         public const string UserRoles = "UserRoles";
+        public const string UserWishlists = "UserWishlists";
+        public const string VehiclesWishlists = "VehiclesWishlists";
     }
 }

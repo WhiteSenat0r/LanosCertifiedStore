@@ -16,36 +16,36 @@ internal sealed class VehiclesFilteringCriteriaSelector : QueryFilteringCriteria
         return
         [
             (
-                IsValidAspectId(castedParams!.BrandId),
-                vehicle => vehicle.BrandId.Equals(castedParams.BrandId!.Value)
+                castedParams!.BrandIds.Any(),
+                vehicle => castedParams.BrandIds.Contains(vehicle.BrandId)
             ),
             (
-                IsValidAspectId(castedParams.ModelId),
-                vehicle => vehicle.ModelId.Equals(castedParams.ModelId!.Value)
+                castedParams.ModelIds.Any(),
+                vehicle => castedParams.ModelIds.Contains(vehicle.ModelId)
             ),
             (
-                IsValidAspectId(castedParams.TypeId),
-                vehicle => vehicle.VehicleTypeId.Equals(castedParams.TypeId!.Value)
+                castedParams.TypeIds.Any(),
+                vehicle => castedParams.TypeIds.Contains(vehicle.VehicleTypeId)
             ),
             (
-                IsValidAspectId(castedParams.EngineTypeId),
-                vehicle => vehicle.EngineTypeId.Equals(castedParams.EngineTypeId!.Value)
+                castedParams.EngineTypeIds.Any(),
+                vehicle => castedParams.EngineTypeIds.Contains(vehicle.EngineTypeId)
             ),
             (
-                IsValidAspectId(castedParams.DrivetrainTypeId),
-                vehicle => vehicle.DrivetrainTypeId.Equals(castedParams.DrivetrainTypeId!.Value)
+                castedParams.DrivetrainTypeIds.Any(),
+                vehicle => castedParams.DrivetrainTypeIds.Contains(vehicle.DrivetrainTypeId)
             ),
             (
-                IsValidAspectId(castedParams.TransmissionTypeId),
-                vehicle => vehicle.TransmissionTypeId.Equals(castedParams.TransmissionTypeId!.Value)
+                castedParams.TransmissionTypeIds.Any(),
+                vehicle => castedParams.TransmissionTypeIds.Contains(vehicle.TransmissionTypeId)
             ),
             (
-                IsValidAspectId(castedParams.BodyTypeId),
-                vehicle => vehicle.BodyTypeId.Equals(castedParams.BodyTypeId!.Value)
+                castedParams.BodyTypeIds.Any(),
+                vehicle => castedParams.BodyTypeIds.Contains(vehicle.BodyTypeId)
             ),
             (
-                IsValidAspectId(castedParams.ColorId),
-                vehicle => vehicle.ColorId.Equals(castedParams.ColorId!.Value)
+                castedParams.ColorIds.Any(),
+                vehicle => castedParams.ColorIds.Contains(vehicle.ColorId)
             ),
             (
                 IsValidAspectId(castedParams.LocationTownId),
@@ -67,7 +67,7 @@ internal sealed class VehiclesFilteringCriteriaSelector : QueryFilteringCriteria
             ),
             (
                 castedParams.ProductionYear.HasValue,
-                vehicle => vehicle.ProductionYear.Equals(castedParams.ProductionYear)
+                vehicle => vehicle.ProductionYear == castedParams.ProductionYear
             )
         ];
     }
