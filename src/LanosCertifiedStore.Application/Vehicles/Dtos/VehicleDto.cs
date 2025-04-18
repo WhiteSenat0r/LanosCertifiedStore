@@ -11,4 +11,5 @@ public sealed record VehicleDto
     public string LocationTownName { get; set; }
     public string EngineType { get; set; }
     public string BodyType { get; set; }
+    public bool IsPresentInWishlist { get; set; }
 }

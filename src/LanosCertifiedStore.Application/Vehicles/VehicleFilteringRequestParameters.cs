@@ -21,4 +21,5 @@ public class VehicleFilteringRequestParameters : BaseFilteringRequestParameters<
     public decimal? LowerPriceLimit { get; set; }
     public decimal? UpperPriceLimit { get; set; }
     public int? ProductionYear { get; set; }
+    public Guid UserId { get; set; }
 }

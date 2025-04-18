@@ -7,8 +7,10 @@ using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Application.Shared.ValidationRelated;
 using LanosCertifiedStore.Application.Vehicles;
+using LanosCertifiedStore.Application.Vehicles.Commands.AddVehicleToWishlistCommandRequestRelated;
 using LanosCertifiedStore.Application.Vehicles.Commands.CreateVehicleCommandRequestRelated;
 using LanosCertifiedStore.Application.Vehicles.Commands.DeleteVehicleCommandRequestRelated;
+using LanosCertifiedStore.Application.Vehicles.Commands.RemoveVehicleFromWishlistCommandRequestRelated;
 using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicleCommandRequestRelated;
 using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
@@ -17,6 +19,7 @@ using LanosCertifiedStore.Application.Vehicles.Queries.SearchVehiclesQueryRelate
 using LanosCertifiedStore.Application.Vehicles.Queries.SingleVehicleQueryRequestRelated;
 using LanosCertifiedStore.Application.Vehicles.Queries.VehiclePriceRangeQueryRelated;
 using LanosCertifiedStore.Infrastructure.Authorization;
+using LanosCertifiedStore.Persistence.Commands.VehicleRelated;
 using LanosCertifiedStore.Presentation.Controllers.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -110,8 +113,41 @@ public sealed class VehiclesController : BaseApiController
 
         return CreatedAtRoute("GetVehicleById", new { id = result.Value }, result.Value);
     }
+    
+    [HasAccessPermission("users:read")]
+    [HttpPost("{vehicleId:guid}/add-to-wishlist")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> AddVehicleToWishlist(Guid vehicleId)
+    {
+        var request = new AddVehicleToWishlistCommandRequest(vehicleId);
+        var result = await Sender.Send(request);
 
-    // TODO implement safety checks for if user actually owns the vehicle he is trying to update.
+        if (result is IValidationResult validationResult)
+        {
+            return BadRequest(CreateValidationProblemDetails(result.Error!, validationResult.Errors));
+        }
+
+        return NoContent();
+    }
+    
+    [HasAccessPermission("users:read")]
+    [HttpPost("{vehicleId:guid}/remove-from-wishlist")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> RemoveVehicleFromWishlist(Guid vehicleId)
+    {
+        var request = new RemoveVehicleFromWishlistCommandRequest(vehicleId);
+        var result = await Sender.Send(request);
+
+        if (result is IValidationResult validationResult)
+        {
+            return BadRequest(CreateValidationProblemDetails(result.Error!, validationResult.Errors));
+        }
+
+        return NoContent();
+    }
+
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -135,7 +171,6 @@ public sealed class VehiclesController : BaseApiController
         return NoContent();
     }
 
-    // TODO implement safety checks for if user actually owns the vehicle he is trying to update.
     [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -151,7 +186,6 @@ public sealed class VehiclesController : BaseApiController
         return NoContent();
     }
 
-    // TODO implement safety checks for if user actually owns the vehicle he is trying to update.
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(Error), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]

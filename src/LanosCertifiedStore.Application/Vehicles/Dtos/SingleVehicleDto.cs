@@ -27,4 +27,5 @@ public sealed record SingleVehicleDto : IIdentifiable<Guid>
     public IEnumerable<PriceDto>? Prices { get; init; }
     public IEnumerable<ImageDto>? Images { get; init; }
     public DateTime CreatedAt { get; init; }
+    public bool IsPresentInWishlist { get; set; }
 }

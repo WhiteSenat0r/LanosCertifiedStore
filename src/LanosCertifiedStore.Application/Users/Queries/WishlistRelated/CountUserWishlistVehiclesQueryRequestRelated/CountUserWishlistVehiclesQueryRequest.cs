@@ -1,0 +1,8 @@
+﻿using LanosCertifiedStore.Application.Shared.RequestParamsRelated;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Domain.Entities.UserRelated;
+
+namespace LanosCertifiedStore.Application.Users.Queries.WishlistRelated.CountUserWishlistVehiclesQueryRequestRelated;
+
+public sealed record CountUserWishlistVehiclesQueryRequest(IFilteringRequestParameters<UserWishlist> FilteringParameters)
+    : ICountQueryRequest<UserWishlist>;

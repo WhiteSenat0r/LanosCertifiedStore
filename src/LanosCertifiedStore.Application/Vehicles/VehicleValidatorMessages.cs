@@ -16,4 +16,5 @@ internal static class VehicleValidatorMessages
     public const string DrivetrainTypeRequired = "Drivetrain type must be present!";
     public const string ColorRequired = "Color must be present!";
     public const string TownRequired = "Town must be present!";
+    public const string VehicleRequired = "Vehicle must be selected!";
 }

@@ -1,4 +1,6 @@
 ﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.Users.Queries.VehiclesRelated.CountUserVehiclesQueryRequestRelated;
+using LanosCertifiedStore.Application.Users.Queries.VehiclesRelated.GetUserVehiclesQueryRequestRelated;
 using LanosCertifiedStore.Application.Vehicles;
 using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicleCommandRequestRelated;
 using LanosCertifiedStore.Application.Vehicles.Dtos;
@@ -20,6 +22,8 @@ internal sealed class VehicleService(
     DeleteVehicleCommand deleteVehicleCommand,
     AddImagesToVehicleCommand addImagesToVehicleCommand,
     RemoveImageFromVehicleCommand removeImageFromVehicleCommand,
+    AddVehicleToWishlistCommand addVehicleToWishlistCommand,
+    RemoveVehicleFromWishlistCommand removeVehicleFromWishlistCommand,
     SetMainImageCommand setMainImageCommand,
     CollectionVehiclesQuery collectionVehiclesQuery,
     SingleVehicleQuery singleVehicleQuery,
@@ -27,6 +31,9 @@ internal sealed class VehicleService(
     PriceRangeQuery priceRangeQuery,
     VehicleExistsByIdQuery vehicleExistsByIdQuery,
     SearchVehiclesQuery searchVehiclesQuery,
+    VehicleWishlistStatusesQuery vehicleWishlistStatusesQuery,
+    GetUserVehiclesQuery getUserVehiclesQuery,
+    CountUserVehiclesQuery countUserVehiclesQuery,
     SaveChangesCommand saveChangesCommand) : IVehicleService
 {
     public async Task AddAsync(Vehicle vehicle, CancellationToken cancellationToken)
@@ -105,5 +112,42 @@ internal sealed class VehicleService(
     {
         await setMainImageCommand.Execute(vehicleId, imageId, cancellationToken);
         await saveChangesCommand.Execute(cancellationToken);
+    }
+
+    public async Task AddVehicleToWishlist(Guid vehicleId, Guid userId, CancellationToken cancellationToken = default)
+    {
+        await addVehicleToWishlistCommand.Execute(vehicleId, userId, cancellationToken);
+        await saveChangesCommand.Execute(cancellationToken);
+    }
+
+    public async Task RemoveVehicleFromWishlist(
+        Guid vehicleId,
+        Guid userId,
+        CancellationToken cancellationToken = default)
+    {
+        await removeVehicleFromWishlistCommand.Execute(vehicleId, userId, cancellationToken);
+        await saveChangesCommand.Execute(cancellationToken);
+    }
+
+    public async Task<Dictionary<Guid, bool>> GetVehiclesWishlistPresenceStatuses(
+        List<Guid> vehicleIds,
+        Guid userId,
+        CancellationToken cancellationToken = default)
+    {
+        return await vehicleWishlistStatusesQuery.Execute(vehicleIds, userId, cancellationToken);
+    }
+
+    public async Task<ItemsCountDto> GetUserVehiclesCount(
+        CountUserVehiclesQueryRequest request,
+        CancellationToken cancellationToken = default)
+    {
+        return await countUserVehiclesQuery.Execute(request, cancellationToken);
+    }
+
+    public async Task<IReadOnlyCollection<VehicleDto>> GetUserVehicles(
+        GetUserVehiclesQueryRequest request,
+        CancellationToken cancellationToken = default)
+    {
+        return await getUserVehiclesQuery.Execute(request, cancellationToken);
     }
 }

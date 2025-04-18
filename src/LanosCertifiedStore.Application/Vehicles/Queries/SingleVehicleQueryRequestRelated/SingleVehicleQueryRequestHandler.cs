@@ -7,7 +7,8 @@ namespace LanosCertifiedStore.Application.Vehicles.Queries.SingleVehicleQueryReq
 
 internal sealed class SingleVehicleQueryRequestHandler(
     IVehicleService vehicleService,
-    IIdentityProviderService identityProviderService) :
+    IIdentityProviderService identityProviderService,
+    IUserContext userContext) :
     IRequestHandler<SingleVehicleQueryRequest, Result<SingleVehicleDto>>
 {
     public async Task<Result<SingleVehicleDto>> Handle(
@@ -28,6 +29,16 @@ internal sealed class SingleVehicleQueryRequestHandler(
             owner.Value.LastName,
             owner.Value.Email,
             owner.Value.PhoneNumber);
+
+        if (!userContext.IsAuthenticated) return vehicle;
+        
+        var wishlistPresentStatuses =
+            await vehicleService.GetVehiclesWishlistPresenceStatuses(
+                [vehicle.Id],
+                userContext.UserId,
+                cancellationToken);
+            
+        vehicle.IsPresentInWishlist = wishlistPresentStatuses[vehicle.Id];
 
         return vehicle;
     }

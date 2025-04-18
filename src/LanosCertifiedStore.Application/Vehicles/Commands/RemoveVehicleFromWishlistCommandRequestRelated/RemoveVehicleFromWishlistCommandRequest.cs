@@ -1,0 +1,5 @@
+﻿using LanosCertifiedStore.Application.Shared.RequestRelated;
+
+namespace LanosCertifiedStore.Application.Vehicles.Commands.RemoveVehicleFromWishlistCommandRequestRelated;
+
+public sealed record RemoveVehicleFromWishlistCommandRequest(Guid VehicleId) : ICommandRequest;

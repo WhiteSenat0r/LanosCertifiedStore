@@ -1,0 +1,5 @@
+﻿using LanosCertifiedStore.Application.Shared.RequestRelated;
+
+namespace LanosCertifiedStore.Application.Vehicles.Commands.AddVehicleToWishlistCommandRequestRelated;
+
+public sealed record AddVehicleToWishlistCommandRequest(Guid VehicleId) : ICommandRequest;

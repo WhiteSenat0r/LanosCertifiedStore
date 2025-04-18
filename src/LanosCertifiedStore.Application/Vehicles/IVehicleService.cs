@@ -1,4 +1,6 @@
 ﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.Users.Queries.VehiclesRelated.CountUserVehiclesQueryRequestRelated;
+using LanosCertifiedStore.Application.Users.Queries.VehiclesRelated.GetUserVehiclesQueryRequestRelated;
 using LanosCertifiedStore.Application.Vehicles.Commands.UpdateVehicleCommandRequestRelated;
 using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
@@ -44,5 +46,16 @@ public interface IVehicleService
     Task AddImagesToVehicle(Guid vehicleId, List<VehicleImage> images, CancellationToken cancellationToken = default);
 
     Task RemoveImageFromVehicle(Guid vehicleId, string imageId, CancellationToken cancellationToken = default);
+    
     Task SetMainImage(Guid vehicleId, string imageId, CancellationToken cancellationToken = default);
+    
+    Task AddVehicleToWishlist(Guid vehicleId, Guid userId, CancellationToken cancellationToken = default);
+    
+    Task RemoveVehicleFromWishlist(Guid vehicleId, Guid userId, CancellationToken cancellationToken = default);
+    
+    Task<Dictionary<Guid, bool>> GetVehiclesWishlistPresenceStatuses(
+        List<Guid> vehicleIds, Guid userId, CancellationToken cancellationToken = default);
+
+    Task<ItemsCountDto> GetUserVehiclesCount(CountUserVehiclesQueryRequest request, CancellationToken cancellationToken = default);
+    Task<IReadOnlyCollection<VehicleDto>> GetUserVehicles(GetUserVehiclesQueryRequest request, CancellationToken cancellationToken = default);
 }
