@@ -1,7 +1,7 @@
 {
   "id": "lsc",
   "realm": "lsc",
-  "displayName": "Lanos Certified Store",
+  "displayName": "Kolesko",
   "displayNameHtml": "",
   "notBefore": 0,
   "defaultSignatureAlgorithm": "RS256",
@@ -1575,14 +1575,14 @@
   },
   "smtpServer": {
     "password": "nskf gsfd dlxg ypkp",
-    "replyToDisplayName": "Lanos Certified Store",
+    "replyToDisplayName": "Kolesko",
     "starttls": "false",
     "auth": "true",
     "port": "465",
     "replyTo": "",
     "host": "smtp.gmail.com",
     "from": "lanoscertifiedstore@gmail.com",
-    "fromDisplayName": "Lanos Certified Store",
+    "fromDisplayName": "Kolesko",
     "envelopeFrom": "",
     "ssl": "true",
     "user": "lanoscertifiedstore@gmail.com"
@@ -1904,8 +1904,7 @@
   },
   "internationalizationEnabled": true,
   "supportedLocales": [
-    "uk",
-    "en"
+    "uk"
   ],
   "defaultLocale": "uk",
   "authenticationFlows": [
