@@ -1,4 +1,5 @@
-﻿using LanosCertifiedStore.Application.Vehicles;
+﻿using LanosCertifiedStore.Application.Identity;
+using LanosCertifiedStore.Application.Vehicles;
 using LanosCertifiedStore.Application.Vehicles.Dtos;
 using LanosCertifiedStore.Application.Vehicles.Queries.CollectionVehiclesQueryRelated;
 
@@ -7,12 +8,13 @@ namespace ApplicationUnitTests.Vehicles;
 public sealed class CollectionVehiclesQueryRequestHandlerTests
 {
     private readonly IVehicleService _vehicleService = Substitute.For<IVehicleService>();
+    private readonly IUserContext _userContext = Substitute.For<IUserContext>();
     private readonly CollectionVehiclesQueryRequestHandler _handler;
     private readonly CollectionVehiclesQueryRequest _request = new(new VehicleFilteringRequestParameters());
 
     public CollectionVehiclesQueryRequestHandlerTests()
     {
-        _handler = new CollectionVehiclesQueryRequestHandler(_vehicleService);
+        _handler = new CollectionVehiclesQueryRequestHandler(_vehicleService, _userContext);
     }
     
     [Fact]

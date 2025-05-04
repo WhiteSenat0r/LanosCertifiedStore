@@ -27,6 +27,6 @@ public sealed class AddUserFromProviderCommandRequestTests
             .Should().Be(Error.None);
         await _userService
             .Received(1)
-            .AddAsync(Arg.Any<User>());
+            .AddAsync(Arg.Any<User>(), Arg.Any<UserWishlist>());
     }
 }

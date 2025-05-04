@@ -10,6 +10,7 @@ namespace ApplicationUnitTests.Vehicles;
 public sealed class SingleVehicleQueryRequestHandlerTests
 {
     private readonly IVehicleService _vehicleService = Substitute.For<IVehicleService>();
+    private readonly IUserContext _userContext = Substitute.For<IUserContext>();
     private readonly IIdentityProviderService _identityProviderService = Substitute.For<IIdentityProviderService>();
     private readonly SingleVehicleQueryRequestHandler _handler;
     private readonly SingleVehicleQueryRequest _request;
@@ -19,7 +20,7 @@ public sealed class SingleVehicleQueryRequestHandlerTests
     public SingleVehicleQueryRequestHandlerTests()
     {
         _request = new SingleVehicleQueryRequest(_vehicleId);
-        _handler = new SingleVehicleQueryRequestHandler(_vehicleService, _identityProviderService);
+        _handler = new SingleVehicleQueryRequestHandler(_vehicleService, _identityProviderService, _userContext);
     }
 
     [Fact]

@@ -38,7 +38,7 @@ public sealed class VehicleQueriesIntegrationTests(
         // Arrange
         var filteringParameters = new VehicleFilteringRequestParameters
         {
-            BrandId = Guid.NewGuid(),
+            BrandIds = [Guid.NewGuid()],
             PageIndex = 1
         };
 
@@ -81,7 +81,7 @@ public sealed class VehicleQueriesIntegrationTests(
         // Arrange
         var requestParameters = new VehicleFilteringRequestParameters
         {
-            BrandId = Guid.NewGuid()
+            BrandIds = [Guid.NewGuid()]
         };
         var queryRequest = new VehiclePriceRangeQueryRequest(requestParameters);
 
