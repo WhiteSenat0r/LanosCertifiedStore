@@ -8,6 +8,7 @@ namespace ApplicationUnitTests.Identity;
 public sealed class GetUserDataQueryRequestTests
 {
     private readonly IIdentityProviderService _identityProviderService = Substitute.For<IIdentityProviderService>();
+    private readonly IUserContext _userContext = Substitute.For<IUserContext>();
     private readonly Guid _userId = Guid.NewGuid();
     private readonly GetUserDataQueryRequest _request;
 
@@ -24,7 +25,7 @@ public sealed class GetUserDataQueryRequestTests
         _identityProviderService.GetUserDataAsync(_userId)
             .Returns(expectedResult);
 
-        var handler = new GetUserDataQueryRequestHandler(_identityProviderService);
+        var handler = new GetUserDataQueryRequestHandler(_userContext, _identityProviderService);
 
         // Act
         var result = await handler.Handle(_request, default);

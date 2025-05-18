@@ -51,6 +51,20 @@ public sealed class IdentityController : BaseApiController
 
         return Ok(result.Value);
     }
+    
+    [HasAccessPermission("users:read")]
+    [HttpGet("me")]
+    public async Task<ActionResult> GetMyData()
+    {
+        var result = await Sender.Send(new GetUserDataQueryRequest(default));
+
+        if (!result.IsSuccess)
+        {
+            return NotFound(CreateNotFoundProblemDetails(result.Error!));
+        }
+
+        return Ok(result.Value);
+    }
 
     [HasAccessPermission("users:update")]
     [HttpPut("{id:guid}")]
