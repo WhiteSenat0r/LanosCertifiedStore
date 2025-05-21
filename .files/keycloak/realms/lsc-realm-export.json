@@ -703,8 +703,7 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "3E3yvXaYppoYBF3Ir6DgtEzADKKzSurZ",
       "redirectUris": [
-        "https://localhost:4200",
-        "http://localhost:4200"
+        "http://localhost:4200/auth-callback"
       ],
       "webOrigins": [
         ""
@@ -825,8 +824,7 @@
       "alwaysDisplayInConsole": true,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "https://localhost:4200",
-        "http://localhost:4200"
+        "https://localhost:5001/api/auth/callback"
       ],
       "webOrigins": [],
       "notBefore": 0,
