@@ -812,7 +812,6 @@
       ]
     },
     {
-      "id": "59327369-c4e0-4354-9de4-3194af25fd9d",
       "clientId": "lsc-public-auth-client",
       "name": "${lcs_public_authentication_client}",
       "description": "",
@@ -824,7 +823,7 @@
       "alwaysDisplayInConsole": true,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "https://localhost:5001/api/auth/callback"
+        "http://localhost:4200/auth-callback/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
