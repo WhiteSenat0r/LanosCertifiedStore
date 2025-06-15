@@ -823,7 +823,7 @@
       "alwaysDisplayInConsole": true,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "http://localhost:4200/auth-callback/*"
+        "https://localhost:4200/auth-callback/*"
       ],
       "webOrigins": [],
       "notBefore": 0,
