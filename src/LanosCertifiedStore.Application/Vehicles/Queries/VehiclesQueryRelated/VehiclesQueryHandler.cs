@@ -1,11 +1,13 @@
-﻿namespace LanosCertifiedStore.Application.Vehicles.Queries.VehiclesQueryRelated;
+﻿using AutoMapper;
+using LanosCertifiedStore.Application.Shared.HandlersRelated.QueryRelated.CollectionRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.Vehicles.Dtos;
+using LanosCertifiedStore.Domain.Abstractions.UnitOfWorkRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using MediatR;
 
-// TODO
-// internal sealed class VehiclesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :
-//     CollectionQueryHandlerBase<Vehicle, VehicleFilteringRequestParameters, VehicleDto>(unitOfWork, mapper),
-//     IRequestHandler<VehiclesQueryRequest, Result<PaginationResult<VehicleDto>>>
-// {
-//     public Task<Result<PaginationResult<VehicleDto>>> Handle(VehiclesQueryRequest request,
-//         CancellationToken cancellationToken) =>
-//         base.Handle(request, cancellationToken);
-// }
+namespace LanosCertifiedStore.Application.Vehicles.Queries.VehiclesQueryRelated;
+
+internal sealed class VehiclesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :
+    CollectionQueryHandlerBase<Vehicle, VehicleFilteringRequestParameters, VehicleDto>(unitOfWork, mapper),
+    IRequestHandler<VehiclesQueryRequest, Result<PaginationResult<VehicleDto>>>;
