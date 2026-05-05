@@ -102,12 +102,177 @@ public sealed class VehicleModelCommandsIntegrationTests(
 
         // Act
         var response = await Sender.Send(commandRequest);
-        
+
         // Assert
-        response.Error
-            .Should().NotBeNull();
-        response.IsSuccess
-            .Should().BeFalse();
+        AssertFailureResponse(response);
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_AddNewModelIfNameAlreadyExists()
+    {
+        // Arrange
+        // Use the existing "test" model name which is already in the database
+        var commandRequest = await InstantiateValidCreateRequest();
+
+        // Act
+        var firstResponse = await Sender.Send(commandRequest);
+        var secondResponse = await Sender.Send(commandRequest);
+
+        // Assert
+        firstResponse.IsSuccess
+            .Should().BeTrue();
+        AssertFailureResponse(secondResponse);
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_AddNewModelIfBrandDoesNotExist()
+    {
+        // Arrange
+        var (engineType, transmissionType, drivetrainType, bodyType) = await GetVehicleTypes();
+        var type = await Context.Set<VehicleType>().FirstAsync();
+
+        var commandRequest = new CreateVehicleModelCommandRequest(
+            "unique-model-name",
+            Guid.NewGuid(), // Non-existent brand ID
+            type.Id,
+            2020,
+            2023,
+            [engineType.Id],
+            [transmissionType.Id],
+            [drivetrainType.Id],
+            [bodyType.Id]
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+
+        // Assert
+        AssertFailureResponse(response);
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_AddNewModelIfTypeDoesNotExist()
+    {
+        // Arrange
+        var (engineType, transmissionType, drivetrainType, bodyType) = await GetVehicleTypes();
+        var brand = await Context.Set<VehicleBrand>().FirstAsync();
+
+        var commandRequest = new CreateVehicleModelCommandRequest(
+            "unique-model-name-2",
+            brand.Id,
+            Guid.NewGuid(), // Non-existent type ID
+            2020,
+            2023,
+            [engineType.Id],
+            [transmissionType.Id],
+            [drivetrainType.Id],
+            [bodyType.Id]
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+
+        // Assert
+        AssertFailureResponse(response);
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_AddNewModelIfRelatedTypeDoesNotExist()
+    {
+        // Arrange
+        var (_, transmissionType, drivetrainType, bodyType) = await GetVehicleTypes();
+        var brand = await Context.Set<VehicleBrand>().FirstAsync();
+        var type = await Context.Set<VehicleType>().FirstAsync();
+
+        var commandRequest = new CreateVehicleModelCommandRequest(
+            "unique-model-name-3",
+            brand.Id,
+            type.Id,
+            2020,
+            2023,
+            [Guid.NewGuid()], // Non-existent engine type ID
+            [transmissionType.Id],
+            [drivetrainType.Id],
+            [bodyType.Id]
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+
+        // Assert
+        AssertFailureResponse(response);
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_AddNewModelIfProductionYearRangeIsInvalid()
+    {
+        // Arrange
+        var (engineType, transmissionType, drivetrainType, bodyType) = await GetVehicleTypes();
+        var brand = await Context.Set<VehicleBrand>().FirstAsync();
+        var type = await Context.Set<VehicleType>().FirstAsync();
+
+        var commandRequest = new CreateVehicleModelCommandRequest(
+            "unique-model-name-4",
+            brand.Id,
+            type.Id,
+            2023, // Minimal year greater than maximum year
+            2020,
+            [engineType.Id],
+            [transmissionType.Id],
+            [drivetrainType.Id],
+            [bodyType.Id]
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+
+        // Assert
+        AssertFailureResponse(response);
+    }
+
+    [Fact]
+    public async Task Send_UpdateRequest_ShouldNot_UpdateModelIfModelDoesNotExist()
+    {
+        // Arrange
+        var (engineType, transmissionType, drivetrainType, bodyType) = await GetVehicleTypes();
+
+        var commandRequest = new UpdateVehicleModelCommandRequest(
+            Guid.NewGuid(), // Non-existent model ID
+            2025,
+            [engineType.Id],
+            [transmissionType.Id],
+            [drivetrainType.Id],
+            [bodyType.Id]
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+
+        // Assert
+        AssertFailureResponse(response);
+    }
+
+    [Fact]
+    public async Task Send_UpdateRequest_ShouldNot_UpdateModelIfRelatedTypeDoesNotExist()
+    {
+        // Arrange
+        var existingModel = await GetUpdatedModel();
+        var (_, transmissionType, drivetrainType, bodyType) = await GetVehicleTypes();
+
+        var commandRequest = new UpdateVehicleModelCommandRequest(
+            existingModel.Id,
+            existingModel.MinimalProductionYear + 1,
+            [Guid.NewGuid()], // Non-existent engine type ID
+            [transmissionType.Id],
+            [drivetrainType.Id],
+            [bodyType.Id]
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+
+        // Assert
+        AssertFailureResponse(response);
     }
 
     private UpdateVehicleModelCommandRequest GetValidUpdateRequest(
@@ -204,5 +369,20 @@ public sealed class VehicleModelCommandsIntegrationTests(
             availableDrivetrainTypes.Select(x => x.Id),
             availableBodyTypes.Select(x => x.Id)
         );
+    }
+
+    private async Task<(VehicleEngineType, VehicleTransmissionType, VehicleDrivetrainType, VehicleBodyType)> GetVehicleTypes()
+    {
+        var engineType = await Context.Set<VehicleEngineType>().FirstAsync();
+        var transmissionType = await Context.Set<VehicleTransmissionType>().FirstAsync();
+        var drivetrainType = await Context.Set<VehicleDrivetrainType>().FirstAsync();
+        var bodyType = await Context.Set<VehicleBodyType>().FirstAsync();
+        return (engineType, transmissionType, drivetrainType, bodyType);
+    }
+
+    private static void AssertFailureResponse<T>(Result<T> response)
+    {
+        response.Error.Should().NotBeNull();
+        response.IsSuccess.Should().BeFalse();
     }
 }
