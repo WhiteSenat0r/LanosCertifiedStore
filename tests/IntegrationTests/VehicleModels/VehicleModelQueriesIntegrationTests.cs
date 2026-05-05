@@ -175,4 +175,92 @@ public sealed class VehicleModelQueriesIntegrationTests(
         result.Value!.TotalItemsCount
             .Should().Be(totalModelsCount);
     }
+
+    [Fact]
+    public async Task Send_CollectionRequest_WithDescendingSort_Should_ReturnModelsInDescendingOrder()
+    {
+        // Arrange
+        var brandId = (await Context.Set<VehicleBrand>().FirstAsync()).Id;
+
+        var filteringRequestParameters = new VehicleModelFilteringRequestParameters
+        {
+            VehicleBrandId = brandId,
+            SortingType = "name-desc",
+            PageIndex = 1
+        };
+
+        var queryRequest = new CollectionVehicleModelsQueryRequest(filteringRequestParameters);
+
+        // Act
+        var response = await Sender.Send(queryRequest);
+        var models = response.Value!.Items;
+
+        // Assert
+        response.Error
+            .Should().Be(Error.None);
+        response.IsSuccess
+            .Should().BeTrue();
+
+        models.Should().BeInDescendingOrder(
+            b => b.Name,
+            StringComparer.Create(new CultureInfo("uk-UA"), ignoreCase: true));
+    }
+
+    [Fact]
+    public async Task Send_CollectionRequest_WithoutBrandFilter_Should_ReturnAllModels()
+    {
+        // Arrange
+        var filteringRequestParameters = new VehicleModelFilteringRequestParameters
+        {
+            SortingType = "name-asc",
+            PageIndex = 1
+        };
+
+        var queryRequest = new CollectionVehicleModelsQueryRequest(filteringRequestParameters);
+
+        // Act
+        var response = await Sender.Send(queryRequest);
+        var models = response.Value!.Items;
+
+        // Assert
+        response.Error
+            .Should().Be(Error.None);
+        response.IsSuccess
+            .Should().BeTrue();
+
+        models.Should().BeInAscendingOrder(
+            b => b.Name,
+            StringComparer.Create(new CultureInfo("uk-UA"), ignoreCase: true));
+        models.Count
+            .Should().BeGreaterThan(0);
+    }
+
+    [Fact]
+    public async Task Send_CollectionRequest_WithHighPageIndex_Should_HandleGracefully()
+    {
+        // Arrange
+        var brandId = (await Context.Set<VehicleBrand>().FirstAsync()).Id;
+
+        var filteringRequestParameters = new VehicleModelFilteringRequestParameters
+        {
+            VehicleBrandId = brandId,
+            SortingType = "name-asc",
+            PageIndex = 999
+        };
+
+        var queryRequest = new CollectionVehicleModelsQueryRequest(filteringRequestParameters);
+
+        // Act
+        var response = await Sender.Send(queryRequest);
+        var models = response.Value!.Items;
+
+        // Assert
+        response.Error
+            .Should().Be(Error.None);
+        response.IsSuccess
+            .Should().BeTrue();
+
+        models.Count
+            .Should().BeGreaterOrEqualTo(0);
+    }
 }
