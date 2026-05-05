@@ -1,10 +1,13 @@
-﻿namespace LanosCertifiedStore.Application.Vehicles.Queries.VehicleDetailsQueryRelated;
+﻿using AutoMapper;
+using LanosCertifiedStore.Application.Shared.HandlersRelated.QueryRelated.SingleRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.Vehicles.Dtos;
+using LanosCertifiedStore.Domain.Abstractions.UnitOfWorkRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using MediatR;
 
-// TODO
-// internal sealed class VehicleDetailsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :
-//     SingleQueryRequestHandlerBase<Vehicle, VehicleDto>(unitOfWork, mapper),
-//     IRequestHandler<VehicleSingleQueryRequest, Result<VehicleDto>>
-// {
-//     public Task<Result<VehicleDto>> Handle(VehicleSingleQueryRequest request, CancellationToken cancellationToken) => 
-//         base.Handle(request, cancellationToken);
-// }
+namespace LanosCertifiedStore.Application.Vehicles.Queries.VehicleDetailsQueryRelated;
+
+internal sealed class VehicleDetailsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :
+    SingleQueryRequestHandlerBase<Vehicle, VehicleDto>(unitOfWork, mapper),
+    IRequestHandler<VehicleSingleQueryRequest, Result<VehicleDto>>;
