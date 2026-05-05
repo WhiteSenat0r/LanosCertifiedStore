@@ -42,6 +42,60 @@ public sealed class VehicleBrandQueriesIntegrationTests(
     }
 
     [Fact]
+    public async Task Send_CollectionRequest_WithDescendingSort_Should_ReturnBrandsInDescendingOrder()
+    {
+        // Arrange
+        var filteringRequestParameters = new VehicleBrandFilteringRequestParameters
+        {
+            ItemQuantity = ItemQuantitySelection.Ten,
+            SortingType = "name-desc",
+            PageIndex = 1
+        };
+        var queryRequest = new CollectionVehicleBrandsQueryRequest(filteringRequestParameters);
+
+        // Act
+        var response = await Sender.Send(queryRequest);
+        var brands = response.Value!.Items;
+
+        // Assert
+        response.Error
+            .Should().Be(Error.None);
+        response.IsSuccess
+            .Should().BeTrue();
+
+        brands
+            .Should().BeInDescendingOrder(b => b.Name);
+        brands.Count
+            .Should().BeLessOrEqualTo((int)ItemQuantitySelection.Ten);
+    }
+
+    [Fact]
+    public async Task Send_CollectionRequest_WithHighPageIndex_Should_HandleGracefully()
+    {
+        // Arrange
+        var filteringRequestParameters = new VehicleBrandFilteringRequestParameters
+        {
+            ItemQuantity = ItemQuantitySelection.Ten,
+            SortingType = "name-asc",
+            PageIndex = 100
+        };
+        var queryRequest = new CollectionVehicleBrandsQueryRequest(filteringRequestParameters);
+
+        // Act
+        var response = await Sender.Send(queryRequest);
+        var brands = response.Value!.Items;
+
+        // Assert
+        response.Error
+            .Should().Be(Error.None);
+        response.IsSuccess
+            .Should().BeTrue();
+
+        brands.Count
+            .Should().BeGreaterOrEqualTo(0);
+    }
+
+    [Fact]
     public async Task Send_SingleRequest_Should_ReturnSingleBrand()
     {
         // Arrange
