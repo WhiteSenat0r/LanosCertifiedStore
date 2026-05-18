@@ -102,12 +102,145 @@ public sealed class VehicleModelCommandsIntegrationTests(
 
         // Act
         var response = await Sender.Send(commandRequest);
-        
+
         // Assert
         response.Error
             .Should().NotBeNull();
         response.IsSuccess
             .Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_PersistModelWhenBrandIdDoesNotExist()
+    {
+        // Arrange
+        var nonExistingBrandId = Guid.NewGuid();
+        var type = await Context.Set<VehicleType>().FirstAsync();
+        var (engineType, transmissionType, drivetrainType, bodyType) = await GetCommonVehicleTypes();
+
+        var commandRequest = new CreateVehicleModelCommandRequest(
+            "NonExistingBrandModel",
+            nonExistingBrandId,
+            type.Id,
+            2020,
+            2024,
+            [engineType.Id],
+            [transmissionType.Id],
+            [drivetrainType.Id],
+            [bodyType.Id]
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+        var modelInDatabase = await Context.Set<VehicleModel>()
+            .FirstOrDefaultAsync(m => m.Name.Equals("NonExistingBrandModel"));
+
+        // Assert
+        response.Error
+            .Should().NotBeNull();
+        response.Error.Message
+            .Should().Contain("Brand with such ID does not exist");
+        response.IsSuccess
+            .Should().BeFalse();
+        modelInDatabase
+            .Should().BeNull();
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_PersistModelWhenTypeIdDoesNotExist()
+    {
+        // Arrange
+        var brand = await Context.Set<VehicleBrand>().FirstAsync();
+        var nonExistingTypeId = Guid.NewGuid();
+        var (engineType, transmissionType, drivetrainType, bodyType) = await GetCommonVehicleTypes();
+
+        var commandRequest = new CreateVehicleModelCommandRequest(
+            "NonExistingTypeModel",
+            brand.Id,
+            nonExistingTypeId,
+            2020,
+            2024,
+            [engineType.Id],
+            [transmissionType.Id],
+            [drivetrainType.Id],
+            [bodyType.Id]
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+        var modelInDatabase = await Context.Set<VehicleModel>()
+            .FirstOrDefaultAsync(m => m.Name.Equals("NonExistingTypeModel"));
+
+        // Assert
+        response.Error
+            .Should().NotBeNull();
+        response.Error.Message
+            .Should().Contain("Type with such ID does not exist");
+        response.IsSuccess
+            .Should().BeFalse();
+        modelInDatabase
+            .Should().BeNull();
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_PersistModelWhenNameAlreadyExists()
+    {
+        // Arrange
+        var commandRequest = await InstantiateValidCreateRequest();
+        var initialModelCount = await Context.Set<VehicleModel>()
+            .CountAsync(m => m.Name.Equals(ModelName));
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+        var finalModelCount = await Context.Set<VehicleModel>()
+            .CountAsync(m => m.Name.Equals(ModelName));
+
+        // Assert
+        response.Error
+            .Should().NotBeNull();
+        response.Error.Message
+            .Should().Contain("already exists");
+        response.IsSuccess
+            .Should().BeFalse();
+        finalModelCount
+            .Should().Be(initialModelCount);
+    }
+
+    [Fact]
+    public async Task Send_UpdateRequest_ShouldNot_UpdateModelWhenEngineTypeIdDoesNotExist()
+    {
+        // Arrange
+        var updatedModel = await GetUpdatedModel();
+        var nonExistingEngineTypeId = Guid.NewGuid();
+
+        var originalEngineTypeIds = updatedModel.AvailableEngineTypes.Select(t => t.Id).ToList();
+
+        var commandRequest = new UpdateVehicleModelCommandRequest(
+            updatedModel.Id,
+            updatedModel.MaximumProductionYear,
+            originalEngineTypeIds.Append(nonExistingEngineTypeId),
+            updatedModel.AvailableTransmissionTypes.Select(t => t.Id),
+            updatedModel.AvailableDrivetrainTypes.Select(t => t.Id),
+            updatedModel.AvailableBodyTypes.Select(t => t.Id)
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+
+        // Detach the entity to ensure fresh data from database
+        Context.Entry(updatedModel).State = EntityState.Detached;
+        var modelAfterFailedUpdate = await GetUpdatedModel();
+
+        // Assert
+        response.Error
+            .Should().NotBeNull();
+        response.Error.Message
+            .Should().Contain("Engine type with ID");
+        response.IsSuccess
+            .Should().BeFalse();
+        modelAfterFailedUpdate.AvailableEngineTypes
+            .Select(t => t.Id)
+            .Should().BeEquivalentTo(originalEngineTypeIds);
     }
 
     private UpdateVehicleModelCommandRequest GetValidUpdateRequest(
@@ -204,5 +337,15 @@ public sealed class VehicleModelCommandsIntegrationTests(
             availableDrivetrainTypes.Select(x => x.Id),
             availableBodyTypes.Select(x => x.Id)
         );
+    }
+
+    private async Task<(VehicleEngineType EngineType, VehicleTransmissionType TransmissionType, VehicleDrivetrainType DrivetrainType, VehicleBodyType BodyType)> GetCommonVehicleTypes()
+    {
+        var engineType = await Context.Set<VehicleEngineType>().FirstAsync();
+        var transmissionType = await Context.Set<VehicleTransmissionType>().FirstAsync();
+        var drivetrainType = await Context.Set<VehicleDrivetrainType>().FirstAsync();
+        var bodyType = await Context.Set<VehicleBodyType>().FirstAsync();
+
+        return (engineType, transmissionType, drivetrainType, bodyType);
     }
 }
