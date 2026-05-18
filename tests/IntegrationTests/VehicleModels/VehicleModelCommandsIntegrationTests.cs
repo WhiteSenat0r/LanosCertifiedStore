@@ -12,6 +12,12 @@ public sealed class VehicleModelCommandsIntegrationTests(
     IntegrationTestsWebApplicationFactory factory) : IntegrationTestBase(factory)
 {
     private const string ModelName = "test";
+
+    // Error message fragments for assertions
+    private const string BrandNotFoundErrorFragment = "Brand with such ID does not exist";
+    private const string TypeNotFoundErrorFragment = "Type with such ID does not exist";
+    private const string ModelAlreadyExistsErrorFragment = "already exists";
+    private const string EngineTypeNotFoundErrorFragment = "Engine type with ID";
     
     [Fact]
     public async Task Send_CreateRequest_Should_AddNewModelIfRequestIsValid()
@@ -116,7 +122,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
         // Arrange
         var nonExistingBrandId = Guid.NewGuid();
         var type = await Context.Set<VehicleType>().FirstAsync();
-        var (engineType, transmissionType, drivetrainType, bodyType) = await GetCommonVehicleTypes();
+        var (engineType, transmissionType, drivetrainType, bodyType) = await GetFirstAvailableVehicleTypes();
 
         var commandRequest = new CreateVehicleModelCommandRequest(
             "NonExistingBrandModel",
@@ -136,12 +142,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
             .FirstOrDefaultAsync(m => m.Name.Equals("NonExistingBrandModel"));
 
         // Assert
-        response.Error
-            .Should().NotBeNull();
-        response.Error.Message
-            .Should().Contain("Brand with such ID does not exist");
-        response.IsSuccess
-            .Should().BeFalse();
+        AssertCommandFailed(response, BrandNotFoundErrorFragment);
         modelInDatabase
             .Should().BeNull();
     }
@@ -152,7 +153,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
         // Arrange
         var brand = await Context.Set<VehicleBrand>().FirstAsync();
         var nonExistingTypeId = Guid.NewGuid();
-        var (engineType, transmissionType, drivetrainType, bodyType) = await GetCommonVehicleTypes();
+        var (engineType, transmissionType, drivetrainType, bodyType) = await GetFirstAvailableVehicleTypes();
 
         var commandRequest = new CreateVehicleModelCommandRequest(
             "NonExistingTypeModel",
@@ -172,12 +173,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
             .FirstOrDefaultAsync(m => m.Name.Equals("NonExistingTypeModel"));
 
         // Assert
-        response.Error
-            .Should().NotBeNull();
-        response.Error.Message
-            .Should().Contain("Type with such ID does not exist");
-        response.IsSuccess
-            .Should().BeFalse();
+        AssertCommandFailed(response, TypeNotFoundErrorFragment);
         modelInDatabase
             .Should().BeNull();
     }
@@ -196,12 +192,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
             .CountAsync(m => m.Name.Equals(ModelName));
 
         // Assert
-        response.Error
-            .Should().NotBeNull();
-        response.Error.Message
-            .Should().Contain("already exists");
-        response.IsSuccess
-            .Should().BeFalse();
+        AssertCommandFailed(response, ModelAlreadyExistsErrorFragment);
         finalModelCount
             .Should().Be(initialModelCount);
     }
@@ -232,12 +223,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
         var modelAfterFailedUpdate = await GetUpdatedModel();
 
         // Assert
-        response.Error
-            .Should().NotBeNull();
-        response.Error.Message
-            .Should().Contain("Engine type with ID");
-        response.IsSuccess
-            .Should().BeFalse();
+        AssertCommandFailed(response, EngineTypeNotFoundErrorFragment);
         modelAfterFailedUpdate.AvailableEngineTypes
             .Select(t => t.Id)
             .Should().BeEquivalentTo(originalEngineTypeIds);
@@ -339,7 +325,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
         );
     }
 
-    private async Task<(VehicleEngineType EngineType, VehicleTransmissionType TransmissionType, VehicleDrivetrainType DrivetrainType, VehicleBodyType BodyType)> GetCommonVehicleTypes()
+    private async Task<(VehicleEngineType EngineType, VehicleTransmissionType TransmissionType, VehicleDrivetrainType DrivetrainType, VehicleBodyType BodyType)> GetFirstAvailableVehicleTypes()
     {
         var engineType = await Context.Set<VehicleEngineType>().FirstAsync();
         var transmissionType = await Context.Set<VehicleTransmissionType>().FirstAsync();
@@ -347,5 +333,15 @@ public sealed class VehicleModelCommandsIntegrationTests(
         var bodyType = await Context.Set<VehicleBodyType>().FirstAsync();
 
         return (engineType, transmissionType, drivetrainType, bodyType);
+    }
+
+    private static void AssertCommandFailed(Result response, string expectedErrorFragment)
+    {
+        response.Error
+            .Should().NotBeNull();
+        response.IsSuccess
+            .Should().BeFalse();
+        response.Error.Message
+            .Should().Contain(expectedErrorFragment);
     }
 }
