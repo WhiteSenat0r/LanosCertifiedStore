@@ -12,6 +12,12 @@ public sealed class VehicleModelCommandsIntegrationTests(
     IntegrationTestsWebApplicationFactory factory) : IntegrationTestBase(factory)
 {
     private const string ModelName = "test";
+
+    // Error message fragments for assertions
+    private const string BrandNotFoundErrorFragment = "Brand with such ID does not exist";
+    private const string TypeNotFoundErrorFragment = "Type with such ID does not exist";
+    private const string ModelAlreadyExistsErrorFragment = "already exists";
+    private const string EngineTypeNotFoundErrorFragment = "Engine type with ID";
     
     [Fact]
     public async Task Send_CreateRequest_Should_AddNewModelIfRequestIsValid()
@@ -102,12 +108,125 @@ public sealed class VehicleModelCommandsIntegrationTests(
 
         // Act
         var response = await Sender.Send(commandRequest);
-        
+
         // Assert
         response.Error
             .Should().NotBeNull();
         response.IsSuccess
             .Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_PersistModelWhenBrandIdDoesNotExist()
+    {
+        // Arrange
+        var nonExistingBrandId = Guid.NewGuid();
+        var type = await Context.Set<VehicleType>().FirstAsync();
+        var (engineType, transmissionType, drivetrainType, bodyType) = await GetFirstAvailableVehicleTypes();
+
+        var commandRequest = new CreateVehicleModelCommandRequest(
+            "NonExistingBrandModel",
+            nonExistingBrandId,
+            type.Id,
+            2020,
+            2024,
+            [engineType.Id],
+            [transmissionType.Id],
+            [drivetrainType.Id],
+            [bodyType.Id]
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+        var modelInDatabase = await Context.Set<VehicleModel>()
+            .FirstOrDefaultAsync(m => m.Name.Equals("NonExistingBrandModel"));
+
+        // Assert
+        AssertCommandFailed(response, BrandNotFoundErrorFragment);
+        modelInDatabase
+            .Should().BeNull();
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_PersistModelWhenTypeIdDoesNotExist()
+    {
+        // Arrange
+        var brand = await Context.Set<VehicleBrand>().FirstAsync();
+        var nonExistingTypeId = Guid.NewGuid();
+        var (engineType, transmissionType, drivetrainType, bodyType) = await GetFirstAvailableVehicleTypes();
+
+        var commandRequest = new CreateVehicleModelCommandRequest(
+            "NonExistingTypeModel",
+            brand.Id,
+            nonExistingTypeId,
+            2020,
+            2024,
+            [engineType.Id],
+            [transmissionType.Id],
+            [drivetrainType.Id],
+            [bodyType.Id]
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+        var modelInDatabase = await Context.Set<VehicleModel>()
+            .FirstOrDefaultAsync(m => m.Name.Equals("NonExistingTypeModel"));
+
+        // Assert
+        AssertCommandFailed(response, TypeNotFoundErrorFragment);
+        modelInDatabase
+            .Should().BeNull();
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_PersistModelWhenNameAlreadyExists()
+    {
+        // Arrange
+        var commandRequest = await InstantiateValidCreateRequest();
+        var initialModelCount = await Context.Set<VehicleModel>()
+            .CountAsync(m => m.Name.Equals(ModelName));
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+        var finalModelCount = await Context.Set<VehicleModel>()
+            .CountAsync(m => m.Name.Equals(ModelName));
+
+        // Assert
+        AssertCommandFailed(response, ModelAlreadyExistsErrorFragment);
+        finalModelCount
+            .Should().Be(initialModelCount);
+    }
+
+    [Fact]
+    public async Task Send_UpdateRequest_ShouldNot_UpdateModelWhenEngineTypeIdDoesNotExist()
+    {
+        // Arrange
+        var updatedModel = await GetUpdatedModel();
+        var nonExistingEngineTypeId = Guid.NewGuid();
+
+        var originalEngineTypeIds = updatedModel.AvailableEngineTypes.Select(t => t.Id).ToList();
+
+        var commandRequest = new UpdateVehicleModelCommandRequest(
+            updatedModel.Id,
+            updatedModel.MaximumProductionYear,
+            originalEngineTypeIds.Append(nonExistingEngineTypeId),
+            updatedModel.AvailableTransmissionTypes.Select(t => t.Id),
+            updatedModel.AvailableDrivetrainTypes.Select(t => t.Id),
+            updatedModel.AvailableBodyTypes.Select(t => t.Id)
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+
+        // Detach the entity to ensure fresh data from database
+        Context.Entry(updatedModel).State = EntityState.Detached;
+        var modelAfterFailedUpdate = await GetUpdatedModel();
+
+        // Assert
+        AssertCommandFailed(response, EngineTypeNotFoundErrorFragment);
+        modelAfterFailedUpdate.AvailableEngineTypes
+            .Select(t => t.Id)
+            .Should().BeEquivalentTo(originalEngineTypeIds);
     }
 
     private UpdateVehicleModelCommandRequest GetValidUpdateRequest(
@@ -204,5 +323,25 @@ public sealed class VehicleModelCommandsIntegrationTests(
             availableDrivetrainTypes.Select(x => x.Id),
             availableBodyTypes.Select(x => x.Id)
         );
+    }
+
+    private async Task<(VehicleEngineType EngineType, VehicleTransmissionType TransmissionType, VehicleDrivetrainType DrivetrainType, VehicleBodyType BodyType)> GetFirstAvailableVehicleTypes()
+    {
+        var engineType = await Context.Set<VehicleEngineType>().FirstAsync();
+        var transmissionType = await Context.Set<VehicleTransmissionType>().FirstAsync();
+        var drivetrainType = await Context.Set<VehicleDrivetrainType>().FirstAsync();
+        var bodyType = await Context.Set<VehicleBodyType>().FirstAsync();
+
+        return (engineType, transmissionType, drivetrainType, bodyType);
+    }
+
+    private static void AssertCommandFailed(Result response, string expectedErrorFragment)
+    {
+        response.Error
+            .Should().NotBeNull();
+        response.IsSuccess
+            .Should().BeFalse();
+        response.Error.Message
+            .Should().Contain(expectedErrorFragment);
     }
 }
