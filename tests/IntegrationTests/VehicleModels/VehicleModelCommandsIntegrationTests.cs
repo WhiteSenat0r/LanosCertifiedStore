@@ -102,12 +102,105 @@ public sealed class VehicleModelCommandsIntegrationTests(
 
         // Act
         var response = await Sender.Send(commandRequest);
-        
+
         // Assert
         response.Error
             .Should().NotBeNull();
         response.IsSuccess
             .Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_PersistModelWhenBrandIdDoesNotExist()
+    {
+        // Arrange
+        var validRequest = await InstantiateValidCreateRequest();
+        var commandRequest = validRequest with { BrandId = Guid.Empty };
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+
+        // Assert
+        AssertFailureResponse(response);
+        await AssertModelCountByName(commandRequest.Name, expectedCount: 0);
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_PersistModelWhenTypeIdDoesNotExist()
+    {
+        // Arrange
+        var validRequest = await InstantiateValidCreateRequest();
+        var commandRequest = validRequest with { TypeId = Guid.Empty };
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+
+        // Assert
+        AssertFailureResponse(response);
+        await AssertModelCountByName(commandRequest.Name, expectedCount: 0);
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_PersistModelWhenEngineTypeIdDoesNotExist()
+    {
+        // Arrange
+        var validRequest = await InstantiateValidCreateRequest();
+        var invalidEngineTypeIds = validRequest.AvailableEngineTypesIds.Append(Guid.Empty);
+        var commandRequest = validRequest with { AvailableEngineTypesIds = invalidEngineTypeIds };
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+
+        // Assert
+        AssertFailureResponse(response);
+        await AssertModelCountByName(commandRequest.Name, expectedCount: 0);
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_PersistModelWhenNameAlreadyExists()
+    {
+        // Arrange
+        var validRequest = await InstantiateValidCreateRequest();
+        // Use ModelName constant which already exists in database (used by GetUpdatedModel)
+        var commandRequest = validRequest with { Name = ModelName };
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+
+        // Assert
+        AssertFailureResponse(response);
+        await AssertModelCountByName(ModelName, expectedCount: 1);
+    }
+
+    [Fact]
+    public async Task Send_UpdateRequest_ShouldNot_PartiallyUpdateWhenEngineTypeIdDoesNotExist()
+    {
+        // Arrange
+        var existingModel = await GetUpdatedModel();
+        var originalEngineTypeIds = existingModel.AvailableEngineTypes.Select(t => t.Id).ToList();
+        var originalMaxYear = existingModel.MaximumProductionYear;
+
+        var invalidEngineTypeIds = originalEngineTypeIds.Append(Guid.Empty);
+        var commandRequest = new UpdateVehicleModelCommandRequest(
+            existingModel.Id,
+            2025,
+            invalidEngineTypeIds,
+            existingModel.AvailableTransmissionTypes.Select(t => t.Id),
+            existingModel.AvailableDrivetrainTypes.Select(t => t.Id),
+            existingModel.AvailableBodyTypes.Select(t => t.Id)
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+
+        // Assert
+        AssertFailureResponse(response);
+
+        var unchangedModel = await GetUpdatedModel();
+        unchangedModel.MaximumProductionYear
+            .Should().Be(originalMaxYear);
+        unchangedModel.AvailableEngineTypes.Select(t => t.Id)
+            .Should().BeEquivalentTo(originalEngineTypeIds);
     }
 
     private UpdateVehicleModelCommandRequest GetValidUpdateRequest(
@@ -204,5 +297,21 @@ public sealed class VehicleModelCommandsIntegrationTests(
             availableDrivetrainTypes.Select(x => x.Id),
             availableBodyTypes.Select(x => x.Id)
         );
+    }
+
+    private static void AssertFailureResponse(Result<Guid> response)
+    {
+        response.Error
+            .Should().NotBeNull();
+        response.IsSuccess
+            .Should().BeFalse();
+    }
+
+    private async Task AssertModelCountByName(string modelName, int expectedCount)
+    {
+        var modelCount = await Context.Set<VehicleModel>()
+            .CountAsync(m => m.Name.Equals(modelName));
+        modelCount
+            .Should().Be(expectedCount);
     }
 }
