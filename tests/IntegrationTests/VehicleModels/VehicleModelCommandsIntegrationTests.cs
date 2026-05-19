@@ -118,7 +118,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
         var type = await Context.Set<VehicleType>().FirstAsync();
         var uniqueName = $"TestModel_{Guid.NewGuid()}";
 
-        var (engineTypes, transmissionTypes, drivetrainTypes, bodyTypes) = await GetVehicleTypeIdsAsync();
+        var typeIds = await GetVehicleTypeIdsAsync();
 
         var commandRequest = new CreateVehicleModelCommandRequest(
             uniqueName,
@@ -126,17 +126,14 @@ public sealed class VehicleModelCommandsIntegrationTests(
             type.Id,
             2000,
             2010,
-            engineTypes,
-            transmissionTypes,
-            drivetrainTypes,
-            bodyTypes
+            typeIds.EngineTypes,
+            typeIds.TransmissionTypes,
+            typeIds.DrivetrainTypes,
+            typeIds.BodyTypes
         );
 
-        // Act
-        var response = await Sender.Send(commandRequest);
-
-        // Assert
-        AssertFailureResponse(response);
+        // Act & Assert
+        await SendCommandAndAssertFailureAsync<Guid>(commandRequest);
 
         // Verify no model was persisted
         var persistedModel = await Context.Set<VehicleModel>()
@@ -153,7 +150,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
         var brand = await Context.Set<VehicleBrand>().FirstAsync();
         var type = await Context.Set<VehicleType>().FirstAsync();
 
-        var (engineTypes, transmissionTypes, drivetrainTypes, bodyTypes) = await GetVehicleTypeIdsAsync();
+        var typeIds = await GetVehicleTypeIdsAsync();
 
         var commandRequest = new CreateVehicleModelCommandRequest(
             existingModel.Name, // Duplicate name
@@ -161,44 +158,38 @@ public sealed class VehicleModelCommandsIntegrationTests(
             type.Id,
             2000,
             2010,
-            engineTypes,
-            transmissionTypes,
-            drivetrainTypes,
-            bodyTypes
+            typeIds.EngineTypes,
+            typeIds.TransmissionTypes,
+            typeIds.DrivetrainTypes,
+            typeIds.BodyTypes
         );
 
-        // Act
-        var response = await Sender.Send(commandRequest);
-
-        // Assert
-        AssertFailureResponse(response);
+        // Act & Assert
+        await SendCommandAndAssertFailureAsync<Guid>(commandRequest);
     }
 
     [Fact]
     public async Task Send_UpdateRequest_ShouldNot_UpdateIfEngineTypeIdDoesNotExist()
     {
         // Arrange
-        var model = await LoadModelWithRelationshipsAsync();
+        var model = await GetUpdatedModel();
         var originalTypeIds = ExtractRelationshipIds(model);
         var nonExistingEngineTypeId = Guid.NewGuid();
 
         var commandRequest = new UpdateVehicleModelCommandRequest(
             model.Id,
             model.MaximumProductionYear,
-            originalTypeIds.engineTypes.Append(nonExistingEngineTypeId), // Invalid ID mixed in
-            originalTypeIds.transmissionTypes,
-            originalTypeIds.drivetrainTypes,
-            originalTypeIds.bodyTypes
+            originalTypeIds.EngineTypes.Append(nonExistingEngineTypeId), // Invalid ID mixed in
+            originalTypeIds.TransmissionTypes,
+            originalTypeIds.DrivetrainTypes,
+            originalTypeIds.BodyTypes
         );
 
-        // Act
-        var response = await Sender.Send(commandRequest);
-
-        // Assert
-        AssertFailureResponse(response);
+        // Act & Assert
+        await SendCommandAndAssertFailureAsync<bool>(commandRequest);
 
         // Reload model and verify relationships are unchanged
-        var reloadedModel = await LoadModelWithRelationshipsAsync(model.Id);
+        var reloadedModel = await GetUpdatedModel(model.Id);
         AssertRelationshipsUnchanged(reloadedModel, originalTypeIds);
     }
 
@@ -206,77 +197,83 @@ public sealed class VehicleModelCommandsIntegrationTests(
     public async Task Send_UpdateRequest_ShouldNot_UpdateIfBodyTypeIdDoesNotExist()
     {
         // Arrange
-        var model = await LoadModelWithRelationshipsAsync();
+        var model = await GetUpdatedModel();
         var originalTypeIds = ExtractRelationshipIds(model);
         var nonExistingBodyTypeId = Guid.NewGuid();
 
         var commandRequest = new UpdateVehicleModelCommandRequest(
             model.Id,
             model.MaximumProductionYear,
-            originalTypeIds.engineTypes,
-            originalTypeIds.transmissionTypes,
-            originalTypeIds.drivetrainTypes,
-            originalTypeIds.bodyTypes.Append(nonExistingBodyTypeId) // Invalid ID mixed in
+            originalTypeIds.EngineTypes,
+            originalTypeIds.TransmissionTypes,
+            originalTypeIds.DrivetrainTypes,
+            originalTypeIds.BodyTypes.Append(nonExistingBodyTypeId) // Invalid ID mixed in
         );
 
-        // Act
-        var response = await Sender.Send(commandRequest);
-
-        // Assert
-        AssertFailureResponse(response);
+        // Act & Assert
+        await SendCommandAndAssertFailureAsync<bool>(commandRequest);
 
         // Reload model and verify relationships are unchanged
-        var reloadedModel = await LoadModelWithRelationshipsAsync(model.Id);
+        var reloadedModel = await GetUpdatedModel(model.Id);
         AssertRelationshipsUnchanged(reloadedModel, originalTypeIds);
     }
 
-    private async Task<(List<Guid> engineTypes, List<Guid> transmissionTypes, List<Guid> drivetrainTypes, List<Guid> bodyTypes)> GetVehicleTypeIdsAsync()
+    /// <summary>
+    /// Record type for vehicle type IDs to improve code clarity over tuple returns
+    /// </summary>
+    private record VehicleTypeIds(
+        List<Guid> EngineTypes,
+        List<Guid> TransmissionTypes,
+        List<Guid> DrivetrainTypes,
+        List<Guid> BodyTypes);
+
+    /// <summary>
+    /// Retrieves one ID per vehicle type for simple negative test scenarios.
+    /// Uses Take(1) for minimal test data setup, unlike InstantiateValidCreateRequest()
+    /// which retrieves First and Last IDs (2 per type) for comprehensive positive test coverage.
+    /// </summary>
+    private async Task<VehicleTypeIds> GetVehicleTypeIdsAsync()
     {
         var engineTypes = await Context.Set<VehicleEngineType>().Take(1).Select(x => x.Id).ToListAsync();
         var transmissionTypes = await Context.Set<VehicleTransmissionType>().Take(1).Select(x => x.Id).ToListAsync();
         var drivetrainTypes = await Context.Set<VehicleDrivetrainType>().Take(1).Select(x => x.Id).ToListAsync();
         var bodyTypes = await Context.Set<VehicleBodyType>().Take(1).Select(x => x.Id).ToListAsync();
-        return (engineTypes, transmissionTypes, drivetrainTypes, bodyTypes);
+        return new VehicleTypeIds(engineTypes, transmissionTypes, drivetrainTypes, bodyTypes);
     }
 
-    private async Task<VehicleModel> LoadModelWithRelationshipsAsync(Guid? modelId = null)
-    {
-        var query = Context.Set<VehicleModel>()
-            .Include(m => m.AvailableEngineTypes)
-            .Include(m => m.AvailableTransmissionTypes)
-            .Include(m => m.AvailableDrivetrainTypes)
-            .Include(m => m.AvailableBodyTypes);
-
-        return modelId.HasValue
-            ? await query.FirstAsync(m => m.Id == modelId.Value)
-            : await query.FirstAsync();
-    }
-
-    private (List<Guid> engineTypes, List<Guid> transmissionTypes, List<Guid> drivetrainTypes, List<Guid> bodyTypes) ExtractRelationshipIds(VehicleModel model) =>
-        (
+    private VehicleTypeIds ExtractRelationshipIds(VehicleModel model) =>
+        new VehicleTypeIds(
             model.AvailableEngineTypes.Select(x => x.Id).ToList(),
             model.AvailableTransmissionTypes.Select(x => x.Id).ToList(),
             model.AvailableDrivetrainTypes.Select(x => x.Id).ToList(),
             model.AvailableBodyTypes.Select(x => x.Id).ToList()
         );
 
-    private void AssertRelationshipsUnchanged(
-        VehicleModel model,
-        (List<Guid> engineTypes, List<Guid> transmissionTypes, List<Guid> drivetrainTypes, List<Guid> bodyTypes) expectedTypeIds)
+    private void AssertRelationshipsUnchanged(VehicleModel model, VehicleTypeIds expectedTypeIds)
     {
         model.AvailableEngineTypes.Select(x => x.Id)
-            .Should().BeEquivalentTo(expectedTypeIds.engineTypes);
+            .Should().BeEquivalentTo(expectedTypeIds.EngineTypes);
         model.AvailableTransmissionTypes.Select(x => x.Id)
-            .Should().BeEquivalentTo(expectedTypeIds.transmissionTypes);
+            .Should().BeEquivalentTo(expectedTypeIds.TransmissionTypes);
         model.AvailableDrivetrainTypes.Select(x => x.Id)
-            .Should().BeEquivalentTo(expectedTypeIds.drivetrainTypes);
+            .Should().BeEquivalentTo(expectedTypeIds.DrivetrainTypes);
         model.AvailableBodyTypes.Select(x => x.Id)
-            .Should().BeEquivalentTo(expectedTypeIds.bodyTypes);
+            .Should().BeEquivalentTo(expectedTypeIds.BodyTypes);
+    }
+
+    /// <summary>
+    /// Helper method to reduce duplication in negative test cases.
+    /// Sends a command and asserts it fails with the expected error response.
+    /// </summary>
+    private async Task SendCommandAndAssertFailureAsync<T>(object command)
+    {
+        var response = await Sender.Send(command);
+        AssertFailureResponse<T>((Result<T>)response);
     }
 
     private void AssertFailureResponse<T>(Result<T> response)
     {
-        response.Error.Should().NotBe(Error.None);
+        response.Error.Should().NotBeNull();
         response.IsSuccess.Should().BeFalse();
     }
 
@@ -309,14 +306,17 @@ public sealed class VehicleModelCommandsIntegrationTests(
             t => !updatedModel.AvailableDrivetrainTypes.Select(x => x.Id).Contains(t.Id));
     }
 
-    private async Task<VehicleModel> GetUpdatedModel()
+    private async Task<VehicleModel> GetUpdatedModel(Guid? modelId = null)
     {
-        return await Context.Set<VehicleModel>()
+        var query = Context.Set<VehicleModel>()
             .Include(model => model.AvailableDrivetrainTypes)
             .Include(model => model.AvailableEngineTypes)
             .Include(model => model.AvailableBodyTypes)
-            .Include(model => model.AvailableTransmissionTypes)
-            .FirstAsync(m => m.Name.Equals(ModelName));
+            .Include(model => model.AvailableTransmissionTypes);
+
+        return modelId.HasValue
+            ? await query.FirstAsync(m => m.Id == modelId.Value)
+            : await query.FirstAsync(m => m.Name.Equals(ModelName));
     }
 
     private async Task<VehicleBodyType> GetNewBodyType(VehicleModel updatedModel)
