@@ -27,6 +27,12 @@ public abstract class IntegrationTestBase : IClassFixture<IntegrationTestsWebApp
 
     private protected IntegrationTestBase(IntegrationTestsWebApplicationFactory factory)
     {
+        if (!factory.IsDockerAvailable)
+        {
+            throw new InvalidOperationException(
+                $"Integration tests require Docker to be running. {factory.DockerUnavailableReason}");
+        }
+
         _scope = factory.Services.CreateScope();
         Sender = _scope.ServiceProvider.GetRequiredService<ISender>();
         Context = _scope.ServiceProvider.GetRequiredService<ApplicationDatabaseContext>();
