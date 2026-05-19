@@ -118,10 +118,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
         var nonExistingBrandId = Guid.NewGuid();
         var type = await Context.Set<VehicleType>().FirstAsync();
 
-        var engineTypeId = await Context.Set<VehicleEngineType>().Select(t => t.Id).FirstAsync();
-        var transmissionTypeId = await Context.Set<VehicleTransmissionType>().Select(t => t.Id).FirstAsync();
-        var drivetrainTypeId = await Context.Set<VehicleDrivetrainType>().Select(t => t.Id).FirstAsync();
-        var bodyTypeId = await Context.Set<VehicleBodyType>().Select(t => t.Id).FirstAsync();
+        var typeIds = await GetTypeIds();
 
         var commandRequest = new CreateVehicleModelCommandRequest(
             uniqueName,
@@ -129,10 +126,10 @@ public sealed class VehicleModelCommandsIntegrationTests(
             type.Id,
             2005,
             2010,
-            [engineTypeId],
-            [transmissionTypeId],
-            [drivetrainTypeId],
-            [bodyTypeId]
+            [typeIds.EngineTypeId],
+            [typeIds.TransmissionTypeId],
+            [typeIds.DrivetrainTypeId],
+            [typeIds.BodyTypeId]
         );
 
         // Act
@@ -161,10 +158,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
         var initialCount = await Context.Set<VehicleModel>()
             .CountAsync(m => m.Name == existingModel.Name);
 
-        var engineTypeId = await Context.Set<VehicleEngineType>().Select(t => t.Id).FirstAsync();
-        var transmissionTypeId = await Context.Set<VehicleTransmissionType>().Select(t => t.Id).FirstAsync();
-        var drivetrainTypeId = await Context.Set<VehicleDrivetrainType>().Select(t => t.Id).FirstAsync();
-        var bodyTypeId = await Context.Set<VehicleBodyType>().Select(t => t.Id).FirstAsync();
+        var typeIds = await GetTypeIds();
 
         var commandRequest = new CreateVehicleModelCommandRequest(
             existingModel.Name, // duplicate name
@@ -172,10 +166,10 @@ public sealed class VehicleModelCommandsIntegrationTests(
             type.Id,
             2005,
             2010,
-            [engineTypeId],
-            [transmissionTypeId],
-            [drivetrainTypeId],
-            [bodyTypeId]
+            [typeIds.EngineTypeId],
+            [typeIds.TransmissionTypeId],
+            [typeIds.DrivetrainTypeId],
+            [typeIds.BodyTypeId]
         );
 
         // Act
@@ -241,6 +235,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
         var existingEngineTypeIds = updatedModel.AvailableEngineTypes.Select(x => x.Id).ToHashSet();
         var newEngineTypes = await Context.Set<VehicleEngineType>()
             .Where(t => !existingEngineTypeIds.Contains(t.Id))
+            .OrderBy(t => t.Id)
             .Take(2)
             .Select(t => t.Id)
             .ToListAsync();
@@ -248,6 +243,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
         var existingTransmissionTypeIds = updatedModel.AvailableTransmissionTypes.Select(x => x.Id).ToHashSet();
         var newTransmissionTypes = await Context.Set<VehicleTransmissionType>()
             .Where(t => !existingTransmissionTypeIds.Contains(t.Id))
+            .OrderBy(t => t.Id)
             .Take(2)
             .Select(t => t.Id)
             .ToListAsync();
@@ -386,5 +382,15 @@ public sealed class VehicleModelCommandsIntegrationTests(
             availableDrivetrainTypes.Select(x => x.Id),
             availableBodyTypes.Select(x => x.Id)
         );
+    }
+
+    private async Task<(Guid EngineTypeId, Guid TransmissionTypeId, Guid DrivetrainTypeId, Guid BodyTypeId)> GetTypeIds()
+    {
+        var engineTypeId = await Context.Set<VehicleEngineType>().Select(t => t.Id).FirstAsync();
+        var transmissionTypeId = await Context.Set<VehicleTransmissionType>().Select(t => t.Id).FirstAsync();
+        var drivetrainTypeId = await Context.Set<VehicleDrivetrainType>().Select(t => t.Id).FirstAsync();
+        var bodyTypeId = await Context.Set<VehicleBodyType>().Select(t => t.Id).FirstAsync();
+
+        return (engineTypeId, transmissionTypeId, drivetrainTypeId, bodyTypeId);
     }
 }
