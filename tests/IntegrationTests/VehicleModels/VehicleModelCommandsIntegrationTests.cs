@@ -114,117 +114,81 @@ public sealed class VehicleModelCommandsIntegrationTests(
     public async Task Send_CreateRequest_ShouldNot_AddNewModelIfBrandIdDoesNotExist()
     {
         // Arrange
-        var type = await Context.Set<VehicleType>().FirstAsync();
-        var engineType = await Context.Set<VehicleEngineType>().FirstAsync();
-        var transmissionType = await Context.Set<VehicleTransmissionType>().FirstAsync();
-        var drivetrainType = await Context.Set<VehicleDrivetrainType>().FirstAsync();
-        var bodyType = await Context.Set<VehicleBodyType>().FirstAsync();
+        var entities = await GetTestEntities(includeBrand: false);
         var uniqueName = $"Model_{Guid.NewGuid()}";
 
         var commandRequest = new CreateVehicleModelCommandRequest(
             uniqueName,
             Guid.NewGuid(), // Non-existing brand ID
-            type.Id,
+            entities.Type!.Id,
             2005,
             2010,
-            [engineType.Id],
-            [transmissionType.Id],
-            [drivetrainType.Id],
-            [bodyType.Id]
+            [entities.EngineType.Id],
+            [entities.TransmissionType.Id],
+            [entities.DrivetrainType.Id],
+            [entities.BodyType.Id]
         );
 
         // Act
         var response = await Sender.Send(commandRequest);
 
         // Assert
-        response.Error
-            .Should().NotBeNull();
-        response.IsSuccess
-            .Should().BeFalse();
-
-        // Verify no model was persisted
-        var persistedModel = await Context.Set<VehicleModel>()
-            .FirstOrDefaultAsync(m => m.Name == uniqueName);
-        persistedModel
-            .Should().BeNull();
+        AssertFailureResponse(response);
+        await AssertModelNotPersisted(uniqueName);
     }
 
     [Fact]
     public async Task Send_CreateRequest_ShouldNot_AddNewModelIfTypeIdDoesNotExist()
     {
         // Arrange
-        var brand = await Context.Set<VehicleBrand>().FirstAsync();
-        var engineType = await Context.Set<VehicleEngineType>().FirstAsync();
-        var transmissionType = await Context.Set<VehicleTransmissionType>().FirstAsync();
-        var drivetrainType = await Context.Set<VehicleDrivetrainType>().FirstAsync();
-        var bodyType = await Context.Set<VehicleBodyType>().FirstAsync();
+        var entities = await GetTestEntities(includeType: false);
         var uniqueName = $"Model_{Guid.NewGuid()}";
 
         var commandRequest = new CreateVehicleModelCommandRequest(
             uniqueName,
-            brand.Id,
+            entities.Brand!.Id,
             Guid.NewGuid(), // Non-existing type ID
             2005,
             2010,
-            [engineType.Id],
-            [transmissionType.Id],
-            [drivetrainType.Id],
-            [bodyType.Id]
+            [entities.EngineType.Id],
+            [entities.TransmissionType.Id],
+            [entities.DrivetrainType.Id],
+            [entities.BodyType.Id]
         );
 
         // Act
         var response = await Sender.Send(commandRequest);
 
         // Assert
-        response.Error
-            .Should().NotBeNull();
-        response.IsSuccess
-            .Should().BeFalse();
-
-        // Verify no model was persisted
-        var persistedModel = await Context.Set<VehicleModel>()
-            .FirstOrDefaultAsync(m => m.Name == uniqueName);
-        persistedModel
-            .Should().BeNull();
+        AssertFailureResponse(response);
+        await AssertModelNotPersisted(uniqueName);
     }
 
     [Fact]
     public async Task Send_CreateRequest_ShouldNot_AddNewModelIfEngineTypeIdDoesNotExist()
     {
         // Arrange
-        var brand = await Context.Set<VehicleBrand>().FirstAsync();
-        var type = await Context.Set<VehicleType>().FirstAsync();
-        var transmissionType = await Context.Set<VehicleTransmissionType>().FirstAsync();
-        var drivetrainType = await Context.Set<VehicleDrivetrainType>().FirstAsync();
-        var bodyType = await Context.Set<VehicleBodyType>().FirstAsync();
+        var entities = await GetTestEntities();
         var uniqueName = $"Model_{Guid.NewGuid()}";
 
         var commandRequest = new CreateVehicleModelCommandRequest(
             uniqueName,
-            brand.Id,
-            type.Id,
+            entities.Brand!.Id,
+            entities.Type!.Id,
             2005,
             2010,
             [Guid.NewGuid()], // Non-existing engine type ID
-            [transmissionType.Id],
-            [drivetrainType.Id],
-            [bodyType.Id]
+            [entities.TransmissionType.Id],
+            [entities.DrivetrainType.Id],
+            [entities.BodyType.Id]
         );
 
         // Act
         var response = await Sender.Send(commandRequest);
 
         // Assert
-        response.Error
-            .Should().NotBeNull();
-        response.IsSuccess
-            .Should().BeFalse();
-
-        // Verify no model was persisted
-        var persistedModel = await Context.Set<VehicleModel>()
-            .FirstOrDefaultAsync(m => m.Name == uniqueName);
-        persistedModel
-            .Should().BeNull();
+        AssertFailureResponse(response);
+        await AssertModelNotPersisted(uniqueName);
     }
 
     [Fact]
@@ -232,33 +196,25 @@ public sealed class VehicleModelCommandsIntegrationTests(
     {
         // Arrange
         var existingModel = await Context.Set<VehicleModel>().FirstAsync();
-        var brand = await Context.Set<VehicleBrand>().FirstAsync();
-        var type = await Context.Set<VehicleType>().FirstAsync();
-        var engineType = await Context.Set<VehicleEngineType>().FirstAsync();
-        var transmissionType = await Context.Set<VehicleTransmissionType>().FirstAsync();
-        var drivetrainType = await Context.Set<VehicleDrivetrainType>().FirstAsync();
-        var bodyType = await Context.Set<VehicleBodyType>().FirstAsync();
+        var entities = await GetTestEntities();
 
         var commandRequest = new CreateVehicleModelCommandRequest(
             existingModel.Name, // Duplicate name
-            brand.Id,
-            type.Id,
+            entities.Brand!.Id,
+            entities.Type!.Id,
             2005,
             2010,
-            [engineType.Id],
-            [transmissionType.Id],
-            [drivetrainType.Id],
-            [bodyType.Id]
+            [entities.EngineType.Id],
+            [entities.TransmissionType.Id],
+            [entities.DrivetrainType.Id],
+            [entities.BodyType.Id]
         );
 
         // Act
         var response = await Sender.Send(commandRequest);
 
         // Assert
-        response.Error
-            .Should().NotBeNull();
-        response.IsSuccess
-            .Should().BeFalse();
+        AssertFailureResponse(response);
 
         // Verify count of models with this name is still 1 (the original)
         var modelsWithName = await Context.Set<VehicleModel>()
@@ -297,10 +253,7 @@ public sealed class VehicleModelCommandsIntegrationTests(
         var response = await Sender.Send(commandRequest);
 
         // Assert
-        response.Error
-            .Should().NotBeNull();
-        response.IsSuccess
-            .Should().BeFalse();
+        AssertFailureResponse(response);
 
         // Verify relationships were NOT modified
         var modelAfterFailedUpdate = await Context.Set<VehicleModel>()
@@ -324,28 +277,22 @@ public sealed class VehicleModelCommandsIntegrationTests(
     public async Task Send_UpdateRequest_ShouldNot_UpdateModelIfModelIdDoesNotExist()
     {
         // Arrange
-        var transmissionType = await Context.Set<VehicleTransmissionType>().FirstAsync();
-        var drivetrainType = await Context.Set<VehicleDrivetrainType>().FirstAsync();
-        var bodyType = await Context.Set<VehicleBodyType>().FirstAsync();
-        var engineType = await Context.Set<VehicleEngineType>().FirstAsync();
+        var entities = await GetTestEntities();
 
         var commandRequest = new UpdateVehicleModelCommandRequest(
             Guid.NewGuid(), // Non-existing model ID
             2020,
-            [engineType.Id],
-            [transmissionType.Id],
-            [drivetrainType.Id],
-            [bodyType.Id]
+            [entities.EngineType.Id],
+            [entities.TransmissionType.Id],
+            [entities.DrivetrainType.Id],
+            [entities.BodyType.Id]
         );
 
         // Act
         var response = await Sender.Send(commandRequest);
 
         // Assert
-        response.Error
-            .Should().NotBeNull();
-        response.IsSuccess
-            .Should().BeFalse();
+        AssertFailureResponse(response);
     }
 
     private UpdateVehicleModelCommandRequest GetValidUpdateRequest(
@@ -442,5 +389,46 @@ public sealed class VehicleModelCommandsIntegrationTests(
             availableDrivetrainTypes.Select(x => x.Id),
             availableBodyTypes.Select(x => x.Id)
         );
+    }
+
+    private async Task<TestEntities> GetTestEntities(
+        bool includeBrand = true,
+        bool includeType = true)
+    {
+        return new TestEntities
+        {
+            Brand = includeBrand ? await Context.Set<VehicleBrand>().FirstAsync() : null,
+            Type = includeType ? await Context.Set<VehicleType>().FirstAsync() : null,
+            EngineType = await Context.Set<VehicleEngineType>().FirstAsync(),
+            TransmissionType = await Context.Set<VehicleTransmissionType>().FirstAsync(),
+            DrivetrainType = await Context.Set<VehicleDrivetrainType>().FirstAsync(),
+            BodyType = await Context.Set<VehicleBodyType>().FirstAsync()
+        };
+    }
+
+    private async Task AssertModelNotPersisted(string modelName)
+    {
+        var persistedModel = await Context.Set<VehicleModel>()
+            .FirstOrDefaultAsync(m => m.Name == modelName);
+        persistedModel
+            .Should().BeNull();
+    }
+
+    private static void AssertFailureResponse(Result response)
+    {
+        response.Error
+            .Should().NotBeNull();
+        response.IsSuccess
+            .Should().BeFalse();
+    }
+
+    private record TestEntities
+    {
+        public VehicleBrand? Brand { get; init; }
+        public VehicleType? Type { get; init; }
+        public required VehicleEngineType EngineType { get; init; }
+        public required VehicleTransmissionType TransmissionType { get; init; }
+        public required VehicleDrivetrainType DrivetrainType { get; init; }
+        public required VehicleBodyType BodyType { get; init; }
     }
 }
