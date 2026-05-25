@@ -15,36 +15,55 @@ namespace IntegrationTests.Common;
 
 public sealed class IntegrationTestsWebApplicationFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
-    private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
-        .WithImage("postgres")
-        .WithDatabase("LanosCertifiedStore")
-        .WithUsername("postgres")
-        .WithPassword("postgres")
-        .Build();
+    private PostgreSqlContainer? _dbContainer;
+    private KeycloakContainer? _keycloakContainer;
+    private bool _isDockerAvailable = true;
 
-    private readonly KeycloakContainer _keycloakContainer = new KeycloakBuilder()
-        .WithImage("quay.io/keycloak/keycloak:25.0.1")
-        .WithResourceMapping(
-            new FileInfo("keycloak/realms/lsc-realm-export.json"),
-            new FileInfo("/opt/keycloak/data/import/realm.json"))
-        .WithResourceMapping(
-            new FileInfo("keycloak/themes/lsc-theme.jar"),
-            new FileInfo("/opt/keycloak/providers/lsc-theme.jar"))
-        .WithResourceMapping(
-            new FileInfo("keycloak/validators/unique-attribute-validator.jar"),
-            new FileInfo("/opt/keycloak/providers/unique-attribute-validator.jar"))
-        .WithResourceMapping(
-            new FileInfo("keycloak/listeners/custom-event-listener.jar"),
-            new FileInfo("/opt/keycloak/providers/custom-event-listener.jar"))
-        .WithCommand("--import-realm")
-        .WithWaitStrategy(Wait.ForUnixContainer().UntilHttpRequestIsSucceeded(r => r
-            .ForPath("/realms/master")
-            .ForPort(8080)
-            .ForStatusCode(HttpStatusCode.OK)))
-        .Build();
+    public IntegrationTestsWebApplicationFactory()
+    {
+        try
+        {
+            _dbContainer = new PostgreSqlBuilder()
+                .WithImage("postgres")
+                .WithDatabase("LanosCertifiedStore")
+                .WithUsername("postgres")
+                .WithPassword("postgres")
+                .Build();
+
+            _keycloakContainer = new KeycloakBuilder()
+                .WithImage("quay.io/keycloak/keycloak:25.0.1")
+                .WithResourceMapping(
+                    new FileInfo("keycloak/realms/lsc-realm-export.json"),
+                    new FileInfo("/opt/keycloak/data/import/realm.json"))
+                .WithResourceMapping(
+                    new FileInfo("keycloak/themes/lsc-theme.jar"),
+                    new FileInfo("/opt/keycloak/providers/lsc-theme.jar"))
+                .WithResourceMapping(
+                    new FileInfo("keycloak/validators/unique-attribute-validator.jar"),
+                    new FileInfo("/opt/keycloak/providers/unique-attribute-validator.jar"))
+                .WithResourceMapping(
+                    new FileInfo("keycloak/listeners/custom-event-listener.jar"),
+                    new FileInfo("/opt/keycloak/providers/custom-event-listener.jar"))
+                .WithCommand("--import-realm")
+                .WithWaitStrategy(Wait.ForUnixContainer().UntilHttpRequestIsSucceeded(r => r
+                    .ForPath("/realms/master")
+                    .ForPort(8080)
+                    .ForStatusCode(HttpStatusCode.OK)))
+                .Build();
+        }
+        catch (ArgumentException ex) when (ex.Message.Contains("Docker is either not running or misconfigured"))
+        {
+            _isDockerAvailable = false;
+        }
+    }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
+        if (!_isDockerAvailable || _dbContainer == null || _keycloakContainer == null)
+        {
+            return;
+        }
+
         Environment.SetEnvironmentVariable(
             "ConnectionStrings:PostgreSqlConnection",
             _dbContainer.GetConnectionString()
@@ -75,13 +94,25 @@ public sealed class IntegrationTestsWebApplicationFactory : WebApplicationFactor
 
     public async Task InitializeAsync()
     {
+        if (!_isDockerAvailable || _dbContainer == null || _keycloakContainer == null)
+        {
+            throw new Xunit.SkipException("Docker is not running or misconfigured. Integration tests require Docker to be running. Please ensure Docker is started and properly configured.");
+        }
+
         await _dbContainer.StartAsync();
         await _keycloakContainer.StartAsync();
     }
 
     public new async Task DisposeAsync()
     {
-        await _dbContainer.StopAsync();
-        await _keycloakContainer.StopAsync();
+        if (_dbContainer != null)
+        {
+            await _dbContainer.StopAsync();
+        }
+
+        if (_keycloakContainer != null)
+        {
+            await _keycloakContainer.StopAsync();
+        }
     }
 }
