@@ -12,6 +12,8 @@ public sealed class VehicleModelCommandsIntegrationTests(
     IntegrationTestsWebApplicationFactory factory) : IntegrationTestBase(factory)
 {
     private const string ModelName = "test";
+    private const int MinimalProductionYear = 2005;
+    private const int MaximumProductionYear = 2010;
     
     [Fact]
     public async Task Send_CreateRequest_Should_AddNewModelIfRequestIsValid()
@@ -116,15 +118,13 @@ public sealed class VehicleModelCommandsIntegrationTests(
         // Arrange
         var nonExistingBrandId = Guid.NewGuid();
         var type = await Context.Set<VehicleType>().FirstAsync();
-        const int minimalProductionYear = 2005;
-        const int maximumProductionYear = 2010;
 
         var commandRequest = new CreateVehicleModelCommandRequest(
             "NonExistingBrandModel",
             nonExistingBrandId,
             type.Id,
-            minimalProductionYear,
-            maximumProductionYear,
+            MinimalProductionYear,
+            MaximumProductionYear,
             [], [], [], []
         );
 
@@ -149,15 +149,13 @@ public sealed class VehicleModelCommandsIntegrationTests(
         // Arrange
         var brand = await Context.Set<VehicleBrand>().FirstAsync();
         var nonExistingTypeId = Guid.NewGuid();
-        const int minimalProductionYear = 2005;
-        const int maximumProductionYear = 2010;
 
         var commandRequest = new CreateVehicleModelCommandRequest(
             "NonExistingTypeModel",
             brand.Id,
             nonExistingTypeId,
-            minimalProductionYear,
-            maximumProductionYear,
+            MinimalProductionYear,
+            MaximumProductionYear,
             [], [], [], []
         );
 
@@ -183,15 +181,13 @@ public sealed class VehicleModelCommandsIntegrationTests(
         var brand = await Context.Set<VehicleBrand>().FirstAsync();
         var type = await Context.Set<VehicleType>().FirstAsync();
         var nonExistingEngineTypeId = Guid.NewGuid();
-        const int minimalProductionYear = 2005;
-        const int maximumProductionYear = 2010;
 
         var commandRequest = new CreateVehicleModelCommandRequest(
             "InvalidEngineTypeModel",
             brand.Id,
             type.Id,
-            minimalProductionYear,
-            maximumProductionYear,
+            MinimalProductionYear,
+            MaximumProductionYear,
             [nonExistingEngineTypeId],
             [], [], []
         );
@@ -221,15 +217,13 @@ public sealed class VehicleModelCommandsIntegrationTests(
             .FirstAsync();
 
         var validEngineType = await Context.Set<VehicleEngineType>().FirstAsync();
-        const int minimalProductionYear = 2005;
-        const int maximumProductionYear = 2010;
 
         var commandRequest = new CreateVehicleModelCommandRequest(
             existingModel.Name,
             existingModel.VehicleBrandId,
             existingModel.VehicleTypeId,
-            minimalProductionYear,
-            maximumProductionYear,
+            MinimalProductionYear,
+            MaximumProductionYear,
             [validEngineType.Id],
             [], [], []
         );
@@ -385,8 +379,6 @@ public sealed class VehicleModelCommandsIntegrationTests(
     {
         var brand = await Context.Set<VehicleBrand>().FirstAsync();
         var type = await Context.Set<VehicleType>().FirstAsync();
-        const int minimalProductionYear = 2005;
-        const int maximumProductionYear = 2010;
 
         IEnumerable<VehicleEngineType> availableEngineTypes =
         [
@@ -417,8 +409,8 @@ public sealed class VehicleModelCommandsIntegrationTests(
             ModelName,
             brand.Id,
             type.Id,
-            minimalProductionYear,
-            maximumProductionYear,
+            MinimalProductionYear,
+            MaximumProductionYear,
             availableEngineTypes.Select(x => x.Id),
             availableTransmissionTypes.Select(x => x.Id),
             availableDrivetrainTypes.Select(x => x.Id),
