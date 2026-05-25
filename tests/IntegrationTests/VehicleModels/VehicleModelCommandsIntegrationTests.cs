@@ -102,12 +102,232 @@ public sealed class VehicleModelCommandsIntegrationTests(
 
         // Act
         var response = await Sender.Send(commandRequest);
-        
+
         // Assert
         response.Error
             .Should().NotBeNull();
         response.IsSuccess
             .Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_AddNewModelIfBrandIdDoesNotExist()
+    {
+        // Arrange
+        var nonExistingBrandId = Guid.NewGuid();
+        var type = await Context.Set<VehicleType>().FirstAsync();
+        const int minimalProductionYear = 2005;
+        const int maximumProductionYear = 2010;
+
+        var commandRequest = new CreateVehicleModelCommandRequest(
+            "NonExistingBrandModel",
+            nonExistingBrandId,
+            type.Id,
+            minimalProductionYear,
+            maximumProductionYear,
+            [], [], [], []
+        );
+
+        var initialModelCount = await Context.Set<VehicleModel>().CountAsync();
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+        var finalModelCount = await Context.Set<VehicleModel>().CountAsync();
+
+        // Assert
+        response.Error
+            .Should().NotBe(Error.None);
+        response.IsSuccess
+            .Should().BeFalse();
+        finalModelCount
+            .Should().Be(initialModelCount);
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_AddNewModelIfTypeIdDoesNotExist()
+    {
+        // Arrange
+        var brand = await Context.Set<VehicleBrand>().FirstAsync();
+        var nonExistingTypeId = Guid.NewGuid();
+        const int minimalProductionYear = 2005;
+        const int maximumProductionYear = 2010;
+
+        var commandRequest = new CreateVehicleModelCommandRequest(
+            "NonExistingTypeModel",
+            brand.Id,
+            nonExistingTypeId,
+            minimalProductionYear,
+            maximumProductionYear,
+            [], [], [], []
+        );
+
+        var initialModelCount = await Context.Set<VehicleModel>().CountAsync();
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+        var finalModelCount = await Context.Set<VehicleModel>().CountAsync();
+
+        // Assert
+        response.Error
+            .Should().NotBe(Error.None);
+        response.IsSuccess
+            .Should().BeFalse();
+        finalModelCount
+            .Should().Be(initialModelCount);
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_AddNewModelIfEngineTypeIdDoesNotExist()
+    {
+        // Arrange
+        var brand = await Context.Set<VehicleBrand>().FirstAsync();
+        var type = await Context.Set<VehicleType>().FirstAsync();
+        var nonExistingEngineTypeId = Guid.NewGuid();
+        const int minimalProductionYear = 2005;
+        const int maximumProductionYear = 2010;
+
+        var commandRequest = new CreateVehicleModelCommandRequest(
+            "InvalidEngineTypeModel",
+            brand.Id,
+            type.Id,
+            minimalProductionYear,
+            maximumProductionYear,
+            [nonExistingEngineTypeId],
+            [], [], []
+        );
+
+        var initialModelCount = await Context.Set<VehicleModel>().CountAsync();
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+        var finalModelCount = await Context.Set<VehicleModel>().CountAsync();
+
+        // Assert
+        response.Error
+            .Should().NotBe(Error.None);
+        response.IsSuccess
+            .Should().BeFalse();
+        finalModelCount
+            .Should().Be(initialModelCount);
+    }
+
+    [Fact]
+    public async Task Send_CreateRequest_ShouldNot_AddNewModelIfDuplicateNameForSameBrand()
+    {
+        // Arrange
+        var existingModel = await Context.Set<VehicleModel>()
+            .Include(m => m.VehicleBrand)
+            .Include(m => m.VehicleType)
+            .FirstAsync();
+
+        var validEngineType = await Context.Set<VehicleEngineType>().FirstAsync();
+        const int minimalProductionYear = 2005;
+        const int maximumProductionYear = 2010;
+
+        var commandRequest = new CreateVehicleModelCommandRequest(
+            existingModel.Name,
+            existingModel.VehicleBrandId,
+            existingModel.VehicleTypeId,
+            minimalProductionYear,
+            maximumProductionYear,
+            [validEngineType.Id],
+            [], [], []
+        );
+
+        var initialModelCount = await Context.Set<VehicleModel>().CountAsync();
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+        var finalModelCount = await Context.Set<VehicleModel>().CountAsync();
+
+        // Assert
+        response.Error
+            .Should().NotBe(Error.None);
+        response.IsSuccess
+            .Should().BeFalse();
+        finalModelCount
+            .Should().Be(initialModelCount);
+    }
+
+    [Fact]
+    public async Task Send_UpdateRequest_ShouldNot_UpdateModelIfModelIdDoesNotExist()
+    {
+        // Arrange
+        var nonExistingModelId = Guid.NewGuid();
+        var commandRequest = new UpdateVehicleModelCommandRequest(
+            nonExistingModelId,
+            2025,
+            [], [], [], []
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+
+        // Assert
+        response.Error
+            .Should().NotBe(Error.None);
+        response.IsSuccess
+            .Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task Send_UpdateRequest_ShouldNot_UpdateModelIfEngineTypeIdDoesNotExist()
+    {
+        // Arrange
+        var existingModel = await GetUpdatedModel();
+        var nonExistingEngineTypeId = Guid.NewGuid();
+        var originalEngineTypeIds = existingModel.AvailableEngineTypes.Select(t => t.Id).ToList();
+
+        var commandRequest = new UpdateVehicleModelCommandRequest(
+            existingModel.Id,
+            existingModel.MaximumProductionYear,
+            [nonExistingEngineTypeId],
+            existingModel.AvailableTransmissionTypes.Select(t => t.Id),
+            existingModel.AvailableDrivetrainTypes.Select(t => t.Id),
+            existingModel.AvailableBodyTypes.Select(t => t.Id)
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+        var unchangedModel = await GetUpdatedModel();
+
+        // Assert
+        response.Error
+            .Should().NotBe(Error.None);
+        response.IsSuccess
+            .Should().BeFalse();
+        unchangedModel.AvailableEngineTypes.Select(t => t.Id)
+            .Should().BeEquivalentTo(originalEngineTypeIds);
+    }
+
+    [Fact]
+    public async Task Send_UpdateRequest_ShouldNot_UpdateModelIfBodyTypeIdDoesNotExist()
+    {
+        // Arrange
+        var existingModel = await GetUpdatedModel();
+        var nonExistingBodyTypeId = Guid.NewGuid();
+        var originalBodyTypeIds = existingModel.AvailableBodyTypes.Select(t => t.Id).ToList();
+
+        var commandRequest = new UpdateVehicleModelCommandRequest(
+            existingModel.Id,
+            existingModel.MaximumProductionYear,
+            existingModel.AvailableEngineTypes.Select(t => t.Id),
+            existingModel.AvailableTransmissionTypes.Select(t => t.Id),
+            existingModel.AvailableDrivetrainTypes.Select(t => t.Id),
+            [nonExistingBodyTypeId]
+        );
+
+        // Act
+        var response = await Sender.Send(commandRequest);
+        var unchangedModel = await GetUpdatedModel();
+
+        // Assert
+        response.Error
+            .Should().NotBe(Error.None);
+        response.IsSuccess
+            .Should().BeFalse();
+        unchangedModel.AvailableBodyTypes.Select(t => t.Id)
+            .Should().BeEquivalentTo(originalBodyTypeIds);
     }
 
     private UpdateVehicleModelCommandRequest GetValidUpdateRequest(
