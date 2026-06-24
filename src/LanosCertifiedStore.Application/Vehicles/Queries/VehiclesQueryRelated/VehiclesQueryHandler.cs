@@ -1,11 +1,15 @@
-﻿namespace LanosCertifiedStore.Application.Vehicles.Queries.VehiclesQueryRelated;
+﻿using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Application.Vehicles.Dtos;
+using MediatR;
 
-// TODO
-// internal sealed class VehiclesQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) :
-//     CollectionQueryHandlerBase<Vehicle, VehicleFilteringRequestParameters, VehicleDto>(unitOfWork, mapper),
-//     IRequestHandler<VehiclesQueryRequest, Result<PaginationResult<VehicleDto>>>
-// {
-//     public Task<Result<PaginationResult<VehicleDto>>> Handle(VehiclesQueryRequest request,
-//         CancellationToken cancellationToken) =>
-//         base.Handle(request, cancellationToken);
-// }
+namespace LanosCertifiedStore.Application.Vehicles.Queries.VehiclesQueryRelated;
+
+internal sealed class VehiclesQueryHandler(IVehicleService vehicleService) :
+    IRequestHandler<VehiclesQueryRequest, Result<PaginationResult<VehicleDto>>>
+{
+    public async Task<Result<PaginationResult<VehicleDto>>> Handle(
+        VehiclesQueryRequest request, CancellationToken cancellationToken) =>
+        new PaginationResult<VehicleDto>(
+            await vehicleService.GetVehicleCollection(request, cancellationToken),
+            request.FilteringParameters.PageIndex);
+}

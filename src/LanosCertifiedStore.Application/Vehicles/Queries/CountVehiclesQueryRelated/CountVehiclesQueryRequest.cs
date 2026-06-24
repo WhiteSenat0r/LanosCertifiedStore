@@ -1,4 +1,11 @@
-﻿namespace LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
+﻿using LanosCertifiedStore.Application.Shared.DtosRelated;
+using LanosCertifiedStore.Application.Shared.RequestRelated.QueryRelated;
+using LanosCertifiedStore.Application.Shared.ResultRelated;
+using LanosCertifiedStore.Domain.Entities.VehicleRelated;
+using MediatR;
 
-// public sealed record CountVehiclesQueryRequest(IFilteringRequestParameters<Vehicle> RequestParameters) : 
-//     CountItemsQueryRequestBase<Vehicle>(RequestParameters), IRequest<Result<ItemsCountDto>>;
+namespace LanosCertifiedStore.Application.Vehicles.Queries.CountVehiclesQueryRelated;
+
+public sealed record CountVehiclesQueryRequest(
+    IVehicleFilteringRequestParameters FilteringParameters) :
+    ICountQueryRequest<Vehicle>, IRequest<Result<ItemsCountDto>>;
