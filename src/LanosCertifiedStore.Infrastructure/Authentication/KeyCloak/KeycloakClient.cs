@@ -45,6 +45,33 @@ internal sealed class KeycloakClient(HttpClient httpClient)
         httpResponseMessage.EnsureSuccessStatusCode();
     }
 
+    internal async Task SendExecuteActionsEmailAsync(
+        Guid userId,
+        IReadOnlyList<string> actions,
+        string? clientId,
+        string? redirectUri,
+        int? lifespan,
+        CancellationToken cancellationToken = default)
+    {
+        var requestUri = $"{BaseRequestUri}/{userId}/execute-actions-email";
+
+        var queryParts = new List<string>();
+
+        if (!string.IsNullOrEmpty(clientId))
+            queryParts.Add($"client_id={Uri.EscapeDataString(clientId)}");
+
+        if (!string.IsNullOrEmpty(redirectUri))
+            queryParts.Add($"redirect_uri={Uri.EscapeDataString(redirectUri)}");
+
+        if (lifespan.HasValue)
+            queryParts.Add($"lifespan={lifespan.Value}");
+
+        if (queryParts.Count > 0)
+            requestUri += "?" + string.Join("&", queryParts);
+
+        (await httpClient.PutAsJsonAsync(requestUri, actions, cancellationToken)).EnsureSuccessStatusCode();
+    }
+
     /// <summary>
     /// Registers a user in the keycloak system asynchronously.
     /// </summary>

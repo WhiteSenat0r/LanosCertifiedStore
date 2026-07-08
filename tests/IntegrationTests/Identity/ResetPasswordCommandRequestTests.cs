@@ -66,6 +66,58 @@ public sealed class ResetPasswordCommandRequestTests(
     }
 
     [Fact]
+    public async Task Endpoint_Should_ReturnNoContent_EvenWhenExecuteActionsEmailFails()
+    {
+        // Arrange — SMTP is unreachable in the test container; endpoint must still return 204
+        var user = await RegisterUserOnKeycloakAndAddToDb(
+            Faker.Internet.Email(),
+            Faker.Internet.Password(),
+            Faker.Phone.UkrainianPhoneNumber(),
+            UserRole.User);
+
+        var token = await GetAccessTokenAsync(user.Email, user.Credentials.First().Value);
+
+        HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+            JwtBearerDefaults.AuthenticationScheme,
+            token);
+
+        // Act
+        var response = await HttpClient.PutAsync("api/identity/password", null);
+
+        // Assert — best-effort email failure must not bubble up to the caller
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+    }
+
+    [Fact]
+    public async Task ResetPassword_Should_SetRequiredActionAndClearSessionsBeforeAttemptingEmail()
+    {
+        // Arrange
+        var user = await RegisterUserOnKeycloakAndAddToDb(
+            Faker.Internet.Email(),
+            Faker.Internet.Password(),
+            Faker.Phone.UkrainianPhoneNumber(),
+            UserRole.User);
+
+        var token = await GetAccessTokenAsync(user.Email, user.Credentials.First().Value);
+
+        HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+            JwtBearerDefaults.AuthenticationScheme,
+            token);
+
+        // Act — call reset password (sets required action, clears sessions, attempts email)
+        await HttpClient.PutAsync("api/identity/password", null);
+
+        // Assert — required action is set (UpdateUserDataAsync happened first)
+        var userRepresentation = await KeycloakClient.GetUserDataAsync(user.Id);
+        userRepresentation.RequiredActions
+            .Should().Contain(KeycloakRequiredActions.GetUpdatePasswordCode().First());
+
+        // Assert — old token is no longer valid (ClearUserSessionsAsync happened before email attempt)
+        var secondResponse = await HttpClient.PutAsync("api/identity/password", null);
+        secondResponse.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    }
+
+    [Fact]
     public async Task Endpoint_Should_ReturnUnauthorized_IfTokenIsNotPresent()
     {
         // Act

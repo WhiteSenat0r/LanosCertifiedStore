@@ -83,6 +83,62 @@ public sealed class UserEmailUpdateRequestTests(
 
 
     [Fact]
+    public async Task Endpoint_Should_ReturnNoContent_EvenWhenExecuteActionsEmailFails()
+    {
+        // Arrange — SMTP is unreachable in the test container; endpoint must still return 204
+        var user = await RegisterUserOnKeycloakAndAddToDb(
+            Faker.Internet.Email(),
+            Faker.Internet.Password(),
+            Faker.Phone.UkrainianPhoneNumber(),
+            UserRole.Administrator);
+
+        var token = await GetAccessTokenAsync(user.Email, user.Credentials.First().Value);
+
+        var request = new UserEmailUpdateCommandRequest(Faker.Internet.Email());
+
+        HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+            JwtBearerDefaults.AuthenticationScheme,
+            token);
+
+        // Act
+        var response = await HttpClient.PutAsJsonAsync("api/identity/email", request);
+
+        // Assert — best-effort email failure must not bubble up to the caller
+        response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+    }
+
+    [Fact]
+    public async Task UpdateEmail_Should_SetRequiredActionAndClearSessionsBeforeAttemptingEmail()
+    {
+        // Arrange
+        var user = await RegisterUserOnKeycloakAndAddToDb(
+            Faker.Internet.Email(),
+            Faker.Internet.Password(),
+            Faker.Phone.UkrainianPhoneNumber(),
+            UserRole.Administrator);
+
+        var token = await GetAccessTokenAsync(user.Email, user.Credentials.First().Value);
+        var newEmail = Faker.Internet.Email();
+        var request = new UserEmailUpdateCommandRequest(newEmail);
+
+        HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
+            JwtBearerDefaults.AuthenticationScheme,
+            token);
+
+        // Act
+        await HttpClient.PutAsJsonAsync("api/identity/email", request);
+
+        // Assert — VERIFY_EMAIL required action is set (UpdateUserDataAsync happened first)
+        var userRepresentation = await KeycloakClient.GetUserDataAsync(user.Id);
+        userRepresentation.RequiredActions
+            .Should().Contain(KeycloakRequiredActions.GetVerifyEmailCode().First());
+
+        // Assert — old token is no longer valid (ClearUserSessionsAsync happened before email attempt)
+        var secondResponse = await HttpClient.PutAsJsonAsync("api/identity/email", request);
+        secondResponse.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    }
+
+    [Fact]
     public async Task Endpoint_Should_ReturnUnauthorized_IfTokenIsNotPresent()
     {
         // Act
