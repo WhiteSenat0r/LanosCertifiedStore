@@ -69,6 +69,9 @@ public sealed class IntegrationTestsWebApplicationFactory : WebApplicationFactor
             {
                 options.AdminUrl = $"{keycloakAddress}admin/realms/lsc/";
                 options.TokenUrl = $"{keycloakRealmUrl}/protocol/openid-connect/token";
+                options.ExecuteActionsEmailClientId = "lsc-public-auth-client";
+                options.ExecuteActionsEmailRedirectUri = null;
+                options.ExecuteActionsEmailLifespan = 300;
             });
         });
     }

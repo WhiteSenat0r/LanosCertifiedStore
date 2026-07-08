@@ -4,13 +4,17 @@ using LanosCertifiedStore.Application.Identity.Dtos;
 using LanosCertifiedStore.Application.Shared.ResultRelated;
 using LanosCertifiedStore.Infrastructure.Authentication.KeyCloak;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace LanosCertifiedStore.Infrastructure.Authentication;
 
 internal sealed class IdentityProviderService(
     KeycloakClient keycloakClient,
-    ILogger<IdentityProviderService> logger) : IIdentityProviderService
+    ILogger<IdentityProviderService> logger,
+    IOptions<KeycloakOptions> keycloakOptions) : IIdentityProviderService
 {
+    private readonly KeycloakOptions _keycloakOptions = keycloakOptions.Value;
+
     public async Task<Result<UserDataDto>> GetUserDataAsync(
         Guid userId,
         CancellationToken cancellationToken = default)
@@ -103,6 +107,10 @@ internal sealed class IdentityProviderService(
 
         await keycloakClient.ClearUserSessionsAsync(userId, cancellationToken);
 
+        await TrySendExecuteActionsEmailAsync(
+            userId,
+            KeycloakRequiredActions.GetVerifyEmailCode());
+
         return Result.Create(Error.None);
     }
 
@@ -121,12 +129,36 @@ internal sealed class IdentityProviderService(
         {
             await keycloakClient.UpdateUserDataAsync(id, userRepresentation, cancellationToken);
             await keycloakClient.ClearUserSessionsAsync(id, cancellationToken);
-
-            return Result.Create(Error.None);
         }
         catch (HttpRequestException)
         {
             return Result.Create(IdentityErrors.ResetPasswordError);
+        }
+
+        await TrySendExecuteActionsEmailAsync(
+            id,
+            KeycloakRequiredActions.GetUpdatePasswordCode());
+
+        return Result.Create(Error.None);
+    }
+
+    private async Task TrySendExecuteActionsEmailAsync(
+        Guid userId,
+        IReadOnlyList<string> actions)
+    {
+        try
+        {
+            await keycloakClient.SendExecuteActionsEmailAsync(
+                userId,
+                actions,
+                _keycloakOptions.ExecuteActionsEmailClientId,
+                _keycloakOptions.ExecuteActionsEmailRedirectUri,
+                _keycloakOptions.ExecuteActionsEmailLifespan,
+                CancellationToken.None);
+        }
+        catch (HttpRequestException e)
+        {
+            logger.LogWarning(e, "Failed to send execute-actions email for user {UserId}.", userId);
         }
     }
 
